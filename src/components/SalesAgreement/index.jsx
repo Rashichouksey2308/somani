@@ -712,6 +712,7 @@ let masterList = [
           vendor={cmaDetails}
           masterList={masterList}
           gettingPins={gettingPins}
+         
           
         />
       );

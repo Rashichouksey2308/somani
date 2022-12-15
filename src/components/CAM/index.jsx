@@ -1122,9 +1122,7 @@ const groupExposure = (camData, camConversionunit) => {
                                 <span className={`${styles.limit_label} `}>LIMIT</span>
                               </div>
                               <span>
-                                {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
+                                {returnReadableNumber(convertValue(exp.limit, camConversionunit),'en-In',2,2)} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                               </span>
                             </div>
                             <div className={`${styles.bar}`}>
@@ -1141,9 +1139,7 @@ const groupExposure = (camData, camConversionunit) => {
                                 <span className={`${styles.limit_label} `}>O/S BALANCE</span>
                               </div>
                               <span>
-                                {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
+                                {returnReadableNumber(convertValue(exp.outstandingLimit, camConversionunit),'en-In',2,2)} {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                               </span>
                             </div>
                             <div className={`${styles.bar}`}>
@@ -1362,7 +1358,7 @@ const directorDetails = (camData) => {
                     <td className="text-left">{director?.pan[0]}</td>
                     <td>{director.din}</td>
                     <td>{director.tenureStartDate}</td>
-                    <td>{director.percentageShareHolding}%</td>
+                    <td>{director.percentageShareHolding || director.percentageShareHolding === 0 ? returnReadableNumber(director.percentageShareHolding,undefined,2,2) + ' %': ''}</td>
                   </tr>
                 );
               })}
@@ -1473,10 +1469,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor, bac
                           <td>{Number(share?.numberOfShares)?.toLocaleString('en-In')}</td>
                           <td>
                             {share?.percentageShareHolding
-                              ? (share?.percentageShareHolding * 100)?.toLocaleString('en-IN', {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }) + '%'
+                              ? returnReadableNumber((share?.percentageShareHolding * 100),'en-In',2,2) + '%'
                               : ''}
                           </td>
                           <td>{share?.director ? 'Yes' : 'No'}</td>
@@ -2138,12 +2131,12 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber((
                     calcPc(
                       RevenueDetails?.relatedPartySales?.previous?.value,
                       RevenueDetails?.relatedPartySales?.current?.value,
-                    ),
-                  ) + '%'}
+                    )
+                  ),'en-In',2,2) + '%'}
                 </td>
               </tr>
               <tr>
@@ -2202,11 +2195,11 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(
                       RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                       RevenueDetails?.intraOrgSalesPercent?.current?.value,
-                    ),
+                    ),'en-In',2,2
                   ) + '%'}
                 </td>
               </tr>
@@ -2464,6 +2457,11 @@ const financeDetails = (
   previousYearData,
   camConversionunit,
 ) => {
+
+
+ let dataLatestYear = _get(companyData, 'financial.balanceSheet[0]', {})
+ let dataPreviousYear = _get(companyData, 'financial.balanceSheet[1]', {})
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2502,105 +2500,73 @@ const financeDetails = (
                   <tr>
                     <td>Net Worth</td>
                     <td>
-                      {convertValue(
+                      {returnReadableNumber(convertValue(
                         _get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', ''),
                         camConversionunit,
-                      ).toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                     <td>
-                      {convertValue(
+                      {returnReadableNumber(convertValue(
                         _get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', ''),
                         camConversionunit,
-                      ).toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {convertValue(
+                      {returnReadableNumber(convertValue(
                         Number(
-                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent', '') +
-                            _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''),
+                          dataLatestYear?.equityLiabilities?.borrowingsCurrent +
+                          dataLatestYear?.equityLiabilities?.borrowingsNonCurrent
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                     <td>
-                      {convertValue(
+                      {returnReadableNumber(convertValue(
                         Number(
-                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
-                            _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''),
+                          dataPreviousYear?.equityLiabilities?.borrowingsCurrent +
+                          dataPreviousYear?.equityLiabilities?.borrowingsNonCurrent
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
                     <td>
-                      {convertValue(
+                    {returnReadableNumber(convertValue(
                         Number(
-                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                              '',
-                            ),
+                          dataLatestYear?.equityLiabilities?.tradePay +
+                          dataLatestYear?.equityLiabilities?.tradePayablesNoncurrent
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                     <td>
-                      {convertValue(
+                    {returnReadableNumber(convertValue(
                         Number(
-                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                              '',
-                            ),
+                          dataPreviousYear?.equityLiabilities?.tradePay +
+                          dataPreviousYear?.equityLiabilities?.tradePayablesNoncurrent
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                   </tr>
                   <tr>
                     <td>Other Current Liabilities</td>
                     <td>
-                      {convertValue(
-                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities', ''),
+                    {returnReadableNumber(convertValue(
+                       _get(companyData, 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities', ''),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                     <td>
-                      {convertValue(
-                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', ''),
+                    {returnReadableNumber(convertValue(
+                       _get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', ''),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                   </tr>
 
@@ -2673,88 +2639,70 @@ const financeDetails = (
                   <tr>
                     <td>Cash from Operations</td>
                     <td>
-                      {convertValue(
+                      {returnReadableNumber(convertValue(
                         _get(
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                           '',
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                     <td>
-                      {convertValue(
+                    {returnReadableNumber(convertValue(
                         _get(
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                           '',
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                   </tr>
                   <tr>
                     <td>Cash from Financing</td>
                     <td>
-                      {convertValue(
+                    {returnReadableNumber(convertValue(
                         _get(
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                           '',
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                     <td>
-                      {convertValue(
+                    {returnReadableNumber(convertValue(
                         _get(
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                           '',
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                   </tr>
                   <tr>
                     <td>Cash from Investing</td>
                     <td>
-                      {convertValue(
+                    {returnReadableNumber(convertValue(
                         _get(
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                           '',
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                     <td>
-                      {convertValue(
+                    {returnReadableNumber(convertValue(
                         _get(
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                           '',
                         ),
                         camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      ),'en-In',2,2)}
                     </td>
                   </tr>
 
