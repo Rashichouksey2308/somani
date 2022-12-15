@@ -9,22 +9,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetAllBuyer, GetOrderLeads, GetOrders } from '../../src/redux/registerBuyer/action';
 import { SearchLeads, FilterLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
-import Filter from '../../src/components/Filter';
-import FilterBadge from '../../src/components/FilterBadge';
+import SearchAndFilter from '../../src/components/SearchAndFilter';
 import QueueStats from '../../src/components/QueueStats';
 import Table from '../../src/components/Table';
 import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import slugify from 'slugify';
-
-// import { getPincodes } from '../../src/redux/masters/action';
+import { LEADS_QUEUE_FILTER_ITEMS } from '../../src/data/constant';
 
 function Index() {
+  const dispatch = useDispatch();
+
   const { allBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
-  const { searchedLeads, filteredLeads } = useSelector((state) => state.order);
+  const { filteredLeads } = useSelector((state) => state.order);
   const [searchterm, setSearchTerm] = useState('');
-  const [search, setSearch] = useState(searchedLeads);
   const [filter, setFilter] = useState(filteredLeads);
-  const [filterItem, setFilterItem] = useState({});
+  const [filterItem, setFilterItem] = useState({ company_name: true });
+  const [appliedFilters, setAppliedFilters] = useState({ company_name: true });
   const [showBadges, setShowBadges] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
@@ -32,20 +32,7 @@ function Index() {
     column: '',
     order: null,
   });
-  const dispatch = useDispatch();
-
-  const [open, setOpen] = useState(true);
-  const handleClose = (index) => {
-    showBadges.splice(index, 1);
-    setShowBadges([...showBadges]);
-    setOpen(false);
-  };
-
   const [openList, setOpenList] = useState(true);
-  const handleListClose = () => {
-    setOpenList(false);
-    setShowBadges(searchView().badgesItems);
-  };
 
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}&limit=${pageLimit}`));
@@ -67,6 +54,62 @@ function Index() {
     dispatch(GetOrderLeads());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!isFilterApply()) {
+      setSearchTerm('');
+      setShowBadges([]);
+      dispatch(GetAllBuyer(`?page=${currentPage}&limit=${pageLimit}`));
+      dispatch(FilterLeads('status=" "'));
+    }
+  }, [JSON.stringify(filterItem)]);
+
+  useEffect(() => {
+    if (filteredLeads) setFilter(filteredLeads);
+  }, [filteredLeads]);
+
+  const handleClose = (index) => {
+    showBadges.splice(index, 1);
+
+    let query = '';
+
+    showBadges.map((item) => {
+      query = query + `&${item?.key}=${slugify(item?.displayVal, { lower: true })}`;
+    })
+
+    dispatch(GetAllBuyer(`?page=${currentPage}${query}`));
+
+    setShowBadges([...showBadges]);
+  };
+
+  const handleListClose = (result) => {
+    const badgesItems = [];
+    const filterItemData = Object.keys(appliedFilters);
+
+    let query = '';
+
+    filterItemData.map((val) => {
+      if (appliedFilters[val]) {
+        if (val === 'status') {
+          result?.cam?.status && badgesItems.push({ key: val, displayVal: result?.cam?.status });
+          query = query + `&${val}=${result?.cam?.status}`;
+        }
+        else if (val === 'company_name') {
+          result?.company?.companyName && badgesItems.push({ key: val, displayVal: result?.company?.companyName });
+          query = query + `&${val}=${slugify(result?.company?.companyName, { lower: true })}`;
+        }
+        else if (val === 'commodity') {
+          result?.commodity && badgesItems.push({ key: val, displayVal: result?.commodity });
+          query = query + `&${val}=${slugify(result?.commodity, { lower: true })}`;
+        }
+      }
+    });
+
+    dispatch(GetAllBuyer(`?page=${currentPage}${query}`));
+
+    setOpenList(false);
+    setShowBadges(badgesItems);
+  };
+
   const handleRoute = (buyer) => {
     sessionStorage.setItem('orderId', buyer._id);
     sessionStorage.setItem('companyID', buyer.company._id);
@@ -87,9 +130,9 @@ function Index() {
     setSearchTerm(query);
 
     let queryParams = '';
-    if (Object.keys(filterItem).length !== 0) {
-      Object.keys(filterItem).forEach((item) => {
-        const isTrue = filterItem[item];
+    if (Object.keys(appliedFilters).length !== 0 && query.length > 3) {
+      Object.keys(appliedFilters).forEach((item) => {
+        const isTrue = appliedFilters[item];
         if (isTrue) {
           queryParams += `${item}=${query}&`;
         }
@@ -99,7 +142,7 @@ function Index() {
   };
 
   const handleApplyFilter = () => {
-    setSearch(false);
+    setAppliedFilters(filterItem);
   };
 
   const handleBoolean = (value) => {
@@ -108,14 +151,6 @@ function Index() {
     return value;
   };
 
-  useEffect(() => {
-    if (!isFilterApply()) {
-      setSearchTerm('');
-      setShowBadges([]);
-      dispatch(GetAllBuyer(`?page=${currentPage}&limit=${pageLimit}`));
-      dispatch(FilterLeads('status=" "'));
-    }
-  }, [JSON.stringify(filterItem)]);
   const handleFilterChange = (e) => {
     const { name, checked } = e.target;
 
@@ -123,7 +158,6 @@ function Index() {
       ...prevState,
       [name]: handleBoolean(checked.toString()),
     }));
-    setSearch(false);
   };
 
   const isFilterApply = () => {
@@ -159,10 +193,6 @@ function Index() {
 
   const tableColumns = useMemo(() => [
     {
-      Header: 'Customer Id',
-      accessor: 'company.customerId',
-    },
-    {
       Header: 'Buyer Name',
       accessor: 'company.companyName',
       Cell: ({ cell: { value }, row: { original } }) => (
@@ -177,13 +207,18 @@ function Index() {
       ),
     },
     {
-      Header: 'Created By',
-      accessor: 'createdBy.userRole',
-      Cell: ({ value }) => (value ? value : 'RM'),
+      Header: 'Commodity',
+      accessor: 'commodity',
     },
     {
-      Header: 'Username',
-      accessor: 'createdBy.fName',
+      Header: 'Order Value',
+      accessor: 'orderValue',
+      Cell: ({ value }) => `${(value.toLocaleString('en-US'))} USD`
+    },
+    {
+      Header: 'Creation Date',
+      accessor: 'createdAt',
+      Cell: ({ value }) => value.slice(0, 10)
     },
     {
       Header: 'Existing Customer',
@@ -200,70 +235,25 @@ function Index() {
     },
   ]);
 
-  const filterTableColumns = useMemo(() => [
-    {
-      Header: 'Customer Id',
-      accessor: 'company.customerId',
-    },
-    {
-      Header: 'Buyer Name',
-      accessor: 'company.companyName',
-      Cell: ({ cell: { value }, row: { original } }) => (
-        <span
-          onClick={() => {
-            handleRoute(original);
-          }}
-          className="font-weight-bold text-primary"
-        >
-          {value}
-        </span>
-      ),
-    },
-    {
-      Header: 'Created By',
-      accessor: 'createdBy.userRole',
-      Cell: ({ value }) => (value ? value : 'RM'),
-    },
-    {
-      Header: 'Username',
-      accessor: 'createdBy.fName',
-    },
-    {
-      Header: 'Existing Customer',
-      accessor: 'existingCustomer',
-      Cell: ({ value }) => {
-        return value ? 'Yes' : 'No';
-      },
-    },
-    {
-      Header: 'Status',
-      accessor: 'cam.status',
-      disableSortBy: true,
-      Cell: ({ value }) => <QueueStatusSymbol status={value} />,
-    },
-  ]);
-
-  useEffect(() => {
-    if (filteredLeads) setFilter(filteredLeads);
-  }, [filteredLeads]);
   const searchView = () => {
-    const badgesItems = [];
-    const filterItemData = Object.keys(filterItem);
+    return (
+      filter && openList && searchterm.length > 3 &&
+      <div className={styles.searchResults}>
+        <ul>
+          {filteredLeads?.data?.data?.length > 0 ? filteredLeads?.data?.data?.map((results, index) => (
+            <li onClick={() => handleListClose(results)} id={results._id} key={index} className="cursor-pointer">
+              {appliedFilters?.company_name === true && results?.company?.companyName}
+              <span>
+                &nbsp; {appliedFilters?.commodity === true && <span className='text-right'>{results?.commodity}</span>}
+                &nbsp; {appliedFilters?.status === true && <span className='text-right'>{results?.cam?.status}</span>}
+              </span>
+            </li>
+          )) : <li><span>No result found</span></li>}
+        </ul>
+      </div>
+    )
+  }
 
-    const listView = filterItemData.map((val) => {
-      if (filterItem[val]) {
-        if (val === 'status') {
-          badgesItems.push({ key: val, displayVal: filter.data[0].cam[val] });
-
-          return <span>{filter.data[0].cam[val]}</span>;
-        }
-        badgesItems.push({ key: val, displayVal: filter.data[0][val] });
-
-        return <span>{filter.data[0][val]}</span>;
-      }
-    });
-    return { listView, badgesItems: badgesItems.filter((val) => val.displayVal) };
-  };
   return (
     <>
       {' '}
@@ -271,42 +261,17 @@ function Index() {
         <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.search}>
-              <div className="input-group">
-                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
-                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
-                </div>
-                <input
-                  value={searchterm}
-                  onChange={handleSearch}
-                  type="text"
-                  className={`${styles.formControl} border text_area form-control formControl `}
-                  placeholder="Search"
-                  disabled={!isFilterApply()}
-                />
-              </div>
-              {filter && openList && (
-                <div className={styles.searchResults} onClick={handleListClose}>
-                  <div>{searchView().listView}</div>
-                </div>
-              )}
-            </div>
-            <Filter {...{ filterItem, handleFilterChange, handleApplyFilter }} />
-
-            {showBadges.length > 0 &&
-              showBadges.map((val, index) => {
-                return <FilterBadge label={val.displayVal} onClose={() => handleClose(index)} />;
-              })}
-            {/* <a href="#" className={`${styles.filterList} filterList`}>
-              Ramesh Shetty
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a>
-            
-            <a href="#" className={`${styles.filterList} filterList`}>
-              Raj Traders
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a> */}
-
+            <SearchAndFilter
+              searchterm={searchterm}
+              handleSearch={handleSearch}
+              filterItem={filterItem}
+              handleFilterChange={handleFilterChange}
+              handleApplyFilter={handleApplyFilter}
+              filterItems={LEADS_QUEUE_FILTER_ITEMS}
+              showBadges={showBadges}
+              handleClose={handleClose}
+              searchView={searchView}
+            />
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
@@ -321,7 +286,7 @@ function Index() {
           <QueueStats data={statLeadsData} />
 
           {/*leads table*/}
-          {allBuyerList?.data?.data && !filteredLeads?.data && (
+          {allBuyerList?.data?.data && (
             <Table
               tableHeading="Leads"
               currentPage={currentPage}
@@ -334,20 +299,7 @@ function Index() {
               handleSort={handleSort}
               sortByState={sortByState}
               serverSortEnabled={true}
-            />
-          )}
-          {filteredLeads?.data && (
-            <Table
-              tableHeading="Leads"
-              currentPage={currentPage}
-              totalCount={filteredLeads?.data?.totalCount}
-              setCurrentPage={setCurrentPage}
-              columns={filterTableColumns}
-              data={filteredLeads?.data}
-              pageLimit={pageLimit}
-              setPageLimit={setPageLimit}
-              handleSort={handleSort}
-              sortByState={sortByState}
+              totalCountEnable={false}
             />
           )}
         </div>
