@@ -13,8 +13,7 @@ function Index() {
 
     const dispatch = useDispatch();
 
-    // let inspectionId = sessionStorage.getItem('checkerInspectionId');
-    let inspectionId = '6386fa9313aeb30025fa15e6';
+    const inspectionId = sessionStorage.getItem('checkerInspectionId');
 
     const handleRemarkSubmit = async (remark, status) => {
         const payload = { inspectionId: inspectionId, status: status, remarks: remark }

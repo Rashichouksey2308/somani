@@ -75,6 +75,22 @@ function getInspectionFailed(payload = {}) {
     };
 }
 
+
+function getInspectionPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_INSPECTION_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getInspectionPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_INSPECTION_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
+
+
 export const GetCommodity = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
 
@@ -115,7 +131,7 @@ export const UpdateCommodityRemark = (payload) => async (dispatch, getState, api
     const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const [, , jwtAccessToken] = decodedString.split('#');
     const headers = {
         authorization: jwtAccessToken,
         Cache: 'no-cache',
@@ -154,7 +170,7 @@ export const GetUserDetails = (payload) => async (dispatch, getState, api) => {
     const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const [, , jwtAccessToken] = decodedString.split('#');
     const headers = {
         authorization: jwtAccessToken,
         Cache: 'no-cache',
@@ -189,7 +205,7 @@ export const GetInspectionDetails = (payload) => async (dispatch, getState, api)
     const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const [, , jwtAccessToken] = decodedString.split('#');
     const headers = {
         authorization: jwtAccessToken,
         Cache: 'no-cache',
@@ -223,7 +239,7 @@ export const UpdateInspectionRemark = (payload) => async (dispatch, getState, ap
     const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const [, , jwtAccessToken] = decodedString.split('#');
     const headers = {
         authorization: jwtAccessToken,
         Cache: 'no-cache',
@@ -253,5 +269,41 @@ export const UpdateInspectionRemark = (payload) => async (dispatch, getState, ap
 
         dispatch(setNotLoading());
         return 500;
+    }
+};
+
+
+export const GetInspectionPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getInspectionPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getInspectionPickupRecordsSuccess(response?.data?.data));
+
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getInspectionPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Inspection Records';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getInspectionPickupRecordsFailed());
+        dispatch(setNotLoading());
     }
 };
