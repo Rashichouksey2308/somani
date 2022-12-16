@@ -995,7 +995,10 @@ input:checked + .slider:before {
   overflow: hidden;
   position: relative;
   display: block;
-  height: 36px;
+  height: 38px;
+  @include respond(lg-desktop) {
+    height: 34px;
+  }
   input {
     top: 0;
     left: 0;
