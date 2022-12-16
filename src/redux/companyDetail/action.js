@@ -281,7 +281,16 @@ export const GetCaseDetails = (payload) => (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(getCaseDetailsSuccess(response.data.data));
         dispatch(setNotLoading());
-
+        if (
+          response?.data.data.caseDetails.pdfDocumentsLink == null ||
+          response?.data.data.caseDetails.pdfDocumentsLink == undefined
+        ) {
+          let toastMessage = 'Document Not Available';
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+          return;
+        }
         if (response?.data.data.caseDetails.pdfDocumentsLink.length < 1) {
           let toastMessage = 'Document Not Available';
           if (!toast.isActive(toastMessage.toUpperCase())) {
