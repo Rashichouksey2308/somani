@@ -290,12 +290,11 @@
 .red {
   color: #ff0000 !important;
 }
-
 .tableWrapper {
   overflow: auto;
   max-height: 500px;
   margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   .table_scroll_outer {
     width: 100%;
     display: table;

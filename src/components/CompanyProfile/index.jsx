@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 import { checkForPlusSign } from '../../utils/helper';
 
-function Index() {
+function Index({isReview}) {
   const { buyerList } = useSelector((state) => state.buyer);
 
   return (
@@ -49,22 +49,31 @@ function Index() {
 
         {fields(
           'Phone Number',
-        buyerList?.company?.mobile?.primary?.number ?? '',
-        checkForPlusSign(buyerList?.company?.mobile?.primary?.callingCode) ? 
-          `${buyerList?.company?.mobile?.primary?.callingCode ?? ''}` :         
-          `+${buyerList?.company?.mobile?.primary?.callingCode ?? ''}`
+          buyerList?.company?.mobile?.primary?.number ?? '',
+          checkForPlusSign(buyerList?.company?.mobile?.primary?.callingCode)
+            ? `${buyerList?.company?.mobile?.primary?.callingCode ?? ''}`
+            : `+${buyerList?.company?.mobile?.primary?.callingCode ?? ''}`,
         )}
         {fields(
           'Whatsapp Number',
           buyerList?.company?.mobile?.whatsapp?.number ?? '',
-          checkForPlusSign(buyerList?.company?.mobile?.whatsapp?.callingCode) ? 
-          `${buyerList?.company?.mobile?.whatsapp?.callingCode ?? ''}`:
-          `+${buyerList?.company?.mobile?.whatsapp?.callingCode ?? ''}`
+          checkForPlusSign(buyerList?.company?.mobile?.whatsapp?.callingCode)
+            ? `${buyerList?.company?.mobile?.whatsapp?.callingCode ?? ''}`
+            : `+${buyerList?.company?.mobile?.whatsapp?.callingCode ?? ''}`,
         )}
         {fields('Communication Mode', buyerList?.company?.communicationMode?.toString() ?? '')}
+        {isReview ? (
+          <>
+            {fields('Limit Value', buyerList?.company?.communicationMode?.toString() ?? '')}
+            {fields('Order Value', buyerList?.company?.communicationMode?.toString() ?? '')}
+            {fields('Previous Successful Orders', buyerList?.company?.communicationMode?.toString() ?? '')}
+          </>
+        ) : (
+          ''
+        )}
       </div>
     </div>
-  );  
+  );
 }
 
 export default Index;

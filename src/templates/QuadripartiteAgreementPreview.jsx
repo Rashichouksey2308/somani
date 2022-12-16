@@ -19,14 +19,14 @@ export default function QuadripartiteAgreementPreview(data) {
           <td valign="top" style={{padding:'0 20px' }}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
-                <td align="center" style={{padding:'25px 0 15px'}}>
+                <td align="center" style={{padding:'25px 0 10px'}}>
                   <span
                     style={{
                       fontSize: '12px',
                       lineHeight: '18px',
                       color: '#000000',
                       display:'inline-block',
-                      paddingBottom: '25px'
+                      paddingBottom: '10px'
                     }}
                   >
                     <strong>Quadripartite Agreement</strong>
@@ -618,7 +618,7 @@ export default function QuadripartiteAgreementPreview(data) {
                 </td>
               </tr>
               <tr>
-                <td style={{ paddingTop: '20px' }}>
+                <td>
                   <span
                     align="center"
                     style={{
@@ -626,7 +626,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       fontWeight: 'bold',
                       color: '#000000',
                       display:'block',
-                      paddingBottom: '20px',
+                      paddingBottom: '15px',
                     }}
                   >
                     Schedule I
@@ -902,25 +902,16 @@ export default function QuadripartiteAgreementPreview(data) {
                             {data?.associateBuyerAuthorized?.length > 0 &&
                               data?.associateBuyerAuthorized?.map((val, index) => {
                                 return (
-                                  <li>
+                                  <li style={{marginTop:'-3px'}}>
                                     <span
                                       style={{
                                         fontSize: '12px',
                                         lineHeight: '18px',
                                         color: '#000000',
-                                        display:'block'
+                                        display:'block', paddingTop:'1px'
                                       }}
                                     >
-                                      Name - {val.name}
-                                    </span>
-                                    <span
-                                      style={{
-                                        fontSize: '12px',
-                                        lineHeight: '18px',
-                                        color: '#000000',
-                                        display:'block'
-                                      }}
-                                    >
+                                      Name - {val.name}<br/>
                                       Designation - {val.designation}
                                     </span>
                                   </li>
@@ -1047,25 +1038,16 @@ export default function QuadripartiteAgreementPreview(data) {
                             {data?.stevedoreAuthorized?.length > 0 &&
                               data?.stevedoreAuthorized?.map((val, index) => {
                                 return (
-                                  <li>
+                                  <li style={{marginTop:'-3px'}}>
                                     <span
                                       style={{
                                         fontSize: '12px',
                                         lineHeight: '18px',
                                         color: '#000000',
-                                        display:'block'
+                                        display:'block', paddingTop:'1px'
                                       }}
                                     >
-                                      Name - {val.name}
-                                    </span>
-                                    <span
-                                      style={{
-                                        fontSize: '12px',
-                                        lineHeight: '18px',
-                                        color: '#000000',
-                                        display:'block'
-                                      }}
-                                    >
+                                      Name - {val.name}<br/>
                                       Designation - {val.designation}
                                     </span>
                                   </li>
@@ -1193,25 +1175,16 @@ export default function QuadripartiteAgreementPreview(data) {
                             {data?.cmaAuthorized?.length > 0 &&
                               data?.cmaAuthorized?.map((val, index) => {
                                 return (
-                                  <li>
+                                  <li style={{marginTop:'-3px'}}>
                                     <span
                                       style={{
                                         fontSize: '12px',
                                         lineHeight: '18px',
                                         color: '#000000',
-                                        display:'block'
+                                        display:'block', paddingTop:'1px'
                                       }}
                                     >
-                                      Name - {val.name}
-                                    </span>
-                                    <span
-                                      style={{
-                                        fontSize: '12px',
-                                        lineHeight: '18px',
-                                        color: '#000000',
-                                        display:'block'
-                                      }}
-                                    >
+                                      Name - {val.name}<br/>
                                       Designation - {val.designation}
                                     </span>
                                   </li>
@@ -1508,7 +1481,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             lineHeight: '18px',
                             color: '#000000',
                             display:'inline-block',
-                            paddingBottom:'10px'
+                            paddingBottom:'5px'
                           }}
                         >
                           FOR & ON BEHALF OF
@@ -1521,7 +1494,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             lineHeight: '18px',
                             color: '#000000',
                             display:'inline-block',
-                            paddingBottom:'10px'
+                            paddingBottom:'5px'
                           }}
                         >
                           FOR & ON BEHALF OF

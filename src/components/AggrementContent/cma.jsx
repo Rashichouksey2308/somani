@@ -228,7 +228,7 @@ function Index(props) {
          }
       }
     }
-  }, [props]);
+  }, [props.data]);
  console.log(options,"options")
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {

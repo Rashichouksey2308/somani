@@ -37,11 +37,11 @@ export default function TPASellerPreview(data) {
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
-                    display: 'inline-block'
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
-                  This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set
-                  out in <strong>Schedule I</strong> hereto by and between:
+                  This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:
                 </span>
               </td>
             </tr>
@@ -56,15 +56,7 @@ export default function TPASellerPreview(data) {
                     paddingBottom: '16px'
                   }}
                 >
-                  <strong style={{ textTransform: 'uppercase' }}>{data.sellerSignature}</strong>, a company organized and
-                  existing in accordance with Law of Switzerland and having address at{' '}
-                  <strong>
-                    {' '}
-                    {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
-                    {data.sellerAddress?.pinCode}
-                  </strong>{' '} through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;,
-                  which expression shall, unless excluded by or repugnant to the context be deemed to include its
-                  legal heirs, successors and permitted assigns) of the First Part.
+                  <strong style={{ textTransform: 'uppercase' }}>{data.sellerSignature}</strong>, a company organized and existing in accordance with Law of Switzerland and having address at <strong>{data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country}, {data.sellerAddress?.pinCode}</strong> through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
                 </span>
               </td>
             </tr>
@@ -94,10 +86,7 @@ export default function TPASellerPreview(data) {
                     paddingBottom: '16px'
                   }}
                 >
-                  <strong>Supplier</strong>(s), as detailed in
-                  <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>Supplier</strong>”,
-                  which expression shall, unless excluded by or repugnant to the context be deemed to include its
-                  legal heirs, successors and permitted assigns) of the Second Part.
+                  <strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Second Part.
                 </span>
               </td>
             </tr>
@@ -127,10 +116,7 @@ export default function TPASellerPreview(data) {
                     paddingBottom: '16px'
                   }}
                 >
-                  <strong>End Buyer</strong>(s), as detailed in
-                  <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>End Buyer</strong>”,
-                  which expression shall, unless excluded by or repugnant to the context be deemed to include its
-                  legal heirs, successors and permitted assigns) of the Third Part.
+                  <strong>End Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>End Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
                 </span>
               </td>
             </tr>
@@ -145,8 +131,7 @@ export default function TPASellerPreview(data) {
                     paddingBottom: '16px'
                   }}
                 >
-                  The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be
-                  referred to individually as &quot;Party&quot; and collectively as the &quot;Parties&quot;.
+                  The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be referred to individually as &quot;Party&quot; and collectively as the &quot;Parties&quot;.
                 </span>
               </td>
             </tr>
@@ -187,8 +172,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp;</span>Supplier has entered into a Sales Contract with Buyer for Sale &amp; Purchase of Goods as
-                      details in Schedule -1
+                      <span style={{display:'inline-block', marginLeft:'-18px'}}>A. &nbsp;</span>Supplier has entered into a Sales Contract with Buyer for Sale &amp; Purchase of Goods as details in Schedule -1
                     </span>
                   </li>
                   <li>
@@ -201,8 +185,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp;</span>Buyer has entered into the Sales Contract with Supplier solely at the request of End Buyer and
-                      to facilitate the End Buyer.
+                      <span style={{display:'inline-block', marginLeft:'-18px'}}>B. &nbsp;</span>Buyer has entered into the Sales Contract with Supplier solely at the request of End Buyer and to facilitate the End Buyer.
                     </span>
                   </li>
                   <li>
@@ -257,8 +240,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>1. &nbsp;</span>That it is expressly clarify and agreed to amongst the parties that the Buyer has entered into
-                      the Sales Contract solely at the request and to facilitate the End Buyer.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>1. &nbsp;</span>That it is expressly clarify and agreed to amongst the parties that the Buyer has entered into the Sales Contract solely at the request and to facilitate the End Buyer.
                     </span>
                   </li>
                   <li>
@@ -271,8 +253,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>2. &nbsp;</span>All terms of the Sales Contract have already been discussed and agreed between the Supplier and
-                      End Buyer.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>2. &nbsp;</span>All terms of the Sales Contract have already been discussed and agreed between the Supplier and End Buyer.
                     </span>
                   </li>
                   <li>
@@ -285,8 +266,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>3. &nbsp;</span>The role of Buyer is limited to establishment of Letter of Credit (“LC”) in favor of Supplier
-                      subject to the End Buyer fulfilling its contractual obligations towards the Buyer.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>3. &nbsp;</span>The role of Buyer is limited to establishment of Letter of Credit (“LC”) in favor of Supplier subject to the End Buyer fulfilling its contractual obligations towards the Buyer.
                     </span>
                   </li>
                   <li>
@@ -299,13 +279,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>4. &nbsp;</span>The End Buyer and Supplier therefore, are fully liable and responsible at all times for
-                      performance of the Sales Contract including but not limited to making financial arrangements,
-                      timely nomination/acceptance of vessel, settlement of any and all quality/quantity claims,
-                      delayed/no shipment issues, demurrage / dispatch amounts, and/or any other claims or liability
-                      arising due to execution of the sales contract. All such claims, liabilities etc., shall be
-                      addressed, discussed and settled directly between the Supplier and End Buyer with no reference
-                      and liability on the part of Buyer whatsoever.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>4. &nbsp;</span>The End Buyer and Supplier therefore, are fully liable and responsible at all times for performance of the Sales Contract including but not limited to making financial arrangements, timely nomination/acceptance of vessel, settlement of any and all quality/quantity claims, delayed/no shipment issues, demurrage / dispatch amounts, and/or any other claims or liability arising due to execution of the sales contract. All such claims, liabilities etc., shall be addressed, discussed and settled directly between the Supplier and End Buyer with no reference and liability on the part of Buyer whatsoever.
                     </span>
                   </li>
                   <li>
@@ -318,8 +292,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>5. &nbsp;</span>Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer's nominees for any
-                      reason whatsoever once LC is issued by the Buyer.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>5. &nbsp;</span>Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer's nominees for any reason whatsoever once LC is issued by the Buyer.
                     </span>
                   </li>
                   <li>
@@ -332,8 +305,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>6. &nbsp;</span>In case of any conflict between the Sales Contract and this Agreement, the terms of this
-                      Agreement will prevail.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>6. &nbsp;</span>In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will prevail.
                     </span>
                   </li>
                   <li>
@@ -346,9 +318,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>7. &nbsp;</span>Further, End Buyer shall be fully responsible for payment of the price in the event that
-                      Supplier is unable to obtain payment under the LC. End Buyer shall fully indemnify Supplier and
-                      Buyer for any loss, damage or expense arising due to execution of the Sales Contract.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>7. &nbsp;</span>Further, End Buyer shall be fully responsible for payment of the price in the event that Supplier is unable to obtain payment under the LC. End Buyer shall fully indemnify Supplier and Buyer for any loss, damage or expense arising due to execution of the Sales Contract.
                     </span>
                   </li>
                   <li>
@@ -361,9 +331,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>8. &nbsp;</span>In any case, End Buyer shall remain responsible for the performance of the Sales Contract,
-                      including any failure or delay in the issuance of the LC in accordance with the terms of the
-                      Sales Contract.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>8. &nbsp;</span>In any case, End Buyer shall remain responsible for the performance of the Sales Contract, including any failure or delay in the issuance of the LC in accordance with the terms of the Sales Contract.
                     </span>
                   </li>
                   <li>
@@ -376,10 +344,7 @@ export default function TPASellerPreview(data) {
                         paddingBottom:'16px'
                       }}
                     >
-                      <span style={{display:'inline-block', marginLeft:'-16px'}}>9. &nbsp;</span>This Agreement is subject to English laws, and any disputes arising out of this Agreement shall
-                      be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by
-                      a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of
-                      Arbitration Proceedings shall be in English.
+                      <span style={{display:'inline-block', marginLeft:'-16px'}}>9. &nbsp;</span>This Agreement is subject to English laws, and any disputes arising out of this Agreement shall be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of Arbitration Proceedings shall be in English.
                     </span>
                   </li>
                 </ul>
@@ -387,8 +352,6 @@ export default function TPASellerPreview(data) {
             </tr>
             <tr>
               <td style={{ paddingTop: '10px' }}>
-                <br />
-                <br />
                 <br />
                 <h3
                   align="center"
@@ -594,9 +557,13 @@ export default function TPASellerPreview(data) {
                             data?.supplierAuthorized?.map((val, index) => {
                               return (
                                 <li style={{marginTop:'-3px'}}>
-                                    <span style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', paddingTop:'1px'}}>Name - {val.name}<br/>                                      
-                                      Designation - {val.designation}
-                                    </span>
+                                  <span style={{fontSize: '12px',
+                                  lineHeight: '18px',
+                                  color: '#000000',
+                                  display:'block', paddingTop:'1px'
+                                  }}>Name - {val.name}<br/>                                      
+                                    Designation - {val.designation}
+                                  </span>
                                 </li>
                               );
                             })}
@@ -639,12 +606,12 @@ export default function TPASellerPreview(data) {
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
                           {data?.supplierEmail?.length > 0 &&
                             data?.supplierEmail?.map((val, index) => {
-                              return <li>
+                              return <li style={{marginTop:'-3px'}}>
                               <span style={{
                                 fontSize: '12px',
                                 lineHeight: '18px',
                                 color: '#000000',
-                                display: 'block'
+                                display:'block', paddingTop:'1px'
                               }}>{val.email}</span></li>;
                             })}
                         </ol>
@@ -759,13 +726,13 @@ export default function TPASellerPreview(data) {
                           {data?.associateBuyerAuthorized?.length > 0 &&
                             data?.associateBuyerAuthorized?.map((val, index) => {
                               return (
-                                <li style={{
-                                    fontSize: '12px',
-                                    lineHeight: '18px',
-                                    color: '#000000',
-                                    display: 'inline-block'
-                                  }}>
-                                  <span>Name - {val.name}<br/>
+                                <li style={{marginTop:'-3px'}}>
+                                  <span style={{
+                                  fontSize: '12px',
+                                  lineHeight: '18px',
+                                  color: '#000000',
+                                  display:'block', paddingTop:'1px'
+                                  }}>Name - {val.name}<br/>
                                     Designation - {val.designation}
                                   </span>
                                 </li>
@@ -810,12 +777,12 @@ export default function TPASellerPreview(data) {
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
                           {data?.buyerEmail?.length > 0 &&
                             data?.buyerEmail?.map((val, index) => {
-                              return <li>
+                              return <li style={{marginTop:'-3px'}}>
                               <span style={{
                                 fontSize: '12px',
                                 lineHeight: '18px',
                                 color: '#000000',
-                                display: 'inline-block'
+                                display:'block', paddingTop:'1px'
                               }}>{val.email}</span></li>;
                             })}
                         </ol>
@@ -874,8 +841,8 @@ export default function TPASellerPreview(data) {
                                 </tr>
                               ))}
                           </table>
-                          {data.specComment.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', paddingTop: '20px'}}>Comments</strong> : null}
-                          <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
+                          {data.specComment.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', padding:'15px 0 10px'}}>Comments</strong> : null}
+                          <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0 0 10px'}}>
                             {data.specComment.length > 0 &&
                               data.specComment.map((val, index) => {
                                 return <li style={{marginTop:'-3px'}}>
@@ -895,7 +862,7 @@ export default function TPASellerPreview(data) {
               </td>
             </tr>
             <tr>
-              <td valign="top" style={{ paddingTop: '280px' }}>
+              <td valign="top" style={{ paddingTop:'30px'}}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <td align="left" valign="top" width="70%" style={{paddingTop:'5px'}}>
@@ -905,13 +872,13 @@ export default function TPASellerPreview(data) {
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'inline-block',
-                          paddingBottom: '16px'
+                          paddingBottom: '5px'
                         }}
                       >
                         Buyer
                       </span>
                     </td>
-                    <td align="left" valign="top" width="30%" style={{paddingTop:'5px'}}>
+                    <td align="left" valign="top" width="30%">
                        <span
                         style={{
                           fontSize: '12px',
@@ -929,7 +896,7 @@ export default function TPASellerPreview(data) {
                             lineHeight: '18px',
                             color: '#000000',
                             display: 'inline-block',
-                            paddingBottom: '16px'
+                            paddingBottom: '5px'
                           }}>Name: {val.name}<br/>
                           Designation: {val.designation}</span>
                       </>
@@ -942,7 +909,7 @@ export default function TPASellerPreview(data) {
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'inline-block',
-                          paddingBottom: '16px'
+                          paddingBottom: '30px'
                         }}
                       >
                         <strong>Authorised Signatory</strong>
@@ -950,20 +917,20 @@ export default function TPASellerPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" valign="top" style={{paddingTop:'5px'}}>
+                    <td align="left" valign="top">
                       <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'inline-block',
-                          paddingBottom: '16px'
+                          paddingBottom: '5px'
                         }}
                       >
                         Supplier
                       </span>
                     </td>
-                    <td align="left" valign="top" style={{paddingTop:'5px'}}>
+                    <td align="left" valign="top">
                       <span
                         style={{
                           fontSize: '12px',
@@ -981,7 +948,7 @@ export default function TPASellerPreview(data) {
                             lineHeight: '18px',
                             color: '#000000',
                             display: 'inline-block',
-                            paddingBottom: '16px'
+                            paddingBottom: '5px'
                           }}>Name: {val.name}<br/>
                           Designation: {val.designation}</span>
                       </>
@@ -994,7 +961,7 @@ export default function TPASellerPreview(data) {
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'inline-block',
-                          paddingBottom: '16px'
+                          paddingBottom: '30px'
                         }}
                       >
                         <strong>Authorised Signatory</strong>
@@ -1002,19 +969,20 @@ export default function TPASellerPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" valign="top" style={{paddingTop:'5px'}}>
+                    <td align="left" valign="top">
                       <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'inline-block',
+                          paddingBottom: '5px'
                         }}
                       >
                         End Buyer
                       </span>
                     </td>
-                    <td align="left" valign="top" style={{paddingTop:'5px'}}>
+                    <td align="left" valign="top">
                         <span
                           style={{
                             fontSize: '12px',
@@ -1032,7 +1000,7 @@ export default function TPASellerPreview(data) {
                             lineHeight: '18px',
                             color: '#000000',
                             display: 'inline-block',
-                            paddingBottom: '16px'
+                            paddingBottom: '5px'
                           }}>Name: {val.name}<br/>
                           Designation: {val.designation}</span>
                       </>
@@ -1044,7 +1012,8 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'inline-block',
+                          paddingBottom: '25px'
                         }}
                       >
                         <strong>Authorised Signatory</strong>

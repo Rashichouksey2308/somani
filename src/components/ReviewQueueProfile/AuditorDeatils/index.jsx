@@ -122,7 +122,8 @@ function Index({ directorData }) {
                   </div>
                   <div
                     id={`director${index}`}
-                    className={`collapse ${index == 0 ? 'show' : ''} `}
+                    //className={`collapse ${index == 0 ? 'show' : ''} `}
+                    className='collapse'
                     aria-labelledby={`director${index}`}
                     data-parent="#directorDetails"
                   >
@@ -381,9 +382,11 @@ function Index({ directorData }) {
                       <div className={`${styles.card} border_color card`}>
                         <div className="d-flex justify-content-between align-items-center">
                           <div
-                            className={`${styles.cardHeader} ${styles.collapsed}  card-header row no-gutters bg-transparent collapsed`}
+                            className={`${styles.cardHeader} ${styles.collapsed} card-header row no-gutters bg-transparent collapsed`}
                             data-toggle="collapse"
                             data-target={`#director${index}`}
+                            //aria-expanded="true"
+
                             aria-expanded={index == 0 ? 'true' : 'false'}
                             aria-controls={`director${index}`}
                           >
@@ -456,7 +459,8 @@ function Index({ directorData }) {
                         </div>
                         <div
                           id={`director${index}`}
-                          className={`collapse ${index == 0 ? 'show' : ''} `}
+                         // className={`collapse ${index == 0 ? 'show' : ''} `}
+                         className='collapse'
                           aria-labelledby={`director${index}`}
                           data-parent="#directorDetails"
                         >
