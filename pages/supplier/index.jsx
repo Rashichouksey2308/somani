@@ -1279,25 +1279,26 @@ function Index() {
                                 Email ID
                                 <strong className="text-danger">*</strong>
                               </label>
-
-                              <img
-                                onClick={() =>
-                                  setEditData((prev) => {
-                                    return { ...prev, emailId: [...prev.emailId, ''] };
-                                  })
-                                }
-                                className={`${styles.plus_add} img-fluid`}
-                                src="/static/add-btn.svg"
-                                alt="Search"
-                              />
-                              {editData?.emailId?.length > 1 && (
+                              <div className={`${styles.btn_block}`}>
                                 <img
-                                  onClick={() => handleDeleteUpdateAddress(index)}
-                                  src="/static/delete 2.svg"
+                                  onClick={() =>
+                                    setEditData((prev) => {
+                                      return { ...prev, emailId: [...prev.emailId, ''] };
+                                    })
+                                  }
                                   className={`${styles.plus_add} img-fluid`}
-                                  alt="Delete"
+                                  src="/static/add-btn.svg"
+                                  alt="Search"
                                 />
-                              )}
+                                {editData?.emailId?.length > 1 && (
+                                  <img
+                                    onClick={() => handleDeleteUpdateAddress(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.plus_add} img-fluid`}
+                                    alt="Delete"
+                                  />
+                                )}
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -1487,7 +1488,7 @@ function Index() {
                       </div>
                       {keyAddressData.emailId.map((email, index) => (
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                          <div className="d-flex">
+                          <div className="d-flex position-relative">
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1502,26 +1503,26 @@ function Index() {
                               Email ID
                               <strong className="text-danger">*</strong>
                             </label>
-
-                            <img
-                              onClick={() =>
-                                setKeyAddressData((prev) => {
-                                  return { ...prev, emailId: [...prev.emailId, ''] };
-                                })
-                              }
-                              className={`${styles.plus_add} img-fluid`}
-                              src="/static/add-btn.svg"
-                              alt="Search"
-                            />
-
-                            {keyAddressData?.emailId?.length > 1 && (
+                            <div className={`${styles.btn_block}`}>
                               <img
-                                onClick={() => handleDeleteNewAddress(index)}
-                                src="/static/delete 2.svg"
-                                className={`${styles.delete} img-fluid`}
-                                alt="Delete"
+                                onClick={() =>
+                                  setKeyAddressData((prev) => {
+                                    return { ...prev, emailId: [...prev.emailId, ''] };
+                                  })
+                                }
+                                className={`${styles.plus_add} img-fluid`}
+                                src="/static/add-btn.svg"
+                                alt="Search"
                               />
-                            )}
+                              {keyAddressData?.emailId?.length > 1 && (
+                                <img
+                                  onClick={() => handleDeleteNewAddress(index)}
+                                  src="/static/delete 2.svg"
+                                  className={`${styles.delete} img-fluid`}
+                                  alt="Delete"
+                                />
+                              )}
+                            </div>
                           </div>
                         </div>
                       ))}
