@@ -7708,7 +7708,7 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                             key={index}>
-                           {checkNan(convertValue(val?.suggested?.value,camConversionunit)?.toLocaleString('en-In')) } 
+                           {checkNan(convertValue(val?.suggested?.value,camConversionunit))?.toLocaleString('en-In') } 
                            {' '} {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                             </td>
                           ))}

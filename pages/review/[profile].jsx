@@ -194,7 +194,7 @@ const Index = () => {
             commodity={getCommoditiesMasterData}
             allBuyerList={allBuyerList}
           />
-          <CompanyProfile />
+          <CompanyProfile/>
           <OrderProfile />
         </div>
         <div className={styles.approve_Container}>
