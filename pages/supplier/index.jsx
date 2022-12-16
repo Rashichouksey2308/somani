@@ -1262,7 +1262,7 @@ function Index() {
                         </div>
                         {editData.emailId.map((email, index) => (
                           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <div className="d-flex">
+                            <div className="d-flex position-relative">
                               <input
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -1294,7 +1294,7 @@ function Index() {
                                   <img
                                     onClick={() => handleDeleteUpdateAddress(index)}
                                     src="/static/delete 2.svg"
-                                    className={`${styles.plus_add} img-fluid`}
+                                    className={`${styles.delete} img-fluid`}
                                     alt="Delete"
                                   />
                                 )}

@@ -281,15 +281,16 @@
           flex-wrap: nowrap;
 
           .code_phone {
-            min-width: 25%;
+            max-width: 21%;
             font-size: 19px;
             letter-spacing: 0.18px;
             color: #3687e8;
             outline: none;
             border-radius: 4px 0 0 4px;
-            padding-left: 10px;
+            padding-left: 7px;
             -webkit-text-fill-color: #3687e8;
             @include respond(lg-desktop) {
+              max-width: 28%;
               font-size: 15px;
               line-height: 1.3;
             }
