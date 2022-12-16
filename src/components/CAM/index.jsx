@@ -252,6 +252,22 @@ useEffect(() => {
         borderWidth: 0,
       },
     },
+    tooltip: {
+      position: 'nearest',
+       callbacks: {
+        label: function(context) {
+          console.log(context,"context.dataset.label")
+            let label;
+            if (context.parsed !== null && context.parsed !== undefined) {
+                 let number= context.parsed.toLocaleString("en-In")
+                 label=`${context.label}, ${number} `
+            }
+            console.log(label,"lable")
+            return label;
+        }
+    }
+  }
+,
     plugins: {
       legend: {
         display: false,
@@ -292,8 +308,23 @@ useEffect(() => {
     },
     plugins: {
       legend: {
-        display: false,
-      },
+        display: false, 
+      }, tooltip: {
+        position: 'nearest',
+         callbacks: {
+          label: function(context) {
+            console.log(context,"context.dataset.label")
+              let label;
+              if (context.parsed !== null && context.parsed !== undefined) {
+                   let number= context.parsed.toLocaleString("en-In")
+                   label=`${context.label}, ${number} `
+              }
+              console.log(label,"lable")
+              return label;
+          }
+      }
+    }
+,
       title: {
         display: false,
         text: 'Doughnut Chart',
