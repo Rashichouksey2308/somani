@@ -156,8 +156,8 @@ export default function AssignmentLetter(data) {
                     </div>
                   </div>
                 </div>
-                {data?.specComment?.length > 0 ? <strong>Comments</strong> : null}
-                <ol>
+                {data?.specComment?.length > 0 ? <strong className='mb-2 d-block'>Comments</strong> : null}
+                <ol className='mb-2'>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
                       return <li>{val}</li>;

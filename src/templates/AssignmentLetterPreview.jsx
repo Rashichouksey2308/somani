@@ -583,15 +583,17 @@ export default function AssignmentLetterPreview(data) {
                                   </tr>
                                 ))}
                             </table>
-                            {data?.specComment?.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', padding:'10px 0', display:'block'}}>Comments</strong> : null}
-                            <ol style={{paddingLeft:'20px'}}>
+                            {data?.specComment?.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', padding:'15px 0 10px'}}>Comments</strong> : null}
+                            <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0 0 10px'}}>
                               {data.specComment.length > 0 &&
                                 data.specComment.map((val, index) => {
-                                  return <li style={{
+                                  return <li style={{marginTop:'-3px'}}>
+                                  <span style={{
                                     fontSize: '12px',
                                     lineHeight: '18px',
-                                    color: '#000000'
-                                  }}>{val}</li>;
+                                    color: '#000000',
+                                    display:'block', paddingTop:'1px'
+                                  }}>{val}</span></li>;
                                 })}
                             </ol>
                           </>

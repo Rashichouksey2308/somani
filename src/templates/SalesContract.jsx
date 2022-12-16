@@ -900,8 +900,8 @@ export default function SalesContract(changeHandler, data, preview) {
                     </div>
                   </div>
                 </div>
-                {data.specComment.length > 0 ? <b>Comments</b> : null}
-                <ol>
+                {data.specComment.length > 0 ? <b className='mb-2 d-block'>Comments</b> : null}
+                <ol className='mb-2'>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
                       return <li>{val}</li>;
