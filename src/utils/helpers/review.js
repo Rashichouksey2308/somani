@@ -151,7 +151,7 @@ export const rtrnChartIndiaction = (latest, previous, last) => {
       return <img src="/static/trend-red-123.svg" alt="Profit" className="img-fluid" />;
     }
 
-    if (last > previous && previous > latest) {
+    if (last < previous && previous > latest) {
       return <img src="/static/trend-red-121.svg" alt="Profit" className="img-fluid" />;
     }
     if (last > previous && previous === latest) {
