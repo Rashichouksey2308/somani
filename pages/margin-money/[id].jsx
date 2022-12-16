@@ -62,7 +62,7 @@ function Index() {
   }, [dispatch, marginData?.company?.companyName,updatingMarginMoneyResponse]);
 
   const [forCalculation, setForCalculation] = useState({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
     status: marginData?.status || '',
     quantity: marginData?.order?.quantity || '',
     additionalPDC: marginData?.additionalPDC || '',
@@ -101,7 +101,7 @@ function Index() {
 
   const getData = () => {
     setForCalculation({
-      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
       status: marginData?.status,
       quantity: marginData?.order?.quantity,
       additionalPDC: marginData?.additionalPDC,
@@ -509,7 +509,7 @@ function Index() {
       let obj = {
         marginMoneyId: marginData?._id,
         conversionRate: forCalculation.conversionRate,
-        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
+        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded === false ? false: true,
         numberOfPDC: forCalculation.numberOfPDC,
         additionalPDC: forCalculation.additionalPDC,
         invoiceDetail: {
@@ -559,7 +559,7 @@ function Index() {
   // RevisedMargin Money New Calculation
 
   const [forCalculationRevised, setforCalculationRevised] = useState({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
     status: marginData?.status,
     quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
       ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
@@ -604,7 +604,7 @@ function Index() {
 
   const getDataRevised2 = () => {
     setforCalculationRevised({
-      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
       status: marginData?.status,
       quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
         ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity

@@ -65,7 +65,7 @@ function Index({ directorData }) {
           <div
             key={index}
             id={`directorDetails`}
-            className="collapse show"
+            className="collapse"
             aria-labelledby="directorDetails3"
             data-parent="#profileAccordion"
           >
@@ -368,7 +368,7 @@ function Index({ directorData }) {
                 <div
                   key={index}
                   id={`directorDetails`}
-                  className="collapse show"
+                  className="collapse"
                   aria-labelledby="directorDetails3"
                   data-parent="#profileAccordion"
                 >
