@@ -1,4 +1,3 @@
-/* eslint-disable */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';

@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import styles from './index.module.scss';
