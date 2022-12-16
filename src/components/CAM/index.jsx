@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
 import moment from 'moment';
@@ -658,10 +657,9 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                         </span>
                         <span className={`${styles.value} value`}>
                           {orderDetails?.transactionType}
-
-                          {/* {orderDetails?.transactionType && (
-                            <TooltipCard className={`${styles.toolTop_style}`} data={orderDetails.transactionType} />
-                          )} */}
+                          {companyData?.history[0]?.profile?.companyDetail?.transactionType && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.transactionType} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -676,11 +674,9 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                         <span className={`${styles.key} label1`}>City</span>
                         <span className={`${styles.value} value`}>
                           {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.city}
-
-                          <TooltipCard
-                            className={`${styles.toolTop_style}`}
-                            data={companyData?.history[0]?.profile?.companyDetail?.city}
-                          />
+                          {companyData?.history[0]?.profile?.companyDetail?.city && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.city} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -689,14 +685,18 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                         <span className={`${styles.key} label1`}>Buyer</span>
                         <span className={`${styles.value} value`}>
                           {camData?.company?.companyName}
-                          <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.companyName} />
+                          {companyData?.history[0]?.profile?.companyDetail?.companyName && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.companyName} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>State</span>
                         <span className={`${styles.value} value`}>
                           {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.state}
-                          <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.city} />
+                          {companyData?.history[0]?.profile?.companyDetail?.state && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.state} />
+                          )}{' '}
                         </span>
                       </Col>
                     </Row>
@@ -705,13 +705,18 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                         <span className={`${styles.key} label1`}>Type of Business</span>
                         <span className={`${styles.value} value`}>
                           {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.typeOfBusiness?.join(', ')}
-                          {<TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.companyName} />}
+                          {companyData?.history[0]?.profile?.companyDetail?.typeOfBusiness && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.typeOfBusiness} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Industry</span>
                         <span className={`${styles.value} value`}>
                           {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.industry}
+                          {companyData?.history[0]?.profile?.companyDetail?.industry && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.industry} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -725,11 +730,19 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                             maximumFractionDigits: 2,
                           })}{' '}
                           {camData?.unitOfValue == 'Crores' ? 'Cr' : camData?.unitOfValue}
+                          {companyData?.history[0]?.profile?.companyDetail?.unitOfValue && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.companyDetail?.unitOfValue} />
+                          )}
                         </span>
                       </Col>
                       <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Commodity</span>
-                        <span className={`${styles.value} value`}>{camData?.commodity}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.commodity}
+                          {companyData?.history[0]?.commodity && (
+                            <TooltipCard data={companyData?.history[0]?.commodity} />
+                          )}
+                        </span>
                       </Col>
                     </Row>
                     <Row className={`mb-3`}>
@@ -744,17 +757,32 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Supplier</span>
-                        <span className={`${styles.value} value`}>{camData?.supplierName}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.supplierName}
+                          {companyData?.history[0]?.supplierName && (
+                            <TooltipCard data={companyData?.history[0]?.supplierName} />
+                          )}
+                        </span>
                       </Col>
                     </Row>
                     <Row className={`mb-3`}>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Country of Origin</span>
-                        <span className={`${styles.value} value`}>{camData?.countryOfOrigin}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.countryOfOrigin}
+                          {companyData?.history[0]?.countryOfOrigin && (
+                            <TooltipCard data={companyData?.history[0]?.countryOfOrigin} />
+                          )}
+                        </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Transaction Period (Days)</span>
-                        <span className={`${styles.value} value`}>{camData?.transactionPeriodDays}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.transactionPeriodDays}
+                          {companyData?.history[0]?.transactionPeriodDays && (
+                            <TooltipCard data={companyData?.history[0]?.transactionPeriodDays} />
+                          )}
+                        </span>
                       </Col>
                     </Row>
                   </div>
@@ -762,11 +790,21 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                     <Row className={`mb-3`}>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Port of Loading</span>
-                        <span className={`${styles.value} value`}>{camData?.shipmentDetail?.portOfLoading}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.shipmentDetail?.portOfLoading}
+                          {companyData?.history[0]?.shipmentDetail?.portOfLoading && (
+                            <TooltipCard data={companyData?.history[0]?.shipmentDetail?.portOfLoading} />
+                          )}
+                        </span>
                       </Col>
                       <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Port of Discharge</span>
-                        <span className={`${styles.value} value`}>{camData?.portOfDischarge}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.portOfDischarge}
+                          {companyData?.history[0]?.portOfDischarge && (
+                            <TooltipCard data={companyData?.history[0]?.portOfDischarge} />
+                          )}
+                        </span>
                       </Col>
                     </Row>
                     <Row className={`mb-3`}>
@@ -777,6 +815,9 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                           {camData?.ExpectedDateOfShipment
                             ? moment(camData?.ExpectedDateOfShipment).format('DD-MM-YYYY')
                             : ''}
+                          {companyData?.history[0]?.ExpectedDateOfShipment && (
+                            <TooltipCard data={companyData?.history[0]?.ExpectedDateOfShipment} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
@@ -791,6 +832,12 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                           {camData?.shipmentDetail?.ETAofDischarge?.fromDate
                             ? moment(camData?.shipmentDetail?.ETAofDischarge?.fromDate).format('DD-MM-YYYY')
                             : ''}
+                          {camData?.ExpectedDateOfShipment
+                            ? moment(camData?.ExpectedDateOfShipment).format('DD-MM-YYYY')
+                            : ''}
+                          {companyData?.history[0]?.shipmentDetail?.ETAofDischarge?.fromDate && (
+                            <TooltipCard data={companyData?.history[0]?.shipmentDetail?.ETAofDischarge?.fromDate} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -812,6 +859,9 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                           {camData?.shipmentDetail?.loadPort?.fromDate
                             ? moment(camData?.shipmentDetail?.loadPort?.fromDate).format('DD-MM-YYYY')
                             : ''}
+                          {companyData?.history[0]?.shipmentDetail?.loadPort?.fromDate && (
+                            <TooltipCard data={companyData?.history[0]?.shipmentDetail?.loadPort?.fromDate} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
@@ -831,6 +881,9 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
                           {camData?.shipmentDetail?.loadPort?.toDate
                             ? moment(camData?.shipmentDetail?.loadPort?.toDate).format('DD-MM-YYYY')
                             : ''}
+                          {companyData?.history[0]?.shipmentDetail?.loadPort?.toDate && (
+                            <TooltipCard data={companyData?.history[0]?.shipmentDetail?.loadPort?.toDate} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -844,7 +897,7 @@ export const basicInfo = (camData, orderDetails, camConversionunit, companyData)
     </>
   );
 };
-export const supplierInfo = (camData,) => {
+export const supplierInfo = (camData, companyData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -867,19 +920,32 @@ export const supplierInfo = (camData,) => {
                     <Row className={`mb-3`}>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>No. of Shipments</span>
-                        <span className={`${styles.value} value`}>{camData?.supplierCredential?.shipmentNumber}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.supplierCredential?.shipmentNumber}
+                          {companyData?.history[0]?.supplierCredential?.shipmentNumber && (
+                            <TooltipCard data={companyData?.history[0]?.supplierCredential?.shipmentNumber} />
+                          )}
+                        </span>
                       </Col>
                       <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>Port of Destination</span>
                         <span className={`${styles.value} value`}>
                           {camData?.supplierCredential?.portOfDestination}
+                          {companyData?.history[0]?.supplierCredential?.portOfDestination && (
+                            <TooltipCard data={companyData?.history[0]?.supplierCredential?.portOfDestination} />
+                          )}
                         </span>
                       </Col>
                     </Row>
                     <Row className={`mb-3`}>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>No. of Consignees</span>
-                        <span className={`${styles.value} value`}>{camData?.supplierCredential?.consigneesNumber}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.supplierCredential?.consigneesNumber}
+                          {companyData?.history[0]?.supplierCredential?.consigneesNumber && (
+                            <TooltipCard data={companyData?.history[0]?.supplierCredential?.consigneesNumber} />
+                          )}
+                        </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>Latest Shipment date</span>
@@ -894,13 +960,21 @@ export const supplierInfo = (camData,) => {
                           {camData?.supplierCredential?.latestShipmentDate
                             ? moment(camData?.supplierCredential?.latestShipmentDate).format('DD-MM-YYYY')
                             : ''}
+                          {companyData?.history[0]?.supplierCredential?.latestShipmentDate && (
+                            <TooltipCard data={companyData?.history[0]?.supplierCredential?.latestShipmentDate} />
+                          )}
                         </span>
                       </Col>
                     </Row>
                     <Row className={`mb-3`}>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>No. of HS codes</span>
-                        <span className={`${styles.value} value`}>{camData?.supplierCredential?.HSCodesNumber}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.supplierCredential?.HSCodesNumber}
+                          {companyData?.history[0]?.supplierCredential?.HSCodesNumber && (
+                            <TooltipCard data={companyData?.history[0]?.supplierCredential?.HSCodesNumber} />
+                          )}
+                        </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>Oldest shipment date</span>
@@ -915,13 +989,21 @@ export const supplierInfo = (camData,) => {
                           {camData?.supplierCredential?.oldestShipmentDate
                             ? moment(camData?.supplierCredential?.oldestShipmentDate).format('DD-MM-YYYY')
                             : ''}
+                          {companyData?.history[0]?.supplierCredential?.oldestShipmentDate && (
+                            <TooltipCard data={companyData?.history[0]?.supplierCredential?.oldestShipmentDate} />
+                          )}
                         </span>
                       </Col>
                     </Row>
                     <Row className={`mb-3`}>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Country of Origins</span>
-                        <span className={`${styles.value} value`}>{camData?.supplierCredential?.countryOfOrigin}</span>
+                        <span className={`${styles.value} value`}>
+                          {camData?.supplierCredential?.countryOfOrigin}
+                          {companyData?.history[0]?.supplierCredential?.countryOfOrigin && (
+                            <TooltipCard data={companyData?.history[0]?.supplierCredential?.countryOfOrigin} />
+                          )}
+                        </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>Commodity to total trade (24 months)</span>
@@ -930,13 +1012,21 @@ export const supplierInfo = (camData,) => {
                             maximumFractionDigits: 2,
                           })}{' '}
                           %
+                          {companyData?.history[0]?.supplierCredential?.commodityOfTotalTrade && (
+                            <TooltipCard data={companyData?.history[0]?.supplierCredential?.commodityOfTotalTrade} />
+                          )}
                         </span>
                       </Col>
                     </Row>
                   </div>
                   <div className={`${styles.remark_Wrapper}`}>
                     <p className={`${styles.remark_head} label_heading`}>Remark</p>
-                    <p>{camData?.supplierCredential?.remarks}</p>
+                    <p>
+                      {camData?.supplierCredential?.remarks}
+                      {companyData?.history[0]?.supplierCredential?.remarks && (
+                        <TooltipCard data={companyData?.history[0]?.supplierCredential?.remarks} />
+                      )}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -947,7 +1037,7 @@ export const supplierInfo = (camData,) => {
     </>
   );
 };
-export const groupExposure = (camData, camConversionunit) => {
+export const groupExposure = (camData, camConversionunit, companyData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1048,7 +1138,7 @@ export const groupExposure = (camData, camConversionunit) => {
     </>
   );
 };
-export const orderSummary = (camData, camConversionunit) => {
+export const orderSummary = (camData, camConversionunit, companyData) => {
   let name = camData?.company?.companyName ?? 'N A';
   let Initials = name?.split(' ');
 
@@ -1097,13 +1187,21 @@ export const orderSummary = (camData, camConversionunit) => {
 
                         <span className={` ${styles.name} ml-3  `}>{camData?.company?.companyName}</span>
                       </td>
-                      <td>{camData?.orderId}</td>
+                      <td>
+                        {camData?.orderId}
+                        {companyData?.history[0]?.orderId && <TooltipCard data={companyData?.history[0]?.orderId} />}
+                      </td>
                       <td>
                         {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td>{camData?.commodity}</td>
+                      <td>
+                        {camData?.commodity}
+                        {companyData?.history[0]?.commodity && (
+                          <TooltipCard data={companyData?.history[0]?.commodity} />
+                        )}
+                      </td>
                       <td>In Process</td>
 
                       <td>12</td>
@@ -1158,7 +1256,9 @@ export const creditProfile = (
                         <span className={`${styles.key} label1 pl-5`}>External Credit rating</span>
                         <span className={`${styles.value} value`}>
                           {CreditAgency()?.rating_}
-                          <TooltipCard data={companyData?.history[0]?.profile?.creditRating[0]?.rating_} />
+                          {companyData?.history[0]?.profile?.creditRating[0]?.rating_ && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.creditRating[0]?.rating_} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -1171,14 +1271,21 @@ export const creditProfile = (
                         <span className={`${styles.key} label1 pl-5`}>Credit Rating Agency</span>
                         <span className={`${styles.value} value`}>
                           {CreditAgency()?.ratingAgency}
-                          <TooltipCard data={companyData?.history[0]?.profile?.creditRating[0]?.ratingAgency} />
+                          {companyData?.history[0]?.profile?.creditRating[0]?.ratingAgency && (
+                            <TooltipCard data={companyData?.history[0]?.profile?.creditRating[0]?.ratingAgency} />
+                          )}
                         </span>
                       </Col>
                     </Row>
                     <Row className={`mb-3`}>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1`}>Name of Auditor</span>
-                        <span className={`${styles.value} value`}>{latestAuditorData?.nameOfAuditor}</span>
+                        <span className={`${styles.value} value`}>
+                          {latestAuditorData?.nameOfAuditor}
+                          {companyData?.history[0]?.latestAuditorData?.nameOfAuditor && (
+                            <TooltipCard data={companyData?.history[0]?.latestAuditorData?.nameOfAuditor} />
+                          )}
+                        </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>Change in Auditor</span>
@@ -1188,6 +1295,9 @@ export const creditProfile = (
                               ? ' No'
                               : 'Yes'
                             : ''}
+                          {companyData?.history[0]?.latestAuditorData?.nameOfAuditor && (
+                            <TooltipCard data={companyData?.history[0]?.latestAuditorData?.nameOfAuditor} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -1249,26 +1359,38 @@ export const directorDetails = (camData, companyData) => {
                             </div>
                             <span className={` ${styles.name} ml-3  `}>
                               {director?.name}
-                              <TooltipCard data={companyData?.history[0]?.profile?.directorDetail[0]?.name} />
+                              {companyData?.history[0]?.profile?.directorDetail[0]?.name && (
+                                <TooltipCard data={companyData?.history[0]?.profile?.directorDetail[0]?.name} />
+                              )}
                             </span>
                           </td>
                           <td>
                             {director?.pan[0]}
-                            <TooltipCard data={companyData?.history[0]?.profile?.directorDetail[0]?.pan} />
+                            {companyData?.history[0]?.profile?.directorDetail[0]?.pan && (
+                              <TooltipCard data={companyData?.history[0]?.profile?.directorDetail[0]?.pan} />
+                            )}
                           </td>
                           <td>
                             {director.din}
-                            <TooltipCard data={companyData?.history[0]?.profile?.directorDetail[0]?.din} />
+                            {companyData?.history[0]?.profile?.directorDetail[0]?.din && (
+                              <TooltipCard data={companyData?.history[0]?.profile?.directorDetail[0]?.din} />
+                            )}
                           </td>
                           <td>
                             {director.tenureStartDate}
-                            <TooltipCard data={companyData?.history[0]?.profile?.directorDetail[0]?.tenureStartDate} />
+                            {companyData?.history[0]?.profile?.directorDetail[0]?.tenureStartDate && (
+                              <TooltipCard
+                                data={companyData?.history[0]?.profile?.directorDetail[0]?.tenureStartDate}
+                              />
+                            )}
                           </td>
                           <td>
                             {director.percentageShareHolding}%
-                            <TooltipCard
-                              data={companyData?.history[0]?.profile?.directorDetail[0]?.percentageShareHolding}
-                            />
+                            {companyData?.history[0]?.profile?.directorDetail[0]?.percentageShareHolding && (
+                              <TooltipCard
+                                data={companyData?.history[0]?.profile?.directorDetail[0]?.percentageShareHolding}
+                              />
+                            )}
                           </td>
                         </tr>
                       );
@@ -1381,16 +1503,20 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
 
                                   <span className={` ${styles.name} ml-3  `}>
                                     {share?.fullName}
-                                    <TooltipCard
-                                      data={companyData?.history[0]?.profile?.shareholdingPattern[0]?.fullName}
-                                    />
+                                    {companyData?.history[0]?.profile?.shareholdingPattern[0]?.fullName && (
+                                      <TooltipCard
+                                        data={companyData?.history[0]?.profile?.shareholdingPattern[0]?.fullName}
+                                      />
+                                    )}
                                   </span>
                                 </td>
                                 <td>
                                   {Number(share?.numberOfShares)?.toLocaleString('en-In')}
-                                  <TooltipCard
-                                    data={companyData?.history[0]?.profile?.shareholdingPattern[0]?.numberOfShares}
-                                  />
+                                  {companyData?.history[0]?.profile?.shareholdingPattern[0]?.numberOfShares && (
+                                    <TooltipCard
+                                      data={companyData?.history[0]?.profile?.shareholdingPattern[0]?.numberOfShares}
+                                    />
+                                  )}
                                 </td>
                                 <td>
                                   {share?.percentageShareHolding
@@ -1399,17 +1525,21 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
                                         minimumFractionDigits: 2,
                                       }) + '%'
                                     : ''}
-                                  <TooltipCard
-                                    data={
-                                      companyData?.history[0]?.profile?.shareholdingPattern[0]?.percentageShareHolding
-                                    }
-                                  />
+                                  {companyData?.history[0]?.profile?.shareholdingPattern[0]?.percentageShareHolding && (
+                                    <TooltipCard
+                                      data={
+                                        companyData?.history[0]?.profile?.shareholdingPattern[0]?.percentageShareHolding
+                                      }
+                                    />
+                                  )}
                                 </td>
                                 <td>
                                   {share?.director ? 'Yes' : 'No'}
-                                  <TooltipCard
-                                    data={companyData?.history[0]?.profile?.shareholdingPattern[0]?.director}
-                                  />
+                                  {companyData?.history[0]?.profile?.shareholdingPattern[0]?.director && (
+                                    <TooltipCard
+                                      data={companyData?.history[0]?.profile?.shareholdingPattern[0]?.director}
+                                    />
+                                  )}
                                 </td>
                               </tr>
                             );
@@ -1467,7 +1597,7 @@ export const shareHolding = (top3Share, options, tempArr, camData, backgroundCol
     </>
   );
 };
-export const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit,) => {
+export const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit, companyData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1587,6 +1717,9 @@ export const chargeDetails = (top3Open, options, tempArr, camData, backgroundCol
                                       {charge?.dateOfCreationOfCharge
                                         ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
                                         : ''}
+                                      {companyData?.history?.profile?.shareholdingPattern[0]?.director && (
+                                        <TooltipCard data={companyData?.history?.charge?.dateOfCreationOfCharge} />
+                                      )}
                                     </td>
                                   </tr>
                                 );
@@ -1653,6 +1786,7 @@ export const debtProfile = (
   totalLimitDebt = () => '',
   camConversionunit,
   debtProfileColor = () => {},
+  companyData,
 ) => {
   return (
     <>
@@ -1775,8 +1909,19 @@ export const debtProfile = (
                         {camData &&
                           camData?.company?.debtProfile?.map((debt, index) => (
                             <tr key={index}>
-                              <td>{debt?.bankName}</td>
-                              <td> {debt?.limitType}</td>
+                              <td>
+                                {debt?.bankName}
+                                {companyData?.history[0]?.debt?.bankName && (
+                                  <TooltipCard data={companyData?.history[0]?.debt?.bankName} />
+                                )}
+                              </td>
+                              <td>
+                                {' '}
+                                {debt?.limitType}
+                                {companyData?.history[0]?.debt?.limitType && (
+                                  <TooltipCard data={companyData?.history[0]?.debt?.limitType} />
+                                )}
+                              </td>
                               <td>
                                 {debt?.limit?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
@@ -1833,7 +1978,7 @@ export const debtProfile = (
     </>
   );
 };
-export const operationalDetails = (camData) => {
+export const operationalDetails = (camData, companyData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1868,6 +2013,9 @@ export const operationalDetails = (camData) => {
                               })
                             : ''}{' '}
                           {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
+                          {companyData?.history[0]?.productSummary?.monthlyProductionCapacity && (
+                            <TooltipCard data={companyData?.history[0]?.productSummary?.monthlyProductionCapacity} />
+                          )}
                         </span>
                       </Col>
                       <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
@@ -1879,6 +2027,9 @@ export const operationalDetails = (camData) => {
                               })
                             : ''}{' '}
                           {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
+                          {companyData?.history[0]?.productSummary?.averageStockInTransit && (
+                            <TooltipCard data={companyData?.history[0]?.productSummary?.averageStockInTransit} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -1890,6 +2041,9 @@ export const operationalDetails = (camData) => {
                             maximumFractionDigits: 2,
                           })}{' '}
                           {camData?.productSummary?.capacityUtilization ? '%' : ''}
+                          {companyData?.history[0]?.productSummary?.capacityUtilization && (
+                            <TooltipCard data={companyData?.history[0]?.productSummary?.capacityUtilization} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
@@ -1899,6 +2053,9 @@ export const operationalDetails = (camData) => {
                             maximumFractionDigits: 2,
                           })}{' '}
                           {camData?.productSummary?.averageStockOfCommodity ? 'Days' : ''}
+                          {companyData?.history[0]?.productSummary?.averageStockOfCommodity && (
+                            <TooltipCard data={companyData?.history[0]?.productSummary?.averageStockOfCommodity} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -1920,12 +2077,18 @@ export const operationalDetails = (camData) => {
                               })
                             : ''}{' '}
                           {camData?.productSummary?.availableStock ? 'MT' : ''}
+                          {companyData?.history[0]?.productSummary?.availableStock && (
+                            <TooltipCard data={companyData?.history[0]?.productSummary?.availableStock} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>Avg Monthly Electricity Bill</span>
                         <span className={`${styles.value} value`}>
                           {camData?.productSummary?.AvgMonthlyElectricityBill ? '₹' : ''}{' '}
+                          {companyData?.history[0]?.productSummary?.AvgMonthlyElectricityBill && (
+                            <TooltipCard data={companyData?.history[0]?.productSummary?.AvgMonthlyElectricityBill} />
+                          )}
                           {/* {checkNan(
                       Number(
                         camData?.productSummary?.AvgMonthlyElectricityBill,
@@ -1937,6 +2100,9 @@ export const operationalDetails = (camData) => {
                                 maximumFractionDigits: 2,
                               })
                             : ''}
+                          {companyData?.history[0]?.productSummary?.AvgMonthlyElectricityBill && (
+                            <TooltipCard data={companyData?.history[0]?.productSummary?.AvgMonthlyElectricityBill} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -1956,6 +2122,9 @@ export const operationalDetails = (camData) => {
                               })
                             : ''}{' '}
                           {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
+                          {companyData?.history[0]?.productSummary?.dailyConsumptionOfCommodity && (
+                            <TooltipCard data={companyData?.history[0]?.productSummary?.dailyConsumptionOfCommodity} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -1969,7 +2138,7 @@ export const operationalDetails = (camData) => {
     </>
   );
 };
-export const revenuDetails = (gstData, camConversionunit) => {
+export const revenuDetails = (gstData, camConversionunit, companyData) => {
   const RevenueDetails = gstData?.detail?.salesDetailAnnual?.saleSummary;
 
   function calcPc(n1, n2) {
@@ -2183,6 +2352,9 @@ export const revenuDetails = (gstData, camConversionunit) => {
                             className="img-fluid"
                           />
                         ) : null}
+                        {companyData?.history[0]?.RevenueDetails?.B2CSales?.previous?.value && (
+                          <TooltipCard data={companyData?.history[0]?.RevenueDetails?.B2CSales?.previous?.value} />
+                        )}
                       </td>
                       <td>
                         {/* {checkNan(
@@ -2239,6 +2411,9 @@ export const revenuDetails = (gstData, camConversionunit) => {
                             className="img-fluid"
                           />
                         ) : null}
+                        {companyData?.history[0]?.RevenueDetails?.B2CSales?.previous?.value && (
+                          <TooltipCard data={companyData?.history[0]?.RevenueDetails?.B2CSales?.previous?.value} />
+                        )}
                       </td>
                       <td>
                         {/* {checkNan(
@@ -2295,6 +2470,9 @@ export const revenuDetails = (gstData, camConversionunit) => {
                             className="img-fluid"
                           />
                         ) : null}
+                        {companyData?.history[0]?.RevenueDetails?.exportSales?.previous?.value && (
+                          <TooltipCard data={companyData?.history[0]?.RevenueDetails?.exportSales?.previous?.value} />
+                        )}
                       </td>
                       <td>
                         {/* {checkNan(
@@ -2625,23 +2803,63 @@ export const financeDetails = (
 
                         <tr>
                           <td>Working Capital Turnover ratio</td>
-                          <td>{latestYearData?.workingCapitalTurnover?.toFixed(2)}</td>
-                          <td>{previousYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.workingCapitalTurnover?.toFixed(2)}
+                            {companyData?.history?.latestYearData?.workingCapitalTurnover && (
+                              <TooltipCard data={companyData?.history.latestYearData?.workingCapitalTurnover} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.workingCapitalTurnover && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.workingCapitalTurnover} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Debtors period</td>
-                          <td>{latestYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.daysOfSalesOutstanding && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.daysOfSalesOutstanding} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.daysOfSalesOutstanding && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.daysOfSalesOutstanding} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Creditors Period</td>
-                          <td>{latestYearData?.daysOfPayablesOutstanding?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.daysOfPayablesOutstanding?.toFixed(2)}</td>
+                          <td>
+                            {latestYearData?.daysOfPayablesOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.daysOfPayablesOutstanding && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.daysOfPayablesOutstanding} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.daysOfPayablesOutstanding?.toFixed(2)}
+                            {companyData?.history?.previousYearData?.daysOfPayablesOutstanding && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.daysOfPayablesOutstanding} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Inventory Period</td>
-                          <td>{latestYearData?.daysOfInventoryOutstanding?.toFixed(2)}</td>
-                          <td>{previousYearData?.daysOfInventoryOutstanding?.toFixed(2)}</td>
+                          <td>
+                            {latestYearData?.daysOfInventoryOutstanding?.toFixed(2)}
+                            {companyData?.history?.latestYearData?.daysOfInventoryOutstanding && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.daysOfInventoryOutstanding} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.daysOfInventoryOutstanding?.toFixed(2)}
+                            {companyData?.history?.previousYearData?.daysOfInventoryOutstanding && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.daysOfInventoryOutstanding} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <th colSpan={3} className={`${styles.Border} ${styles.bold_heading} value`}>
@@ -2651,18 +2869,48 @@ export const financeDetails = (
 
                         <tr>
                           <td>Interest Coverage</td>
-                          <td>{latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.interestCoverage && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.interestCoverage} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.interestCoverage && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.interestCoverage} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Current Ratio</td>
-                          <td>{latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.currentRatio && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.currentRatio} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.currentRatio && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.currentRatio} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Debt Equity</td>
-                          <td>{latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.debtEquity?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.debtEquity && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.debtEquity} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.debtEquity && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.debtEquity} />
+                            )}
+                          </td>
                         </tr>
                       </table>
                     </Col>
@@ -2779,23 +3027,63 @@ export const financeDetails = (
 
                         <tr>
                           <td>Working Capital Turnover ratio</td>
-                          <td>{latestYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.debtworkingCapitalTurnoverEquity && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.workingCapitalTurnover} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.debtworkingCapitalTurnoverEquity && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.workingCapitalTurnover} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Debtors period</td>
-                          <td>{latestYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.daysOfSalesOutstanding && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.daysOfSalesOutstanding} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.daysOfSalesOutstanding && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.daysOfSalesOutstanding} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Creditors Period</td>
-                          <td>{latestYearData?.daysOfPayablesOutstanding?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.daysOfPayablesOutstanding?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.daysOfPayablesOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.daysOfPayablesOutstanding && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.daysOfPayablesOutstanding} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.daysOfPayablesOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.daysOfPayablesOutstanding && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.daysOfPayablesOutstanding} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Inventory Period</td>
-                          <td>{latestYearData?.daysOfInventoryOutstanding?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.daysOfInventoryOutstanding?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.daysOfInventoryOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.daysOfInventoryOutstanding && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.daysOfInventoryOutstanding} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.daysOfInventoryOutstanding?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.daysOfInventoryOutstanding && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.daysOfInventoryOutstanding} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td className={`${styles.no_Border}`}></td>
@@ -2805,18 +3093,48 @@ export const financeDetails = (
 
                         <tr>
                           <td>Interest Coverage</td>
-                          <td>{latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.interestCoverage && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.interestCoverage} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.interestCoverage && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.interestCoverage} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Current Ratio</td>
-                          <td>{latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}</td>
-                          <td>{previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.latestYearData?.currentRatio && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.currentRatio} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
+                            {companyData?.history?.previousYearData?.currentRatio && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.currentRatio} />
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Debt Equity</td>
-                          <td>{latestYearData?.debtEquity?.toFixed(2).toLocaleString()}</td>
-                          <td>{previousYearData?.debtEquity?.toFixed(2).toLocaleString()}</td>
+                          <td>
+                            {latestYearData?.debtEquity?.toFixed(2).toLocaleString()}
+                            {companyData?.history?.latestYearData?.debtEquity && (
+                              <TooltipCard data={companyData?.history?.latestYearData?.debtEquity} />
+                            )}
+                          </td>
+                          <td>
+                            {previousYearData?.debtEquity?.toFixed(2).toLocaleString()}
+                            {companyData?.history?.previousYearData?.debtEquity && (
+                              <TooltipCard data={companyData?.history?.previousYearData?.debtEquity} />
+                            )}
+                          </td>
                         </tr>
                       </table>
                     </Col>
@@ -2880,6 +3198,9 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
                         <span className={`${styles.key} label1 pl-5`}>NCLT</span>
                         <span className={`${styles.value} value`}>
                           {companyData?.compliance.other?.nclt ? 'YES' : 'NO'}
+                          {companyData?.history[0]?.compliance.other?.nclt && (
+                            <TooltipCard data={companyData?.history[0]?.compliance.other?.nclt} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -2888,12 +3209,18 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
                         <span className={`${styles.key} label1`}>EPF Status</span>
                         <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
                           {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}
+                          {companyData?.history[0]?.compliance.other?.epfStatus && (
+                            <TooltipCard data={companyData?.history[0]?.compliance.other?.epfStatus} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>BIFR</span>
                         <span className={`${styles.value} value`}>
                           {companyData?.compliance.other?.bifr ? 'YES' : 'NO'}
+                          {companyData?.history[0]?.compliance.other?.bifr && (
+                            <TooltipCard data={companyData?.history[0]?.compliance.other?.bifr} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -2902,12 +3229,18 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
                         <span className={`${styles.key} label1`}>Litigation Status</span>
                         <span className={`${styles.value} value`}>
                           {litigationStatus ? litigationStatus : camData?.company?.litigationStatus}
+                          {companyData?.history[0]?.compliance.other?.litigationStatus && (
+                            <TooltipCard data={companyData?.history[0]?.compliance.other?.litigationStatus} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>Defaulter Company</span>
                         <span className={`${styles.value} value`}>
                           {companyData?.compliance.other?.defaulterCompany ? 'YES' : 'NO'}
+                          {companyData?.history[0]?.compliance.other?.defaulterCompany && (
+                            <TooltipCard data={companyData?.history[0]?.compliance.other?.defaulterCompany} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -2916,12 +3249,18 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
                         <span className={`${styles.key} label1`}>Last Balance Sheet Dates</span>
                         <span className={`${styles.value} value`}>
                           {companyData?.profile?.companyDetail?.lastBalanceSheet}
+                          {companyData?.history[0]?.compliance.other?.lastBalanceSheet && (
+                            <TooltipCard data={companyData?.history[0]?.compliance.other?.lastBalanceSheet} />
+                          )}
                         </span>
                       </Col>
                       <Col className={`d-flex justify-content-between`} md={6}>
                         <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
                         <span className={`${styles.value} value`}>
                           {companyData?.profile?.directorDetail?.length ?? 0}
+                          {companyData?.history[0]?.compliance.other?.length && (
+                            <TooltipCard data={companyData?.history[0]?.compliance.other?.length} />
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -2935,7 +3274,7 @@ export const compilanceStatus = (companyData, camData, litigationStatus) => {
     </>
   );
 };
-export const strengthAndWeakness = (camData) => {
+export const strengthAndWeakness = (camData, companyData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2977,6 +3316,9 @@ export const strengthAndWeakness = (camData) => {
                                 {comment}
                               </li>
                             ))}
+                          {companyData?.history[0]?.company?.recommendation?.strengths && (
+                            <TooltipCard data={companyData?.history[0]?.company?.recommendation?.strengths} />
+                          )}
                           {/* <li className={`mt-4`}>
                       — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                       sed diam
@@ -3015,6 +3357,9 @@ export const strengthAndWeakness = (camData) => {
                                 </li>
                               );
                             })}
+                          {companyData?.history[0]?.company?.recommendation?.weakness && (
+                            <TooltipCard data={companyData?.history[0]?.company?.recommendation?.weakness} />
+                          )}
                           {/* <li className={`mt-4`}>
                       — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                       sed diam
@@ -3057,6 +3402,7 @@ export const sectionTerms = (
   approvedCredit,
   isFieldInFocus,
   setIsFieldInFocus,
+  companyData,
 ) => {
   const [limitValueChecked, setLimitValueChecked] = useState(false);
   const [orderValueChecked, setOrderValueChecked] = useState(false);
@@ -3088,12 +3434,18 @@ export const sectionTerms = (
                   >
                     <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Utilised Limit:</span>
                     {camData?.company?.creditLimit?.utilizedLimit?.toLocaleString('en-In')}
+                    {companyData?.history[0]?.company?.creditLimit?.utilizedLimit && (
+                      <TooltipCard data={companyData?.history[0]?.company?.creditLimit?.utilizedLimit} />
+                    )}
                   </span>
                   <span
                     className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}
                   >
                     <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Available Limit:</span>
                     {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
+                    {companyData?.history[0]?.company?.creditLimit?.availableLimit && (
+                      <TooltipCard data={companyData?.history[0]?.company?.creditLimit?.availableLimit} />
+                    )}
                   </span>
                 </div>
                 <span
@@ -3122,7 +3474,12 @@ export const sectionTerms = (
                         </tr>
                         <tr>
                           <td>Limit Value</td>
-                          <td>{camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}</td>
+                          <td>
+                            {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
+                            {companyData?.history[0]?.company?.creditLimit?.availableLimit && (
+                              <TooltipCard data={companyData?.history[0]?.company?.creditLimit?.availableLimit} />
+                            )}
+                          </td>
                           <td>-</td>
                           {filteredCreditRating ? (
                             <>
@@ -3204,7 +3561,9 @@ export const sectionTerms = (
                           <td>
                             {checkNan(convertValue(camData?.suggestedOrderValue))?.toLocaleString('en-In')}
                             {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
-
+                            {companyData?.history[0]?.unitOfValue && (
+                              <TooltipCard data={companyData?.history[0]?.unitOfValue} />
+                            )}
                             {/* {camData?.suggestedOrderValue} */}
                           </td>
                           <td>
@@ -3263,6 +3622,9 @@ export const sectionTerms = (
                         camData?.company?.recommendation?.sanctionTerms?.map((condition, index) => (
                           <li key={index}>{condition}</li>
                         ))}
+                      {companyData?.history[0]?.company?.recommendation?.sanctionTerms && (
+                        <TooltipCard data={companyData?.history[0]?.company?.recommendation?.sanctionTerms} />
+                      )}
                     </ul>
                   </div>
                   <div>
@@ -3433,7 +3795,16 @@ export const Documents = (documentsFetched) => {
     </>
   );
 };
-export const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit) => {
+export const trends = (
+  chartData,
+  chartRef,
+  chartRef2,
+  chartData2,
+  lineOption,
+  gstData,
+  camConversionunit,
+  companyData,
+) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3578,6 +3949,7 @@ export const skewness = (
   totalCustomer,
   totalSupplier,
   camConversionunit,
+  companyData,
 ) => {
   return (
     <>
@@ -3765,7 +4137,7 @@ export const skewness = (
     </>
   );
 };
-export const customerRating = (data, filteredCreditRating, rating, darkMode,) => {
+export const customerRating = (data, filteredCreditRating, rating, darkMode, companyData) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>

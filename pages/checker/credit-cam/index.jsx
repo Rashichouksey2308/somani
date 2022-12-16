@@ -3,7 +3,6 @@ import moment from 'moment';
 import styles from './index.module.scss';
 import { Col, Row } from 'react-bootstrap';
 import { Doughnut, Line } from 'react-chartjs-2';
-import { Tooltip as x } from '../../../src/components/Tooltip';
 import {
   ArcElement,
   CategoryScale,
