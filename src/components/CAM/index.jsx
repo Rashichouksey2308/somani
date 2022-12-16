@@ -252,6 +252,22 @@ useEffect(() => {
         borderWidth: 0,
       },
     },
+    tooltip: {
+      position: 'nearest',
+       callbacks: {
+        label: function(context) {
+          console.log(context,"context.dataset.label")
+            let label;
+            if (context.parsed !== null && context.parsed !== undefined) {
+                 let number= context.parsed.toLocaleString("en-In")
+                 label=`${context.label}, ${number} `
+            }
+            console.log(label,"lable")
+            return label;
+        }
+    }
+  }
+,
     plugins: {
       legend: {
         display: false,
@@ -292,8 +308,23 @@ useEffect(() => {
     },
     plugins: {
       legend: {
-        display: false,
-      },
+        display: false, 
+      }, tooltip: {
+        position: 'nearest',
+         callbacks: {
+          label: function(context) {
+            console.log(context,"context.dataset.label")
+              let label;
+              if (context.parsed !== null && context.parsed !== undefined) {
+                   let number= context.parsed.toLocaleString("en-In")
+                   label=`${context.label}, ${number} `
+              }
+              console.log(label,"lable")
+              return label;
+          }
+      }
+    }
+,
       title: {
         display: false,
         text: 'Doughnut Chart',
@@ -2083,11 +2114,11 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(
                       RevenueDetails?.grossTurnover?.previous?.value,
                       RevenueDetails?.grossTurnover?.current?.value,
-                    ),
+                    ),'en-In',2,2
                   ) + '%'}
                 </td>
               </tr>
@@ -2245,8 +2276,8 @@ const revenuDetails = (gstData, camConversionunit) => {
                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
-                    calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value),
+                  {returnReadableNumber(
+                    calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value),'en-In',2,2
                   ) + '%'}
                 </td>
               </tr>
@@ -2292,8 +2323,8 @@ const revenuDetails = (gstData, camConversionunit) => {
                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
-                    calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value),
+                  {returnReadableNumber(
+                    calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value),'en-In',2,2
                   ) + '%'}
                 </td>
               </tr>
@@ -2348,8 +2379,8 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
-                    calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value),
+                  {returnReadableNumber(
+                    calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value),'en-In',2,2
                   ) + '%'}
                 </td>
               </tr>
@@ -2384,8 +2415,8 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {RevenueDetails?.ttlCustomer?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}{' '}
                 </td>
                 <td>
-                  {checkNan(
-                    calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value),
+                  {returnReadableNumber(
+                    calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value),'en-In',2,2
                   ) + '%'}
                 </td>
               </tr>
@@ -2423,7 +2454,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {RevenueDetails?.ttlInv?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}{' '}
                 </td>
                 <td>
-                  {checkNan(calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value)) +
+                  {returnReadableNumber(calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value),'en-In',2,2) +
                     '%'}
                 </td>
               </tr>
@@ -2434,7 +2465,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                 </td>
                 <td>11,900.00</td>
                 <td>1,900.00</td>
-                <td>40%</td>
+                <td>40.00%</td>
               </tr>
               <tr>
                 <td colSpan={5} height="10"></td>
