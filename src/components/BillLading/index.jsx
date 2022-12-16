@@ -89,8 +89,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
       setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []));
     }
   }, [TransitDetails]);
+  console.log(TransitDetails,'TransitDetails')
 
-  const partShipmentAllowed = _get(TransitDetails, 'data[0].order.vessel.partShipmentAllowed', false);
+  const partShipmentAllowed = _get(TransitDetails, 'data[0].order.vessel.partShipmentAllowed', 'No');
 
   const onBolAdd = () => {
     if (shipmentTypeBulk) {
@@ -566,7 +567,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                 <div className={`${styles.dropDown_label} text`}>Part Shipment Allowed:</div>
                 <div className={`${styles.dropDown} input`}>
                   {/* {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')} */}
-                  {partShipmentAllowed ? 'Yes' : 'No'}
+                  {partShipmentAllowed === 'Yes' ? 'Yes' : 'No'}
                 </div>
               </div>
             </div>
@@ -644,7 +645,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading} flex-grow-1`}>Bill of Lading {index + 1}</h3>
-                  {partShipmentAllowed && (
+                  {partShipmentAllowed === 'Yes' && (
                     <button
                       onClick={() => {
                         onBolAdd();
