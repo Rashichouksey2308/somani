@@ -742,7 +742,7 @@ const Index = ({
                   <span className="text1">
                     {checkNan(
                       CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.totalLimit ?? ''),
-                    )?.toLocaleString()}
+                    )?.toLocaleString()} {" "}CR
                   </span>
                 </div>
                 <div className={`${styles.limit} accordion_Text`}>
@@ -751,7 +751,7 @@ const Index = ({
                     <span className="text1">
                       {checkNan(
                         CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.utilizedLimt ?? ''),
-                      )?.toLocaleString()}
+                      )?.toLocaleString()}{" "}CR
                     </span>
                   </span>
                 </div>
@@ -761,7 +761,7 @@ const Index = ({
                     <span className="text1">
                       {checkNan(
                         CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.availableLimit ?? ''),
-                      )?.toLocaleString()}
+                      )?.toLocaleString()}{" "}CR
                     </span>
                   </span>
                 </div>
@@ -779,7 +779,7 @@ const Index = ({
                   </tr>
                   <tr>
                     <td>Limit Value</td>
-                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString('en-In')}</td>
+                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString('en-In')}{" "}CR</td>
                     <td>-</td>
 
                     {filteredCreditRating && filteredCreditRating.length != 0 && filteredCreditRating != 0 ? (
@@ -791,7 +791,7 @@ const Index = ({
                               {(val.derived.value ?? '')?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
-                              })}
+                              })}{" "}CR
                             </td>
                           ))}{' '}
                       </>
@@ -837,7 +837,7 @@ const Index = ({
                       {checkNan(CovertvaluefromtoCR(creditDetail?.orderValue ?? ''))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
-                      })}
+                      })}{" "}CR
                     </td>
 
                     <td>-</td>
