@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllBuyer, GetOrderLeads, GetOrders } from '../../src/redux/registerBuyer/action';
-import { SearchLeads, FilterLeads } from '../../src/redux/buyerProfile/action.js';
+import { GetAllUpdatedBuyer, GetOrderLeads, GetOrders } from '../../src/redux/registerBuyer/action';
+import { FilterLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import SearchAndFilter from '../../src/components/SearchAndFilter';
 import QueueStats from '../../src/components/QueueStats';
@@ -19,7 +19,7 @@ import { LEADS_QUEUE_FILTER_ITEMS } from '../../src/data/constant';
 function Index() {
   const dispatch = useDispatch();
 
-  const { allBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
+  const { updatedBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
   const { filteredLeads } = useSelector((state) => state.order);
   const [searchterm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState(filteredLeads);
@@ -33,9 +33,10 @@ function Index() {
     order: null,
   });
   const [openList, setOpenList] = useState(true);
+  const [filterQuery, setFilterQuery] = useState('');
 
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${filterQuery}`));
   }, [dispatch, currentPage, pageLimit]);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ function Index() {
     if (!isFilterApply()) {
       setSearchTerm('');
       setShowBadges([]);
-      dispatch(GetAllBuyer(`?page=${currentPage}&limit=${pageLimit}`));
+      dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${filterQuery}`));
       dispatch(FilterLeads('status=" "'));
     }
   }, [JSON.stringify(filterItem)]);
@@ -73,10 +74,12 @@ function Index() {
     let query = '';
 
     showBadges.map((item) => {
-      query = query + `&${item?.key}=${slugify(item?.displayVal, { lower: true })}`;
+      query = query + `&${item?.key}=${slugify(item?.displayVal, { lower: false })}`;
     })
 
-    dispatch(GetAllBuyer(`?page=${currentPage}${query}`));
+    setFilterQuery(query);
+
+    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${query}`));
 
     setShowBadges([...showBadges]);
   };
@@ -90,21 +93,23 @@ function Index() {
     filterItemData.map((val) => {
       if (appliedFilters[val]) {
         if (val === 'status') {
-          result?.cam?.status && badgesItems.push({ key: val, displayVal: result?.cam?.status });
-          query = query + `&${val}=${result?.cam?.status}`;
+          result?.status && badgesItems.push({ key: val, displayVal: result?.status });
+          query = query + `&${val}=${result?.status}`;
         }
         else if (val === 'company_name') {
-          result?.company?.companyName && badgesItems.push({ key: val, displayVal: result?.company?.companyName });
-          query = query + `&${val}=${slugify(result?.company?.companyName, { lower: true })}`;
+          result?.buyerName && badgesItems.push({ key: val, displayVal: result?.buyerName });
+          query = query + `&${val}=${slugify(result?.buyerName, { lower: false })}`;
         }
         else if (val === 'commodity') {
           result?.commodity && badgesItems.push({ key: val, displayVal: result?.commodity });
-          query = query + `&${val}=${slugify(result?.commodity, { lower: true })}`;
+          query = query + `&${val}=${slugify(result?.commodity, { lower: false })}`;
         }
       }
     });
 
-    dispatch(GetAllBuyer(`?page=${currentPage}${query}`));
+    setFilterQuery(query);
+
+    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${query}`));
 
     setOpenList(false);
     setShowBadges(badgesItems);
@@ -168,19 +173,22 @@ function Index() {
 
   const handleSort = (column) => {
     let columnName = slugify(column.Header, { lower: true });
+    if (columnName === 'commodity') {
+      columnName = 'commodity-sort';
+    }
     let sortOrder = '';
     if (column.id === sortByState.column) {
       setSortByState((state) => {
         let updatedOrder = !state.order;
-        sortOrder = updatedOrder ? 'asc' : 'desc';
+        sortOrder = updatedOrder ? '1' : '-1';
         return { ...state, order: updatedOrder };
       });
     } else {
       let data = { column: column.id, order: column.isSortedDesc };
-      sortOrder = data.order ? 'asc' : 'desc';
+      sortOrder = data.order ? '1' : '-1';
       setSortByState(data);
     }
-    dispatch(GetAllBuyer(`?page=${currentPage}&column=${columnName}&order=${sortOrder}`));
+    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&column=${columnName}&order=${sortOrder}${filterQuery}`));
   };
 
   const statLeadsData = {
@@ -229,7 +237,7 @@ function Index() {
     },
     {
       Header: 'Status',
-      accessor: 'queue',
+      accessor: 'cam.status',
       disableSortBy: true,
       Cell: ({ value }) => <QueueStatusSymbol status={value} />,
     },
@@ -242,10 +250,10 @@ function Index() {
         <ul>
           {filteredLeads?.data?.data?.length > 0 ? filteredLeads?.data?.data?.map((results, index) => (
             <li onClick={() => handleListClose(results)} id={results._id} key={index} className="cursor-pointer">
-              {appliedFilters?.company_name === true && results?.company?.companyName}
+              {appliedFilters?.company_name === true && results?.buyerName}
               <span>
                 &nbsp; {appliedFilters?.commodity === true && <span className='text-right'>{results?.commodity}</span>}
-                &nbsp; {appliedFilters?.status === true && <span className='text-right'>{results?.cam?.status}</span>}
+                &nbsp; {appliedFilters?.status === true && <span className='text-right'>{results?.status}</span>}
               </span>
             </li>
           )) : <li><span>No result found</span></li>}
@@ -286,14 +294,14 @@ function Index() {
           <QueueStats data={statLeadsData} />
 
           {/*leads table*/}
-          {allBuyerList?.data?.data && (
+          {updatedBuyerList?.data?.data && (
             <Table
               tableHeading="Leads"
               currentPage={currentPage}
-              totalCount={allBuyerList?.data?.totalCount}
+              totalCount={updatedBuyerList?.data?.total}
               setCurrentPage={setCurrentPage}
               columns={tableColumns}
-              data={allBuyerList?.data?.data}
+              data={updatedBuyerList?.data?.data}
               pageLimit={pageLimit}
               setPageLimit={setPageLimit}
               handleSort={handleSort}
