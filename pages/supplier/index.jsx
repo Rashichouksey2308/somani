@@ -1261,7 +1261,7 @@ function Index() {
                           </div>
                         </div>
                         {editData.emailId.map((email, index) => (
-                          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                          <div className={`${styles.form_group} ${styles.email_id} col-md-4 col-sm-6`}>
                             <div className="d-flex position-relative">
                               <input
                                 className={`${styles.input_field} input form-control`}
@@ -1487,7 +1487,7 @@ function Index() {
                         </div>
                       </div>
                       {keyAddressData.emailId.map((email, index) => (
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <div className={`${styles.form_group} ${styles.email_id} col-md-4 col-sm-6`}>
                           <div className="d-flex position-relative">
                             <input
                               className={`${styles.input_field} input form-control`}
