@@ -47,6 +47,20 @@ function updateInspectionRemarkFailed(payload = {}) {
     }
 }
 
+function getVendorPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_VENDOR_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getVendorPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_VENDOR_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
+
 function getUserSuccess(payload) {
     return {
         type: types.GET_USER_SUCCESSFULL,
@@ -195,6 +209,40 @@ export const GetUserDetails = (payload) => async (dispatch, getState, api) => {
         });
     } catch (error) {
         dispatch(getUserFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetVendorPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getVendorPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getVendorPickupRecordsSuccess(response?.data?.data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getVendorPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Vendor Records';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getVendorPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };
