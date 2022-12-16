@@ -149,7 +149,7 @@ function Index() {
           route: '/masters/users',
         },
         { name: 'Vendors', image: '/static/review-queue.svg', route: '' },
-        { name: 'Commodity', image: '/static/review-queue.svg', route: '' },
+        { name: 'Commodity', image: '/static/review-queue.svg', route: '/checker/commodity' },
         { name: 'Internal Companies', image: '/static/review-queue.svg', route: '' },
         { name: 'Rejected Records', image: '/static/review-queue.svg', route: '' },
         { name: 'Inspection', image: '/static/inspection.svg', route: '/checker/inspection' },
