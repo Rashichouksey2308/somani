@@ -82,8 +82,7 @@ export default function AssociateshipAgreementPreview(data) {
               <tr>
                 <td align="justify" style={{paddingBottom:'16px'}}>
                   <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block'}}>
-                    <strong>Seller</strong> and the Associate Buyer, wherever required, are collectively
-                    referred to as the “Parties” and individually as the “Party”.
+                    <strong>Seller</strong> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and individually as the “Party”.
                   </span>
                 </td>
               </tr>
@@ -1144,8 +1143,8 @@ export default function AssociateshipAgreementPreview(data) {
                                   </tr>
                                 ))}
                             </table>
-                            {data.specComment.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', paddingTop: '20px'}}>Comments</strong> : null}
-                            <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000',paddingLeft:'16px'}}>
+                            {data.specComment.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', padding:'20px 0 10px'}}>Comments</strong> : null}
+                            <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000',paddingLeft:'10px', margin:'0 0 10px'}}>
                               {data.specComment.length > 0 &&
                                 data.specComment.map((val, index) => {
                                   return <li style={{marginTop:'-3px'}}><span style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', paddingTop:'1px'}}>{val}</span></li>;

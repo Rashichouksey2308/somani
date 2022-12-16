@@ -1326,10 +1326,10 @@
         width: 50%;
         height: 50%;
         @include respond(lg-desktop) {
-        top: 39%;
-        left: 35%;
-        width: 47%;
-        height: 41%;
+        top: 39% !important;
+        left: 35% !important;
+        width: 49%;
+        height: 39%;
         }
         @media screen and (max-width: "1670px") {
         top: 37%;
