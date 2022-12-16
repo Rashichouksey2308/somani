@@ -1610,7 +1610,7 @@ export default function TPAPreview(data) {
                           display:'inline-block'
                         }}
                       >
-                        {data.designatedStorageArea}
+                        {data.designatedStorageArea}, India
                       </span>
                     </td>
                   </tr>
