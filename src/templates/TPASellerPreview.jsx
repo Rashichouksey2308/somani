@@ -18,40 +18,42 @@ export default function TPASellerPreview(data) {
           <table width="100%" cellPadding="0" cellSpacing="0" border="0">
             <tr>
               <td align="center" style={{ padding: '15px 0 30px' }}>
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
-                    marginBottom: '0',
+                    display: 'block'
                   }}
                 >
                   <strong>TRIPARTITE AGREEMENT</strong>
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
               <td align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
-                    marginBottom: '0',
+                    display: 'inline-block'
                   }}
                 >
                   This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set
                   out in <strong>Schedule I</strong> hereto by and between:
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
               <td valign="top" align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
                   <strong style={{ textTransform: 'uppercase' }}>{data.sellerSignature}</strong>, a company organized and
@@ -63,92 +65,104 @@ export default function TPASellerPreview(data) {
                   </strong>{' '} through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;,
                   which expression shall, unless excluded by or repugnant to the context be deemed to include its
                   legal heirs, successors and permitted assigns) of the First Part.
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
               <td align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
                   And
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
               <td align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
                   <strong>Supplier</strong>(s), as detailed in
                   <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>Supplier</strong>”,
                   which expression shall, unless excluded by or repugnant to the context be deemed to include its
                   legal heirs, successors and permitted assigns) of the Second Part.
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
               <td align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
                   And
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
               <td align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
                   <strong>End Buyer</strong>(s), as detailed in
                   <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>End Buyer</strong>”,
                   which expression shall, unless excluded by or repugnant to the context be deemed to include its
                   legal heirs, successors and permitted assigns) of the Third Part.
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
               <td align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
                   The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be
                   referred to individually as &quot;Party&quot; and collectively as the &quot;Parties&quot;.
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
               <td align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
                   <strong>WHEREAS,</strong>
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
@@ -209,15 +223,17 @@ export default function TPASellerPreview(data) {
             </tr>
             <tr>
               <td align="justify">
-                <p
+                <span
                   style={{
                     fontSize: '12px',
                     lineHeight: '18px',
                     color: '#000000',
+                    display: 'inline-block',
+                    paddingBottom: '16px'
                   }}
                 >
                   <strong>NOW THEREFORE THE PARTIES HERETO AGREED TO AS UNDER</strong>
-                </p>
+                </span>
               </td>
             </tr>
             <tr>
@@ -387,7 +403,7 @@ export default function TPASellerPreview(data) {
                 </h3>
                 <table
                   width="100%"
-                  cellPadding="10"
+                  cellPadding="5"
                   style={{ border: '1px solid #000000' }}
                   cellSpacing="0"
                   border="0"
@@ -400,16 +416,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Date of execution
-                      </p>
+                      </span>
                     </td>
                     <td
                       width="70%"
@@ -418,16 +434,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         {data.dateOfExecution}
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -437,16 +453,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Place of execution
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -454,17 +470,17 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         {' '}
                         {data.placeOfExecution}
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -474,16 +490,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Name of Supplier
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -491,17 +507,17 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         {' '}
                         {data?.supplier}
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -511,16 +527,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Address of Supplier
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -528,17 +544,17 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         {data.supplierAddress?.fullAddress},{data.supplierAddress?.city}{' '}
                         {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -548,16 +564,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Authorized signatory of Supplier
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -565,32 +581,27 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', marginBottom:'0'}}>
                           {data?.supplierAuthorized?.length > 0 &&
                             data?.supplierAuthorized?.map((val, index) => {
                               return (
-                                <li style={{
-                                    fontSize: '12px',
-                                    lineHeight: '18px',
-                                    color: '#000000',
-                                    marginBottom: '0',
-                                  }}>
-                                    Name - {val.name}
-                                  <br/>
-                                    Designation - {val.designation}
+                                <li style={{marginTop:'-3px'}}>
+                                    <span style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', paddingTop:'1px'}}>Name - {val.name}<br/>                                      
+                                      Designation - {val.designation}
+                                    </span>
                                 </li>
                               );
                             })}
                         </ol>
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -600,16 +611,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Email ID of Supplier
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -617,27 +628,27 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
                           {data?.supplierEmail?.length > 0 &&
                             data?.supplierEmail?.map((val, index) => {
                               return <li>
-                              <p style={{
+                              <span style={{
                                 fontSize: '12px',
                                 lineHeight: '18px',
                                 color: '#000000',
-                                marginBottom: '0',
-                              }}>{val.email}</p></li>;
+                                display: 'block'
+                              }}>{val.email}</span></li>;
                             })}
                         </ol>
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -647,16 +658,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Name of End buyer
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -664,16 +675,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         {data.associateBuyer}
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -683,16 +694,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Address of End Buyer
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -700,16 +711,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         {data.associateBuyerAddress}
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -719,16 +730,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Authorized signatory of End Buyer
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -736,12 +747,12 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', marginBottom:'0'}}>
@@ -752,16 +763,16 @@ export default function TPASellerPreview(data) {
                                     fontSize: '12px',
                                     lineHeight: '18px',
                                     color: '#000000',
-                                    marginBottom: '0',
+                                    display: 'inline-block'
                                   }}>
-                                    Name - {val.name}
-                                  <br/>
+                                  <span>Name - {val.name}<br/>
                                     Designation - {val.designation}
+                                  </span>
                                 </li>
                               );
                             })}
                         </ol>
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -771,16 +782,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Email ID of End Buyer
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -788,27 +799,27 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
                           {data?.buyerEmail?.length > 0 &&
                             data?.buyerEmail?.map((val, index) => {
                               return <li>
-                              <p style={{
+                              <span style={{
                                 fontSize: '12px',
                                 lineHeight: '18px',
                                 color: '#000000',
-                                marginBottom: '0',
-                              }}>{val.email}</p></li>;
+                                display: 'inline-block'
+                              }}>{val.email}</span></li>;
                             })}
                         </ol>
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -818,16 +829,16 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         Details of Goods as per Sales Contract
-                      </p>
+                      </span>
                     </td>
                     <td
                       style={{
@@ -835,12 +846,12 @@ export default function TPASellerPreview(data) {
                         borderRight: '1px solid #000000',
                       }}
                     >
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0',
+                          display: 'inline-block'
                         }}
                       >
                         <>
@@ -863,21 +874,21 @@ export default function TPASellerPreview(data) {
                                 </tr>
                               ))}
                           </table>
-                          {data.specComment.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000'}}>Comments</strong> : null}
+                          {data.specComment.length > 0 ? <strong style={{fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', paddingTop: '20px'}}>Comments</strong> : null}
                           <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
                             {data.specComment.length > 0 &&
                               data.specComment.map((val, index) => {
-                                return <li>
-                                <p style={{
+                                return <li style={{marginTop:'-3px'}}>
+                                <span style={{
                                   fontSize: '12px',
                                   lineHeight: '18px',
                                   color: '#000000',
-                                  marginBottom: '0',
-                                }}>{val}</p></li>;
+                                  display:'block', paddingTop:'1px'
+                                }}>{val}</span></li>;
                               })}
                           </ol>
                         </>
-                      </p>
+                      </span>
                     </td>
                   </tr>
                 </table>
@@ -888,142 +899,156 @@ export default function TPASellerPreview(data) {
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <td align="left" valign="top" width="70%" style={{paddingTop:'5px'}}>
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          display: 'inline-block',
+                          paddingBottom: '16px'
                         }}
                       >
                         Buyer
-                      </p>
+                      </span>
                     </td>
                     <td align="left" valign="top" width="30%" style={{paddingTop:'5px'}}>
-                       <p
+                       <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0'
+                          display: 'inline-block'
                         }}
                       >
                         {data?.buyerAuthorized?.length > 0 &&
                       data?.buyerAuthorized?.map((val, index) => {
                       return (
                       <>
-                        <p style={{
+                        <span style={{
                             fontSize: '12px',
                             lineHeight: '18px',
-                            color: '#000000'
+                            color: '#000000',
+                            display: 'inline-block',
+                            paddingBottom: '16px'
                           }}>Name: {val.name}<br/>
-                          Designation: {val.designation}</p>
+                          Designation: {val.designation}</span>
                       </>
                       )
                       })}
-                      </p>
-                      <p
+                      </span>
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          display: 'inline-block',
+                          paddingBottom: '16px'
                         }}
                       >
                         <strong>Authorised Signatory</strong>
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
                     <td align="left" valign="top" style={{paddingTop:'5px'}}>
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          display: 'inline-block',
+                          paddingBottom: '16px'
                         }}
                       >
                         Supplier
-                      </p>
+                      </span>
                     </td>
                     <td align="left" valign="top" style={{paddingTop:'5px'}}>
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0'
+                          display: 'inline-block'
                         }}
                       >
                         {data?.supplierAuthorized?.length > 0 &&
                       data?.supplierAuthorized?.map((val, index) => {
                       return (
                       <>
-                        <p style={{
+                        <span style={{
                             fontSize: '12px',
                             lineHeight: '18px',
-                            color: '#000000'
+                            color: '#000000',
+                            display: 'inline-block',
+                            paddingBottom: '16px'
                           }}>Name: {val.name}<br/>
-                          Designation: {val.designation}</p>
+                          Designation: {val.designation}</span>
                       </>
                         )
                       })}
-                      </p>
-                      <p
+                      </span>
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
+                          display: 'inline-block',
+                          paddingBottom: '16px'
                         }}
                       >
                         <strong>Authorised Signatory</strong>
-                      </p>
+                      </span>
                     </td>
                   </tr>
                   <tr>
                     <td align="left" valign="top" style={{paddingTop:'5px'}}>
-                      <p
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0'
+                          display: 'inline-block'
                         }}
                       >
                         End Buyer
-                      </p>
+                      </span>
                     </td>
                     <td align="left" valign="top" style={{paddingTop:'5px'}}>
-                         <p
-                        style={{
-                          fontSize: '12px',
-                          lineHeight: '18px',
-                          color: '#000000',
-                          marginBottom: '0'
-                        }}
-                      >
+                        <span
+                          style={{
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: '#000000',
+                            display: 'inline-block'
+                          }}
+                        >
                         {data?.associateBuyerAuthorized?.length > 0 &&
                       data?.associateBuyerAuthorized?.map((val, index) => {
                       return (
                       <>
-                        <p style={{
+                        <span style={{
                             fontSize: '12px',
                             lineHeight: '18px',
-                            color: '#000000'
+                            color: '#000000',
+                            display: 'inline-block',
+                            paddingBottom: '16px'
                           }}>Name: {val.name}<br/>
-                          Designation: {val.designation}</p>
+                          Designation: {val.designation}</span>
                       </>
                       )
                       })}
-                      </p>
-                      <p
+                      </span>
+                      <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          marginBottom: '0'
+                          display: 'inline-block'
                         }}
                       >
                         <strong>Authorised Signatory</strong>
-                      </p>
+                      </span>
                     </td>
                   </tr>
                 </table>
