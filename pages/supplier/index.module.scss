@@ -281,15 +281,16 @@
           flex-wrap: nowrap;
 
           .code_phone {
-            min-width: 25%;
+            max-width: 21%;
             font-size: 19px;
             letter-spacing: 0.18px;
             color: #3687e8;
             outline: none;
             border-radius: 4px 0 0 4px;
-            padding-left: 10px;
+            padding-left: 7px;
             -webkit-text-fill-color: #3687e8;
             @include respond(lg-desktop) {
+              max-width: 28%;
               font-size: 15px;
               line-height: 1.3;
             }
@@ -355,6 +356,11 @@
               }
             }
           }
+        }
+      }
+      .email_id {
+        .label_heading {
+          left: 15px;
         }
       }
     }
@@ -923,30 +929,29 @@ img {
     }
   }
 }
-
+.btn_block {
+  top: 12px;
+  right: 12px;
+  position: absolute;
+  @include respond(lg-desktop) {
+    top: 8px;
+  }
+}
 .plus_add {
-  margin-top: 12px;
-  z-index: 1;
-  margin-left: -100px;
   width: 36px;
   height: 36px;
-  margin-right: 12px;
   @include respond(lg-desktop) {
     width: 30px;
     height: 30px;
-    margin-top: 8px;
-    margin-left: -80px;
   }
 }
 .delete {
-  margin-top: 12px;
-  z-index: 1;
   width: 36px;
   height: 36px;
+  margin-left: 12px;
   @include respond(lg-desktop) {
     width: 30px;
     height: 30px;
-    margin-top: 8px;
   }
 }
 

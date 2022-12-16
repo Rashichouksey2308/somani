@@ -126,8 +126,20 @@ export default function Index({ addButton, setComponentId, componentId, ports })
           ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer
           : _get(inspectionData, 'order.vessel.vessels[0].shippingInformation.numberOfContainers', ''),
         inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort
-          ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort
-          : _get(inspectionData, 'order.lc.lcApplication.portOfDischarge', ''),
+          ?
+           inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort?.includes('India') 
+           ? inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort 
+           : `${inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort}, India`
+          
+        
+          
+          
+          
+          :  _get(inspectionData, 'order.lc.lcApplication.portOfDischarge', '')?.includes('India') 
+           ?  _get(inspectionData, 'order.lc.lcApplication.portOfDischarge', '') 
+           : `${ _get(inspectionData, 'order.lc.lcApplication.portOfDischarge', '')}, India` 
+          
+         ,
         inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
         startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
         specialMention: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
@@ -2198,7 +2210,8 @@ const Discharge = (
                 required
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
-                value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort?.includes('India') ? inspectionDetails?.dischargePortInspectionDetails?.inspectionPort : `${inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}, India`}
+               
+                value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
                 onChange={(e) => {
                   filterPort(e.target.value, 'discharge');
                   saveInspectionDetails(e.target.name, e.target.value);

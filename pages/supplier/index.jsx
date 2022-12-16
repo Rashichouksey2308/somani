@@ -545,7 +545,7 @@ function Index() {
         thirdPartyCertificateDocument: thirdParty,
         extraDocument: docs,
       };
-      
+
       let fd = new FormData();
       if (id) {
         fd.append('supplierId', supplierData?._id);
@@ -653,7 +653,6 @@ function Index() {
         returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode),
       )
     ) {
-     
       handleErrorToast('Please add a valid Alternate phone Number');
       return false;
     } else {
@@ -1180,18 +1179,17 @@ function Index() {
                               value={editData?.country}
                               onChange={(e) => {handleAddressUpdate(e.target.value.replace(/[^a-zA-Z]+/g, ''), e.target.name)}}
                             /> */}
-                           
-                         
-                          <label className={`${styles.label_heading} label_heading`}>
-                            Country
-                            <strong className="text-danger">*</strong>
-                          </label>
-                          <img
+
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Country
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
                               className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
-                        </div>
+                          </div>
                         </div>
                         <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                           <div className={`${styles.phone_card}`}>
@@ -1263,8 +1261,8 @@ function Index() {
                           </div>
                         </div>
                         {editData.emailId.map((email, index) => (
-                          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <div className="d-flex">
+                          <div className={`${styles.form_group} ${styles.email_id} col-md-4 col-sm-6`}>
+                            <div className="d-flex position-relative">
                               <input
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -1279,25 +1277,28 @@ function Index() {
                                 Email ID
                                 <strong className="text-danger">*</strong>
                               </label>
-
-                              <img
-                                onClick={() =>
-                                  setEditData((prev) => {
-                                    return { ...prev, emailId: [...prev.emailId, ''] };
-                                  })
-                                }
-                                className={`${styles.plus_add} img-fluid`}
-                                src="/static/add-btn.svg"
-                                alt="Search"
-                              />
-                              {editData?.emailId?.length > 1 && (
-                                <img
-                                  onClick={() => handleDeleteUpdateAddress(index)}
-                                  src="/static/delete 2.svg"
-                                  className={`${styles.plus_add} img-fluid`}
-                                  alt="Delete"
-                                />
-                              )}
+                              <div className={`${styles.btn_block}`}>
+                                {editData?.emailId?.length - 1 == index && (
+                                  <img
+                                    onClick={() =>
+                                      setEditData((prev) => {
+                                        return { ...prev, emailId: [...prev.emailId, ''] };
+                                      })
+                                    }
+                                    className={`${styles.plus_add} img-fluid`}
+                                    src="/static/add-btn.svg"
+                                    alt="Search"
+                                  />
+                                )}
+                                {editData?.emailId?.length > 1 && (
+                                  <img
+                                    onClick={() => handleDeleteUpdateAddress(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete} img-fluid`}
+                                    alt="Delete"
+                                  />
+                                )}
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -1409,10 +1410,10 @@ function Index() {
                             <strong className="text-danger">*</strong>
                           </label>
                           <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
                         </div>
                       </div>
 
@@ -1486,8 +1487,8 @@ function Index() {
                         </div>
                       </div>
                       {keyAddressData.emailId.map((email, index) => (
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                          <div className="d-flex">
+                        <div className={`${styles.form_group} ${styles.email_id} col-md-4 col-sm-6`}>
+                          <div className="d-flex position-relative">
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -1502,26 +1503,28 @@ function Index() {
                               Email ID
                               <strong className="text-danger">*</strong>
                             </label>
-
-                            <img
-                              onClick={() =>
-                                setKeyAddressData((prev) => {
-                                  return { ...prev, emailId: [...prev.emailId, ''] };
-                                })
-                              }
-                              className={`${styles.plus_add} img-fluid`}
-                              src="/static/add-btn.svg"
-                              alt="Search"
-                            />
-
-                            {keyAddressData?.emailId?.length > 1 && (
-                              <img
-                                onClick={() => handleDeleteNewAddress(index)}
-                                src="/static/delete 2.svg"
-                                className={`${styles.delete} img-fluid`}
-                                alt="Delete"
-                              />
-                            )}
+                            <div className={`${styles.btn_block}`}>
+                              {keyAddressData?.emailId?.length - 1 == index && (
+                                <img
+                                  onClick={() =>
+                                    setKeyAddressData((prev) => {
+                                      return { ...prev, emailId: [...prev.emailId, ''] };
+                                    })
+                                  }
+                                  className={`${styles.plus_add} img-fluid`}
+                                  src="/static/add-btn.svg"
+                                  alt="Search"
+                                />
+                              )}
+                              {keyAddressData?.emailId?.length > 1 && (
+                                <img
+                                  onClick={() => handleDeleteNewAddress(index)}
+                                  src="/static/delete 2.svg"
+                                  className={`${styles.delete} img-fluid`}
+                                  alt="Delete"
+                                />
+                              )}
+                            </div>
                           </div>
                         </div>
                       ))}
