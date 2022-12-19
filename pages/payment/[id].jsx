@@ -425,7 +425,7 @@ function Index() {
         return
         }
         if(type=="Save"){
-        val.deliveryOrderDate=moment(new Date()).format("DD-MM-YYYY")
+        val.deliveryOrderDate= new Date() 
         if(val.status !== "DO Canceled"){
         val.status="DO Issued"
         }
