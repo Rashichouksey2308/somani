@@ -242,7 +242,7 @@ export default function AssociateshipAgreementPreview(data) {
                       </span>
                     </li>
                     {/* <li style={{ fontWeight:'bold'}}>
-                      <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block'}}><strong>Seller's trading Margin</strong>
+                      <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block'}}><strong>Seller's Trading Margin</strong>
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block'}}>
                         The Trading margin of Seller shall be paid by the Associate Buyer as per details mentioned in Schedule 6, and the same shall be collected in the Sale Invoice raised by Seller on the Associate Buyer.
@@ -250,7 +250,7 @@ export default function AssociateshipAgreementPreview(data) {
                     </li> */}
                     <li style={{ fontWeight:'bold'}}>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block', marginLeft:'-16px'}}>
-                        <strong>4.&nbsp; Seller 's trading Margin</strong>
+                        <strong>4.&nbsp; Seller's Trading Margin</strong>
                       </span><br/>
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block', fontWeight: 'normal'}}>
                         The Trading margin of Seller shall be paid by the Associate Buyer as per details mentioned in Schedule I, and the same shall be collected in the Sale Invoice raised by Seller on the Associate Buyer.
@@ -1057,9 +1057,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block'}}>
-                          {data.supplier},{" "}
-                          {data.supplierAddress?.fullAddress},{data.supplierAddress?.city}{' '}
-                          {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
+                          {data.supplier}, {data.supplierAddress?.fullAddress}, {data.supplierAddress?.city}, {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
                         </span>
                       </td>
                     </tr>
