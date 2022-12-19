@@ -308,7 +308,9 @@ export default function BothType(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        INR {Number(convertValue(insuranceData.insuranceData?.quotationRequest?.sumInsured))?.toLocaleString('en-IN')}{' '}
+                        INR {Number(convertValue(insuranceData.insuranceData?.quotationRequest?.sumInsured))?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
                         Crores (Including 110%)
                       </p>
                     </td>
