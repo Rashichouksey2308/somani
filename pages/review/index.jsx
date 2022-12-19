@@ -1384,84 +1384,84 @@ function Index() {
     });
     const getRotate = (rat = 1) => {
       let r = Math.floor(rat);
-
+      // let r = 10;
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
-        rotateImageUrl.top = '37%';
-        rotateImageUrl.left = '11%';
-        rotateImageUrl.width = '200px';
-        rotateImageUrl.height = '180px';
+        rotateImageUrl.top = '38%';
+        rotateImageUrl.left = '14%';
+        rotateImageUrl.width = '185px';
+        rotateImageUrl.height = '170px';
       }
       if (r == 1) {
         rotateImageUrl.neddle = neddle1;
-        rotateImageUrl.top = '37%';
-        rotateImageUrl.left = '11%';
-        rotateImageUrl.width = '200px';
-        rotateImageUrl.height = '180px';
+        rotateImageUrl.top = '38%';
+        rotateImageUrl.left = '14%';
+        rotateImageUrl.width = '185px';
+        rotateImageUrl.height = '170px';
       }
       if (r == 2) {
         rotateImageUrl.neddle = neddle2;
-        rotateImageUrl.top = '17%';
-        rotateImageUrl.left = '0%';
-        rotateImageUrl.width = '260px';
-        rotateImageUrl.height = '260px';
+        rotateImageUrl.top = '16.5%';
+        rotateImageUrl.left = '2%';
+        rotateImageUrl.width = '250px';
+        rotateImageUrl.height = '254px';
       }
       if (r == 3) {
         rotateImageUrl.neddle = neddle3;
-        rotateImageUrl.top = '12%';
-        rotateImageUrl.left = '15%';
-        rotateImageUrl.width = '180px';
-        rotateImageUrl.height = '200px';
+        rotateImageUrl.top = '14.5%';
+        rotateImageUrl.left = '18%';
+        rotateImageUrl.width = '170px';
+        rotateImageUrl.height = '185px';
       }
       if (r == 4) {
         rotateImageUrl.neddle = neddle4;
-        rotateImageUrl.top = '2%';
-        rotateImageUrl.left = '12%';
-        rotateImageUrl.width = '250px';
-        rotateImageUrl.height = '260px';
+        rotateImageUrl.top = '3%';
+        rotateImageUrl.left = '15%';
+        rotateImageUrl.width = '235px';
+        rotateImageUrl.height = '245px';
       }
       if (r == 5) {
         rotateImageUrl.neddle = neddle5;
         rotateImageUrl.top = '2%';
-        rotateImageUrl.left = '17%';
-        rotateImageUrl.width = '260px';
-        rotateImageUrl.height = '260px';
+        rotateImageUrl.left = '18%';
+        rotateImageUrl.width = '253px';
+        rotateImageUrl.height = '252px';
       }
       if (r == 6) {
         rotateImageUrl.neddle = neddle6;
-        rotateImageUrl.top = '6%';
-        rotateImageUrl.left = '25%';
-        rotateImageUrl.width = '250px';
-        rotateImageUrl.height = '240px';
+        rotateImageUrl.top = '7.5%';
+        rotateImageUrl.left = '26.5%';
+        rotateImageUrl.width = '235px';
+        rotateImageUrl.height = '225px';
       }
       if (r == 7) {
         rotateImageUrl.neddle = neddle8;
-        rotateImageUrl.top = '16%';
-        rotateImageUrl.left = '30%';
-        rotateImageUrl.width = '265px';
-        rotateImageUrl.height = '270px';
+        rotateImageUrl.top = '17%';
+        rotateImageUrl.left = '31.5%';
+        rotateImageUrl.width = '251px';
+        rotateImageUrl.height = '255px';
       }
 
       if (r == 8) {
         rotateImageUrl.neddle = neddle9;
-        rotateImageUrl.top = '20%';
-        rotateImageUrl.left = '30%';
-        rotateImageUrl.width = '260px';
-        rotateImageUrl.height = '275px';
+        rotateImageUrl.top = '22.5%';
+        rotateImageUrl.left = '31.5%';
+        rotateImageUrl.width = '242px';
+        rotateImageUrl.height = '253px';
       }
       if (r == 9) {
         rotateImageUrl.neddle = neddle7;
-        rotateImageUrl.top = '37%';
-        rotateImageUrl.left = '36%';
-        rotateImageUrl.width = '180px';
-        rotateImageUrl.height = '200px';
+        rotateImageUrl.top = '38%';
+        rotateImageUrl.left = '37%';
+        rotateImageUrl.width = '168px';
+        rotateImageUrl.height = '185px';
       }
       if (r == 10) {
         rotateImageUrl.neddle = neddle10;
-        rotateImageUrl.top = '37%';
-        rotateImageUrl.left = '36%';
-        rotateImageUrl.width = '180px';
-        rotateImageUrl.height = '200px';
+        rotateImageUrl.top = '38%';
+        rotateImageUrl.left = '37%';
+        rotateImageUrl.width = '168px';
+        rotateImageUrl.height = '185px';
       }
     };
     if (filteredCreditRating?.length > 0) {
