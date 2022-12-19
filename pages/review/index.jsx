@@ -7687,7 +7687,7 @@ function Index() {
                           lineHeight: '23px',
                           padding: '36px 10px 24px',
                         }}
-                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) }  </td>
+                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) } {camConversionunit == 10000000 ? ' CR' : ' LAKH'} </td>
                           ))}
                       </>
                     ) : (
