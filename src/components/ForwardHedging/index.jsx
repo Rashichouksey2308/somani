@@ -70,8 +70,8 @@ export default function Index() {
         bookedAmount: hedgingDataDetail?.bookedAmount ?? '',
         validityFrom: hedgingDataDetail?.validityFrom,
         validityTo: hedgingDataDetail?.validityTo,
-        closingDate: '',
-        closingRate: '',
+        closingDate: hedgingDataDetail?.closingDate || '',
+        closingRate: hedgingDataDetail?.closingRate|| '',
         remarks: hedgingDataDetail?.remarks,
         balanceAmount: hedgingDataDetail?.balanceAmount,
         forwardSalesContract: hedgingDataDetail?.forwardSalesContract,
@@ -516,7 +516,7 @@ export default function Index() {
                           </span>
                         </div>
                       </div>
-                      {cancel ? (
+                      {cancel || item?.closingDate  ? (
                         <Row>
                           <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                             <input
@@ -536,7 +536,7 @@ export default function Index() {
                           </div>
                           <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                             <div className="d-flex">
-                              <DateCalender name="closingDate" saveDate={saveDate} labelName="Closing Date" />
+                              <DateCalender defaultDate={item?.closingDate}  name="closingDate" saveDate={saveDate} labelName="Closing Date" />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
