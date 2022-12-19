@@ -20,17 +20,8 @@ export default function TPAIGITemp(data) {
           <strong>Schedule I </strong>hereto by and between:
         </p>
         <p className="text_sales">
-          {' '}
           <span className='text-capitalize'>{data.buyer}</span>, a Company incorporated under the Companies Act,
-          1956, having its registered office at {" "}
-            {data.buyerAddress?.fullAddress},
-            {data.buyerAddress?.city}{" "}
-            {data.buyerAddress?.country},{" "}
-            {data.buyerAddress?.pinCode}
-          {' '}
-          through its Authorised Signatory (hereinafter referred as the “
-          <strong>{data.shortbuyer}</strong> ”, which expression shall, unless excluded by
-          or repugnant to the context be deemed to include its legal heirs,
+          1956, having its registered office at {data.buyerAddress?.fullAddress}, {data.buyerAddress?.city}, {data.buyerAddress?.country}, {data.buyerAddress?.pinCode} through its Authorised Signatory (hereinafter referred as the “<strong>{data.shortbuyer}</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs,
           successors and permitted assigns) of the First Part.)
         </p>
         <p className="text-center text_sales">And</p>
@@ -41,13 +32,7 @@ export default function TPAIGITemp(data) {
         </p>
         <p className="text-center text_sales">And</p>
         <p className="text_sales">
-          {data.seller}  
-           {data.sellerAddress?.fullAddress},
-            {data.sellerAddress?.city}{" "}
-            {data.sellerAddress?.country},{" "}
-            {data.sellerAddress?.pinCode}(hereinafter referred as the <strong>“{data?.shortseller}”</strong>, which expression shall, unless
-          excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns)
-          of the Third Part.
+          {data.seller}, {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city}, {data.sellerAddress?.country}, {data.sellerAddress?.pinCode}(hereinafter referred as the <strong>“{data?.shortseller}”</strong>, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
         </p>
         <p className=" text_sales">
           <strong>WHEREAS</strong>
