@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
 import _get from 'lodash/get';
+import moment from 'moment';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,7 +47,7 @@ function Index() {
   }, [ReleaseOrderData]);
 
   const generateDoNumber = (index) => {
-    let orderDONumber = index < 10 ? `0${index}` : index;
+    let orderDONumber = index < 10 ? `0${index+1}` : index+1;
     let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
     let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
     return `${string}/${orderDONumber}`;
@@ -401,15 +402,36 @@ function Index() {
     });
   }, [filteredDOArray, deliveryOrder]);
 
-  const onEdit = (index, value) => {
+  const onEdit = (index, value,type) => {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
+        console.log(val.deliveryOrderDate,"cvalala")
+        if(type=="Save"){
+        val.deliveryOrderDate=moment(new Date()).format("DD-MM-YYYY")
+        if(val.status !== "DO Canceled"){
+           val.status="DO Issued"
+        }
+        }
+       
         val.isDelete = value;
       }
     });
     setDeliveryOrder([...tempArr]);
   };
+    const cancelDo = (index, value) => {
+    let tempArr = deliveryOrder;
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        console.log(val.deliveryOrderDate,"cvalala")
+       
+        val.status="DO Canceled"
+        
+      }
+    });
+    setDeliveryOrder([...tempArr]);
+  };
+
 
 
 
@@ -421,7 +443,10 @@ function Index() {
       }, 0);
 
       deliveryOrder.forEach((item) => {
-        boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
+        console.log("itemm",item)
+        if(item.status !== "DO Cancelled"){
+         boeTotalQuantity = boeTotalQuantity - Number(item.Quantity); 
+        } 
       });
       return boeTotalQuantity;
     }
@@ -454,17 +479,24 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
+    let releaseOrder;
+    let customObj = false;
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
-        if (name === 'Quantity') {
+    
+         if (name === 'Quantity') {
           let temparr = [...deliveryOrder];
           let filteredArray = temparr.filter((item, index2) => {
             return item.orderNumber == deliveryOrder[index].orderNumber;
           });
-
+        
           setFilteredDOArray(filteredArray);
+         
+          
         }
+      
+        console.log(val,"indexxx")
         if (name === 'Quantity') {
           if (value <= 0) {
             setDoLimit(quantity);
@@ -473,7 +505,16 @@ function Index() {
             filteredDOArray.forEach((item, index) => {
               tempLimit = tempLimit - Number(item.Quantity);
             });
-
+           let totalDONumber=0
+              let filteredArray2 = temparr.filter((item, index2) => {
+              if(item.orderNumber == val.orderNumber){
+                totalDONumber=totalDONumber+item.Quantity
+              }
+            });
+              const filterForReleaseOrder = releaseDetail.filter((item) => {
+              return item.orderNumber == filteredArray[0].orderNumber;
+              });
+              console.log(filterForReleaseOrder,totalDONumber,"totlNumber")
             setDoLimit(tempLimit);
           }
         }
@@ -718,6 +759,7 @@ function Index() {
                       onEdit={onEdit}
                       deliverChange={deliverChange}
                       deleteNewDelivery={deleteNewDelivery}
+                      cancelDo={cancelDo}
                     />
                   </div>
                 </div>
