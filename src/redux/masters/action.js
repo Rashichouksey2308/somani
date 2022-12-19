@@ -363,3 +363,42 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
     });
   }
 };
+
+export const getZipCode = (payload) => async (dispatch, getState, api) => {
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  dispatch({
+    type: types.GET_ZIPCODES_MASTERS,
+  });
+  try {
+    Axios.get(`${API.corebaseUrl}${API.zipCodeMaster}${payload}`, {
+      headers: headers,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch({
+            type: types.GET_ZIPCODES_MASTERS_SUCCESS,
+            payload: response.data,
+          });
+        } else {
+          dispatch({
+            type: types.GET_ZIPCODES_MASTERS_FAILURE,
+            payload: response.data,
+          });
+        }
+      })
+      .catch((error) => {
+        handleErrorToast('COULD NOT GET A RESPONSE');
+      });
+  } catch (error) {
+    handleErrorToast('COULD NOT GET STATE');
+  }
+};

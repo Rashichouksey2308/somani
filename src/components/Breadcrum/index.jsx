@@ -40,6 +40,7 @@ export default function Index({ isQuery }) {
       router.pathname == '/insurance'
     ) {
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
     }
     if (
       isQuery?.match('/leads') ||
@@ -79,11 +80,12 @@ export default function Index({ isQuery }) {
       show.units = false;
       show.currency = false;
       removeStorage();
+      
       setShow({ ...show });
     } else if (isQuery?.match('/generic')) {
       show.units = false;
       show.currency = false;
-
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     } else if (isQuery?.match('/letter-credit/id')) {
       show.units = false;
@@ -112,6 +114,7 @@ export default function Index({ isQuery }) {
       show.units = false;
       show.currency = true;
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     } else if (
       isQuery?.match('/termsheet/') ||
@@ -122,6 +125,7 @@ export default function Index({ isQuery }) {
       show.units = true;
       show.currency = true;
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     } else {
       show.units = true;
