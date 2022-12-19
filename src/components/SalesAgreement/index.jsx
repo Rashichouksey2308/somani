@@ -2131,17 +2131,17 @@ let masterList = [
       };
       sessionStorage.setItem('Product', JSON.stringify({ list: data.addressList, excel: data?.excelData }));
 
-      if (
-        dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
-        dataToSend?.productSpecifications?.specificationTable == undefined
-      ) {
-        toastMessage = `Please add product specification `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
-        }
-      }
+      // if (
+      //   dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
+      //   dataToSend?.productSpecifications?.specificationTable == undefined
+      // ) {
+      //   toastMessage = `Please add product specification `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     setSubmitData(false);
+      //     return;
+      //   }
+      // }
     }
     if (key == 'Additional Comments') {
       let list = [];
