@@ -891,7 +891,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                           name="igmFiling"
                           saveDate={saveDate}
                           labelName="IGM Filing Date"
-                          startFrom={getStartingIGmFillingDate()}
+                          startFrom={'noLimit'}
                         />
                         <img
                           className={`${styles.calanderIcon} image_arrow img-fluid`}
