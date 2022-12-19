@@ -11,9 +11,11 @@ function Index() {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(0);
-
   const [pageLimit, setPageLimit] = useState(10);
-
+  const [sortByState, setSortByState] = useState({
+    column: '',
+    order: null,
+  });
 
   useEffect(() => {
     if (window) {
@@ -29,18 +31,54 @@ function Index() {
   });
 
   useEffect(() => {
+    console.log('first useEffect');
     dispatch(GetVendorPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
+  const handleSort = (column) => {
+    let sortOrder = '';
+    if (column.id === 'createdAt') {
+      setSortByState((state) => {
+        let updatedOrder = !state.order;
+        sortOrder = updatedOrder ? 'asc' : 'desc';
+        return { ...state, order: updatedOrder };
+      });
+    } else {
+      let data = { column: 'createAt', order: column.isSortedDesc };
+      sortOrder = data.order ? 'asc' : 'desc';
+      setSortByState(data);
+    }
+    console.log('vendor: end of handleSort: ', sortOrder, sortByState);
+    // console.log('handle sort in vendor');
+    // let sortOrder = '';
+    // console.log('vendor: column.id & sortByState: ', column.id, sortByState);
+    // if (column.id === sortByState.column) {
+    //   console.log('vendor: if cond');
+    //   setSortByState((state) => {
+    //     let updatedOrder = !state.order;
+    //     sortOrder = updatedOrder ? '1' : '-1';
+    //     return { ...state, order: updatedOrder };
+    //   });
+    //   console.log('vendor: end of if');
+    // } else {
+    //   console.log('vendor: else cond');
+    //   let data = { column: column.id, order: column.isSortedDesc };
+    //   sortOrder = data.order ? '1' : '-1';
+    //   setSortByState(data);
+    // }
+    // dispatch(GetVendorPickupRecords(`?page=${currentPage}&createdAt=${sortOrder}`));
+  };
 
   const tableColumns = useMemo(() => [
     {
       Header: 'Vendor Type',
       accessor: 'vendorDetails.vendorType',
+      disableSortBy: true,
     },
     {
       Header: 'Vendor Name',
       accessor: 'vendorDetails.vendor',
+      disableSortBy: true,
       Cell: ({ cell: { value }, row: { original } }) => (
         <span
           onClick={() => {
@@ -53,7 +91,8 @@ function Index() {
     },
     {
       Header: 'Submitted On',
-      accessor: 'updatedAt',
+      accessor: 'createdAt',
+      disableSortBy: false,
       Cell: ({ value }) => value?.slice(0, 10)
     },
   ]);
@@ -64,6 +103,7 @@ function Index() {
       {
         id: "Preview",
         Header: "Action",
+        disableSortBy: true,
         Cell: ({ row }) => {
           return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
             <a className="cursor-pointer"
@@ -118,7 +158,9 @@ function Index() {
           data={vendorPickupRecords?.data}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
-          serverSortEnabled={false}
+          serverSortEnabled={true}
+          handleSort={handleSort}
+          sortByState={sortByState}
         />
       </div>
     </div>
