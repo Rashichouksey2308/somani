@@ -29,7 +29,6 @@ function Index() {
   });
 
   useEffect(() => {
-    // TODO: create action for GetCommodityPickupRecords
     dispatch(GetVendorPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
@@ -88,7 +87,6 @@ function Index() {
   const { vendorPickupRecords } = useSelector((state) => state.checker);
 
   console.log("vendorPickupRecords in component: ", vendorPickupRecords);
-// TODO: need to change according to data
   const handleRoute = (vendor) => {
     sessionStorage.setItem('checkerVendorId', vendor?._id);
     sessionStorage.setItem('checkerVendorName', vendor?.company?.companyName);

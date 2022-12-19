@@ -230,7 +230,11 @@ export const GetVendorPickupRecords = (payload) => async (dispatch, getState, ap
             headers: headers,
         }).then((response) => {
             if (response.data.code === 200) {
-                dispatch(getVendorPickupRecordsSuccess(response?.data?.data));
+                let data = {
+                    data: response?.data?.data?.data,
+                    totalCount: response?.data?.data?.total,
+                }
+                dispatch(getVendorPickupRecordsSuccess(data));
                 dispatch(setNotLoading());
             } else {
                 dispatch(getVendorPickupRecordsFailed(response.data.data));
