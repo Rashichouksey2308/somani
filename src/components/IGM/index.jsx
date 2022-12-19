@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { settingSidebar } from 'redux/breadcrumb/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
-import { handleErrorToast, returnDocFormat } from '@/utils/helpers/global';
+import { handleErrorToast, returnDocFormat, returnReadableNumber } from '@/utils/helpers/global';
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction, getUnqueBl }) {
   let transId = _get(TransitDetails, `data[0]`, '');
@@ -954,7 +954,7 @@ console.log(TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOff
                                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                                   </div>
                                   <span className={styles.value}>
-                                    <span>{blEntry.blQuantity} </span>{' '}
+                                    <span>{returnReadableNumber(blEntry.blQuantity,undefined,0,0)} </span>{' '}
                                     {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                                   </span>
                                 </div>
@@ -1014,7 +1014,7 @@ console.log(TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOff
                                         BL Quantity <strong className="text-danger ml-n1">*</strong>
                                       </div>
                                       <span className={styles.value}>
-                                        <span>{blEntry?.blQuantity}</span>{' '}
+                                        <span>{returnReadableNumber(blEntry?.blQuantity,undefined,0,0)}</span>{' '}
                                         {blEntry?.blQuantity &&
                                           _get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                                       </span>
