@@ -220,20 +220,20 @@ function Index() {
                 <p>
                   We hereby authorize you to deliver the quantity to{' '}
                   <span className={`${styles.bold}`}>{_get(ReleaseOrderData, 'data[0].company.companyName')},</span> 
-                   as per the detail given below:
+                  {" "} as per the detail given below:
                 </p>
                 <div className={`${styles.material}`}>
                   <div className={`d-flex justify-content-start align-items-start`}>
                     <span className={styles.head}>1) Material :</span>{' '}
                     <span className={`${styles.bold} `}>
                       {_get(ReleaseOrderData, 'data[0].order.commodity', '')}
-                      {" "}at  {" "}
+                      {" "} at  {" "}
                      
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress',
                         ' ',
-                      )}{" "}
+                      )}
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',

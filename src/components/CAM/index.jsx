@@ -662,67 +662,66 @@ function Index({
   }, [filteredCreditRating]);
 
   let rotateImage = {
-    top: '39%',
+    top: '40%',
     left: '36%',
   };
-
   const getRotate = (rat = 1) => {
     let r = Math.floor(rat);
-    // let r = 10;
+    // let r = 1;
     if (r == 0) {
       setRating(`rotate(90deg)`);
-      rotateImage.top = '39%';
-      rotateImage.left = '36%';
+      rotateImage.top = '40%';
+      rotateImage.left = '35%';
     }
     if (r == 1) {
       setRating(`rotate(90deg)`);
-      rotateImage.top = '39%';
-      rotateImage.left = '36%';
+      rotateImage.top = '40%';
+      rotateImage.left = '35.5%';
     }
     if (r == 2) {
       setRating(`rotate(130deg)`);
-      rotateImage.top = '39%';
+      rotateImage.top = '39.5%';
       rotateImage.left = '36%';
     }
     if (r == 3) {
       setRating(`rotate(180deg)`);
-      rotateImage.top = '38%';
-      rotateImage.left = '36%';
+      rotateImage.top = '39.5%';
+      rotateImage.left = '36.5%';
     }
     if (r == 4) {
       setRating(`rotate(200deg)`);
-      rotateImage.top = '38%';
-      rotateImage.left = '36%';
+      rotateImage.top = '39%';
+      rotateImage.left = '37%';
     }
     if (r == 5) {
       setRating(`rotate(225deg)`);
-      rotateImage.top = '38%';
-      rotateImage.left = '36%';
+      rotateImage.top = '39.5%';
+      rotateImage.left = '37%';
     }
     if (r == 6) {
       setRating(`rotate(250deg)`);
-      rotateImage.top = '38%';
-      rotateImage.left = '37%';
+      rotateImage.top = '39.5%';
+      rotateImage.left = '37.5%';
     }
     if (r == 7) {
       setRating(`rotate(276deg)`);
-      rotateImage.top = '38%';
-      rotateImage.left = '37%';
+      rotateImage.top = '40%';
+      rotateImage.left = '37.5%';
     }
     if (r == 8) {
       setRating(`rotate(310deg)`);
-      rotateImage.top = '38%';
-      rotateImage.left = '37%';
+      rotateImage.top = '40.5%';
+      rotateImage.left = '37.5%';
     }
     if (r == 9) {
-      setRating(`rotate(330deg)`);
-      rotateImage.top = '39%';
-      rotateImage.left = '37%';
+      setRating(`rotate(340deg)`);
+      rotateImage.top = '40.5%';
+      rotateImage.left = '36.5%';
     }
     if (r == 10) {
-      setRating(`rotate(2deg)`);
-      rotateImage.top = '39%';
-      rotateImage.left = '37%';
+      setRating(`rotate(10deg)`);
+      rotateImage.top = '40.5%';
+      rotateImage.left = '36.5%';
     }
   };
 
@@ -4074,7 +4073,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImag
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
-                      style={{ transform: `${rating}` }}
+                      style={{ transform: `${rating}`, top:`${rotateImage.top}`, left:`${rotateImage.left}`}}
                     ></img>
                     <div className={`${styles.hideBackground}`}></div>
                     <div
