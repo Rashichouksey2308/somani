@@ -17,7 +17,7 @@ import { previewDocument } from '../../redux/ViewDoc/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
 // import { set } from 'lodash'
 import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/action';
-import { returnDocFormat } from '@/utils/helpers/global';
+import { returnDocFormat, returnReadableNumber } from '@/utils/helpers/global';
 
 
 export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
@@ -996,7 +996,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 ? val?.boeDetails?.invoiceValue
                                 : val?.boeDetails?.invoiceValue == 0
                                 ? ''
-                                : val?.boeDetails?.currency + ' ' + Number(val?.boeDetails?.invoiceValue)?.toLocaleString('en-IN')
+                                : val?.boeDetails?.currency + ' ' + returnReadableNumber(val?.boeDetails?.invoiceValue,val?.boeDetails?.currency === 'INR' ? 'en-In': 'en-EN')
                             }
                             onWheel={(event) => event.currentTarget.blur()}
                             // value={addPrefixOrSuffix(
