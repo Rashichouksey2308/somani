@@ -241,7 +241,7 @@ const Index = () => {
 
     }
   };
- console.log(insuranceType,"activeInsurance")
+ 
   return (
     <div className={`${styles.card} p-0 vessel_card datatable bg-transparent card border-0 container-fluid`}>
       <div className={`${styles.accordion_body} bg-transparent`}>
@@ -430,7 +430,7 @@ const Index = () => {
                               ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee Bank
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                             </div>
                           </Col>
@@ -582,7 +582,7 @@ const Index = () => {
                               ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee Bank
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                             </div>
                           </Col>

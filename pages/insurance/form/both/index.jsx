@@ -310,16 +310,16 @@ const Index = () => {
           return false;
         }
       }
-           if (
-         marineData.lossPayee == '' ||  marineData.lossPayee == undefined || 
-         marineData.lossPayee == null
-      ) {
-        toastMessage = 'PLEASE ADD  marine loss Payee';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
+      //      if (
+      //    marineData.lossPayee == '' ||  marineData.lossPayee == undefined || 
+      //    marineData.lossPayee == null
+      // ) {
+      //   toastMessage = 'PLEASE ADD  marine loss Payee';
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     return false;
+      //   }
+      // }
   }
   const storageValidation=()=>{
       
@@ -395,16 +395,16 @@ const Index = () => {
           return false;
         }
       }
-           if (
-         storageData.lossPayee == '' ||  storageData.lossPayee == undefined || 
-         storageData.lossPayee == null
-      ) {
-        toastMessage = 'PLEASE ADD storage loss Payee';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
+      //      if (
+      //    storageData.lossPayee == '' ||  storageData.lossPayee == undefined || 
+      //    storageData.lossPayee == null
+      // ) {
+      //   toastMessage = 'PLEASE ADD storage loss Payee';
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     return false;
+      //   }
+      // }
   }
   const validate = () => {
     let toastMessage = '';
@@ -940,7 +940,7 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                              
                             </div>
@@ -1353,7 +1353,7 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                               
                             </div>
@@ -1742,7 +1742,7 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                              
                             </div>
@@ -2013,7 +2013,7 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                               
                             </div>
