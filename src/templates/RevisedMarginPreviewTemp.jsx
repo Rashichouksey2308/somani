@@ -1,5 +1,7 @@
 import moment from 'moment';
 import { addPrefixOrSuffix } from 'utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
+
 
 export default function RevisedMarginPreviewTemp(marginData) {
  console.log( marginData.marginData?.order?.quantity," marginData.marginData?.order?.quantity")
@@ -365,7 +367,12 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate}
+                        {returnReadableNumber(
+                        marginData?.marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate,
+                        'en-In',
+                        2,2
+                      ) ?? 0}
+                        {/* {marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate} */}
                       </p>
                     </td>
                     <td align="left">
@@ -379,8 +386,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           padding: '11px 15px 20px 24px',
                           marginBottom: '0',
                         }}
-                      >
-                        {marginData.marginData?.conversionRate}
+                      >{returnReadableNumber(marginData?.marginData?.conversionRate, 'en-In', 2,2) ?? 0}
+                        {/* {marginData.marginData?.conversionRate} */}
                       </p>
                     </td>
                   </tr>
@@ -423,14 +430,15 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
+                        {marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ? returnReadableNumber(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, 'en-In', 2,2)+ ' %' : '' ?? 0}
+                        {/* {addPrefixOrSuffix(
                           marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }),
                           '%',
                           '',
-                        )}
+                        )} */}
                       </p>
                     </td>
                     <td align="left">
@@ -445,14 +453,15 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
+                        {marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ? returnReadableNumber(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, 'en-In', 2,2)+ ' %' : '' ?? 0}
+                        {/* {addPrefixOrSuffix(
                           marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage?.toLocaleString('en-In', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }),
                           '%',
                           '',
-                        )}
+                        )} */}
                       </p>
                     </td>
                   </tr>
@@ -495,14 +504,15 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
+                         {marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ? returnReadableNumber(marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, 'en-In', 2,2)+ ' %' : '' ?? 0}
+                        {/* {addPrefixOrSuffix(
                           marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString('en-In', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }),
                           '%',
                           '',
-                        )}
+                        )} */}
                       </p>
                     </td>
                     <td align="left">
@@ -517,14 +527,15 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
+                         {marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ? returnReadableNumber(marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, 'en-In', 2,2)+ ' %' : '' ?? 0}
+                        {/* {addPrefixOrSuffix(
                           marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString('en-In', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }),
                           '%',
                           '',
-                        )}
+                        )} */}
                       </p>
                     </td>
                   </tr>
@@ -567,7 +578,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
+                        {marginData.marginData?.order?.tolerance ? returnReadableNumber( marginData.marginData?.order?.tolerance, 'en-In', 2,2)+ ' %' : '' ?? 0}
+                        {/* {addPrefixOrSuffix(
                           marginData.marginData?.order?.tolerance
                             ? Number(marginData.marginData?.order?.tolerance)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
@@ -576,7 +588,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                             : 0,
                           '%',
                           '',
-                        )}
+                        )} */}
                       </p>
                     </td>
                     <td align="left">
@@ -591,7 +603,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
+                        {marginData.marginData?.order?.tolerance ? returnReadableNumber( marginData.marginData?.order?.tolerance, 'en-In', 2,2)+ ' %' : '' ?? 0}
+                        {/* {addPrefixOrSuffix(
                           marginData.marginData?.order?.tolerance
                             ? Number(marginData.marginData?.order?.tolerance)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
@@ -600,7 +613,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                             : 0,
                           '%',
                           '',
-                        )}
+                        )} */}
                       </p>
                     </td>
                   </tr>
@@ -643,7 +656,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
+                        {marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney ? returnReadableNumber( marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney, 'en-In', 2,2)+ ' %' : '' ?? 0}
+                        {/* {addPrefixOrSuffix(
                           marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
                             ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -652,7 +666,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                             : 0,
                           '%',
                           '',
-                        )}
+                        )} */}
                       </p>
                     </td>
                     <td align="left">
@@ -667,7 +681,8 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
+                         {marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney ? returnReadableNumber( marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney, 'en-In', 2,2)+ ' %' : '' ?? 0}
+                        {/* {addPrefixOrSuffix(
                           marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
                             ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
@@ -676,7 +691,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                             : 0,
                           '%',
                           '',
-                        )}
+                        )} */}
                       </p>
                     </td>
                   </tr>
