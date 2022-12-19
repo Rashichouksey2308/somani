@@ -2151,11 +2151,13 @@ export default function Index({ addButton, setComponentId, componentId, ports })
            <div >
             <b>Comments</b>
             <br/>
+            <ul>
           {_get(allInspection, 'data[0].order.generic.productSpecifications.comments', []).map((val,index)=>{
             return <>
-            <span>{val}<br></br></span>
+            <li><span>{val}<br></br></span></li>
             </>
           })}
+          </ul>
           </div>
         </Modal.Body>
       </Modal>
