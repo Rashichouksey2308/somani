@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 function Index({
   vesselData,
@@ -228,7 +229,7 @@ function Index({
                             value={
                               orderValueinFocus
                                 ? val.orderValue
-                                : Number(val.orderValue)?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                                : returnReadableNumber(val.orderValue,currency === 'INR' ? 'en-In': 'en-EN')
                             }
                             onChange={(e) => OnVesselBasicFieldsChangeHandler(e, index)}
                           />
