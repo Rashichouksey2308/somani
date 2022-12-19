@@ -1361,9 +1361,9 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                       ))}
                       <tr colSpan={3}>
                         <td>
+                          {/* <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                           <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> */}
                         </td>
                       </tr>
                     {/* <tr>

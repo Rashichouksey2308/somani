@@ -70,8 +70,8 @@ export default function QuadripartiteAgreement(data) {
             {' '}
             The Goods shall be stored at the Plot allotted to&nbsp;
             {data.shortbuyer} by the Discharge Port authorities and shall be kept under the control and custody
-            of CHA on behalf of &nbsp;
-            {data.shortbuyer}. All dispatches from the plot shall be done by CHA solely on the basis of Written
+            of CHA/Stevedore on behalf of &nbsp;
+            {data.shortbuyer}. All dispatches from the plot shall be done by CHA/Stevedore solely on the basis of Written
             Delivery Orders issued by {data.shortbuyer}.{' '}
           </p>
         </li>
@@ -413,7 +413,7 @@ export default function QuadripartiteAgreement(data) {
             Quantity
           </Col>
           <Col md={7} className={styles.right}>
-            {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} {data?.unitOfQuantity?.toUpperCase()}
+            {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}  {data?.unitOfQuantity?.toUpperCase()}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>

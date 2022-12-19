@@ -235,8 +235,8 @@ export default function QuadripartiteAgreementPreview(data) {
                           paddingBottom:'16px'
                         }}
                       >
-                        <span style={{display:'inline-block', marginLeft:'-18px'}}>1. &nbsp; </span>The Goods shall be stored at the Plot allotted to&nbsp;{data.shortbuyer} by the Discharge Port authorities and shall be kept under the control and custody of CHA on behalf of&nbsp;
-                        {data.shortbuyer}. All dispatches from the plot shall be done by CHA solely on the basis of Written Delivery Orders issued by&nbsp;{data.shortbuyer}.
+                        <span style={{display:'inline-block', marginLeft:'-18px'}}>1. &nbsp; </span>The Goods shall be stored at the Plot allotted to&nbsp;{data.shortbuyer} by the Discharge Port authorities and shall be kept under the control and custody of CHA/Stevedore on behalf of&nbsp;
+                        {data.shortbuyer}. All dispatches from the plot shall be done by CHA/Stevedore solely on the basis of Written Delivery Orders issued by&nbsp;{data.shortbuyer}.
                       </span>
                     </li>
                     <li>
@@ -1265,7 +1265,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         >
                           {data.quan?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
-                          })}
+                          })} {' '}
                           {data?.unitOfQuantity?.toUpperCase()}
                         </span>
                       </td>
