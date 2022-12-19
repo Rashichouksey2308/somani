@@ -377,7 +377,7 @@ useEffect(() => {
                           </td>
                           <td className="term_para">
                             {lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />{' '}
-                            {lcModuleData?.lcApplication?.numberOfDays}{` ${lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : 'Days'}`}
+                            {lcModuleData?.lcApplication?.numberOfDays}{` ${lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? '' : 'Days'}`}
                           </td>
                         </tr>
                       ) : (

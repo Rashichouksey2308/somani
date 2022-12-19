@@ -774,7 +774,8 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             >
                               <span style={{color:'#111111', display:'table-cell', width:'66px'}}>42C</span>DRAFT AT
                               <br />
-                              {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : `NO. OF DAYS`}</span>
+                              {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : `NO. OF DAYS`}
+                              </span>
                           </span>
                         </td>
                         <td
@@ -794,8 +795,8 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               padding: '16px 15px 16px 24px',
                             }}
                           >
-                            {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />
-                            {lcModuleData?.lcApplication?.numberOfDays}{` ${lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : 'Days'}`}
+                            {lcModuleData?.lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />
+                            {lcModuleData?.lcModuleData?.lcApplication?.numberOfDays}{` ${lcModuleData?.lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? '' : 'Days'}`}
                           </span>
                         </td>
                       </tr>
