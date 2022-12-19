@@ -119,7 +119,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       paddingBottom:'20px'
                     }}
                   >
-                    <strong>Stevedore</strong>(s), as detailed in&nbsp; <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>Stevedore/CHA</strong>”, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the Third Part.
+                    <strong>Stevedore</strong>(s), as detailed in&nbsp; <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>CHA/Stevedore</strong>”, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the Third Part.
                   </span>
                 </td>
               </tr>
@@ -260,7 +260,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           paddingBottom:'16px'
                         }}
                       >
-                        The Scope of work of CHA shall include but not be limited to:
+                        The Scope of work of CHA/Stevedore shall include but not be limited to:
                       </span>
                       <span
                         style={{

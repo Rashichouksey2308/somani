@@ -1057,7 +1057,7 @@ export default function AssociateshipAgreementPreview(data) {
                         }}
                       >
                         <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block'}}>
-                          {data.supplier}
+                          {data.supplier},{" "}
                           {data.supplierAddress?.fullAddress},{data.supplierAddress?.city}{' '}
                           {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
                         </span>

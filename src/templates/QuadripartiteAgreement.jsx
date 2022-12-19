@@ -38,7 +38,7 @@ export default function QuadripartiteAgreement(data) {
 
       <p className="text_sales">
         <strong>Stevedore</strong>(s), as detailed in&nbsp;
-        <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>Stevedore/CHA</strong>”, which
+        <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>CHA/Stevedore</strong>”, which
         expression shall, where subject and content allow or admit, be deemed to include its successors, legal
         representatives and assigns) of the Third Part.
       </p>
@@ -77,7 +77,7 @@ export default function QuadripartiteAgreement(data) {
         </li>
         <li>
           <p className=" text_sales mb-0"> Scope of Work of CHA: </p>
-          <p className=" text_sales"> The Scope of work of CHA shall include but not be limited to: </p>
+          <p className=" text_sales"> The Scope of work of CHA/Stevedore shall include but not be limited to: </p>
           <p className=" text_sales mb-0">
             a) arranging plot allotment in the name of {data.shortbuyer} from the discharge Port authorities to
             store {data.shortbuyer}'s cargo,
