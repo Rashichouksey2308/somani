@@ -359,25 +359,19 @@ export default function Index() {
                       <div className="row">
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
-                            <select
+                            <input
                               name="bankName"
                               onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                               value={item.bankName}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option selected>Select an option</option>
-                              <option value="Indo German">Indo German</option>
-                              <option value="Emergent Solutions">Emergent Solutions</option>
-                            </select>
+                            
+                            </input>
                             <label className={`${styles.label_heading} label_heading`}>
                               Bank Name
                               <strong className="text-danger">*</strong>
                             </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                           
                           </div>
                         </div>
                         <div className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}>

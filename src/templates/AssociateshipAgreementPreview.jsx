@@ -55,7 +55,7 @@ export default function AssociateshipAgreementPreview(data) {
               <tr>
                 <td align="justify" style={{paddingBottom:'16px'}}>
                   <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'inline-block'}}>
-                    {data.buyer},  Indian Companies Act, 1956, having its Registered
+                    {data.buyer}, (CIN : {data.cin}) a company incorporated under the   Indian Companies Act, 1956, having its Registered
                     Office at {data.buyerAddress?.fullAddress}, 
                     {/* {data.buyerAddress?.city} {data.buyerAddress?.country},{' '}
                     {data.buyerAddress?.pinCode},  */}
