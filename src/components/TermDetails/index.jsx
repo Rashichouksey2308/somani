@@ -2,6 +2,7 @@
 import React, { useState,useEffect } from 'react';
 import styles from './index.module.scss';
 import { addPrefixOrSuffix, addPrefixSymbol } from '../../utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 const Index = ({
   termsheet,
@@ -211,7 +212,7 @@ const Index = ({
                 value={
                   isFieldInFocus.quantity
                     ? termsheetDetails?.commodityDetails?.quantity
-                    : Number(termsheetDetails?.commodityDetails?.quantity).toLocaleString('en-In') +
+                    : returnReadableNumber(termsheetDetails?.commodityDetails?.quantity,'en-In',2) +
                       ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
                 }
                 onChange={(e) => {
@@ -243,10 +244,7 @@ const Index = ({
                   isFieldInFocus.unitPrice
                     ? termsheetDetails?.commodityDetails?.perUnitPrice
                     : ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` +
-                      Number(termsheetDetails?.commodityDetails?.perUnitPrice)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      })
+                      returnReadableNumber(termsheetDetails?.commodityDetails?.perUnitPrice,termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase() === 'INR' ? 'en-In': 'en-EN',2,2)
                 }
                 onChange={onChangeCommodityDetails}
                 type="text"
@@ -272,11 +270,7 @@ const Index = ({
                     isFieldInFocus.tolerance
                       ? termsheetDetails?.commodityDetails?.tolerance
                       : '±' +
-                        Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }) +
-                        ` %`
+                        returnReadableNumber(termsheetDetails?.commodityDetails?.tolerance,'en-In',2,2) + ` %`
                   }
                   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
@@ -811,7 +805,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningCharges
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
-                    : Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In')
+                    : returnReadableNumber(termsheetDetails?.commercials?.lcOpeningChargesUnit,termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase() === 'INR' ? 'en-In': 'en-EN')
                 }
                 onChange={onChangeCommercialTerms}
                 required
@@ -846,7 +840,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage
                     ? termsheetDetails?.commercials?.lcOpeningChargesPercentage
-                    : Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage).toLocaleString('en-In') + ` %`
+                    : returnReadableNumber(termsheetDetails?.commercials?.lcOpeningChargesPercentage,'en-In') + ` %`
                 }
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}
