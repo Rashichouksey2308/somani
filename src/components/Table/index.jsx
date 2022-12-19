@@ -3,7 +3,7 @@ import { useTable, useSortBy } from 'react-table';
 import Image from 'next/image';
 import styles from './index.module.scss';
 
-function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimit, setPageLimit, tableHooks = () => { }, columns = [], data = [], handleSort = () => { }, sortByState = {}, serverSortEnabled = false }) {
+function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimit, setPageLimit, tableHooks = () => { }, columns = [], data = [], handleSort = () => { }, sortByState = {}, serverSortEnabled = false, totalCountEnable = false }) {
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
         columns,
         data,
@@ -12,6 +12,7 @@ function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimi
     return (
         <>
             {data?.length ? (<>
+                {console.log("TOTAL COUNT--", totalCount)}
                 <div className={`${styles.datatable} border datatable card`}>
                     {tableHeading && totalCount >= 0 && <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
                         <h3 className="heading_card">{tableHeading}</h3>
@@ -25,6 +26,7 @@ function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimi
                                         value={pageLimit}
                                     >
                                         <option value={10} >10</option>
+                                        <option value={15} >15</option>
                                         <option value={20}>20</option>
                                     </select>
                                     <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
@@ -116,7 +118,7 @@ function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimi
                         </div>
                     </div>
                 </div>
-                {totalCount && <div className={`${styles.total_count}`}>
+                {totalCountEnable && totalCount && <div className={`${styles.total_count}`}>
                     Total Count: <span>{totalCount}</span>
                 </div>}
             </>

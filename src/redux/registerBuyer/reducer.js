@@ -5,6 +5,8 @@ const initialState = {
   buyerList: null,
   gettingAllBuyerList: false,
   allBuyerList: [],
+  gettingUpdatedBuyerList: false,
+  updatedBuyerList: [],
   creatingBuyer: false,
   createdBuyerResponse: null,
   updatingBuyer: false,
@@ -66,6 +68,28 @@ function BuyerReducer(state = initialState, action) {
         gettingAllBuyerList: false,
         allBuyerList: [],
       };
+
+    case types.GET_ALL_UPDATED_BUYER:
+      return {
+        ...state,
+        gettingUpdatedBuyerList: true,
+        updatedBuyerList: [],
+      };
+
+    case types.GET_ALL_UPDATED_BUYER_SUCCESSFULL:
+      return {
+        ...state,
+        gettingUpdatedBuyerList: false,
+        updatedBuyerList: action.payload,
+      };
+
+    case types.GET_ALL_UPDATED_BUYER_FAILED:
+      return {
+        ...state,
+        gettingUpdatedBuyerList: false,
+        updatedBuyerList: [],
+      };
+
     case types.GET_ORDER_LEADS:
       return {
         ...state,

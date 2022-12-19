@@ -222,7 +222,6 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
 };
 
 export const FilterLeads = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -235,14 +234,8 @@ export const FilterLeads = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(filterLeadsSuccess(response.data));
-        dispatch(setNotLoading());
       } else {
         dispatch(filterLeadsFailed(response.data));
-        const toastMessage = 'Filter Leads request Failed';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
       }
     });
   } catch (error) {
@@ -251,12 +244,11 @@ export const FilterLeads = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
-    dispatch(setNotLoading());
   }
 };
 
 export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
- 
+
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');

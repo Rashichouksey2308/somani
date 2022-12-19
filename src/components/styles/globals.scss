@@ -715,8 +715,7 @@ body.light-mode .table_row_head {
   background: #fafafb;
 }
 
-body.dark-mode .table_row_head {
-}
+body.dark-mode .table_row_head {}
 
 body.light-mode .table_row .buyerName {
   color: #111111;
@@ -1020,8 +1019,7 @@ body.dark-mode .image_arrow {
   filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(352deg) brightness(103%) contrast(101%);
 }
 
-body.light-mode .image_arrow {
-}
+body.light-mode .image_arrow {}
 
 body.light-mode .accordion_DropDown {
   outline: none;
@@ -1345,14 +1343,12 @@ body.dark-mode .react_multi_email [data-tag] {
 
 .cursor-pointer {
   cursor: pointer;
-}.generic-table {
+}
+
+.generic-table {
   .datatable {
     margin-bottom: 0;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
   }
-}
-
-.cursor-pointer {
-  cursor: pointer;
 }

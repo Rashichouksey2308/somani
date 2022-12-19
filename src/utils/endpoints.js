@@ -25,6 +25,7 @@ export default {
   filter: '/lead/search-leads?',
   getPanGst: '/get-company',
   getOrderLeads: '/lead/getleads',
+  getUpdatedBuyers: '/lead/getleadsForFilter',
 
   // orders
   getBuyerOrder: '/lead/order-review',
@@ -159,4 +160,3 @@ export default {
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
 };
-  
