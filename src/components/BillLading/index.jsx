@@ -187,14 +187,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const onChangeBol = (e, index) => {
     const name = e.target.id;
     const value = e.target.value;
-    if (name === 'blQuantity') {
-      if (checkRemainingBalance() < value) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-      }
-    }
+    // if (name === 'blQuantity') {
+    //   if (checkRemainingBalance() < value) {
+    //     let toastMessage = `BL quantity cannot be greater than total order quantity`;
+    //     if (!toast.isActive(toastMessage.toUpperCase())) {
+    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //     }
+    //   }
+    // }
     setBolList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -268,7 +268,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const validation = () => {
     let isOk = true;
     let toastMessage = '';
-    if (!partShipmentAllowed) {
+    if (partShipmentAllowed == 'No') {
       if (checkRemainingBalance() !== 0) {
         handleErrorToast('Bl Quantity must be equal to Order Quantity');
         isOk = false;

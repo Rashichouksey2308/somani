@@ -171,6 +171,7 @@ export default {
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
+  zipCodeMaster: '/world-master/',
 
   //VENDOR API ROoutes
   getVendor: '/vendor',

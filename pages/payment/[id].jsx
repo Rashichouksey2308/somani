@@ -705,11 +705,13 @@ function Index() {
             />
             <h1 className={`${styles.title} heading`}>
               {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-              {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
+             <span>
+               {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').toUpperCase().slice(0, 8)}-${_get(
                 ReleaseOrderData,
                 'data[0].order.orderId',
                 '',
               ).slice(8)}`}
+             </span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
