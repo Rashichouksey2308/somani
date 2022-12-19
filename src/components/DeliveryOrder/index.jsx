@@ -140,7 +140,10 @@ export default function Index(props) {
                                   <option disabled  value="">Select an option</option>
                                   
                                   {_get(props, 'ReleaseOrder.data[0].releaseDetail', []).map((option, index) => (
-                                    <option value={option.orderNumber} key={index}>
+                                    <option value={option.orderNumber} key={index}
+                                    disabled=
+                                    {props.isDisabled(option.orderNumber)}
+                                    >
                                       {option.orderNumber}
                                     </option>
                                   ))}

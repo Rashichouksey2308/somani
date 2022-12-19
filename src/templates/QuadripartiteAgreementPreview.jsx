@@ -1265,8 +1265,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         >
                           {data.quan?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
-                          })} {' '}
-                          {data?.unitOfQuantity?.toUpperCase()}
+                          })} {data?.unitOfQuantity?.toUpperCase()}
                         </span>
                       </td>
                     </tr>

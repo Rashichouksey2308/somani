@@ -98,7 +98,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
               value={
                 isFieldInFocus.quantity
                   ? orderDetails?.quantity
-                  : Number(orderDetails?.quantity).toLocaleString('en-In') + ` ${orderDetails.unitOfQuantity}`
+                  : Number(orderDetails?.quantity).toLocaleString('en-In') +  ` ${orderDetails.unitOfQuantity}`
               }
               className={`${styles.input_field} input form-control`}
               required
