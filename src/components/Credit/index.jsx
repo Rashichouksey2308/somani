@@ -1124,6 +1124,7 @@ console.log(keyPersonData,"keyPersonData")
                     name="latestShipmentDate"
                     defaultDate={supplierCred?.latestShipmentDate ?? ''}
                     saveDate={saveSupplierDate}
+                    startFrom={'noLimit'}
                     labelName="Latest Shipment Date"
                   />
                   <img
