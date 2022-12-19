@@ -13,25 +13,18 @@ export default function TPASeller(data) {
           </strong>
         </p>
         <p className="text_sales">
-          This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by
-          and between:
+          This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:
         </p>
         <p className="text_sales">
-          <strong>{data.sellerSignature}</strong>(s), a company organized and existing in accordance with Law of Switzerland and having address at {""}{' '}
-                    {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
-                    {data.sellerAddress?.pinCode}{""} through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
+          <strong>{data.sellerSignature}</strong>(s), a company organized and existing in accordance with Law of Switzerland and having address at {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country}, {data.sellerAddress?.pinCode} through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
         </p>
         <p className=" text-left text_sales">And</p>
         <p className="text_sales">
-          <strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “
-          <strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to
-          include its legal heirs, successors and permitted assigns) of the Second Part.
+          <strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Second Part.
         </p>
         <p className=" text-left text_sales">And</p>
         <p className="text_sales">
-          <strong>End Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as
-          the “<strong>End Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be
-          deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
+          <strong>End Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>End Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
         </p>
         <p className="text_sales">
           The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be referred to individually as "Party" and collectively as the "Parties".
@@ -63,7 +56,6 @@ export default function TPASeller(data) {
           </ol>
         </p>
         <p className="text-center text_sales">
-          {' '}
           <strong>Schedule I</strong>
         </p>
         <div className={`${styles.inputsContainer} border_black`}>
@@ -96,11 +88,7 @@ export default function TPASeller(data) {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.supplierAddress?.fullAddress},{" "}
-              {data.supplierAddress?.city}{" "}
-              {data.supplierAddress?.country},{" "}
-
-              {data.supplierAddress?.pinCode}
+              {data.supplierAddress?.fullAddress}, {data.supplierAddress?.city}, {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -115,8 +103,7 @@ export default function TPASeller(data) {
                       <li>
                         <p className='mb-0'>
                           Name - {val.name}
-                        </p>
-                        <p className='mb-0'>
+                          <br/>
                           Designation - {val.designation}
                         </p>
                       </li>
@@ -151,8 +138,7 @@ export default function TPASeller(data) {
               Address of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.associateBuyerAddress}
-              
+              {data.associateBuyerAddress}              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -167,8 +153,7 @@ export default function TPASeller(data) {
                     <li>
                       <p className='mb-0'>
                         Name - {val.name}
-                      </p>
-                      <p className='mb-0'>
+                        <br/>
                         Designation - {val.designation}
                       </p>
                     </li>
