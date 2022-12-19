@@ -157,7 +157,7 @@ export const GetCommodityPickupRecords = (payload) => async (dispatch, getState,
             if (response.data.code === 200) {
                 let data = {
                     data: response?.data?.data,
-                    totalCount: response?.data?.data?.length,
+                    totalCount: response?.data?.total,
                 }
                 dispatch(getCommodityPickupRecordsSuccess(data));
                 dispatch(setNotLoading());
