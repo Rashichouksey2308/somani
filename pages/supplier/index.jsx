@@ -21,7 +21,7 @@ import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src
 import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
-import { getPincodes, getCountries } from 'redux/masters/action';
+import { getZipCode, getCountries } from 'redux/masters/action';
 import { isPossiblePhoneNumber, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js';
 import { countryCodes } from '@/utils/jsons/countryCodes.json';
 
@@ -65,7 +65,7 @@ function Index() {
   ];
 
   const gettingPins = (value) => {
-    dispatch(getPincodes(value));
+    dispatch(getZipCode(`?Zip_Code=${value}`));
   };
 
   let id = sessionStorage.getItem('supplier');
