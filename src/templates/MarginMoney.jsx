@@ -369,10 +369,10 @@ export default function MarginMoney(marginData) {
                         }}
                       >
                         {marginData?.marginData?.order?.termsheet
-                                    ? marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString(
-                                        'en-In',
-                                      ) + ' %'
-                                    : ''}
+                            ? marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString(
+                                'en-In',
+                              ) + ' %'
+                            : ''}
                       </p>
                     </td>
                   </tr>
@@ -764,7 +764,12 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        INR {marginData.marginData?.calculation?.tradeMargin?.toLocaleString('en-In') ?? 0}
+                        INR 
+                         {marginData.marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }) ?? 0}
+                        
                       </p>
                     </td>
                   </tr>

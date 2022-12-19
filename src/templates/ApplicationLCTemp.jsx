@@ -1361,8 +1361,9 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                       ))}
                       <tr colSpan={3}>
                         <td>
+                          <br/><br/><br/>
+                          {/* <br/><br/><br/><br/><br/><br/> */}
                           {/* <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> */}
                         </td>
                       </tr>
@@ -1908,6 +1909,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           style={{
                             borderRight: '2px solid rgba(202, 214, 230, 0.3)',
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                            padding:"12px 0"
                           }}
                         >
                           <span
@@ -2037,7 +2039,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               <span style={{color:'#111111', display:'table-cell', width:'66px'}}>72</span>SENDER TO RECEIVER INFORMATION</span>
                           </span>
                         </td>
-                        <td align="left">
+                        <td 
+                        align="left"
+                        style={{padding:"16px"}}
+                        >
                           <span
                             style={{
                               fontSize: '20px',
@@ -2046,7 +2051,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               fontWeight: '500',
                               display: 'block',
                               textTransform: 'uppercase',
-                              padding: '16px 15px 16px 24px',
+                              // padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}

@@ -5,6 +5,7 @@ import SaveBar from '../SaveBar';
 import _get from 'lodash/get';
 import Router from 'next/router';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 export default function Index(props) {
   const [show, setShow] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
@@ -140,7 +141,10 @@ export default function Index(props) {
                                   <option disabled  value="">Select an option</option>
                                   
                                   {_get(props, 'ReleaseOrder.data[0].releaseDetail', []).map((option, index) => (
-                                    <option value={option.orderNumber} key={index}>
+                                    <option value={option.orderNumber} key={index}
+                                    disabled=
+                                    {props.isDisabled(option.orderNumber)}
+                                    >
                                       {option.orderNumber}
                                     </option>
                                   ))}
@@ -201,7 +205,12 @@ export default function Index(props) {
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order Date</div>
-                              <span className={styles.value}>{val.deliveryOrderDate}</span>
+                              <span className={styles.value}>{
+                                val.deliveryOrderDate?
+                                  moment(val.deliveryOrderDate).format("DD-MM-YYYY")
+                                :""
+                            
+                             }</span>
                             </div>
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                               <div className="row" style={{ marginTop: '-40px' }}>

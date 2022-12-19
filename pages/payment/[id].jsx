@@ -406,14 +406,30 @@ function Index() {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
-        console.log(val.deliveryOrderDate,"cvalala")
-        if(type=="Save"){
-        val.deliveryOrderDate=moment(new Date()).format("DD-MM-YYYY")
-        if(val.status !== "DO Canceled"){
-           val.status="DO Issued"
-        }
-        }
+        console.log(val,"cvalala")
        
+        let number=0
+        for (let i = 0; i < releaseDetail.length; i++) {
+        if(releaseDetail[i].orderNumber==val.orderNumber){
+        number=Number(releaseDetail[i].netQuantityReleased);
+        }
+
+        }
+        console.log(val.Quantity,number,"val.Quantity>Number")
+        if(Number(val.Quantity)>number){
+        let  toastMessage = `Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order`;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+
+        }
+        return
+        }
+        if(type=="Save"){
+        val.deliveryOrderDate= new Date() 
+        if(val.status !== "DO Canceled"){
+        val.status="DO Issued"
+        }
+        }
         val.isDelete = value;
       }
     });
@@ -505,14 +521,16 @@ function Index() {
             filteredDOArray.forEach((item, index) => {
               tempLimit = tempLimit - Number(item.Quantity);
             });
-           let totalDONumber=0
+             let totalDONumber=0
+              let temparr = [...deliveryOrder];
               let filteredArray2 = temparr.filter((item, index2) => {
               if(item.orderNumber == val.orderNumber){
-                totalDONumber=totalDONumber+item.Quantity
+                
+                totalDONumber=totalDONumber + Number(item.Quantity) 
               }
             });
               const filterForReleaseOrder = releaseDetail.filter((item) => {
-              return item.orderNumber == filteredArray[0].orderNumber;
+              return item.orderNumber == val.orderNumber;
               });
               console.log(filterForReleaseOrder,totalDONumber,"totlNumber")
             setDoLimit(tempLimit);
@@ -649,7 +667,30 @@ function Index() {
   useEffect(() => {
     dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
   }, []);
-
+  const isDisabled=(orderNumber)=>{
+    let release=0
+    let delivery=0
+   releaseDetail.forEach((item, index) => {
+   
+    if(item.orderNumber==orderNumber){
+     release =item.netQuantityReleased
+    }
+    
+  });
+   deliveryOrder.forEach((item, index) => {
+     console.log(item,"itemitem")
+    if(item.orderNumber==orderNumber){
+     delivery = delivery+Number(item.Quantity)
+    }
+    
+  });
+  console.log(delivery,release,"delivery>=release")
+    if(delivery>=release){
+      return true
+    }else{
+      return false
+    }
+  }
   return (
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
@@ -760,6 +801,7 @@ function Index() {
                       deliverChange={deliverChange}
                       deleteNewDelivery={deleteNewDelivery}
                       cancelDo={cancelDo}
+                      isDisabled={isDisabled}
                     />
                   </div>
                 </div>
