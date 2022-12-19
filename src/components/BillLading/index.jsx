@@ -83,6 +83,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] = useState(null);
 
   const [lastDate, setlastDate] = useState(new Date());
+  console.log(bolList,'bolList')
 
   useEffect(() => {
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
@@ -375,7 +376,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined) {
+         if (bolList[i]?.blSurrenderDate  && (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined)) {
           toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -468,7 +469,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined) {
+        if (bolList[i]?.blSurrenderDate  && (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined)) {
           toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1136,7 +1137,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             <DatePicker
-                              disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
+                              // disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                               selected={bol?.blSurrenderDate == null ? '' : moment(bol?.blSurrenderDate).toDate()}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -1193,7 +1194,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             <tr className="table_row">
                               <td className={styles.doc_name}>
                                 BL Acknowledgment Copy
-                                <strong className="text-danger ml-0">*</strong>
+                               {bol?.blSurrenderDate !== null && <strong className="text-danger ml-0">*</strong>}
                               </td>
                               <td>
                                 {bolList[index]?.blSurrenderDoc
@@ -1224,7 +1225,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
-                                      onClick={(e) => !bol.isSubmitted && handleCloseDoc('blSurrenderDoc', index)}
+                                      onClick={(e) =>  handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
