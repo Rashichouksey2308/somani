@@ -31,19 +31,20 @@ function Index() {
             maximumFractionDigits: 2,
           }),
           false,
-          buyerList?.order?.unitOfQuantity.toUpperCase(),
+          `${' '}${buyerList?.order?.unitOfQuantity.toUpperCase()}`,
         )}
         {fields(
           'Order value (in INR)',
           CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString('en-IN', {
             maximumFractionDigits: 2,
-          }),
+          },),
           false,
-          buyerList?.order?.unitOfValue == 'Crores'
+          
+        ` ${' '} ${  buyerList?.order?.unitOfValue == 'Crores'
             ? 'Cr'
             : buyerList?.order?.unitOfValue == 'Million'
             ? 'Mn'
-            : buyerList?.order?.unitOfValue,
+            : buyerList?.order?.unitOfValue}`
         )}
         {fields('Supplier Name', buyerList?.order?.supplierName, false)}
         {fields('Country Of Origin', buyerList?.order?.countryOfOrigin, false)}
