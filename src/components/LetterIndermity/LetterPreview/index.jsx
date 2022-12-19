@@ -207,7 +207,7 @@ function Index() {
                                           <span>
                                             {' '}
                                             {val.blnumber} Dated {val.date},{' '}
-                                            {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{' '}
+                                            {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{', INDIA '}
                                           </span>
                                         </li>
                                         </>
@@ -739,7 +739,7 @@ function Index() {
                         className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
                       >
                         {val.blnumber} Dated {val.date}, ISSUE AT{' '}
-                        {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}
+                        {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}, INDIA
                       </div>
                     </li>
                   </>
