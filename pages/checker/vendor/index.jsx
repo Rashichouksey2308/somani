@@ -86,7 +86,6 @@ function Index() {
 
   const { vendorPickupRecords } = useSelector((state) => state.checker);
 
-  console.log("vendorPickupRecords in component: ", vendorPickupRecords);
   const handleRoute = (vendor) => {
     sessionStorage.setItem('checkerVendorId', vendor?._id);
     sessionStorage.setItem('checkerVendorName', vendor?.company?.companyName);
