@@ -70,8 +70,8 @@ export default function QuadripartiteAgreement(data) {
             {' '}
             The Goods shall be stored at the Plot allotted to&nbsp;
             {data.shortbuyer} by the Discharge Port authorities and shall be kept under the control and custody
-            of CHA on behalf of &nbsp;
-            {data.shortbuyer}. All dispatches from the plot shall be done by CHA solely on the basis of Written
+            of CHA/Stevedore on behalf of &nbsp;
+            {data.shortbuyer}. All dispatches from the plot shall be done by CHA/Stevedore solely on the basis of Written
             Delivery Orders issued by {data.shortbuyer}.{' '}
           </p>
         </li>
