@@ -56,7 +56,7 @@ export default function TPASellerPreview(data) {
                     paddingBottom: '16px'
                   }}
                 >
-                  <strong style={{ textTransform: 'uppercase' }}>{data.sellerSignature}</strong>, a company organized and existing in accordance with Law of Switzerland and having address at <strong>{data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country}, {data.sellerAddress?.pinCode}</strong> through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
+                  <strong style={{textTransform: 'capitalize' }}>{data.sellerSignature}</strong>(s), a company organized and existing in accordance with Law of Switzerland and having address at <strong>{data.sellerAddress?.fullAddress}, {data.sellerAddress?.city}, {data.sellerAddress?.country}, {data.sellerAddress?.pinCode}</strong> through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
                 </span>
               </td>
             </tr>
@@ -384,7 +384,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Date of execution
@@ -402,7 +402,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         {data.dateOfExecution}
@@ -421,7 +421,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Place of execution
@@ -438,10 +438,9 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
-                        {' '}
                         {data.placeOfExecution}
                       </span>
                     </td>
@@ -458,7 +457,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Name of Supplier
@@ -475,10 +474,9 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
-                        {' '}
                         {data?.supplier}
                       </span>
                     </td>
@@ -495,7 +493,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Address of Supplier
@@ -512,11 +510,10 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
-                        {data.supplierAddress?.fullAddress},{data.supplierAddress?.city}{' '}
-                        {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
+                        {data.supplierAddress?.fullAddress}, {data.supplierAddress?.city}, {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
                       </span>
                     </td>
                   </tr>
@@ -532,7 +529,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Authorized signatory of Supplier
@@ -549,7 +546,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', marginBottom:'0'}}>
@@ -583,7 +580,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Email ID of Supplier
@@ -600,7 +597,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
@@ -630,7 +627,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Name of End buyer
@@ -647,7 +644,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         {data.associateBuyer}
@@ -666,7 +663,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Address of End Buyer
@@ -683,7 +680,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         {data.associateBuyerAddress}
@@ -702,7 +699,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Authorized signatory of End Buyer
@@ -719,7 +716,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', marginBottom:'0'}}>
@@ -754,7 +751,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Email ID of End Buyer
@@ -771,7 +768,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         <ol style={{fontSize: '12px', lineHeight: '18px', color: '#000000', paddingLeft:'10px', margin:'0'}}>
@@ -801,7 +798,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         Details of Goods as per Sales Contract
@@ -818,7 +815,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         <>
@@ -871,7 +868,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block',
+                          display: 'block',
                           paddingBottom: '5px'
                         }}
                       >
@@ -884,7 +881,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         {data?.buyerAuthorized?.length > 0 &&
@@ -923,7 +920,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block',
+                          display: 'block',
                           paddingBottom: '5px'
                         }}
                       >
@@ -936,7 +933,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block'
+                          display: 'block'
                         }}
                       >
                         {data?.supplierAuthorized?.length > 0 &&
@@ -975,7 +972,7 @@ export default function TPASellerPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display: 'inline-block',
+                          display: 'block',
                           paddingBottom: '5px'
                         }}
                       >
@@ -988,7 +985,7 @@ export default function TPASellerPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display: 'inline-block'
+                            display: 'block'
                           }}
                         >
                         {data?.associateBuyerAuthorized?.length > 0 &&
