@@ -1011,7 +1011,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
               Supplier details
             </Col>
             <Col md={7} className={styles.right}>
-              {data.supplier}
+              {data.supplier},{" "}
               {data.supplierAddress?.fullAddress},{data.supplierAddress?.city} {data.supplierAddress?.country},{' '}
               {data.supplierAddress?.pinCode}
             </Col>

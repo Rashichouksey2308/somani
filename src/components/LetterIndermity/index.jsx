@@ -237,15 +237,18 @@ function Index({ TransitDetails }) {
                     className="input"
                     value={billsofLanding[index1].blnumber}
                   >
-                    {bolArray.map((element, index2) => (
-                      <option
-                        disabled={isOptionAvailable(`BL-${index2 + 1}`, index2)}
-                        key={index2}
-                        value={`BL-${index2 + 1}`}
-                      >
-                        BL-{index2 + 1}
-                      </option>
-                    ))}
+                    {bolArray.map((element, index2) => {
+                      if(!element.blSurrenderDate){
+                        return(
+                          <option
+                            disabled={isOptionAvailable(`BL-${index2 + 1}`, index2)}
+                            key={index2}
+                            value={`BL-${index2 + 1}`}
+                          >
+                            BL-{index2 + 1}
+                          </option>
+                        )
+                      }})}
                   </select>
                   Dated {billsofLanding[index1].date}, ISSUE AT{' '}
                   {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{' '}
