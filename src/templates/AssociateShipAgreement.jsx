@@ -21,87 +21,56 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
           </div>
         ) : null}
         <p className="text-center text_sales">
-          {' '}
           <strong>ASSOCIATESHIP AGREEMENT</strong>
         </p>
         <p className="text_sales">
-          This Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in{' '}
-          <strong>Schedule I</strong> hereto by and between:
+          This Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:
         </p>
-        <p className="text_sales"> {' '} {data.buyer}, (CIN : {data.cin}) a company incorporated under the Indian Companies Act, 1956, having its Registered Office at{' '}
-        {data.buyerAddress?.fullAddress}
-        {/* {data.buyerAddress?.city} 
-        {data.buyerAddress?.country},{' '} */}
-          {/* {data.buyerAddress?.pinCode} */}, through its Authorised Signatory (hereinafter called{' '}
-          <strong>{data.shortbuyer}</strong> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the
-          context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of
-          One Part.
+        <p className="text_sales"><span className='text-capitalize'>{data.buyer}</span>, (CIN : {data.cin}) a company incorporated under the Indian Companies Act, 1956, having its Registered Office at {data.buyerAddress?.fullAddress} {/* {data.buyerAddress?.city} {data.buyerAddress?.country},*/} {/* {data.buyerAddress?.pinCode} */}, through its Authorised Signatory (hereinafter called <strong>{data.shortbuyer}</strong> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.
         </p>
-        <p className=" text-center text_sales">AND</p>
+        <p className="text-center text_sales">AND</p>
         <p className="text_sales">
-          Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "
-          <strong>Associate Buyer</strong>", which expression shall, unless it be repugnant to the context or meaning
-          thereof, be deemed to mean and include its successors and permitted assigns) of the other Part.
+          Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "<strong>Associate Buyer</strong>", which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns) of the other Part.
         </p>
         <p className="text_sales">
-          <b>Seller </b> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and
-          individually as the “Party”.
+          <b>Seller </b> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and individually as the “Party”.
         </p>
-        <p className="  text_sales">
+        <p className="text_sales">
           <strong>Recitals</strong>
         </p>
         <p className="text_sales">
-          WHEREAS Associate Buyer has requested Seller to arrange import purchase of Goods (Details of the Goods
-          including quantity, quality, Inco terms is annexed in Schedule I) from the Supplier and sale of the same to
-          the Associate Buyer on stock &amp; sale basis.{' '}
+          WHEREAS Associate Buyer has requested Seller to arrange import purchase of Goods (Details of the Goods including quantity, quality, Inco terms is annexed in Schedule I) from the Supplier and sale of the same to the Associate Buyer on stock &amp; sale basis.
         </p>
         <p className="text_sales">
-          Relying upon the representations and information provided by the Associate Buyer in the Request and in the
-          Agreement, <b>Seller </b> has agreed to arrange import/ purchase of Goods from the Supplier (Details of Supplier
-          in Schedule-I) and to sell the same to the Associate Buyer on stock &amp; sale basis.
+          Relying upon the representations and information provided by the Associate Buyer in the Request and in the Agreement, <b>Seller </b> has agreed to arrange import/ purchase of Goods from the Supplier (Details of Supplier in Schedule-I) and to sell the same to the Associate Buyer on stock &amp; sale basis.
         </p>
         <p className="text_sales">
-          Whereas, Supplier shall sell the Goods to <b>{data.seller}</b>, Zug (hereinafter referred to as <b>{data.shortseller}</b>)
-          for onward sale to <b>Seller </b> and <b>Seller </b> shall, in terms of this Agreement, sell the same to the
-          Associate Buyer.
+          Whereas, Supplier shall sell the Goods to <b>{data.seller}</b>, Zug (hereinafter referred to as <b>{data.shortseller}</b>) for onward sale to <b>Seller </b> and <b>Seller </b> shall, in terms of this Agreement, sell the same to the Associate Buyer.
         </p>
         <p className="text_sales">
-          Whereas <b>Seller </b> shall import Goods for and on behalf of the Associate Buyer, at the sole risk and
-          responsibility of the Associate Buyer and shall store the same under the custody of the Customs House Agent/
-          Collateral Manager appointed on mutually agreed terms.
+          Whereas <b>Seller </b> shall import Goods for and on behalf of the Associate Buyer, at the sole risk and responsibility of the Associate Buyer and shall store the same under the custody of the Customs House Agent/ Collateral Manager appointed on mutually agreed terms.
         </p>
         <p className="text_sales">
-          WHEREAS the Associate Buyer has also submitted undertakings for (a) Price Justification along with Quality and
-          Quantity of the material and (b) Postdated Cheques to pay the balance/ outstanding amount to <b>Seller </b> at
-          the time of making the above request for import of the Goods and these undertaking(s) form an integral part of
-          this Agreement.
+          WHEREAS the Associate Buyer has also submitted undertakings for (a) Price Justification along with Quality and Quantity of the material and (b) Postdated Cheques to pay the balance/ outstanding amount to <b>Seller </b> at the time of making the above request for import of the Goods and these undertaking(s) form an integral part of this Agreement.
         </p>
         <p>
-          <strong>Now Therefore</strong>, in consideration of the promises and of the mutual agreements, covenants,
-          representations and warranties hereinafter contained, and for other good and valuable consideration the
-          Parties hereby agree as follows:
+          <strong>Now Therefore</strong>, in consideration of the promises and of the mutual agreements, covenants, representations and warranties hereinafter contained, and for other good and valuable consideration the Parties hereby agree as follows:
         </p>
         <ol className={`${styles.oderListParent}`}>
           <li className="font-weight-bold">
             <p className={`${styles.oderListParent_Head}`}>Item &amp; Price</p>
             <p className="text_sales font-weight-normal">
-              The details of the Commodity, contracted quantity, Unit Price and total contract value are mentioned in
-              Schedule I.
+              The details of the Commodity, contracted quantity, Unit Price and total contract value are mentioned in Schedule I.
             </p>
             <ol type="A" className={`${styles.oderListChild} pl-0 font-weight-normal`}>
               <li>
                 <p className="text_sales">
-                  The Associate Buyer affirms that the Supplier, Item, specifications, quantities, delivery and all
-                  other terms &amp; conditions of sale between {data.shortseller} and the Supplier have been negotiated and firmed up
-                  between Associate Buyer and Supplier. The Associate Buyer further undertakes that it has ensured that
-                  the Sales Contract to be entered into between {data.shortseller} and the Supplier (“Sale Contract”) is in accordance
-                  with the negotiations undertaken by the Associate Buyer and the Supplier.
+                  The Associate Buyer affirms that the Supplier, Item, specifications, quantities, delivery and all other terms &amp; conditions of sale between {data.shortseller} and the Supplier have been negotiated and firmed up between Associate Buyer and Supplier. The Associate Buyer further undertakes that it has ensured that the Sales Contract to be entered into between {data.shortseller} and the Supplier (“Sale Contract”) is in accordance with the negotiations undertaken by the Associate Buyer and the Supplier.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  The Associate Buyer confirms that he is solely responsible for competitiveness of price, selection of
-                  Supplier, quality and quantity of goods and all the risks associated therewith.
+                  The Associate Buyer confirms that he is solely responsible for competitiveness of price, selection of Supplier, quality and quantity of goods and all the risks associated therewith.
                 </p>
               </li>
               <li>
@@ -110,44 +79,29 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
                   The basic Price in INR for invoicing by Seller will be calculated as under: -
                 </p>
                 <p className="text_sales">
-                  Import Price Per Ton Plus Insurance plus Basic Customs Duty plus social welfare cess plus IGST plus
-                  Compensation cess and any other duty, cost and/or charges, Letter of Credit (LC) Opening Charges,
-                  Custodian Charges of CMA monthly plus one-time charges + INR 1 PMT, Usance Interest, plus Seller's
-                  margin, wherever applicable.
+                  Import Price Per Ton Plus Insurance plus Basic Customs Duty plus social welfare cess plus IGST plus Compensation cess and any other duty, cost and/or charges, Letter of Credit (LC) Opening Charges, Custodian Charges of CMA monthly plus one-time charges + INR 1 PMT, Usance Interest, plus Seller's margin, wherever applicable.
                 </p>
                 <p className="text_sales">
-                  All applicable Statutory, Government Duty &amp; Taxes including but not limited to the Import duty,
-                  Cess, GST, TCS @ 1%, CIMS Charges etc, shall be borne by the Associate Buyer including payment to the
-                  Associate Buyer's nominated stevedoring handling agent for purpose of allocating the plot to the
-                  Seller, arranging discharge, movement and delivery of cargo to the Associate Buyer strictly against
-                  the written delivery order issued by Seller. All risks and responsibility including but not limited to
-                  damage to goods, shortage, mix-up, quality Issues, if any, is the sole responsibility of the Associate
-                  Buyer. The expenses for such services shall also be borne by the Associate Buyer and will be included
-                  in the sale price of Goods/Services.
+                  All applicable Statutory, Government Duty &amp; Taxes including but not limited to the Import duty, Cess, GST, TCS @ 1%, CIMS Charges etc, shall be borne by the Associate Buyer including payment to the Associate Buyer's nominated stevedoring handling agent for purpose of allocating the plot to the Seller, arranging discharge, movement and delivery of cargo to the Associate Buyer strictly against the written delivery order issued by Seller. All risks and responsibility including but not limited to damage to goods, shortage, mix-up, quality Issues, if any, is the sole responsibility of the Associate Buyer. The expenses for such services shall also be borne by the Associate Buyer and will be included in the sale price of Goods/Services.
                 </p>
                 <p className={`text_sales`}>
-                  The exchange rate prevailing at the time of making payment of the margin money by the Associate Buyer
-                  shall be the provisional price for preparation of provisional invoice.
+                  The exchange rate prevailing at the time of making payment of the margin money by the Associate Buyer shall be the provisional price for preparation of provisional invoice.
                 </p>
                 <p className={`text_sales`}>
-                  The final invoicing will be done in INR and the final exchange rate on the basis of which invoicing
-                  shall be:
+                  The final invoicing will be done in INR and the final exchange rate on the basis of which invoicing shall be:
                 </p>
                 <p className={`text_sales ml-n4`}>a)&nbsp; the price at which the forward is booked or</p>
                 <p className={`text_sales ml-n4`}>
-                  b)&nbsp; the average of the exchanges rate at which the payment of Import is made by Seller to {data.shortseller} for
-                  this transaction.
+                  b)&nbsp; the average of the exchanges rate at which the payment of Import is made by Seller to {data.shortseller} for this transaction.
                 </p>
                 <p className={`text_sales`}>
                   The exchange rate difference loss or gain both will be to the Associate Buyer account.
                 </p>
                 <p className={`text_sales`}>
-                  The final price so worked out shall be reflected in the last invoice carrying out all adjustments in
-                  regards to exchange rate variation / expenses &amp; charges.
+                  The final price so worked out shall be reflected in the last invoice carrying out all adjustments in regards to exchange rate variation / expenses &amp; charges.
                 </p>
                 <p className="text_sales">
-                  The amount payable as per the final invoice issued by Seller shall be final and binding on the
-                  Associate Buyer.
+                  The amount payable as per the final invoice issued by Seller shall be final and binding on the Associate Buyer.
                 </p>
               </li>
             </ol>
@@ -155,8 +109,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
           <li className="font-weight-bold">
             <p className={`${styles.oderListParent_Head}`}>Advance Margin Money</p>
             <p className="text_sales font-weight-normal">
-              The Associate Buyer shall make payment of margin money of the total Contract Value as advance prior to
-              opening of LC by {data.shortseller} on the Supplier as mentioned in Schedule I.
+              The Associate Buyer shall make payment of margin money of the total Contract Value as advance prior to opening of LC by {data.shortseller} on the Supplier as mentioned in Schedule I.
             </p>
             <p className="text_sales font-weight-normal">
               {data.shortseller} will open the LC in favour of Supplier within 5 working days of receipt of the Advance as stated
