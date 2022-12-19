@@ -104,10 +104,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   const remainingQuantity = (index, item) => {
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
 
+    let numOr0 = n => isNaN(n) ? 0 : n
+
+    const blNumberNew = item?.blNumber?.reduce(
+      (previousValue, currentValue) => numOr0(previousValue) + numOr0(Number(currentValue?.blQuantity)),
+     0, 
+    )
+
     if (index == 0) {
-      balance = Number(balance) - Number(item.blNumber[0].blQuantity == undefined ? 0 : item.blNumber[0].blQuantity);
+      balance = Number(balance) - Number(blNumberNew == undefined ? 0 : blNumberNew);
     } else {
-      balance = Number(blQty) - Number(item.blNumber[0].blQuantity == undefined ? 0 : item.blNumber[0].blQuantity);
+      balance = Number(blQty) - Number(blNumberNew == undefined ? 0 : blNumberNew);
     }
     blQty = balance;
     return balance;
@@ -268,7 +275,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         setIgmList({ ...tempArray });
       }
     }
-console.log(TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOffice,"TransitDetails?.data[0]?.order?.marginMoney?.invoiceDetail.branchOffice")
+
     if (_get(TransitDetails, `data[0].IGM`, false)) {
       setConsigneeInfo({
         name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') || '',
