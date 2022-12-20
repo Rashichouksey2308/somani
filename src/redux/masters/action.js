@@ -305,7 +305,7 @@ export const GetMasterUsersQueueRecords = (payload) => async (dispatch, getState
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getMasterUsersQueueRecords}`, {
+    Axios.get(`${API.corebaseUrl}${API.getMasterUsersQueueRecords}${payload}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

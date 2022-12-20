@@ -12,7 +12,6 @@ function Index({ tableHeading, currentPage, totalCount, setCurrentPage, pageLimi
     return (
         <>
             {data?.length ? (<>
-                {console.log("TOTAL COUNT--", totalCount)}
                 <div className={`${styles.datatable} border datatable card`}>
                     {tableHeading && totalCount >= 0 && <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
                         <h3 className="heading_card">{tableHeading}</h3>

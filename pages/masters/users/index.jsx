@@ -1,20 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styles from './index.module.scss';
 import Filter from '../../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import { GetMasterUsersQueueRecords } from '../../../src/redux/masters/action';
 import DownloadMasterBar from '../../../src/components/DownloadMasterBar';
+import Table from '../../../src/components/Table';
 import Image from 'next/image';
 import Router from 'next/router';
+import slugify from 'slugify';
+import ToggleSwitch from '../../../src/components/ToggleSwitch';
 
 const index = () => {
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const { searchedLeads } = useSelector((state) => state.order);
   const { usersQueueRecords } = useSelector((state) => state.MastersData);
-
-  console.log("USERS QUEUE RECORDS DEBUG", usersQueueRecords);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageLimit, setPageLimit] = useState(10);
+  const [filterQuery, setFilterQuery] = useState('');
+  const [sortByState, setSortByState] = useState({
+    column: '',
+    order: null,
+  });
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -29,9 +37,92 @@ const index = () => {
     dispatch(GetLcModule(`?company=${id}`));
   };
 
+  const handleSort = (column) => {
+    let columnName = slugify(column.Header, { lower: true });
+    let sortOrder = '';
+    if (column.id === sortByState.column) {
+      setSortByState((state) => {
+        let updatedOrder = !state.order;
+        sortOrder = updatedOrder ? '1' : '-1';
+        return { ...state, order: updatedOrder };
+      });
+    } else {
+      let data = { column: column.id, order: column.isSortedDesc };
+      sortOrder = data.order ? '1' : '-1';
+      setSortByState(data);
+    }
+    dispatch(GetMasterUsersQueueRecords(`?page=${currentPage}&column=${columnName}&order=${sortOrder}${filterQuery}`));
+  };
+
+  const tableColumns = useMemo(() => [
+    {
+      Header: 'User Id',
+      accessor: 'profileDetails._id',
+      disableSortBy: true,
+    },
+    {
+      Header: 'Full Name',
+      accessor: 'profileDetails.fullName',
+      disableSortBy: true,
+      Cell: ({ cell: { value }, row: { original } }) => (
+        <span
+          onClick={() => {
+            handleRoute(original);
+          }}
+          className="font-weight-bold text-primary"
+        >
+          {value}
+        </span>
+      ),
+    },
+    {
+      Header: 'Department',
+      accessor: 'professionalDetails.department',
+      Cell: ({ value }) => <span className='text-capitalize'>{value}</span>
+    },
+    {
+      Header: 'Activation Date',
+      accessor: 'createdAt',
+      Cell: ({ value }) => value.slice(0, 10)
+    },
+    {
+      Header: 'Status',
+      accessor: 'profileDetails.status',
+      disableSortBy: true,
+      Cell: ({ value }) => <ToggleSwitch status={value} />,
+    },
+  ], [usersQueueRecords?.data?.data]);
+
   useEffect(() => {
-    dispatch(GetMasterUsersQueueRecords());
-  }, [dispatch]);
+    dispatch(GetMasterUsersQueueRecords(`?page=${currentPage}&limit=${pageLimit}${filterQuery}`));
+  }, [dispatch, currentPage, pageLimit]);
+
+  const tableHooks = (hooks) => {
+    hooks.visibleColumns.push((columns) => [
+      ...columns,
+      {
+        id: "Preview",
+        Header: "Action",
+        disableSortBy: true,
+        Cell: ({ row }) => {
+          return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
+            <a className="cursor-pointer"
+              onClick={() =>
+                handleRoute(row?.original)
+              }
+            >
+              <Image
+                height="20px"
+                width="20px"
+                src="/static/mode_edit.svg"
+                alt="Edit"
+              />
+            </a>
+          </div >
+        }
+      }
+    ])
+  };
 
   return (
     <>
@@ -76,196 +167,21 @@ const index = () => {
           </div>
 
           {/*UserTable*/}
-          <div className={`${styles.datatable} border card datatable mt-4`}>
-            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-              <h3 className="heading_card">Users</h3>
-              <div className="d-flex align-items-center">
-                <div className={`${styles.show_record}`}>Show Records:</div>
-                <div className="d-flex align-items-center position-relative ml-2">
-                  <select className={`${styles.select} ${styles.customSelect} text1 accordion_body form-select`}>
-                    <option>10</option>
-                    <option>20</option>
-                  </select>
-                  <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
-                </div>
-                <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                  <span>Showing Page 1 out of 10</span>
-                  <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow left" className="img-fluid" />
-                  </a>
-                  <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                  <thead>
-                    <tr>
-                      <th width="20%" className={`${styles.table_heading} table_heading`}>
-                        USER ID
-                      </th>
-                      <th className={`${styles.table_heading} table_heading`}>FULL NAME</th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        DEPARTMENT{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        ACTIVATION DATE{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        STATUS{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th className={`${styles.table_heading} table_heading`}>ACTION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-                      <td>
-                        <img src="/static/inactive.svg" className="img-fluid" alt="inactive" />
-                        <span className="m-3">Inactive</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-                      <td>
-                        <img src="/static/blacklisted.svg" className="img-fluid" alt="blacklisted" />
-                        <span className="m-3">Blacklisted</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-                      <td>
-                        <img src="/static/notice.svg" className="img-fluid" alt="Notice Period" />
-                        <span className="m-3">Notice Period</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div className={`${styles.total_count}`}>
-            Total Count: <span>280</span>
-          </div>
+          <Table
+            tableHeading="Users"
+            currentPage={currentPage}
+            totalCount={usersQueueRecords?.totalCount}
+            setCurrentPage={setCurrentPage}
+            columns={tableColumns}
+            data={usersQueueRecords?.data}
+            tableHooks={tableHooks}
+            pageLimit={pageLimit}
+            setPageLimit={setPageLimit}
+            handleSort={handleSort}
+            sortByState={sortByState}
+            serverSortEnabled={true}
+            totalCountEnable={true}
+          />
         </div>
       </div>
 
