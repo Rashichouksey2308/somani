@@ -2,7 +2,18 @@ import moment from 'moment';
 
 export default function AmendLetterTemp(lcModuleData) {
   let d = new Date();
-
+const getNumber=(number)=>{
+  console.log(number,"1212")
+let regex = /\(([^\)]*)\)/;
+let data = number.match(regex);
+console.log(data,"dataay")
+return data[1]
+}
+const getString=(string)=>{
+let regex = /\([^\)]*\)/;
+let data = string.replace(regex, "");;
+return data
+}
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -136,7 +147,8 @@ export default function AmendLetterTemp(lcModuleData) {
                       opacity: '0.7',
                     }}
                   >
-                    {moment(d).format('DD.MM.yyyy')}
+                    {moment(lcModuleData.lcModuleData?.createdAt).format('DD.MM.yyy')}
+                   
                   </span>
                 </span>
               </td>
@@ -191,9 +203,19 @@ export default function AmendLetterTemp(lcModuleData) {
                               fontWeight: '500',
                             }}
                           >
-                            {val.dropDownValue}
+                           {getNumber(val.dropDownValue.toUpperCase())}
                           </span>
-                          
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '66px',
+                              color: '#111111',
+                              fontWeight: '500',
+                            }}
+                          >
+                               {getString(val.dropDownValue.toUpperCase())}
+                           
+                          </span>
                         </p>
                       </td>
                       <td

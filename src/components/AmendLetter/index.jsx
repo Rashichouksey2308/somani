@@ -78,7 +78,17 @@ const deleteArr=(val,index)=>{
       autoPaging: 'text',
     });
   };
-
+const getNumber=(number)=>{
+  console.log(number,"number")
+let regex = /\(([^\)]*)\)/;
+let data = number.match(regex)[1];
+return data
+}
+const getString=(string)=>{
+let regex = /\([^\)]*\)/;
+let data = string.replace(regex, "");;
+return data
+}
   return (
     <>
       <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
@@ -128,7 +138,9 @@ const deleteArr=(val,index)=>{
                  {lcModuleData?.lcNewApplication?.map((val, index) => ( <tbody key={index}>
                     <tr className="table_row">
                       <td width="40%">
-                        {val.dropDownValue.toUpperCase()}
+                        <b>{getNumber(val.dropDownValue.toUpperCase())}</b>
+                        <span>{getString(val.dropDownValue.toUpperCase())}</span>
+                        {}
                       </td>
                       {/* <td width="40%">
                         40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
