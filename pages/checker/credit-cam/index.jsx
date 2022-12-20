@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import styles from './index.module.scss';
@@ -66,7 +64,6 @@ Chart.register(
 function Index({
   gstData,
   camData,
-  companyData,
   addApproveRemarkArr,
   approveComment,
   saveApprovedCreditData,
@@ -89,6 +86,7 @@ function Index({
   const id2 = '630068610a3ecb0021651970';
   const { orderList } = useSelector((state) => state.buyer);
   const { fetchingKarzaGst } = useSelector((state) => state.review);
+  const { companyData } = useSelector((state) => state.companyDetails);
   const [camConversionunit, setCamCoversionUnit] = useState(10000000);
 
   const [top3Share, setTop3Share] = useState({
@@ -136,9 +134,7 @@ function Index({
     saveApprovedCreditData(name, value);
     // }
   };
-
   const { documentsFetched } = useSelector((state) => state.review);
-
   const options = {
     elements: {
       arc: {
@@ -227,6 +223,11 @@ function Index({
       color: '#FF9D00',
     },
   ]);
+  const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {});
+  const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', {});
+
+  const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {});
+  const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', {});
 
   useEffect(() => {
     findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus);
@@ -246,7 +247,7 @@ function Index({
       // const id1 = sessionStorage.getItem('orderID');
       // const id2 = sessionStorage.getItem('companyID');
       dispatch(GetAllOrders({ orderId: id1 }));
-      dispatch(GetCompanyDetails(id2));
+      dispatch(GetCompanyDetails({ company: id2 }));
     }
   }, [dispatch, fetchingKarzaGst]);
 
@@ -331,6 +332,28 @@ function Index({
       setTop3Share({ ...top5data });
     }
   };
+
+  const openChargesLength = () => {
+    const filteredData = camData?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
+      (data) => data.dateOfSatisfactionOfChargeInFull === null,
+    );
+
+    const length = filteredData?.length;
+
+    return length;
+  };
+  const primaryBankName = () => {
+    let filteredData = [];
+    filteredData = camData?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
+
+    const length = _get(filteredData[0], 'bankName', '');
+
+    return length;
+  };
+
+  const latestAuditorData = _get(camData, 'company.detailedCompanyInfo.profile.auditorDetail[0]', {});
+  const previousAuditorData = _get(camData, 'company.detailedCompanyInfo.profile.auditorDetail[1]', {});
+
   const findTop3Open = (data) => {
     let temp = [];
     if (data?.length > 0) {
@@ -457,24 +480,54 @@ function Index({
         <div className="row">
           <div className="col-md-12 px-0 accordion_body">
             <div className={`${styles.info_wrapper}  border_color pb-4`}>
-              <div className={`${styles.content} mt-4 `}>{basicInfo(orderList)}</div>
-              <div className={`${styles.content}  `}>{supplierInfo(orderList)}</div>
-              <div className={`${styles.content} `}>{customerRating(orderList)}</div>
-              <div className={`${styles.content} `}>{groupExposure(orderList)}</div>
-              <div className={`${styles.content} `}>{orderSummary(orderList)}</div>
-              <div className={`${styles.content} `}>{creditProfile(orderList)}</div>
-              <div className={`${styles.content} `}>{directorDetails(orderList)}</div>
+              <div className={`${styles.content} mt-4 `}>
+                {basicInfo(orderList, orderDetails, camConversionunit, companyData)}
+              </div>
+              <div className={`${styles.content}  `}>{supplierInfo(orderList, companyData)}</div>
+              <div className={`${styles.content} `}>{customerRating(orderList, filteredCreditRating, companyData)}</div>
+              <div className={`${styles.content} `}>{groupExposure(orderList, camConversionunit, companyData)}</div>
+              <div className={`${styles.content} `}>{orderSummary(orderList, camConversionunit, companyData)}</div>
+              <div className={`${styles.content} `}>
+                {creditProfile(
+                  orderList,
+                  openChargesLength,
+                  primaryBankName,
+                  latestAuditorData,
+                  CreditAgency,
+                  companyData,
+                )}
+              </div>
+              <div className={`${styles.content} `}>{directorDetails(orderList, companyData)}</div>
               <div className={`${styles.content}`}>
-                {shareHolding(top3Share, options, tempArr, orderList, backgroundColor)}
+                {shareHolding(top3Share, options, tempArr, orderList, backgroundColor, companyData)}
               </div>
               <div className={`${styles.content}`}>
-                {chargeDetails(top3Open, options, tempArr, orderList, backgroundColor, camConversionunit)}
+                {chargeDetails(
+                  top3Open,
+                  options,
+                  tempArr,
+                  orderList,
+                  backgroundColor,
+                  camConversionunit,
+                  companyData?.history?.[0],
+                )}
               </div>
-              <div className={`${styles.content}`}>{debtProfile()}</div>
-              <div className={`${styles.content} `}>{operationalDetails(orderList)}</div>
-              <div className={`${styles.content}`}>{revenuDetails(orderList)}</div>
               <div className={`${styles.content}`}>
-                {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit)}
+                {debtProfile(orderList, totalLimitDebt, debtProfileColor, companyData)}
+              </div>
+              <div className={`${styles.content} `}>{operationalDetails(orderList, companyData)}</div>
+              <div className={`${styles.content}`}>{revenuDetails(gstData, camConversionunit, companyData)}</div>
+              <div className={`${styles.content}`}>
+                {trends(
+                  chartData,
+                  chartRef,
+                  chartRef2,
+                  chartData2,
+                  lineOption,
+                  gstData,
+                  camConversionunit,
+                  companyData,
+                )}
               </div>
               <div className={`${styles.content}`}>
                 {skewness(
@@ -487,6 +540,7 @@ function Index({
                   totalCustomer,
                   totalSupplier,
                   camConversionunit,
+                  companyData,
                   <Doughnut
                     id="skewnessChartRevenue"
                     data={{
@@ -504,9 +558,18 @@ function Index({
                   />,
                 )}
               </div>
-              <div className={`${styles.content} `}>{financeDetails(orderList)}</div>
-              <div className={`${styles.content} `}>{compilanceStatus()}</div>
-              <div className={`${styles.content} `}>{strengthAndWeakness(orderList)}</div>
+              <div className={`${styles.content} `}>
+                {financeDetails(
+                  latestBalanceData,
+                  previousBalanceData,
+                  companyData,
+                  latestYearData,
+                  previousYearData,
+                  camConversionunit,
+                )}
+              </div>
+              <div className={`${styles.content} `}>{compilanceStatus(companyData, orderList, litigationStatus)}</div>
+              <div className={`${styles.content} `}>{strengthAndWeakness(orderList, companyData)}</div>
               <div className={`${styles.content} ${styles.highlight}`}>
                 {sectionTerms(
                   orderList,
@@ -521,9 +584,10 @@ function Index({
                   approvedCredit,
                   isFieldInFocus,
                   setIsFieldInFocus,
+                  companyData,
                 )}
               </div>
-              <div className={`${styles.content}`}>{Documents(documentsFetched)}</div>
+              <div className={`${styles.content}`}>{Documents(documentsFetched, companyData)}</div>
             </div>
           </div>
         </div>

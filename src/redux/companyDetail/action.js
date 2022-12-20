@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import * as types from './actionType';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
@@ -108,16 +107,16 @@ export const GetCompanyDetails = (payload, companyId) => async (dispatch, getSta
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
     if (companyId) {
       let response = await Axios.post(`${API.corebaseUrl}${API.getCamDetails}?company=${companyId}`, {
         headers: headers,
       });
     } else {
-      let response = await Axios.post(`${API.corebaseUrl}${API.getCompanyDetails}`, payload, {
-        headers: headers,
-      });
     }
+    let response = await Axios.post(`${API.corebaseUrl}${API.getCompanyDetails}`, payload, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(getComanyDetailsSuccess(response.data.data));
       dispatch(setNotLoading());

@@ -114,6 +114,25 @@ function getAllBuyerFailed() {
   };
 }
 
+function getAllUpdatedBuyer() {
+  return {
+    type: types.GET_ALL_UPDATED_BUYER,
+  };
+}
+
+function getAllUpdatedBuyerSuccess(payload) {
+  return {
+    type: types.GET_ALL_UPDATED_BUYER_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getAllUpdatedBuyerFailed() {
+  return {
+    type: types.GET_ALL_UPDATED_BUYER_FAILED,
+  };
+}
+
 function getAllOrder() {
   return {
     type: types.GET_ALL_ORDER,
@@ -394,6 +413,42 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     dispatch(getAllBuyerFailed());
+
+    dispatch(setNotLoading());
+  }
+};
+
+export const GetAllUpdatedBuyer = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  try {
+    dispatch(getAllUpdatedBuyer());
+    Axios.get(`${API.corebaseUrl}${API.getUpdatedBuyers}${payload || ''}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllUpdatedBuyerSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getAllUpdatedBuyerFailed(response.data));
+        const toastMessage = 'Could not fetch Company Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getAllUpdatedBuyerFailed());
 
     dispatch(setNotLoading());
   }
