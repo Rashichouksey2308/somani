@@ -1,0 +1,89 @@
+.tw_toggle {
+  background: #c3c3c31f;
+  display: inline-block;
+  width: 110px;
+  height: 40px;
+  border-radius: 20px;
+  position: relative;
+
+  border: 1px solid #0000001f;
+}
+
+.tw_toggle .toggle {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  font-size: 10px;
+  width: 33px;
+  height: 38px;
+}
+.tw_toggle .toggle.toggle_label_left {
+  left: 0;
+}
+.tw_toggle .toggle.toggle_label_between {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tw_toggle .toggle.toggle_label_right {
+  right: 0;
+}
+
+.tw_toggle input {
+  /* display: none; */
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+}
+
+.tw_toggle span {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #3687e8;
+  display: block;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+}
+.toggle_check {
+  width: 18px;
+  height: 13px;
+  margin: 10px;
+}
+.toggle_close {
+  width: 14px;
+  height: 14px;
+  margin: 10px;
+}
+.tw_toggle .toggle_left:checked ~ span {
+  left: 0px;
+}
+
+.tw_toggle .toggle_between:checked ~ span {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tw_toggle .toggle_right:checked ~ span {
+  right: 0;
+}
+
+.tw_toggle .toggle_left:checked + label,
+.tw_toggle .toggle_right:checked + label {
+  //cursor: pointer;
+}
+.tw_toggle .toggle_between:checked + label {
+  //cursor: pointer;
+}
+.toggle_left {
+  left: 0px;
+}
+.toggle_between {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.toggle_right {
+  right: 0;
+}
