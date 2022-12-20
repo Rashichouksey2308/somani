@@ -8,7 +8,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
     quantity: false,
     orderValue: false,
   });
-  console.log(commodity,"country")
+
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const saveDate = (value, name) => {

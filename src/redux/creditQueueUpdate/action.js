@@ -144,7 +144,7 @@ function VerifyingConsolidatedGstFailed() {
 
 export const UpdateCam = (payload, message) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  console.log(payload.status, 'payload');
+
   let cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 

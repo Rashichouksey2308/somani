@@ -49,7 +49,7 @@ function Index({
   currencyMasters,
 }) {
   const [orderValueinFocus, setOrderValueInFocus] = useState(false);
-  console.log(vesselCertificate, 'containerListDocument');
+
   const dispatch = useDispatch();
 
   const getSn = (index) => {

@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export default function SalesContractPreview(data) {
-  console.log(data,"sadsda")
+  
   return (
     <table
       width="800px"

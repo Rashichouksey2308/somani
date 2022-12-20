@@ -87,7 +87,7 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
 
-  console.log(jwtAccessToken,"jwtAccessToken ++++");
+
 
   const headers = {
     authorization: jwtAccessToken,

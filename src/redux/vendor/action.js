@@ -129,7 +129,7 @@ export const GetAllVendor = (payload) => async (dispatch, getState, api) => {
 }
 
 export const GetVendor = (payload) => async (dispatch, getState, api) => {
-  console.log(payload,"vendor res dtata ==");
+  
   dispatch(setIsLoading())
   const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')

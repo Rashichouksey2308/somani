@@ -406,7 +406,7 @@ function Index() {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
-        console.log(val,"cvalala")
+       
        
         let number=0
         for (let i = 0; i < releaseDetail.length; i++) {
@@ -415,7 +415,7 @@ function Index() {
         }
 
         }
-        console.log(val.Quantity,number,"val.Quantity>Number")
+       
         if(Number(val.Quantity)>number){
         let  toastMessage = `Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -439,7 +439,7 @@ function Index() {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
-        console.log(val.deliveryOrderDate,"cvalala")
+        
        
         val.status="DO Canceled"
         
@@ -459,7 +459,7 @@ function Index() {
       }, 0);
 
       deliveryOrder.forEach((item) => {
-        console.log("itemm",item)
+       
         if(item.status !== "DO Cancelled"){
          boeTotalQuantity = boeTotalQuantity - Number(item.Quantity); 
         } 
@@ -512,7 +512,7 @@ function Index() {
           
         }
       
-        console.log(val,"indexxx")
+      
         if (name === 'Quantity') {
           if (value <= 0) {
             setDoLimit(quantity);
@@ -532,7 +532,7 @@ function Index() {
               const filterForReleaseOrder = releaseDetail.filter((item) => {
               return item.orderNumber == val.orderNumber;
               });
-              console.log(filterForReleaseOrder,totalDONumber,"totlNumber")
+            
             setDoLimit(tempLimit);
           }
         }
@@ -678,13 +678,13 @@ function Index() {
     
   });
    deliveryOrder.forEach((item, index) => {
-     console.log(item,"itemitem")
+    
     if(item.orderNumber==orderNumber){
      delivery = delivery+Number(item.Quantity)
     }
     
   });
-  console.log(delivery,release,"delivery>=release")
+  
     if(delivery>=release){
       return true
     }else{

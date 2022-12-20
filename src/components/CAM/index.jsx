@@ -3817,7 +3817,7 @@ const skewness = (
   );
 };
 const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImage) => {
-  console.log(rotateImage,"rotateImage")
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>

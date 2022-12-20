@@ -153,7 +153,7 @@ function Index() {
   };
 
   const validation = () => {
-    console.log(companyDetails.GST ,"companyDetails.GST ")
+   
     if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {

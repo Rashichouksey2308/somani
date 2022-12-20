@@ -88,7 +88,7 @@ const Index = ({
     suggestedOrderValue: false,
     suggestedCreditLimit: false,
   });
-  console.log(isFieldInFocus,'isFieldInFocus')
+
 
   const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
     return creditDetail?._id === rating.order;
@@ -382,7 +382,7 @@ const Index = ({
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => {
-                        console.log(profile.actions,"profile.actions")
+                      
                         return(
                           profile.actions==false ||  profile.actions==undefined?
                           <>

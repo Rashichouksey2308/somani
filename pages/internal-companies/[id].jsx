@@ -34,7 +34,7 @@ function Index() {
   let id = sessionStorage.getItem('internalCompanyId');
 
   useEffect(() => {
-    // console.log(id, 'ID')
+  
     if (id) {
       setCompanyData({
         Country: internalCompanyData?.Country,

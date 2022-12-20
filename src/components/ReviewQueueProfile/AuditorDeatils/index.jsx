@@ -26,10 +26,10 @@ function Index({ directorData }) {
       localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true
     ) {
-      // console.log('this')
+   
       setDarkMode(true)
     } else {
-      // console.log('this2')
+      
       setDarkMode(false)
     }
   }, [])

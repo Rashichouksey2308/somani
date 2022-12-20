@@ -182,7 +182,7 @@ const index = ({
   useEffect(() => {
     setKeyPersonData(personData);
   }, [personData]);
-console.log(keyPersonData,"keyPersonData")
+
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData];
 
@@ -493,7 +493,7 @@ console.log(keyPersonData,"keyPersonData")
       setSupplierShow(true)
     }
   },[searchedSupplier])
-  console.log(supplierShow,"supplierShow")
+ 
   const handleSearch = (e) => {
     setRemoveInput(false);
     const query = e;
@@ -1252,7 +1252,7 @@ console.log(keyPersonData,"keyPersonData")
                         <>
                           {!person.isEdit ? (
                             <>
-                            {console.log(person,"person")}
+                          
                               <tr>
                                 <td>{person.name}</td>
                                 <td>{person.designation}</td>

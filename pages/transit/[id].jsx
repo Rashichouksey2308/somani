@@ -25,7 +25,7 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false);
   const [componentId, setComponentId] = useState(1);
   const [TransitDetails, setTransitDetails] = useState({});
-  console.log(TransitDetails, 'TransitDetails');
+  
   const dispatch = useDispatch();
   const { breadCrumbData } = useSelector((state) => state.Breadcrumb);
 
@@ -107,7 +107,7 @@ function Index() {
     let blNotSurrendered = true;
     let data = _get(TransitDetails, 'data[0].BL.billOfLanding', []);
     for (let i = 0; i <= data.length - 1; i++) {
-       console.log(!data[i].blSurrenderDate,'isBlNotSurrendered1')
+     
       if (!data[i].blSurrenderDate) {
         blNotSurrendered = true;
         break;

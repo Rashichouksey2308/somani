@@ -17,7 +17,7 @@ let cma = {
 };
 
 function Index(props) {
-  console.log(  props.data,"props.data?.addresses")
+
    const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
@@ -87,13 +87,13 @@ function Index(props) {
       city: val.city
       })
     })
-     console.log(temp,"temp")
+    
      setAddressList([...temp])
     }
    
    
   }
-  console.log(cmaState,"addressList")
+ 
   useEffect(() => {
     if (window) {
      
@@ -138,7 +138,7 @@ function Index(props) {
             city: val.city
             })
           })
-          console.log(temp,"temp")
+        
           setAddressList([...temp])
           }
         }else{
@@ -201,7 +201,7 @@ function Index(props) {
             city: val.city
             })
           })
-          console.log(temp,"temp")
+        
           setAddressList([...temp])
           }
             }else{
@@ -229,7 +229,7 @@ function Index(props) {
       }
     }
   }, [props.data]);
- console.log(options,"options")
+
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {
       let state={...cmaState}
@@ -341,7 +341,7 @@ function Index(props) {
     //  })
   
   };
- console.log(options,"pppppp")
+ 
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -420,7 +420,7 @@ function Index(props) {
       return newState;
     });
   };
-  console.log(list,"list")
+
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -563,7 +563,7 @@ const cancelEditAddress = () => {
     setEditAddress(newInput);
     setToView(false);
   };
-  console.log(options.length,"sdasdasdasd",list.length)
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>

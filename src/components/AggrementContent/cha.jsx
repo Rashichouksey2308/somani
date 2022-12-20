@@ -88,7 +88,7 @@ function Index(props) {
             city: val.city
             })
           })
-          console.log(temp,"temp")
+       
           setAddressList([...temp])
         }
         }else{
@@ -146,7 +146,7 @@ function Index(props) {
             city: val.city
             })
           })
-          console.log(temp,"temp")
+       
           setAddressList([...temp])
           }
             }else{
@@ -490,11 +490,11 @@ const cancelEditAddress = () => {
     }
   }, [getPincodesMasterData]);
   const viewSet = () => {
-    console.log("sadasd")
+   
     setToView(true);
   };
     const handleData = (name, value) => {
-    console.log('thsss');
+   
     const newInput = { ...newAddress };
     newInput[name] = value.Pincode;
     newInput.country = 'India';

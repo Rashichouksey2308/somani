@@ -61,7 +61,6 @@ const [agreementDoc, setagreementDoc] = useState({
   },[]);
 
    const uploadDocument1 = async(e) => {
-    console.log(e.target.files[0],"e.target.files[0]")
     const newInput = { ...agreementDoc };
     newInput.lcDraftDoc = e.target.files[0];
     let dataToSend = {
@@ -72,7 +71,7 @@ const [agreementDoc, setagreementDoc] = useState({
     sessionStorage.setItem('agreementDoc', JSON.stringify(e.target.files[0].name));
     setagreementDoc(newInput);
   };
-  console.log(agreementDoc,"agreementDoc");
+ 
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>

@@ -104,7 +104,7 @@ function Index(props) {
             comment.push(val.comment);
           }
         });
-      console.log(data?.CMA,"data?.CMA?")
+    
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
@@ -154,7 +154,6 @@ function Index(props) {
       }
     }
   }, [props]);
-  console.log(data,"Aasasd")
   return (
     <>
       {/* TPA (CMA) pdf download code end */}

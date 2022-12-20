@@ -2,7 +2,7 @@ import styles from '@/components/TPASeller/index.module.scss';
 import { Col, Row } from 'react-bootstrap';
 
 export default function TPASeller(data) {
-  console.log(data,"vdata")
+ 
   return (
     <>
       <div className="card-body">

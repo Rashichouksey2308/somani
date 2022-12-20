@@ -48,7 +48,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     if(Number(quan)>100000){
       quan=100000
     }
-    console.log(_get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),"_get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0)")
+   
     if (data.length > 0) {
       setCimsDetails(data);
     } else {
@@ -107,7 +107,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   const onChangeCims = (e, index) => {
     const name = e.target.id;
     let value = e.target.value;
-    console.log(value,"cimsCharges")
+   
      let quan=  Number(value)
      if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
        quan = Number(quan)*0.001
