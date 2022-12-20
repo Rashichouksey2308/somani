@@ -104,12 +104,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   const remainingQuantity = (index, item) => {
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
 
-    let numOr0 = n => isNaN(n) ? 0 : n
+    let numOr0 = (n) => (isNaN(n) ? 0 : n);
 
     const blNumberNew = item?.blNumber?.reduce(
       (previousValue, currentValue) => numOr0(previousValue) + numOr0(Number(currentValue?.blQuantity)),
-     0, 
-    )
+      0,
+    );
 
     if (index == 0) {
       balance = Number(balance) - Number(blNumberNew == undefined ? 0 : blNumberNew);
@@ -961,7 +961,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                                   </div>
                                   <span className={styles.value}>
-                                    <span>{returnReadableNumber(blEntry.blQuantity,undefined,0,0)} </span>{' '}
+                                    <span>{returnReadableNumber(blEntry.blQuantity, undefined, 0, 0)} </span>{' '}
                                     {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                                   </span>
                                 </div>
@@ -1021,7 +1021,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                         BL Quantity <strong className="text-danger ml-n1">*</strong>
                                       </div>
                                       <span className={styles.value}>
-                                        <span>{returnReadableNumber(blEntry?.blQuantity,undefined,0,0)}</span>{' '}
+                                        <span>{returnReadableNumber(blEntry?.blQuantity, undefined, 0, 0)}</span>{' '}
                                         {blEntry?.blQuantity &&
                                           _get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                                       </span>
