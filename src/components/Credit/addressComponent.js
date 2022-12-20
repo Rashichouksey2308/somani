@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ViewDocument } from 'redux/ViewDoc/action';
+import { previewDocument } from 'redux/ViewDoc/action';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 
@@ -89,7 +89,7 @@ function AddressComponent({
               </p>
               {path ? (
                 <span
-                  onClick={() => dispatch(ViewDocument({ order: orderDetail?._id, path: path }))}
+                  onClick={() => dispatch(previewDocument({ order: orderDetail?._id, path: path }))}
                   className={styles.view_btn}
                   style={{ cursor: 'pointer' }}
                 >

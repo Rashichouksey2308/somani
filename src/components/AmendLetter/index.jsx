@@ -78,7 +78,17 @@ const deleteArr=(val,index)=>{
       autoPaging: 'text',
     });
   };
-
+const getNumber=(number)=>{
+  console.log(number,"number")
+let regex = /\(([^\)]*)\)/;
+let data = number.match(regex)[1];
+return data
+}
+const getString=(string)=>{
+let regex = /\([^\)]*\)/;
+let data = string.replace(regex, "");;
+return data
+}
   return (
     <>
       <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
@@ -125,14 +135,20 @@ const deleteArr=(val,index)=>{
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
-                  <tbody>
+                 {lcModuleData?.lcNewApplication?.map((val, index) => ( <tbody key={index}>
                     <tr className="table_row">
                       <td width="40%">
-                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
+                        <b>{getNumber(val.dropDownValue.toUpperCase())}</b>
+                        <span>{getString(val.dropDownValue.toUpperCase())}</span>
+                        {}
                       </td>
-                      <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td>
+                      {/* <td width="40%">
+                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
+                      </td> */}
+                      <td>{val.newValue.toUpperCase()}</td>
+                      {/* <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td> */}
                     </tr>
-                    <tr className="table_row">
+                    {/* <tr className="table_row">
                       <td width="40%">
                         40E &nbsp; &nbsp; <span>APPLICABLE RULES</span>
                       </td>
@@ -155,8 +171,8 @@ const deleteArr=(val,index)=>{
                         51D &nbsp; &nbsp; <span>LC ISSUING BANK</span>
                       </td>
                       <td>{lcModuleData?.lcApplication?.lcIssuingBank}</td>
-                    </tr>
-                  </tbody>
+                    </tr> */}
+                  </tbody>))}
                 </table>
               </div>
             </div>
