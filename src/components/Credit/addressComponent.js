@@ -19,6 +19,9 @@ function AddressComponent({
   orderDetail,
   path,
   communicationModeYes,
+  city,
+  state,
+  pinCode,
 }) {
   const dispatch = useDispatch();
 
@@ -40,7 +43,7 @@ function AddressComponent({
 
               <h5 className={`mb-0`}>{Title}</h5>
             </div>
-            <div>
+            <div className="pb-3">
               <img
                 className={`${styles.edit_image} ml-2 mr-3`}
                 src="/static/mode_edit.svg"
@@ -63,7 +66,9 @@ function AddressComponent({
             </div>
           </div>
           <div className={`${styles.address_values}`}>
-            <p className="pt-3">{address}</p>
+            <p className="pt-3">
+              {address},{city},{state},{pinCode}
+            </p>
             <p className="pt-3">
               <span>Email: </span>
               {email}

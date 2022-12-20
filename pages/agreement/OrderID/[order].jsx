@@ -62,21 +62,29 @@ function Index() {
       ]);
     }
   };
-  const deleteArr=(val,index)=>{
-  if(val=="email"){
-    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
-  }else{
-    setinsuranceAdd([...insuranceAdd.slice(0, index), ...insuranceAdd.slice(index + 1)]);
-  }
-}
+  const deleteArr = (val, index) => {
+    if (val == 'email') {
+      setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
+    } else {
+      setinsuranceAdd([...insuranceAdd.slice(0, index), ...insuranceAdd.slice(index + 1)]);
+    }
+  };
   dispatch(setPageName('insurance Request Letter'));
   dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')));
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    const doc = new jsPDF('p', 'pt', [1500, 2000]);
     doc.html(ReactDOMServer.renderToString(<MarineInsurance insuranceData={insuranceData} />), {
       callback: function (doc) {
+        const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
         doc.save('RequestLetter.pdf');
       },
       // margin:margins,
@@ -182,7 +190,7 @@ function Index() {
                     {insuranceData?.order?.quantity?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    MTs.(+/{insuranceData?.order?.tolerance ?? 0}%)
+                    {insuranceData?.order?.unitOfQuantity}s.(+/{insuranceData?.order?.tolerance ?? 0}%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -198,7 +206,7 @@ function Index() {
                     Port of Discharge
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                    {`${_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India`}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -241,9 +249,12 @@ function Index() {
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {insuranceData?.order?.generic?.buyer?.name}, <br></br>{' '}
                     {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},
-                    {" "}{_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null}<br></br>
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},{' '}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')
+                      ? `,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`
+                      : null}
+                    <br></br>
                     GSTIN NO - {_get(insuranceData, 'order.generic.buyer.gstin', '')}
                     <br></br>
                   </Col>
@@ -313,143 +324,38 @@ function Index() {
                     <input type="checkbox" className="ml-auto" id="word_document" value="word document" />
                   </div>
                 </div>
-                <ul
-                  className={`${styles.nav_tabs} ${styles.share_via} share_via nav nav-tabs`}
-                  id="shareVia"
-                  role="tablist"
-                >
+                <ul className={` ${styles.share_via} share_via nav nav-tabs`} id="shareVia" role="tablist">
                   <li className={`${styles.nav_item} nav-item`}>
-                    <a
-                      className={`${styles.nav_link} nav-link active`}
-                      id="insurance-company"
-                      data-toggle="tab"
-                      href="#insuranceCompany"
-                      role="tab"
-                      aria-controls="insuranceCompany"
-                      aria-selected="true"
-                    >
-                      <img src="/static/groups.svg" width={`32px`} className="img-fluid" alt="group" />
-                      Insurance Company
-                    </a>
-                  </li>
-                  <li className={`${styles.nav_item} nav-item`}>
-                    <a
-                      className={`${styles.nav_link} nav-link`}
-                      id="email-address"
-                      data-toggle="tab"
-                      href="#emailAddress"
-                      role="tab"
-                      aria-controls="emailAddress"
-                      aria-selected="false"
-                    >
+                    <a>
                       <img src="/static/email-icon.png" width={`27px`} className="img-fluid" alt="Email" />
                       Email Address
                     </a>
                   </li>
                 </ul>
                 <div className={`${styles.tab_content} tab-content`} id="shareVia">
-                  <div
-                    className="tab-pane fade show active"
-                    id="insuranceCompany"
-                    role="tabpanel"
-                    aria-labelledby="insurance-company"
-                  >
-                    <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
-                        <select
-                          id="email"
-                          name="email"
-                          className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                          selected
-                        >
-                          <option value="javanika.seth@hdfcbank.com">New India Assurance</option>
-                        </select>
-
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    {insuranceAdd.map((val, index) => {
+                  <div>
+                    {emailAdd.map((val, index) => {
                       return (
                         <>
-                          <div className={`${styles.radio_form} ml-1`}>
-                            {['radio'].map((type) => (
-                              <div key={`inline-${type}`} className={styles.radio_group}>
-                                <Form.Check
-                                  className={styles.radio}
-                                  inline
-                                  label="abcz@email.com"
-                                  name="group1"
-                                  id={`inline-${type}-1`}
-                                />
-                                <Form.Check
-                                  className={styles.radio}
-                                  inline
-                                  label="abcz@email.com"
-                                  name="group1"
-                                  id={`inline-${type}-2`}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <hr></hr>
-                        </>
-                      );
-                    })}
-                    <div
-                      className={`${styles.addMoreRows}`}
-                      onClick={(e) => {
-                        addMoreRows('insurance');
-                      }}
-                    >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
-                        +
-                      </span>{' '}
-                      add another
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
-                        Close
-                      </button>
-                      <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
-                        Share
-                      </button>
-                    </div>
-                  </div>
-                  <div className="tab-pane fade" id="emailAddress" role="tabpanel" aria-labelledby="email-address">
-                      {emailAdd.map((val, index) => {
-                        return (
-                          <>
                           <div className="d-flex align-items-center form-group">
                             <div className={`${styles.each_input} flex-grow-1`}>
-                              <div className="d-flex">
-                                <select
-                                  id="email"
-                                  name="email"
-                                  className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                                  selected
-                                >
-                                  <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                                </select>
-                                <label
-                                  className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                                  htmlFor="email"
-                                >
-                                  Email
-                                </label>
-                                <img
-                                  className={`${styles.arrow} image_arrow img-fluid`}
-                                  src="/static/inputDropDown.svg"
-                                  alt="Search"
-                                />
-                              </div>
+                              <input
+                                id="email"
+                                name="email"
+                                className={`${styles.formControl} input form-control`}
+                                selected
+                              />
+
+                              <label
+                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                                htmlFor="email"
+                              >
+                                Email
+                              </label>
                             </div>
                             <img
-                              onClick={(e)=>{
-                                deleteArr("email",index)
+                              onClick={(e) => {
+                                deleteArr('email', index);
                               }}
                               src="/static/delete 2.svg"
                               alt="delete"
@@ -457,9 +363,9 @@ function Index() {
                               className="ml-3"
                             />
                           </div>
-                          </>
-                        );
-                      })}
+                        </>
+                      );
+                    })}
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
@@ -476,10 +382,18 @@ function Index() {
                       add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
+                      <button
+                        onClick={handleClose}
+                        type="button"
+                        className={`${styles.close} ${styles.btn} btn mr-2 w-50`}
+                      >
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
+                      <button
+                        onClick={handleClose}
+                        type="button"
+                        className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}
+                      >
                         Share
                       </button>
                     </div>
@@ -509,7 +423,11 @@ function Index() {
                   <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                     Close
                   </button>
-                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
+                  <button
+                    onClick={handleClose}
+                    type="button"
+                    className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}
+                  >
                     Download
                   </button>
                 </div>

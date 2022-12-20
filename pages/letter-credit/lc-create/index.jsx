@@ -312,7 +312,8 @@ function Index() {
         return false;
       }
     }
-    if (lcData.atSight == 'SPECIFY') {
+   
+    if (lcData.atSight == 'Usuance') {
       if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
         toastMessage = 'Please add number of Days';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -336,7 +337,7 @@ function Index() {
       }
     }
     if (lcData.shipmentForm === '' || lcData.shipmentForm == undefined) {
-      toastMessage = 'Please select  shipment Form';
+      toastMessage = 'Please add  place of taking charge';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;

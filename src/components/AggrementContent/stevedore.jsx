@@ -5,6 +5,7 @@ import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import {addressLists} from './addressList'
 import {signatoryList} from './signatoryList'
+import { useSelector } from 'react-redux';
 
 let stevedore = {
   name: '',
@@ -31,6 +32,8 @@ function Index(props) {
     state: '',
     city: '',
   });
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
   const [docList, setDocList] = useState([]);
 
   const [EditAddress, setEditAddress] = useState({
@@ -238,7 +241,7 @@ function Index(props) {
                 }
         setSeteveState(supplier);
       } else {
-       
+         console.log("herer")
         let supplier = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName || '',
@@ -284,6 +287,7 @@ function Index(props) {
         }
         setSeteveState(supplier);
             let tempArr = props.data?.authorisedSignatoryDetails;
+            console.log(props?.vendor?.options?.length,"props?.vendor?.options?.length")
        if(props?.vendor?.options?.length>0){
            let optionArray =  props?.vendor?.options
           tempArr.forEach((val, index) => {
@@ -295,14 +299,15 @@ function Index(props) {
               }
             }
           });
+          console.log(tempArr,optionArray,"optionArray")
         setOptions([...optionArray]);
          }
        
       
       }
     }
-  }, [props.data, props.sameAsCHA]);
-
+  }, [props.data, props.sameAsCHA,props?.vendor]);
+console.log(options,"options")
   useEffect(() => {
     if (props.saveData == true && props.active == 'Stevedore') {
       let data = {
@@ -562,7 +567,40 @@ function Index(props) {
       });
     }
   };
- 
+   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
+   useEffect(() => {
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+    } else {
+      setToShow([]);
+      // setToView(false);
+    }
+  }, [getPincodesMasterData]);
+  const viewSet = () => {
+    console.log("sadasd")
+    setToView(true);
+  };
+    const handleData = (name, value) => {
+    console.log('thsss');
+    const newInput = { ...newAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+
+    setNewAddress(newInput);
+    setToView(false);
+  };
+  const handleDataEdit = (name, value) => {
+    const newInput = { ...EditAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setEditAddress(newInput);
+    setToView(false);
+  };
+  console.log(seteveState.gstin,"seteveState.gstin")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -609,7 +647,7 @@ function Index(props) {
                     handleInput(e.target.name, e.target.value);
                   }}
                 >
-                  <option>Select an option</option>
+                  <option value= {""} selected>Select an option</option>
                   {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
                      return <option value={`${val}`}>{val}</option>
                   })}
@@ -642,7 +680,12 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
-            props.vendor.gstin?props.vendor.gstin:[]
+            props.vendor.gstin?props.vendor.gstin:[],
+             toShow,
+            toView,
+            viewSet,
+            props.gettingPins,
+            handleDataEdit
           )}
         {isEdit == false && (
           <div className={`${styles.newAddressContainer} card m-0 border_color`}>
@@ -664,8 +707,8 @@ function Index(props) {
                     >
                       <option disabled>Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      <option value="Branch">Branch</option>
-                      <option value="Supplier">Supplier Address</option>
+                      <option value="Branch">Branch Offcie</option>
+                      <option value="Supplier">Corporate Offcie</option>
                     </select>
                     <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                       Address Type<strong className="text-danger">*</strong>
@@ -677,7 +720,7 @@ function Index(props) {
                     />
                   </div>
                 </Form.Group>
-                {addressType == 'Supplier' ? (
+                {addressType == 'Corporate' ? (
                   <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -704,9 +747,29 @@ function Index(props) {
                         onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         value={newAddress.pinCode}
                         onChange={(e) => {
+                            props.gettingPins(e.target.value);
+                               viewSet();
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
+                         {toShow.length > 0 && toView && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                       <Form.Label className={`${styles.label_heading} label_heading`}>
                         Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
@@ -744,7 +807,7 @@ function Index(props) {
                             setAddress(e.target.name, e.target.value);
                           }}
                         >
-                          <option>Select an option</option>
+                          <option value= {""}>Select an option</option>
                           {props?.vendor?.gstin?.length > 0 && props.vendor.gstin.map((val,index)=>{
                               return <option value={`${val}`}>{val}</option>
                           })}
@@ -769,9 +832,29 @@ function Index(props) {
                         value={newAddress.pinCode}
                         onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         onChange={(e) => {
-                          setAddress(e.target.name, e.target.value);
+                            props.gettingPins(e.target.value);
+                               viewSet();
+                            setAddress(e.target.name, e.target.value);
                         }}
                       />
+                          {toShow.length > 0 && toView && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                       <Form.Label className={`${styles.label_heading} label_heading`}>
                         Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
@@ -864,7 +947,7 @@ function Index(props) {
             </div>
           </div>
         )}
-        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit)}
+        {signatoryList(list,setRemovedOption,handleChangeInput,removedOption,options?.length>0?options:[],handleChangeInput2,onEditRemove,handleRemove,addMoreRows,onEdit,)}
       </div>
     </>
   );
@@ -879,7 +962,12 @@ const editData = (
   cancelEditAddress,
   saveNewAddress,
   setAddressEditType,
-  gstin
+  gstin,
+  toShow,
+  toView,
+  viewSet,
+  gettingPins,
+  handleData
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -899,9 +987,9 @@ const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier">Supplier</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -909,7 +997,7 @@ const editData = (
             <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
-        {addressEditType == 'Supplier' ? (
+        {addressEditType == 'Corporate' ? (
           <>
             <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
               <Form.Control
@@ -936,9 +1024,29 @@ const editData = (
                 value={EditAddress.pinCode}
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={(e) => {
+                   gettingPins(e.target.value);
+                    viewSet();
                   editNewAddress(e.target.name, e.target.value);
                 }}
               />
+                {toShow.length > 0 && toView && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
@@ -996,9 +1104,29 @@ const editData = (
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 value={EditAddress.pinCode}
                 onChange={(e) => {
+                   gettingPins(e.target.value);
+                    viewSet();
                   editNewAddress(e.target.name, e.target.value);
                 }}
               />
+                {toShow.length > 0 && toView && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>

@@ -13,6 +13,7 @@ import { addPrefixOrSuffix } from 'utils/helper';
 import MarginBar from '../MarginBar';
 import styles from './index.module.scss';
 import TermsheetPopUp from '../TermsheetPopUp'
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 function Index() {
   const toPrint = useRef();
@@ -37,9 +38,17 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoneyPreviewTemp marginData={marginData} />), {
       callback: function (doc) {
+              const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
         doc.save('MarginMoney.pdf');
       },
-      // margin:margins,
+      margin:[40,0,40,0],
       autoPaging: 'text',
     });
   };
@@ -98,7 +107,7 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Quantity</span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
+                      {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, marginData?.order?.unitOfQuantity ? marginData?.order?.unitOfQuantity : 'MT', '')}
                     </td>
                   </tr>
                   <tr>
@@ -107,8 +116,10 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      USD{' '}
-                      {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                      {marginData?.order?.orderCurrency}{' '}
+                      {marginData?.order?.perUnitPrice?.toLocaleString(
+                        marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       }) ?? 0}
@@ -127,7 +138,7 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Usance Interest (%)</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
+                      {returnReadableNumber(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,undefined,2,2) + '%'}
                     </td>
                   </tr>
                   <tr>
@@ -145,7 +156,7 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {marginData?.order?.tolerance ? marginData?.order?.tolerance : 0} %
+                      {marginData?.order?.tolerance ? returnReadableNumber(marginData?.order?.tolerance,undefined,2,2) : 0} %
                     </td>
                   </tr>
                   <tr>
@@ -154,13 +165,13 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Margin Money (%)</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                          ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                          : 0,
-                        '%',
-                        '',
-                      )}
+                      {
+                        (marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                          ? returnReadableNumber(marginData?.order?.termsheet?.transactionDetails?.marginMoney ,undefined,2,2)
+                          : 0)
+                          +
+                        '%'
+                      }
                     </td>
                   </tr>
                   <tr>
@@ -210,8 +221,9 @@ const shareEmail = () => {}
                       <span className={`${styles.formula} text1 ml-2`}>(A*B)</span>
                     </td>
                     <td>
-                      USD{' '}
-                      {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
+                      {marginData?.order?.orderCurrency}{' '}
+                      {marginData?.calculation?.orderValue?.toLocaleString(marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       }) ?? 0}
@@ -294,6 +306,7 @@ const shareEmail = () => {}
                       <span className={`ml-2`}>Total Order Value (INR)</span>
                       <span className={`${styles.formula} text1 ml-2`}>(N+O)</span>
                     </td>
+
                     <td>
                       ₹{' '}
                       {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
@@ -455,7 +468,7 @@ const shareEmail = () => {}
         </Card>
       </div>
 
-      <MarginBar exportPDF={exportPDF} leftButtonTitle={'Margin Money'}  openbar={()=>setOpen(true)} rightButtonTitle={'Send to Buyer'}  />
+      <MarginBar exportPDF={exportPDF} leftButtonTitle={'Margin Money'}  openbar={()=>setOpen(true)} rightButtonTitle={'Send to Buyer'}   pagesDetails={{total : 1, current:1}}  />
 
       {open ? <TermsheetPopUp
       close={() => setOpen(false)}

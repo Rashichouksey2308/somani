@@ -12,8 +12,8 @@ export const editData = (
   pinCode,
   gstArr,
 ) => {
-  let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
-  console.log(addressEditType, 'addressEditType');
+  let addressTypeArr = ['Registered', 'Branch', 'Corporate'];
+  console.log(pinCode, 'addressEditType');
   return (
     <div className={`${styles.newAddressContainer}`}>
       <div className={styles.newAddressHead}>
@@ -36,7 +36,7 @@ export const editData = (
                 if (type == 'noBranch' && val == 'Branch') {
                   return null;
                 } else {
-                  return <option value={`${val}`}>{val}</option>;
+                  return <option value={`${val}`}>{val} Office</option>;
                 }
               })}
             </select>
@@ -46,7 +46,7 @@ export const editData = (
             <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
-        {addressEditType == 'Supplier' || addressEditType == 'Registered' ? (
+        {addressEditType == 'Corporate' || addressEditType == 'Registered' ? (
           <>
             <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
               <Form.Control

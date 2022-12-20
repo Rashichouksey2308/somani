@@ -18,8 +18,8 @@ export const addNewAddress = (
   gstArr,
   showGst = true,
 ) => {
-  console.log(gstArr, 'toView');
-  let addressTypeArr = ['Registered', 'Branch', 'Supplier'];
+ 
+  let addressTypeArr = ['Registered', 'Branch', 'Corporate'];
 
   return (
     <div className={`${styles.newAddressContainer} card border_color`}>
@@ -45,7 +45,7 @@ export const addNewAddress = (
                   if (type == 'noBranch' && val == 'Branch') {
                     return null;
                   } else {
-                    return <option value={`${val}`}>{val}</option>;
+                    return <option value={`${val}`}>{val} Office</option>;
                   }
                 })}
               </select>
@@ -55,7 +55,7 @@ export const addNewAddress = (
               <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
             </div>
           </Form.Group>
-          {addressType == 'Registered' || addressType == 'Supplier' ? (
+          {addressType == 'Registered' || addressType == 'Corporate' ? (
             <>
               <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                 <Form.Control
@@ -184,6 +184,7 @@ export const addNewAddress = (
                   onChange={(e) => {
                     if (pinCode) {
                       gettingPins(e.target.value);
+                      viewSet();
                     }
                     setAddress(e.target.name, e.target.value);
                   }}

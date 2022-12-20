@@ -129,7 +129,7 @@ export const Validation = ({ list, containerExcel, containerListDocument, vessel
         }
       }
       if (list[i].vesselInformation[0].flag == '' || list[i].vesselInformation[0].flag == undefined) {
-        toastMessage = `Please add IMO Number  of Vessel Information ${i}  `;
+        toastMessage = `Please add flag of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;

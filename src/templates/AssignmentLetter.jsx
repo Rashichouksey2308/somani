@@ -7,7 +7,7 @@ export default function AssignmentLetter(data) {
       <div className="card-body">
         <p className="text-center text_sales">
           <strong>
-            <u>Assignment Letter between Seller, Buyer and Supplier</u>
+            Assignment Letter between Seller, Buyer and Supplier
           </strong>
         </p>
         <p className="text_sales">
@@ -156,8 +156,8 @@ export default function AssignmentLetter(data) {
                     </div>
                   </div>
                 </div>
-                {data?.specComment?.length > 0 ? <strong>Comments</strong> : null}
-                <ol>
+                {data?.specComment?.length > 0 ? <strong className='mb-2 d-block'>Comments</strong> : null}
+                <ol className='mb-2'>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
                       return <li>{val}</li>;
@@ -168,19 +168,19 @@ export default function AssignmentLetter(data) {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Quantity of Goods in MT
+              Quantity of Goods 
             </Col>
             <Col md={7} className={styles.right}>
-              {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT
+              {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}  {data?.unitOfQuantity?.toUpperCase()}
             </Col>
           </Row>
 
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
-              Price of Goods / MT
+             Per Unit price of Goods
             </Col>
             <Col md={7} className={styles.right}>
-              {data.orderValueCurrency}{" "}
+              {data.curr}{" "}
               {data.priceOfGoods?.toLocaleString(`${data.orderValueCurrency=="INR"?"en-In":"en-En"}`, {
                 maximumFractionDigits: 2,
               })}{' '}
@@ -192,7 +192,7 @@ export default function AssignmentLetter(data) {
               Tolerance levels
             </Col>
             <Col md={7} className={styles.right}>
-              {data.toleranceLevel?.toLocaleString('en-In', {
+              +/-  {data.toleranceLevel?.toLocaleString('en-In', {
                 maximumFractionDigits: 2,
               })}{' '}
               %
@@ -211,7 +211,7 @@ export default function AssignmentLetter(data) {
               Discharge Port
             </Col>
             <Col md={7} className={styles.right}>
-              {data.dischargePort}
+              {data.dischargePort}, India
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -245,27 +245,27 @@ export default function AssignmentLetter(data) {
         </p>
 
         <div className={`row`}>
-          <Col md={6}>
-            <p className="text_sales  m-0">
+          <Col md={8}>
+            <p className="text_sales text-left m-0">
               <strong>.................................................</strong>
             </p>
-            <p className="text_sales">
+            <p className="text_sales text-left">
               <strong>(Seller)</strong>
             </p>
           </Col>
-          <Col md={6}>
-            <p className="text_sales m-0">
+          <Col md={4}>
+            <p className="text_sales text-left m-0">
               <strong>.................................................</strong>
             </p>
-            <p className="text_sales">
+            <p className="text_sales text-left">
               <strong>(Buyer)</strong>
             </p>
           </Col>
-          <Col md={6}>
-            <p className="text_sales  m-0">
+          <Col md={12}>
+            <p className="text_sales text-left m-0">
               <strong>.................................................</strong>
             </p>
-            <p className="text_sales">
+            <p className="text_sales text-left">
               <strong>(Shipper)</strong>
             </p>
           </Col>

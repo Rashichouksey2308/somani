@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 
 export default function SalesContract(changeHandler, data, preview) {
+  console.log(data?.addComm,"data?.addComm")
   return (
     <>
       <div className={`${styles.card_body}`}>
@@ -10,7 +11,7 @@ export default function SalesContract(changeHandler, data, preview) {
           <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
               <Col md={7} className={`${styles.left} border_black`}>
-                Sales Contract No.: {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
+                Sales Contract No.: {data?.shortseller + '/' + data?.shortbuyer + '/' + `${moment().year()}`+ "/" + data?.orderId}
               </Col>
               <Col md={5} className={styles.right}>
                 Date: {moment(new Date()).format('DD-MM-YYYY')}
@@ -21,7 +22,7 @@ export default function SalesContract(changeHandler, data, preview) {
         <p className="text-center text_sales">
           {' '}
           <strong>
-            <u>SALES CONTRACT</u>
+            SALES CONTRACT
           </strong>
         </p>
         <p className="text_sales mt-3 mb-4">
@@ -194,7 +195,7 @@ export default function SalesContract(changeHandler, data, preview) {
                   </li>
                   <li>
                     <p className="text_sales mb-3">
-                      The Buyer shall pay for entire cargo within <u>90 days</u> from the date of B/L or <u>60 days</u>{' '}
+                      The Buyer shall pay for entire cargo within 90 days from the date of B/L or 60 days{' '}
                       from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
                       full payment of the material to be lifted through TT remittance. The Seller shall release the part
                       material to Buyer upon receipt of part payment for the part quantity of material to be lifted
@@ -823,7 +824,7 @@ export default function SalesContract(changeHandler, data, preview) {
             <Col md={7} className={styles.right}>
               {' '}
               {data.curr}{' '}
-              {data.totalOrderValue?.toLocaleString('en-In', {
+              {data.totalOrderValue?.toLocaleString(data.curr=="INR"?'en-In':"en-EN", {
                 maximumFractionDigits: 2,
               })}{' '}
             </Col>
@@ -841,7 +842,7 @@ export default function SalesContract(changeHandler, data, preview) {
               Discharge Port
             </Col>
             <Col md={7} className={styles.right}>
-              {data.dischargePort}
+              {data.dischargePort}, India
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -864,17 +865,11 @@ export default function SalesContract(changeHandler, data, preview) {
             <Col md={5} className={`${styles.left} border_black`}>
               Additional Conditions
             </Col>
-            <Col md={7} className={styles.right}>
-              {
-                <>
-                  <ol type="1">
-                    {data?.addComm?.length > 0 &&
-                      data?.addComm?.map((val, index) => {
-                        return <li key={index}>{val}</li>;
-                      })}
-                  </ol>
-                </>
-              }
+            <Col md={7} className={styles.right}>                      
+              {data?.addComm?.length > 0 &&                  
+                  data?.addComm?.map((val, index) => {                       
+                  return <p key={index} >{val}</p>;
+              })}                          
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -905,8 +900,8 @@ export default function SalesContract(changeHandler, data, preview) {
                     </div>
                   </div>
                 </div>
-                {data.specComment.length > 0 ? <b>Comments</b> : null}
-                <ol>
+                {data.specComment.length > 0 ? <b className='mb-2 d-block'>Comments</b> : null}
+                <ol className='mb-2'>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
                       return <li>{val}</li>;
@@ -929,7 +924,7 @@ export default function SalesContract(changeHandler, data, preview) {
 
             {preview ? (
               <>
-                <span>{data?.sellerSignature}</span>
+                <p>{data?.sellerSignature}</p>
               </>
             ) : (
               <>
@@ -948,7 +943,7 @@ export default function SalesContract(changeHandler, data, preview) {
             </Col> */}
             {preview ? (
               <>
-                <span> {data?.buyerSignature}</span>
+                <p> {data?.buyerSignature}</p>
               </>
             ) : (
               <>

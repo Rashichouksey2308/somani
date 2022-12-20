@@ -143,8 +143,8 @@ const Index = ({
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
-                  <option>Select an option</option>
-                  <option value="MT" selected> 
+                  <option value="">Select an option</option>
+                  <option value="MT" selected>
                     MT
                   </option>
                   <option value="KG">KG</option>
@@ -163,12 +163,12 @@ const Index = ({
                     dispatch(ChangeCurrency(e.target.value.toUpperCase()));
                   }}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="Crores" selected>
                     Crores
                   </option>
                   {/* <option value="Million">Million</option> */}
-                  <option value="Lakh">Lakh</option>
+                  {/* <option value="Lakh">Lakh</option> */}
                 </select>
                 <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
              </div>
@@ -276,10 +276,9 @@ const Index = ({
                   }}
                   name="GST"
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  required
                 >
                   {' '}
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   {gstList &&
                     gstList?.data?.gstList?.map((gstId, index) => (
                       <option key={index + 1} value={gstId}>
@@ -305,9 +304,8 @@ const Index = ({
                   }}
                   name="typeOfBusiness"
                   className={`${styles.input_field}   ${styles.customSelect} input form-control`}
-                  required
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="Manufacturer">Manufacturer</option>
                   {/* <option value="Retailer">Retailer</option> */}
                   <option value="Trading">Trading</option>
@@ -364,18 +362,7 @@ const Index = ({
                 type="text"
                 id="textInput"
                 onChange={(e) => {
-                  if (emailValidation(e.target.value)) {
                     saveCompanyData(e.target.name, e.target.value);
-                    //green tick
-                  } else {
-                    //red mark
-                    let toastMessage = 'Email Invalid';
-                    if (!toast.isActive(toastMessage.toUpperCase())) {
-                      toast.error(toastMessage.toUpperCase(), {
-                        toastId: toastMessage,
-                      });
-                    }
-                  }
                 }}
                 name="email"
                 className={`${styles.input_field} input form-control`}

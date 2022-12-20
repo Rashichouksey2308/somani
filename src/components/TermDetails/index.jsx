@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styles from './index.module.scss';
 import { addPrefixOrSuffix, addPrefixSymbol } from '../../utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 const Index = ({
   termsheet,
@@ -58,6 +59,10 @@ const Index = ({
       changePayment('val');
     }
   };
+  useEffect(() => {
+    payementchangeFunc(termsheetDetails?.paymentDueDate?.computationOfDueDate)
+  }, [termsheetDetails])
+  
 
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
@@ -145,17 +150,8 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                  <option
-                    value={
-                      termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
-                        ? 'MT'
-                        : termsheetDetails?.commodityDetails?.unitOfQuantity
-                    }
-                  >
-                    {termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
-                      ? 'MT'
-                      : termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
-                  </option>
+                
+                   <option value={"MT"}>MT</option>
                   <option value={"L"}>L</option>
                   <option value={"KG"}>KG</option>
                   <option value={"M"}>M</option>
@@ -216,7 +212,7 @@ const Index = ({
                 value={
                   isFieldInFocus.quantity
                     ? termsheetDetails?.commodityDetails?.quantity
-                    : Number(termsheetDetails?.commodityDetails?.quantity).toLocaleString('en-In') +
+                    : returnReadableNumber(termsheetDetails?.commodityDetails?.quantity,'en-In',2) +
                       ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
                 }
                 onChange={(e) => {
@@ -248,10 +244,7 @@ const Index = ({
                   isFieldInFocus.unitPrice
                     ? termsheetDetails?.commodityDetails?.perUnitPrice
                     : ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` +
-                      Number(termsheetDetails?.commodityDetails?.perUnitPrice)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      })
+                      returnReadableNumber(termsheetDetails?.commodityDetails?.perUnitPrice,termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase() === 'INR' ? 'en-In': 'en-EN',2,2)
                 }
                 onChange={onChangeCommodityDetails}
                 type="text"
@@ -277,11 +270,7 @@ const Index = ({
                     isFieldInFocus.tolerance
                       ? termsheetDetails?.commodityDetails?.tolerance
                       : '±' +
-                        Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }) +
-                        ` %`
+                        returnReadableNumber(termsheetDetails?.commodityDetails?.tolerance,'en-In',2,2) + ` %`
                   }
                   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
@@ -308,7 +297,7 @@ const Index = ({
                 value={addPrefixOrSuffix(
                   newLcVal ? newLcVal : 0,
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
-                  'front',
+                  'front',termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()=="INR"?"en-IN":"en-En"
                 )}
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
@@ -424,7 +413,8 @@ const Index = ({
                     })
                     .map((val, index) => {
                       return (
-                        <option key={index} value={`${val.Port_Name},${val.Country}`}>
+                        
+                        <option key={index} value={`${val.Port_Name}, ${val.Country}`}>
                          {val.Port_Name}, {val.Country}
                         </option>
                       );
@@ -696,7 +686,7 @@ const Index = ({
                     Select an option
                   </option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDate"> Days from Vessel Date</option>
+                  <option value="DaysfromVesselDate">Days from Vessel Discharge Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -743,7 +733,7 @@ const Index = ({
                 required
               />
               <label className={`${styles.label} label_heading`}>
-                Days From Vessel Date
+                Days From Vessel Discharge Date
                 <strong className="text-danger">*</strong>
               </label>
             </div>
@@ -815,7 +805,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningCharges
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
-                    : Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In')
+                    : returnReadableNumber(termsheetDetails?.commercials?.lcOpeningChargesUnit,termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase() === 'INR' ? 'en-In': 'en-EN')
                 }
                 onChange={onChangeCommercialTerms}
                 required
@@ -850,7 +840,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage
                     ? termsheetDetails?.commercials?.lcOpeningChargesPercentage
-                    : Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage).toLocaleString('en-In') + ` %`
+                    : returnReadableNumber(termsheetDetails?.commercials?.lcOpeningChargesPercentage,'en-In') + ` %`
                 }
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}

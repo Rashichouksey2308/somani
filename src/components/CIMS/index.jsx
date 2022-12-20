@@ -10,8 +10,9 @@ import UploadOther from '../UploadOther';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import { returnDocFormat } from '@/utils/helpers/global';
+import { qpaPrint } from '@/templates/agreementTemplate';
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction }) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction,getUnqueBl }) {
   let transId = _get(TransitDetails, `data[0]`, '');
   let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk';
   const [editInput, setEditInput] = useState(true);
@@ -35,6 +36,19 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
 
   useEffect(() => {
     let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', []);
+    let quan=  _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0);
+    let unit =  _get(TransitDetails, 'data[0].order.unitOfQuantity', '');
+    let perOrderPrice=1
+    if(unit=="KG"){
+       quan = Number(quan)*0.001
+       quan= quan*perOrderPrice
+    }else{
+      quan= Number(quan)*perOrderPrice
+    }
+    if(Number(quan)>100000){
+      quan=100000
+    }
+    console.log(_get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),"_get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0)")
     if (data.length > 0) {
       setCimsDetails(data);
     } else {
@@ -44,7 +58,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
           circNumber: '',
           circDate: '',
-          cimsCharges: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
+          cimsCharges:quan,
           paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
           coalImportRegistrationDoc: null,
           cimsPaymentReceiptDoc: null,
@@ -57,33 +71,63 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value;
     let filteredVessel = {};
+   
+    // _get(TransitDetails, `data[0].BL.billOfLanding`, [])
+    //   .slice()
+    //   .forEach((bl, index) => {
+    //     if (bl.vesselName === VesselName) {
+    //       filteredVessel = bl;
+    //     }
+    //   });
+    
+  let filteredBL =  _get(TransitDetails, `data[0].BL.billOfLanding`, []).filter((item)=> item.vesselName === VesselName)
 
-    _get(TransitDetails, `data[0].BL.billOfLanding`, [])
-      .slice()
-      .forEach((bl, index) => {
-        if (bl.vesselName === VesselName) {
-          filteredVessel = bl;
-        }
-      });
+  let data = filteredBL?.reduce(
+    (previousValue, currentValue) => previousValue + Number(currentValue?.blQuantity),
+    0,
+  );
 
     let newArray = cimsDetails.slice();
-    newArray[index].vesselName = _get(filteredVessel, 'vesselName', '');
-    newArray[index].quantity = _get(filteredVessel, 'blQuantity', '');
-
+    newArray[index].vesselName = _get(filteredBL, '[0].vesselName', '');
+    newArray[index].quantity = filteredBL.length > 1 ?  data : _get(filteredBL, '[0].blQuantity', '')
+     let quan=  Number(newArray[index].quantity)
+     if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
+       quan = Number(quan)*0.001
+       quan= quan*1
+      }else{
+        quan= Number(quan)*1
+      }
+      if(Number(quan)>100000){
+                  quan=100000
+        }
+    newArray[index].cimsCharges=quan
     setCimsDetails(newArray.slice());
   };
 
   const onChangeCims = (e, index) => {
     const name = e.target.id;
-    const value = e.target.value;
+    let value = e.target.value;
+    console.log(value,"cimsCharges")
+     let quan=  Number(value)
+     if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
+       quan = Number(quan)*0.001
+       quan= quan*1
+      }else{
+        quan= Number(quan)*1
+      }
+    if(Number(quan)>100000){
+              quan=100000
+    }
+
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           if(name=="quantity"){
+            
        return {
             ...obj,
             [name]: value,
-            cimsCharges:value
+            cimsCharges:quan
 
           };
           }else{
@@ -258,6 +302,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     dispatch(UpdateTransitDetails({ fd, task }));
   };
 
+
+
   return (
     <>
       <div className={`${styles.backgroundMain} vessel_card container-fluid p-0`}>
@@ -293,9 +339,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
                           <option selected>Select an option</option>
-                          {_get(TransitDetails, `data[0].BL.billOfLanding`, []).map((bl, index) => (
-                            <option value={bl.vesselName} key={index}>
-                              {bl.vesselName}
+                          {getUnqueBl().map((bl, index) => (
+                            <option value={bl} key={index}>
+                              {bl}
                             </option>
                           ))}
                         </select>
@@ -407,11 +453,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         <option value="" disabled defaultChecked>
                           Select an option
                         </option>
-                        <option value={'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'}>
-                          INDO GERMAN INTERNATIONAL PRIVATE LIMITED
-                        </option>
-                        <option value={'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'}>
-                          EMERGENT INDUSTRIAL SOLUTIONS LIMITED
+                        <option value={ _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', '')}>
+                          { _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', '')}
                         </option>
 
                         <option value="Buyer">Buyer</option>

@@ -49,7 +49,7 @@ export const signatoryList = (
                   list.map((val, index) => {
                     return (
                       <>
-                        {val.actions == 'true' ? (
+                        {val.actions == 'true' || val.actions == undefined ? (
                           <tr key={index} className="table_row">
                             <td>{val.name}</td>
                             <td>{val.designation}</td>
@@ -106,7 +106,31 @@ export const signatoryList = (
                                         alt="Search"
                                       />
                                     </>
-                                  ) : null}
+                                  ) : (
+                                    <>
+                                      <select
+                                        value={val.name}
+                                        className={`${styles.customSelect} input`}
+                                        onChange={(e) => {
+                                          // setRemovedOption(e.target.value);
+                                          handleChangeInput(e.target.name, e.target.value, index);
+                                        }}
+                                      >
+                                        <option>Select an option</option>
+                                        {/* {removedOption != null ? (
+                                          <option value={removedOption}>{removedOption}</option>
+                                        ) : null} */}
+                                        {options.map((val, i) => {
+                                          return <option value={val}>{val}</option>;
+                                        })}
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} image_arrow img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </>
+                                  )}
                                 </>
                               )}
                             </td>

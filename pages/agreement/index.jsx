@@ -11,8 +11,12 @@ import TPAIGI from '../../src/components/TPAIGI';
 import TPASeller from '../../src/components/TPASeller';
 import styles from './index.module.scss';
 
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateGenericData } from '../../src/redux/generic/actionsType';
 function Index() {
   const [preview, setPreview] = useState('');
+   const dispatch = useDispatch();
 const [agreementDoc, setagreementDoc] = useState({
       lcDraftDoc: null,
   });
@@ -22,21 +26,53 @@ const [agreementDoc, setagreementDoc] = useState({
   };
   const [name, setName] = useState('');
    const [orderId, setOrderID] = useState('');
-  const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+   useEffect(() => {
+  if(window){
+       let term =  JSON.parse(sessionStorage.getItem('genericSelected'));
+       dispatch(setPageName('agreement'));
+        dispatch(setDynamicName(term.company.companyName));
+        dispatch(setDynamicOrder(term.order.orderId));
+        }
+  },[]);
 
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
+     
+     
+      
       setOrderID(data.order._id)
       setName(data.company.companyName);
     }
   });
+    useEffect(() => {
+    if (window) {
+     
+      const doc = sessionStorage.getItem('agreementDoc');
+      if(doc){
+      const newInput = { ...agreementDoc };
+      newInput.lcDraftDoc = {name:doc}
+      setagreementDoc(newInput);
+      }
+     
+     
+     
+    }
+  },[]);
 
-   const uploadDocument1 = (e) => {
+   const uploadDocument1 = async(e) => {
+    console.log(e.target.files[0],"e.target.files[0]")
     const newInput = { ...agreementDoc };
     newInput.lcDraftDoc = e.target.files[0];
+    let dataToSend = {
+        genericId:  JSON.parse(sessionStorage.getItem('genericSelected'))._id,
+        agreementDocument:JSON.stringify(e.target.files[0])
+      };
+    // await dispatch(updateGenericData(dataToSend, 'Submitted'));
+    sessionStorage.setItem('agreementDoc', JSON.stringify(e.target.files[0].name));
     setagreementDoc(newInput);
   };
+  console.log(agreementDoc,"agreementDoc");
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>

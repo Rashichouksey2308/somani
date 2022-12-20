@@ -51,9 +51,10 @@ function Index() {
         );
 
         const balance = sessionStorage.getItem('balanceQuantity');
+        const toRemove = sessionStorage.getItem('toRemove');
 
         setreleasedQuantity(balance);
-        setbalanceQuantity(Number(number) - Number(balance));
+        setbalanceQuantity(Number(toRemove));
 
         let sig=[];
         _get(ReleaseOrderData, 'data[0].order.generic.buyer.authorisedSignatoryDetails').forEach((val, index) => {
@@ -156,7 +157,7 @@ function Index() {
                 <p>
                   DO.NO:{' '}
                   <span className={`${styles.bold}`}>
-                    {DeliveryNo} / {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')}
+                    {DeliveryNo} 
                   </span>
                 </p>
                 <p className='mb-0'>
@@ -178,14 +179,14 @@ function Index() {
                 ,<br></br>
                 {_get(ReleaseOrderData, 'data[0].order.generic.CHA.name', '') !== '' ? (
                   <span>
-                    {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].fullAddress', '')},
-                    {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].state', '')},
+                    {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].fullAddress', '')},{" "}
+                    {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].state', '')},{" "}
                     {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].pinCode', '')}
                   </span>
                 ) : (
                   <span>
-                    {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].fullAddress', '')},
-                    {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].state', '')},
+                    {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].fullAddress', '')},{" "}
+                    {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].state', '')},{" "}
                     {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].pinCode', '')}
                   </span>
                 )}
@@ -198,8 +199,8 @@ function Index() {
                       <>
                         CC:{' '}
                         <span className={`${styles.bold} ${styles.width2} `}>
-                          {val.name}, M/S {_get(ReleaseOrderData, 'data[0].company.companyName')},
-                          {_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}
+                          {val?.name?.trim()},{" "}M/S {_get(ReleaseOrderData, 'data[0].company.companyName')},{" "}
+                          {_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}{' '}
                         </span>
                       </>
                     );
@@ -213,34 +214,21 @@ function Index() {
                   {_get(ReleaseOrderData, 'data[0].order.generic.CMA.addresses[0].state', '')}.
                 </span>
               </div>
-              <p>
-                Kind Attn.{' '}
-                {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.authorisedSignatoryDetails', []).map(
-                  (val, index) => {
-                    return (
-                      <>
-                        <span className={`${styles.bold} ${styles.width2} `}>
-                          {`${index !== 0 ? '/' : ''}${val.name} `}
-                        </span>
-                      </>
-                    );
-                  },
-                )}
-              </p>
+           
               <div className={`${styles.letter_content}`}>
                 <p>Dear Sir,</p>
                 <p>
                   We hereby authorize you to deliver the quantity to{' '}
-                  <span className={`${styles.bold}`}>{_get(ReleaseOrderData, 'data[0].company.companyName')},</span> Vide{' '}
-                  <span className={`${styles.bold}`}>BL No. 1</span> dated{' '}
-                  <span className={`${styles.bold}`}>18/03/2021</span> as per the detail given below:
+                  <span className={`${styles.bold}`}>{_get(ReleaseOrderData, 'data[0].company.companyName')},</span> 
+                  {" "} as per the detail given below:
                 </p>
                 <div className={`${styles.material}`}>
                   <div className={`d-flex justify-content-start align-items-start`}>
-                    <span className={styles.head}>l) Material :</span>{' '}
+                    <span className={styles.head}>1) Material :</span>{' '}
                     <span className={`${styles.bold} `}>
-                      {_get(ReleaseOrderData, 'data[0].order.commodity', '')} (
-                      {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')})
+                      {_get(ReleaseOrderData, 'data[0].order.commodity', '')}
+                      {" "} at  {" "}
+                     
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress',
@@ -250,12 +238,12 @@ function Index() {
                         ReleaseOrderData,
                         'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
                         '',
-                      ) !== ''
-                        ? `,${_get(
+                      )!== ''
+                        ? `, ${_get(
                             ReleaseOrderData,
                             'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
                             ' ',
-                          )}`
+                          )}, India`
                         : ''}
                     </span>
                   </div>
@@ -263,15 +251,15 @@ function Index() {
                     <span className={styles.head}>2) Quantity : </span>{' '}
                     <span className={`${styles.bold} `}>
                       {releasedQuantity} {_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '').toUpperCase()}
-                      s. {_get(ReleaseOrderData, 'data[0].order.commodity', '')}
+                      s.
                     </span>
                   </div>
                   <div className={`d-flex justify-content-start align-items-start`}>
                     <span className={styles.head}>3) Balance Qty :</span>{' '}
                     <span className={`${styles.bold} `}>
-                      After delivery of material against this DO the balance Qty. will be as under :
+                      After delivery of material against this DO the balance Qty. will be 
                       <p>
-                        a) {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {balanceQuantity}{' '}
+                        {balanceQuantity==0?"Nil":balanceQuantity}{' '}
                         {_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '').toUpperCase()}s
                       </p>
                     </span>
@@ -318,7 +306,7 @@ function Index() {
                 / *\([^)]*\) */g,
                 '',
               )}
-              , VIZAG : Delivery order file
+              , VIZAG
             </p>
             <p className={`${styles.bold} ${styles.extra_margin}`}>: Delivery order file</p>
           </div>
@@ -392,27 +380,19 @@ function Index() {
                         <>
                         <div className={`d-flex align-items-center form-group`}>
                           <div className={`${styles.each_input} flex-grow-1`}>
-                            <div className="d-flex">
-                              <select
+                              <input
                                 id="email"
                                 name="email"
-                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                className={`${styles.formControl} input form-control`}
                                 selected
-                              >
-                                <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                              </select>
+                              />
                               <label
                                 className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
                                 htmlFor="email"
                               >
                                 Email
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
+                              
                           </div>
                           <img
                             onClick={()=>{

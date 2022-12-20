@@ -14,7 +14,7 @@ import { getInternalCompanies } from '../../redux/masters/action';
 function Index({ TransitDetails }) {
   const dispatch = useDispatch();
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
-  console.log(getInternalCompaniesMasterData,'getInternalCompaniesMasterData')
+  
   let transId = _get(TransitDetails, `data[0]`, '');
   const [billsofLanding, setBillsofLanding] = useState([
     { 
@@ -161,7 +161,7 @@ function Index({ TransitDetails }) {
   };
 
   return (
-    <div className={`${styles.root} card container-fluid  border-0`}>
+    <div className={`${styles.root} card container-fluid border-0 p-0`}>
       <div className={`${styles.content_container}`}>
         <div className={`${styles.heading} d-flex justify-content-end`}>
           <p>
@@ -183,12 +183,12 @@ function Index({ TransitDetails }) {
           <div className={`d-flex`}>
             <span>To:</span>
             {'  '}
-            <div className={`ml-3 ${styles.noadd} text-left text-uppercase`}>
+            <div className={`ml-3 ${styles.noadd} text-left text-uppercase font-weight-bold`}>
               {_get(TransitDetails, 'data[0].order.generic.seller.name')}
-             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')}
-             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].city')},
-            {" "}  {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},
-             {" "} {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].country')}
+              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')},{" "}
+              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].city')},{" "}
+              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')},{" "}
+              {_get(TransitDetails, 'data[0].order.generic.seller.addresses[0].country')}
             </div>
           </div>
           <div className="w-25 text-right">
@@ -201,14 +201,14 @@ function Index({ TransitDetails }) {
         <div className={`d-flex ${styles.salutations}`}>
           <span>Ship:</span>
           {'  '}
-          <div className={`ml-3`}>
+          <div className={`ml-3 font-weight-bold`}>
             {_get(TransitDetails, 'data[0].order.generic.shippingLine.vesselName', '').toUpperCase()}
           </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Voyage:</span>
           {'  '}
-          <div className={`ml-3`}>
+          <div className={`ml-3 font-weight-bold`}>
             FROM {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()} TO{' '}
             {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '').toUpperCase()}{' '}
           </div>
@@ -216,39 +216,42 @@ function Index({ TransitDetails }) {
         <div className={`d-flex  ${styles.salutations}`}>
           <span>Cargo:</span>
           {'  '}
-          <div className={`ml-3`}>
+          <div className={`ml-3 font-weight-bold`}>
             {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}{' '}
             {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
             {_get(TransitDetails, 'data[0].order.commodity', '').toUpperCase()}
           </div>
         </div>
-        <div className={`d-flex flex-wrap ${styles.salutations}`}>
-          <span>Bill(s) of Lading:</span>
+        <div className={`d-flex text-left ${styles.salutations}`}>
+          <span className='text-nowrap'>Bill(s) of Lading:</span>
           {'  '}
           <div style={{ marginRight: '10px' }}>
             {billsofLanding.map((bills, index1) => (
               <>
                 <div
                   key={index1}
-                  className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
+                  className={`ml-3 word-wrap d-flex font-weight-bold justify-content-start align-items-center ${styles.salutationFeatures} `}
                 >
                   <select
                     onChange={(e) => BolDropDown(e, index1)}
                     className="input"
                     value={billsofLanding[index1].blnumber}
                   >
-                    {bolArray.map((element, index2) => (
-                      <option
-                        disabled={isOptionAvailable(`BL-${index2 + 1}`, index2)}
-                        key={index2}
-                        value={`BL-${index2 + 1}`}
-                      >
-                        BL-{index2 + 1}
-                      </option>
-                    ))}
+                    {bolArray.map((element, index2) => {
+                      if(!element.blSurrenderDate){
+                        return(
+                          <option
+                            disabled={isOptionAvailable(`BL-${index2 + 1}`, index2)}
+                            key={index2}
+                            value={`BL-${index2 + 1}`}
+                          >
+                            BL-{index2 + 1}
+                          </option>
+                        )
+                      }})}
                   </select>
                   Dated {billsofLanding[index1].date}, ISSUE AT{' '}
-                  {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{' '}
+                  {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{' '}, INDIA
                   {bolArray.length - 1 > index1 ? (
                     index1 === billsofLanding.length - 1 ? (
                       <button onClick={() => onAddClick()} 
@@ -399,7 +402,7 @@ function Index({ TransitDetails }) {
           </div>
         </div>
         <div className={`${styles.footer} mt-5`}>
-          <p className="border_color">7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)</p>
+          <p className="border_color">7A., 'SAGAR', 6 Tilak Marg, New Delhi-11OOO1 (INDIA)</p>
           <div className={`${styles.inner} d-flex justify-content-between`}>
             <div>
               <strong>Joint Venture of</strong>

@@ -5,12 +5,13 @@ import { Form } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
 import DateCalender from '../DateCalender';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
+
 import { UpdateInspection } from 'redux/Inspections/action';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import { handleErrorToast } from '@/utils/helpers/global';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {getPincodes } from '../../redux/masters/action';
 export default function Index({ inspectionData, setDate, vendor,required ,setComponentId,componentId}) {
   const dispatch = useDispatch();
   const [lastDate, setlastDate] = useState(new Date());
@@ -23,16 +24,29 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
 
   useEffect(() => {
     let add = [];
-    let pincode = [];
+   
     let newAddress = [];
-    let name = ''
-    let address = ''
+    let name = '';
+    let address = '';
+    let city = '';
+    let state = '';
+    let country = '';
+    let gstin = '';
+    let addressType = '';
+    let pinCode=''
+    
     console.log(vendor,'vendors')
     if (vendor) {
     vendor?.forEach((item)=> {
       if(item?.vendorDetails?.vendor == 'Third Party Inspection'){
         name = item.vendorDetails?.companyName
-        address = item?.keyAddresses[0]?.address
+        address = item?.keyAddresses[0]?.address,
+        pinCode = item?.keyAddresses[0]?.pinCode,
+        city= item?.keyAddresses[0]?.city,
+        state= item?.keyAddresses[0]?.state,
+        country= item?.keyAddresses[0]?.country,
+        gstin= item?.keyAddresses[0]?.gstin
+        addressType= item?.keyAddresses[0]?.addressType
 
       }
     })
@@ -43,19 +57,25 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
         fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
-        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
-        country: inspectionData?.thirdPartyAppointment?.address?.country,
+        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType ||addressType ,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || pinCode,
+        country: inspectionData?.thirdPartyAppointment?.address?.country|| country || "India",
+        state: inspectionData?.thirdPartyAppointment?.address?.state || state,
+        gstin: inspectionData?.thirdPartyAppointment?.address?.gstin || gstin,
+        city: inspectionData?.thirdPartyAppointment?.address?.city || city,
       },
     });
     setAddressData({
-      name: inspectionData?.thirdPartyAppointment?.name || address,
+      name: inspectionData?.thirdPartyAppointment?.name || name,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
         fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
-        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
-        country: inspectionData?.thirdPartyAppointment?.address?.country,
+        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType || addressType ,
+         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || pinCode,
+        country: inspectionData?.thirdPartyAppointment?.address?.country || country || "India",
+        state: inspectionData?.thirdPartyAppointment?.address?.state || state,
+        gstin: inspectionData?.thirdPartyAppointment?.address?.gstin || gstin,
+        city: inspectionData?.thirdPartyAppointment?.address?.city || city,
       },
     });
   }, [inspectionData, vendor]);
@@ -65,7 +85,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
     dateOfAppointment: '',
     address: { fullAddress: '', addressType: '', pinCode: '', country: '' },
   });
-
+ console.log(appointmentData,"appointmentData",addressData)
   const saveAppointmentData = (name, value) => {
     let newInput = { ...appointmentData };
     newInput[name] = value;
@@ -176,7 +196,42 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
     setAppointmentData({ ...temp });
    
   };
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
+   const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  useEffect(() => {
 
+  if (getPincodesMasterData.length > 0) {
+    setToShow(getPincodesMasterData);
+
+  } else {
+
+  setToShow([]);
+  // setToView(false);
+  }
+  }, [getPincodesMasterData]);
+
+  const gettingPins=(value)=>{
+  dispatch(getPincodes(value));
+  }
+ const viewSet=()=>{
+    
+     setToView(true)
+ }
+  const handleData = (name, value) => {
+    console.log("thsss")
+    const newInput = { ...addressData };
+    const namesplit = name.split('.');
+    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value.Pincode) : (newInput[name] = value.Pincode);
+    console.log(newInput,"newInput")
+    // newInput[name] = value.Pincode;
+    newInput.address.country = 'India';
+    // newInput.city = value.City;
+    // newInput.state = value.State;
+    
+    setAddressData({ ...newInput });
+    setToView(false);
+  };
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>
@@ -227,13 +282,20 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
                   <label className={`${styles.comment_heading} `}>Address</label>
 
                   <div
-                    className={`${styles.comment_field} border_color bg-transparent input w-100 d-flex justify-content-between mt-2 form-control`}
+                    className={`${styles.comment_field} border_color bg-transparent  w-100 d-flex justify-content-between mt-2 form-control`}
                   >
                     <div className="m-3">
-                      <div className={`${styles.address_type}`}>{appointmentData?.address?.addressType}</div>
+                      <div className={`${styles.address_type}`}
+                     
+                      >{appointmentData?.address?.addressType} Office</div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        {appointmentData?.address?.fullAddress} {appointmentData?.address?.pinCode}{' '}
-                        {appointmentData?.address?.country}
+                        {appointmentData?.address?.fullAddress} 
+                        {appointmentData?.address?.city},{" "}
+                        {appointmentData?.address?.state},{" "}    
+                        {appointmentData?.address?.pinCode},{' '}
+                        {appointmentData?.address?.country}.
+                        <br></br>
+                        GSTIN NO- {appointmentData?.address?.gstin}
                       </div>
                     </div>
                     <div>
@@ -258,7 +320,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
                 </div>
               </div>
 
-              {isEdit && editData(handleEditCancel, handleEditInput, handleOnAdd, appointmentData, addressData)}
+              {isEdit && editData(handleEditCancel, handleEditInput, handleOnAdd, appointmentData, addressData,gettingPins,viewSet,handleData,toShow,toView)}
             </div>
           </div>
         </div>
@@ -268,7 +330,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
   );
 }
 
-const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentData, addressData) => {
+const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentData, addressData,gettingPins,viewSet,handleData,toShow,toView) => {
   return (
     <div className={`${styles.newAddressContainer} border_color mt-3`}>
       <div className={`${styles.newAddressHead} border_color`}>
@@ -286,9 +348,9 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentDat
               }}
             >
               <option>Select an option</option>
-              <option value="Registered Office">Registered Office</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier Address">Supplier Address</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -317,11 +379,31 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentDat
             required
             type="text"
             name="address.pinCode"
-            defaultValue={addressData?.address?.pinCode}
+            value={addressData?.address?.pinCode}
             onChange={(e) => {
+              gettingPins(e.target.value);
+              viewSet();
               handleEditInput(e.target.name, e.target.value);
             }}
           />
+             { toShow.length > 0 && toView && (
+                  <div className={styles.searchResults}>
+                    <ul>
+                      {toShow
+                        ? toShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('address.pinCode', results)}
+                              id={results._id}
+                              key={index}
+                              value={results.Pincode}
+                            >
+                              {results.Pincode}{' '}
+                            </li>
+                          ))
+                        : ''}
+                    </ul>
+                  </div>
+                )}
           <Form.Label className={`${styles.label_heading} label_heading`}>
             Pin Code<strong className="text-danger">*</strong>
           </Form.Label>

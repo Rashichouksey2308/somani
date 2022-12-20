@@ -21,6 +21,8 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/us
 import MarginMoney from '../../src/templates/MarginMoney';
 import { checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import styles from './index.module.scss';
+import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
+// import _ from 'lodash'
 
 function Index() {
   const dispatch = useDispatch();
@@ -36,8 +38,9 @@ function Index() {
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
-  const { margin } = useSelector((state) => state.marginMoney);
+  const { margin,updatingMarginMoneyResponse } = useSelector((state) => state.marginMoney);
   const { orderList } = useSelector((state) => state.buyer);
+
   const marginData = _get(margin, 'data.data[0]', '');
 
   let id = sessionStorage.getItem('marginId');
@@ -56,10 +59,10 @@ function Index() {
     dispatch(setPageName('margin-money'));
     dispatch(setDynamicName(marginData?.company?.companyName));
     dispatch(setDynamicOrder(marginData?.order?.orderId));
-  }, [dispatch, marginData?.company?.companyName]);
+  }, [dispatch, marginData?.company?.companyName,updatingMarginMoneyResponse]);
 
   const [forCalculation, setForCalculation] = useState({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
     status: marginData?.status || '',
     quantity: marginData?.order?.quantity || '',
     additionalPDC: marginData?.additionalPDC || '',
@@ -98,7 +101,7 @@ function Index() {
 
   const getData = () => {
     setForCalculation({
-      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
       status: marginData?.status,
       quantity: marginData?.order?.quantity,
       additionalPDC: marginData?.additionalPDC,
@@ -111,7 +114,7 @@ function Index() {
       marginMoney: marginData?.order?.termsheet?.transactionDetails?.marginMoney,
     });
     let orderValue = parseFloat(Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice)).toFixed(2); //J
-    let orderValueCurrency = 'USD';
+    let orderValueCurrency = marginData?.order?.orderCurrency;
     let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculation.conversionRate)).toFixed(2); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
@@ -220,11 +223,32 @@ function Index() {
 
     setInvoiceDataRevised({ ...newInput });
   };
+
+  
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData };
+    if (name == 'buyerGSTIN') {
+      const filteredGSt = orderList?.company?.detailedCompanyInfo?.GST?.filter((item) => item?.gstin === value) ?? [];
+      if (filteredGSt.length > 0 && filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address) {
+        newInput.buyerAddress = filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address ?? ''
+        if(isConsigneeSameAsBuyer) {
+          newInput.consigneeAddress = filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address ?? '';
+        }
+      }
+    }
 
     newInput[name] = value;
-
+    if (isConsigneeSameAsBuyer) {
+      if (name == 'buyerName') {
+        newInput.consigneeName = value;
+      }
+      if (name == 'buyerAddress') {
+        newInput.consigneeAddress = value;
+      }
+      if (name == 'buyerGSTIN') {
+        newInput.consigneeGSTIN = value;
+      }
+    }
     setInvoiceData({ ...newInput });
   };
 
@@ -246,7 +270,7 @@ function Index() {
 
       setInvoiceData({ ...newInput });
     }
-    let filter = getInternalCompaniesMasterData.filter((val, index) => {
+    let filter = getInternalCompaniesMasterData?.filter((val, index) => {
       if (val.Company_Name == value) {
         return val;
       }
@@ -465,10 +489,27 @@ function Index() {
   };
   const handleUpdate = async () => {
     if (validate()) {
+      let list = document.getElementsByClassName('nav-tabs');
+      let tab = document.getElementsByClassName('tab-content');
+      for (let i = 0; i < list[0].children.length; i++) {
+        if (list[0].children[i].children[0].classList.contains('active')) {
+          let tempIndex = i + 1;
+          if (tempIndex < list[0].children.length) {
+            list[0].children[i].children[0].classList.remove('active');
+
+            list[0].children[tempIndex].children[0].classList.add('active');
+            tab[0].children[i].classList.remove('show');
+            tab[0].children[i].classList.remove('active');
+            tab[0].children[tempIndex].classList.add('show');
+            tab[0].children[tempIndex].classList.add('active');
+            break;
+          }
+        }
+      }
       let obj = {
         marginMoneyId: marginData?._id,
         conversionRate: forCalculation.conversionRate,
-        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
+        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded === false ? false: true,
         numberOfPDC: forCalculation.numberOfPDC,
         additionalPDC: forCalculation.additionalPDC,
         invoiceDetail: {
@@ -518,7 +559,7 @@ function Index() {
   // RevisedMargin Money New Calculation
 
   const [forCalculationRevised, setforCalculationRevised] = useState({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
     status: marginData?.status,
     quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
       ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
@@ -563,7 +604,7 @@ function Index() {
 
   const getDataRevised2 = () => {
     setforCalculationRevised({
-      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
       status: marginData?.status,
       quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
         ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
@@ -800,7 +841,19 @@ function Index() {
   const saveInvoiceDataRevisedRevised = (name, value) => {
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
-
+   newInput[name] = value;
+   
+    if (invoiceDataRevised.isConsigneeSameAsBuyer) {
+      if (name == 'buyerName') {
+        newInput.consigneeName = value;
+      }
+      if (name == 'buyerAddress') {
+        newInput.consigneeAddress = value;
+      }
+      if (name == 'buyerGSTIN') {
+        newInput.consigneeGSTIN = value;
+      }
+    }
     setInvoiceDataRevised({ ...newInput });
   };
 
@@ -822,40 +875,71 @@ function Index() {
     }
   };
 
+  const reviseValidate = () => {
+    if (
+      forCalculationRevised.additionalPDC === null ||
+      forCalculationRevised.additionalPDC === undefined ||
+      forCalculationRevised.additionalPDC === '' ||
+      forCalculationRevised.additionalPDC === NaN ||
+      forCalculationRevised.additionalPDC === 'NaN'
+    ) {
+      let toastMessage = 'Please add additional Amount Per PDC';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (
+      forCalculationRevised.conversionRate === null ||
+      forCalculationRevised.conversionRate === undefined ||
+      forCalculationRevised.conversionRate === '' ||
+      forCalculationRevised.conversionRate === NaN ||
+      forCalculationRevised.conversionRate === 'NaN'
+    ) {
+      let toastMessage = 'Please add conversion Rate';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    return true;
+  };
   const handleUpdateRevisedMarginMoney = () => {
-    let obj = {
-      marginMoneyId: marginData?._id,
-      additionalPDC: forCalculationRevised.additionalPDC,
-      revisedMarginMoney: {
-        isActive: true,
-        invoiceDetail: { ...invoiceDataRevised },
-        calculation: { ...calcRevised },
-        revisedCalculation: {
-          orderValue: finalCalRevised.orderValue,
-          orderValueCurrency: finalCalRevised.orderValueCurrency,
-          orderValueInINR: finalCalRevised.orderValueInINR,
-          usanceInterest: finalCalRevised.usanceInterest,
-          tradeMargin: finalCalRevised.tradeMargin,
-          grossOrderValue: finalCalRevised.grossOrderValue,
-          toleranceValue: finalCalRevised.toleranceValue,
-          totalOrderValue: finalCalRevised.totalOrderValue,
-          provisionalUnitPricePerTon: finalCalRevised.provisionalUnitPricePerTon,
-          marginMoney: finalCalRevised.marginMoney,
-          totalSPDC: finalCalRevised.totalSPDC,
-          amountPerSPDC: finalCalRevised.amountPerSPDC,
+    if (reviseValidate()) {
+      let obj = {
+        marginMoneyId: marginData?._id,
+        additionalPDC: forCalculationRevised.additionalPDC,
+        revisedMarginMoney: {
+          isActive: true,
+          invoiceDetail: { ...invoiceDataRevised },
+          calculation: { ...calcRevised },
+          revisedCalculation: {
+            orderValue: finalCalRevised.orderValue,
+            orderValueCurrency: finalCalRevised.orderValueCurrency,
+            orderValueInINR: finalCalRevised.orderValueInINR,
+            usanceInterest: finalCalRevised.usanceInterest,
+            tradeMargin: finalCalRevised.tradeMargin,
+            grossOrderValue: finalCalRevised.grossOrderValue,
+            toleranceValue: finalCalRevised.toleranceValue,
+            totalOrderValue: finalCalRevised.totalOrderValue,
+            provisionalUnitPricePerTon: finalCalRevised.provisionalUnitPricePerTon,
+            marginMoney: finalCalRevised.marginMoney,
+            totalSPDC: finalCalRevised.totalSPDC,
+            amountPerSPDC: finalCalRevised.amountPerSPDC,
+          },
+          revisedCommodityDetails: {
+            conversionRate: forCalculationRevised.conversionRate,
+            quantity: forCalculationRevised.quantity,
+            perUnitPrice: forCalculationRevised.perUnitPrice,
+            orderValue: finalCalRevised.orderValue,
+          },
         },
-        revisedCommodityDetails: {
-          conversionRate: forCalculationRevised.conversionRate,
-          quantity: forCalculationRevised.quantity,
-          perUnitPrice: forCalculationRevised.perUnitPrice,
-          orderValue: finalCalRevised.orderValue,
-        },
-      },
 
-      isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
-    };
+        isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
+      };
 
-    dispatch(RevisedMarginMoney(obj));
+      dispatch(RevisedMarginMoney(obj));
+    }
   };
 
   const saveOrderData = (name, value) => {
@@ -880,10 +964,19 @@ function Index() {
   };
 
   const exportPDF = () => {
+
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
+        doc.save('MarginMoney.pdf');
       },
 
       autoPaging: 'text',
@@ -892,30 +985,58 @@ function Index() {
 
   useEffect(() => {
     if (marginData) {
-      setInvoiceData({
-        buyerName: marginData?.company?.companyName || '',
-        buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
-        buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || true,
-        consigneeName: marginData?.invoiceDetail?.consigneeName || '',
-        consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
-        consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
-        importerName:
-          marginData?.invoiceDetail?.importerName ||
-          marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-            ?.toUpperCase()
-            ?.replace(/ *\([^)]*\) */g, '') ||
-          '',
-        branchOffice: marginData?.invoiceDetail?.branchOffice || '',
-        companyAddress: marginData?.invoiceDetail?.companyAddress || '',
-        importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
-        bankName: marginData?.invoiceDetail?.bankName || '',
-        branch: marginData?.invoiceDetail?.branch || '',
-        branchAddress: marginData?.invoiceDetail?.branchAddress || '',
-        IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-        accountNo: marginData?.invoiceDetail?.accountNo || '',
-      });
+
       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+      if (marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true) {
+        setInvoiceData({
+          buyerName: marginData?.company?.companyName || '',
+          buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+          buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+          isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || true,
+          consigneeName: marginData?.company?.companyName || '',
+          consigneeGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+          consigneeAddress: marginData?.invoiceDetail?.buyerAddress || '',
+          importerName:
+            marginData?.invoiceDetail?.importerName ||
+            marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+              ?.toUpperCase()
+              ?.replace(/ *\([^)]*\) */g, '') ||
+            '',
+          branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+          companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+          importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+          bankName: marginData?.invoiceDetail?.bankName || '',
+          branch: marginData?.invoiceDetail?.branch || '',
+          branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+          IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+          accountNo: marginData?.invoiceDetail?.accountNo || '',
+        });
+        setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+      } else {
+        setInvoiceData({
+          buyerName: marginData?.company?.companyName || '',
+          buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+          buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+          isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || true,
+          consigneeName: marginData?.invoiceDetail?.consigneeName || '',
+          consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
+          consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
+          importerName:
+            marginData?.invoiceDetail?.importerName ||
+            marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+              ?.toUpperCase()
+              ?.replace(/ *\([^)]*\) */g, '') ||
+            '',
+          branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+          companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+          importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+          bankName: marginData?.invoiceDetail?.bankName || '',
+          branch: marginData?.invoiceDetail?.branch || '',
+          branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+          IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+          accountNo: marginData?.invoiceDetail?.accountNo || '',
+        });
+      }
     }
   }, [marginData, getInternalCompaniesMasterData]);
 
@@ -926,7 +1047,7 @@ function Index() {
       buyerName: marginData?.company?.companyName || '',
       buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
       buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
-      isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
+      isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer || true,
       consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
       consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
       consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
@@ -958,6 +1079,25 @@ function Index() {
   useEffect(() => {
     getDataRevised();
   }, [forCalculationRevised]);
+
+  const exportPDFRevised = () => {
+    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
+      callback: function (doc) {
+          const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
+        doc.save('RevisedMarginMoney.pdf');
+      },
+      autoPaging: 'text',
+    });
+  };
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -1358,7 +1498,13 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.orderCurrency} {checkNan(Number(finalCal.orderValue), true)}
+                                  {marginData?.order?.orderCurrency}{' '}
+                                  {Number(finalCal.orderValue).toLocaleString(
+                                    marginData?.order?.orderCurrency === 'INR' ? 'en-IN' :"en-EN"
+                                    , {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  })}
                                   {/* {convertValue(finalCal?.orderValue, marginData?.order?.orderCurrency !== 'USD' ? 1000000 : 10000000)
                                   ?.toLocaleString(marginData?.order?.orderCurrency === 'INR' ? 'en-IN' : undefined,
                                    { maximumFractionDigits: 2 })} */}
@@ -1644,7 +1790,9 @@ function Index() {
                                 defaultValue={invoiceData.buyerName}
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) => {
+                                  saveInvoiceData(e.target.name, e.target.value);
+                                }}
                               />
                               <label className={`${styles.label_heading} label_heading`} id="textInput">
                                 Buyer Name
@@ -1657,11 +1805,12 @@ function Index() {
                                   id="Code"
                                   name="buyerGSTIN"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
-                                  onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
+                                  onChange={(e) => {
+                                    saveInvoiceData(e.target.name, e.target.value);
+                                  }}
                                   value={invoiceData?.buyerGSTIN}
-                                >
-                                  <option selected>Select an Option</option>
+                                > 
+                                  <option selected value =''>Select an Option</option>
                                   {orderList?.company?.gstList?.map((gstin, index) => (
                                     <option key={index} value={gstin}>
                                       {gstin}
@@ -1686,7 +1835,9 @@ function Index() {
                                 value={invoiceData?.buyerAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) => {
+                                  saveInvoiceData(e.target.name, e.target.value);
+                                }}
                               />
                               <label className={`${styles.label_heading} label_heading`} id="textInput">
                                 Buyer Address
@@ -1788,7 +1939,6 @@ function Index() {
                                   id="Code"
                                   name="importerName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
                                   value={invoiceData?.importerName}
                                   onChange={(e) => dropDownChange(e.target.name, e.target.value)}
                                   style={{ paddingRight: '40px' }}
@@ -1915,8 +2065,7 @@ function Index() {
                                   id="Code"
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
-                                  value={invoiceData?.accountNo}
+                                  value={invoiceData?.accountNo ? invoiceData?.accountNo : invoiceData?.Bank_Name}
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
 
@@ -1957,7 +2106,7 @@ function Index() {
                                     );
                                   }}
                                 >
-                                  <option>Select an option</option>
+                                  <option value= ''>Select an option</option>
                                   {branchOptions
                                     .filter((val, index) => {
                                       if (val.keyBanks[0].Bank_Name) {
@@ -2081,11 +2230,14 @@ function Index() {
                         calcRevised={calcRevised}
                         handleUpdateRevisedMarginMoney={handleUpdateRevisedMarginMoney}
                         saveforCalculationRevised={saveforCalculationRevised}
-                        exportPDF={() => {}}
+                        exportPDF={() => {
+                          exportPDFRevised();
+                        }}
                         getBanksMasterData={getBanksMasterData}
                         getBranchesMasterData={getBranchesMasterData}
                         getInternalCompaniesMasterData={getInternalCompaniesMasterData}
                         savedataRevised={savedataRevised}
+                        orderList={orderList}
                       />
                     </div>
                   </div>

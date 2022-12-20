@@ -15,13 +15,13 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           {' '}
           <span className="mb-0">To:</span>{' '}
           <span className="ml-4">
-            <u>
-              {data.buyer},</u>
+            
+              {data.buyer},
               <br />
-              <u>{data.buyerAddress?.fullAddress}</u>,{" "}
-              <u>{data.buyerAddress?.city}</u>{" "}<br/>
-              <u>{data.buyerAddress?.country}</u>,{" "}
-              <u>{data.buyerAddress?.pinCode}</u>            
+              {data.buyerAddress?.fullAddress},{" "}<br/>
+              {data.buyerAddress?.city},{" "}
+              {data.buyerAddress?.country},{" "}
+              {data.buyerAddress?.pinCode}            
           </span>
         </p>
         <p className="text-center text_sales">
@@ -42,7 +42,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
               That we have requested 
               Seller to import on our behalf the Goods and sell the same to us on stock and sale basis as per
               Associateship Agreement. We confirm and undertake that all the terms &amp; conditions of the Sales
-              Contract entered into between <u>{data.shortseller}</u> and the Supplier (hereinafter referred to as “Sales Contract”)
+              Contract entered into between {data.shortseller} and the Supplier (hereinafter referred to as “Sales Contract”)
               are acceptable and binding on us.
             </p>
           </li>
@@ -75,63 +75,43 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           </li>
         </ol>
         <div className={`row`}>
-          <Col md={6} className="offset-md-6">
-            <p className="text_sales">
+          <Col md={4} className="offset-md-8">
+            <p className="text_sales text-left">
               <strong>FOR & ON BEHALF OF</strong>
             </p>
           </Col>
         </div>
         <div className={`row`}>
-          <Col md={6} className="offset-md-6">
-            <p className="text_sales">
+          <Col md={4} className="offset-md-8">
+            <p className="text_sales text-left">
               <strong>(Associate Buyer)</strong>
             </p>
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales m-0">
+          <Col md={8} className='align-self-end'>
+            <p className="text_sales text-left">
               <strong>
-                <u>Place:</u> <u>{data.placeOfExecution}</u>
+                Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}
               </strong>
             </p>
           </Col>
-          <Col md={6}>
+          <Col md={4}>
             <p className="text_sales m-0">
               {
               data?.associateBuyerAuthorized?.length > 0 &&
               data?.associateBuyerAuthorized?.map((val, index) => {
-                return (                  
-                  <p className='mb-0'>                      
-                    <strong><u>Name :</u> <u>{val.name}</u></strong>
-                  </p>                  
+                return (
+                  <>
+                    <p className='text-left'>                      
+                      <strong>Name: {val.name}</strong>
+                      <br/>
+                      <strong>Designation: {val.designation}</strong>
+                    </p>
+                  </>
                 );
               })
-              }
-             
-            </p>
-          </Col>
-        </div>
-        <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales m-0">
-              <strong>
-                <u>Date:</u> <u>{data.dateOfExecution}</u>
-              </strong>
-            </p>
-          </Col>
-          <Col md={6}>
-            <p className="text_sales m-0">
-               {
-              data?.associateBuyerAuthorized?.length > 0 &&
-              data?.associateBuyerAuthorized?.map((val, index) => {
-                return (                  
-                  <p className='mb-0'>
-                    <strong><u>Designation :</u> <u>{val.designation}</u></strong>
-                  </p>                  
-                );s
-              })
-              }
+              }             
             </p>
           </Col>
         </div>

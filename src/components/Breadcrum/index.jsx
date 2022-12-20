@@ -40,6 +40,7 @@ export default function Index({ isQuery }) {
       router.pathname == '/insurance'
     ) {
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
     }
     if (
       isQuery?.match('/leads') ||
@@ -79,11 +80,12 @@ export default function Index({ isQuery }) {
       show.units = false;
       show.currency = false;
       removeStorage();
+      
       setShow({ ...show });
     } else if (isQuery?.match('/generic')) {
       show.units = false;
       show.currency = false;
-
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     } else if (isQuery?.match('/letter-credit/id')) {
       show.units = false;
@@ -112,6 +114,7 @@ export default function Index({ isQuery }) {
       show.units = false;
       show.currency = true;
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     } else if (
       isQuery?.match('/termsheet/') ||
@@ -122,6 +125,7 @@ export default function Index({ isQuery }) {
       show.units = true;
       show.currency = true;
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     } else {
       show.units = true;
@@ -284,6 +288,10 @@ export default function Index({ isQuery }) {
       router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
 
+    if ('insurance renewal' == pageName) {
+      router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Renewal' + `/${order}`;
+    }
+
     if ('loading' == pageName) {
       if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}` + '/Order ID';
@@ -329,7 +337,7 @@ export default function Index({ isQuery }) {
         // `/${id}` +
         // `/${order}`
       } else if (id !== null) {
-        router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `;
+        router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCaidse()} `;
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
       }

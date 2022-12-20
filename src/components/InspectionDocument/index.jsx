@@ -11,6 +11,7 @@ import { ShareDocument } from 'redux/shareDoc/action';
 import { emailValidation } from 'utils/helper';
 import { dropDownOptionHandler, handleErrorToast, objectValidator, returnDocFormat } from '@/utils/helpers/global';
 import { getDocuments } from '../../redux/masters/action';
+import { modulesDropDown } from '@/utils/jsons/dropdownOptions.json';
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc, isOpen, isSupplier }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
 
   const [filteredDoc, setFilteredDoc] = useState([]);
 
-  const [moduleSelected, setModuleSelected] = useState('LeadOnboarding&OrderApproval');
+  const [moduleSelected, setModuleSelected] = useState(module);
  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
@@ -44,23 +45,44 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
     
     dispatch(getDocuments());
   }, []);
-  useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => {
-      return doc.module == moduleSelected;
-    });
-    setFilteredDoc(tempArray);
-    dispatch(GetDocuments(`?order=${orderId}`));
-  }, [dispatch, orderId, moduleSelected]);
-  useEffect(() => {
-    const tempArray = documentsFetched?.documents
-      ?.slice()
-      .filter((doc) => {
-        return doc.module === moduleSelected;
-      })
-      .map((obj) => ({ ...obj, moving: false }));
+  const fetchData = async () => {
+    sessionStorage.setItem('DocRefetchId', orderId);
 
-    setFilteredDoc(tempArray);
-  }, [orderId, documentsFetched]);
+    dispatch(GetDocuments(`?order=${orderId}`));
+  };
+  useEffect(() => {
+    if (documentsFetched) {
+      if (isSearch) {
+        const tempArray = documentsFetched?.documents?.filter((doc) => {
+          if (doc.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+            return doc;
+          }
+        });
+
+        setFilteredDoc(tempArray);
+        return;
+      }
+      const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
+        return doc.module == moduleSelected;
+      });
+      tempArray?.forEach((obj) => (obj.moving = false));
+
+      setFilteredDoc(tempArray);
+    }
+  }, [dispatch, orderId, documentsFetched]);
+  // useEffect(() => {
+  //   const tempArray = documentsFetched?.documents
+  //     ?.slice()
+  //     .filter((doc) => {
+  //       return doc.module === moduleSelected;
+  //     })
+  //     .map((obj) => ({ ...obj, moving: false }));
+
+  //   setFilteredDoc(tempArray);
+  // }, [orderId, documentsFetched]);
+  useEffect(() => {
+    fetchData();
+  }, [orderId, moduleSelected]);
 
   const DocDlt = (index) => {
     let tempArray = filteredDoc;
@@ -145,6 +167,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       module: module,
     });
   };
+  const [isSearch, setIsSearch] = useState(false);
+
+  const [searchTerm, setSearchTerms] = useState('');
 
   const filterDocBySearch = (val) => {
     if (!val.length >= 3) return;
@@ -153,6 +178,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
         return doc;
       }
     });
+    setIsSearch(true);
     setFilteredDoc(tempArray);
   };
 
@@ -393,17 +419,20 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
               >
                 <div className="d-flex align-items-center">
                   <select
-                    onChange={(e) => setModuleSelected(e.target.value)}
+                   value={moduleSelected}
+                   onChange={(e) => {
+                    setSearchTerms('');
+                    setIsSearch(false);
+                    setModuleSelected(e.target.value);
+                  }}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
                     <option selected disabled>
                       Select an option
                     </option>
-                    <option value="LeadOnboarding&OrderApproval">Lead Onboarding &amp; Order Approval</option>
-                    <option value="Agreements&Insurance&LC&Opening">Agreements, Insurance &amp; LC Opening</option>
-                    <option value="Loading-Transit-Unloading">Loading-Transit-Unloading</option>
-                    <option value="CustomClearanceAndWarehousing">Custom Clearance And Warehousing</option>
-                    <option value="Others">Others</option>
+                    {modulesDropDown.map((item) => (
+                  <option value={item.value}>{item.name}</option>
+                ))}
                   </select>
                   <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
                 </div>
@@ -412,7 +441,11 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                   <input
                     className={`${styles.searchBar} statusBox border_color input form-control`}
                     placeholder="Search"
-                    onChange={(e) => filterDocBySearch(e.target.value)}
+                    onChange={(e) => {
+                      setSearchTerms(e.target.value);
+                      filterDocBySearch(e.target.value);
+                    }}
+                    value={searchTerm}
                   ></input>
                 </div>
               </div>
@@ -449,17 +482,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           <tr key={index} className="uploadRowTable">
                             <td className={`${styles.doc_name}`}>{document.name}</td>
                             <td>
-                              {document.originalName.toLowerCase().endsWith('.xls') ||
-                              document.originalName.toLowerCase().endsWith('.xlsx') ? (
-                                <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                              ) : document.originalName.toLowerCase().endsWith('.doc') ||
-                                document.originalName.toLowerCase().endsWith('.docx') ? (
-                                <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                              ) : (
-                                <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                              )}
+                             {returnDocFormat(document.originalName)}
                             </td>
-                            <td className={styles.doc_row}>{document.date}</td>
+                            <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm A')}</td>
                             <td className={styles.doc_row}>
                               {document.uploadedBy?.fName} {document.uploadedBy?.lName}
                             </td>
@@ -517,7 +542,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                                             module: e.target.value,
                                           }),
                                         );
-                                        await dispatch(GetDocuments(`?order=${orderId}`));
+                                        await fetchData();
                                         DocDlt(index);
                                       }}
                                       className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
@@ -526,39 +551,11 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                                         paddingRight: '30px',
                                       }}
                                     >
-                                      <option
-                                        disabled={moduleSelected === 'LeadOnboarding&OrderApproval'}
-                                        value="LeadOnboarding&OrderApproval"
-                                      >
-                                        Lead Onboarding &amp; Order Approval
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'}
-                                        value="Agreements&Insurance&LC&Opening"
-                                      >
-                                        Agreements, Insurance &amp; LC Opening
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'Loading-Transit-Unloading'}
-                                        value="Loading-Transit-Unloading"
-                                      >
-                                        Loading-Transit-Unloading
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'customClearanceAndWarehousing'}
-                                        value="customClearanceAndWarehousing"
-                                      >
-                                        Custom Clearance And Warehousing
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'PaymentsInvoicing&Delivery'}
-                                        value="PaymentsInvoicing&Delivery"
-                                      >
-                                        Payments Invoicing & Delivery
-                                      </option>
-                                      <option disabled={moduleSelected === 'Others'} value="Others">
-                                        Others
-                                      </option>
+                                     {modulesDropDown.map((item) => (
+                                        <option disabled={moduleSelected === item.value} value={item.value}>
+                                          {item.name}
+                                        </option>
+                                      ))}
                                     </select>
                                     <img
                                       className={`${styles.arrow2} img-fluid`}

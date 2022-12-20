@@ -96,16 +96,18 @@ function Index({ shareHolding }) {
     totalPrefrenceSharePercentage += item.percentageShareHolding;
   });
 
+  console.log(equityShareNo,"equityShareName")
   const equitydata = {
     labels: equityShareName,
+   
     datasets: [
       {
         data: equityShareNo,
 
         backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
-
         hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
         hoverBorderWidth: 3,
+        
       },
     ],
   };
@@ -134,13 +136,29 @@ function Index({ shareHolding }) {
       legend: {
         display: false,
       },
+      tooltip: {
+                  position: 'nearest',
+                   callbacks: {
+                    label: function(context) {
+                      console.log(context,"context.dataset.label")
+                        let label;
+                        if (context.parsed !== null && context.parsed !== undefined) {
+                             let number= context.parsed.toLocaleString("en-In")
+                             label=`${context.label}, ${number} `
+                        }
+                        console.log(label,"lable")
+                        return label;
+                    }
+                }
+              }
+      ,
       title: {
         display: false,
         text: 'Doughnut Chart',
         color: 'blue',
 
         font: {
-          size: 34,
+          size: 20,
         },
         padding: {
           top: 30,
@@ -206,7 +224,7 @@ function Index({ shareHolding }) {
                         <tbody>
                           <tr>
                             <th width="23%" className="border_color border-bottom-0" rowSpan={equityCapital()?.length + 2}>
-                              <div className={styles.chart}>
+                              <div className={styles.chart}>                     
                                 <Doughnut data={equitydata} ref={chartRef} options={options} />
                                 {/* <div className={`${styles.total_value} `}>
                               <span className={styles.headSpan}>
@@ -270,7 +288,7 @@ function Index({ shareHolding }) {
                           <tr>
                             <td className="border-top-0 border_color"></td>
                             <td className="border-top-0 border_color"></td>
-                            <td> {totalEquityShare ? returnReadableNumber(totalEquityShare, undefined, 0, 0) : ''}</td>
+                            <td> {totalEquityShare ? returnReadableNumber(totalEquityShare, 'en-In', 0, 0) : ''}</td>
                             <td>
                               {totalEquitySharePercentage ? returnReadableNumber(totalEquitySharePercentage * 100, undefined, 2, 2) + ' %' : ''}
                             </td>
@@ -298,12 +316,12 @@ function Index({ shareHolding }) {
                         border="0"
                       >
                         <tbody>
-                          <tr>
-                            <th rowSpan={prefrenceCapital()?.length + 2} width="23%" className="border-bottom-0">
+                          <tr>                     
+                             <th rowSpan={prefrenceCapital()?.length + 2} width="23%" className="border-bottom-0">
                               <div className={styles.chart}>
-                                <Doughnut data={prefrencedata} options={options} />
-                                <div className={`${styles.total_value} `}>
-                                  {/* <span className={styles.headSpan}>
+                                <Doughnut data={prefrencedata} ref={chartRef} options={options}/>
+                                 {/* <div className={`${styles.total_value} `}>
+                                  <span className={styles.headSpan}>
                                 {shareHolding
                                   ? shareHolding[0]?.fullName ?? 'Name'
                                   : ''}
@@ -312,10 +330,10 @@ function Index({ shareHolding }) {
                                   ? shareHolding[0]?.percentageShareHolding ??
                                   '0'
                                   : ''
-                                }%`}</span> */}
-                                </div>
-                              </div>
-                            </th>
+                                }%`}</span>  
+                                 </div>   */}
+                              </div> 
+                            </th> 
                             <th width="5%"></th>
                             <th>FULL NAME</th>
                             <th>NO. OF SHARES</th>
@@ -344,7 +362,7 @@ function Index({ shareHolding }) {
                           <tr>
                             <td className="border-top-0"></td>
                             <td className="border-top-0"></td>
-                            <td> {totalPrefrenceShare ? returnReadableNumber(totalPrefrenceShare, undefined, 0, 0) : ''}</td>
+                            <td> {totalPrefrenceShare ? returnReadableNumber(totalPrefrenceShare, 'en-In', 0, 0) : ''}</td>
                             <td>
                               {totalPrefrenceSharePercentage
                                 ? Number(totalPrefrenceSharePercentage * 100).toFixed(2) + '%'

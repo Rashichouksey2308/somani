@@ -8,7 +8,7 @@ import Router from 'next/router';
 import router from 'next/router';
 import styles from './profile.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetBuyer, UpdateBuyer } from '../../src/redux/registerBuyer/action';
+import { GetBuyer, UpdateBuyer  ,GetAllBuyer} from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { toast } from 'react-toastify';
 import { settingSidebar } from '../../src/redux/breadcrumb/action';
@@ -28,6 +28,7 @@ const Index = () => {
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
+  const { allBuyerList } = useSelector((state) => state.buyer);
 
   const [fields, setFields] = useState([
     {
@@ -68,6 +69,7 @@ const Index = () => {
     const orderId = sessionStorage.getItem('orderID');
     const companyId = sessionStorage.getItem('company');
     dispatch(GetBuyer({ companyId: companyId, orderId: orderId }));
+    dispatch(GetAllBuyer(`?company=${companyId}&limit=${6}`));
   }, [dispatch]);
 
   useEffect(() => {
@@ -190,8 +192,9 @@ const Index = () => {
             country={getCountriesMasterData}
             port={getPortsMasterData}
             commodity={getCommoditiesMasterData}
+            allBuyerList={allBuyerList}
           />
-          <CompanyProfile />
+          <CompanyProfile/>
           <OrderProfile />
         </div>
         <div className={styles.approve_Container}>

@@ -67,10 +67,18 @@ function Index() {
     setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
   };
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    const doc = new jsPDF('p', 'pt', [1500, 2000]);
     doc.html(ReactDOMServer.renderToString(<StorageInsurance insuranceData={insuranceData} />), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+          const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
+        doc.save('RequestLetter.pdf');
       },
       // margin:margins,
       autoPaging: 'text',
@@ -193,7 +201,7 @@ function Index() {
                     Port of Discharges
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                  {`${_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India`}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -201,7 +209,7 @@ function Index() {
                     Place of Storage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
+                    {`${insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}, India`}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -335,25 +343,7 @@ function Index() {
                     <input type="checkbox" className="ml-auto" id="word_document" value="word document" />
                   </div>
                 </div>
-                <ul
-                  className={`${styles.nav_tabs} ${styles.share_via} share_via nav nav-tabs`}
-                  id="shareVia"
-                  role="tablist"
-                >
-                  <li className={`${styles.nav_item} nav-item`}>
-                    <a
-                      className={`${styles.nav_link} nav-link active`}
-                      id="insurance-company"
-                      data-toggle="tab"
-                      href="#insuranceCompany"
-                      role="tab"
-                      aria-controls="insuranceCompany"
-                      aria-selected="true"
-                    >
-                      <img src="/static/groups.svg" width={`32px`} className="img-fluid" alt="group" />
-                      Insurance Company
-                    </a>
-                  </li>
+                <ul className={` ${styles.share_via} share_via nav nav-tabs`} id="shareVia" role="tablist">
                   <li className={`${styles.nav_item} nav-item`}>
                     <a
                       className={`${styles.nav_link} nav-link`}
@@ -370,102 +360,23 @@ function Index() {
                   </li>
                 </ul>
                 <div className={`${styles.tab_content} tab-content`} id="shareVia">
-                  <div
-                    className="tab-pane fade show active"
-                    id="insuranceCompany"
-                    role="tabpanel"
-                    aria-labelledby="insurance-company"
-                  >
-                    <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
-                        <select
-                          id="email"
-                          name="email"
-                          className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                          selected
-                        >
-                          <option value="javanika.seth@hdfcbank.com">New India Assurance</option>
-                        </select>
-
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    {insuranceAdd.map((val, index) => {
-                      return (
-                        <>
-                          <div className={`${styles.radio_form} ml-1`}>
-                            {['radio'].map((type) => (
-                              <div key={`inline-${type}`} className={styles.radio_group}>
-                                <Form.Check
-                                  className={styles.radio}
-                                  inline
-                                  label="abcz@email.com"
-                                  name="group1"
-                                  id={`inline-${type}-1`}
-                                />
-                                <Form.Check
-                                  className={styles.radio}
-                                  inline
-                                  label="abcz@email.com"
-                                  name="group1"
-                                  id={`inline-${type}-2`}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <hr></hr>
-                        </>
-                      );
-                    })}
-                    <div
-                      className={`${styles.addMoreRows}`}
-                      onClick={(e) => {
-                        addMoreRows('insurance');
-                      }}
-                    >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
-                        +
-                      </span>{' '}
-                      add another
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
-                        Close
-                      </button>
-                      <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
-                        Share
-                      </button>
-                    </div>
-                  </div>
-                  <div className="tab-pane fade" id="emailAddress" role="tabpanel" aria-labelledby="email-address">
+                  <div>
                     {emailAdd.map((val, index) => (
                       <div className="d-flex align-items-center form-group">
                         <div key={index} className={`${styles.each_input} flex-grow-1`}>
-                          <div className="d-flex">
-                            <select
-                              id="email"
-                              name="email"
-                              className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                              selected
-                            >
-                              <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                            </select>
-                            <label
-                              className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                              htmlFor="email"
-                            >
-                              Email
-                            </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
+                          <input
+                            id="email"
+                            name="email"
+                            className={`${styles.formControl} input form-control`}
+                            selected
+                          />
+
+                          <label
+                            className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                            htmlFor="email"
+                          >
+                            Email
+                          </label>
                         </div>
                         <img
                           src="/static/delete 2.svg"

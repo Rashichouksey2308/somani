@@ -88,10 +88,8 @@ export default {
   // getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
+  sendGst: '/karza/send-gst-link',
   getConsolidatedGst: '/lead/consolidate-gst',
-
-  // mcaReport
-  getMcaReport: '/karza/request-mca-document',
 
   // getGstKarza: 'karza/send-gst-link',
 
@@ -132,6 +130,8 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
+  //mcaReport
+  getMcaReport: '/karza/request-mca-document',
   // preview
   preview: '/document/access/preview',
 
@@ -171,9 +171,8 @@ export default {
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
+  zipCodeMaster: '/world-master/',
 
   //VENDOR API ROoutes
-  getVendor : '/vendor'
-}
-
-
+  getVendor: '/vendor',
+};

@@ -5,11 +5,12 @@ import SaveBar from '../SaveBar';
 import _get from 'lodash/get';
 import Router from 'next/router';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 export default function Index(props) {
   const [show, setShow] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  const handleRoute = (val) => {
+  const handleRoute = (val,index) => {
     console.log(val,"val")
     if(val.Quantity==""){
        let toastMessage = 'PLS SELECT ADD QUANTITY RELEASED';
@@ -19,8 +20,22 @@ export default function Index(props) {
         }
         return
     }
+    let toRemove=0
+    props.releaseOrderData.forEach((release,i)=>{
+      if(i<=index){
+        if(release.status !== "DO Cancelled"){
+            toRemove=toRemove+Number(release.Quantity)
+        }
+       
+      }
+    })
+    const finalValue=Number(boeTotalQuantity)-Number(toRemove)
+    console.log(toRemove,"toRemove")
+    console.log(val,"asdasd")
     sessionStorage.setItem('deliveryPreviewId',val.deliveryOrderNo);
     sessionStorage.setItem('dono', val.deliveryOrderNo);
+    sessionStorage.setItem('toRemove', finalValue);
+    
     sessionStorage.setItem('balanceQuantity', Number(val.Quantity));
     Router.push('/delivery-preview');
   };
@@ -102,7 +117,10 @@ export default function Index(props) {
                                   <option disabled  value="">Select an option</option>
                                   
                                   {_get(props, 'ReleaseOrder.data[0].releaseDetail', []).map((option, index) => (
-                                    <option value={option.orderNumber} key={index}>
+                                    <option value={option.orderNumber} key={index}
+                                    disabled=
+                                    {props.isDisabled(option.orderNumber)}
+                                    >
                                       {option.orderNumber}
                                     </option>
                                   ))}
@@ -162,13 +180,18 @@ export default function Index(props) {
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order Date</div>
-                              <span className={styles.value}>{val.deliveryOrderDate}</span>
+                              <span className={styles.value}>{
+                                val.deliveryOrderDate?
+                                  moment(val.deliveryOrderDate).format("DD-MM-YYYY")
+                                :""
+                            
+                             }</span>
                             </div>
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                               <div className="row" style={{ marginTop: '-40px' }}>
                                 <div className={`${styles.form_group} col-lg-5 col-md-5`}>
                                   <div className={`${styles.label} text`}>Status</div>
-                                  <span className={styles.value}></span>
+                                  <span className={styles.value}>{val.status}</span>
                                 </div>
 
                                 {val.isDelete ? (
@@ -178,12 +201,15 @@ export default function Index(props) {
                                       className={`${styles.shareImg}`}
                                       alt="Save"
                                       onClick={(e) => {
-                                        props.onEdit(index, false);
+                                        props.onEdit(index, false,"Save");
                                       }}
                                     />
                                     <img
                                       src="/static/cancel-3.svg"
                                       className={`${styles.shareImg} ml-2`}
+                                      onClick={(e) => {
+                                        props.cancelDo(index, false);
+                                      }}
                                       alt="Cancel"
                                     />
 
@@ -213,7 +239,7 @@ export default function Index(props) {
                                       src="/static/share.svg"
                                       className={`${styles.shareImg} ml-2`}
                                       alt="Share"
-                                      onClick={() => handleRoute(val)}
+                                      onClick={() => handleRoute(val,index)}
                                     />
 
                                     {props.releaseOrderData.length > 1 && (

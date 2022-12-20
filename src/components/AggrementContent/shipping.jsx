@@ -74,7 +74,7 @@ function Index(props) {
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Name<strong className="text-danger">*</strong>
               </Form.Label>
-              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+            
             </Form.Group>
 
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

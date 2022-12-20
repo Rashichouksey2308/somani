@@ -16,13 +16,13 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           {' '}
           <span className="mb-0">To:</span>{' '}
           <span className="ml-4">
-            <u>
-              {data.buyer},</u>
+            
+              {data.buyer},
               <br />
-              <u>{data.buyerAddress?.fullAddress}</u>,{" "}
-              <u>{data.buyerAddress?.city}</u>{" "}<br/>
-              <u>{data.buyerAddress?.country}</u>,{" "}
-              <u>{data.buyerAddress?.pinCode}</u>            
+              {data.buyerAddress?.fullAddress},{" "}<br/>
+              {data.buyerAddress?.city},{" "}
+              {data.buyerAddress?.country},{" "}
+              {data.buyerAddress?.pinCode}            
           </span>
         </p>
         <p className="text-center text_sales">
@@ -39,8 +39,8 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </li>
           <li>
             <p className="text_sales">
-              That as requested by us, the Supplier shall sell the Goods to <u>{data.shortseller}</u> and <u>{data.shortseller}</u> will establish
-              Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>{data.shortseller}</u>{' '}
+              That as requested by us, the Supplier shall sell the Goods to {data.shortseller} and {data.shortseller} will establish
+              Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. {data.shortseller}{' '}
               shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said
               Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to
               as “Contracts”.
@@ -49,7 +49,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           <li>
             <p className="text_sales">
               That the present Undertaking is being executed in pursuance of the Contracts being entered into by{' '}
-              <u>{data.shortseller}</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship
+              {data.shortseller} and Seller on our request. It is pertinent to mention that the terms of the Associateship
               Agreement be read as a part of this Undertaking.
             </p>
           </li>
@@ -143,7 +143,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           <strong>Schedule I</strong>
         </p>
         <p className="text_sales pb-3">
-          <u>Details of post-dated Cheque(s)-</u>
+          Details of post-dated Cheque(s)-
         </p>
         <div className={`${styles.inputsContainer} border_black`}>
           <Row className={`${styles.row} border_black`}>
@@ -166,6 +166,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
 
           {data?.cheque?.length > 0 &&
             data.cheque.map((val, index) => {
+              
               return (
                 <Row className={`${styles.row} border_black`}>
                   <Col md={1} className={`${styles.left} border_black`}>
@@ -181,23 +182,23 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
                     {moment(val.chequeDate).format('DD-MM-YYYY')}
                   </Col>
                   <Col md={3} className={styles.right}>
-                    {returnReadableNumber(val.amount,undefined,2)}
+                  INR  {returnReadableNumber(val.amount,"en-IN",2)}
+                  
                   </Col>
                 </Row>
               );
             })}          
         </div>
-
         <div className={`row`}>
-          <Col md={6} className="offset-md-6">
-            <p className="text_sales">FOR AND ON BEHALF OF</p>
+          <Col md={4} className="offset-md-8">
+            <p className="text_sales text-left">FOR AND ON BEHALF OF</p>
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales m-0">Place: {data.placeOfExecution}</p>
+          <Col md={8} className='align-self-end'>
+            <p className="text_sales text-left"><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
           </Col>
-          <Col md={6}>
+          <Col md={4}>
             <p className="text_sales m-0">
               <strong>(Associate Buyer)</strong>
               <br />
@@ -205,13 +206,12 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
              {
                 data?.associateBuyerAuthorized?.length > 0 &&
                 data?.associateBuyerAuthorized?.map((val, index) => {
-                  return (
-                   
-                      <p className='mb-0'>
-                        Name - {val.name}
-                      </p>
-                      
-                   
+                  return (                   
+                    <p className='text-left'>                      
+                      <strong>Name: {val.name}</strong>
+                      <br/>
+                      <strong>Designation: {val.designation}</strong>
+                    </p>
                   );
                 })
               }
@@ -219,11 +219,8 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
           </Col>
         </div>
         <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales m-0">Date : {data.dateOfExecution}</p>
-          </Col>
-          <Col md={6}>
-            <p className="text_sales m-0">AUTHORISED SIGNATORY</p>
+          <Col md={4} className="offset-md-8">
+            <p className="text_sales text-left m-0">AUTHORISED SIGNATORY</p>
           </Col>
         </div>
       </div>

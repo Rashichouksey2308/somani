@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
 import _get from 'lodash/get';
+import moment from 'moment';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,7 +47,7 @@ function Index() {
   }, [ReleaseOrderData]);
 
   const generateDoNumber = (index) => {
-    let orderDONumber = index < 10 ? `0${index}` : index;
+    let orderDONumber = index < 10 ? `0${index+1}` : index+1;
     let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
     let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
     return `${string}/${orderDONumber}`;
@@ -144,7 +145,7 @@ function Index() {
   };
   const handleChange = (name, value, index, index2) => {
     let tempArr = [...lifting];
-    console.log(tempArr,"tempArr")
+    
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.detail.forEach((val2, i2) => {
@@ -401,15 +402,52 @@ function Index() {
     });
   }, [filteredDOArray, deliveryOrder]);
 
-  const onEdit = (index, value) => {
+  const onEdit = (index, value,type) => {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
+        console.log(val,"cvalala")
+       
+        let number=0
+        for (let i = 0; i < releaseDetail.length; i++) {
+        if(releaseDetail[i].orderNumber==val.orderNumber){
+        number=Number(releaseDetail[i].netQuantityReleased);
+        }
+
+        }
+        console.log(val.Quantity,number,"val.Quantity>Number")
+        if(Number(val.Quantity)>number){
+        let  toastMessage = `Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order`;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+
+        }
+        return
+        }
+        if(type=="Save"){
+        val.deliveryOrderDate= new Date() 
+        if(val.status !== "DO Canceled"){
+        val.status="DO Issued"
+        }
+        }
         val.isDelete = value;
       }
     });
     setDeliveryOrder([...tempArr]);
   };
+    const cancelDo = (index, value) => {
+    let tempArr = deliveryOrder;
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        console.log(val.deliveryOrderDate,"cvalala")
+       
+        val.status="DO Canceled"
+        
+      }
+    });
+    setDeliveryOrder([...tempArr]);
+  };
+
 
 
 
@@ -421,7 +459,10 @@ function Index() {
       }, 0);
 
       deliveryOrder.forEach((item) => {
-        boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
+        console.log("itemm",item)
+        if(item.status !== "DO Cancelled"){
+         boeTotalQuantity = boeTotalQuantity - Number(item.Quantity); 
+        } 
       });
       return boeTotalQuantity;
     }
@@ -454,17 +495,24 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
+    let releaseOrder;
+    let customObj = false;
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
-        if (name === 'Quantity') {
+    
+         if (name === 'Quantity') {
           let temparr = [...deliveryOrder];
           let filteredArray = temparr.filter((item, index2) => {
             return item.orderNumber == deliveryOrder[index].orderNumber;
           });
-
+        
           setFilteredDOArray(filteredArray);
+         
+          
         }
+      
+        console.log(val,"indexxx")
         if (name === 'Quantity') {
           if (value <= 0) {
             setDoLimit(quantity);
@@ -473,7 +521,18 @@ function Index() {
             filteredDOArray.forEach((item, index) => {
               tempLimit = tempLimit - Number(item.Quantity);
             });
-
+             let totalDONumber=0
+              let temparr = [...deliveryOrder];
+              let filteredArray2 = temparr.filter((item, index2) => {
+              if(item.orderNumber == val.orderNumber){
+                
+                totalDONumber=totalDONumber + Number(item.Quantity) 
+              }
+            });
+              const filterForReleaseOrder = releaseDetail.filter((item) => {
+              return item.orderNumber == val.orderNumber;
+              });
+              console.log(filterForReleaseOrder,totalDONumber,"totlNumber")
             setDoLimit(tempLimit);
           }
         }
@@ -608,7 +667,30 @@ function Index() {
   useEffect(() => {
     dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
   }, []);
-
+  const isDisabled=(orderNumber)=>{
+    let release=0
+    let delivery=0
+   releaseDetail.forEach((item, index) => {
+   
+    if(item.orderNumber==orderNumber){
+     release =item.netQuantityReleased
+    }
+    
+  });
+   deliveryOrder.forEach((item, index) => {
+     console.log(item,"itemitem")
+    if(item.orderNumber==orderNumber){
+     delivery = delivery+Number(item.Quantity)
+    }
+    
+  });
+  console.log(delivery,release,"delivery>=release")
+    if(delivery>=release){
+      return true
+    }else{
+      return false
+    }
+  }
   return (
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
@@ -623,11 +705,13 @@ function Index() {
             />
             <h1 className={`${styles.title} heading`}>
               {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-              {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
+             <span>
+               {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').toUpperCase().slice(0, 8)}-${_get(
                 ReleaseOrderData,
                 'data[0].order.orderId',
                 '',
               ).slice(8)}`}
+             </span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -718,6 +802,8 @@ function Index() {
                       onEdit={onEdit}
                       deliverChange={deliverChange}
                       deleteNewDelivery={deleteNewDelivery}
+                      cancelDo={cancelDo}
+                      isDisabled={isDisabled}
                     />
                   </div>
                 </div>

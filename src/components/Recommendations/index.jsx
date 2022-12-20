@@ -49,7 +49,38 @@ const Index = ({
   const [sanctionCommentsIndex, setSanctionCommentsIndex] = useState([]);
   const [weaknessComments, setWeaknessComments] = useState('');
   const [show, setShow] = useState(false);
-
+  const specialCharacter = [
+    '+',
+    '-',
+    '@',
+    '$',
+    '#',
+    '%',
+    '^',
+    '',
+    '!',
+    ';',
+    '/',
+    '|',
+    `'`,
+    `[`,
+    ']',
+    ',',
+    '{',
+    '}',
+    '?',
+    `'`,
+    ':',
+    '<',
+    '>',
+    `"`,
+    '(',
+    ')',
+    '=',
+    '*',
+    'e',
+    'E'
+  ];
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     groupExposureLimit: false,
     groupExposureOutLimit: false,
@@ -57,6 +88,7 @@ const Index = ({
     suggestedOrderValue: false,
     suggestedCreditLimit: false,
   });
+  console.log(isFieldInFocus,'isFieldInFocus')
 
   const filteredCreditRating = creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
     return creditDetail?._id === rating.order;
@@ -198,18 +230,24 @@ const Index = ({
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div className={`${styles.dashboard_form} vessel_card card-body`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
               companyComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
+                  <div className='d-flex'>
+                  <div className={`${styles.sr_number} `}  style={{marginTop:'7px'}}
+                  >{index+1}.</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     as="textarea"
                     defaultValue={comment}
                     rows={3}
+                    cols={120}
+
                     readOnly={!editProfile[index]?.editable}
                   />
+                  </div>
 
                   <div className="mr-3">
                     <img
@@ -264,13 +302,19 @@ const Index = ({
             {financialsComment &&
               financialsComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} border_color d-flex justify-content-between`}>
+                   <div className='d-flex'
+                   >
+                  <div className={`${styles.sr_number}`}
+                  style={{marginTop:'7px'}}>{index+1}.</div>
                   <Form.Control
                     className={`${styles.comment} input`}
                     defaultValue={comment}
                     as="textarea"
                     rows={3}
+                    cols={120}
                     readOnly={!editFinance[index]?.editable}
                   />
+                  </div>
                   <div className="mr-3">
                     <img
                       src={`/static/${editFinance[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
@@ -338,8 +382,9 @@ const Index = ({
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => {
+                        console.log(profile.actions,"profile.actions")
                         return(
-                          profile.actions==false?
+                          profile.actions==false ||  profile.actions==undefined?
                           <>
                           <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
@@ -348,10 +393,10 @@ const Index = ({
 
                           </td>
                           <td>
-                            {profile?.limit}
+                            {returnReadableNumber((profile?.limit),'en-In',2,2)}
                           </td>
                           <td>
-                           {profile?.outstandingLimit}
+                           {returnReadableNumber((profile?.outstandingLimit),'en-In',2,2)}
                           </td>
                           <td className="position-relative">
                            {profile?.accountConduct}
@@ -411,18 +456,38 @@ const Index = ({
                             <input
                               name="limit"
                               type="text"
-                              value={profile?.limit}
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                               onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureLimit: true,
+                              }),
+                                (e.target.type = 'number');
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureLimit: false,
+                              }),
+                                (e.target.type = 'text');
+                            }}
+                               onWheel={(event) => event.currentTarget.blur()}
+                                  value={
+                               isFieldInFocus.groupExposureLimit
+                                  ? Number(profile?.limit)
+                                  : returnReadableNumber(profile?.limit,'en-In',2)
+                               
+                            }
+                             
                               disabled={!profile.actions}
-                              onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
+                              // onKeyDown={(evt) => {
+                              //   const re = /^[0-9\b]+$/;
 
-                                if (re.test(evt.target.value) == false) {
-                                }
-                              }}
+                              //   if (re.test(evt.target.value) == false) {
+                              //   }
+                              // }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
-                                  'en-IN',
-                                );
+                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value, index);
                               }}
@@ -434,18 +499,37 @@ const Index = ({
                             <input
                               name="outstandingLimit"
                               type="text"
-                              value={profile?.outstandingLimit}
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                            onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureOutLimit: true,
+                              }),
+                                (e.target.type = 'number');
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                groupExposureOutLimit: false,
+                              }),
+                                (e.target.type = 'text');
+                            }}
+                               onWheel={(event) => event.currentTarget.blur()}
+                                    value={
+                              isFieldInFocus.groupExposureOutLimit
+                                  ? profile?.outstandingLimit
+                                  : returnReadableNumber(profile?.outstandingLimit,'en-In',2)
+                            }
+                              // value={profile?.outstandingLimit}
                               disabled={!profile.actions}
-                              onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
+                              // onKeyDown={(evt) => {
+                              //   const re = /^[0-9\b]+$/;
 
-                                if (re.test(evt.target.value) == false) {
-                                }
-                              }}
+                              //   if (re.test(evt.target.value) == false) {
+                              //   }
+                              // }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString(
-                                  'en-IN',
-                                );
+                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
 
                                 handleGroupExpChange(e.target.name, e.target.value.toString(), index);
                               }}
@@ -463,9 +547,10 @@ const Index = ({
                               }}
                             >
                               <option selected>Select an Option</option>
-                              <option value="Poor">Poor</option>
                               <option value="Good">Good</option>
                               <option value="Satisfactory">Satisfactory</option>
+                              <option value="Average">Average</option>
+                              <option value="Poor">Poor</option>
                             </select>
                             <img className={`${styles.arrow} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
                           </td>
@@ -550,13 +635,17 @@ const Index = ({
               {strengthsComment &&
                 strengthsComment.map((strengths, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
+                     <div className='d-flex flex-grow-1 mr-4'>
+                    <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={strengths}
                       as="textarea"
                       rows={3}
+                      
                       readOnly={!editStren[index]?.editable}
                     />
+                    </div>
                     <div className="mt-3">
                       <img
                         src={`/static/${editStren[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
@@ -607,13 +696,17 @@ const Index = ({
               {weaknessComment &&
                 weaknessComment.map((weakness, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
+                     <div className='d-flex flex-grow-1 mr-4'>
+                    <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
+                  
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={weakness}
                       as="textarea"
                       rows={3}
                       readOnly={!editWeak[index]?.editable}
                     />
+                    </div>
                     <div className="mt-3">
                       <img
                         src={`/static/${editWeak[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'}`}
@@ -649,7 +742,7 @@ const Index = ({
                   <span className="text1">
                     {checkNan(
                       CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.totalLimit ?? ''),
-                    )?.toLocaleString()}
+                    )?.toLocaleString()} {" "}CR
                   </span>
                 </div>
                 <div className={`${styles.limit} accordion_Text`}>
@@ -658,7 +751,7 @@ const Index = ({
                     <span className="text1">
                       {checkNan(
                         CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.utilizedLimt ?? ''),
-                      )?.toLocaleString()}
+                      )?.toLocaleString()}{" "}CR
                     </span>
                   </span>
                 </div>
@@ -668,7 +761,7 @@ const Index = ({
                     <span className="text1">
                       {checkNan(
                         CovertvaluefromtoCR(creditDetail?.company?.creditLimit?.availableLimit ?? ''),
-                      )?.toLocaleString()}
+                      )?.toLocaleString()}{" "}CR
                     </span>
                   </span>
                 </div>
@@ -686,7 +779,7 @@ const Index = ({
                   </tr>
                   <tr>
                     <td>Limit Value</td>
-                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString('en-In')}</td>
+                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString('en-In')}{" "}CR</td>
                     <td>-</td>
 
                     {filteredCreditRating && filteredCreditRating.length != 0 && filteredCreditRating != 0 ? (
@@ -698,7 +791,7 @@ const Index = ({
                               {(val.derived.value ?? '')?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
-                              })}
+                              })}{" "}CR
                             </td>
                           ))}{' '}
                       </>
@@ -728,8 +821,8 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedCreditLimit
-                            ? suggestedCredit?.suggestedCreditLimit
-                            : Number(suggestedCredit?.suggestedCreditLimit ?? '')?.toLocaleString('en-In') + ` CR`
+                            ? (suggestedCredit?.suggestedCreditLimit)
+                            : returnReadableNumber(convertValue(Number(suggestedCredit?.suggestedCreditLimit) ?? ''),'en-In',2) + ` CR`
                         }
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
@@ -744,7 +837,7 @@ const Index = ({
                       {checkNan(CovertvaluefromtoCR(creditDetail?.orderValue ?? ''))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
-                      })}
+                      })}{" "}CR
                     </td>
 
                     <td>-</td>
@@ -772,8 +865,8 @@ const Index = ({
                         }}
                         value={
                           isFieldInFocus.suggestedOrderValue
-                            ? suggestedCredit?.suggestedOrderValue
-                            : Number(suggestedCredit?.suggestedOrderValue ?? '')?.toLocaleString('en-In') + ` CR`
+                            ? (suggestedCredit?.suggestedOrderValue)
+                            : returnReadableNumber(convertValue(Number(suggestedCredit?.suggestedOrderValue) ?? ''),'en-In',2) + ` CR`
                         }
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value);
@@ -810,6 +903,8 @@ const Index = ({
               {sanctionComment &&
                 sanctionComment.map((sanction, index) => (
                   <div key={index} className={`${styles.textarea_main} d-flex border_color justify-content-between`}>
+                      <div className='d-flex flex-grow-1 mr-4'>
+                     <div className={styles.sr_number}>{index+1}.</div>
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
                       defaultValue={sanction}
@@ -820,6 +915,7 @@ const Index = ({
                         handleInput(e.target.value, index);
                       }}
                     />
+                    </div>
                     <div className="mt-3">
                       {sanctionCommentsIndex.includes(index) ? (
                         <img

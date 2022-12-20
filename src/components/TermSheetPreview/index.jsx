@@ -18,7 +18,7 @@ function Index() {
   const dispatch = useDispatch();
 
   const { termsheet } = useSelector((state) => state.order);
-
+ console.log(termsheet?.data,"termsheet?.data?.order?.unitOfQuantity")
   let Id = sessionStorage.getItem('termID');
   let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id');
 
@@ -67,11 +67,13 @@ function Index() {
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
               storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+              typeOfPort:sheet?.transactionDetails?.typeOfPort,
+
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
               daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDate,
             },
             commercials: {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
@@ -185,35 +187,65 @@ function Index() {
       ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
       {
         callback: function (doc) {
+                const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
           doc.save('TransactionSummary.pdf');
         },
 
+        margin:[40,0,40,0],
         autoPaging: 'text',
       },
     );
   };
   const exportPDF2 = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1600]);
-    doc.addFileToVFS(
-      'Termsheet.pdf',
-      toPrintPdf2(termsheet, termsheetDetails, additionalComments, otherTermConditions, filteredValue),
+ 
+
+   let a=  doc.html(
+      ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
+      {
+        callback: function (doc) {
+          console.log(doc,"doc")
+         var out = doc.output('blob');
+         var reader = new FileReader();
+          let blob =  reader.readAsBinaryString(out);
+         reader.onload = () => {
+            // console.log(reader.result,"image.png");
+            
+          }
+         
+       
+      
+          
+          
+        },
+
+        autoPaging: 'text',
+      },
     );
-    return doc.getFileFromVFS('Termsheet.pdf');
+    return a
   };
   const shareEmail = async (email) => {
     let doc = exportPDF2();
+   console.log(doc,"ASdasdasd")
+    // let formData = new FormData();
+    // formData.append('document1', '');
+    // formData.append('data', {
+    //   subject: 'this is subject',
+    //   text: 'this is text',
+    //   receiver: email,
+    // });
 
-    let formData = new FormData();
-    formData.append('document1', '');
-    formData.append('data', {
-      subject: 'this is subject',
-      text: 'this is text',
-      receiver: email,
-    });
-
-    await dispatch(sharingTermsheetEmail(formData));
-    setOpen(false);
+    // await dispatch(sharingTermsheetEmail(formData));
+    // setOpen(false);
   };
+  console.log(termsheetDetails,"termsheetDetails")
   return (
     <>
       <div className={`${styles.root_container}  `} ref={toPrint}>
@@ -306,7 +338,7 @@ function Index() {
                     {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    MT
+                  { _get(termsheet, 'data[0].order.unitOfQuantity', '')}
                   </li>
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
@@ -363,7 +395,8 @@ function Index() {
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                     {termsheetDetails?.transactionDetails?.lcValue
-                      ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString('en-IN', {
+                      ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString(
+                         _get(termsheet, 'data[0].order.orderCurrency', '')=="INR"?"en-IN":"en-EN", {
                           maximumFractionDigits: 2,
                         })
                       : ''}
@@ -381,9 +414,9 @@ function Index() {
                   <li>{termsheetDetails?.transactionDetails?.countryOfOrigin}</li>
                   <li>{termsheetDetails?.transactionDetails?.shipmentType}</li>
                   <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
-                  <li>{termsheetDetails?.transactionDetails?.portOfDischarge}</li>
+                  <li>{termsheetDetails?.transactionDetails?.portOfDischarge}, India</li>
                   <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
-                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}</li>
+                  <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES / ${termsheetDetails?.transactionDetails.typeOfPort === 'Both' ? 'Both Load Port and Discharge Port': termsheetDetails?.transactionDetails.typeOfPort}`: 'NO'}</li>
                 </ul>
               </Col>
             </Row>
@@ -1102,6 +1135,7 @@ function Index() {
       </div>
 
       <Paginatebar
+      pagesDetails={{total : 1, current:1}}
         exportPDF={exportPDF}
         openbar={openbar}
         rightButtonTitle="Send To Buyer"
@@ -1114,7 +1148,7 @@ function Index() {
 
 export default Index;
 
-const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditions) => {
+const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditions,termsheet) => {
   const filteredValue = (commentType) => {
     let filteredComments = additionalComments?.filter((comment) => comment.additionalCommentType === commentType);
 
@@ -1338,7 +1372,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           >
                             2.
                           </span>
-                          Quantity Name
+                          Quantity 
                         </p>
                       </td>
                       <td align="left">
@@ -1353,7 +1387,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} MT
+                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} {" "}  { _get(data, 'data[0].order.unitOfQuantity', '')}
                         </p>
                       </td>
                     </tr>
@@ -1460,7 +1494,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                         >
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                           {termsheetDetails?.transactionDetails?.lcValue
-                            ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString('en-In')
+                            ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString(
+                              _get(termsheet, 'data[0].order.orderCurrency', '')=="INR"?"en-IN":"en-EN")
                             : ''}
                         </p>
                       </td>
@@ -1808,7 +1843,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {' '}
-                          {termsheetDetails?.transactionDetails?.portOfDischarge}
+                          {termsheetDetails?.transactionDetails?.portOfDischarge}, India
                         </p>
                       </td>
                     </tr>
@@ -1895,7 +1930,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? 'YES' : 'NO'}
+                          {termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? `YES / ${termsheetDetails?.transactionDetails.typeOfPort === 'Both' ? 'Both Load Port and Discharge Port': termsheetDetails?.transactionDetails.typeOfPort}` : 'NO'}
                         </p>
                       </td>
                     </tr>
@@ -2449,11 +2484,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
         </tr>
         <tr>
           <td valign="top" align="left">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             <br />
             <br />
             <br />

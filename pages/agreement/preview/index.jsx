@@ -17,8 +17,11 @@ import TPAIGIPreview from '../../../src/templates/TPAIGIPreview';
 import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteAgreementPreview';
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
 import TPASellerPreview from '../../../src/templates/TPASellerPreview';
-
+import { returnReadableNumber } from '@/utils/helpers/global';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 function index() {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -49,7 +52,14 @@ function index() {
     specComment: '',
   });
   const [preview, setPreview] = useState('');
-
+   useEffect(() => {
+  if(window){
+      let term =  JSON.parse(sessionStorage.getItem('genericSelected'));
+       dispatch(setPageName('agreement'));
+        dispatch(setDynamicName(term.company.companyName));
+        dispatch(setDynamicOrder(term.order.orderId));
+        }
+  },[]);
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -110,7 +120,8 @@ function index() {
         sellerAddress: _get(data, 'seller.addresses[0]', {}),
         buyerAddress: _get(data, 'buyer.addresses[0]', {}),
         shortseller: data?.seller?.shortName,
-        shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
+       shortbuyer: `${data?.buyer.shortName}`,
+
         sellerSignature: data?.seller?.name,
         buyerSignature: data?.buyer?.name,
         dateOfExecution: dat,
@@ -155,6 +166,10 @@ function index() {
         cmaAddress: _get(data, 'CMA.addresses[0]', {}),
 
         cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
+        cha: data?.CHA?.name,
+        chaAddress: _get(data, 'CHA.addresses[0]', {}),
+
+        chaAuthorized: _get(data, 'CHA.authorisedSignatoryDetails', []),
         vessel: data?.shippingLine?.vesselName,
         storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
         loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
@@ -175,12 +190,17 @@ function index() {
         cheque: data.deliveryTerms?.cheque || [],
         cmaShort: data?.CMA?.shortName,
         loadingCargo2: month ,
+        cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
+        orderId:data?.order?.orderId.slice(-3),
+        orderId2:data?.order?.orderId.slice(-4),
+        associateBuyerShort: _get(data, 'associateBuyer.shortName', ''),
       });
     }
   }, []);
 
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [800, 1200]);
+  
     let toPrint = SalesContractPreview(data);
     let name = 'SalesAgreement';
     if (preview == 'Sales') {
@@ -215,11 +235,25 @@ function index() {
       toPrint = AssignmentLetterPreview(data);
       name = 'AssignmentLetter.pdf';
     }
+   
     doc.html(ReactDOMServer.renderToString(toPrint), {
       callback: function (doc) {
+      const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+     
+      doc.text(
+        `Page ${i} of ${totalPages}`, 
+        doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 5, {
+        align: 'center',
+        });;
+      }
         doc.save(name);
       },
+      margin:[40,0,40,0],
       autoPaging: 'text',
+      
     });
   };
   return (
@@ -256,16 +290,16 @@ export const undertaking1Pdf = (data) => {
                 <td align='left' valign="top" style={{padding:'15px 0'}}>
                   <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
                     <tr>
-                      <td valign='top' align='left' width="10%">
+                      <td valign='top' align='left' width="5%">
                         <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>To:</p>
                       </td>
-                      <td valign='top' align='left'>
+                      <td valign='top' align='left' width="95%">
                         <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0', textTransform:'capitalize'}}>
-                          <u>{data.buyer}</u>,<br/>
-                          <u>{data.buyerAddress?.fullAddress}</u>,
-                          <u>{data.buyerAddress?.city}</u>{" "}<br/>
-                          <u>{data.buyerAddress?.country}</u>,{" "}
-                          <u>{data.buyerAddress?.pinCode}</u></p>
+                          {data.buyer},<br/>
+                          {data.buyerAddress?.fullAddress},
+                          {data.buyerAddress?.city}{" "}<br/>
+                          {data.buyerAddress?.country},{" "}
+                          {data.buyerAddress?.pinCode}</p>
                       </td>
                     </tr>
                   </table>
@@ -282,10 +316,10 @@ export const undertaking1Pdf = (data) => {
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we, being the Associate Buyer have entered into the Associateship Agreement with Seller.</p>
                     </li>
                     <li>
-                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That as requested by us, the Supplier shall sell the Goods to <u>{data.shortseller}</u> and <u>{data.shortseller}</u> will establish Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. <u>{data.shortseller}</u> shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to as “Contracts”.</p>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That as requested by us, the Supplier shall sell the Goods to {data.shortseller} and {data.shortseller} will establish Letter of Credit in favour of the Supplier and make payment to the Supplier for the Goods. {data.shortseller} shall sell the Goods to Seller and Seller shall sell the same to the Associate Buyer in terms of the said Associateship Agreement. The Sales Contract and the Associateship Agreement shall jointly be referred to as “Contracts”.</p>
                     </li>
                     <li>
-                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That the present Undertaking is being executed in pursuance of the Contracts being entered into by <u>{data.shortseller}</u> and Seller on our request. It is pertinent to mention that the terms of the Associateship Agreement be read as a part of this Undertaking.</p>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That the present Undertaking is being executed in pursuance of the Contracts being entered into by {data.shortseller} and Seller on our request. It is pertinent to mention that the terms of the Associateship Agreement be read as a part of this Undertaking.</p>
                     </li>
                     <li>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>We enclose herewith the following post-dated Cheque(s) as per details in Schedule I. In pursuance of the above, we authorize Seller to present the post-dated cheques on due date and present the same with its Banker, without any notice to us.</p>
@@ -329,7 +363,7 @@ export const undertaking1Pdf = (data) => {
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>In any event of our failure to perform the Associateship Agreement in accordance with its terms including default in honoring the cheques on presentation, Seller shall have the right to file appropriate civil and/or criminal proceedings against us in the Courts of the Jurisdiction as per your sole discretion. We unconditionally and irrevocably waive our right to raise objection to such proceedings on any grounds whatsoever.</p>
                     </li>
                   </ol>
-                  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 </td>
               </tr>              
               <tr>
@@ -425,7 +459,10 @@ export const undertaking1Pdf = (data) => {
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {val.amount}</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
+                           INR  {returnReadableNumber(val.amount,"en-IN",2)}
+                         
+                           </p>
                       </td>
                     </tr>
               );
@@ -442,21 +479,18 @@ export const undertaking1Pdf = (data) => {
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'30px'}}>FOR AND ON BEHALF OF</p></td>
                     </tr>
                     <tr>
-                      <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>Place:  {data.placeOfExecution} </p>
+                      <td valign='bottom' align='left' width='70%'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
                       </td>
-                      <td valign='top' align='left' width='50%'>
+                      <td valign='top' align='left' width='30%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong>(Associate Buyer)</strong>
                                         {
                                 data?.associateBuyerAuthorized?.length > 0 &&
                                 data?.associateBuyerAuthorized?.map((val, index) => {
                                   return (
-                                     <>
-                                     <br /><br />Name - {val.name}
+                                     <><strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block'}}>Name: {val.name}
+                                       <br/>Designation: {val.designation}</strong>
                                      </>
-                                      
-                                      
-                                  
                                   );
                                 })
                               }
@@ -465,8 +499,8 @@ export const undertaking1Pdf = (data) => {
                       </td>
                     </tr>
                     <tr>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>Date : {data.dateOfExecution}</p></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>AUTHORISED SIGNATORY</p></td>
+                      <td align='left'>&nbsp;</td>
+                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000' }}>AUTHORISED SIGNATORY</p></td>
                     </tr>
                   </table>
                 </td>
@@ -494,16 +528,16 @@ export const undertaking2Pdf = (data) => {
                 <td align='left' valign="top" style={{padding:'15px 0'}}>
                   <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
                     <tr>
-                      <td valign='top' align='left' width="10%">
+                      <td valign='top' align='left' width="5%">
                         <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>To:</p>
                       </td>
-                      <td valign='top' align='left'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}>
-                          <u>{data.buyer}</u>,<br/>
-                          <u>{data.buyerAddress?.fullAddress}</u>,
-                          <u>{data.buyerAddress?.city}</u>{" "}<br/>
-                          <u>{data.buyerAddress?.country}</u>,{" "}
-                          <u>{data.buyerAddress?.pinCode}</u></p>
+                      <td valign='top' align='left' width="95%">
+                        <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0', textTransform:'capitalize'}}>
+                          {data.buyer},<br/>
+                          {data.buyerAddress?.fullAddress},
+                          {data.buyerAddress?.city}{" "}<br/>
+                          {data.buyerAddress?.country},{" "}
+                          {data.buyerAddress?.pinCode}</p>
                       </td>
                     </tr>
                   </table>
@@ -524,7 +558,7 @@ export const undertaking2Pdf = (data) => {
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we have negotiated with the Supplier for supply of the Goods through Seller.</p>
                     </li>
                     <li>
-                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we have requested Seller to import on our behalf the Goods and sell the same to us on stock and sale basis as per Associateship Agreement. We confirm and undertake that all the terms & conditions of the Sales Contract entered into between <u>{data.shortseller}</u> and the Supplier (hereinafter referred to as “Sales Contract”) are acceptable and binding on us.</p>
+                      <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That we have requested Seller to import on our behalf the Goods and sell the same to us on stock and sale basis as per Associateship Agreement. We confirm and undertake that all the terms & conditions of the Sales Contract entered into between {data.shortseller} and the Supplier (hereinafter referred to as “Sales Contract”) are acceptable and binding on us.</p>
                     </li>
                     <li>
                       <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000'}}>That the price indicated in the Sales Contract is neither under-invoiced nor over-invoiced and is as per prevailing international rates for the above-mentioned item and is at par with prices at which item of similar quality being imported into India.</p>
@@ -550,43 +584,24 @@ export const undertaking2Pdf = (data) => {
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingBottom:'20px'}}><strong>(Associate Buyer)</strong></p></td>
                     </tr>
                     <tr>
-                      <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong><u>Place: {data.placeOfExecution}</u> </strong></p>
+                      <td valign='bottom' align='left' width='70%'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>Place: {data.placeOfExecution} </strong><br/><strong>Date : {data.dateOfExecution}</strong></p>
                       </td>
-                      <td valign='top' align='left' width='50%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>
+                      <td valign='top' align='left' width='30%'>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0' }}>
                           
                             {
                             data?.associateBuyerAuthorized?.length > 0 &&
                             data?.associateBuyerAuthorized?.map((val, index) => {
                               return ( 
-                                <strong><u>Name - {val.name}</u> </strong>                
-                                             
+                                <strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block' }}>Name: {val.name}<br/>Designation: {val.designation}</strong>
                               );
                             })
                             }
                            
-                          <strong><u>Name -</u> </strong></p>
+                        
+                          </p>
                       </td>
-                    </tr>
-                    <tr>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong><u>Date :</u> <u>{data.dateOfExecution}</u></strong></p></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}>
-                        
-                           {
-                      data?.associateBuyerAuthorized?.length > 0 &&
-                      data?.associateBuyerAuthorized?.map((val, index) => {
-                        return (    
-                           <strong><u>Designation: {val.designation}</u></strong>              
-                                          
-                        );
-                      })
-                      }
-                       
-                        
-                        </p>
-                        
-                        </td>
                     </tr>
                   </table>
                 </td>

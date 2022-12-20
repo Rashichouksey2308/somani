@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import * as XLSX from 'xlsx';
 import { toast } from 'react-toastify';
+
 function Index(props) {
   const [excelData, setExcelData] = useState(null);
   const [excelFile, setExcelFile] = useState(null);
@@ -62,6 +63,7 @@ function Index(props) {
       }
     }
   }, [props]);
+
   const handleEditAddressInput = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -179,7 +181,7 @@ function Index(props) {
             )}
             <div className={`${styles.file_text}`}>
               <span>
-                <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX
+                ONLY .XLS FILES ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX
                 FILE SIZE UP TO 50 MB
               </span>
             </div>
@@ -235,27 +237,28 @@ function Index(props) {
                         handleInput(e.target.value, index);
                       }}
                       className="input"
-                      readOnly={val.action}
+                      readOnly={!val.action}
                     />
                     <div className={`d-flex justify-content-evenly align-items-center`}>
                       {val.action ? (
-                        <img
-                          className={`${styles.image} ml-4 mr-3`}
-                          src="/static/mode_edit.svg"
-                          alt="edit button"
-                          onClick={() => {
-                            handleEditAddressInput(index);
-                          }}
-                        ></img>
+                       <img
+                       src="/static/save-3.svg"
+                       className={`${styles.image} ml-4 mr-3`}
+                       alt="save"
+                       onClick={(e) => {
+                         handleEditAddressInput(index);
+                       }}
+                     />
                       ) : (
                         <img
-                          src="/static/save-3.svg"
-                          className={`${styles.image} ml-4 mr-3`}
-                          alt="save"
-                          onClick={(e) => {
-                            handleEditAddressInput(index);
-                          }}
-                        />
+                        className={`${styles.image} ml-4 mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit button"
+                        onClick={() => {
+                          handleEditAddressInput(index);
+                        }}
+                     />
+                       
                       )}
                       <img
                         src="/static/delete 2.svg"

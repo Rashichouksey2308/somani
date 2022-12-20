@@ -21,7 +21,7 @@ function Index() {
   useEffect(() => {
     let Id = sessionStorage.getItem('termsheetId');
     dispatch(GetTermsheet(`?company=${Id}&page=${currentPage}&limit=${7}`));
-  }, [dispatch]);
+  }, [dispatch,currentPage]);
 
   useEffect(() => {
     dispatch(setPageName(_get(termsheet, 'data[0].company.companyName', 'All Termsheet Order')));
