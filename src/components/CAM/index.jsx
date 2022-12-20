@@ -654,6 +654,10 @@ function Index({
   }, [chartRef.current, chartRef2.current, gstData, chartType]);
 
   const [rating, setRating] = useState(`rotate(0deg)`);
+   let rotateImage = {
+    top: '40%',
+    left: '36%',
+  };
   useEffect(() => {
     if (filteredCreditRating) {
       getRotate(filteredCreditRating[0]?.totalRating);
@@ -661,10 +665,7 @@ function Index({
     }
   }, [filteredCreditRating]);
 
-  let rotateImage = {
-    top: '40%',
-    left: '36%',
-  };
+ 
   const getRotate = (rat = 1) => {
     let r = Math.floor(rat);
     // let r = 1;
@@ -3816,6 +3817,7 @@ const skewness = (
   );
 };
 const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImage) => {
+  console.log(rotateImage,"rotateImage")
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
