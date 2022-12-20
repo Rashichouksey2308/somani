@@ -4,5 +4,25 @@ export const STATISTICS_TYPES = {
     REVIEW: 'review',
     REJECTED: 'rejected',
     SAVED: 'saved',
-    PENDING: 'pending'
+    PENDING: 'pending',
+    CLOSED: 'closed'
 }
+
+export const LEADS_QUEUE_FILTER_ITEMS = [
+    {
+        id: 'company_name',
+        name: 'Buyer Name'
+    },
+    {
+        id: 'commodity',
+        name: 'Commodity'
+    },
+    // {
+    //     id: 'orderId',
+    //     name: 'Order Id'
+    // },
+    {
+        id: 'status',
+        name: 'Status'
+    }
+];
