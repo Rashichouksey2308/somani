@@ -241,6 +241,7 @@ function Index() {
   };
 
   const handleRightButton = () => {
+   
     if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
       let toastMessage = 'DATE OF AMENDMENT IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
@@ -261,7 +262,8 @@ function Index() {
       sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage));
       const task = lcModuleData.isPostAmmended 
       let fd = new FormData();
-
+      
+      fd.append('lcNewApplication', JSON.stringify(clauseArr));
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
       fd.append('isPostAmmended', true);
