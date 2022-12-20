@@ -163,7 +163,7 @@ export default function AmendLetterTemp(lcModuleData) {
             <tr>
               <td valign="top" align="left">
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
-                  <tbody>
+                  {lcModuleData?.lcModuleData?.lcNewApplication?.map((val, index)=>(<tbody key={index}>
                     <tr>
                       <td
                         width="40%"
@@ -191,9 +191,9 @@ export default function AmendLetterTemp(lcModuleData) {
                               fontWeight: '500',
                             }}
                           >
-                            40A
+                            {val.dropDownValue}
                           </span>
-                          FORM OF DOCUMENTARY CREDIT
+                          
                         </p>
                       </td>
                       <td
@@ -213,11 +213,11 @@ export default function AmendLetterTemp(lcModuleData) {
                             marginBottom: '0',
                           }}
                         >
-                          {lcModuleData.lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
+                          {val?.newValue?.toUpperCase()}
                         </p>
                       </td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td
                         align="left"
                         style={{
@@ -422,8 +422,8 @@ export default function AmendLetterTemp(lcModuleData) {
                           {lcModuleData.lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
                         </p>
                       </td>
-                    </tr>
-                  </tbody>
+                    </tr> */}
+                  </tbody>))}
                 </table>
               </td>
             </tr>

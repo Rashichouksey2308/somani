@@ -125,14 +125,18 @@ const deleteArr=(val,index)=>{
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
-                  <tbody>
+                 {lcModuleData?.lcNewApplication?.map((val, index) => ( <tbody key={index}>
                     <tr className="table_row">
                       <td width="40%">
-                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
+                        {val.dropDownValue.toUpperCase()}
                       </td>
-                      <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td>
+                      {/* <td width="40%">
+                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
+                      </td> */}
+                      <td>{val.newValue.toUpperCase()}</td>
+                      {/* <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td> */}
                     </tr>
-                    <tr className="table_row">
+                    {/* <tr className="table_row">
                       <td width="40%">
                         40E &nbsp; &nbsp; <span>APPLICABLE RULES</span>
                       </td>
@@ -155,8 +159,8 @@ const deleteArr=(val,index)=>{
                         51D &nbsp; &nbsp; <span>LC ISSUING BANK</span>
                       </td>
                       <td>{lcModuleData?.lcApplication?.lcIssuingBank}</td>
-                    </tr>
-                  </tbody>
+                    </tr> */}
+                  </tbody>))}
                 </table>
               </div>
             </div>
