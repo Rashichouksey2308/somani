@@ -31,42 +31,20 @@ function Index() {
   });
 
   useEffect(() => {
-    console.log('first useEffect');
     dispatch(GetVendorPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
   const handleSort = (column) => {
-    let sortOrder = '';
-    if (column.id === 'createdAt') {
+    if (column.id === sortByState.column) {
       setSortByState((state) => {
         let updatedOrder = !state.order;
-        sortOrder = updatedOrder ? 'asc' : 'desc';
         return { ...state, order: updatedOrder };
       });
     } else {
-      let data = { column: 'createAt', order: column.isSortedDesc };
-      sortOrder = data.order ? 'asc' : 'desc';
+      let data = { column: column.id, order: !column.isSortedDesc };
       setSortByState(data);
     }
-    console.log('vendor: end of handleSort: ', sortOrder, sortByState);
-    // console.log('handle sort in vendor');
-    // let sortOrder = '';
-    // console.log('vendor: column.id & sortByState: ', column.id, sortByState);
-    // if (column.id === sortByState.column) {
-    //   console.log('vendor: if cond');
-    //   setSortByState((state) => {
-    //     let updatedOrder = !state.order;
-    //     sortOrder = updatedOrder ? '1' : '-1';
-    //     return { ...state, order: updatedOrder };
-    //   });
-    //   console.log('vendor: end of if');
-    // } else {
-    //   console.log('vendor: else cond');
-    //   let data = { column: column.id, order: column.isSortedDesc };
-    //   sortOrder = data.order ? '1' : '-1';
-    //   setSortByState(data);
-    // }
-    // dispatch(GetVendorPickupRecords(`?page=${currentPage}&createdAt=${sortOrder}`));
+    dispatch(GetVendorPickupRecords(`?page=${currentPage}&createdAt=${sortByState.order ? '1' : '-1'}`));
   };
 
   const tableColumns = useMemo(() => [
@@ -92,7 +70,6 @@ function Index() {
     {
       Header: 'Submitted On',
       accessor: 'createdAt',
-      disableSortBy: false,
       Cell: ({ value }) => value?.slice(0, 10)
     },
   ]);
