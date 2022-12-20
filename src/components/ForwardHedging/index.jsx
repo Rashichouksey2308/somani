@@ -16,6 +16,7 @@ import Axios from 'axios';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ export default function Index() {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     bookedRate: false,
     bookedAmount: false,
+    closingRate : false
   });
   const onDeleteClick = (index) => {
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
@@ -521,11 +523,30 @@ export default function Index() {
                           <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                             <input
                               className={`${styles.input_field} input form-control`}
-                              type="number"
+                              type="text"
                               onWheel={(event) => event.currentTarget.blur()}
                               required
+                              onFocus={(e) => {
+                                setIsFieldInFocus({
+                                  ...isFieldInFocus,
+                                  closingRate: true,
+                                }),
+                                  (e.target.type = 'number');
+                              }}
+                              onBlur={(e) => {
+                                setIsFieldInFocus({
+                                  ...isFieldInFocus,
+                                  closingRate: false,
+                                }),
+                                  (e.target.type = 'text');
+                              }}
+                              value={
+                                isFieldInFocus.closingRate
+                                  ? item?.closingRate
+                                  : Number(item?.closingRate)?.toLocaleString(item.currency == 'INR' ? 'en-IN' : 'en-US')
+                              }
                               name="closingRate"
-                              value={item?.closingRate}
+                              // value={item?.closingRate}
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                             />
@@ -606,17 +627,7 @@ export default function Index() {
                                   <strong className="text-danger ml-1">*</strong>
                                 </td>
                                 <td>
-                                  {item?.forwardSalesContract ? (
-                                    item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xls') ||
-                                    item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                      <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                    ) : item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.doc') ||
-                                      item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                      <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                    ) : (
-                                      <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                    )
-                                  ) : null}
+                                {item?.forwardSalesContract?.originalName ? returnDocFormat(item?.forwardSalesContract?.originalName) : null}
                                 </td>
                                 <td className={styles.doc_row}>
                                   {item?.forwardSalesContract == null
