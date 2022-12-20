@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import Filter from '../../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
+import { GetMasterUsersQueueRecords } from '../../../src/redux/masters/action';
 import DownloadMasterBar from '../../../src/components/DownloadMasterBar';
 import Image from 'next/image';
 import Router from 'next/router';
@@ -11,6 +12,9 @@ const index = () => {
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const { searchedLeads } = useSelector((state) => state.order);
+  const { usersQueueRecords } = useSelector((state) => state.MastersData);
+
+  console.log("USERS QUEUE RECORDS DEBUG", usersQueueRecords);
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -24,6 +28,10 @@ const index = () => {
     const id = `${e.target.id}`;
     dispatch(GetLcModule(`?company=${id}`));
   };
+
+  useEffect(() => {
+    dispatch(GetMasterUsersQueueRecords());
+  }, [dispatch]);
 
   return (
     <>
