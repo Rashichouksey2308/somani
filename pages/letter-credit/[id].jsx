@@ -56,8 +56,6 @@ function Index() {
 
   const [lcData, setLcData] = useState();
 
-  console.log(lcData, 'LCDATA')
-
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
