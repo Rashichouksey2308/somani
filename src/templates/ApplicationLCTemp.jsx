@@ -1360,9 +1360,9 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           </td>
                         </tr>
                       ))}
-                      <tr colSpan={3}>
+                      <tr colSpan={4}>
                         <td>
-                          <br/><br/><br/>
+                          <br/><br/><br/><br/>
                         </td>
                       </tr>
                     {/* <tr>
@@ -1394,7 +1394,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                         </span>
                       </th>
                     </tr>                          
-                    <tr></tr>
+                    {/* <tr></tr> */}
                     {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0 ? (
                       <>
                         <tr>
@@ -1507,6 +1507,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                                         style={{
                                           borderBottom: '1px solid #CAD6E6',
                                           borderLeft: '1px solid #CAD6E6',
+                                          padding:'16px 22px'
                                         }}
                                       >
                                         {value}
@@ -2037,7 +2038,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                         </td>
                         <td 
                         align="left"
-                        style={{padding:"16px"}}
+                        style={{padding:"26px 18px"}}
                         >
                           <span
                             style={{
@@ -2047,6 +2048,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               fontWeight: '500',
                               display: 'block',
                               textTransform: 'uppercase',
+                              // padding: '16px 15px 16px 35px',
                             }}
                           >
                             {' '}
