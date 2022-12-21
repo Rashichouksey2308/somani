@@ -249,7 +249,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         
-                        <span style={{display:'inline-block', marginLeft:'-18px'}}>2. &nbsp; </span>Scope of Work of CHA:
+                        <span style={{display:'inline-block', marginLeft:'-18px'}}>2. &nbsp; </span>Scope of Work of CHA/Stevedore:
                       </span>
                       <span
                         style={{
