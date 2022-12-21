@@ -3228,7 +3228,7 @@ const sectionTerms = (
                           filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
-                              {checkNan(convertValue(val?.derived?.value, camConversionunit)?.toLocaleString('en-In'))}{' '}
+                              {returnReadableNumber((convertValue(val?.derived?.value, camConversionunit)),'en-In',2,2)}{' '}
                               {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}{' '}
                             </td>
                           ))}{' '}
