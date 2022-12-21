@@ -76,7 +76,7 @@ export default function QuadripartiteAgreement(data) {
           </p>
         </li>
         <li>
-          <p className=" text_sales mb-0"> Scope of Work of CHA: </p>
+          <p className=" text_sales mb-0"> Scope of Work of CHA/Stevedore: </p>
           <p className=" text_sales"> The Scope of work of CHA/Stevedore shall include but not be limited to: </p>
           <p className=" text_sales mb-0">
             a) arranging plot allotment in the name of {data.shortbuyer} from the discharge Port authorities to
