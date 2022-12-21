@@ -169,14 +169,14 @@ export default function Index({ addButton, setComponentId, componentId, ports })
   useEffect(() => {
     if (inspectionData) {
       setDocuments({
-        certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
-        certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
-        certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
+        certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality?.name ? inspectionData?.thirdPartyInspection?.certificateOfQuality: null,
+        certificateOfWeight:inspectionData?.thirdPartyInspection?.certificateOfWeight?.name ? inspectionData?.thirdPartyInspection?.certificateOfWeight: null,
+        certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.name ? inspectionData?.thirdPartyInspection?.certificateOfOrigin: null,
       });
       setDischargeDocuments({
-        dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || null,
-        dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || null,
-        dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || null,
+        dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality?.name ? inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality: null,
+        dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight?.name ? inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight: null,
+        dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin?.name ? inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin: null,
       });
     }
   }, [inspectionData]);
@@ -358,13 +358,20 @@ export default function Index({ addButton, setComponentId, componentId, ports })
             toast.error(toastMessage, { toastId: toastMessage });
           }
         } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
-          if (haveDischargeDoc == false || haveDoc == false) {
-            let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
-            if (!toast.isActive(toastMessage)) {
-              toast.error(toastMessage, { toastId: toastMessage });
-            }
-            return;
+           if ( haveDoc == false) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
           }
+          return;
+        }
+        if (haveDischargeDoc == false ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN  DISCHARGE PORT';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return;
+        }
         }
 
         let fd = new FormData();
@@ -409,12 +416,19 @@ export default function Index({ addButton, setComponentId, componentId, ports })
     }
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
-        if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+        if ( haveDoc == false) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT ';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
-          return;
+          return ;
+        }
+        if (haveDischargeDoc == false ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN  DISCHARGE PORT';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return ;
         }
       }
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
@@ -463,8 +477,15 @@ export default function Index({ addButton, setComponentId, componentId, ports })
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
-        if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+        if ( haveDoc == false) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return (noError = true);
+        }
+        if (haveDischargeDoc == false ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN  DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -708,8 +729,15 @@ export default function Index({ addButton, setComponentId, componentId, ports })
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
-        if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS  REQUIRED IN LOAD PORT & DISCHARGE PORT';
+        if ( haveDoc == false) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return (noError = true);
+        }
+        if (haveDischargeDoc == false ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN  DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
