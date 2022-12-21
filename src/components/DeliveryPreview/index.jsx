@@ -180,12 +180,14 @@ function Index() {
                 {_get(ReleaseOrderData, 'data[0].order.generic.CHA.name', '') !== '' ? (
                   <span>
                     {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].fullAddress', '')},{" "}
+                    <br></br>
                     {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].state', '')},{" "}
                     {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].pinCode', '')}
                   </span>
                 ) : (
                   <span>
                     {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].fullAddress', '')},{" "}
+                    <br></br>
                     {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].state', '')},{" "}
                     {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].pinCode', '')}
                   </span>
