@@ -1452,7 +1452,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                             </tr>
                           </thead>
                           <tbody>
-                          {val.boeAssessment === 'Provisional' ?
+                          {(val.boeAssessment === 'Provisional' || (val.boeAssessment === 'Final' && _get(customData, `billOfEntry.billOfEntry[${index}].document1`, null))) &&
                               <tr className="table_row">
                               
                                 <td className={styles.doc_name}>
@@ -1494,8 +1494,8 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   </div>
                                 )}
                               </td>
-                            </tr>
-                            :
+                            </tr>}
+                          { val.boeAssessment === 'Final' &&
                                 <tr className="table_row">
                               
                                 <td className={styles.doc_name}>
@@ -1587,17 +1587,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   <strong className="text-danger ml-0">*</strong>
                                 </td>
                                 <td>
-                                  {val?.document4 ? (
-                                    val.document4?.originalName?.toLowerCase().endsWith('.xls') ||
-                                    val.document4?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                      <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                    ) : val.document4?.originalName?.toLowerCase().endsWith('.doc') ||
-                                      val.document4?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                      <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                    ) : (
-                                      <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                    )
-                                  ) : null}
+                                  {val?.document4 ? returnDocFormat(val.document4?.originalName) : null}
                                 </td>
                                 <td className={styles.doc_row}>
                                   {val.document4 === null
