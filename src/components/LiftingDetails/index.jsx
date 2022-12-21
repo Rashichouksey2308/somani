@@ -220,7 +220,7 @@ export default function Index(props) {
                     {val.detail.map((val2, index2) => {
                      { console.log(val2,"val2")}
                       return (
-                        <div className={`${styles.dashboard_form} mt-3 card-body`}>
+                        <div className={`${styles.dashboard_form} vessel_card mt-3 card-body`}>
                           <div className={`${styles.bill_landing} border_color`}>
                             <div className={`${styles.vessel_card}`}>
                               <div className="justify-content-between d-flex mt-4">
