@@ -834,7 +834,7 @@ const Index = ({
                     <td>Order Value</td>
                     <td>-</td>
                     <td>
-                      {checkNan(CovertvaluefromtoCR(creditDetail?.orderValue ?? ''))?.toLocaleString('en-In', {
+                      {checkNan(CovertvaluefromtoCR(creditDetail?.existingOrderValue?? ''))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}{" "}CR

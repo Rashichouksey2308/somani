@@ -111,6 +111,7 @@ function Index() {
     portOfDischarge: '',
     ExpectedDateOfShipment: null,
     incoTerm: '',
+    existingOrderValue :""
   });
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails };
@@ -263,6 +264,7 @@ function Index() {
       let sendOrder1 = { ...companyDetails };
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity));
       sendOrder.orderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000);
+       sendOrder.existingOrderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000);
       sendOrder1.turnOver = Number(removePrefixOrSuffix(companyDetails.turnOver) * 10000000);
       const fd = new FormData();
       fd.append('companyProfile', JSON.stringify(sendOrder1));
