@@ -30,7 +30,6 @@
 }
 
 .tw_toggle input {
-  /* display: none; */
   position: absolute;
   z-index: 2;
   opacity: 0;
@@ -68,14 +67,6 @@
 }
 .tw_toggle .toggle_right:checked ~ span {
   right: 0;
-}
-
-.tw_toggle .toggle_left:checked + label,
-.tw_toggle .toggle_right:checked + label {
-  //cursor: pointer;
-}
-.tw_toggle .toggle_between:checked + label {
-  //cursor: pointer;
 }
 .toggle_left {
   left: 0px;

@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React from 'react';
-import styles from './index.module.scss';
 import Commodity from '../../../src/components/Masters/Commodity';
+import styles from './index.module.scss';
 
 function Index() {
   return (

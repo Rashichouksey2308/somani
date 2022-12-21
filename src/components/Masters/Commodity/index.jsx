@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 const index = () => {
   const dispatch = useDispatch();
-  const [serachterm, setSearchTerm] = useState('');
+  const [searchterm, setSearchTerm] = useState('');
   const { searchedLeads } = useSelector((state) => state.order);
 
   const handleSearch = (e) => {
@@ -46,17 +46,17 @@ const index = () => {
                   <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
-                  value={serachterm}
+                  value={searchterm}
                   onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} border text_area form-control formControl `}
                   placeholder="Search"
                 />
               </div>
-              {searchedLeads && serachterm && (
+              {searchedLeads && searchterm && (
                 <div className={styles.searchResults}>
                   <ul>
-                    {searchedLeads.data.data.map((results, index) => (
+                    {searchedLeads?.data?.data?.map((results, index) => (
                       <li onClick={handleFilteredData} id={results._id} key={index}>
                         {results.companyName} <span>{results.customerId}</span>
                       </li>
@@ -251,7 +251,7 @@ const index = () => {
           </div>
         </div>
       </div>
-      <DownloadMasterBar btnName="Download as Excel"/>
+      <DownloadMasterBar btnName="Download as Excel" />
     </>
   );
 };
