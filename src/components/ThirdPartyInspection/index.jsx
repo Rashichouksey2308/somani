@@ -169,14 +169,14 @@ export default function Index({ addButton, setComponentId, componentId, ports })
   useEffect(() => {
     if (inspectionData) {
       setDocuments({
-        certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
-        certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
-        certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
+        certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality?.name ? inspectionData?.thirdPartyInspection?.certificateOfQuality: null,
+        certificateOfWeight:inspectionData?.thirdPartyInspection?.certificateOfWeight?.name ? inspectionData?.thirdPartyInspection?.certificateOfWeight: null,
+        certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.name ? inspectionData?.thirdPartyInspection?.certificateOfOrigin: null,
       });
       setDischargeDocuments({
-        dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality || null,
-        dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight || null,
-        dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin || null,
+        dischargeCertificateOfQuality: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality?.name ? inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality: null,
+        dischargeCertificateOfWeight: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight?.name ? inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight: null,
+        dischargeCertificateOfOrigin: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin?.name ? inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin: null,
       });
     }
   }, [inspectionData]);
@@ -358,13 +358,20 @@ export default function Index({ addButton, setComponentId, componentId, ports })
             toast.error(toastMessage, { toastId: toastMessage });
           }
         } else if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
-          if (haveDischargeDoc == false || haveDoc == false) {
-            let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
-            if (!toast.isActive(toastMessage)) {
-              toast.error(toastMessage, { toastId: toastMessage });
-            }
-            return;
+           if ( haveDoc == false) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
           }
+          return;
+        }
+        if (haveDischargeDoc == false ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN  DISCHARGE PORT';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return;
+        }
         }
 
         let fd = new FormData();
@@ -409,12 +416,19 @@ export default function Index({ addButton, setComponentId, componentId, ports })
     }
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
-        if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+        if ( haveDoc == false) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT ';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
-          return;
+          return ;
+        }
+        if (haveDischargeDoc == false ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN  DISCHARGE PORT';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return ;
         }
       }
       if (inspectionDetails.loadPortInspection == true && inspectionDetails.dischargePortInspection == false) {
@@ -463,8 +477,15 @@ export default function Index({ addButton, setComponentId, componentId, ports })
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
-        if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+        if ( haveDoc == false) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return (noError = true);
+        }
+        if (haveDischargeDoc == false ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN  DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -708,8 +729,15 @@ export default function Index({ addButton, setComponentId, componentId, ports })
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
       if (inspectionDetails.dischargePortInspection == true && inspectionDetails.loadPortInspection == true) {
         var noError = false;
-        if (haveDischargeDoc == false || haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS  REQUIRED IN LOAD PORT & DISCHARGE PORT';
+        if ( haveDoc == false) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN LOAD PORT ';
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage });
+          }
+          return (noError = true);
+        }
+        if (haveDischargeDoc == false ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS REQUIRED IN  DISCHARGE PORT';
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage });
           }
@@ -1415,9 +1443,10 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfOrigin?.name?.slice(
-                                        documents?.certificateOfOrigin?.name.lastIndexOf('_') + 1,
-                                      )}
+                                      {documents?.certificateOfOrigin?.name !== "certificateOfOrigin"?
+                                       documents?.certificateOfOrigin?.name
+                                      :documents?.certificateOfOrigin?.originalName
+                                      }
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -1529,9 +1558,11 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfQuality?.name?.slice(
-                                        documents?.certificateOfQuality?.name?.lastIndexOf('_') + 1,
-                                      )}
+                                       {documents?.certificateOfQuality?.name !== "certificateOfQuality"?
+                                      documents?.certificateOfQuality?.name
+                                      :documents?.certificateOfQuality?.originalName
+                                      }
+                                     
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -1644,9 +1675,13 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfWeight?.name?.slice(
-                                        documents?.certificateOfWeight?.name?.lastIndexOf('_') + 1,
-                                      )}
+                                        {documents?.certificateOfWeight?.name !== "certificateOfWeight"?
+                                      documents?.certificateOfWeight?.name
+                                      :documents?.certificateOfWeight?.originalName
+                                      } 
+                                      
+                                     
+                                     
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -1829,9 +1864,11 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfOrigin?.name?.slice(
-                                        dischargeDocuments?.dischargeCertificateOfOrigin?.name.lastIndexOf('_') + 1,
-                                      )}
+                                        {dischargeDocuments?.dischargeCertificateOfOrigin?.name !== "dischargeCertificateOfOrigin"?
+                                        dischargeDocuments?.dischargeCertificateOfOrigin?.name
+                                        :dischargeDocuments?.dischargeCertificateOfOrigin?.originalName
+                                        }
+
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -1945,9 +1982,11 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfQuality?.name?.slice(
-                                        dischargeDocuments?.dischargeCertificateOfQuality?.name.lastIndexOf('_') + 1,
-                                      )}
+                                       {dischargeDocuments?.dischargeCertificateOfQuality?.name !== "dischargeCertificateOfQuality"?
+                                        dischargeDocuments?.dischargeCertificateOfQuality?.name
+                                        :dischargeDocuments?.dischargeCertificateOfQuality?.originalName
+                                        }
+
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -2062,9 +2101,11 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfWeight?.name?.slice(
-                                        dischargeDocuments?.dischargeCertificateOfWeight?.name.lastIndexOf('_') + 1,
-                                      )}
+                                       {dischargeDocuments?.dischargeCertificateOfWeight?.name !== "dischargeCertificateOfWeight"?
+                                        dischargeDocuments?.dischargeCertificateOfWeight?.name
+                                        :dischargeDocuments?.dischargeCertificateOfWeight?.originalName
+                                        }
+                                      
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
