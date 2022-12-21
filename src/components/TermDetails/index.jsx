@@ -840,7 +840,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage
                     ? termsheetDetails?.commercials?.lcOpeningChargesPercentage
-                    : returnReadableNumber(termsheetDetails?.commercials?.lcOpeningChargesPercentage,'en-In') + ` %`
+                    : `${Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage)?.toLocaleString("en-IN")}` + ` %`
                 }
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}

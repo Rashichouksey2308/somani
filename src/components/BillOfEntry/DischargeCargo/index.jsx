@@ -11,11 +11,10 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 
 export default function Index({ OrderId, customData, uploadDoc, componentId, setComponentId, setArrivalDate }) {
-
   const dispatch = useDispatch();
 
   const [sumOfDischargeQuantities, setSum] = useState('');
-  
+
   useEffect(() => {
     if (customData) {
       let data = customData?.billOfEntry?.billOfEntry?.reduce(
@@ -102,7 +101,9 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
         dischargeOfCargo: {
           vesselName: data?.dischargeOfCargo?.vesselName,
           portOfDischarge: _get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
-          dischargeQuantity: sumOfDischargeQuantities ? sumOfDischargeQuantities : _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
+          dischargeQuantity: sumOfDischargeQuantities
+            ? sumOfDischargeQuantities
+            : _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
 
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
@@ -259,7 +260,7 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
 
   const handleSave = () => {
     let data = { ...dischargeOfCargo };
-      data.dischargeQuantity = sumOfDischargeQuantities;
+    data.dischargeQuantity = sumOfDischargeQuantities;
     let fd = new FormData();
     fd.append('dischargeOfCargo', JSON.stringify(data));
     fd.append('customClearanceId', customData._id);
@@ -421,7 +422,11 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                     >
                       Port of Discharge
                     </div>
-                    <span className={styles.value}>{dischargeOfCargo?.dischargeOfCargo?.portOfDischarge !== '' ? `${dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}, India` : ''}</span>
+                    <span className={styles.value}>
+                      {dischargeOfCargo?.dischargeOfCargo?.portOfDischarge !== ''
+                        ? `${dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}, India`
+                        : ''}
+                    </span>
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <input
@@ -445,7 +450,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                             sumOfDischargeQuantities == undefined ||
                             sumOfDischargeQuantities == ''
                           ? ''
-                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` ${_get(customData, 'order.unitOfQuantity', "")}`
+                          : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') +
+                            ` ${_get(customData, 'order.unitOfQuantity', '')}`
                       }
                       name="dischargeQuantity"
                       onChange={(e) => onChangeDischargeOfCargo(e.target.name, e.target.value)}
@@ -512,7 +518,11 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                         name="dischargeEndDate"
                         saveDate={saveDate}
                         // maxDate={dateStartFrom.dischargeStartDate}
-                        startFrom={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate ? moment(dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate).toDate() : ''}
+                        startFrom={
+                          dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate
+                            ? moment(dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate).toDate()
+                            : ''
+                        }
                         labelName="Discharge End Date"
                       />
                       <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
