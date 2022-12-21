@@ -952,7 +952,7 @@ const basicInfo = (camData, orderDetails, camConversionunit, unit) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value`}>
-                    {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
+                    {convertValue(camData?.existingOrderValue, camConversionunit)?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
                     {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
@@ -1149,9 +1149,7 @@ const supplierInfo = (camData) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Commodity to total trade (24 months)</span>
                   <span className={`${styles.value} ${styles.danger_highlight} value`}>
-                    {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })}{' '}
+                  {returnReadableNumber(camData?.supplierCredential?.commodityOfTotalTrade,'en-In',2,2)}{' '}
                     %
                   </span>
                 </Col>

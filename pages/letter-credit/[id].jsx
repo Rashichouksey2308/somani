@@ -123,6 +123,7 @@ function Index() {
     existingValue: '',
     dropDownValue: '',
     newValue: '',
+    isEdit: false,
   };
 
   const [clauseObj, setClauseObj] = useState(initialState);
@@ -241,7 +242,6 @@ function Index() {
   };
 
   const handleRightButton = () => {
-   
     if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
       let toastMessage = 'DATE OF AMENDMENT IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
@@ -260,60 +260,60 @@ function Index() {
     } else {
       let sendLcData = { ...lcData };
       sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage));
-      const task = lcModuleData.isPostAmmended 
+      const task = lcModuleData.isPostAmmended;
       let fd = new FormData();
-      
+
       fd.append('lcNewApplication', JSON.stringify(clauseArr));
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
       fd.append('isPostAmmended', true);
-      fd.append('route',lcModuleData.isPostAmmended ? 'PostUpdated' : 'update');
+      fd.append('route', lcModuleData.isPostAmmended ? 'PostUpdated' : 'update');
       fd.append('document1', lcDoc.lcDraftDoc);
 
-      dispatch(UpdateAmendment({fd,task}));
+      dispatch(UpdateAmendment({ fd, task }));
     }
   };
 
-  const handleSubmit = () => {
-    if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
-      let toastMessage = 'DATE OF AMENDMENT IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
-    } else if (lcData.numberOfAmendment === '' || lcData.numberOfAmendment == undefined) {
-      let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
-    } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = 'PLEASE UPLOAD LC AMENDMENT DRAFT';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
-    } else {
-      let tempData = { ...lcData };
+  // const handleSubmit = () => {
+  //   if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
+  //     let toastMessage = 'DATE OF AMENDMENT IS MANDATORY';
+  //     if (!toast.isActive(toastMessage)) {
+  //       toast.error(toastMessage, { toastId: toastMessage });
+  //     }
+  //   } else if (lcData.numberOfAmendment === '' || lcData.numberOfAmendment == undefined) {
+  //     let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY';
+  //     if (!toast.isActive(toastMessage)) {
+  //       toast.error(toastMessage, { toastId: toastMessage });
+  //     }
+  //   } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
+  //     let toastMessage = 'PLEASE UPLOAD LC AMENDMENT DRAFT';
+  //     if (!toast.isActive(toastMessage)) {
+  //       toast.error(toastMessage, { toastId: toastMessage });
+  //     }
+  //   } else {
+  //     let tempData = { ...lcData };
 
-      let fd = new FormData();
-      fd.append('lcApplication', JSON.stringify(tempData));
-      fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
-      fd.append('document1', lcDoc.lcDraftDoc);
+  //     let fd = new FormData();
+  //     fd.append('lcApplication', JSON.stringify(tempData));
+  //     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
+  //     fd.append('document1', lcDoc.lcDraftDoc);
 
-      dispatch(UpdateAmendment(fd));
-    }
-  };
+  //     dispatch(UpdateAmendment(fd));
+  //   }
+  // };
 
   const getData = (value, type) => {
     if (type == '(43P) Partial Shipment' && value == 'Conditional') {
       return 'Conditional';
     }
     if (type == '(44C) Latest Date Of Shipment' || type == '(31D) Date Of Expiry') {
-      return value ? moment(value).format('DD-MM-YYYY') : '' ;
+      return value ? moment(value).format('DD-MM-YYYY') : '';
     } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
       return value == 'Yes' ? 'Allowed' : 'Not Allowed';
-    }  else if (type == '(44F) Port of Discharge') {
+    } else if (type == '(44F) Port of Discharge') {
       return `${value}, India`;
     } else if (type == '(32B) Currency Code & Amount') {
-      return Number(value).toLocaleString('en-In', {
+      return Number(value).toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
@@ -322,56 +322,71 @@ function Index() {
     }
   };
 
+  const [existingValue, setExistingValue] = useState('');
+
   const getDataFormDropDown = (value) => {
     if (fieldType == 'date') {
-      return value ? moment(value).format('DD-MM-YYYY'): '';
-    } else if (fieldType == 'number') {
-      return Number(value).toLocaleString('en-In', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
+      setExistingValue(moment(value).format('DD-MM-YYYY'));
+    }
+    if (fieldType == 'number') {
+      setExistingValue(
+        Number(value).toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }),
+      );
     } else if (fieldType == 'drop') {
       if (value == 'Yes') {
-        return 'Allowed';
+        setExistingValue('Allowed');
+        return;
       }
       if (value == 'No') {
-        return 'Not Allowed';
+        setExistingValue('Not Allowed');
+        return;
       }
       if (value == 'Conditional') {
-        return 'Conditional';
+        setExistingValue('Conditional');
+        return;
       }
       if (value == '') {
-        return '';
+        setExistingValue('');
       } else {
-        return value;
+        setExistingValue(value);
       }
     } else {
-      return value;
+      setExistingValue(value);
     }
   };
 
   const [isDisabled, setDisabled] = useState(false);
 
-  useEffect(() => {}, [clauseObj]);
+  useEffect(() => {
+    getDataFormDropDown(editInput ? editCurrent?.existingValue : clauseObj?.existingValue);
+  }, [editCurrent?.existingValue, clauseObj?.existingValue]);
+
+  // useEffect(() => {}, [clauseObj]);
 
   const getExistingValue = (value, existing) => {
     if (value === '(32B) Currency Code & Amount') {
       return `${lcModuleData?.order?.orderCurrency}  ${Number(
         lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-      )?.toLocaleString('en-In', {
+      )?.toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}`;
     } else if (value === '(43T) Transhipments') {
-      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments == 'Yes' ? 'Allowed' : 'Not Allowed';
+      return lcModuleData?.lcApplication?.transhipments == undefined
+        ? ''
+        : lcModuleData?.lcApplication?.transhipments == 'Yes'
+        ? 'Allowed'
+        : 'Not Allowed';
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getData(existing, value)}  %`;
     } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
       return `Usuance - ${getData(existing, value)} days`;
     } else if (value === '(44F) Port of Discharge') {
       return `${getData(existing, value)}`;
-    } 
-    else {
+    } else {
       return getData(existing, value);
     }
   };
@@ -533,7 +548,14 @@ function Index() {
                           style={{ opacity: '0.5' }}
                           disabled
                           type="text"
-                          value={getDataFormDropDown(editInput ? editCurrent.existingValue : clauseObj?.existingValue)}
+                          value={
+                            fieldType == 'date'
+                              ? existingValue
+                                ? moment(existingValue).format('DD-MM-YYYY')
+                                : ''
+                              : existingValue
+                          }
+                          // value={getDataFormDropDown(editInput ? editCurrent.existingValue : clauseObj?.existingValue)}
                         />
                         <label className={`${styles.label_heading} label_heading`}>Existing Value</label>
                       </Col>
@@ -666,7 +688,7 @@ function Index() {
                                       })
                                       .map((val, index) => {
                                         return (
-                                          <option value={`${val.Port_Name}`}>
+                                          <option value={`${val.Port_Name}, ${val.Country}`}>
                                             {val.Port_Name}, {val.Country}
                                           </option>
                                         );
@@ -742,7 +764,10 @@ function Index() {
                                         {clause.dropDownValue === '(42C) Draft At' && lcData?.atSight == 'Usuance'
                                           ? `Usuance - ${getData(clause.newValue, clause.dropDownValue)} days `
                                           : clause.dropDownValue === '(32B) Currency Code & Amount'
-                                          ? `${lcModuleData?.order?.orderCurrency} ${getData(clause.newValue, clause.dropDownValue)} `
+                                          ? `${lcModuleData?.order?.orderCurrency} ${getData(
+                                              clause.newValue,
+                                              clause.dropDownValue,
+                                            )} `
                                           : clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                           ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
                                           : clause.dropDownValue === '(44F) Port of Discharge'
@@ -772,21 +797,27 @@ function Index() {
           </div>
 
           {/* Document*/}
-        {lcModuleData.isPostAmmended ? ( <InspectionDocument
-            lcDoc={lcDoc}
-            orderId={lcModuleData?.order?._id}
-            uploadDocument1={uploadDocument1}
-            documentName="LC AMENDMENT DRAFT"
-            module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
-            setLcDoc={setLcDoc}
-          />)
-           :(<UploadOther  module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']} orderid={lcModuleData?.order?._id} />)}
+          {lcModuleData.isPostAmmended ? (
+            <InspectionDocument
+              lcDoc={lcDoc}
+              orderId={lcModuleData?.order?._id}
+              uploadDocument1={uploadDocument1}
+              documentName="LC AMENDMENT DRAFT"
+              module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
+              setLcDoc={setLcDoc}
+            />
+          ) : (
+            <UploadOther
+              module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
+              orderid={lcModuleData?.order?._id}
+            />
+          )}
         </div>
       </div>
       <SaveBar
         // handleSave={handleSubmit}
         rightBtnClick={handleRightButton}
-        rightBtn={lcModuleData.isPostAmmended ?"Submit" :"Share"}
+        rightBtn={lcModuleData.isPostAmmended ? 'Submit' : 'Share'}
         buttonText="null"
       />
     </>
