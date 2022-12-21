@@ -2119,7 +2119,7 @@ export default function Index({ addButton, setComponentId, componentId, ports })
       >
         <Modal.Header className="modal-header p-0 bg-transparent border-0 d-flex justify-content-between">
           <h3>Product Specification</h3>
-          <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid" />
+          <img src="/static/close.svg" style={{cursor:'pointer'}} alt="close" onClick={handleClose} className="img-fluid" />
         </Modal.Header>
         <Modal.Body className="p-0">
           <div className={styles.table_container}>
