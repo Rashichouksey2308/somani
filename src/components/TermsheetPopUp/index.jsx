@@ -20,7 +20,7 @@ function Index(props) {
             Share {props.istermsheet ? '' : 'transaction summary'} with buyer
           </Modal.Title>
         )}
-        <img onClick={() => props.close()} src="/static/close-2.svg" alt='close' />
+        <img onClick={() => props.close()} src="/static/close-2.svg" alt='close' style={{cursor:'pointer'}}/>
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`}>
         <Row>
