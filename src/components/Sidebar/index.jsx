@@ -148,7 +148,7 @@ function Index() {
           image: '/static/credit-queue.svg',
           route: '/masters/users',
         },
-        { name: 'Vendors', image: '/static/review-queue.svg', route: '' },
+        { name: 'Vendors', image: '/static/review-queue.svg', route: '/checker/vendor' },
         { name: 'Commodity', image: '/static/review-queue.svg', route: '/checker/commodity' },
         { name: 'Internal Companies', image: '/static/review-queue.svg', route: '' },
         { name: 'Rejected Records', image: '/static/review-queue.svg', route: '' },

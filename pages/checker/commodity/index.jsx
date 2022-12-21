@@ -11,9 +11,11 @@ function Index() {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(0);
-
   const [pageLimit, setPageLimit] = useState(10);
-
+  const [sortByState, setSortByState] = useState({
+    column: '',
+    order: null,
+  });
 
   useEffect(() => {
     if (window) {
@@ -32,15 +34,29 @@ function Index() {
     dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
+  const handleSort = (column) => {
+    if (column.id === sortByState.column) {
+      setSortByState((state) => {
+        let updatedOrder = !state.order;
+        return { ...state, order: updatedOrder };
+      });
+    } else {
+      let data = { column: column.id, order: !column.isSortedDesc };
+      setSortByState(data);
+    }
+    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&createdAt=${sortByState.order ? '1' : '-1'}`));
+  };
 
   const tableColumns = useMemo(() => [
     {
       Header: 'Commodity',
       accessor: 'Commodity',
+      disableSortBy: true,
     },
     {
       Header: 'Chapter Name',
       accessor: 'Chapter_Name',
+      disableSortBy: true,
       Cell: ({ cell: { value }, row: { original } }) => (
         <span
           onClick={() => {
@@ -64,6 +80,7 @@ function Index() {
       {
         id: "Preview",
         Header: "Action",
+        disableSortBy: true,
         Cell: ({ row }) => {
           return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
             <a className="cursor-pointer"
@@ -110,16 +127,19 @@ function Index() {
 
         {/* Queue Table */}
         <Table
-          tableHeading="Checker Commodity"
+          tableHeading="Commodity"
           currentPage={currentPage}
-          totalCount={commodityPickupRecords?.totalCount}
+          totalCount={commodityPickupRecords?.total}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
           data={commodityPickupRecords?.data}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
-          serverSortEnabled={false}
+          serverSortEnabled={true}
+          totalCountEnable={true}
+          handleSort={handleSort}
+          sortByState={sortByState}
         />
       </div>
     </div>
