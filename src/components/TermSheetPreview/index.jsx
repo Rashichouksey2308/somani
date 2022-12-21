@@ -899,7 +899,7 @@ function Index() {
                           checked={otherTermConditions?.insurance?.marineInsurance}
                         />
                         <label className={`${styles.checkbox_label} termsheet_Text`}>
-                          Marine Insurance ( if applicable)
+                          Marine Insurance (if applicable)
                         </label>
                       </div>
                       <div className="pt-4 d-flex align-items-center">
@@ -910,7 +910,7 @@ function Index() {
                           checked={otherTermConditions?.insurance?.storageInsurance}
                         />
                         <label className={`${styles.checkbox_label} termsheet_Text`}>
-                          Storage Insurance(Fire &amp; Burglary)
+                          Storage Insurance (Fire &amp; Burglary)
                         </label>
                       </div>
                       <div className="pt-4 d-flex align-items-center">
@@ -921,7 +921,7 @@ function Index() {
                           checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges}
                         />
                         <label className={`${styles.checkbox_label} termsheet_Text`}>
-                          Insurance Charges ( While transferring the material to customs bonded warehouse )
+                          Insurance Charges (While transferring the material to customs bonded warehouse)
                         </label>
                       </div>
                     </div>
@@ -939,7 +939,7 @@ function Index() {
                           checked={otherTermConditions?.lcOpeningCharges?.lcOpeningCharges}
                         />
                         <label className={`${styles.checkbox_label} termsheet_Text`}>
-                          LC Opening Charges ( on LC value subject to minimum of{' '}
+                          LC Opening Charges (on LC value subject to minimum of{' '}
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                           {Number(termsheetDetails?.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In')})
                         </label>
@@ -1114,7 +1114,7 @@ function Index() {
                           checked={otherTermConditions?.dutyAndTaxes?.taxCollectedatSource ? true : false}
                         />
                         <label className={`${styles.checkbox_label} termsheet_Text`}>
-                          Tax Collected at Source ( if applicable )
+                          Tax Collected at Source (if applicable)
                         </label>
                       </div>
                     </div>
@@ -3411,7 +3411,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                     }}
                                   >
-                                    Storage Insurance(Fire &amp; Burglary)
+                                    Storage Insurance (Fire &amp; Burglary)
                                   </label>
                                 </li>
                                 <li
@@ -3445,7 +3445,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                     }}
                                   >
-                                    Insurance Charges ( While transferring the material to customs bonded warehouse )
+                                    Insurance Charges (While transferring the material to customs bonded warehouse)
                                   </label>
                                 </li>
                               </ul>
@@ -3514,12 +3514,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                     }}
                                   >
-                                    LC Opening Charges ( on LC value subject to minimum of{' '}
-                                    {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString(
-                                      'en-In',
-                                    )}{' '}
-                                    )
+                                    LC Opening Charges (on LC value subject to minimum of {termsheetDetails?.commodityDetails?.orderCurrency} {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In',)})
                                   </label>
                                 </li>
                                 <li
@@ -4091,7 +4086,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                     }}
                                   >
-                                    Tax Collected at Source ( if applicable )
+                                    Tax Collected at Source (if applicable)
                                   </label>
                                 </li>
                               </ul>
@@ -6201,7 +6196,7 @@ const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermCondit
                                       verticalAlign: 'middle'
                                     }}
                                   >
-                                    Storage Insurance(Fire &amp; Burglary)
+                                    Storage Insurance (Fire &amp; Burglary)
                                   </label>
                                 </li>
                                 <li
@@ -6238,8 +6233,8 @@ const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermCondit
                                       verticalAlign: 'middle'
                                     }}
                                   >
-                                    Insurance Charges ( While transferring the
-                                    material to customs bonded warehouse )
+                                    Insurance Charges (While transferring the
+                                    material to customs bonded warehouse)
                                   </label>
                                 </li>
                               </ul>
@@ -6319,8 +6314,8 @@ const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermCondit
                                       verticalAlign: 'middle'
                                     }}
                                   >
-                                    LC Opening Charges ( on LC value subject to
-                                    minimum of USD )
+                                    LC Opening Charges (on LC value subject to
+                                    minimum of USD)
                                   </label>
                                 </li>
                                 <li
@@ -6939,7 +6934,7 @@ const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermCondit
                                       verticalAlign: 'middle'
                                     }}
                                   >
-                                    Tax Collected at Source ( if applicable )
+                                    Tax Collected at Source (if applicable)
                                   </label>
                                 </li>
                               </ul>
