@@ -151,6 +151,7 @@ export default {
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
   getMasterUsersQueueRecords: 'user-master/userRes',
+  filterUsersQueue: 'user-master/filterUser',
 
 
   //Checker

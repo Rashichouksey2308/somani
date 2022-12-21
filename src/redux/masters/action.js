@@ -19,6 +19,28 @@ function getMasterUsersQueueRecordsFailed(payload = {}) {
   };
 }
 
+// ******** Search & Filter Users Queue  ***********/////
+
+function filterUsersQueue() {
+  return {
+    type: types.FILTER_USERS_QUEUE,
+  };
+}
+
+function filterUsersQueueSuccess(payload) {
+  return {
+    type: types.FILTER_USERS_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterUsersQueueFailed() {
+  return {
+    type: types.FILTER_USERS_QUEUE_FAILED,
+  };
+}
+
+
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -323,6 +345,40 @@ export const GetMasterUsersQueueRecords = (payload) => async (dispatch, getState
     });
   } catch (error) {
     dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterUsersQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterUsersQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterUsersQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterUsersQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterUsersQueueFailed(response.data));
+        const toastMessage = 'Search Users Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterUsersQueueFailed());
+    const toastMessage = 'Search Leads request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
     dispatch(setNotLoading());
   }
 };

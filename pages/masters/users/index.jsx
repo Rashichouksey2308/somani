@@ -1,40 +1,63 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import styles from './index.module.scss';
 import Filter from '../../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
-import { SearchLeads } from 'redux/buyerProfile/action';
-import { GetMasterUsersQueueRecords } from '../../../src/redux/masters/action';
+import { GetMasterUsersQueueRecords, FilterUsersQueue } from '../../../src/redux/masters/action';
 import DownloadMasterBar from '../../../src/components/DownloadMasterBar';
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
 import Router from 'next/router';
 import slugify from 'slugify';
+import _ from 'lodash';
 import ToggleSwitch from '../../../src/components/ToggleSwitch';
+import SearchAndFilter from '../../../src/components/SearchAndFilter';
+import { CHECKER_USERS_QUEUE } from '../../../src/data/constant';
 
 const index = () => {
   const dispatch = useDispatch();
-  const [serachterm, setSearchTerm] = useState('');
-  const { searchedLeads } = useSelector((state) => state.order);
-  const { usersQueueRecords } = useSelector((state) => state.MastersData);
+  const { usersQueueRecords, filteredUsersQueue } = useSelector((state) => state.MastersData);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
+  const [openList, setOpenList] = useState(true);
   const [filterQuery, setFilterQuery] = useState('');
   const [sortByState, setSortByState] = useState({
     column: '',
     order: null,
   });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState(filteredUsersQueue);
+  const [filterItem, setFilterItem] = useState({ department: true });
+  const [appliedFilters, setAppliedFilters] = useState({ department: true });
+  const [showBadges, setShowBadges] = useState([]);
+
+  const delayedQuery = useCallback(
+    _.debounce((q) => dispatch(FilterUsersQueue(`${q}`)), 1000),
+    [],
+  );
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
+    setOpenList(true);
     setSearchTerm(query);
-    if (query.length >= 3) {
-      dispatch(SearchLeads(query));
+
+    let queryParams = '';
+    if (Object.keys(appliedFilters).length !== 0 && query.length > 3) {
+      Object.keys(appliedFilters).forEach((item) => {
+        const isTrue = appliedFilters[item];
+        if (isTrue) {
+          queryParams += `${item}=${query}&`;
+        }
+      });
+      delayedQuery(queryParams);
     }
   };
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
+
+  const handleRoute = (user) => {
+    sessionStorage.setItem('masterUserId', user._id);
+    dispatch(GetOrders(`?company=${buyer.company._id}`));
+    setTimeout(() => {
+      // Router.push('/master/users/id');
+    }, 500);
   };
 
   const handleSort = (column) => {
@@ -57,7 +80,7 @@ const index = () => {
   const tableColumns = useMemo(() => [
     {
       Header: 'User Id',
-      accessor: 'profileDetails._id',
+      accessor: 'profileDetails.officialEmailId',
       disableSortBy: true,
     },
     {
@@ -97,6 +120,10 @@ const index = () => {
     dispatch(GetMasterUsersQueueRecords(`?page=${currentPage}&limit=${pageLimit}${filterQuery}`));
   }, [dispatch, currentPage, pageLimit]);
 
+  useEffect(() => {
+    if (filteredUsersQueue) setFilter(filteredUsersQueue);
+  }, [filteredUsersQueue]);
+
   const tableHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => [
       ...columns,
@@ -124,39 +151,108 @@ const index = () => {
     ])
   };
 
+  const handleBoolean = (value) => {
+    if (value.toLowerCase() === 'true') return true;
+    if (value.toLowerCase() === 'false') return false;
+    return value;
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, checked } = e.target;
+
+    setFilterItem((prevState) => ({
+      ...prevState,
+      [name]: handleBoolean(checked.toString()),
+    }));
+  };
+
+  const handleApplyFilter = () => {
+    setAppliedFilters(filterItem);
+  };
+
+  const handleClose = (index) => {
+    showBadges.splice(index, 1);
+
+    let query = '';
+
+    showBadges.map((item) => {
+      query = query + `&${item?.key}=${slugify(item?.displayVal, { lower: false })}`;
+    })
+
+    setFilterQuery(query);
+
+    dispatch(GetMasterUsersQueueRecords(`?page=${currentPage}&limit=${pageLimit}${query}`));
+
+    setShowBadges([...showBadges]);
+  };
+
+  const handleListClose = (result) => {
+    const badgesItems = [];
+    const filterItemData = Object.keys(appliedFilters);
+
+    let query = '';
+
+    filterItemData.map((val) => {
+      if (appliedFilters[val]) {
+        if (val === 'status') {
+          result?.status && badgesItems.push({ key: val, displayVal: result?.status });
+          query = query + `&${val}=${result?.status}`;
+        }
+        else if (val === 'fullname') {
+          result?.fullname && badgesItems.push({ key: val, displayVal: result?.fullname });
+          query = query + `&${val}=${slugify(result?.fullname, { lower: false })}`;
+        }
+        else if (val === 'department') {
+          result?.department && badgesItems.push({ key: val, displayVal: result?.department });
+          query = query + `&${val}=${slugify(result?.department, { lower: false })}`;
+        }
+      }
+    });
+
+    setFilterQuery(query);
+
+    dispatch(GetMasterUsersQueueRecords(`?page=${currentPage}&limit=${pageLimit}${query}`));
+
+    setOpenList(false);
+    setShowBadges(badgesItems);
+  };
+
+  const searchView = () => {
+    return (
+      filter && openList && searchTerm?.length > 3 &&
+      <div className={styles.searchResults}>
+        <ul>
+          {filteredUsersQueue?.data?.data?.length > 0 ? filteredUsersQueue?.data?.data?.map((results, index) => (
+            <li onClick={() => handleListClose(results)} id={results._id} key={index} className="cursor-pointer">
+              {appliedFilters?.fullname === true && results?.fullname}
+              <span>
+                &nbsp; {appliedFilters?.department === true && <span className='text-right'>{results?.department}</span>}
+                &nbsp; {appliedFilters?.status === true && <span className='text-right'>{results?.status}</span>}
+              </span>
+            </li>
+          )) : <li><span>No result found</span></li>}
+        </ul>
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="container-fluid p-0 border-0">
         <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={`${styles.search}`}>
-              <div className="input-group">
-                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
-                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
-                </div>
-                <input
-                  value={serachterm}
-                  onChange={handleSearch}
-                  type="text"
-                  className={`${styles.formControl} border text_area form-control formControl `}
-                  placeholder="Search"
-                />
-              </div>
-              {searchedLeads && serachterm && (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {searchedLeads.data.data.map((results, index) => (
-                      <li onClick={handleFilteredData} id={results._id} key={index}>
-                        {results.companyName} <span>{results.customerId}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-            <Filter />
-
+            <SearchAndFilter
+              searchterm={searchTerm}
+              handleSearch={handleSearch}
+              filterItem={filterItem}
+              handleFilterChange={handleFilterChange}
+              handleApplyFilter={handleApplyFilter}
+              filterItems={CHECKER_USERS_QUEUE}
+              showBadges={showBadges}
+              handleClose={handleClose}
+              searchView={searchView}
+            />
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
@@ -167,21 +263,23 @@ const index = () => {
           </div>
 
           {/*UserTable*/}
-          <Table
-            tableHeading="Users"
-            currentPage={currentPage}
-            totalCount={usersQueueRecords?.totalCount}
-            setCurrentPage={setCurrentPage}
-            columns={tableColumns}
-            data={usersQueueRecords?.data}
-            tableHooks={tableHooks}
-            pageLimit={pageLimit}
-            setPageLimit={setPageLimit}
-            handleSort={handleSort}
-            sortByState={sortByState}
-            serverSortEnabled={true}
-            totalCountEnable={true}
-          />
+          {usersQueueRecords?.data && (
+            <Table
+              tableHeading="Users"
+              currentPage={currentPage}
+              totalCount={usersQueueRecords?.totalCount}
+              setCurrentPage={setCurrentPage}
+              columns={tableColumns}
+              data={usersQueueRecords?.data}
+              tableHooks={tableHooks}
+              pageLimit={pageLimit}
+              setPageLimit={setPageLimit}
+              handleSort={handleSort}
+              sortByState={sortByState}
+              serverSortEnabled={true}
+              totalCountEnable={true}
+            />
+          )}
         </div>
       </div>
 
