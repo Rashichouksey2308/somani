@@ -1149,9 +1149,7 @@ const supplierInfo = (camData) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Commodity to total trade (24 months)</span>
                   <span className={`${styles.value} ${styles.danger_highlight} value`}>
-                    {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })}{' '}
+                  {returnReadableNumber(camData?.supplierCredential?.commodityOfTotalTrade,'en-In',2,2)}{' '}
                     %
                   </span>
                 </Col>

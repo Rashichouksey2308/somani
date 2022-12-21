@@ -58,7 +58,7 @@ function Index() {
   }, [dispatch]);
 
   const [lcData, setLcData] = useState();
-  
+
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
@@ -161,7 +161,7 @@ function Index() {
   };
 
   const [clauseObj, setClauseObj] = useState(initialState);
- 
+
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
 
@@ -236,7 +236,7 @@ function Index() {
     else {
       let tempClauseObj = { ...clauseObj };
       if (clauseObj.dropDownValue == '(42C) Draft At') {
-        tempClauseObj.existingValue=  tempClauseObj.existingValue.slice(10,tempClauseObj.existingValue.length - 5);
+        tempClauseObj.existingValue = tempClauseObj.existingValue.slice(10, tempClauseObj.existingValue.length - 5);
       }
       const newArr = [...clauseArr];
       if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
@@ -246,11 +246,6 @@ function Index() {
       setClauseObj(initialState);
       newArr.push(tempClauseObj);
       setClauseArr(newArr);
-      // setClauseObj({
-      //   existingValue: '',
-      //   dropDownValue: '',
-      //   newValue: '',
-      // })
     }
   };
 
@@ -291,7 +286,7 @@ function Index() {
       }
       return false;
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = `PLEASE UPLOAD ${lcModuleData?.isPostAmmended ? "LC AMENDMENT DRAFT" :  "LC DRAFT"}`;
+      let toastMessage = `PLEASE UPLOAD ${lcModuleData?.isPostAmmended ? 'LC AMENDMENT DRAFT' : 'LC DRAFT'}`;
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage });
       }
@@ -302,9 +297,9 @@ function Index() {
 
   const handleSubmit = () => {
     if (!validation()) return;
-    
+
     let sendLcData = { ...clauseData };
-    
+
     let isOK = [];
     clauseArr.forEach((val, index) => {
       if (val.dropDownValue == '(31D) Date Of Expiry') {
@@ -337,9 +332,8 @@ function Index() {
     fd.append('lcApplication', JSON.stringify(sendLcData));
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
     fd.append('document1', lcDoc.lcDraftDoc);
-    fd.append('route',  lcModuleData.isPostAmmended ? 'postUpdated' : 'amend');
+    fd.append('route', lcModuleData.isPostAmmended ? 'postUpdated' : 'amend');
     fd.append('isAmmended', lcModuleData.isPostAmmended ? true : false);
-
 
     dispatch(UpdateLcAmendment(fd));
   };
@@ -352,7 +346,7 @@ function Index() {
     }
     if (fieldType == 'number') {
       setExistingValue(
-        Number(value).toLocaleString('en-In', {
+        Number(value).toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         }),
@@ -379,9 +373,10 @@ function Index() {
       setExistingValue(value);
     }
   };
+  
   const getValue = (value, toCheck) => {
     if (toCheck == '(31D) Date Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
-      return value ? moment(value).format('DD-MM-YYYY'): '';
+      return value ? moment(value).format('DD-MM-YYYY') : '';
     } else if (toCheck == '(43P) Partial Shipment' || toCheck == '(43T) Transhipments') {
       if (value == 'Yes') {
         return 'Allowed';
@@ -396,15 +391,13 @@ function Index() {
         return '';
       }
     } else if (toCheck == '(32B) Currency Code & Amount') {
-      return Number(value).toLocaleString('en-In', {
+      return Number(value).toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-    } 
-     else if (toCheck == '(44F) Port of Discharge') {
+    } else if (toCheck == '(44F) Port of Discharge') {
       return `${value}, India`;
-    } 
-    else {
+    } else {
       return value;
     }
   };
@@ -429,20 +422,23 @@ function Index() {
     if (value === '(32B) Currency Code & Amount') {
       return `${lcModuleData?.order?.orderCurrency}  ${Number(
         lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-      )?.toLocaleString('en-In', {
+      )?.toLocaleString( lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}`;
     } else if (value === '(43T) Transhipments') {
-      return lcModuleData?.lcApplication?.transhipments == undefined ? '' : lcModuleData?.lcApplication?.transhipments == 'Yes' ? 'Allowed' : 'Not Allowed';
+      return lcModuleData?.lcApplication?.transhipments == undefined
+        ? ''
+        : lcModuleData?.lcApplication?.transhipments == 'Yes'
+        ? 'Allowed'
+        : 'Not Allowed';
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getValue(existing, value)}  %`;
     } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
       return `Usuance - ${getValue(existing, value)} days`;
-    }else if (value === '(44F) Port of Discharge') {
+    } else if (value === '(44F) Port of Discharge') {
       return `${getValue(existing, value)}`;
-    } 
-     else {
+    } else {
       return getValue(existing, value);
     }
   };
@@ -608,7 +604,13 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             disabled
                             type="text"
-                            value={fieldType == 'date' ? existingValue ? moment(existingValue).format('DD-MM-YYYY') : '' : existingValue}
+                            value={
+                              fieldType == 'date'
+                                ? existingValue
+                                  ? moment(existingValue).format('DD-MM-YYYY')
+                                  : ''
+                                : existingValue
+                            }
                           />
                         </form>
                         <label className={`${styles.label_heading} label_heading`}>Existing Value</label>
@@ -906,17 +908,18 @@ function Index() {
                                         <td>{arr.dropDownValue}</td>
                                         <td>{getExistingValue(arr.dropDownValue, arr.existingValue)}</td>
                                         <td>
-                                          
-                                        {arr.dropDownValue === '(42C) Draft At' && lcData?.atSight == 'Usuance'
+                                          {arr.dropDownValue === '(42C) Draft At' && lcData?.atSight == 'Usuance'
                                             ? `Usuance - ${getValue(arr.newValue, arr.dropDownValue)} days `
                                             : arr.dropDownValue === '(32B) Currency Code & Amount'
-                                            ? `${lcModuleData?.order?.orderCurrency} ${getValue(arr.newValue, arr.dropDownValue)} `
+                                            ? `${lcModuleData?.order?.orderCurrency} ${getValue(
+                                                arr.newValue,
+                                                arr.dropDownValue,
+                                              )} `
                                             : arr.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                            ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %` : 
-                                            arr.dropDownValue === '(44F) Port of Discharge'
-                                          ? `${getValue(arr.newValue, arr.dropDownValue)}`
-                                          :
-                                             getValue(arr.newValue, arr.dropDownValue)}
+                                            ? `(+/-) ${getValue(arr.newValue, arr.dropDownValue)}  %`
+                                            : arr.dropDownValue === '(44F) Port of Discharge'
+                                            ? `${getValue(arr.newValue, arr.dropDownValue)}`
+                                            : getValue(arr.newValue, arr.dropDownValue)}
                                         </td>
                                         <td>
                                           {/* <img
@@ -954,7 +957,7 @@ function Index() {
               lcDoc={lcDoc}
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
-              documentName={lcModuleData?.isPostAmmended ? "LC AMENDMENT DRAFT" :  "LC DRAFT"}
+              documentName={lcModuleData?.isPostAmmended ? 'LC AMENDMENT DRAFT' : 'LC DRAFT'}
               module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
             />
           </div>

@@ -417,8 +417,8 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
                   )}
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div
-                      className={`${styles.label_heading} text`}
-                      style={{ paddingTop: '30px', paddingBottom: '10px' }}
+                      className={`${styles.label_heading} ${styles.label_port} text`}
+                      style={{ paddingTop: '32px', paddingBottom: '10px' }}
                     >
                       Port of Discharge
                     </div>

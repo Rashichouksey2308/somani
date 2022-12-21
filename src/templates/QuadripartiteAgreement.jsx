@@ -464,23 +464,22 @@ export default function QuadripartiteAgreement(data) {
       </p>
       <div className={`row`}>
         <Col md={8}>
-          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
+          <p className="text_sales text-left mt-3">FOR & ON BEHALF OF</p>
         </Col>
         <Col md={4}>
-          <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
+          <p className="text_sales text-left mt-3">FOR & ON BEHALF OF</p>
         </Col>
       </div>
       <div className={`row`}>
-        <Col md={8}>
+        <Col md={8} className='mt-5'>
           <p className="w-50 text-capitalize text-left"><strong>({data.associateBuyer})</strong></p>
         </Col>
-        <Col md={4}>
-        
+        <Col md={4}>        
               {data?.associateBuyerAuthorized?.length > 0 &&
               data?.associateBuyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales text-capitalize text-left">
+                    <p className="text_sales text-capitalize mt-5 text-left">
                     <strong>
                       Name: {val.name}
                       <br />
@@ -489,20 +488,19 @@ export default function QuadripartiteAgreement(data) {
                     </p>
                   </>
                 );
-              })}
-            
+              })}            
         </Col>
       </div>
-       <div className={`row`}>
+       {/* <div className={`row`}>
         <Col md={8}>
           <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
         <Col md={4}>
           <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
-      </div>
+      </div> */}
       <div className={`row`}>
-        <Col md={8}>
+        <Col md={8} className='mt-5'>
           <p className="w-50 text-capitalize text-left"><strong>({data.cha})</strong></p>
         </Col>
         <Col md={4}>
@@ -510,7 +508,7 @@ export default function QuadripartiteAgreement(data) {
               data?.chaAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales text-capitalize text-left">
+                    <p className="text_sales text-capitalize mt-5 text-left">
                       <strong>
                         Name: {val.name}
                         <br />
@@ -522,16 +520,16 @@ export default function QuadripartiteAgreement(data) {
               })}
         </Col>
       </div>
-      <div className={`row`}>
+      {/* <div className={`row`}>
         <Col md={8}>
           <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
         <Col md={4}>
           <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
-      </div>
+      </div> */}
       <div className={`row`}>
-        <Col md={8}>
+        <Col md={8} className='mt-5'>
           <p className="w-50 text-capitalize text-left"><strong>({data.cma})</strong></p>
         </Col>
         <Col md={4}>
@@ -539,7 +537,7 @@ export default function QuadripartiteAgreement(data) {
               data?.cmaAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales text-left">
+                    <p className="text_sales text-capitalize mt-5 text-left">
                       <strong>
                         Name: {val.name}
                         <br />
@@ -551,16 +549,16 @@ export default function QuadripartiteAgreement(data) {
               })}
         </Col>
       </div>
-       <div className={`row`}>
+       {/* <div className={`row`}>
         <Col md={8}>
           <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
         <Col md={4}>
           <p className="text_sales text-left mt-3 mb-1">FOR & ON BEHALF OF</p>
         </Col>
-      </div>
+      </div> */}
       <div className={`row`}>
-        <Col md={8}>
+        <Col md={8} className='mt-5'>
           <p className="w-50 text-capitalize text-left"><strong>({data.buyer})</strong></p>
         </Col>
         <Col md={4}>
@@ -568,7 +566,7 @@ export default function QuadripartiteAgreement(data) {
               data?.buyerAuthorized.map((val, index) => {
                 return (
                   <>
-                    <p className="text_sales text-capitalize text-left">
+                    <p className="text_sales text-capitalize mt-5 text-left">
                       <strong>
                         Name: {val.name}
                         <br />
