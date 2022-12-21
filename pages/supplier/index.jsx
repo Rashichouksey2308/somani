@@ -1002,7 +1002,7 @@ function Index() {
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                      onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                       required
                       name="nationalIdentificationNumber"
                       value={formData?.nationalIdentificationNumber}
@@ -1104,7 +1104,7 @@ function Index() {
                               required
                               type="number"
                               name="pinCode"
-                              onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                              onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                               value={editData?.pinCode}
                               onWheel={(e) => e.target.blur()}
                               onChange={(e) => {
@@ -1342,7 +1342,7 @@ function Index() {
                             required
                             type="number"
                             name="pinCode"
-                            onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                            onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                             value={keyAddressData?.pinCode}
                             onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
