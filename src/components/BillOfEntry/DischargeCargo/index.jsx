@@ -685,7 +685,9 @@ export default function Index({ OrderId, customData, uploadDoc, componentId, set
             <div className={`${styles.top}`}>
               <span className="text">Commodity: </span> {customData?.order?.commodity}{' '}
             </div>
-            <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid mt-1 mr-2"></img>
+            <img src="/static/close.svg" alt="close"
+             onClick={handleClose} className="img-fluid mt-1 mr-2"
+             style={{cursor:'pointer'}}></img>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`${styles.body} background1  container-fluid`}>
