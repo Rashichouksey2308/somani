@@ -1415,9 +1415,10 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfOrigin?.name?.slice(
-                                        documents?.certificateOfOrigin?.name.lastIndexOf('_') + 1,
-                                      )}
+                                      {documents?.certificateOfOrigin?.name !== "certificateOfOrigin"?
+                                       documents?.certificateOfOrigin?.name
+                                      :documents?.certificateOfOrigin?.originalName
+                                      }
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -1529,9 +1530,11 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfQuality?.name?.slice(
-                                        documents?.certificateOfQuality?.name?.lastIndexOf('_') + 1,
-                                      )}
+                                       {documents?.certificateOfQuality?.name !== "certificateOfQuality"?
+                                      documents?.certificateOfQuality?.name
+                                      :documents?.certificateOfQuality?.originalName
+                                      }
+                                     
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -1644,9 +1647,13 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {documents?.certificateOfWeight?.name?.slice(
-                                        documents?.certificateOfWeight?.name?.lastIndexOf('_') + 1,
-                                      )}
+                                        {documents?.certificateOfWeight?.name !== "certificateOfWeight"?
+                                      documents?.certificateOfWeight?.name
+                                      :documents?.certificateOfWeight?.originalName
+                                      } 
+                                      
+                                     
+                                     
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -1829,9 +1836,11 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfOrigin?.name?.slice(
-                                        dischargeDocuments?.dischargeCertificateOfOrigin?.name.lastIndexOf('_') + 1,
-                                      )}
+                                        {dischargeDocuments?.dischargeCertificateOfOrigin?.name !== "dischargeCertificateOfOrigin"?
+                                        dischargeDocuments?.dischargeCertificateOfOrigin?.name
+                                        :dischargeDocuments?.dischargeCertificateOfOrigin?.originalName
+                                        }
+
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -1945,9 +1954,11 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfQuality?.name?.slice(
-                                        dischargeDocuments?.dischargeCertificateOfQuality?.name.lastIndexOf('_') + 1,
-                                      )}
+                                       {dischargeDocuments?.dischargeCertificateOfQuality?.name !== "dischargeCertificateOfQuality"?
+                                        dischargeDocuments?.dischargeCertificateOfQuality?.name
+                                        :dischargeDocuments?.dischargeCertificateOfQuality?.originalName
+                                        }
+
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
@@ -2062,9 +2073,11 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                 ) : (
                                   <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>
-                                      {dischargeDocuments?.dischargeCertificateOfWeight?.name?.slice(
-                                        dischargeDocuments?.dischargeCertificateOfWeight?.name.lastIndexOf('_') + 1,
-                                      )}
+                                       {dischargeDocuments?.dischargeCertificateOfWeight?.name !== "dischargeCertificateOfWeight"?
+                                        dischargeDocuments?.dischargeCertificateOfWeight?.name
+                                        :dischargeDocuments?.dischargeCertificateOfWeight?.originalName
+                                        }
+                                      
                                     </span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
