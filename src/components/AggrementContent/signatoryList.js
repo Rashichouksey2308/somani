@@ -165,7 +165,10 @@ export const signatoryList = (
                                 name="phoneNo"
                                 type="number"
                                 onWheel={(event) => event.currentTarget.blur()}
-                                onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                                onKeyDown={(evt) =>
+                                  ['e', 'E', '+', '-', '.', 'ArrowDown', 'ArrowUp'].includes(evt.key) &&
+                                  evt.preventDefault()
+                                }
                                 onChange={(e) => {
                                   handleChangeInput2(e.target.name, e.target.value, index);
                                 }}

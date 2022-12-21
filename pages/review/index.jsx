@@ -301,6 +301,8 @@ function Index() {
     tolerance: '',
     hsnCode: '',
     manufacturerName: '',
+    existingOrderValue:""
+
   });
   useEffect(() => {
     let newObj = {
@@ -320,6 +322,7 @@ function Index() {
       tolerance: orderList?.tolerance,
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
+      existingOrderValue:CovertvaluefromtoCR(orderList?.existingOrderValue),
     };
 
     setOrderDetails({ ...newObj });
@@ -7776,7 +7779,7 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
+                        {convertValue(camData?.existingOrderValue, camConversionunit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{" "}
                         {camConversionunit == 10000000 ? 'CR' : 'LAKH'}

@@ -127,7 +127,11 @@ export default function Index({ isQuery }) {
       removeStorage();
       sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
-    } else {
+    }
+    if(router.pathname?.match('/agreement-table')){
+       sessionStorage.removeItem('agreementDoc');
+    }
+    else {
       show.units = true;
       show.currency = true;
 

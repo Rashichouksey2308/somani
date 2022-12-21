@@ -1014,7 +1014,7 @@ console.log(keyPersonData,"keyPersonData")
                   required
                   type="number"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   value={supplierCred?.shipmentNumber}
                   name="shipmentNumber"
                   onChange={(e) => {
@@ -1034,7 +1034,7 @@ console.log(keyPersonData,"keyPersonData")
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value);
                   }}
@@ -1050,7 +1050,7 @@ console.log(keyPersonData,"keyPersonData")
                   required
                   type="number"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
@@ -1069,7 +1069,7 @@ console.log(keyPersonData,"keyPersonData")
                     required
                     type="number"
                     onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                     value={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
@@ -1087,7 +1087,7 @@ console.log(keyPersonData,"keyPersonData")
                     className={`${styles.input_field} input form-control`}
                     required
                     onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                     type="number"
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
@@ -1744,7 +1744,7 @@ console.log(keyPersonData,"keyPersonData")
                           onWheel={(event) => event.currentTarget.blur()}
                           name="contact.number"
                           maxLength="10"
-                          onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                          onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.contact.number == null ? '' : keyAddressData.contact.number}
                           onChange={(e) => {
                             mobileFunction(e);

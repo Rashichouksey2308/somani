@@ -26,6 +26,7 @@ import _get from 'lodash/get';
 import { addPrefixOrSuffix, checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 import { isArray } from 'lodash';
 import { returnReadableNumber } from '@/utils/helpers/global';
+import { cssNumber } from 'jquery';
 
 Chart.register(
   ArcElement,
@@ -83,10 +84,18 @@ function Index({
     dispatch(GetDocuments(`?order=${id1}`));
   }, [dispatch]);
 
-  const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
+  const[filteredCreditRating,setfilteredCreditRating]=useState([])
+ 
+  useEffect(() => {
+    console.log(camData,"camData")
+  let  a = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
+  
   });
-
+    console.log(a,"a")
+    setfilteredCreditRating(a)
+  }, [camData]);
+ console.log(filteredCreditRating,"filteredCreditRating")
   const { documentsFetched } = useSelector((state) => state.review);
 
   const onApprove = (name, value) => {
@@ -255,16 +264,26 @@ function Index({
     tooltip: {
       position: 'nearest',
       callbacks: {
-        label: function (context) {
-          let label;
-          if (context.parsed !== null && context.parsed !== undefined) {
-            let number = context.parsed.toLocaleString('en-In');
-            label = `${context.label},${number} `;
-          }
+          label: function (context) {
+            let label;
+            if (context.parsed !== null && context.parsed !== undefined) {
+              
+              let number = Number(context.raw).toLocaleString('en-In');
+              label = `${context.label}:`+ "/n" + `${number}`;
+            }
+
+            return '';
+          },
+          afterBody: function(data) {
+             console.log(data,"data")
+              let label=[`${data[0].label}:`]
+            console.log(data,"data.raw")
+          // do some stuff
+           label.push(Number(data[0].raw).toLocaleString('en-In'));
 
           return label;
+      }
         },
-      },
     },
     plugins: {
       legend: {
@@ -314,13 +333,22 @@ function Index({
           label: function (context) {
             let label;
             if (context.parsed !== null && context.parsed !== undefined) {
-              let number = context.parsed.toLocaleString('en-In');
-              label = `${context.label}
-                       ${number} `;
+              
+              let number = Number(context.raw).toLocaleString('en-In');
+              label = `${context.label}:`+ "/n" + `${number}`;
             }
 
-            return label;
+            return '';
           },
+          afterBody: function(data) {
+             console.log(data,"data")
+              let label=[`${data[0].label}:`]
+            console.log(data,"data.raw")
+          // do some stuff
+           label.push(Number(data[0].raw).toLocaleString('en-In'));
+
+          return label;
+      }
         },
       },
       title: {
@@ -344,7 +372,7 @@ function Index({
     },
 
     responsive: true,
-    cutout: 110,
+    cutout: 95,
   };
   const covertMonths = (months) => {
     const CovertedMonts = [];
@@ -383,6 +411,19 @@ function Index({
       tooltip: {
         enabled: true,
         position: 'nearest',
+         callbacks: {
+        label: function (context) {
+          let label;
+          if (context.raw !== null && context.raw !== undefined) {
+          
+            let number = Number(context.raw).toLocaleString('en-In');
+            
+            label = `${number} `;
+          }
+
+          return label;
+        },
+      },
         // external: externalTooltipHandler
       },
       legend: {
@@ -408,17 +449,7 @@ function Index({
     datasets: [],
   });
 
-  // let data = {
-  //   labels: ['Sail', 'Jindal Grou', 'SR Steel'],
-  //   datasets: [
-  //     {
-  //       label: '',
-  //       data: [25, 20, 55],
 
-  //       backgroundColor: ['#4CAF50', '#FF9D00', '#2884DE'],
-  //     },
-  //   ],
-  // }
   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
   let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
 
@@ -778,7 +809,7 @@ function Index({
         CreditAgency,
       )}
       {directorDetails(camData)}
-      {shareHolding(top3Share, options, tempArr, camData, backgroundColor, backgroundColor1)}
+      {shareHolding(top3Share, options2, tempArr, camData, backgroundColor, backgroundColor1)}
       {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit, unit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
@@ -796,7 +827,7 @@ function Index({
       )}
       {skewness(
         top5Customers,
-        options,
+        options2,
         tempArr,
         gstData,
         top5Suppliers,
@@ -3305,7 +3336,7 @@ const sectionTerms = (
                     <td>Order Value</td>
                     <td>-</td>
                     <td>
-                      {checkNan(convertValue(camData?.orderValue, camConversionunit))}{' '}
+                      {checkNan(convertValue(camData?.existingOrderValue, camConversionunit))}{' '}
                       {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                     </td>
                     <td>-</td>
