@@ -1501,7 +1501,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" valign="top">
+                      <td align="left" valign="top" style={{paddingTop:'50px'}}>
                         <span
                           style={{
                             fontSize: '12px',
@@ -1527,7 +1527,8 @@ export default function QuadripartiteAgreementPreview(data) {
                                     color: '#000000',
                                     display:'inline-block',
                                     paddingBottom:'16px',
-                                    textTransform: 'capitalize'
+                                    textTransform: 'capitalize',
+                                    paddingTop: '50px'
                                   }}
                                 >
                                     <strong style={{
@@ -1560,7 +1561,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" valign="top">
+                      <td align="left" valign="top" style={{paddingTop:'50px'}}>
                         <span
                           style={{
                             fontSize: '12px',
@@ -1586,7 +1587,8 @@ export default function QuadripartiteAgreementPreview(data) {
                                     color: '#000000',
                                     display:'inline-block',
                                     paddingBottom:'16px',
-                                    textTransform: 'capitalize'
+                                    textTransform: 'capitalize',
+                                    paddingTop: '50px'
                                   }}
                                 >
                                     <strong style={{
@@ -1619,7 +1621,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       </td>
                     </tr>
                      <tr>
-                      <td align="left" valign="top">
+                      <td align="left" valign="top" style={{paddingTop:'50px'}}>
                         <span
                           style={{
                             fontSize: '12px',
@@ -1645,7 +1647,8 @@ export default function QuadripartiteAgreementPreview(data) {
                                     color: '#000000',
                                     display:'inline-block',
                                     paddingBottom:'16px',
-                                    textTransform: 'capitalize'
+                                    textTransform: 'capitalize',
+                                    paddingTop: '50px'
                                   }}
                                 >
                                     <strong style={{
@@ -1678,7 +1681,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       </td>
                     </tr>
                      <tr>
-                      <td align="left" valign="top">
+                      <td align="left" valign="top" style={{paddingTop:'50px'}}>
                         <span
                           style={{
                             fontSize: '12px',
@@ -1704,7 +1707,8 @@ export default function QuadripartiteAgreementPreview(data) {
                                     color: '#000000',
                                     display:'inline-block',
                                     paddingBottom:'16px',
-                                    textTransform: 'capitalize'
+                                    textTransform: 'capitalize',
+                                    paddingTop: '50px'
                                   }}
                                 >
                                     <strong style={{
