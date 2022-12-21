@@ -57,9 +57,10 @@ const [agreementDoc, setagreementDoc] = useState({
         setagreementDoc(newInput);
         }else{
        const doc = JSON.parse(sessionStorage.getItem('genericSelected'));
+       
         const newInput = { ...agreementDoc };
-        newInput.lcDraftDoc = {name:doc.document.name,
-        lastModifiedDate:doc.document.date   }
+        newInput.lcDraftDoc = {name:doc?.document?.name || null,
+        lastModifiedDate:doc?.document?.date   }
         setagreementDoc(newInput);
         }
 
