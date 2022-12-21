@@ -258,7 +258,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                       {lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate ? moment(d).format('DD-MM-YYYY,HH:mm A') : lcDoc?.lcDraftDoc?.documentDate ? moment(lcDoc?.lcDraftDoc?.documentDate).format('DD-MM-YYYY,HH:mm A') : ''}
                     </td>
                     <td colSpan={2}>
-                      {lcDoc && lcDoc.lcDraftDoc === null ? (
+                      {lcDoc && lcDoc.lcDraftDoc === null ||lcDoc.lcDraftDoc.name === null ? (
                         <>
                           <div className={styles.uploadBtnWrapper}>
                             <input

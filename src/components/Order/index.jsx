@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,shipment }) => {
-
+ console.log(orderDetail,"orderDetail")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
@@ -208,13 +208,14 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,
                   }}
                   value={
                     isFieldInFocus.orderValue
-                      ? orderDetail?.orderValue
-                      : Number(orderDetail?.orderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
+                      ? orderDetail?.existingOrderValue
+                      : Number(orderDetail?.existingOrderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
                         ` ${orderDetail?.unitOfValue == 'Crores' ? 'Cr' : orderDetail?.unitOfValue}`
                   }
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
+                  disabled
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Order Value<strong className="text-danger">*</strong>

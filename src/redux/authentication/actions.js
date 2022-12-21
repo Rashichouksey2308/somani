@@ -319,7 +319,7 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
     if (response.data.code === 200) {
       return response.data.data
     } else {
-      if (response.data.code === 401) {
+      if (response.data.code === 401||response.data.code === 402) {
         dispatch(generateToken())
       }
       dispatch(validatingTokenFailed(response.data.data))
