@@ -180,12 +180,12 @@ function Index() {
     if (column.id === sortByState.column) {
       setSortByState((state) => {
         let updatedOrder = !state.order;
-        sortOrder = updatedOrder ? '1' : '-1';
+        sortOrder = updatedOrder ? '-1' : '1';
         return { ...state, order: updatedOrder };
       });
     } else {
       let data = { column: column.id, order: column.isSortedDesc };
-      sortOrder = data.order ? '1' : '-1';
+      sortOrder = data.order ? '-1' : '1';
       setSortByState(data);
     }
     dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&column=${columnName}&order=${sortOrder}${filterQuery}`));
