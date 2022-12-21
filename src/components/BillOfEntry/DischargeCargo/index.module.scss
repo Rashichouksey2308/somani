@@ -35,6 +35,7 @@
         margin: 0 50px;
         width: 184px;
         height: 38px;
+        cursor: pointer;
         white-space: nowrap;
         @include respond(lg-desktop) {
           width: 160px;
@@ -119,6 +120,7 @@
             background-color: transparent;
             margin: 0 15px 0 30px;
             width: 78px;
+            cursor: pointer;
             height: 36px;
             @include respond(md-desktop) {
               font-size: 16px;
