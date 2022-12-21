@@ -101,6 +101,7 @@ const [agreementDoc, setagreementDoc] = useState({
       };
     await dispatch(updateGenericData(dataToSend, 'Submitted'));
   }
+  const [show,setShow]=useState(false)
   console.log(agreementDoc,"agreementDoc");
   return (
     <div className={`${styles.dashboardTab} w-100`}>
@@ -123,7 +124,7 @@ const [agreementDoc, setagreementDoc] = useState({
           </div>
         </div>
         <ul className={`${styles.navTabs} nav nav-tabs`}>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`}   onClick={()=>setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link active`}
               data-toggle="tab"
@@ -135,7 +136,7 @@ const [agreementDoc, setagreementDoc] = useState({
               Sales Agreement
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`}   onClick={()=>setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -147,7 +148,7 @@ const [agreementDoc, setagreementDoc] = useState({
               Associateship Agreement
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`}   onClick={()=>setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -159,7 +160,7 @@ const [agreementDoc, setagreementDoc] = useState({
               TPA (Seller)
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`}   onClick={()=>setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -171,7 +172,7 @@ const [agreementDoc, setagreementDoc] = useState({
               TPA (CMA)
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`}   onClick={()=>setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -184,7 +185,7 @@ const [agreementDoc, setagreementDoc] = useState({
             </a>
           </li>
 
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`}   onClick={()=>setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -196,8 +197,11 @@ const [agreementDoc, setagreementDoc] = useState({
               QPA
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`}
+            onClick={()=>setShow(true)}
+          >
             <a
+            
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
               href="#Document"
@@ -263,7 +267,7 @@ const [agreementDoc, setagreementDoc] = useState({
           </div>
         </div>
       </div>
-      <VesselSaveBar handleSave={saveDoc} rightBtn="Submit" rightBtnClick={submitDoc} />
+     {show && <VesselSaveBar handleSave={saveDoc} rightBtn="Submit" rightBtnClick={submitDoc} />}
     </div>
   );
 }
