@@ -6,6 +6,8 @@ const initialState = {
     updatingCommodityRemarks: false,
     updateCommodityDetails: {},
     gettingUserDetails: false,
+    gettingVendorPickupRecords: false,
+    vendorPickupRecords: {},
     userDetails: {},
     gettingInspectionDetails: false,
     inspectionDetails: {},
@@ -50,6 +52,20 @@ function CheckerReducer(state = initialState, action) {
                 ...state,
                 gettingUserDetails: false,
                 userDetails: action.payload,
+            };
+
+        case types.GET_VENDOR_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingVendorPickupRecords: false,
+                vendorPickupRecords: action.payload,
+            };
+
+        case types.GET_VENDOR_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingVendorPickupRecords: false,
+                vendorPickupRecords: {},
             };
 
         case types.GET_USER_FAILED:

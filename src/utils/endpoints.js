@@ -159,4 +159,5 @@ export default {
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
+  getVendorPickupRecords: '/vendor/checker-pending-requests'
 };
