@@ -158,11 +158,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR{' '}
-                    {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString('en-IN', {
-                      maximumFractionDigits: 2,
-                    })}{' '}
-                    Crores (Including 110%)
+                    INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString('en-IN', {maximumFractionDigits: 2,})} Crores (Including 110%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -186,11 +182,8 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight{' '}
-                    {insuranceData?.order?.quantity?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })}{' '}
-                    {insuranceData?.order?.unitOfQuantity}s.(+/{insuranceData?.order?.tolerance ?? 0}%)
+                    BL Weight {insuranceData?.order?.quantity?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,})} {insuranceData?.order?.unitOfQuantity}s.(+/{insuranceData?.order?.tolerance ?? 0}%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -214,8 +207,7 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} -{' '}
-                    {moment(insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                    {moment(insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} - {moment(insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -223,7 +215,7 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -231,7 +223,7 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -247,15 +239,9 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.order?.generic?.buyer?.name}, <br></br>{' '}
+                    {insuranceData?.order?.generic?.buyer?.name}, <br></br>
                     {_get(insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')},{' '}
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')}
-                    {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')
-                      ? `,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`
-                      : null}
-                    <br></br>
-                    GSTIN NO - {_get(insuranceData, 'order.generic.buyer.gstin', '')}
+                    {_get(insuranceData, 'order.generic.buyer.addresses[0].state', '')}, {_get(insuranceData, 'order.generic.buyer.addresses[0].country', '')} {_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '') ? `,${_get(insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}` : null}<br></br>GSTIN NO - {_get(insuranceData, 'order.generic.buyer.gstin', '')}
                     <br></br>
                   </Col>
                 </Row>
@@ -277,13 +263,13 @@ function Index() {
                 </Row>
               </div>
               <p className={`${styles.salutations} heading mb-3`}>Thanks & Best Regards,</p>
-              <p className={`${styles.salutations} heading m-0 pt-0`}> Vipin Rajput </p>
-              <p className={`${styles.salutations} heading m-0 pt-0`}> Manager Accounts</p>
-              <p className={`${styles.salutations} heading m-0 pt-0`}> Indo German International Private Limited</p>
-              <p className={`${styles.salutations} heading m-0 pt-0`}> 8-B, Sagar, 6-Tilak Marg</p>
-              <p className={`${styles.salutations} heading m-0 pt-0`}> New Delhi-110001</p>
-              <p className={`${styles.salutations} heading m-0 pt-0`}> Mobile No - 9312251303 </p>
-              <p className={`${styles.salutations} heading m-0 pt-0 pb-5`}> Email ID - vipinrajput@gmail.com</p>
+              <p className={`${styles.salutations} heading m-0 pt-0`}>Vipin Rajput </p>
+              <p className={`${styles.salutations} heading m-0 pt-0`}>Manager Accounts</p>
+              <p className={`${styles.salutations} heading m-0 pt-0`}>Indo German International Private Limited</p>
+              <p className={`${styles.salutations} heading m-0 pt-0`}>8-B, Sagar, 6-Tilak Marg</p>
+              <p className={`${styles.salutations} heading m-0 pt-0`}>New Delhi-110001</p>
+              <p className={`${styles.salutations} heading m-0 pt-0`}>Mobile No - 9312251303 </p>
+              <p className={`${styles.salutations} heading m-0 pt-0 pb-5`}>Email ID - vipinrajput@gmail.com</p>
             </div>
           </div>
         </div>
@@ -376,10 +362,7 @@ function Index() {
                         addMoreRows('email');
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
-                        +
-                      </span>{' '}
-                      add another
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}> + </span> add another
                     </div>
                     <div className="d-flex justify-content-between">
                       <button

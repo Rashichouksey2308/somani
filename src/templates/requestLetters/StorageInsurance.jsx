@@ -63,8 +63,7 @@ export default function StorageInsurance(insuranceData) {
                             fontWeight: 'normal',
                           }}
                         >
-                          Order ID:{' '}
-                        </span>
+                          Order ID: </span>
                         {insuranceData.insuranceData?.order?.orderId}
                       </p>
                     </td>
@@ -90,8 +89,7 @@ export default function StorageInsurance(insuranceData) {
                             fontWeight: 'normal',
                           }}
                         >
-                          Date:{' '}
-                        </span>
+                          Date: </span>
                         {moment(new Date()).format('DD.MM.yyyy')}
                       </p>
                     </td>
@@ -116,8 +114,7 @@ export default function StorageInsurance(insuranceData) {
                             fontWeight: 'normal',
                           }}
                         >
-                          Type of Insurance:{' '}
-                        </span>
+                          Type of Insurance: </span>
                         {insuranceData.insuranceData?.quotationRequest?.insuranceType}
                       </p>
                     </td>
@@ -308,11 +305,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        INR{' '}
-                        {Number(convertValue(insuranceData.insuranceData?.quotationRequest?.sumInsured))?.toLocaleString('en-IN', {
-                          minimumFractionDigits: 2,
-                        })}{' '}
-                        Crores (Including 110%)
+                        INR {Number(convertValue(insuranceData.insuranceData?.quotationRequest?.sumInsured))?.toLocaleString('en-IN', {minimumFractionDigits: 2,})} Crores (Including 110%)
                       </p>
                     </td>
                   </tr>
@@ -435,8 +428,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        BL Weight {insuranceData.insuranceData?.order?.quantity?.toLocaleString('en-IN')} MTs. (+/
-                        {insuranceData.insuranceData?.order?.tolerance ?? 0}%)
+                        BL Weight {insuranceData.insuranceData?.order?.quantity?.toLocaleString('en-IN')} MTs. (+/ {insuranceData.insuranceData?.order?.tolerance ?? 0}%)
                       </p>
                     </td>
                   </tr>
@@ -641,8 +633,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {insuranceData.insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance}
-                        {'  Days '}
+                        {insuranceData.insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance} Days
                       </p>
                     </td>
                   </tr>
@@ -684,8 +675,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {moment(insuranceData.insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} -{' '}
-                        {moment(insuranceData.insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                        {moment(insuranceData.insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} - {moment(insuranceData.insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
                       </p>
                     </td>
                   </tr>
@@ -726,7 +716,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {moment(insuranceData.insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                        {moment(insuranceData.insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM, YYYY')}
                       </p>
                     </td>
                   </tr>
@@ -767,7 +757,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                        {moment(insuranceData.insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                        {moment(insuranceData.insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM, YYYY')}
                       </p>
                     </td>
                   </tr>
@@ -849,12 +839,7 @@ export default function StorageInsurance(insuranceData) {
                           marginBottom: '0',
                         }}
                       >
-                    {insuranceData.insuranceData?.order?.generic?.buyer?.name}, <br></br>{' '}
-                    {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br>
-                    {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].state', '')},
-                    {" "}{_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].country', '')}
-                    {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null}<br></br>
-                    GSTIN NO - {_get(insuranceData.insuranceData, 'order.generic.buyer.gstin', '')}
+                        {insuranceData.insuranceData?.order?.generic?.buyer?.name}, <br></br> {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].fullAddress', '')},<br></br> {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].state', '')}, {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].country', '')} {_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')?`,${_get(insuranceData.insuranceData, 'order.generic.buyer.addresses[0].pinCode', '')}`:null}<br></br> GSTIN NO - {_get(insuranceData.insuranceData, 'order.generic.buyer.gstin', '')}
                       </p>
                     </td>
                   </tr>
