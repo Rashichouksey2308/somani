@@ -1452,6 +1452,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                             </tr>
                           </thead>
                           <tbody>
+                          {val.boeAssessment === 'Provisional' ?
                               <tr className="table_row">
                               
                                 <td className={styles.doc_name}>
@@ -1494,7 +1495,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 )}
                               </td>
                             </tr>
-                              {val.boeAssessment === 'Final' ?
+                            :
                                 <tr className="table_row">
                               
                                 <td className={styles.doc_name}>
@@ -1537,8 +1538,8 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 )}
                               </td>
                             </tr>
-                              :null}
-                          
+                              }
+                           
                             <tr className="table_row">
                               <td className={styles.doc_name}>
                                 Duty Paid Challan

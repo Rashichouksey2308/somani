@@ -755,7 +755,7 @@ function Index() {
         buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
         buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
         isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
-        consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
+        consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || marginData?.company?.companyName || '',
         consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
         consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
         importerName:
@@ -1048,7 +1048,7 @@ function Index() {
       buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
       buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
       isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer || true,
-      consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
+      consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || marginData?.company?.companyName|| '',
       consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
       consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
       importerName:
