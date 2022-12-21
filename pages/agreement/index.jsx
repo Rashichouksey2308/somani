@@ -10,6 +10,7 @@ import QPA from '../../src/components/QPA';
 import TPAIGI from '../../src/components/TPAIGI';
 import TPASeller from '../../src/components/TPASeller';
 import styles from './index.module.scss';
+import VesselSaveBar from '../../src/components/VesselSaveBar';
 
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,13 +49,21 @@ const [agreementDoc, setagreementDoc] = useState({
     useEffect(() => {
     if (window) {
      
-      const doc = sessionStorage.getItem('agreementDoc');
+      const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
       if(doc){
-      const newInput = { ...agreementDoc };
-      newInput.lcDraftDoc = {name:doc}
-      setagreementDoc(newInput);
-      }
-     
+        const newInput = { ...agreementDoc };
+        newInput.lcDraftDoc = {name:doc.name,
+        lastModifiedDate:doc.lastModifiedDate   }
+        setagreementDoc(newInput);
+        }else{
+       const doc = JSON.parse(sessionStorage.getItem('genericSelected'));
+       
+        const newInput = { ...agreementDoc };
+        newInput.lcDraftDoc = {name:doc?.document?.name || null,
+        lastModifiedDate:doc?.document?.date   }
+        setagreementDoc(newInput);
+        }
+
      
      
     }
@@ -64,14 +73,34 @@ const [agreementDoc, setagreementDoc] = useState({
     console.log(e.target.files[0],"e.target.files[0]")
     const newInput = { ...agreementDoc };
     newInput.lcDraftDoc = e.target.files[0];
-    let dataToSend = {
-        genericId:  JSON.parse(sessionStorage.getItem('genericSelected'))._id,
-        agreementDocument:JSON.stringify(e.target.files[0])
-      };
-    // await dispatch(updateGenericData(dataToSend, 'Submitted'));
-    sessionStorage.setItem('agreementDoc', JSON.stringify(e.target.files[0].name));
+  
+   
+    sessionStorage.setItem('agreementDoc', JSON.stringify(
+    {
+      name:e.target.files[0].name,
+      lastModifiedDate:e.target.files[0].lastModifiedDate
+    }
+    ));
     setagreementDoc(newInput);
   };
+   const saveDoc=async()=>{
+      const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
+
+ let dataToSend = {
+  
+        genericId:  JSON.parse(sessionStorage.getItem('genericSelected'))._id,
+        agreementDocument:doc
+      };
+    await dispatch(updateGenericData(dataToSend, 'Save'));
+  }
+  const submitDoc=async()=>{
+    const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
+ let dataToSend = {
+        genericId:  JSON.parse(sessionStorage.getItem('genericSelected'))._id,
+        document:doc
+      };
+    await dispatch(updateGenericData(dataToSend, 'Submitted'));
+  }
   console.log(agreementDoc,"agreementDoc");
   return (
     <div className={`${styles.dashboardTab} w-100`}>
@@ -234,6 +263,7 @@ const [agreementDoc, setagreementDoc] = useState({
           </div>
         </div>
       </div>
+      <VesselSaveBar handleSave={saveDoc} rightBtn="Submit" rightBtnClick={submitDoc} />
     </div>
   );
 }

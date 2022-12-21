@@ -57,6 +57,7 @@ const Index = () => {
     tolerance: '',
     transactionPeriodDays: '',
     manufacturerName: '',
+    existingOrderValue:""
   });
 
   const [shipment, setShipment] = useState({
@@ -148,6 +149,7 @@ const Index = () => {
       orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity);
       orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue) * 10000000;
       orderDataNew.tolerance = removePrefixOrSuffix(orderData.tolerance);
+      orderDataNew.existingOrderValue=removePrefixOrSuffix(orderData.orderValue) * 10000000
 
       const obj = {
         orderDetails: { ...orderDataNew, shipmentDetail: { ...shipment } },

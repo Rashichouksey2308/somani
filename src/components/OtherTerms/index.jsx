@@ -16,6 +16,7 @@ const Index = ({
   onChangeLcOpening,
   onChangeCha,
 }) => {
+  console.log(termsheetDetails,"termsheetDetails")
   return (
     <div className={`${styles.main} main`}>
       <div
@@ -330,8 +331,8 @@ const Index = ({
                           className={`${styles.igpl_para} ${styles.input} input`}
                           placeholder={`${addPrefixSymbol(
                             termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase(),
-                          )} ${_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500').toLocaleString(
-                            'en-In',
+                          )} ${Number(_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500')).toLocaleString(
+                            _get(termsheetDetails,"commodityDetails.orderCurrency","")=="INR"?"en-In":"en-En",
                           )}`}
                         />
                         )
