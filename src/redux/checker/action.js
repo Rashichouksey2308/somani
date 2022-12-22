@@ -452,7 +452,7 @@ export const GetCreditCAMPickupRecords = (payload) => async (dispatch, getState,
             }
         });
     } catch (error) {
-        dispatch(getCommodityFailed());
+        dispatch(getCCreditCAMPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };
