@@ -426,7 +426,7 @@ function Index() {
         }
         if(type=="Save"){
         val.deliveryOrderDate= new Date() 
-        if(val.status !== "DO Canceled"){
+        if(val.status !== "DO Cancelled"){
         val.status="DO Issued"
         }
         }
@@ -441,7 +441,7 @@ function Index() {
       if (i == index) {
         console.log(val.deliveryOrderDate,"cvalala")
        
-        val.status="DO Canceled"
+        val.status="DO Cancelled"
         
       }
     });
