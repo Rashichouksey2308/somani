@@ -132,7 +132,7 @@ export default function Index(props) {
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               {val.status=="DO cancelled"?
                               <>
-                                  <div className={`${styles.label} text`}>Quantity Released</div>
+                                  <div className={`${styles.label} text`}>Release Order No.</div>
                                   <span className={styles.value}>
                                    {props.releaseOrderData[index].orderNumber}
                                   </span>
