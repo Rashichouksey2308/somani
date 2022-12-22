@@ -8,7 +8,7 @@ export default function AssignmentLetterPreview(data) {
         cellPadding="0"
         style={{
           fontFamily: 'Times New Roman, Times, serif',
-          border: '1px solid #d9dde8',
+          //border: '1px solid #d9dde8',
           marginBottom: '20px',
           color: '#000000',
         }}
