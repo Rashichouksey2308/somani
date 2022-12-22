@@ -891,7 +891,8 @@ export default function AssignmentLetterPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block'
+                            display:'block',
+                            paddingTop:'50px'
                           }}
                         >
                           .................................................
@@ -903,7 +904,8 @@ export default function AssignmentLetterPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block'
+                            display:'block',
+                            paddingTop:'50px'
                           }}
                         >
                           .................................................
@@ -947,7 +949,8 @@ export default function AssignmentLetterPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            display:'block'
+                            display:'block',
+                            paddingTop:'50px'
                           }}
                         >
                           .................................................

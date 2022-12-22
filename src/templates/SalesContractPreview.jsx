@@ -1521,15 +1521,12 @@ export default function SalesContractPreview(data) {
         >
           <table width="100%" cellPadding="0" cellSpacing="0" border="0">
             <tr>
-              <td width="50%">
+              <td width="50%" style={{paddingTop:'50px'}}>
                 <span style={{color:'#000000', display:'block'}}>(Seller)</span>
               </td>
-              <td width="50%" style={{ paddingLeft: '15px' }}>
+              <td width="50%" style={{ paddingLeft: '15px', paddingTop:'50px' }}>
                 <span style={{color:'#000000', display:'block'}}>(Buyer)</span>
               </td>
-            </tr>
-            <tr>
-              <td colSpan={2} height={50}></td>
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>

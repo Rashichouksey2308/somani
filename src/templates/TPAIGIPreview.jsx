@@ -1232,7 +1232,7 @@ export default function TPAPreview(data) {
                 >
                   Schedule I
                 </h3>
-                <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
+                <table width="100%" cellPadding="5" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
                   <tr>
                     <td
                       width="30%"
@@ -1246,7 +1246,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Date of execution
@@ -1264,7 +1264,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.dateOfExecution}
@@ -1283,7 +1283,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Place of execution
@@ -1300,7 +1300,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.placeOfExecution}
@@ -1319,7 +1319,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Name of Collateral Manager
@@ -1336,7 +1336,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.cma}
@@ -1355,7 +1355,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Address of Collateral Manager
@@ -1372,7 +1372,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.cmaAddress?.fullAddress}, {data.cmaAddress?.city}, {data.cmaAddress?.country}, {data.cmaAddress?.pinCode}
@@ -1391,7 +1391,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Authorized signatory of Collateral Manager
@@ -1408,7 +1408,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         <ol
@@ -1416,19 +1416,20 @@ export default function TPAPreview(data) {
                             fontSize: '12px',
                             lineHeight: '18px',
                             color: '#000000',
-                            paddingLeft:'10px'
+                            paddingLeft:'10px',
+                            marginBottom:'0'
                           }}
                         >
                           {data?.cmaAuthorized?.length > 0 &&
                             data?.cmaAuthorized?.map((val, index) => {
                               return (
-                                <li>
+                                <li style={{marginTop:'-3px'}}>
                                   <span
                                     style={{
                                       fontSize: '12px',
                                       lineHeight: '18px',
                                       color: '#000000',
-                                      display:'inline-block'
+                                      display:'block', paddingTop:'1px'
                                     }}
                                   >
                                     Name - {val.name}
@@ -1454,7 +1455,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Designated Storage Area
@@ -1471,7 +1472,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.designatedStorageArea}, India
@@ -1490,7 +1491,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Details of Commodity
@@ -1507,7 +1508,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data?.detailsOfComm}
@@ -1526,7 +1527,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Quantity of Goods
@@ -1543,7 +1544,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data?.quan?.toLocaleString('en-In', {
@@ -1564,7 +1565,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Name of Supplier
@@ -1581,7 +1582,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.supplier}
@@ -1600,7 +1601,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Address of Supplier
@@ -1617,7 +1618,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.supplierAddress?.fullAddress}, {data.supplierAddress?.city}, {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
@@ -1636,7 +1637,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Financing Bank Name
@@ -1653,7 +1654,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.financialBank}
@@ -1672,7 +1673,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         Financing Bank Address
@@ -1689,7 +1690,7 @@ export default function TPAPreview(data) {
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
-                          display:'inline-block'
+                          display:'block'
                         }}
                       >
                         {data.financialAddress}
@@ -1718,7 +1719,7 @@ export default function TPAPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" style={{paddingTop:'20px'}}>
+                    <td align="left" style={{paddingTop:'50px'}}>
                       <span
                         style={{
                           fontSize: '12px',
@@ -1746,7 +1747,7 @@ export default function TPAPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" style={{paddingTop:'30px'}}>
+                    <td align="left" style={{paddingTop:'50px'}}>
                       <span
                         style={{
                           fontSize: '12px',
@@ -1774,7 +1775,7 @@ export default function TPAPreview(data) {
                     </td>
                   </tr>
                   <tr>
-                    <td align="left" style={{paddingTop:'30px'}}>
+                    <td align="left" style={{paddingTop:'50px'}}>
                       <span
                         style={{
                           fontSize: '12px',
