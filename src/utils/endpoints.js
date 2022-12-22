@@ -151,7 +151,6 @@ export default {
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
 
-
   //Checker
   getCommodityDetails: '/commodity/commodity/',
   updateCommodityRemark: '/commodity/checker-commodity/',
@@ -159,4 +158,7 @@ export default {
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
+
+  //Masters
+  getAllCommodity: '/commodity/commodityRes',
 };

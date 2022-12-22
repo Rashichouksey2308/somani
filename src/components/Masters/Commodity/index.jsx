@@ -1,35 +1,68 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import ToggleSwitch from '../../../components/ToggleSwitch';
-import Filter from '../../../components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
-import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../../components/DownloadMasterBar';
+import { GetMastersCommodity } from 'redux/masters/action';
+import Table from '../../Table';
+import Filter from '../../../components/Filter';
 import Image from 'next/image';
 
-const index = () => {
+function Index() {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
   const dispatch = useDispatch();
-  const [searchterm, setSearchTerm] = useState('');
+
   const { searchedLeads } = useSelector((state) => state.order);
+  console.log('searchedLeads---', searchedLeads);
 
-  const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
-    if (query.length >= 3) {
-      dispatch(SearchLeads(query));
-    }
+  const { getCommodityMasterData } = useSelector((state) => state.MastersData);
+  useEffect(() => {
+    dispatch(GetMastersCommodity());
+  }, []);
+  const tableColumns = useMemo(() => [
+    {
+      Header: 'COMMODITY',
+      accessor: 'Commodity',
+    },
+    {
+      Header: 'CHAPTER NAME.',
+      accessor: 'Chapter_Name',
+    },
+    {
+      Header: 'CHAPTER CODE',
+      accessor: 'Chapter_Code',
+    },
+    {
+      Header: 'STATUS',
+      accessor: 'Approved_Commodity',
+      Cell: ({ value }) => <ToggleSwitch value={value} />,
+    },
+  ]);
+  const tableHooks = (hooks) => {
+    hooks.visibleColumns.push((columns) => [
+      ...columns,
+      {
+        id: 'Edit',
+        Header: 'Action',
+        Cell: ({ row }) => {
+          return (
+            <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
+              <Image height="30px" width="30px" src="/static/mode_edit.svg" alt="Edit" />
+            </div>
+          );
+        },
+      },
+    ]);
   };
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
-  };
-
   return (
     <>
       <div className="container-fluid p-0 border-0">
-        <div className={styles.container_inner}>
+        <div className={`${styles.container_inner}`}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} mr-3 align-items-center`}>
@@ -46,8 +79,6 @@ const index = () => {
                   <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
-                  value={searchterm}
-                  onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} border text_area form-control formControl `}
                   placeholder="Search"
@@ -75,7 +106,6 @@ const index = () => {
               Add
             </button>
           </div>
-
           {/*UserTable*/}
           <div className={`${styles.datatable} border datatable card mt-4`}>
             <div className={`${styles.tableFilter} d-flex justify-content-between`}>
@@ -89,7 +119,6 @@ const index = () => {
                   </select>
                   <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
                 </div>
-
                 <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                   <span>Showing Page 1 out of 10</span>
                   <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
@@ -101,151 +130,12 @@ const index = () => {
                 </div>
               </div>
             </div>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                  <thead>
-                    <tr>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        COMMODITY{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th width="25%" className={`${styles.table_heading} table_heading`}>
-                        CHAPTER NAME{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        CHAPTER CODE{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        APPROVED{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-
-                      <th className={`${styles.table_heading} table_heading`}>ACTION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <ToggleSwitch />
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <ToggleSwitch />
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <ToggleSwitch />
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <ToggleSwitch />
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <ToggleSwitch />
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <ToggleSwitch />
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            {/* <div className="generic-table">
+              <Table columns={tableColumns} data={getCommodityMasterData.data} tableHooks={tableHooks} />
+            </div> */}
+            <Table columns={tableColumns} data={getCommodityMasterData.data} tableHooks={tableHooks} />
           </div>
+
           <div className={`${styles.total_count}`}>
             Total Count: <span>280</span>
           </div>
@@ -254,6 +144,5 @@ const index = () => {
       <DownloadMasterBar btnName="Download as Excel" />
     </>
   );
-};
-
-export default index;
+}
+export default Index;
