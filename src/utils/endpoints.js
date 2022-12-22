@@ -162,5 +162,6 @@ export default {
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
   getCommodityPickupRecords: '/commodity/checker-pending-requests',
-  getVendorPickupRecords: '/vendor/checker-pending-requests'
+  getVendorPickupRecords: '/vendor/checker-pending-requests',
+  getCreditCAMPickupRecords: '/lead/cam/getCamLeads',
 };
