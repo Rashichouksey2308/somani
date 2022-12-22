@@ -60,9 +60,36 @@ const deleteArr=(val,index)=>{
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
 
+
+  const returnValue = (value) => {
+    if (value.dropDownValue === '(32B) Currency Code & Amount') {
+      return `${lcModuleData?.order?.orderCurrency}  ${Number(
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      )?.toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    } else if (value.dropDownValue === '(43T) Transhipments') {
+      return lcModuleData?.lcApplication?.transhipments == undefined
+        ? ''
+        : lcModuleData?.lcApplication?.transhipments == 'Yes'
+        ? 'Allowed'
+        : 'Not Allowed';
+    } else if (value.dropDownValue === '(39A) Tolerance (+/-) Percentage') {
+      return `(+/-) ${value.newValue}  %`;
+    } else if (value.dropDownValue === '(31D) Date Of Expiry'||value.dropDownValue === '(44C) Latest Date Of Shipment') {
+      return moment(value.newValue).format('DD-MM-YYYY');
+    } else if (value.dropDownValue === '(42C) Draft At' && lcData.atSight == 'Usuance') {
+      return `Usuance - ${value.newValue} days`;
+    } else {
+      return value.newValue.toUpperCase()
+    }
+  };
+
+
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
-    doc.html(ReactDOMServer.renderToString(<AmendLetterTemp lcModuleData={lcModuleData} />), {
+    doc.html(ReactDOMServer.renderToString(<AmendLetterTemp lcModuleData={lcModuleData}  />), {
       callback: function (doc) {
       const totalPages = doc.internal.getNumberOfPages();
 
@@ -89,6 +116,13 @@ let regex = /\([^\)]*\)/;
 let data = string.replace(regex, "");;
 return data
 }
+const getDate = (value)=>{
+  let data = moment(value).format('DD-MM-YYYY')
+  return data
+  }
+
+
+  
   return (
     <>
       <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
@@ -145,7 +179,7 @@ return data
                       {/* <td width="40%">
                         40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
                       </td> */}
-                      <td>{val.newValue.toUpperCase()}</td>
+                      <td>{returnValue(val)}</td>
                       {/* <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td> */}
                     </tr>
                     {/* <tr className="table_row">
