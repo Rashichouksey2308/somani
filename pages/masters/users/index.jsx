@@ -8,7 +8,7 @@ import Table from '../../../src/components/Table';
 import Image from 'next/image';
 import Router from 'next/router';
 import slugify from 'slugify';
-import _ from 'lodash';
+import _, { isUndefined } from 'lodash';
 import ToggleSwitch from '../../../src/components/ToggleSwitch';
 import SearchAndFilter from '../../../src/components/SearchAndFilter';
 import { CHECKER_USERS_QUEUE } from '../../../src/data/constant';
@@ -74,7 +74,7 @@ const index = () => {
       sortOrder = data.order ? '1' : '-1';
       setSortByState(data);
     }
-    dispatch(GetMasterUsersQueueRecords(`?page=${currentPage}&column=${columnName}&order=${sortOrder}${filterQuery}`));
+    dispatch(GetMasterUsersQueueRecords(`?page=${currentPage}&limit=${pageLimit}&column=${columnName}&order=${sortOrder}${filterQuery}`));
   };
 
   const tableColumns = useMemo(() => [
@@ -197,12 +197,22 @@ const index = () => {
     filterItemData.map((val) => {
       if (appliedFilters[val]) {
         if (val === 'status') {
-          result?.status && badgesItems.push({ key: val, displayVal: result?.status });
+          if (isUndefined(result?.status)) {
+            badgesItems.push({ key: val, displayVal: 'Null' })
+          }
+          else {
+            if (result?.status) {
+              badgesItems.push({ key: val, displayVal: 'True' })
+            }
+            else {
+              badgesItems.push({ key: val, displayVal: 'False' })
+            }
+          }
           query = query + `&${val}=${result?.status}`;
         }
         else if (val === 'fullname') {
-          result?.fullname && badgesItems.push({ key: val, displayVal: result?.fullname });
-          query = query + `&${val}=${slugify(result?.fullname, { lower: false })}`;
+          result?.fullName && badgesItems.push({ key: val, displayVal: result?.fullName });
+          query = query + `&${val}=${slugify(result?.fullName, { lower: false })}`;
         }
         else if (val === 'department') {
           result?.department && badgesItems.push({ key: val, displayVal: result?.department });
@@ -222,14 +232,14 @@ const index = () => {
   const searchView = () => {
     return (
       filter && openList && searchTerm?.length > 3 &&
-      <div className={styles.searchResults}>
+      <div className='searchResults'>
         <ul>
-          {filteredUsersQueue?.data?.data?.length > 0 ? filteredUsersQueue?.data?.data?.map((results, index) => (
+          {filteredUsersQueue?.data?.userFilteredData?.length > 0 ? filteredUsersQueue?.data?.userFilteredData?.map((results, index) => (
             <li onClick={() => handleListClose(results)} id={results._id} key={index} className="cursor-pointer">
-              {appliedFilters?.fullname === true && results?.fullname}
+              {appliedFilters?.fullname === true && results?.fullName}
               <span>
                 &nbsp; {appliedFilters?.department === true && <span className='text-right'>{results?.department}</span>}
-                &nbsp; {appliedFilters?.status === true && <span className='text-right'>{results?.status}</span>}
+                &nbsp; {appliedFilters?.status === true && <span className='text-right'>{results?.status !== undefined ? results?.status === true ? 'True' : 'False' : 'Null'}</span>}
               </span>
             </li>
           )) : <li><span>No result found</span></li>}
@@ -269,7 +279,7 @@ const index = () => {
             <Table
               tableHeading="Users"
               currentPage={currentPage}
-              totalCount={usersQueueRecords?.totalCount}
+              totalCount={usersQueueRecords?.total}
               setCurrentPage={setCurrentPage}
               columns={tableColumns}
               data={usersQueueRecords?.data}
