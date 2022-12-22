@@ -11,7 +11,7 @@ export default function Index(props) {
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const handleRoute = (val,index) => {
-    console.log(val,"val")
+    
     if(val.Quantity==""){
        let toastMessage = 'PLS SELECT ADD QUANTITY RELEASED';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -30,8 +30,6 @@ export default function Index(props) {
       }
     })
     const finalValue=Number(boeTotalQuantity)-Number(toRemove)
-    console.log(toRemove,"toRemove")
-    console.log(val,"asdasd")
     sessionStorage.setItem('deliveryPreviewId',val.deliveryOrderNo);
     sessionStorage.setItem('dono', val.deliveryOrderNo);
     sessionStorage.setItem('toRemove', finalValue);
@@ -132,7 +130,7 @@ export default function Index(props) {
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               {val.status=="DO cancelled"?
                               <>
-                                  <div className={`${styles.label} text`}>Quantity Released</div>
+                                  <div className={`${styles.label} text`}>Release Order No.</div>
                                   <span className={styles.value}>
                                    {props.releaseOrderData[index].orderNumber}
                                   </span>

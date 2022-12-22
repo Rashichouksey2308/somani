@@ -106,7 +106,7 @@ const deleteArr=(val,index)=>{
     });
   };
 const getNumber=(number)=>{
-  console.log(number,"number")
+
 let regex = /\(([^\)]*)\)/;
 let data = number.match(regex)[1];
 return data

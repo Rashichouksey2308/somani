@@ -122,7 +122,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       document4: null,
     },
   ]);
- console.log(billOfEntryData,"billOfEntryData")
+ 
   const totalCustomDuty = (index) => {
     let number = 0;
     dutyData[index]?.forEach((val) => {

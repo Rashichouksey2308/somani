@@ -58,7 +58,7 @@ export default function Index({ inspectionData ,setComponentId}) {
   };
 
   const handleSubmit = async () => {
-     console.log(plotInspectionData,"plotInspectionData")
+     
     if (plotInspectionData.plotInspectionDate == '' || plotInspectionData.plotInspectionDate == undefined || plotInspectionData.plotInspectionDate == null) {
       let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {

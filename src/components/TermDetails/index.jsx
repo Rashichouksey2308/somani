@@ -20,10 +20,10 @@ const Index = ({
   country,
   currency,
 }) => {
-  console.log(termsheetDetails,"termsheetDetails")
+  
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
-  console.log(port,"port")
+ 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     unitPrice: false,

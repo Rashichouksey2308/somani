@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,shipment }) => {
- console.log(orderDetail,"orderDetail")
+ 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,

@@ -87,15 +87,15 @@ function Index({
   const[filteredCreditRating,setfilteredCreditRating]=useState([])
  
   useEffect(() => {
-    console.log(camData,"camData")
+   
   let  a = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
   
   });
-    console.log(a,"a")
+    
     setfilteredCreditRating(a)
   }, [camData]);
- console.log(filteredCreditRating,"filteredCreditRating")
+ 
   const { documentsFetched } = useSelector((state) => state.review);
 
   const onApprove = (name, value) => {
@@ -275,9 +275,9 @@ function Index({
             return '';
           },
           afterBody: function(data) {
-             console.log(data,"data")
+             
               let label=[`${data[0].label}:`]
-            console.log(data,"data.raw")
+            
           // do some stuff
            label.push(Number(data[0].raw).toLocaleString('en-In'));
 
@@ -341,9 +341,9 @@ function Index({
             return '';
           },
           afterBody: function(data) {
-             console.log(data,"data")
+             
               let label=[`${data[0].label}:`]
-            console.log(data,"data.raw")
+            
           // do some stuff
            label.push(Number(data[0].raw).toLocaleString('en-In'));
 
@@ -3881,7 +3881,7 @@ const skewness = (
   );
 };
 const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImage) => {
-  console.log(rotateImage,"rotateImage")
+  
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
