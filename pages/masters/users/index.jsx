@@ -112,7 +112,9 @@ const index = () => {
       Header: 'Status',
       accessor: 'profileDetails.status',
       disableSortBy: true,
-      Cell: ({ value }) => <ToggleSwitch status={value} />,
+      Cell: ({ cell: { value }, row: { original } }) => (
+        <ToggleSwitch data={original} />
+      ),
     },
   ], [usersQueueRecords?.data?.data]);
 
