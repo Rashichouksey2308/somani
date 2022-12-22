@@ -1634,7 +1634,7 @@ function Index() {
                                       value={val?.contact}
                                       type="number"
                                       onWheel={(event) => event.currentTarget.blur()}
-                                      className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
+                                      className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0 flex-grow-1`}
                                       onChange={(e) => {
                                         onChangeHandler2(e.target.name, e.target.value, index);
                                       }}
