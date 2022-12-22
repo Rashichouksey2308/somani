@@ -169,7 +169,7 @@ function Index() {
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>Voyage : </span>
-                            FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '',).toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}
+                            FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '',).toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}, INDIA
                             <br />
                             <br />
                              <span style={{ fontWeight: 'normal' }}>Cargo: </span>
@@ -188,7 +188,7 @@ function Index() {
                                         <>
                                         <li>
                                           <span>
-                                            {val.blnumber} Dated {val.date}, ISSUED AT {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}, INDIA 
+                                            {val.blnumber} Dated {val.date}, ISSUED AT {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()}
                                           </span>
                                         </li>
                                         </>
@@ -610,6 +610,7 @@ function Index() {
             <span>Voyage: </span>
             <div className={`ml-3`}>
               FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '').toUpperCase()}
+             , INDIA
             </div>
           </div>
           <div className={`d-flex ${styles.salutations}`}>
@@ -628,7 +629,7 @@ function Index() {
                       <div
                         className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
                       >
-                        {val.blnumber} Dated {val.date}, ISSUED AT {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}, INDIA
+                        {val.blnumber} Dated {val.date}, ISSUED AT {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()}
                       </div>
                     </li>
                   </>
