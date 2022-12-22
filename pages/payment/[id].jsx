@@ -403,7 +403,7 @@ function Index() {
 
       deliveryOrder.forEach((item) => {
         console.log('itemm', item);
-        if (item.status !== 'DO Canceled') {
+        if (item.status !== 'DO cancelled') {
           boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
         }
       });
@@ -445,7 +445,7 @@ function Index() {
         }
         if (type == 'Save') {
           val.deliveryOrderDate = new Date();
-          if (val.status !== 'DO Canceled') {
+          if (val.status !== 'DO cancelled') {
             val.status = 'DO Issued';
           }
         }
@@ -460,7 +460,7 @@ function Index() {
       if (i == index) {
         console.log(val.deliveryOrderDate, 'cvalala');
 
-        val.status = 'DO Canceled';
+        val.status = 'DO cancelled';
       }
     });
     setDeliveryOrder([...tempArr]);
@@ -594,7 +594,7 @@ function Index() {
         return item.orderNumber == orderId;
       });
       const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
-        if (curr.status !== 'DO Canceled') {
+        if (curr.status !== 'DO cancelled') {
           let quantity = Number(acc) + Number(curr.Quantity);
         }
         return quantity;
@@ -674,7 +674,7 @@ function Index() {
     deliveryOrder.forEach((item, index) => {
       console.log(item, 'itemitem');
       if (item.orderNumber == orderNumber) {
-        if (item.status == 'DO Canceled') {
+        if (item.status == 'DO cancelled') {
           return false;
         }
         delivery = delivery + Number(item.Quantity);

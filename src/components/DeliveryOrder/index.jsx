@@ -23,7 +23,7 @@ export default function Index(props) {
     let toRemove=0
     props.releaseOrderData.forEach((release,i)=>{
       if(i<=index){
-        if(release.status !== "DO Cancelled"){
+        if(release.status !== "DO cancelled"){
             toRemove=toRemove+Number(release.Quantity)
         }
        
@@ -130,7 +130,7 @@ export default function Index(props) {
                         return (
                           <>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
-                              {val.status=="DO Canceled"?
+                              {val.status=="DO cancelled"?
                               <>
                                   <div className={`${styles.label} text`}>Quantity Released</div>
                                   <span className={styles.value}>
@@ -170,7 +170,7 @@ export default function Index(props) {
                               }
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
-                              {val.status=="DO Canceled"
+                              {val.status=="DO cancelled"
                               ? <>
                                   <div className={`${styles.label} text`}>Quantity Released</div>
                                   <span className={styles.value}>
