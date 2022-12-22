@@ -214,9 +214,9 @@ export default function TPASeller(data) {
             </Col>
           </Row>
         </div>
-        <div className={`row my-4`}>
+        <div className={`row`}>
           <Col md={8}>
-            <p className="text_sales text-left">
+            <p className="text_sales text-left mt-5 pt-4">
               <strong>Buyer</strong>
             </p>
           </Col>
@@ -226,9 +226,8 @@ export default function TPASeller(data) {
                   data?.buyerAuthorized?.map((val, index) => {
                     return (
                       <>
-                        <p className='text-left'>Name: {val.name}
-                        <br/>
-                        Designation: {val.designation}</p>
+                        <p className='text-left mt-5 pt-4'>Name: {val.name}
+                        <br/>Designation: {val.designation}</p>
                       </>
                     )
                   })}
@@ -236,9 +235,9 @@ export default function TPASeller(data) {
             <p className="text_sales text-left"><strong>Authorised Signatory</strong></p>
           </Col>
         </div>
-        <div className={`row my-4`}>
+        <div className={`row`}>
           <Col md={8}>          
-            <p className="text_sales text-left">           
+            <p className="text_sales text-left mt-5 pt-4">           
               <strong>Supplier</strong>
             </p>
           </Col>
@@ -248,9 +247,8 @@ export default function TPASeller(data) {
                   data?.supplierAuthorized?.map((val, index) => {
                     return (
                       <>
-                        <p className='text-left'>Name: {val.name}
-                        <br/>
-                        Designation: {val.designation}</p>
+                        <p className='text-left mt-5 pt-4'>Name: {val.name}
+                        <br/>Designation: {val.designation}</p>
                       </>
                     )
                   })}
@@ -258,9 +256,9 @@ export default function TPASeller(data) {
             <p className="text_sales text-left"><strong>Authorised Signatory</strong></p>
           </Col>
         </div>
-        <div className={`row my-4`}>
+        <div className={`row`}>
           <Col md={8}>           
-            <p className="text_sales text-left">                
+            <p className="text_sales text-left mt-5 pt-4">                
               <strong>End Buyer</strong>
             </p>
           </Col>
@@ -270,9 +268,8 @@ export default function TPASeller(data) {
                   data?.associateBuyerAuthorized?.map((val, index) => {
                     return (
                       <>
-                        <p className='text-left'>Name: {val.name}
-                        <br/>
-                        Designation: {val.designation}</p>
+                        <p className='text-left mt-5 pt-4'>Name: {val.name}
+                        <br/>Designation: {val.designation}</p>
                       </>
                     )
                   })}

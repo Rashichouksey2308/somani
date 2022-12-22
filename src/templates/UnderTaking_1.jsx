@@ -196,18 +196,19 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
         </div>
         <div className={`row my-4`}>
           <Col md={8} className='align-self-end'>
-            <p className="text_sales text-left"><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
+            <p className="text_sales text-left mt-5 pt-4"><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
           </Col>
           <Col md={4}>
-            <p className="text_sales m-0">
-              <strong>(Associate Buyer)</strong>
+            <p className="text_sales text-left m-0">
+              <strong>{data.associateBuyer}</strong>
+              {/* <strong>(Associate Buyer)</strong> */}
               <br />
               <br />
              {
                 data?.associateBuyerAuthorized?.length > 0 &&
                 data?.associateBuyerAuthorized?.map((val, index) => {
                   return (                   
-                    <p className='text-left'>                      
+                    <p className='text-left mt-5 pt-4'>
                       <strong>Name: {val.name}</strong>
                       <br/>
                       <strong>Designation: {val.designation}</strong>

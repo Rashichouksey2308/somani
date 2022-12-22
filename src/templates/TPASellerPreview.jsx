@@ -862,14 +862,13 @@ export default function TPASellerPreview(data) {
               <td valign="top" style={{ paddingTop:'30px'}}>
                 <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                   <tr>
-                    <td align="left" valign="top" width="70%" style={{paddingTop:'5px'}}>
+                    <td align="left" valign="top" width="70%" style={{paddingTop:'70px'}}>
                       <span
                         style={{
                           fontSize: '12px',
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'block',
-                          paddingBottom: '5px'
                         }}
                       >
                         Buyer
@@ -893,7 +892,7 @@ export default function TPASellerPreview(data) {
                             lineHeight: '18px',
                             color: '#000000',
                             display: 'inline-block',
-                            paddingBottom: '5px'
+                            paddingTop: '70px'
                           }}>Name: {val.name}<br/>
                           Designation: {val.designation}</span>
                       </>
@@ -906,7 +905,7 @@ export default function TPASellerPreview(data) {
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'inline-block',
-                          paddingBottom: '30px'
+                          paddingTop: '10px'
                         }}
                       >
                         <strong>Authorised Signatory</strong>
@@ -921,7 +920,7 @@ export default function TPASellerPreview(data) {
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'block',
-                          paddingBottom: '5px'
+                          paddingTop: '70px'
                         }}
                       >
                         Supplier
@@ -945,7 +944,7 @@ export default function TPASellerPreview(data) {
                             lineHeight: '18px',
                             color: '#000000',
                             display: 'inline-block',
-                            paddingBottom: '5px'
+                            paddingTop: '70px'
                           }}>Name: {val.name}<br/>
                           Designation: {val.designation}</span>
                       </>
@@ -958,7 +957,7 @@ export default function TPASellerPreview(data) {
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'inline-block',
-                          paddingBottom: '30px'
+                          paddingTop: '10px'
                         }}
                       >
                         <strong>Authorised Signatory</strong>
@@ -973,7 +972,7 @@ export default function TPASellerPreview(data) {
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'block',
-                          paddingBottom: '5px'
+                          paddingTop: '70px'
                         }}
                       >
                         End Buyer
@@ -997,7 +996,7 @@ export default function TPASellerPreview(data) {
                             lineHeight: '18px',
                             color: '#000000',
                             display: 'inline-block',
-                            paddingBottom: '5px'
+                            paddingTop: '70px'
                           }}>Name: {val.name}<br/>
                           Designation: {val.designation}</span>
                       </>
@@ -1010,7 +1009,7 @@ export default function TPASellerPreview(data) {
                           lineHeight: '18px',
                           color: '#000000',
                           display: 'inline-block',
-                          paddingBottom: '25px'
+                          paddingTop: '10px'
                         }}
                       >
                         <strong>Authorised Signatory</strong>
