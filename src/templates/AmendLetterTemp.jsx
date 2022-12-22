@@ -3,10 +3,10 @@ import moment from 'moment';
 export default function AmendLetterTemp(lcModuleData) {
   let d = new Date();
 const getNumber=(number)=>{
-  console.log(number,"1212")
+  
 let regex = /\(([^\)]*)\)/;
 let data = number.match(regex);
-console.log(data,"dataay")
+
 return data[1]
 }
 const getString=(string)=>{

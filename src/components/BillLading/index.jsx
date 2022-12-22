@@ -83,14 +83,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] = useState(null);
 
   const [lastDate, setlastDate] = useState(new Date());
-  console.log(bolList,'bolList')
+ 
 
   useEffect(() => {
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
       setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []));
     }
   }, [TransitDetails]);
-  console.log(TransitDetails,'TransitDetails')
+ 
 
   const partShipmentAllowed = _get(TransitDetails, 'data[0].order.vessel.partShipmentAllowed', 'No');
 

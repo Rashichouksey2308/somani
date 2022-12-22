@@ -35,7 +35,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
     let addressType = '';
     let pinCode=''
     
-    console.log(vendor,'vendors')
+   
     if (vendor) {
     vendor?.forEach((item)=> {
       if(item?.vendorDetails?.vendor == 'Third Party Inspection'){
@@ -85,7 +85,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
     dateOfAppointment: '',
     address: { fullAddress: '', addressType: '', pinCode: '', country: '' },
   });
- console.log(appointmentData,"appointmentData",addressData)
+
   const saveAppointmentData = (name, value) => {
     let newInput = { ...appointmentData };
     newInput[name] = value;
@@ -219,11 +219,11 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
      setToView(true)
  }
   const handleData = (name, value) => {
-    console.log("thsss")
+   
     const newInput = { ...addressData };
     const namesplit = name.split('.');
     namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value.Pincode) : (newInput[name] = value.Pincode);
-    console.log(newInput,"newInput")
+   
     // newInput[name] = value.Pincode;
     newInput.address.country = 'India';
     // newInput.city = value.City;

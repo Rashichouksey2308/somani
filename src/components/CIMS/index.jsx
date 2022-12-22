@@ -48,7 +48,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     if(Number(quan)>100000){
       quan=100000
     }
-    console.log(_get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),"_get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0)")
     if (data.length > 0) {
       setCimsDetails(data);
     } else {
