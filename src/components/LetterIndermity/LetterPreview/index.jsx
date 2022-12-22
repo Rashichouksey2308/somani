@@ -217,7 +217,7 @@ function Index() {
                               transitDetails, 'data[0].order.generic.buyer.addresses[0].fullAddress', '',).toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].state', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].country', '').toUpperCase()} hereby request you to deliver the said cargo to {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].fullAddress', '',).toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].state', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].country', '').toUpperCase()} or to such party as you believe to be or to represent {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].fullAddress', '',).toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].state', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].country', '').toUpperCase()} or to be acting on behalf of {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}, {_get(
                               transitDetails, 'data[0].order.generic.buyer.addresses[0].fullAddress', '',
                             ).toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].state', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].country', '').toUpperCase()} at <span style={{ fontWeight: 'bold' }}>
-                              {_get( transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}</span>without production of the original bill of lading.
+                              {_get( transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}</span> without production of the original bill of lading.
                           </td>
                         </tr>
                         <tr>
@@ -432,7 +432,7 @@ function Index() {
                               For and on behalf of
                             </span>
                             <br />
-                            {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}
+                            {_get(transitDetails, 'data[0].order.generic.buyer.name', '')}
                             <br />
                             <span style={{ fontWeight: 'normal' }}>The Requestor</span>
                           </td>
@@ -446,7 +446,7 @@ function Index() {
                               color: '#111111',
                               lineHeight: '18px',
                               fontWeight: 'bold',
-                              padding: '10px 35px 50px',
+                              padding: '40px 35px 50px',
                             }}
                           >
                             <span style={{ fontWeight: 'normal' }}>Authorised Signatory</span>
