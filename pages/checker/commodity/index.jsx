@@ -45,7 +45,7 @@ function Index() {
       let data = { column: column.id, order: !column.isSortedDesc };
       setSortByState(data);
     }
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&createdAt=${sortByState.order ? '1' : '-1'}`));
+    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
   };
 
   const tableColumns = useMemo(() => [

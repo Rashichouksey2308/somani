@@ -43,6 +43,7 @@ function Index({
                                         {currentPage + 1}
                                         {' '}
                                         out of
+                                        {' '}
                                         {Math.ceil(totalCount / pageLimit)}
                                     </span>
                                     <a

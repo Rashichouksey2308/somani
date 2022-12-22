@@ -118,6 +118,20 @@ function getInspectionPickupRecordsFailed(payload = {}) {
     };
 }
 
+function getCreditCAMPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_CREDIT_CAM_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getCCreditCAMPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_CREDIT_CAM_RECORDS_FAILED,
+        payload,
+    };
+}
+
 export const GetCommodity = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
 
@@ -168,7 +182,6 @@ export const GetCommodityPickupRecords = (payload) => async (dispatch, getState,
         Axios.get(`${API.corebaseUrl}${API.getCommodityPickupRecords}${payload}`, {
             headers: headers,
         }).then((response) => {
-            console.log('commodity :: API response ', response);
             if (response.data.code === 200) {
                 let data = {
                     data: response?.data?.data,
@@ -375,7 +388,6 @@ export const UpdateInspectionRemark = (payload) => async (dispatch, getState, ap
     }
 };
 
-
 export const GetInspectionPickupRecords = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
 
@@ -407,6 +419,40 @@ export const GetInspectionPickupRecords = (payload) => async (dispatch, getState
         });
     } catch (error) {
         dispatch(getInspectionPickupRecordsFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetCreditCAMPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getCreditCAMPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getCreditCAMPickupRecordsSuccess(response.data.data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getCCreditCAMPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Commodity Details';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getCommodityFailed());
         dispatch(setNotLoading());
     }
 };

@@ -17,6 +17,8 @@ const initialState = {
     updateInspectionDetails: {},
     gettingInspectionPickupRecords: false,
     inspectionPickupRecords: {},
+    gettingCreditCAMPickupRecords: false,
+    creditCAMPickupRecords: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -131,6 +133,20 @@ function CheckerReducer(state = initialState, action) {
                 ...state,
                 gettingInspectionPickupRecords: false,
                 inspectionPickupRecords: {},
+            };
+
+        case types.GET_CREDIT_CAM_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingCreditCAMPickupRecords: false,
+                creditCAMPickupRecords: action.payload,
+            };
+
+        case types.GET_CREDIT_CAM_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingCreditCAMPickupRecords: false,
+                creditCAMPickupRecords: {},
             };
 
         default:
