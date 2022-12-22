@@ -245,7 +245,7 @@ const Index = ({
                   </div>
                   {/* <div className='pt-4 d-flex align-items-center'>
                                         <input id="insuranceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges} onChange={onChangeCha} />
-                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges (While transferring the material to customs bonded ware house)</label>
                                     </div> */}
                   <div className="pt-4 d-flex align-items-center">
                     <input
@@ -280,7 +280,7 @@ const Index = ({
                         onChange={onChangeInsurance}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        Marine Insurance ( if applicable)
+                        Marine Insurance (if applicable)
                       </label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
@@ -304,7 +304,7 @@ const Index = ({
                         onChange={onChangeCha}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        Insurance Charges ( While transferring the material to customs bonded ware house )
+                        Insurance Charges (While transferring the material to customs bonded ware house)
                       </label>
                     </div>
                   </div>
@@ -323,19 +323,12 @@ const Index = ({
                         onChange={onChangeLcOpening}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        LC Opening Charges ( on LC value subject to minimum of&nbsp;
-                        <input
+                        LC Opening Charges (on LC value subject to minimum of <input
                           disabled
                           type="text"
                           style={{padding:'0', width:'auto'}}
                           className={`${styles.igpl_para} ${styles.input} input`}
-                          placeholder={`${addPrefixSymbol(
-                            termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase(),
-                          )} ${Number(_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500')).toLocaleString(
-                            _get(termsheetDetails,"commodityDetails.orderCurrency","")=="INR"?"en-In":"en-En",
-                          )}`}
-                        />
-                        )
+                          placeholder={`${addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase(),)} ${Number(_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500')).toLocaleString(_get(termsheetDetails,"commodityDetails.orderCurrency","")=="INR"?"en-In":"en-En",)}`}/>)
                       </label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
@@ -523,7 +516,7 @@ const Index = ({
                         onChange={onChangeDutyAndTaxes}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        Tax Collected at Source ( if applicable )
+                        Tax Collected at Source (if applicable)
                       </label>
                     </div>
                   </div>
