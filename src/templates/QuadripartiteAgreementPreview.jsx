@@ -179,8 +179,7 @@ export default function QuadripartiteAgreementPreview(data) {
                       paddingBottom:'16px'
                     }}
                   >
-                    WHEREAS {data.shortbuyer}&nbsp;has appointed the Stevedore for handling the vessel as
-                    detailed in <strong>Schedule I</strong> at Discharge Port. The complete details of vessel, Discharge port and the plot allotted to&nbsp; {data.shortbuyer}&nbsp;are mentioned at Schedule I.
+                    WHEREAS {data.shortbuyer} has appointed the Stevedore for handling the vessel as detailed in <strong>Schedule I</strong> at Discharge Port. The complete details of vessel, Discharge port and the plot allotted to {data.shortbuyer} are mentioned at Schedule I.
                   </span>
                 </td>
               </tr>
@@ -235,8 +234,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           paddingBottom:'16px'
                         }}
                       >
-                        <span style={{display:'inline-block', marginLeft:'-18px'}}>1. &nbsp; </span>The Goods shall be stored at the Plot allotted to&nbsp;{data.shortbuyer} by the Discharge Port authorities and shall be kept under the control and custody of CHA/Stevedore on behalf of&nbsp;
-                        {data.shortbuyer}. All dispatches from the plot shall be done by CHA/Stevedore solely on the basis of Written Delivery Orders issued by&nbsp;{data.shortbuyer}.
+                        <span style={{display:'inline-block', marginLeft:'-18px'}}>1. &nbsp; </span>The Goods shall be stored at the Plot allotted to {data.shortbuyer} by the Discharge Port authorities and shall be kept under the control and custody of CHA/Stevedore on behalf of {data.shortbuyer}. All dispatches from the plot shall be done by CHA/Stevedore solely on the basis of Written Delivery Orders issued by {data.shortbuyer}.
                       </span>
                     </li>
                     <li>
@@ -247,8 +245,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           color: '#000000',
                           display:'block'
                         }}
-                      >
-                        
+                      >                        
                         <span style={{display:'inline-block', marginLeft:'-18px'}}>2. &nbsp; </span>Scope of Work of CHA/Stevedore:
                       </span>
                       <span
@@ -270,7 +267,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           display:'block'
                         }}
                       >
-                        a) arranging plot allotment in the name of {data.shortbuyer} from the discharge Port authorities to store&nbsp;{data.shortbuyer}'s cargo,
+                        a) arranging plot allotment in the name of {data.shortbuyer} from the discharge Port authorities to store {data.shortbuyer}'s cargo,
                       </span>
                       <span
                         style={{
@@ -427,8 +424,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           paddingBottom:'16px'
                         }}
                       >
-                        <span style={{display:'inline-block', marginLeft:'-18px'}}>3. &nbsp; </span>Safekeeping and Security of the Goods-Proper safekeeping and security of Goods shall be the joint and several responsibilities of the Associate Buyer and Stevedore. The Associate Buyer and Stevedore shall provide round the clock security guards at the Storage Plot allotted at Discharge Port, where Goods shall be stored.&nbsp;
-                        {data.shortbuyer} shall in no way be responsible or liable for any loss or damage to the Goods for any reason whatsoever including shortage, theft or mix up.
+                        <span style={{display:'inline-block', marginLeft:'-18px'}}>3. &nbsp; </span>Safekeeping and Security of the Goods-Proper safekeeping and security of Goods shall be the joint and several responsibilities of the Associate Buyer and Stevedore. The Associate Buyer and Stevedore shall provide round the clock security guards at the Storage Plot allotted at Discharge Port, where Goods shall be stored. {data.shortbuyer} shall in no way be responsible or liable for any loss or damage to the Goods for any reason whatsoever including shortage, theft or mix up.
                       </span>
                     </li>
                     <li>
@@ -442,7 +438,7 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         <span style={{display:'inline-block', marginLeft:'-18px'}}>4. &nbsp; </span>Bill of Entry to be filed in the name {data.shortbuyer}. Payment of customs duty, IGST,
-                        energy cess, Wharfage, CIMS and all other statutory charges shall be paid by the Associate Buyer to&nbsp;{data.shortbuyer} in advance at the time of Custom Clearance. The Associate Buyer shall pay Port Charges directly to port or through the Stevedore who will take care of the payments to Port and raise bills on {data?.shortbuyer} for this. A copy of the same has to be furnished to{data?.shortbuyer}. Any penalty/demurrage on account of delayed payment shall be solely to the account of the Associate Buyer.
+                        energy cess, Wharfage, CIMS and all other statutory charges shall be paid by the Associate Buyer to {data.shortbuyer} in advance at the time of Custom Clearance. The Associate Buyer shall pay Port Charges directly to port or through the Stevedore who will take care of the payments to Port and raise bills on {data?.shortbuyer} for this. A copy of the same has to be furnished to {data?.shortbuyer}. Any penalty/demurrage on account of delayed payment shall be solely to the account of the Associate Buyer.
                       </span>
                     </li>
                     <li>
@@ -495,7 +491,7 @@ export default function QuadripartiteAgreementPreview(data) {
                           paddingBottom:'16px'
                         }}
                       >
-                        <span style={{display:'inline-block', marginLeft:'-18px'}}>8. &nbsp; </span>Scanned copy of RR shall be furnished by Stevedore to&nbsp;{data.shortbuyer} as well as to Associate Buyer as soon as it is issued after loading. The original RR shall be sent by Stevedore to the Associate Buyer for taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
+                        <span style={{display:'inline-block', marginLeft:'-18px'}}>8. &nbsp; </span>Scanned copy of RR shall be furnished by Stevedore to {data.shortbuyer} as well as to Associate Buyer as soon as it is issued after loading. The original RR shall be sent by Stevedore to the Associate Buyer for taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
                       </span>
                     </li>
                     <li>
@@ -508,8 +504,8 @@ export default function QuadripartiteAgreementPreview(data) {
                           paddingBottom:'16px'
                         }}
                       >
-                        <span style={{display:'inline-block', marginLeft:'-18px'}}>9. &nbsp; </span>The Associate Buyer will arrange comprehensive storage insurance against all risks for <strong>110%</strong> of the value of goods. The insurance policy will indicate&nbsp;
-                        {data.shortbuyer} or its nominated Bank (as per&nbsp;{data.shortbuyer}'s discretion), as sole beneficiary. The Associate Buyer shall inform Stevedore the details of the goods for which {data.shortbuyer}/IGI's nominated Bank shall be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall
+                        <span style={{display:'inline-block', marginLeft:'-18px'}}>9. &nbsp; </span>The Associate Buyer will arrange comprehensive storage insurance against all risks for <strong>110%</strong> of the value of goods. The insurance policy will indicate 
+                        {data.shortbuyer} or its nominated Bank (as per {data.shortbuyer}'s discretion), as sole beneficiary. The Associate Buyer shall inform Stevedore the details of the goods for which {data.shortbuyer}/IGI's nominated Bank shall be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall
                         be claimed and pursued till realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and {data?.shortbuyer} against all risks.
                       </span>
                     </li>
@@ -552,8 +548,8 @@ export default function QuadripartiteAgreementPreview(data) {
                         }}
                       >
                         <span style={{display:'inline-block', marginLeft:'-20px'}}>12. &nbsp; </span>CHA/Stevedore shall at all times follow and be bound by the instructions solely of 
-                        {data.shortbuyer} with regard to delivery of the Goods. Stevedore confirms and undertakes that it shall not release the Goods without the written Release Order of&nbsp;{data.shortbuyer}. Stevedore shall have no objection whatsoever, if {data.buyer} 
-                        instructs it to deliver the Goods to any third party so nominated by them. The instructions of the&nbsp;{data.buyer} shall be followed forthwith, without any objection, hindrance or delay whatsoever.
+                        {data.shortbuyer} with regard to delivery of the Goods. Stevedore confirms and undertakes that it shall not release the Goods without the written Release Order of {data.shortbuyer}. Stevedore shall have no objection whatsoever, if {data.buyer} 
+                        instructs it to deliver the Goods to any third party so nominated by them. The instructions of the {data.buyer} shall be followed forthwith, without any objection, hindrance or delay whatsoever.
                       </span>
                     </li>
                     <li>
@@ -708,7 +704,6 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          
                           {data.placeOfExecution}
                         </span>
                       </td>
@@ -817,7 +812,6 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          
                           {data.associateBuyerGst}
                         </span>
                       </td>
@@ -854,7 +848,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          V {data.associateBuyerPan}
+                          {data.associateBuyerPan}
                         </span>
                       </td>
                     </tr>
@@ -989,8 +983,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          {data.stevedoreAddress?.fullAddress},{data.stevedoreAddress?.city}
-                          {data.stevedoreAddress?.country}, {data.stevedoreAddress?.pinCode}
+                          {data.stevedoreAddress?.fullAddress}, {data.stevedoreAddress?.city}, {data.stevedoreAddress?.country}, {data.stevedoreAddress?.pinCode}
                         </span>
                       </td>
                     </tr>
@@ -1089,7 +1082,6 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          
                           {data.cma}
                         </span>
                       </td>
@@ -1126,8 +1118,7 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          {data.cmaAddress?.fullAddress}, {data.cmaAddress?.city} {data.cmaAddress?.country}, 
-                          {data.cmaAddress?.pinCode}
+                          {data.cmaAddress?.fullAddress}, {data.cmaAddress?.city}, {data.cmaAddress?.country}, {data.cmaAddress?.pinCode}
                         </span>
                       </td>
                     </tr>
@@ -1226,7 +1217,6 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          
                           {data.detailsOfComm}
                         </span>
                       </td>
@@ -1301,7 +1291,6 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          
                           {data.supplier}
                         </span>
                       </td>
@@ -1410,7 +1399,6 @@ export default function QuadripartiteAgreementPreview(data) {
                             display:'block'
                           }}
                         >
-                          
                           {data.dischargePort}, India
                         </span>
                       </td>

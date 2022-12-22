@@ -84,17 +84,14 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
         <div className={`row`}>
           <Col md={4} className="offset-md-8">
             <p className="text_sales text-left">
-              <strong>(Associate Buyer)</strong>
+              <strong>{data.associateBuyer}</strong>
+              {/* <strong>(Associate Buyer)</strong> */}
             </p>
           </Col>
         </div>
         <div className={`row my-4`}>
           <Col md={8} className='align-self-end'>
-            <p className="text_sales text-left">
-              <strong>
-                Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}
-              </strong>
-            </p>
+            <p className="text_sales text-left mt-5 pt-4"><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
           </Col>
           <Col md={4}>
             <p className="text_sales m-0">
@@ -103,7 +100,7 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
               data?.associateBuyerAuthorized?.map((val, index) => {
                 return (
                   <>
-                    <p className='text-left'>                      
+                    <p className='text-left mt-5 pt-4'>                
                       <strong>Name: {val.name}</strong>
                       <br/>
                       <strong>Designation: {val.designation}</strong>

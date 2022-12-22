@@ -214,7 +214,7 @@ export default function AssignmentLetter(data) {
 
         <div className={`row`}>
           <Col md={8}>
-            <p className="text_sales text-left m-0">
+            <p className="text_sales text-left mt-5 pt-4 m-0">
               <strong>.................................................</strong>
             </p>
             <p className="text_sales text-left">
@@ -222,7 +222,7 @@ export default function AssignmentLetter(data) {
             </p>
           </Col>
           <Col md={4}>
-            <p className="text_sales text-left m-0">
+            <p className="text_sales text-left mt-5 pt-4 m-0">
               <strong>.................................................</strong>
             </p>
             <p className="text_sales text-left">
@@ -230,7 +230,7 @@ export default function AssignmentLetter(data) {
             </p>
           </Col>
           <Col md={12}>
-            <p className="text_sales text-left m-0">
+            <p className="text_sales text-left mt-5 pt-4 m-0">
               <strong>.................................................</strong>
             </p>
             <p className="text_sales text-left">
