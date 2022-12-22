@@ -33,6 +33,20 @@ function updateCommodityRemarkFailed(payload = {}) {
     }
 }
 
+function getCommodityPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_COMMODITY_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getCommodityPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_COMMODITY_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
+
 function updateInspectionRemarkSuccess(payload) {
     return {
         type: types.UPDATE_INSPECTION_SUCCESSFULL,
@@ -104,7 +118,6 @@ function getInspectionPickupRecordsFailed(payload = {}) {
     };
 }
 
-
 export const GetCommodity = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
 
@@ -123,7 +136,6 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
         }).then((response) => {
             if (response.data.code === 200) {
                 dispatch(getCommoditySuccess(response.data.data[0]));
-
                 dispatch(setNotLoading());
             } else {
                 dispatch(getCommodityFailed(response.data.data));
@@ -136,6 +148,45 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
         });
     } catch (error) {
         dispatch(getCommodityFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetCommodityPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getCommodityPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            console.log('commodity :: API response ', response);
+            if (response.data.code === 200) {
+                let data = {
+                    data: response?.data?.data,
+                    total: response?.data?.total,
+                }
+                dispatch(getCommodityPickupRecordsSuccess(data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getCommodityPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Commodity Records';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getCommodityPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };

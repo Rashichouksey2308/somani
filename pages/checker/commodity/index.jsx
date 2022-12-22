@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
-import { GetVendorPickupRecords } from '../../../src/redux/checker/action';
+import { GetCommodityPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
   const dispatch = useDispatch();
-
+  const { commodityPickupRecords } = useSelector((state) => state.checker);
+  
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
@@ -20,18 +21,18 @@ function Index() {
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Checker');
-      sessionStorage.setItem('loadedSubPage', `Vendor`);
+      sessionStorage.setItem('loadedSubPage', `Commodity`);
       sessionStorage.setItem('openList', 6);
     }
   }, []);
 
   useEffect(() => {
-    dispatch(setPageName('checker-vendor'));
+    dispatch(setPageName('checker-commodity'));
     dispatch(setDynamicName(null));
   });
 
   useEffect(() => {
-    dispatch(GetVendorPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
   const handleSort = (column) => {
@@ -44,18 +45,18 @@ function Index() {
       let data = { column: column.id, order: !column.isSortedDesc };
       setSortByState(data);
     }
-    dispatch(GetVendorPickupRecords(`?page=${currentPage}&createdAt=${sortByState.order ? '1' : '-1'}`));
+    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&createdAt=${sortByState.order ? '1' : '-1'}`));
   };
 
   const tableColumns = useMemo(() => [
     {
-      Header: 'Vendor Type',
-      accessor: 'vendorDetails.vendorType',
+      Header: 'Commodity',
+      accessor: 'Commodity',
       disableSortBy: true,
     },
     {
-      Header: 'Vendor Name',
-      accessor: 'vendorDetails.vendor',
+      Header: 'Chapter Name',
+      accessor: 'Chapter_Name',
       disableSortBy: true,
       Cell: ({ cell: { value }, row: { original } }) => (
         <span
@@ -101,13 +102,11 @@ function Index() {
     ])
   };
 
-  const { vendorPickupRecords } = useSelector((state) => state.checker);
-
-  const handleRoute = (vendor) => {
-    sessionStorage.setItem('checkerVendorId', vendor?._id);
-    sessionStorage.setItem('checkerVendorName', vendor?.company?.companyName);
-    dispatch(setDynamicName(vendor?.company?.companyName));
-    Router.push('/checker/vendor/id');
+  const handleRoute = (commodity) => {
+    sessionStorage.setItem('checkerCommodityId', commodity?._id);
+    sessionStorage.setItem('checkerCommodityName', commodity?.company?.companyName);
+    dispatch(setDynamicName(commodity?.company?.companyName));
+    Router.push('/checker/commodity/id');
   };
 
   return (
@@ -120,22 +119,23 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Vendor</h1>
+            <h1 className={styles.heading}>Commodity</h1>
           </div>
         </div>
 
         {/* Queue Table */}
         <Table
-          tableHeading="Checker Vendor"
+          tableHeading="Commodity"
           currentPage={currentPage}
-          totalCount={vendorPickupRecords?.totalCount}
+          totalCount={commodityPickupRecords?.total}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={vendorPickupRecords?.data || []}
+          data={commodityPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
           serverSortEnabled={true}
+          totalCountEnable={true}
           handleSort={handleSort}
           sortByState={sortByState}
         />
