@@ -150,6 +150,8 @@ export default {
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
+  getMasterUsersQueueRecords: 'user-master/filterUser',
+  filterUsersQueue: 'user-master/searchUser',
 
 
   //Checker

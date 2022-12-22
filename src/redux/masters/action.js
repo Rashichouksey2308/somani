@@ -2,6 +2,44 @@ import * as types from './actionType';
 import Axios from 'axios';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import { setIsLoading, setNotLoading } from '../Loaders/action';
+
+function getMasterUsersQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_USERS_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterUsersQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_USERS_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+// ******** Search & Filter Users Queue  ***********/////
+
+function filterUsersQueue() {
+  return {
+    type: types.FILTER_USERS_QUEUE,
+  };
+}
+
+function filterUsersQueueSuccess(payload) {
+  return {
+    type: types.FILTER_USERS_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterUsersQueueFailed() {
+  return {
+    type: types.FILTER_USERS_QUEUE_FAILED,
+  };
+}
+
 
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
@@ -273,5 +311,74 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
       type: types.GET_PINCODES_MASTERS_SUCCESS,
       payload: [],
     });
+  }
+};
+
+export const GetMasterUsersQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterUsersQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterUsersQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterUsersQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Inspection Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterUsersQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterUsersQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterUsersQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterUsersQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterUsersQueueFailed(response.data));
+        const toastMessage = 'Search Users Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterUsersQueueFailed());
+    const toastMessage = 'Search Leads request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
   }
 };

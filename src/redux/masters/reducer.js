@@ -11,6 +11,10 @@ const initialState = {
   getBanksMasterData: [],
   getBranchesMasterData: [],
   getPincodesMasterData: [],
+  usersQueueRecords: [],
+  gettingUsersQueueRecords: false,
+  filteringUsersQueue: false,
+  filteredUsersQueue: [],
 };
 
 function MastersReducer(state = initialState, action) {
@@ -173,6 +177,40 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getPincodesMasterData: [],
+      };
+
+    case types.GET_MASTER_USERS_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingUsersQueueRecords: false,
+        usersQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_USERS_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingUsersQueueRecords: false,
+        usersQueueRecords: {},
+      };
+
+    case types.FILTER_USERS_QUEUE:
+      return {
+        ...state,
+        filteringUsersQueue: true,
+      };
+
+    case types.FILTER_USERS_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringUsersQueue: false,
+        filteredUsersQueue: action.payload,
+      };
+
+    case types.FILTER_USERS_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringUsersQueue: false,
+        filteredUsersQueue: null,
       };
 
     default:
