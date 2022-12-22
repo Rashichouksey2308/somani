@@ -5,7 +5,11 @@ const initialState = {
     commodityDetails: {},
     updatingCommodityRemarks: false,
     updateCommodityDetails: {},
+    gettingCommodityPickupRecords: false,
+    commodityPickupRecords: {},
     gettingUserDetails: false,
+    gettingVendorPickupRecords: false,
+    vendorPickupRecords: {},
     userDetails: {},
     gettingInspectionDetails: false,
     inspectionDetails: {},
@@ -13,6 +17,8 @@ const initialState = {
     updateInspectionDetails: {},
     gettingInspectionPickupRecords: false,
     inspectionPickupRecords: {},
+    gettingCreditCAMPickupRecords: false,
+    creditCAMPickupRecords: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -45,11 +51,39 @@ function CheckerReducer(state = initialState, action) {
                 updateCommodityDetails: {},
             };
 
+        case types.GET_COMMODITY_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingCommodityPickupRecords: false,
+                commodityPickupRecords: action.payload,
+            };
+
+        case types.GET_COMMODITY_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingCommodityPickupRecords: false,
+                commodityPickupRecords: {},
+            };
+
         case types.GET_USER_SUCCESSFULL:
             return {
                 ...state,
                 gettingUserDetails: false,
                 userDetails: action.payload,
+            };
+
+        case types.GET_VENDOR_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingVendorPickupRecords: false,
+                vendorPickupRecords: action.payload,
+            };
+
+        case types.GET_VENDOR_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingVendorPickupRecords: false,
+                vendorPickupRecords: {},
             };
 
         case types.GET_USER_FAILED:
@@ -99,6 +133,20 @@ function CheckerReducer(state = initialState, action) {
                 ...state,
                 gettingInspectionPickupRecords: false,
                 inspectionPickupRecords: {},
+            };
+
+        case types.GET_CREDIT_CAM_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingCreditCAMPickupRecords: false,
+                creditCAMPickupRecords: action.payload,
+            };
+
+        case types.GET_CREDIT_CAM_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingCreditCAMPickupRecords: false,
+                creditCAMPickupRecords: {},
             };
 
         default:

@@ -150,6 +150,8 @@ export default {
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
+  getMasterUsersQueueRecords: 'user-master/filterUser',
+  filterUsersQueue: 'user-master/searchUser',
 
   //Checker
   getCommodityDetails: '/commodity/commodity/',
@@ -161,4 +163,7 @@ export default {
 
   //Masters
   getAllCommodity: '/commodity/commodityRes',
+  getCommodityPickupRecords: '/commodity/checker-pending-requests',
+  getVendorPickupRecords: '/vendor/checker-pending-requests',
+  getCreditCAMPickupRecords: '/lead/cam/getCamLeads',
 };

@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
-import { GetCreditCAMPickupRecords } from '../../../src/redux/checker/action';
+import { GetCommodityPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
   const dispatch = useDispatch();
-  const { creditCAMPickupRecords } = useSelector((state) => state.checker);
-
+  const { commodityPickupRecords } = useSelector((state) => state.checker);
+  
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
@@ -21,18 +21,18 @@ function Index() {
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Checker');
-      sessionStorage.setItem('loadedSubPage', `Credit CAM`);
+      sessionStorage.setItem('loadedSubPage', `Commodity`);
       sessionStorage.setItem('openList', 6);
     }
   }, []);
 
   useEffect(() => {
-    dispatch(setPageName('checker-credit-cam'));
+    dispatch(setPageName('checker-commodity'));
     dispatch(setDynamicName(null));
   });
 
   useEffect(() => {
-    dispatch(GetCreditCAMPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
   const handleSort = (column) => {
@@ -45,18 +45,18 @@ function Index() {
       let data = { column: column.id, order: !column.isSortedDesc };
       setSortByState(data);
     }
-    dispatch(GetCreditCAMPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
+    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
   };
 
   const tableColumns = useMemo(() => [
     {
-      Header: 'Company Name',
-      accessor: 'company.companyName',
+      Header: 'Commodity',
+      accessor: 'Commodity',
       disableSortBy: true,
     },
     {
-      Header: 'Created By',
-      accessor: 'createdBy.fName',
+      Header: 'Chapter Name',
+      accessor: 'Chapter_Name',
       disableSortBy: true,
       Cell: ({ cell: { value }, row: { original } }) => (
         <span
@@ -102,11 +102,11 @@ function Index() {
     ])
   };
 
-  const handleRoute = (creditCAM) => {
-    sessionStorage.setItem('checkerCreditCAMId', creditCAM?._id);
-    sessionStorage.setItem('checkerCreditCAMName', creditCAM?.company?.companyName);
-    dispatch(setDynamicName(creditCAM?.company?.companyName));
-    Router.push('/checker/credit-cam/id');
+  const handleRoute = (commodity) => {
+    sessionStorage.setItem('checkerCommodityId', commodity?._id);
+    sessionStorage.setItem('checkerCommodityName', commodity?.company?.companyName);
+    dispatch(setDynamicName(commodity?.company?.companyName));
+    Router.push('/checker/commodity/id');
   };
 
   return (
@@ -119,22 +119,23 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Credit CAM</h1>
+            <h1 className={styles.heading}>Commodity</h1>
           </div>
         </div>
 
         {/* Queue Table */}
         <Table
-          tableHeading="Credit CAM"
+          tableHeading="Commodity"
           currentPage={currentPage}
-          totalCount={creditCAMPickupRecords?.totalCount}
+          totalCount={commodityPickupRecords?.total}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={creditCAMPickupRecords?.data || []}
+          data={commodityPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
           serverSortEnabled={true}
+          totalCountEnable={true}
           handleSort={handleSort}
           sortByState={sortByState}
         />

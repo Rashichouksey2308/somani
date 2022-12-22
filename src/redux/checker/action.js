@@ -33,6 +33,20 @@ function updateCommodityRemarkFailed(payload = {}) {
     }
 }
 
+function getCommodityPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_COMMODITY_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getCommodityPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_COMMODITY_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
+
 function updateInspectionRemarkSuccess(payload) {
     return {
         type: types.UPDATE_INSPECTION_SUCCESSFULL,
@@ -45,6 +59,20 @@ function updateInspectionRemarkFailed(payload = {}) {
         type: types.UPDATE_INSPECTION_FAILED,
         payload
     }
+}
+
+function getVendorPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_VENDOR_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getVendorPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_VENDOR_PICKUP_RECORDS_FAILED,
+        payload,
+    };
 }
 
 function getUserSuccess(payload) {
@@ -90,6 +118,19 @@ function getInspectionPickupRecordsFailed(payload = {}) {
     };
 }
 
+function getCreditCAMPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_CREDIT_CAM_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getCCreditCAMPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_CREDIT_CAM_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
 
 export const GetCommodity = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
@@ -109,7 +150,6 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
         }).then((response) => {
             if (response.data.code === 200) {
                 dispatch(getCommoditySuccess(response.data.data[0]));
-
                 dispatch(setNotLoading());
             } else {
                 dispatch(getCommodityFailed(response.data.data));
@@ -122,6 +162,44 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
         });
     } catch (error) {
         dispatch(getCommodityFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetCommodityPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getCommodityPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                let data = {
+                    data: response?.data?.data,
+                    total: response?.data?.total,
+                }
+                dispatch(getCommodityPickupRecordsSuccess(data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getCommodityPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Commodity Records';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getCommodityPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };
@@ -199,6 +277,44 @@ export const GetUserDetails = (payload) => async (dispatch, getState, api) => {
     }
 };
 
+export const GetVendorPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getVendorPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                let data = {
+                    data: response?.data?.data?.data,
+                    totalCount: response?.data?.data?.total,
+                }
+                dispatch(getVendorPickupRecordsSuccess(data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getVendorPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Vendor Records';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getVendorPickupRecordsFailed());
+        dispatch(setNotLoading());
+    }
+};
+
 export const GetInspectionDetails = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
 
@@ -272,7 +388,6 @@ export const UpdateInspectionRemark = (payload) => async (dispatch, getState, ap
     }
 };
 
-
 export const GetInspectionPickupRecords = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
 
@@ -304,6 +419,40 @@ export const GetInspectionPickupRecords = (payload) => async (dispatch, getState
         });
     } catch (error) {
         dispatch(getInspectionPickupRecordsFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetCreditCAMPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getCreditCAMPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getCreditCAMPickupRecordsSuccess(response.data.data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getCCreditCAMPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Commodity Details';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getCCreditCAMPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };
