@@ -130,7 +130,16 @@ export default function Index(props) {
                         return (
                           <>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
-                              <div className="d-flex">
+                              {val.status=="DO Canceled"?
+                              <>
+                                  <div className={`${styles.label} text`}>Quantity Released</div>
+                                  <span className={styles.value}>
+                                   {props.releaseOrderData[index].orderNumber}
+                                  </span>
+                                </>
+                              :
+                              <>
+                                <div className="d-flex">
                                 <select
                                   value={props.releaseOrderData[index].orderNumber}
                                   name="orderNumber"
@@ -157,8 +166,23 @@ export default function Index(props) {
                                   alt="Search"
                                 />
                               </div>
+                              </>
+                              }
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
+                              {val.status=="DO Canceled"
+                              ? <>
+                                  <div className={`${styles.label} text`}>Quantity Released</div>
+                                  <span className={styles.value}>
+                                    {val.Quantity
+                                      ? Number(val.Quantity)?.toLocaleString('en-In') +
+                                        ' ' +
+                                        _get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')
+                                      : ''}
+                                  </span>
+                                </>
+                              :
+                              <>
                               {val.isDelete ? (
                                 <div className="d-flex">
                                   <input
@@ -198,6 +222,9 @@ export default function Index(props) {
                                   </span>
                                 </>
                               )}
+                              </>
+                              }
+                              
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order No.</div>
