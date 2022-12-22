@@ -18,7 +18,6 @@ function Index() {
   const dispatch = useDispatch();
 
   const { searchedLeads } = useSelector((state) => state.order);
-  console.log('searchedLeads---', searchedLeads);
 
   const { getCommodityMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
