@@ -9,7 +9,8 @@ import { GetCommodityPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
   const dispatch = useDispatch();
-
+  const { commodityPickupRecords } = useSelector((state) => state.checker);
+  
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
@@ -100,9 +101,6 @@ function Index() {
       }
     ])
   };
-
-
-  const { commodityPickupRecords } = useSelector((state) => state.checker);
 
   const handleRoute = (commodity) => {
     sessionStorage.setItem('checkerCommodityId', commodity?._id);
