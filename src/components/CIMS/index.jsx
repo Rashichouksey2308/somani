@@ -104,38 +104,56 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     setCimsDetails(newArray.slice());
   };
 
+  // const onChangeCims = (e, index) => {
+  //   const name = e.target.id;
+  //   let value = e.target.value;
+  //   console.log(value,"cimsCharges")
+  //    let quan=  Number(value)
+  //    if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
+  //      quan = Number(quan)*0.001
+  //      quan= quan*1
+  //     }else{
+  //       quan= Number(quan)*1
+  //     }
+  //   if(Number(quan)>100000){
+  //             quan=100000
+  //   }
+
+  //   setCimsDetails((prevState) => {
+  //     const newState = prevState.map((obj, i) => {
+  //       if (i == index) {
+  //         if(name=="quantity"){
+            
+  //      return {
+  //           ...obj,
+  //           [name]: value,
+  //           cimsCharges:quan
+
+  //         };
+  //         }else{
+  //            return {
+  //           ...obj,
+  //           [name]: value,
+  //         };
+  //         }
+         
+  //       }
+  //       return obj;
+  //     });
+  //     return newState;
+  //   });
+  // };
   const onChangeCims = (e, index) => {
     const name = e.target.id;
-    let value = e.target.value;
-    console.log(value,"cimsCharges")
-     let quan=  Number(value)
-     if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
-       quan = Number(quan)*0.001
-       quan= quan*1
-      }else{
-        quan= Number(quan)*1
-      }
-    if(Number(quan)>100000){
-              quan=100000
-    }
-
+    const value = e.target.value;
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          if(name=="quantity"){
-            
-       return {
-            ...obj,
-            [name]: value,
-            cimsCharges:quan
-
-          };
-          }else{
              return {
             ...obj,
             [name]: value,
           };
-          }
+          
          
         }
         return obj;
@@ -143,7 +161,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       return newState;
     });
   };
-
   const saveDate = (startDate, name, index) => {
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
