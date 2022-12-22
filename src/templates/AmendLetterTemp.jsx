@@ -14,6 +14,28 @@ let regex = /\([^\)]*\)/;
 let data = string.replace(regex, "");;
 return data
 }
+const returnValue = (value) => {
+  if (value.dropDownValue === '(32B) Currency Code & Amount') {
+    return `${lcModuleData?.order?.orderCurrency}  ${Number(
+      lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+    )?.toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  } else if (value.dropDownValue === '(43T) Transhipments') {
+    return  value.newValue == 'Yes'
+      ? 'Allowed'
+      : 'Not Allowed';
+  } else if (value.dropDownValue === '(39A) Tolerance (+/-) Percentage') {
+    return `(+/-) ${value.newValue}  %`;
+  } else if (value.dropDownValue === '(31D) Date Of Expiry'||value.dropDownValue === '(44C) Latest Date Of Shipment') {
+    return moment(value.newValue).format('DD-MM-YYYY');
+  } else if (value.dropDownValue === '(42C) Draft At' && lcData.atSight == 'Usuance') {
+    return `Usuance - ${value.newValue} days`;
+  } else {
+    return value.newValue.toUpperCase()
+  }
+};
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -224,7 +246,7 @@ return data
                             display: 'block'
                           }}
                         >
-                          {val?.newValue?.toUpperCase()}
+                          {returnValue(val)}
                         </span>
                       </td>
                     </tr>

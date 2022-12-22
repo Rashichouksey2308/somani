@@ -15,6 +15,7 @@ import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action
 import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
 import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
 import styles from './payment.module.scss';
+import {handleErrorToast} from '@/utils/helpers/global'
 
 function Index() {
   const dispatch = useDispatch();
@@ -394,6 +395,23 @@ function Index() {
     setLastMileDelivery(val);
   };
 
+  const BalanceQuantity = () => {
+    let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
+    if (boe !== 0) {
+      let boeTotalQuantity = boe?.reduce((accumulator, object) => {
+        return accumulator + Number(object.boeDetails.invoiceQuantity);
+      }, 0);
+
+      deliveryOrder.forEach((item) => {
+        console.log("itemm",item)
+        if(item.status !== "DO Canceled"){
+         boeTotalQuantity = boeTotalQuantity - Number(item.Quantity); 
+        } 
+      });
+      return boeTotalQuantity;
+    }
+  };
+
   useEffect(() => {
     let limit = DOlimit;
     filteredDOArray.forEach((item, index) => {
@@ -413,16 +431,19 @@ function Index() {
         if(releaseDetail[i].orderNumber==val.orderNumber){
         number=Number(releaseDetail[i].netQuantityReleased);
         }
+        if(val.orderNumber == 'Not Available'){
+           number = BalanceQuantity()
+        }
 
         }
-        console.log(val.Quantity,number,"val.Quantity>Number")
-        if(Number(val.Quantity)>number){
-        let  toastMessage = `Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order`;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-
-        }
+        console.log(Number(val.Quantity),number,deliveryOrder,"val.Quantity>Number")
+        if(val.orderNumber !== 'Not Available' && Number(val.Quantity)>number){
+          handleErrorToast('Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order')
         return
+        }
+        if(val.orderNumber === 'Not Available' && 0 > number){
+          handleErrorToast('Quantity Release Cannot Be Greater Than balance Quantity')
+          return
         }
         if(type=="Save"){
         val.deliveryOrderDate= new Date() 
@@ -451,22 +472,7 @@ function Index() {
 
 
 
-  const BalanceQuantity = () => {
-    let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
-    if (boe !== 0) {
-      let boeTotalQuantity = boe?.reduce((accumulator, object) => {
-        return accumulator + Number(object.boeDetails.invoiceQuantity);
-      }, 0);
 
-      deliveryOrder.forEach((item) => {
-        console.log("itemm",item)
-        if(item.status !== "DO Cancelled"){
-         boeTotalQuantity = boeTotalQuantity - Number(item.Quantity); 
-        } 
-      });
-      return boeTotalQuantity;
-    }
-  };
 
   const returnLiftingData = (number) => {
     let datainNeed = {};
@@ -680,11 +686,17 @@ function Index() {
    deliveryOrder.forEach((item, index) => {
      console.log(item,"itemitem")
     if(item.orderNumber==orderNumber){
+      if(item.status == 'DO Canceled'){
+         return false
+        }
      delivery = delivery+Number(item.Quantity)
     }
     
   });
+  
   console.log(delivery,release,"delivery>=release")
+
+  
     if(delivery>=release){
       return true
     }else{
