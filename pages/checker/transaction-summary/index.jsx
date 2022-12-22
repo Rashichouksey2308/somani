@@ -585,11 +585,7 @@ function Index() {
         disableSortBy: true,
         Cell: ({ row }) => {
           return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-            <a className="cursor-pointer"
-              onClick={() =>
-                handleRoute(row?.original)
-              }
-            >
+            <a className="cursor-pointer">
               <Image
                 height="20px"
                 width="20px"
