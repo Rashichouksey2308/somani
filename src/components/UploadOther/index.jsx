@@ -104,8 +104,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
   /** It deletes the document at the index.*/
   const DocDlt = (index) =>    setFilteredDoc([...filteredDoc.slice(0, index), ...filteredDoc.slice(index + 1)]);
 
-  console.log(filteredDoc,'filteredDoc')
-
   const handleNewDocModule = ({ target: { value } }) => {
     if (value === 'others') return setManualDocModule(false);
     document.getElementById('otherDocName').value = '';

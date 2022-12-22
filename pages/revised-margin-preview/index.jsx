@@ -21,7 +21,6 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney);
 
   const marginData = _get(margin, 'data.data[0]', {});
-  console.log(marginData,'marginData')
 
   useEffect(() => {
     let id = sessionStorage.getItem('marginId');
