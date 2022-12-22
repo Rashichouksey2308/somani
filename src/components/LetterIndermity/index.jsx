@@ -326,8 +326,7 @@ function Index({ TransitDetails }) {
             </div>
 
             <div>
-              Designation: 
-              <input
+              Designation: <input
                 className="mt-2 pl-3 input"
                 value={loi.authorizedSignatory.designation}
                 onChange={(e) => {

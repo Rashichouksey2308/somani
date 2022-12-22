@@ -288,9 +288,9 @@ function Index() {
                                     paddingTop: '10px',
                                   }}
                                 >
-                                  Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413
+                                  Phones (91)-(11)-4315-8000, 237&2022, 2338-7413
                                   <br />
-                                  Fax : (91) (1 1) 2378-2806
+                                  Fax : (91) (11) 2378-2806
                                   <br />
                                   E-mail : indogerman@somanigroup.com
                                 </td>
@@ -454,8 +454,7 @@ function Index() {
                             <span style={{ fontWeight: 'normal' }}>Name: </span>
                             {_get(transitDetails, 'data[0].LOI.authorizedSignatory.name', '')}
                             <br />
-                            <span style={{ fontWeight: 'normal' }}>Designation:</span>
-                            {_get(transitDetails, 'data[0].LOI.authorizedSignatory.designation', '')}
+                            <span style={{ fontWeight: 'normal' }}>Designation:</span> {_get(transitDetails, 'data[0].LOI.authorizedSignatory.designation', '')}
                           </td>
                         </tr>
                         <tr>
@@ -511,9 +510,9 @@ function Index() {
                                     paddingTop: '10px',
                                   }}
                                 >
-                                  Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413
+                                  Phones (91)-(11)-4315-8000, 237&2022, 2338-7413
                                   <br />
-                                  Fax : (91) (1 1) 2378-2806
+                                  Fax : (91) (11) 2378-2806
                                   <br />
                                   E-mail : indogerman@somanigroup.com
                                 </td>
@@ -609,8 +608,7 @@ function Index() {
           <div className={`d-flex ${styles.salutations}`}>
             <span>Voyage: </span>
             <div className={`ml-3`}>
-              FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '').toUpperCase()}
-             , INDIA
+              FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '').toUpperCase()}, INDIA
             </div>
           </div>
           <div className={`d-flex ${styles.salutations}`}>
@@ -701,9 +699,9 @@ function Index() {
                 Germany
               </div>
               <div>
-                Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413
+                Phones (91)-(11)-4315-8000, 237&2022, 2338-7413
                 <br />
-                Fax : (91) (1 1) 2378-2806
+                Fax : (91) (11) 2378-2806
                 <br />
                 E-mail : indogerman@somanigroup.com
               </div>
