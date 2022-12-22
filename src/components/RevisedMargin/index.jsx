@@ -856,7 +856,7 @@ const Index = ({
                           className={`${styles.radio} radio`}
                           inline
                           label="Yes"
-                          defaultChecked={invoiceDataRevised?.isConsigneeSameAsBuyer == true}
+                          checked={invoiceDataRevised?.isConsigneeSameAsBuyer == true ? 'checked' : ''}
                           onChange={() => {
                             saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', true);
                             setSameRevised(true);
@@ -869,7 +869,7 @@ const Index = ({
                           className={`${styles.radio} radio`}
                           inline
                           label="No"
-                          defaultChecked={invoiceDataRevised?.isConsigneeSameAsBuyer == false}
+                          checked={invoiceDataRevised?.isConsigneeSameAsBuyer == false ? 'checked' : ''}
                           onChange={() => {
                             saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', false);
                             setSameRevised(false);
