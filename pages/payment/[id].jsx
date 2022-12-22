@@ -426,7 +426,7 @@ function Index() {
         }
         if(type=="Save"){
         val.deliveryOrderDate= new Date() 
-        if(val.status !== "DO Canceled"){
+        if(val.status !== "DO Cancelled"){
         val.status="DO Issued"
         }
         }
@@ -441,7 +441,7 @@ function Index() {
       if (i == index) {
         console.log(val.deliveryOrderDate,"cvalala")
        
-        val.status="DO Canceled"
+        val.status="DO Cancelled"
         
       }
     });
@@ -460,7 +460,7 @@ function Index() {
 
       deliveryOrder.forEach((item) => {
         console.log("itemm",item)
-        if(item.status !== "DO Cancelled"){
+        if(item.status !== "DO Canceled"){
          boeTotalQuantity = boeTotalQuantity - Number(item.Quantity); 
         } 
       });
@@ -680,7 +680,11 @@ function Index() {
    deliveryOrder.forEach((item, index) => {
      console.log(item,"itemitem")
     if(item.orderNumber==orderNumber){
+      if(item.status!=="DO Canceled"){
+
+     
      delivery = delivery+Number(item.Quantity)
+      }
     }
     
   });

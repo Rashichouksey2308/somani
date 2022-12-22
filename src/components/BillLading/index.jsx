@@ -706,9 +706,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                          style={{ marginTop: '31px' }}
                         >
-                          <p className={` label_heading`}>
+                          <p className={`${styles.imo_number} label_heading`}>
                             IMO Number
                             {shipmentTypeBulk ? <strong className="text-danger">*</strong> : ''}
                           </p>
