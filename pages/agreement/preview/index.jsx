@@ -480,21 +480,22 @@ export const undertaking1Pdf = (data) => {
                     </tr>
                     <tr>
                       <td valign='bottom' align='left' width='70%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'70px', marginBottom:'0'}}><strong>Place: {data.placeOfExecution}<br/>Date: {data.dateOfExecution}</strong></p>
                       </td>
                       <td valign='top' align='left' width='30%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}><strong>(Associate Buyer)</strong>
-                                        {
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>
+                          {/* <strong>(Associate Buyer)</strong> */}
+                          <strong>({data.associateBuyer})</strong>
+                              {
                                 data?.associateBuyerAuthorized?.length > 0 &&
                                 data?.associateBuyerAuthorized?.map((val, index) => {
                                   return (
-                                     <><strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block'}}>Name: {val.name}
+                                     <><strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block', paddingTop:'70px'}}>Name: {val.name}
                                        <br/>Designation: {val.designation}</strong>
                                      </>
                                   );
                                 })
-                              }
-                          
+                              }                          
                         </p>
                       </td>
                     </tr>
@@ -581,11 +582,14 @@ export const undertaking2Pdf = (data) => {
                     </tr>
                     <tr>
                       <td align='left'></td>
-                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingBottom:'20px'}}><strong>(Associate Buyer)</strong></p></td>
+                      <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingBottom:'20px'}}>
+                        {/* <strong>(Associate Buyer)</strong> */}
+                        <strong>({data.associateBuyer})</strong>
+                        </p></td>
                     </tr>
                     <tr>
                       <td valign='bottom' align='left' width='70%'>
-                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>Place: {data.placeOfExecution} </strong><br/><strong>Date : {data.dateOfExecution}</strong></p>
+                        <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingTop:'50px', marginBottom:'0'}}><strong>Place: {data.placeOfExecution} </strong><br/><strong>Date : {data.dateOfExecution}</strong></p>
                       </td>
                       <td valign='top' align='left' width='30%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0' }}>
@@ -594,7 +598,7 @@ export const undertaking2Pdf = (data) => {
                             data?.associateBuyerAuthorized?.length > 0 &&
                             data?.associateBuyerAuthorized?.map((val, index) => {
                               return ( 
-                                <strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block' }}>Name: {val.name}<br/>Designation: {val.designation}</strong>
+                                <strong style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'10px', display:'block', paddingTop:'50px'}}>Name: {val.name}<br/>Designation: {val.designation}</strong>
                               );
                             })
                             }
