@@ -135,14 +135,14 @@ function CheckerReducer(state = initialState, action) {
                 inspectionPickupRecords: {},
             };
 
-        case types.GET_CREDIT_CAM_RECORDS_SUCCESSFULL:
+        case types.GET_CREDIT_CAM_PICKUP_RECORDS_SUCCESSFULL:
             return {
                 ...state,
                 gettingCreditCAMPickupRecords: false,
                 creditCAMPickupRecords: action.payload,
             };
 
-        case types.GET_CREDIT_CAM_RECORDS_FAILED:
+        case types.GET_CREDIT_CAM_PICKUP_RECORDS_FAILED:
             return {
                 ...state,
                 gettingCreditCAMPickupRecords: false,

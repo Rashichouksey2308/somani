@@ -120,14 +120,14 @@ function getInspectionPickupRecordsFailed(payload = {}) {
 
 function getCreditCAMPickupRecordsSuccess(payload) {
     return {
-        type: types.GET_CREDIT_CAM_RECORDS_SUCCESSFULL,
+        type: types.GET_CREDIT_CAM_PICKUP_RECORDS_SUCCESSFULL,
         payload,
     };
 }
 
 function getCCreditCAMPickupRecordsFailed(payload = {}) {
     return {
-        type: types.GET_CREDIT_CAM_RECORDS_FAILED,
+        type: types.GET_CREDIT_CAM_PICKUP_RECORDS_FAILED,
         payload,
     };
 }
