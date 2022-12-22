@@ -38,7 +38,7 @@ function Index() {
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
-  const { margin,updatingMarginMoneyResponse } = useSelector((state) => state.marginMoney);
+  const { margin, updatingMarginMoneyResponse } = useSelector((state) => state.marginMoney);
   const { orderList } = useSelector((state) => state.buyer);
 
   const marginData = _get(margin, 'data.data[0]', '');
@@ -59,10 +59,10 @@ function Index() {
     dispatch(setPageName('margin-money'));
     dispatch(setDynamicName(marginData?.company?.companyName));
     dispatch(setDynamicOrder(marginData?.order?.orderId));
-  }, [dispatch, marginData?.company?.companyName,updatingMarginMoneyResponse]);
+  }, [dispatch, marginData?.company?.companyName, updatingMarginMoneyResponse]);
 
   const [forCalculation, setForCalculation] = useState({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false : true,
     status: marginData?.status || '',
     quantity: marginData?.order?.quantity || '',
     additionalPDC: marginData?.additionalPDC || '',
@@ -101,7 +101,7 @@ function Index() {
 
   const getData = () => {
     setForCalculation({
-      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false : true,
       status: marginData?.status,
       quantity: marginData?.order?.quantity,
       additionalPDC: marginData?.additionalPDC,
@@ -224,14 +224,13 @@ function Index() {
     setInvoiceDataRevised({ ...newInput });
   };
 
-  
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData };
     if (name == 'buyerGSTIN') {
       const filteredGSt = orderList?.company?.detailedCompanyInfo?.GST?.filter((item) => item?.gstin === value) ?? [];
       if (filteredGSt.length > 0 && filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address) {
-        newInput.buyerAddress = filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address ?? ''
-        if(isConsigneeSameAsBuyer) {
+        newInput.buyerAddress = filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address ?? '';
+        if (isConsigneeSameAsBuyer) {
           newInput.consigneeAddress = filteredGSt[0]?.detail?.summaryInformation?.businessProfile?.address ?? '';
         }
       }
@@ -509,7 +508,7 @@ function Index() {
       let obj = {
         marginMoneyId: marginData?._id,
         conversionRate: forCalculation.conversionRate,
-        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded === false ? false: true,
+        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded === false ? false : true,
         numberOfPDC: forCalculation.numberOfPDC,
         additionalPDC: forCalculation.additionalPDC,
         invoiceDetail: {
@@ -559,7 +558,7 @@ function Index() {
   // RevisedMargin Money New Calculation
 
   const [forCalculationRevised, setforCalculationRevised] = useState({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false : true,
     status: marginData?.status,
     quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
       ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
@@ -604,7 +603,7 @@ function Index() {
 
   const getDataRevised2 = () => {
     setforCalculationRevised({
-      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false: true,
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false : true,
       status: marginData?.status,
       quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
         ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
@@ -754,8 +753,11 @@ function Index() {
         buyerName: marginData?.company?.companyName || '',
         buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
         buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
-        isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer ? marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer : true,
-        consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || marginData?.company?.companyName || '',
+        isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer
+          ? marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer
+          : true,
+        consigneeName:
+          marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || marginData?.company?.companyName || '',
         consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
         consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
         importerName:
@@ -841,9 +843,8 @@ function Index() {
   const saveInvoiceDataRevisedRevised = (name, value) => {
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
-   newInput[name] = value;
-   
-    if (invoiceDataRevised.isConsigneeSameAsBuyer) {
+
+    if (isConsigneeSameAsBuyerRevised) {
       if (name == 'buyerName') {
         newInput.consigneeName = value;
       }
@@ -964,18 +965,22 @@ function Index() {
   };
 
   const exportPDF = () => {
-
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
         const totalPages = doc.internal.getNumberOfPages();
 
-      for (let i = 1; i <= totalPages; i++) {
-      doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
-        align: 'center',
-        });;
-      }
+        for (let i = 1; i <= totalPages; i++) {
+          doc.setPage(i);
+          doc.text(
+            `Page ${i} of ${totalPages}`,
+            doc.internal.pageSize.getWidth() / 2,
+            doc.internal.pageSize.getHeight() - 1,
+            {
+              align: 'center',
+            },
+          );
+        }
         doc.save('MarginMoney.pdf');
       },
 
@@ -985,7 +990,6 @@ function Index() {
 
   useEffect(() => {
     if (marginData) {
-
       setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
       if (marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true) {
         setInvoiceData({
@@ -1040,32 +1044,75 @@ function Index() {
     }
   }, [marginData, getInternalCompaniesMasterData]);
 
+  console.log(invoiceData, 'INVOICE');
+
+  const [isConsigneeSameAsBuyerRevised, setisConsigneeSameAsBuyerRevised] = useState(true);
+
   useEffect(() => {
     getRevisedData();
-
-    setInvoiceDataRevised({
-      buyerName: marginData?.company?.companyName || '',
-      buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
-      buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
-      isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer ? marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer : true,
-      consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || marginData?.company?.companyName|| '',
-      consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
-      consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
-      importerName:
-        marginData?.revisedMarginMoney?.invoiceDetail?.importerName ||
-        marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-          ?.toUpperCase()
-          ?.replace(/ *\([^)]*\) */g, '') ||
-        '',
-      branchOffice: marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
-      companyAddress: marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
-      importerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
-      bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
-      branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || '',
-      branchAddress: marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
-      IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
-      accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
-    });
+    if (marginData) {
+      setisConsigneeSameAsBuyerRevised(
+        marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true,
+      );
+      if (marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer == true) {
+        setInvoiceDataRevised({
+          buyerName: marginData?.company?.companyName || '',
+          buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
+          buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
+          isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer
+            ? marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer
+            : true,
+          consigneeName:
+            marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || marginData?.company?.companyName || '',
+          consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
+          consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
+          importerName:
+            marginData?.revisedMarginMoney?.invoiceDetail?.importerName ||
+            marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+              ?.toUpperCase()
+              ?.replace(/ *\([^)]*\) */g, '') ||
+            '',
+          branchOffice: marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
+          companyAddress: marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
+          importerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
+          bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
+          branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || '',
+          branchAddress: marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
+          IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
+          accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
+        });
+        setisConsigneeSameAsBuyerRevised(
+          marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true,
+        );
+      } else {
+        setInvoiceDataRevised({
+          buyerName: marginData?.company?.companyName || '',
+          buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
+          buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
+          isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer
+            ? marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer
+            : true,
+          consigneeName:
+            marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || marginData?.company?.companyName || '',
+          consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
+          consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
+          importerName:
+            marginData?.revisedMarginMoney?.invoiceDetail?.importerName ||
+            marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+              ?.toUpperCase()
+              ?.replace(/ *\([^)]*\) */g, '') ||
+            '',
+          branchOffice: marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
+          companyAddress: marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
+          importerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
+          bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
+          branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || '',
+          branchAddress: marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
+          IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
+          accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
+        });
+      }
+    }
   }, [marginData]);
 
   useEffect(() => {
@@ -1084,14 +1131,19 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
       callback: function (doc) {
-          const totalPages = doc.internal.getNumberOfPages();
+        const totalPages = doc.internal.getNumberOfPages();
 
-      for (let i = 1; i <= totalPages; i++) {
-      doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
-        align: 'center',
-        });;
-      }
+        for (let i = 1; i <= totalPages; i++) {
+          doc.setPage(i);
+          doc.text(
+            `Page ${i} of ${totalPages}`,
+            doc.internal.pageSize.getWidth() / 2,
+            doc.internal.pageSize.getHeight() - 1,
+            {
+              align: 'center',
+            },
+          );
+        }
         doc.save('RevisedMarginMoney.pdf');
       },
       autoPaging: 'text',
@@ -1500,11 +1552,12 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {marginData?.order?.orderCurrency}{' '}
                                   {Number(finalCal.orderValue).toLocaleString(
-                                    marginData?.order?.orderCurrency === 'INR' ? 'en-IN' :"en-EN"
-                                    , {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  })}
+                                    marginData?.order?.orderCurrency === 'INR' ? 'en-IN' : 'en-EN',
+                                    {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    },
+                                  )}
                                   {/* {convertValue(finalCal?.orderValue, marginData?.order?.orderCurrency !== 'USD' ? 1000000 : 10000000)
                                   ?.toLocaleString(marginData?.order?.orderCurrency === 'INR' ? 'en-IN' : undefined,
                                    { maximumFractionDigits: 2 })} */}
@@ -1809,8 +1862,10 @@ function Index() {
                                     saveInvoiceData(e.target.name, e.target.value);
                                   }}
                                   value={invoiceData?.buyerGSTIN}
-                                > 
-                                  <option selected value =''>Select an Option</option>
+                                >
+                                  <option selected value="">
+                                    Select an Option
+                                  </option>
                                   {orderList?.company?.gstList?.map((gstin, index) => (
                                     <option key={index} value={gstin}>
                                       {gstin}
@@ -2106,7 +2161,7 @@ function Index() {
                                     );
                                   }}
                                 >
-                                  <option value= ''>Select an option</option>
+                                  <option value="">Select an option</option>
                                   {branchOptions
                                     .filter((val, index) => {
                                       if (val.keyBanks[0].Bank_Name) {
@@ -2238,6 +2293,8 @@ function Index() {
                         getInternalCompaniesMasterData={getInternalCompaniesMasterData}
                         savedataRevised={savedataRevised}
                         orderList={orderList}
+                        setisConsigneeSameAsBuyerRevised={setisConsigneeSameAsBuyerRevised}
+                        isConsigneeSameAsBuyerRevised={isConsigneeSameAsBuyerRevised}
                       />
                     </div>
                   </div>
