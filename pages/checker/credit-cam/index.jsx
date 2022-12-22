@@ -1,184 +1,22 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import styles from './index.module.scss';
 import Router from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
-
-const mockData = {
-    data: [
-        {
-            _id: "62fdbce243fa8b0023566192",
-            cam: {
-                status: "PendingChecker"
-            },
-            unitOfQuantity: "KG",
-            orderCurrency: "Rupee",
-            unitOfValue: "INR",
-            unitOfGrade: "Cr",
-            existingCustomer: true,
-            transactionType: "Domestic",
-            commodity: "Iron",
-            quantity: 10,
-            orderValue: 50000000000000,
-            supplierName: "TATA",
-            countryOfOrigin: "India",
-            portOfDischarge: "Gujrat, India",
-            ExpectedDateOfShipment: "2022-08-24T18:30:00.000Z",
-            incoTerm: "CFR",
-            grade: "44-46 MN",
-            tolerance: 10,
-            transactionPeriodDays: 90,
-            manufacturerName: "CBX",
-            createdBy: {
-                _id: "62fc856c15027f0021336e1e",
-                fName: "nilesh",
-                lName: "jain",
-                userRole: null,
-                guid: "f51350a8-9b69-4477-9352-55075013117e"
-            },
-            company: {
-                _id: "62fcedc1f3d0eb002232e785",
-                customerId: "NAI220000003",
-                companyName: "INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
-            },
-            lastUpdatedBy: "62fc856c15027f0021336e1e",
-            applicationId: "178636739",
-            createdAt: "2022-08-18T04:15:30.964Z",
-            updatedAt: "2022-11-28T11:32:05.190Z",
-            __v: 0,
-            queue: "CreditQueue",
-            review: "62fdbce243fa8b0023566197",
-            termsheet: "62fdcd5043fa8b002356665e",
-            perUnitPrice: 120,
-            orderId: "INDOD002000001",
-            marginMoney: "62fdd5af43fa8b0023566b09",
-            generic: "62fdd5af43fa8b0023566b0c",
-            vessel: "62fdd5af43fa8b0023566b0f",
-            lc: "62fdd5af43fa8b0023566b12",
-            forwardHedging: "62fdd5af43fa8b0023566b15",
-            transit: "63768f289b9719002542a0e5",
-            customClearance: "63768f289b9719002542a0e8",
-            delivery: "63768f289b9719002542a0eb"
-        },
-        {
-            _id: "62fdbce243fa8b0023566193",
-            cam: {
-                status: "PendingChecker"
-            },
-            unitOfQuantity: "KG",
-            orderCurrency: "Rupee",
-            unitOfValue: "INR",
-            unitOfGrade: "Cr",
-            existingCustomer: true,
-            transactionType: "Domestic",
-            commodity: "Iron",
-            quantity: 10,
-            orderValue: 50000000000000,
-            supplierName: "TATA",
-            countryOfOrigin: "India",
-            portOfDischarge: "Gujrat, India",
-            ExpectedDateOfShipment: "2022-08-24T18:30:00.000Z",
-            incoTerm: "CFR",
-            grade: "44-46 MN",
-            tolerance: 10,
-            transactionPeriodDays: 90,
-            manufacturerName: "CBX",
-            createdBy: {
-                _id: "62fc856c15027f0021336e1e",
-                fName: "nilesh",
-                lName: "jain",
-                userRole: null,
-                guid: "f51350a8-9b69-4477-9352-55075013117e"
-            },
-            company: {
-                _id: "62fcedc1f3d0eb002232e785",
-                customerId: "NAI220000003",
-                companyName: "INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
-            },
-            lastUpdatedBy: "62fc856c15027f0021336e1e",
-            applicationId: "178636739",
-            createdAt: "2022-08-19T04:15:30.964Z",
-            updatedAt: "2022-11-28T11:32:05.190Z",
-            __v: 0,
-            queue: "CreditQueue",
-            review: "62fdbce243fa8b0023566197",
-            termsheet: "62fdcd5043fa8b002356665e",
-            perUnitPrice: 120,
-            orderId: "INDOD002000001",
-            marginMoney: "62fdd5af43fa8b0023566b09",
-            generic: "62fdd5af43fa8b0023566b0c",
-            vessel: "62fdd5af43fa8b0023566b0f",
-            lc: "62fdd5af43fa8b0023566b12",
-            forwardHedging: "62fdd5af43fa8b0023566b15",
-            transit: "63768f289b9719002542a0e5",
-            customClearance: "63768f289b9719002542a0e8",
-            delivery: "63768f289b9719002542a0eb"
-        },
-        {
-            _id: "62fdbce243fa8b0023566194",
-            cam: {
-                status: "PendingChecker"
-            },
-            unitOfQuantity: "KG",
-            orderCurrency: "Rupee",
-            unitOfValue: "INR",
-            unitOfGrade: "Cr",
-            existingCustomer: true,
-            transactionType: "Domestic",
-            commodity: "Iron",
-            quantity: 10,
-            orderValue: 50000000000000,
-            supplierName: "TATA",
-            countryOfOrigin: "India",
-            portOfDischarge: "Gujrat, India",
-            ExpectedDateOfShipment: "2022-08-24T18:30:00.000Z",
-            incoTerm: "CFR",
-            grade: "44-46 MN",
-            tolerance: 10,
-            transactionPeriodDays: 90,
-            manufacturerName: "CBX",
-            createdBy: {
-                _id: "62fc856c15027f0021336e1e",
-                fName: "nilesh",
-                lName: "jain",
-                userRole: null,
-                guid: "f51350a8-9b69-4477-9352-55075013117e"
-            },
-            company: {
-                _id: "62fcedc1f3d0eb002232e785",
-                customerId: "NAI220000003",
-                companyName: "INDO GERMAN INTERNATIONAL PRIVATE LIMITED"
-            },
-            lastUpdatedBy: "62fc856c15027f0021336e1e",
-            applicationId: "178636739",
-            createdAt: "2022-08-20T04:15:30.964Z",
-            updatedAt: "2022-11-28T11:32:05.190Z",
-            __v: 0,
-            queue: "CreditQueue",
-            review: "62fdbce243fa8b0023566197",
-            termsheet: "62fdcd5043fa8b002356665e",
-            perUnitPrice: 120,
-            orderId: "INDOD002000001",
-            marginMoney: "62fdd5af43fa8b0023566b09",
-            generic: "62fdd5af43fa8b0023566b0c",
-            vessel: "62fdd5af43fa8b0023566b0f",
-            lc: "62fdd5af43fa8b0023566b12",
-            forwardHedging: "62fdd5af43fa8b0023566b15",
-            transit: "63768f289b9719002542a0e5",
-            customClearance: "63768f289b9719002542a0e8",
-            delivery: "63768f289b9719002542a0eb"
-        }
-    ],
-    totalCount: 3
-}
+import { GetCreditCAMPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
   const dispatch = useDispatch();
+  const { creditCAMPickupRecords } = useSelector((state) => state.checker);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
+  const [sortByState, setSortByState] = useState({
+    column: '',
+    order: null,
+  });
 
   useEffect(() => {
     if (window) {
@@ -192,6 +30,23 @@ function Index() {
     dispatch(setPageName('checker-credit-cam'));
     dispatch(setDynamicName(null));
   });
+
+  useEffect(() => {
+    dispatch(GetCreditCAMPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
+  }, [dispatch, currentPage, pageLimit]);
+
+  const handleSort = (column) => {
+    if (column.id === sortByState.column) {
+      setSortByState((state) => {
+        let updatedOrder = !state.order;
+        return { ...state, order: updatedOrder };
+      });
+    } else {
+      let data = { column: column.id, order: !column.isSortedDesc };
+      setSortByState(data);
+    }
+    dispatch(GetCreditCAMPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
+  };
 
   const tableColumns = useMemo(() => [
     {
@@ -270,15 +125,18 @@ function Index() {
 
         {/* Queue Table */}
         <Table
-          tableHeading="Checker Credit CAM"
+          tableHeading="Credit CAM"
           currentPage={currentPage}
-          totalCount={mockData.totalCount}
+          totalCount={creditCAMPickupRecords?.totalCount}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={mockData.data || []}
+          data={creditCAMPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
+          serverSortEnabled={true}
+          handleSort={handleSort}
+          sortByState={sortByState}
         />
       </div>
     </div>
