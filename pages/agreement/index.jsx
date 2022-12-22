@@ -11,6 +11,7 @@ import TPAIGI from '../../src/components/TPAIGI';
 import TPASeller from '../../src/components/TPASeller';
 import styles from './index.module.scss';
 import VesselSaveBar from '../../src/components/VesselSaveBar';
+import {handleErrorToast} from '@/utils/helpers/global'
 
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { useDispatch, useSelector } from 'react-redux';
@@ -95,6 +96,11 @@ const [agreementDoc, setagreementDoc] = useState({
   }
   const submitDoc=async()=>{
     const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
+
+    if(!doc){
+      handleErrorToast('please upload Sales Agreement ')
+      return
+    }
  let dataToSend = {
         genericId:  JSON.parse(sessionStorage.getItem('genericSelected'))._id,
         document:doc

@@ -35,7 +35,7 @@ function Index(props) {
     ]);
     setIsFieldInFocus([...isFieldInFocus, { amount: false }]);
   };
-  console.log(isFieldInFocus,"isFieldInFocus")
+ 
   const handleDeleteContact = (index) => {
     setListContact([...listContact.slice(0, index), ...listContact.slice(index + 1)]);
 
@@ -48,7 +48,7 @@ function Index(props) {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'));
-console.log(savedData,'savedData')
+
         setDeliveryData(savedData?.deliveryTerm);
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
         setPaymentTerms(savedData?.paymentTerms);
@@ -74,7 +74,7 @@ console.log(savedData,'savedData')
           setIsFieldInFocus([...temp])
         }
       } else {
-        console.log(props?.data,'savedData1')
+       
         setDeliveryData(props?.data?.deliveryTerm
           ? props?.data?.deliveryTerm : props?.genericData?.order?.termsheet?.transactionDetails?.incoTerms
 
@@ -98,7 +98,7 @@ console.log(savedData,'savedData')
         if(props?.data?.cheque.length>0){
           let temp=[]
           props?.data?.cheque.forEach((val,index)=>{
-            console.log("SDasdasd")
+            
               temp.push({ amount: false })
           })
           setIsFieldInFocus([...temp])
@@ -122,7 +122,7 @@ console.log(savedData,'savedData')
       props.sendData('Delivery Terms', data);
     }
     if (props.submitData == true && props.active == 'Delivery Terms') {
-      console.log(temp, 'listContact');
+     
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
@@ -143,7 +143,7 @@ console.log(savedData,'savedData')
     temp[index][name] = value;
     setListContact([...temp]);
   };
-console.log(deliveryData,"deliveryData")
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0 `}>

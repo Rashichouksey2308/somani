@@ -587,6 +587,7 @@ function Index() {
                               // defaultValue={
                               //   editInput ? editCurrent?.newValue : ''
                               // }
+                              onWheel={(event) => event.currentTarget.blur()}
                               value={clauseObj?.newValue}
                               disabled={isDisabled}
                               onChange={(e) => {

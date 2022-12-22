@@ -18,7 +18,7 @@ function Index() {
   const dispatch = useDispatch();
 
   const { termsheet } = useSelector((state) => state.order);
- console.log(termsheet?.data,"termsheet?.data?.order?.unitOfQuantity")
+
   let Id = sessionStorage.getItem('termID');
   let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id');
 
@@ -211,7 +211,7 @@ function Index() {
       ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
       {
         callback: function (doc) {
-          console.log(doc,"doc")
+          
          var out = doc.output('blob');
          var reader = new FileReader();
           let blob =  reader.readAsBinaryString(out);
@@ -233,7 +233,7 @@ function Index() {
   };
   const shareEmail = async (email) => {
     let doc = exportPDF2();
-   console.log(doc,"ASdasdasd")
+ 
     // let formData = new FormData();
     // formData.append('document1', '');
     // formData.append('data', {
@@ -245,7 +245,7 @@ function Index() {
     // await dispatch(sharingTermsheetEmail(formData));
     // setOpen(false);
   };
-  console.log(termsheetDetails,"termsheetDetails")
+
   return (
     <>
       <div className={`${styles.root_container}  `} ref={toPrint}>

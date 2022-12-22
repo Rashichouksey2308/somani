@@ -16,7 +16,7 @@ const Index = ({
   onChangeLcOpening,
   onChangeCha,
 }) => {
-  console.log(termsheetDetails,"termsheetDetails")
+ 
   return (
     <div className={`${styles.main} main`}>
       <div
