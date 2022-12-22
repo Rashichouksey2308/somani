@@ -154,6 +154,7 @@ function Index() {
         { name: 'Rejected Records', image: '/static/review-queue.svg', route: '' },
         { name: 'Inspection', image: '/static/inspection.svg', route: '/checker/inspection' },
         { name: 'Credit CAM', image: '/static/inspection.svg', route: '/checker/credit-cam' },
+        { name: 'Transaction Summary', image: '/static/term-sheets.svg', route: '/checker/transaction-summary' },
       ],
       image: '/static/Masters.svg',
       route: '',
