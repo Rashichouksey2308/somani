@@ -204,6 +204,7 @@ function Index({ TransitDetails }) {
           <span>Voyage: </span>
           <div className={`ml-3 font-weight-bold`}>
             FROM {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()} TO {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '').toUpperCase()}
+            , INDIA
           </div>
         </div>
         <div className={`d-flex  ${styles.salutations}`}>
@@ -239,7 +240,7 @@ function Index({ TransitDetails }) {
                         )
                       }})}
                   </select>
-                  Dated {billsofLanding[index1].date}, ISSUE AT {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}, INDIA 
+                  Dated {billsofLanding[index1].date}, ISSUED AT {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()}
                   {bolArray.length - 1 > index1 ? (
                     index1 === billsofLanding.length - 1 ? (
                       <button onClick={() => onAddClick()} 

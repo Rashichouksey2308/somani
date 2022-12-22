@@ -23,7 +23,7 @@ export default function Index(props) {
     let toRemove=0
     props.releaseOrderData.forEach((release,i)=>{
       if(i<=index){
-        if(release.status !== "DO Cancelled"){
+        if(release.status !== "DO cancelled"){
             toRemove=toRemove+Number(release.Quantity)
         }
        
@@ -130,7 +130,16 @@ export default function Index(props) {
                         return (
                           <>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
-                              <div className="d-flex">
+                              {val.status=="DO cancelled"?
+                              <>
+                                  <div className={`${styles.label} text`}>Quantity Released</div>
+                                  <span className={styles.value}>
+                                   {props.releaseOrderData[index].orderNumber}
+                                  </span>
+                                </>
+                              :
+                              <>
+                                <div className="d-flex">
                                 <select
                                   value={props.releaseOrderData[index].orderNumber}
                                   name="orderNumber"
@@ -157,8 +166,23 @@ export default function Index(props) {
                                   alt="Search"
                                 />
                               </div>
+                              </>
+                              }
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
+                              {val.status=="DO cancelled"
+                              ? <>
+                                  <div className={`${styles.label} text`}>Quantity Released</div>
+                                  <span className={styles.value}>
+                                    {val.Quantity
+                                      ? Number(val.Quantity)?.toLocaleString('en-In') +
+                                        ' ' +
+                                        _get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')
+                                      : ''}
+                                  </span>
+                                </>
+                              :
+                              <>
                               {val.isDelete ? (
                                 <div className="d-flex">
                                   <input
@@ -198,6 +222,9 @@ export default function Index(props) {
                                   </span>
                                 </>
                               )}
+                              </>
+                              }
+                              
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order No.</div>

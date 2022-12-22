@@ -92,10 +92,21 @@
         .image_arrow {
           opacity: 0.7;
           height: 20px;
-          transform: rotate(-90deg);
+          // transform: rotate(-90deg);
           @include respond(lg-desktop) {
             height: 15px;
           }
+        }
+        
+      }
+      &[aria-expanded='true'] {
+        .image_arrow {
+          transform: rotate(90deg);
+        }
+      }
+      &[aria-expanded='false'] {
+        .image_arrow {
+          transform: rotate(-90deg);
         }
       }
     }

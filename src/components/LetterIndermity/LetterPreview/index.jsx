@@ -169,16 +169,7 @@ function Index() {
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>Voyage : </span>
-                            FROM {_get(
-                              transitDetails,
-                              'data[0].order.termsheet.transactionDetails.loadPort',
-                              '',
-                            ).toUpperCase()} TO 
-                            {_get(
-                              transitDetails,
-                              'data[0].order.termsheet.transactionDetails.portOfDischarge',
-                              '',
-                            ).toUpperCase()}
+                            FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '',).toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}, INDIA
                             <br />
                             <br />
                              <span style={{ fontWeight: 'normal' }}>Cargo: </span>
@@ -197,7 +188,7 @@ function Index() {
                                         <>
                                         <li>
                                           <span>
-                                            {val.blnumber} Dated {val.date}, {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}{', INDIA '}
+                                            {val.blnumber} Dated {val.date}, ISSUED AT {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()}
                                           </span>
                                         </li>
                                         </>
@@ -222,12 +213,11 @@ function Index() {
                               textAlign: 'justify',
                             }}
                           >
-                            The above cargo was shipped on the above ship by <span style={{ fontWeight: 'bold', textTransform:'uppercase' }}>{_get(transitDetails, 'data[0].order.generic.supplier.name')}, {_get(transitDetails, 'data[0].order.generic.supplier.addresses[0].fullAddress')}, {_get(transitDetails, 'data[0].order.generic.supplier.addresses[0].city')}, {_get(transitDetails, 'data[0].order.generic.supplier.addresses[0].country')}, {_get(transitDetails, 'data[0].order.generic.supplier.addresses[0].pinCode')}
-                            </span> and consigned to <span style={{ fontWeight: 'bold' }}>TO ORDER</span> for delivery at the port of <span style={{ fontWeight: 'bold' }}>ANY PORT (S) IN INDIA</span> but the bill of lading has not arrived and we, {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}, {_get(
+                            The above cargo was shipped on the above ship by <span style={{ fontWeight: 'bold', textTransform:'uppercase' }}>{_get(transitDetails, 'data[0].order.generic.supplier.name')}, {_get(transitDetails, 'data[0].order.generic.supplier.addresses[0].fullAddress')}, {_get(transitDetails, 'data[0].order.generic.supplier.addresses[0].city')}, {_get(transitDetails, 'data[0].order.generic.supplier.addresses[0].country')}, {_get(transitDetails, 'data[0].order.generic.supplier.addresses[0].pinCode')}</span> and consigned to <span style={{ fontWeight: 'bold' }}>TO ORDER</span> for delivery at the port of <span style={{ fontWeight: 'bold' }}>ANY PORT (S) IN INDIA</span> but the bill of lading has not arrived and we, {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}, {_get(
                               transitDetails, 'data[0].order.generic.buyer.addresses[0].fullAddress', '',).toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].state', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].country', '').toUpperCase()} hereby request you to deliver the said cargo to {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].fullAddress', '',).toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].state', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].country', '').toUpperCase()} or to such party as you believe to be or to represent {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].fullAddress', '',).toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].state', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].country', '').toUpperCase()} or to be acting on behalf of {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}, {_get(
                               transitDetails, 'data[0].order.generic.buyer.addresses[0].fullAddress', '',
                             ).toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].state', '').toUpperCase()}, {_get(transitDetails, 'data[0].order.generic.buyer.addresses[0].country', '').toUpperCase()} at <span style={{ fontWeight: 'bold' }}>
-                              {_get( transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}</span>without production of the original bill of lading.
+                              {_get( transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}</span> without production of the original bill of lading.
                           </td>
                         </tr>
                         <tr>
@@ -442,7 +432,7 @@ function Index() {
                               For and on behalf of
                             </span>
                             <br />
-                            {_get(transitDetails, 'data[0].order.generic.buyer.name', '').toUpperCase()}
+                            {_get(transitDetails, 'data[0].order.generic.buyer.name', '')}
                             <br />
                             <span style={{ fontWeight: 'normal' }}>The Requestor</span>
                           </td>
@@ -456,7 +446,7 @@ function Index() {
                               color: '#111111',
                               lineHeight: '18px',
                               fontWeight: 'bold',
-                              padding: '10px 35px 50px',
+                              padding: '40px 35px 50px',
                             }}
                           >
                             <span style={{ fontWeight: 'normal' }}>Authorised Signatory</span>
@@ -620,6 +610,7 @@ function Index() {
             <span>Voyage: </span>
             <div className={`ml-3`}>
               FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '').toUpperCase()}
+             , INDIA
             </div>
           </div>
           <div className={`d-flex ${styles.salutations}`}>
@@ -638,7 +629,7 @@ function Index() {
                       <div
                         className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
                       >
-                        {val.blnumber} Dated {val.date}, ISSUE AT {_get(transitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()}, INDIA
+                        {val.blnumber} Dated {val.date}, ISSUED AT {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '').toUpperCase()}
                       </div>
                     </li>
                   </>

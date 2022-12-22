@@ -515,22 +515,21 @@ export default function TPAIGITemp(data) {
           </Row>
         </div>
 
-        <p className="text_sales">
-          {' '}
+        <p className="text_sales mb-0">
           <strong>SIGNATURE PAGE</strong>
         </p>
         <div className={`row`}>
-          <Col md={12} className='my-3'>
+          <Col md={12} className='mt-5 pt-4'>
             <p className="text_sales text-left mb-0">Signed by:_______________________________</p>
-            <p className="text_sales text-left mb-2">For and on behalf of "<strong>{data.shortbuyer}</strong>"</p>
+            <p className="text_sales text-left mb-0">For and on behalf of "<strong>{data.shortbuyer}</strong>"</p>
           </Col>
-          <Col md={12} className='my-3'>
+          <Col md={12} className='mt-5 pt-4'>
             <p className="text_sales text-left mb-0">Signed by:_______________________________</p>
-            <p className="text_sales text-left mb-2">For and on behalf of "<strong>{data.cmaShort}</strong>"</p>
+            <p className="text_sales text-left mb-0">For and on behalf of "<strong>{data.cmaShort}</strong>"</p>
           </Col>
-          <Col md={12} className='my-3'>
+          <Col md={12} className='mt-5 mb-3 pt-4'>
             <p className="text_sales text-left mb-0">Signed by:_______________________________</p>
-            <p className="text_sales text-left mb-2">For and on behalf of "<strong>{data.shortseller}</strong>"</p>
+            <p className="text_sales text-left mb-0">For and on behalf of "<strong>{data.shortseller}</strong>"</p>
           </Col>
         </div>
       </div>

@@ -917,7 +917,7 @@ export default function SalesContract(changeHandler, data, preview) {
         </p>
         <div className={`row`}>
           <Col md={6}>
-            <p className="text_sales m-0">(Seller)</p>
+            <p className="text_sales m-0 mt-5">(Seller)</p>
             {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
             </Col> */}
@@ -937,7 +937,7 @@ export default function SalesContract(changeHandler, data, preview) {
             )}
           </Col>
           <Col md={6}>
-            <p className="text_sales m-0">(Buyer)</p>
+            <p className="text_sales m-0 mt-5">(Buyer)</p>
             {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
             </Col> */}

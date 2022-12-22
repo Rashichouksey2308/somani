@@ -764,12 +764,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        INR 
-                         {marginData.marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        }) ?? 0}
-                        
+                        INR {marginData.marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {minimumFractionDigits: 2, maximumFractionDigits: 2,}) ?? 0}                        
                       </p>
                     </td>
                   </tr>
@@ -1057,7 +1052,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {'INR'} {marginData.marginData?.calculation?.totalSPDC?.toLocaleString('en-In') ?? 0}
+                        INR {marginData.marginData?.calculation?.totalSPDC?.toLocaleString('en-In') ?? 0}
                       </p>
                     </td>
                   </tr>

@@ -1351,19 +1351,20 @@ export default function AssociateshipAgreementPreview(data) {
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align="left" colSpan={2}>
-                        <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', padding: '10px 0 20px' }}>
+                        <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', padding: '30px 0 20px' }}>
                           <strong>SIGNATURE PAGE</strong>
                         </span>
                       </td>
                     </tr>
                     <tr>
                       <td align="left" width="50%">
-                        <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', paddingBottom: '30px'}}>
-                          <strong>(Associate Buyer)</strong>
+                        <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block'}}>
+                          <strong>({data.associateBuyer})</strong>
+                          {/* <strong>(Associate Buyer)</strong> */}
                         </span>
                       </td>
                       <td align="left" width="50%">
-                        <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block', paddingBottom: '30px' }}>
+                        <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block'}}>
                           <strong>({data.buyer})</strong>
                         </span>
                       </td>
@@ -1373,7 +1374,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', display:'block' }}>
                           {data.associateBuyerAuthorized.length > 0 && 
                             data.associateBuyerAuthorized.map((val,index)=>{
-                                return  <strong style={{display:'block', marginBottom:'10px'}}>Name: {val.name}<br/>Designation: {val.designation}</strong>
+                                return  <strong style={{display:'block', paddingTop:'74px', marginBottom:'10px'}}>Name: {val.name}<br/>Designation: {val.designation}</strong>
                             })
                           }
                         </span>
@@ -1382,7 +1383,7 @@ export default function AssociateshipAgreementPreview(data) {
                         <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000',display:'block'}}>
                           {data.buyerAuthorized.length > 0 && 
                           data.buyerAuthorized.map((val,index)=>{
-                              return  <strong style={{display:'block', marginBottom:'10px'}}>Name: {val.name}<br/>Designation: {val.designation}</strong>
+                              return  <strong style={{display:'block', paddingTop:'74px', marginBottom:'10px'}}>Name: {val.name}<br/>Designation: {val.designation}</strong>
                           })
              }
                         </span>
