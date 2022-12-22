@@ -132,7 +132,7 @@ function Index() {
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={vendorPickupRecords?.data}
+          data={vendorPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
           serverSortEnabled={true}

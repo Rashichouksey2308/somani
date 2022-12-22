@@ -69,7 +69,7 @@ function Index() {
     },
     {
       Header: 'Submitted On',
-      accessor: 'updatedAt',
+      accessor: 'createdAt',
       Cell: ({ value }) => value?.slice(0, 10)
     },
   ]);
@@ -133,7 +133,7 @@ function Index() {
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={commodityPickupRecords?.data}
+          data={commodityPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
           serverSortEnabled={true}
