@@ -230,7 +230,7 @@ const index = () => {
           </div> */}
         </div>
       </div>
-      <DownloadMasterBar btnName="Download Report"/>
+      <DownloadMasterBar btnName="Download Report" isSupplier={true}/>
     </>
   );
 };
