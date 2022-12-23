@@ -624,7 +624,7 @@ function Index() {
         <Table
           tableHeading="Transaction Summary"
           currentPage={currentPage}
-          totalCount={mockData?.totalCount}
+          totalCount={mockData?.total}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
