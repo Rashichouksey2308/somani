@@ -71,7 +71,7 @@
 }
 
 .download_report {
-  top: 50%;
+  top: 65%;
   left: 50%;
   width: 100%;
   border: none;
@@ -183,6 +183,7 @@
         font-size: 19px;
         line-height: 24px;
         font-weight: 500;
+        min-width: 238px;
       }
       .label_heading {
         font-size: 16px;
