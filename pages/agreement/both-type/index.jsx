@@ -238,7 +238,7 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -246,7 +246,7 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -297,7 +297,7 @@ function Index() {
               <p className={`${styles.salutations} heading m-0 pt-0`}> Manager Accounts</p>
               <p className={`${styles.salutations} heading m-0 pt-0`}> Indo German International Private Limited</p>
               <p className={`${styles.salutations} heading m-0 pt-0`}> 8-B, Sagar, 6-Tilak Marg</p>
-              <p className={`${styles.salutations} heading m-0 pt-0`}> New Delhi-110001</p>
+              <p className={`${styles.salutations} heading m-0 pt-0`}> New Delhi - 110001</p>
               <p className={`${styles.salutations} heading m-0 pt-0`}> Mobile No - 9312251303 </p>
               <p className={`${styles.salutations} heading m-0 pt-0 mb-5`}> Email ID - vipinrajput@gmail.com</p>
             </div>
