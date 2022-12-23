@@ -948,7 +948,7 @@ export default function StorageInsurance(insuranceData) {
                         <br />
                         8-B, Sagar, 6-Tilak Marg,
                         <br />
-                        New Delhi-110001
+                        New Delhi - 110001
                         <br />
                         Mobile No - 9312251303
                         <br />

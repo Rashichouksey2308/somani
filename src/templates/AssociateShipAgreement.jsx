@@ -636,7 +636,7 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
             </ol>
           </li>
           <li className="font-weight-bold">
-            <p className={`${styles.oderListParent_Head}`}>Force Majeur</p>
+            <p className={`${styles.oderListParent_Head}`}>Force Majeure</p>
             <p className="text_sales font-weight-normal">
               That Seller shall not be liable for any damages or losses on account of Force Majeure, as defined herein below. However, the Associate Buyer shall at all times remain liable for payment of the Goods to Seller, irrespective of occurrence of any force majeure condition.
             </p>
