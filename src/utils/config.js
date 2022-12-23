@@ -23,9 +23,9 @@
 
 export default {
   baseUrl: 'https://api-uat.simport.global',
-  authServerUrl: 'https://api-uat.simport.global/auth',
-  userServerUrl: 'https://api-uat.simport.global/user',
-  coreServerUrl: 'https://api-uat.simport.global/core',
+  authServerUrl: 'https://api.simport.global/auth',
+  userServerUrl: 'https://api.simport.global/user',
+  coreServerUrl: 'https://api.simport.global/core',
 };
 
 // local
