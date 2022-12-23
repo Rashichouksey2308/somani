@@ -332,6 +332,7 @@ function Index(props) {
                                     val.amount
                                   )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2
                                   })
                               }
                               className="input"
