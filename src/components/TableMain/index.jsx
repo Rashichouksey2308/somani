@@ -128,7 +128,7 @@ function Index({
                         handleRoute(insured);
                       }}
                     >
-                      {console.log(insured?.quotationRequest?.insuranceType,"typepe",insured.order.orderId)}
+                      
                       {insured?.company?.companyName}
                     </td>
                     <td>{insured?.order?.commodity}</td>

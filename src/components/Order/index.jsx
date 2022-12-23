@@ -6,7 +6,7 @@ import DateCalender from '../DateCalender';
 import { checkNan } from '@/utils/helper';
 import moment from 'moment';
 const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,shipment }) => {
- console.log(orderDetail,"orderDetail")
+ 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,

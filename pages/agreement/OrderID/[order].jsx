@@ -362,7 +362,7 @@ function Index() {
                         addMoreRows('email');
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}> + </span> add another
+                      <span className={`mr-2`}> + </span> add another
                     </div>
                     <div className="d-flex justify-content-between">
                       <button

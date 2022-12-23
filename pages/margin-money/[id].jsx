@@ -1044,8 +1044,6 @@ function Index() {
     }
   }, [marginData, getInternalCompaniesMasterData]);
 
-  console.log(invoiceData, 'INVOICE');
-
   const [isConsigneeSameAsBuyerRevised, setisConsigneeSameAsBuyerRevised] = useState(true);
 
   useEffect(() => {
