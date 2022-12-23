@@ -460,7 +460,7 @@ export const undertaking1Pdf = (data) => {
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
                         }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
-                           INR  {returnReadableNumber(val.amount,"en-IN",2)}
+                           INR  {returnReadableNumber(val.amount,"en-IN",2,2)}
                          
                            </p>
                       </td>
