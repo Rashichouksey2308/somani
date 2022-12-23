@@ -122,7 +122,6 @@
                 border-radius: 6px !important;
 
                 .head_container {
-                  border-bottom: 2px solid #cad6e6;
                   cursor: pointer;
                   border-bottom: none;
                   height: 80px;
@@ -132,7 +131,6 @@
                     color: #3687e8;
                     font-weight: bold;
                     font-size: 22px;
-                    text-transform: capitalize;
                     @include respond(md-desktop) {
                       font-size: 20px;
                     }
@@ -184,7 +182,6 @@
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  margin-left: 1rem;
                   margin: 10px 35px !important;
                 }
               }
@@ -242,12 +239,9 @@
               flex-wrap: nowrap;
 
               .code_phone {
-                border-top-right-radius: 0px;
-                border-bottom-right-radius: 0px;
                 font-size: 19px;
                 letter-spacing: 0.18px;
                 color: #3687e8;
-                text-transform: capitalize;
                 outline: none;
                 border-radius: 4px 0 0 4px;
                 @include respond(lg-desktop) {
@@ -323,6 +317,7 @@
       }
     }
   }
+
   .arrow {
     margin-left: -40px;
     width: 13px;
@@ -353,7 +348,7 @@
       height: 15px;
     }
   }
- 
+
   .remark_field {
     background: #c3c3c31f;
     border: 1px solid #0000001f;
@@ -647,7 +642,6 @@ img {
 
 .customSelect {
   appearance: none;
-
 }
 
 .edit_image {
@@ -715,8 +709,6 @@ img {
       margin-left: -40px;
     }
 
-   
-
     .phone {
       .label_heading {
         left: 90px;
@@ -746,12 +738,9 @@ img {
       flex-wrap: nowrap;
 
       .code_phone {
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
         font-size: 19px;
         letter-spacing: 0.18px;
         color: #3687e8;
-        text-transform: capitalize;
         outline: none;
         border-radius: 4px 0 0 4px;
         @include respond(lg-desktop) {
@@ -879,12 +868,6 @@ img {
   }
 }
 
-.plus_add {
-  margin-top: 10px;
-  margin-left: -60px;
-  width: 36px;
-  height: 36px;
-}
 
 .comment_para {
   border: 1px solid #0000001f;
@@ -899,6 +882,7 @@ img {
     line-height: 25px;
   }
 }
+
 .approve {
   cursor: pointer;
   width: 260px;
@@ -922,10 +906,9 @@ img {
     font-size: 12px;
   }
 }
+
 .plus_add {
-  margin-top: 12px;
   z-index: 1;
-  margin-left: -60px;
   width: 36px;
   height: 36px;
   @include respond(lg-desktop) {
@@ -935,6 +918,7 @@ img {
     margin-left: -40px;
   }
 }
+
 .dashboard_form {
   padding: 10px 10px 0px 20px;
   //margin: 15px;
@@ -1065,10 +1049,8 @@ img {
           width: 13px;
           height: 13px;
         }
-       
       }
 
-     
       @include respond(lg-desktop) {
         font-size: $font_size_mobile_input_label;
       }
@@ -1130,6 +1112,7 @@ img {
     height: 15px;
   }
 }
+
 .table_container {
   .table_scroll_outer {
     width: 100%;
@@ -1159,7 +1142,7 @@ img {
               padding-left: 15px;
             }
           }
-          
+
           img {
             width: 14px;
             height: 14px;
@@ -1275,6 +1258,7 @@ img {
     }
   }
 }
+
 .image_arrow {
   transform: translateX(80%);
   margin-top: 17px;
@@ -1372,11 +1356,12 @@ img {
     opacity: 0.6;
   }
 }
+
 .col_header {
   font-weight: 500;
   font-size: 16px;
   line-height: 17px;
- 
+
   letter-spacing: 0.53px;
   @include respond(lg-desktop) {
     font-size: 14px;

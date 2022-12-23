@@ -15,7 +15,6 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux
 
 const Index = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId');
@@ -23,17 +22,20 @@ const Index = () => {
   }, [dispatch, sumInsuredCalc]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
+
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
+
   let insuranceData = _get(insuranceResponse, 'data[0]', {});
 
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
   });
+
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
-    expectedTimeOfArrival: '',
-    expectedTimeOfDispatch: '',
+    expectedTimeOfArrival: _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '') ?? '',
+    expectedTimeOfDispatch: _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '') ?? '',
     insuranceType: '',
     laycanFrom: '',
     laycanTo: '',
@@ -57,8 +59,12 @@ const Index = () => {
 
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
-      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival || undefined,
-      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
+      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival
+        ? insuranceData?.quotationRequest?.expectedTimeOfArrival
+        : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort || undefined,
+      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch
+        ? insuranceData?.quotationRequest?.expectedTimeOfDispatch
+        : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort || undefined,
       insuranceType: insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
       laycanFrom: insuranceData?.quotationRequest?.laycanFrom
         ? insuranceData?.quotationRequest?.laycanFrom
@@ -66,11 +72,13 @@ const Index = () => {
       laycanTo: insuranceData?.quotationRequest?.laycanTo
         ? insuranceData?.quotationRequest?.laycanTo
         : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee: insuranceData?.quotationRequest?.lossPayee
-        ? insuranceData?.quotationRequest?.lossPayee
-        : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
+      lossPayee:
+        _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', insuranceData?.quotationRequest?.lossPayee) || '',
+
       storageDetails: {
-        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || '',
+        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
+          ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
+          : _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
         storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
@@ -103,6 +111,7 @@ const Index = () => {
   };
 
   const [reset, setReset] = useState(false);
+
   const clearAll = () => {
     // document.getElementById('FormInsurance').value = ''
     setQuotationData({
@@ -176,7 +185,10 @@ const Index = () => {
         return false;
       }
     }
-    if (quotationData?.insuranceType == 'Storage Insurance') {
+    if (
+      quotationData?.insuranceType == 'Storage Insurance' ||
+      quotationData?.insuranceType == 'Marine & Storage Insurance'
+    ) {
       if (
         quotationData.storageDetails.placeOfStorage == '' ||
         quotationData.storageDetails.placeOfStorage == undefined ||
@@ -213,6 +225,7 @@ const Index = () => {
     }
     return true;
   };
+
   const handleSave = async () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
@@ -362,7 +375,7 @@ const Index = () => {
                               {Number(insuranceData?.order?.quantity)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                               })}{' '}
-                              MT
+                              {insuranceData?.order?.unitOfQuantity}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -401,12 +414,13 @@ const Index = () => {
                           <Col lg={4} md={6} sm={6}>
                             <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
                             <div className={styles.col_body}>
-                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '') +
+                                `, India`}
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 id="FormInsurance"
                                 name="lossPayee"
                                 onChange={(e) => {
@@ -415,26 +429,11 @@ const Index = () => {
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
+                                    : _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', '')
                                 }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                              >
-                                <option disabled selected>
-                                  Select an option
-                                </option>
-                                <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="NA">NA</option>
-                              </select>
-                              <label className={`${styles.label_heading} label_heading`}>
-                                Loss Payee
-                                {/* <strong className="text-danger">*</strong> */}
-                              </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              ></input>
+                              <label className={`${styles.label_heading} label_heading`}>Loss Payee</label>
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -615,12 +614,13 @@ const Index = () => {
                           <Col lg={4} md={6} sm={6}>
                             <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
                             <div className={styles.col_body}>
-                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '') +
+                                `, India`}
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 onChange={(e) => {
                                   saveQuotationData(e.target.name, e.target.value);
@@ -629,28 +629,18 @@ const Index = () => {
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
+                                    : _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', '')
                                 }
-                              >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
-                                {/* <option selected>
-                                  {insuranceData?.quotationRequest?.lossPayee}
-                                </option> */}
-                                <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="NA">NA</option>
-                              </select>
+                              ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
                                 {/* <strong className="text-danger">*</strong> */}
                               </label>
-                              <img
+                              {/* <img
                                 className={`${styles.arrow} image_arrow img-fluid`}
                                 src="/static/inputDropDown.svg"
                                 alt="Search"
-                              />
+                              /> */}
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -736,6 +726,7 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
+                              onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
@@ -760,7 +751,7 @@ const Index = () => {
                       <div className={` ${styles.body}`}>
                         <h5>Storage Details</h5>
                         <Row>
-                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                          {/* <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
                               <select
                                 name="storageDetails.placeOfStorage"
@@ -783,6 +774,21 @@ const Index = () => {
                                 alt="Search"
                               />
                             </div>
+                          </Col> */}
+                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              value={quotationData.storageDetails.placeOfStorage ?  `${quotationData.storageDetails.placeOfStorage}, India` : quotationData.storageDetails.placeOfStorage}
+                              name="storageDetails.placeOfStorage"
+                              onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
+                            />
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Place of Storage
+                              <strong className="text-danger">*</strong>
+                            </label>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <input
@@ -841,7 +847,9 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      <div className={`${styles.req_letter}`}>
+        <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      </div>
     </>
   );
 };

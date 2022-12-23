@@ -1,7 +1,5 @@
 @import '../styles/Core/config';
-
 .main_container {
-  background-color: #0a1834;
   color: #b5d7dd;
   width: 100%;
   height: 100%;
@@ -18,12 +16,10 @@
   @include respond(md-desktop) {
     font-size: 14px;
   }
-
   .wrapper {
     cursor: pointer;
     width: 100%;
     margin-bottom: 12px;
-
     .header {
       width: 100%;
       height: 80px;
@@ -37,14 +33,12 @@
       @include respond(md-desktop) {
         height: 60px;
       }
-
       div {
         width: 70%;
         height: 100%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
-
         img {
           width: 36px;
           height: 36px;
@@ -57,7 +51,6 @@
             height: 28px;
           }
         }
-
         span {
           margin-left: 16px;
           @include respond(lg-desktop) {
@@ -68,7 +61,6 @@
           }
         }
       }
-
       .icon {
         width: 26px;
         height: 26px;
@@ -78,13 +70,10 @@
         }
       }
     }
-
     .sub_wrapper {
-     
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.2s ease-out;
-
       .sub_header {
         width: 100%;
         height: 60px;
@@ -94,13 +83,11 @@
         font-weight: 500;
         font-size: 18px;
         line-height: 23px;
-
         img {
           width: 30px;
           height: 30px;
           min-width: 30px;
         }
-
         @include respond(lg-desktop) {
           font-size: 15px;
           line-height: 1.3;
@@ -110,7 +97,6 @@
           font-size: 13px;
           height: 50px;
         }
-
         div {
           width: 50%;
           height: 100%;
@@ -120,7 +106,6 @@
           @include respond(lg-desktop) {
             width: 60%;
           }
-
           span {
             letter-spacing: 0px;
             color: #b5d7dd;
@@ -128,19 +113,17 @@
             white-space: nowrap;
             margin-left: 1rem;
             @include respond(lg-desktop) {
-              margin-left: 14px;
+              margin-left: 10px;
             }
             @include respond(md-desktop) {
               height: 60px;
             }
-
             div {
               width: 70%;
               height: 100%;
               display: flex;
               justify-content: flex-start;
               align-items: center;
-
               img {
                 width: 36px;
                 height: 36px;
@@ -153,7 +136,6 @@
                   height: 28px;
                 }
               }
-
               span {
                 margin-left: 16px;
                 @include respond(lg-desktop) {
@@ -164,7 +146,6 @@
                 }
               }
             }
-
             .icon {
               width: 26px;
               height: 26px;
@@ -174,13 +155,10 @@
               }
             }
           }
-
           .sub_wrapper {
-        
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.2s ease-out;
-
             .sub_header {
               width: 100%;
               height: 60px;
@@ -190,13 +168,11 @@
               font-weight: 500;
               font-size: 18px;
               line-height: 23px;
-
               img {
                 width: 30px;
                 height: 30px;
                 min-width: 30px;
               }
-
               @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
@@ -206,7 +182,6 @@
                 font-size: 13px;
                 height: 50px;
               }
-
               div {
                 width: 50%;
                 height: 100%;
@@ -216,7 +191,6 @@
                 @include respond(lg-desktop) {
                   width: 60%;
                 }
-
                 span {
                   letter-spacing: 0px;
                   color: #b5d7dd;
@@ -231,71 +205,57 @@
                   }
                 }
               }
-
               margin-left: 10px;
             }
           }
         }
       }
     }
-
     .openlist {
       max-height: fit-content;
     }
-
     .closelist {
       max-height: 0px;
       overflow: hidden;
     }
   }
-
   transition: 0.5s;
 }
-
 .collapse_sidebar {
   width: 100%;
-
   .wrapper {
     .header {
       div {
         justify-content: center;
       }
-
       .icon {
         display: none;
         width: 26px;
         height: 26px;
       }
-
       span {
         display: none;
       }
     }
-
     .sub_wrapper {
-     
       .sub_header {
         div {
           justify-content: center;
         }
-
         span {
           display: none;
         }
       }
     }
-
     .openlist {
       max-height: fit-content;
     }
-
     .closelist {
       max-height: 0px;
       overflow: hidden;
     }
   }
 }
-
 .main_container_mobile {
   z-index: 1030;
   position: fixed;
@@ -316,11 +276,9 @@
   @include respond(phone) {
     width: 100%;
   }
-
   .wrapper {
     cursor: pointer;
     width: 100%;
-
     .header {
       width: 100%;
       height: 80px;
@@ -328,36 +286,29 @@
       justify-content: space-around;
       align-items: center;
       text-align: left;
-
       div {
         width: 70%;
         height: 100%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
-
         img {
           width: 36px;
           height: 36px;
         }
-
         span {
           margin-left: 1.5rem;
         }
       }
-
       .icon {
         width: 26px;
         height: 26px;
       }
     }
-
     .sub_wrapper {
-    
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.2s ease-out;
-
       .sub_header {
         width: 100%;
         height: 60px;
@@ -367,14 +318,12 @@
         font-weight: 500;
         font-size: 18px;
         line-height: 23px;
-
         div {
           width: 50%;
           height: 100%;
           display: flex;
           justify-content: flex-start;
           align-items: center;
-
           span {
             letter-spacing: 0px;
             color: #b5d7dd;
@@ -386,44 +335,35 @@
         }
       }
     }
-
     .openlist {
       max-height: fit-content;
     }
-
     .closelist {
       max-height: 0px;
       overflow: hidden;
     }
   }
-
   transition: 0.5s;
 }
-
 .collapse_sidebar_mobile {
   display: none;
 }
-
 .selected {
   color: #f3bf4e;
   background-color: #1c3362;
 }
-
 #show-sidebar {
   transform: translateX(0);
   transition: 0.5s;
 }
-
 #hide-sidebar {
   transform: translateX(100vw);
   transition: 0.2s;
 }
-
 .subSelected {
   color: #f3bf4e !important;
   background-color: #1c3362;
 }
-
 .wrapperSlected {
   background: #102141;
 }

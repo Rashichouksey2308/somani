@@ -24,12 +24,11 @@ import API from '../../../src/utils/endpoints';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
-import { getInternalCompanies, getVendors } from '../../redux/masters/action';
-
+import { getInternalCompanies, getVendors,getPincodes } from '../../redux/masters/action';
+import {gSTINValidation,emailValidation} from '../../utils/helper'
+import Router from 'next/router';
 function Index(props) {
   const dispatch = useDispatch();
-
-
 
   const [apiData, setApiData] = useState([]);
   const [active, setActive] = useState('Product Specifications');
@@ -41,7 +40,7 @@ function Index(props) {
   const [sameAsCHA, setSameAsCHA] = useState(true);
   const { companyData } = useSelector((state) => state.companyDetails);
   const { orderList } = useSelector((state) => state.buyer);
- 
+
   useEffect(() => {
     if (window) {
       props.setDate(localStorage.getItem('timeGenericUpdated'));
@@ -56,6 +55,118 @@ function Index(props) {
   const { getBanksMasterData } = useSelector((state) => state.MastersData);
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
+  
+  const getVendor=(value)=>{
+   getVendorsMasterData
+  }
+  const [chaDetails,setChaDetails]=useState({})
+  const [cmaDetails,setCmaDetails]=useState({})
+  const [steveDoreDetails,setsteveDoreDetails]=useState({})
+  useEffect(() => {
+    if(getVendorsMasterData?.length>0){
+      let cmaAddress=[]
+      let cmaAutorized=[]
+      let cmaOptions=[]
+      let cmaName=''
+      let cmagstin=[]
+
+      let chaAddress=[]
+      let chaAutorized=[]
+      let chaOptions=[]
+      let chaName=''
+      let chagstin=[]
+
+      let stevedoreAddress=[]
+      let stevedoreAutorized=[]
+      let stevedoreOptions=[]
+      let stevedoreName=''
+      let stevedoregstin=[]
+      
+      getVendorsMasterData.filter((val,index)=>{
+        if(val.vendorDetails.vendor=="CMA"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+             if(add.address!=="" && add.address!== undefined){
+               cmaAddress.push(add)
+               cmagstin.push(add.gstin)
+            }
+               
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+            console.log(sig.authorizedSignatory,"sig.authorizedSignatory")
+              if(sig.authorizedSignatory!=="No"){
+                  cmaAutorized.push(sig)
+                  cmaOptions.push(sig.name)
+              }
+               
+           })
+           cmaName=val.vendorDetails.companyName
+        }
+         if(val.vendorDetails.vendor=="CHA"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+             if(add.address!=="" && add.address!== undefined){
+               chaAddress.push(add)
+               chagstin.push(add.gstin)
+            }
+               
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+              if(sig.authorizedSignatory!=="No"){
+                  chaAutorized.push(sig)
+                  chaOptions.push(sig.name)
+              }
+               
+           })
+           chaName=val.vendorDetails.companyName
+        }
+         if(val.vendorDetails.vendor=="Stevedore"){
+          console.log(val,"ssasdasda")
+           val.keyAddresses.forEach((add,index)=>{
+            if(add.address!=="" && add.address!== undefined){
+               stevedoreAddress.push(add)
+               stevedoregstin.push(add.gstin)
+            }
+               
+           })
+           val.keyContactPerson.forEach((sig,index)=>{
+              if(sig.authorizedSignatory!=="No"){
+                  stevedoreAutorized.push(sig)
+                  stevedoreOptions.push(sig.name)
+              }
+               
+           })
+           stevedoreName=val.vendorDetails.companyName
+        }
+      })
+      let tempCma={
+        name:cmaName,
+        options:cmaOptions||[],
+        signatory:cmaAutorized||[],
+        address:cmaAddress||[],
+        gstin:cmagstin||[]
+      }
+      let tempCha={
+        name:chaName,
+        options:chaOptions||[],
+        signatory:chaAutorized||[],
+        address:chaAddress||[],
+        gstin:chagstin||[]
+      }
+      let tempsteved={
+        name:stevedoreName,
+        options:stevedoreOptions||[],
+        signatory:stevedoreAutorized||[],
+        address:stevedoreAddress||[],
+        gstin:stevedoregstin||[]
+      }
+      console.log(tempCma,"tempCma")
+      setCmaDetails({...tempCma})
+      setChaDetails({...tempCha})
+      setsteveDoreDetails({...tempsteved})
+    }
+  },[getVendorsMasterData,sameAsCHA])
+  console.log(cmaDetails,"cmaDetails")
   const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
@@ -75,19 +186,15 @@ function Index(props) {
         }
       }
     }
-  
+
     setSidebar(tempArr);
     setIsSideBarOpen(false);
     setSideStateToLocal(val);
   };
 
-  
-
   const uploadDoc = async (e) => {
-   
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-   
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -102,45 +209,43 @@ function Index(props) {
       let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
       });
-    
-      if (response.data.code === 200) {
-      
 
+      if (response.data.code === 200) {
         return response.data.data;
-       
       } else {
-        
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
   const addressValidation = (type, data, check = true) => {
-   
     if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
       if (check) {
+        if(type!=="Supplier"){
         if (data.gstin === '' || data.gstin == undefined) {
-          let toastMessage = 'Please add gstin';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            let toastMessage = 'Please add gstin';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            return false;
           }
-          return false;
-        }
-        if (data.state === '' || data.state == undefined) {
-          let toastMessage = 'Please add state';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          if (data.state === '' || data.state == undefined) {
+            let toastMessage = 'Please add state';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            return false;
           }
-          return false;
-        }
-      }
-      if (data.city === '' || data.city == undefined) {
+          if (data.city === '' || data.city == undefined) {
         let toastMessage = 'Please add city';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         return false;
       }
+        }
+       
+       
+      }
+      
     }
     if (data.addressType === '' || data.addressType == undefined) {
       let toastMessage = 'Please add address Type';
@@ -170,11 +275,10 @@ function Index(props) {
       }
       return false;
     }
-
+  
     return true;
   };
   const addressValidation2 = (type, data, check = true) => {
-  
     if (data.addressType === '' || data.addressType == undefined) {
       let toastMessage = 'Please add address Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -227,13 +331,17 @@ function Index(props) {
   };
   const setInitialSideBar = () => {
     let temp = [...sideBar];
-   
+
     if (props?.genericData) {
       if (props?.genericData?.supplier?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Supplier') {
             val.state = 'complete';
+          
             val.image = '/static/done.svg';
+            val.default = 'complete';
+
+            
           }
         });
       }
@@ -242,6 +350,7 @@ function Index(props) {
           if (val.name == 'Supplier') {
             val.state = 'pending';
             val.image = '/static/pending2.svg';
+            val.default = 'pending';
           }
         });
       }
@@ -250,6 +359,7 @@ function Index(props) {
           if (val.name == 'Seller') {
             val.state = 'complete';
             val.image = '/static/done.svg';
+            val.default = 'complete';
           }
         });
       }
@@ -257,6 +367,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Seller') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -265,6 +376,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Buyer') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -273,6 +385,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Buyer') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -281,6 +394,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Financing Bank') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -289,6 +403,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Financing Bank') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -297,6 +412,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'CMA') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -305,6 +421,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'CMA') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -313,6 +430,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'CHA') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -321,6 +439,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'CHA') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -329,6 +448,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Stevedore') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -337,6 +457,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Stevedore') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -345,6 +466,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Shipping Line') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -353,6 +475,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Shipping Line') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -361,6 +484,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Delivery Terms') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -369,6 +493,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Delivery Terms') {
             val.state = 'pending';
+            val.default = 'pending';
             val.image = '/static/pending2.svg';
           }
         });
@@ -377,6 +502,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Product Specifications') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -393,6 +519,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Additional Comments') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -409,6 +536,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Place of Execution') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -425,6 +553,7 @@ function Index(props) {
         temp.forEach((val, index) => {
           if (val.name == 'Associate Buyer') {
             val.state = 'complete';
+            val.default = 'complete';
             val.image = '/static/done.svg';
           }
         });
@@ -437,12 +566,15 @@ function Index(props) {
           }
         });
       }
+      
     }
+    
     setSidebar([...temp]);
   };
   useEffect(() => {
     setInitialSideBar();
   }, [props.genericData]);
+
   const setSideStateToLocal = (val = null) => {
     sessionStorage.setItem('genericSide', JSON.stringify(sideBar));
     sessionStorage.setItem('setgenActive', val);
@@ -456,7 +588,35 @@ function Index(props) {
       }
     }
   }, []);
-
+let masterList = [
+    {
+      name: 'Bhawana Jain',
+      designation: 'Vice President (Finance & Accounts)',
+      email: 'bhawanajain@somanigroup.com',
+      phoneNo: '',
+    },
+    {
+      name: 'Vipin Kumar',
+      designation: 'Manager Accounts',
+      email: 'vipinrajput@somanigroup.com',
+      phoneNo: '',
+    },
+    {
+      name: 'Devesh Jain',
+      designation: 'Director',
+      email: 'devesh@indointertrade.ch',
+      phoneNo: '',
+    },
+    {
+      name: 'Fatima Yannoulis',
+      designation: 'Chief Financial Officer',
+      email: 'fatima@indointertrade.ch',
+      phoneNo: '',
+    },
+  ];
+  const gettingPins=(value)=>{
+   dispatch(getPincodes(value));
+ }
   const showContent = (active) => {
     if (active == 'Buyer') {
       return (
@@ -471,6 +631,9 @@ function Index(props) {
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
           internal={getInternalCompaniesMasterData}
+          masterList={masterList}
+          gettingPins={gettingPins}
+
         />
       );
     }
@@ -490,6 +653,11 @@ function Index(props) {
           gstList={_get(orderList, 'company.gstList', [])}
           selectedGST={_get(orderList, 'company.GST', '')}
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
+          directors={props.directors}
+          gettingPins={gettingPins}
+          orderData={props.genericData.order}
+          
+        
         />
       );
     }
@@ -504,6 +672,9 @@ function Index(props) {
           data={props?.genericData?.seller}
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
+          masterList={masterList}
+          gettingPins={gettingPins}
+          
         />
       );
     }
@@ -518,7 +689,11 @@ function Index(props) {
           data={props?.genericData?.CHA}
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
-          vendor={getVendorsMasterData[3]}
+           vendor={chaDetails}
+          masterList={masterList}
+          gettingPins={gettingPins}
+          
+          
         />
       );
     }
@@ -534,7 +709,11 @@ function Index(props) {
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
           termsheet={props?.genericData?.order?.termsheet}
-          vendor={getVendorsMasterData[1]}
+          vendor={cmaDetails}
+          masterList={masterList}
+          gettingPins={gettingPins}
+         
+          
         />
       );
     }
@@ -553,6 +732,9 @@ function Index(props) {
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
           addressValidation2={addressValidation2}
+          masterList={masterList}
+          gettingPins={gettingPins}
+          
         />
       );
     }
@@ -565,6 +747,7 @@ function Index(props) {
           updateData={updateData}
           active={active}
           data={props?.genericData?.shippingLine}
+          
         />
       );
     }
@@ -592,7 +775,10 @@ function Index(props) {
           active={active}
           addressValidation={addressValidation}
           sameAsCHA={sameAsCHA}
-          vendor={getVendorsMasterData[4]}
+           vendor={steveDoreDetails}
+          masterList={masterList}
+          gettingPins={gettingPins}
+          
         />
       );
     }
@@ -604,6 +790,7 @@ function Index(props) {
           submitData={submitData}
           updateData={updateData}
           active={active}
+          genericData={props?.genericData}
           data={props?.genericData?.deliveryTerms}
         />
       );
@@ -651,78 +838,91 @@ function Index(props) {
       state: 'current',
       value: 'Product Specifications',
       image: '/static/currnet.svg',
+      default:"default"
     },
     {
       name: 'Supplier',
       state: 'default',
       value: 'Supplier',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Seller',
       state: 'default',
       value: 'Seller',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Buyer',
       state: 'default',
       value: 'Buyer',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Associate Buyer',
       state: 'default',
       value: 'Associate Buyer',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Financing Bank',
       state: 'default',
       value: 'Financing Bank',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Shipping Line',
       state: 'default',
       value: 'Shipping Line',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'CHA',
       state: 'default',
       value: 'CHA',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Stevedore',
       state: 'default',
       value: 'Stevedore',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'CMA',
       state: 'default',
       value: 'CMA',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Delivery Terms',
       state: 'default',
       value: 'Delivery Terms',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Place of Execution',
       state: 'default',
       value: 'Place of Execution',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
     {
       name: 'Additional Comments',
       state: 'default',
       value: 'Additional Comments',
       image: '/static/Group 3256.svg',
+      default:"default"
     },
   ]);
   const onLeftChange = () => {
@@ -730,45 +930,58 @@ function Index(props) {
     for (let i = 0; i < tempArr.length; i++) {
       if (tempArr[i].name == active) {
         if (i != 0) {
-          tempArr[i].state = 'default';
-          if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
-            tempArr[i].image = '/static/Group 3256.svg';
-          }
-          let a = i - 1;
-        
-          tempArr[a].state = 'current';
-          if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
-            tempArr[a].image = '/static/currnet.svg';
-          }
+         tempArr[i].state = 'default';
+            if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+              tempArr[i].image = '/static/Group 3256.svg';
+            }
+            if(tempArr[i].default == "complete" || tempArr[i].default == "pending"  ){
+
+            }else{
+              tempArr[i].image = '/static/Group 3256.svg';
+            }
+            let a = i - 1;
+
+            tempArr[a].state = 'current';
+            if(tempArr[a].default == "complete" || tempArr[a].default == "pending"  ){
+
+            }else{
+              tempArr[a].image = '/static/currnet.svg';
+            }
           setActive(tempArr[a].name);
         }
       }
     }
-  
+
     setSidebar(tempArr);
     setSideStateToLocal(active);
   };
   const onRightChange = () => {
-   
     let tempArr = [...sideBar];
-  
+
     if (active !== 'Additional Comments') {
       for (let i = 0; i < tempArr.length; i++) {
-       
         if (tempArr[i].name == active) {
           if (i != tempArr.length) {
             tempArr[i].state = 'default';
             if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
               tempArr[i].image = '/static/Group 3256.svg';
             }
-          
+            if(tempArr[i].default == "complete" || tempArr[i].default == "pending"  ){
+
+            }else{
+              tempArr[i].image = '/static/Group 3256.svg';
+            }
             let a = i + 1;
-      
 
             tempArr[a].state = 'current';
-            if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+            if(tempArr[a].default == "complete" || tempArr[a].default == "pending"  ){
+
+            }else{
               tempArr[a].image = '/static/currnet.svg';
             }
+            // if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+            //   tempArr[a].image = '/static/currnet.svg';
+            // }
 
             setActive(tempArr[a].name);
             break;
@@ -781,7 +994,6 @@ function Index(props) {
     }
   };
 
-
   const onSave = () => {
     setSaveData(true);
   };
@@ -792,7 +1004,6 @@ function Index(props) {
   const updateData = async (key, data) => {
     let toastMessage = '';
     let dataToSend = {};
-   
 
     if (key == 'Supplier') {
       data.list.forEach((val, index) => {
@@ -903,7 +1114,6 @@ function Index(props) {
       let error = false;
       if (dataToSend.supplier.authorisedSignatoryDetails.length >= 0) {
         for (let i = 0; i < dataToSend.supplier.authorisedSignatoryDetails.length; i++) {
-         
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.supplier.authorisedSignatoryDetails[i].name == undefined
@@ -937,6 +1147,20 @@ function Index(props) {
             dataToSend.supplier.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+          if (
+            !emailValidation(dataToSend.supplier.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
@@ -986,13 +1210,12 @@ function Index(props) {
         seller: {
           name: 'Indo Intertrade Ag',
           shortName: data.sellerData.shortName,
-
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
           isSubmitted: true,
         },
       };
-    
+
       let dataToSend2 = {
         name: 'Indo Intertrade Ag',
         shortName: data.sellerData.shortName,
@@ -1055,7 +1278,6 @@ function Index(props) {
       let error = false;
       if (dataToSend.seller.authorisedSignatoryDetails.length >= 0) {
         for (let i = 0; i < dataToSend.seller.authorisedSignatoryDetails.length; i++) {
-         
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.seller.authorisedSignatoryDetails[i].name == undefined
@@ -1089,6 +1311,20 @@ function Index(props) {
             dataToSend.seller.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+            if (
+            !emailValidation(dataToSend.seller.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
@@ -1140,6 +1376,7 @@ function Index(props) {
           branch: data.buyerData.branchName,
           gstin: data.gstin,
           pan: data.pan,
+          shortName: data.shortName,
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
@@ -1152,6 +1389,7 @@ function Index(props) {
         gstin: data.gstin,
         pan: data.pan,
         addresses: data.addresses,
+        shortName: data?.shortName,
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));
@@ -1194,7 +1432,6 @@ function Index(props) {
       let error = false;
       if (dataToSend.buyer.authorisedSignatoryDetails.length >= 0) {
         for (let i = 0; i < dataToSend.buyer.authorisedSignatoryDetails.length; i++) {
-        
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.buyer.authorisedSignatoryDetails[i].name == undefined
@@ -1228,6 +1465,20 @@ function Index(props) {
             dataToSend.buyer.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+            if (
+            !emailValidation(dataToSend.buyer.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
@@ -1272,7 +1523,6 @@ function Index(props) {
       }
     }
     if (key == 'Financing Bank') {
-   
       dataToSend = {
         genericId: props.genericData?._id,
         financingBank: {
@@ -1286,7 +1536,7 @@ function Index(props) {
         branchName: data.financeData.branchName,
       };
       sessionStorage.setItem('Finance', JSON.stringify(dataToSend2));
-      if (dataToSend.financingBank.name == '' || dataToSend.financingBank.name == undefined) {
+      if (dataToSend.financingBank.name == '' || dataToSend.financingBank.name == undefined || dataToSend.financingBank.name == 'Select an option' ) {
         toastMessage = `Please add name `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1294,7 +1544,7 @@ function Index(props) {
           return;
         }
       }
-      if (dataToSend.financingBank.branch == '' || dataToSend.financingBank.branch == undefined) {
+      if (dataToSend.financingBank.branch == '' || dataToSend.financingBank.branch == undefined || dataToSend.financingBank.branch == 'Select an option') {
         toastMessage = `Please add branch name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1302,11 +1552,8 @@ function Index(props) {
           return;
         }
       }
-
-    
     }
     if (key == 'CMA') {
-     
       dataToSend = {
         genericId: props.genericData?._id,
         CMA: {
@@ -1319,10 +1566,11 @@ function Index(props) {
           isSubmitted: true,
         },
       };
+      console.log(dataToSend,"dataToSend")
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
-        shortName: data.cmaData.gstin,
+        gstin: data.cmaData.gstin,
         designatedStorageArea: data.cmaData.designatedStorageArea,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
@@ -1345,7 +1593,7 @@ function Index(props) {
         }
       }
       if (dataToSend.CMA.gstin == '' || dataToSend.CMA.gstin == undefined) {
-        toastMessage = `Please add short name  `;
+        toastMessage = `Please add gstin  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           setSubmitData(false);
@@ -1383,7 +1631,6 @@ function Index(props) {
       let error = false;
       if (dataToSend.CMA.authorisedSignatoryDetails.length >= 0) {
         for (let i = 0; i < dataToSend.CMA.authorisedSignatoryDetails.length; i++) {
-         
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.CMA.authorisedSignatoryDetails[i].name == undefined
@@ -1417,6 +1664,20 @@ function Index(props) {
             dataToSend.CMA.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+            if (
+            !emailValidation(dataToSend.CMA.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
@@ -1529,7 +1790,6 @@ function Index(props) {
       let error = false;
       if (dataToSend.CHA.authorisedSignatoryDetails.length >= 0) {
         for (let i = 0; i < dataToSend.CHA.authorisedSignatoryDetails.length; i++) {
-         
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.CHA.authorisedSignatoryDetails[i].name == undefined
@@ -1563,6 +1823,20 @@ function Index(props) {
             dataToSend.CHA.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+            if (
+            !emailValidation(dataToSend.CHA.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
@@ -1607,12 +1881,13 @@ function Index(props) {
       }
     }
     if (key == 'Stevedore') {
+      console.log(data.seteveState.gstin.length,"ata.seteveState.gstin")
       dataToSend = {
         genericId: props.genericData?._id,
         stevedore: {
           name: data.seteveState.name,
           shortName: data.seteveState.shortName,
-          gstin: data.seteveState.gstin,
+          gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
@@ -1622,13 +1897,12 @@ function Index(props) {
       let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
-        gstin: data.seteveState.gstin,
-
+        gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-    
+     console.log(dataToSend.stevedore.gstin,"dataToSend.stevedore.gstin")
       if (dataToSend.stevedore.name == '' || dataToSend.stevedore.name == undefined) {
         toastMessage = `Please add stevedore name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1676,7 +1950,6 @@ function Index(props) {
       let error = false;
       if (dataToSend.stevedore.authorisedSignatoryDetails.length >= 0) {
         for (let i = 0; i < dataToSend.stevedore.authorisedSignatoryDetails.length; i++) {
-         
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.stevedore.authorisedSignatoryDetails[i].name == undefined
@@ -1710,6 +1983,20 @@ function Index(props) {
             dataToSend.stevedore.authorisedSignatoryDetails[i].email == undefined
           ) {
             toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+            if (
+            !emailValidation(dataToSend.stevedore.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
@@ -1754,7 +2041,6 @@ function Index(props) {
       }
     }
     if (key == 'Shipping Line') {
-    
       dataToSend = {
         genericId: props.genericData?._id,
         shippingLine: {
@@ -1778,9 +2064,24 @@ function Index(props) {
           return;
         }
       }
+      console.log(data.shippingData.gstin,"data.shippingData.gstin")
+    if(data.shippingData.gstin!=="" && data.shippingData.gstin!==undefined){
+      let valid=  gSTINValidation(data.shippingData.gstin)
+      if(valid==false){
+         toastMessage = `Add valid gstin `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          setSubmitData(false);
+          return;
+        }
+      }
+    }
+   
+  
+      
     }
     if (key == 'Delivery Terms') {
-      console.log(data.listContact,"data.listContact")
+      console.log(data.listContact, 'data.listContact');
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {
@@ -1816,21 +2117,10 @@ function Index(props) {
         }
       }
 
-      if (
-        dataToSend?.deliveryTerms?.monthOfLoadingCargo == '' ||
-        dataToSend?.deliveryTerms?.monthOfLoadingCargo == undefined
-      ) {
-        toastMessage = `Please select month Of Loading Cargo  `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
-        }
-      }
+     
     }
 
     if (key == 'Product Specifications') {
-
       dataToSend = {
         genericId: props.genericData?._id,
         productSpecifications: {
@@ -1840,21 +2130,48 @@ function Index(props) {
         },
       };
       sessionStorage.setItem('Product', JSON.stringify({ list: data.addressList, excel: data?.excelData }));
-     
-      if (
-        dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
-        dataToSend?.productSpecifications?.specificationTable == undefined
-      ) {
-        toastMessage = `Please add product specification `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
-        }
-      }
+
+      // if (
+      //   dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
+      //   dataToSend?.productSpecifications?.specificationTable == undefined
+      // ) {
+      //   toastMessage = `Please add product specification `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     setSubmitData(false);
+      //     return;
+      //   }
+      // }
     }
     if (key == 'Additional Comments') {
       let list = [];
+      let isOK=true
+       for(let i=0;i<data.addressList.length;i++){
+         if(data.addressList[i].name=="" || data.addressList[i].name==undefined){
+                toastMessage = `Agreement name cannot be empty`;
+                  if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                    isOK=false
+                   
+                  
+                  }
+             }
+          if(data.addressList[i].name=="Assignment Letter"){
+             if(data.addressList[i].monthOfLoadingCargo=="" || data.addressList[i].monthOfLoadingCargo==undefined){
+                toastMessage = `Please add month of Loading cargo `;
+                  if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                    isOK=false
+                   
+                  
+                  }
+             }
+          }
+       }
+       if(isOK==false){
+         setSubmitData(false);
+         return
+       }
       data.addressList.forEach((val, index) => {
         list.push({
           agreementName: val.name,
@@ -1866,7 +2183,7 @@ function Index(props) {
           isSubmitted: true,
         });
       });
-     
+
       dataToSend = {
         genericId: props.genericData?._id,
         additionalComments: {
@@ -1886,8 +2203,41 @@ function Index(props) {
       }
     }
     if (key == 'Place of Execution') {
-     
-      let list = [];
+       let list = [];
+       let isOK=true
+       for(let i=0;i<data.list.length;i++){
+      if(data.list[i].name=="" || data.list[i].name==undefined){
+            toastMessage = `Agreement name cannot be empty`;
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                isOK=false             
+              }
+          }
+           if(data.list[i].execution=="" || data.list[i].execution==undefined){
+            toastMessage = `Place of execution  cannot be empty`;
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                isOK=false
+                
+              
+              }
+          }
+              if(data.list[i].dateOfExecution=="" || data.list[i].dateOfExecution==undefined){
+            toastMessage = `date of execution  cannot be empty`;
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                isOK=false
+                
+              
+              }
+          }
+         
+       }
+       if(isOK==false){
+         setSubmitData(false);
+         return
+       }
+      
       data.list.forEach((val, index) => {
         list.push({
           agreementName: val.name,
@@ -1901,6 +2251,7 @@ function Index(props) {
 
         placeOfExecution: {
           execution: list,
+          isSubmitted: true,
         },
       };
       sessionStorage.setItem('exe', JSON.stringify(data.list));
@@ -1914,9 +2265,6 @@ function Index(props) {
       }
     }
     if (key == 'Associate Buyer') {
-    
-
-     
       dataToSend = {
         genericId: props.genericData?._id,
 
@@ -1936,9 +2284,8 @@ function Index(props) {
         addresses: data.address,
         authorisedSignatoryDetails: data.list,
       };
+      console.log(dataToSend,"dataToSend")
       sessionStorage.setItem('Associate', JSON.stringify(dataToSend2));
-     
-      
 
       if (dataToSend.associateBuyer.gstin == '' || dataToSend.associateBuyer.gstin == undefined) {
         toastMessage = `Please add gstin  `;
@@ -1949,7 +2296,6 @@ function Index(props) {
         }
       }
 
-     
       if (data.companyAddress.fullAddress == '') {
         if (dataToSend.associateBuyer.addresses.length <= 0 || dataToSend.associateBuyer.addresses == undefined) {
           toastMessage = `Please add address `;
@@ -1963,7 +2309,8 @@ function Index(props) {
 
       if (
         dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 ||
-        dataToSend.associateBuyer.authorisedSignatoryDetails == undefined
+        dataToSend.associateBuyer.authorisedSignatoryDetails == undefined ||
+        dataToSend.associateBuyer.authorisedSignatoryDetails[0]?.name == ""
       ) {
         toastMessage = `Please add authorised Signatory Details `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1974,9 +2321,10 @@ function Index(props) {
       }
       let error = false;
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0) {
+        console.log("herher")
         for (let i = 0; i < dataToSend.associateBuyer.authorisedSignatoryDetails.length; i++) {
-          if (dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'true') {
-           
+          console.log("herher",dataToSend.associateBuyer.authorisedSignatoryDetails[i])
+          if (dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'true' || dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'false') {
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].name == '' ||
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].name == undefined
@@ -2019,6 +2367,21 @@ function Index(props) {
                 return;
               }
             }
+              if (
+            !emailValidation(dataToSend.associateBuyer.authorisedSignatoryDetails[i].email)
+            
+          ) {
+            toastMessage = `Please add  valid authorised Signatory email of ${i} `;
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.error(toastMessage.toUpperCase(), {
+                toastId: toastMessage,
+              });
+              setSubmitData(false);
+              error = true;
+              return;
+            }
+          }
+            console.log( dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,"")
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == '' ||
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == undefined
@@ -2076,7 +2439,6 @@ function Index(props) {
       }
     }
 
-   
     let timestamp = await dispatch(updateGenericData(dataToSend, 'Submitted'));
 
     if (timestamp == 500) {
@@ -2103,8 +2465,12 @@ function Index(props) {
     setSidebar([...tempArr]);
 
     setSideStateToLocal(key);
+     setSideStateToLocal(key);
+      if (key == 'Additional Comments') {
+        Router.push('/agreement-table')
+      }
   };
- 
+
   const sendData = async (key, data) => {
     let toastMessage = '';
     let dataToSend = {};
@@ -2169,7 +2535,7 @@ function Index(props) {
           isSubmitted: false,
         },
       };
-   
+
       let dataToSend2 = {
         name: 'Indo Intertrade Ag',
         shortName: data.sellerData.shortName,
@@ -2187,6 +2553,7 @@ function Index(props) {
           gstin: data.gstin,
           pan: data.pan,
           addresses: data.addresses,
+          shortName: data?.shortName,
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
         },
@@ -2197,12 +2564,12 @@ function Index(props) {
         gstin: data.gstin,
         pan: data.pan,
         addresses: data.addresses,
+        shortName: data?.shortName,
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));
     }
     if (key == 'Financing Bank') {
-   
       dataToSend = {
         genericId: props.genericData?._id,
         financingBank: {
@@ -2218,7 +2585,6 @@ function Index(props) {
       sessionStorage.setItem('Finance', JSON.stringify(dataToSend2));
     }
     if (key == 'CMA') {
-   
       dataToSend = {
         genericId: props.genericData?._id,
         CMA: {
@@ -2235,7 +2601,7 @@ function Index(props) {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
         designatedStorageArea: data.cmaData.designatedStorageArea,
-        shortName: data.cmaData.gstin,
+        gstin: data.cmaData.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       };
@@ -2270,7 +2636,7 @@ function Index(props) {
         stevedore: {
           name: data.seteveState.name,
           shortName: data.seteveState.shortName,
-          gstin: data.seteveState.gstin,
+          gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
@@ -2280,16 +2646,14 @@ function Index(props) {
       let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
-        gstin: data.seteveState.gstin,
+        gstin:Array.isArray(data.seteveState.gstin)?data.seteveState.gstin[0]:data.seteveState.gstin,
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-    
     }
     if (key == 'Shipping Line') {
-     
       dataToSend = {
         genericId: props.genericData?._id,
         shippingLine: {
@@ -2307,7 +2671,6 @@ function Index(props) {
       sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2));
     }
     if (key == 'Delivery Terms') {
-   
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {
@@ -2328,7 +2691,6 @@ function Index(props) {
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2));
     }
     if (key == 'Product Specifications') {
-    
       dataToSend = {
         genericId: props.genericData?._id,
         productSpecifications: {
@@ -2352,7 +2714,7 @@ function Index(props) {
           isSubmitted: false,
         });
       });
-    
+
       dataToSend = {
         genericId: props.genericData?._id,
         additionalComments: {
@@ -2362,8 +2724,6 @@ function Index(props) {
       sessionStorage.setItem('add', JSON.stringify(data.addressList));
     }
     if (key == 'Place of Execution') {
-    
-
       let list = [];
       data.list.forEach((val, index) => {
         list.push({
@@ -2383,7 +2743,6 @@ function Index(props) {
       sessionStorage.setItem('exe', JSON.stringify(data.list));
     }
     if (key == 'Associate Buyer') {
-   
       dataToSend = {
         genericId: props.genericData?._id,
 
@@ -2404,21 +2763,18 @@ function Index(props) {
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Associate', JSON.stringify(dataToSend2));
-    
     }
 
- 
     let timestamp = await dispatch(updateGenericData(dataToSend, 'Saved'));
-   
+
     if (timestamp == 500) {
       return;
     }
     setSaveData(false);
-   
-    setSubmitData(false);
- 
 
-    setSideStateToLocal(key);
+    setSubmitData(false);
+
+   
   };
   const onShowSideBar = () => {
     setIsSideBarOpen(true);

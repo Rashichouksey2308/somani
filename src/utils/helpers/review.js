@@ -1,13 +1,8 @@
 import React from 'react';
-import { toast } from 'react-toastify';
+import { emailValidation, phoneValidation, specialCharCheck } from '../helper';
+import { handleErrorToast } from './global';
 
-export const handleErrorToast = (toastMessage) => {
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-    return toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-  }
-};
-
-export const orderValidation = (orderDetails, shipment,approvedCredit) => {
+export const orderValidation = (orderDetails, shipment, approvedCredit) => {
   if (orderDetails?.transactionType?.trim() === '' || orderDetails?.transactionType?.trim() == undefined) {
     handleErrorToast('Invalid Transaction Type');
     return false;
@@ -64,8 +59,12 @@ export const orderValidation = (orderDetails, shipment,approvedCredit) => {
     handleErrorToast('the tolerance can not be Empty');
     return false;
   }
-  if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined) {
-    handleErrorToast('HSN CODE IS MANDATORY & CANNOT BE GREATER THAN 10 CHARACTERS');
+  if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined || !specialCharCheck(orderDetails?.hsnCode)) {
+    handleErrorToast('HSN CODE IS MANDATORY & SPECIAL CHARACTERS ARE NOT ALLOWED');
+    return false;
+  }
+  if (orderDetails?.hsnCode?.trim()?.length !== 8 ) {
+    handleErrorToast('provide a valid HSn Code');
     return false;
   }
   if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
@@ -130,10 +129,9 @@ export const rtrnChartIndiaction = (latest, previous, last) => {
     if (last > previous && previous < latest) {
       return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />;
     }
-
-    if (last === previous && previous > latest) {
-      return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />;
-    }
+    // if (last === previous && previous > latest) {
+    //   return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />;
+    // }
     if (last > previous && previous < latest) {
       return <img src="/static/trend-orange-212.svg" alt="Profit" className="img-fluid" />;
     }
@@ -145,19 +143,212 @@ export const rtrnChartIndiaction = (latest, previous, last) => {
       return <img src="/static/trend-orange-333.svg" alt="Profit" className="img-fluid" />;
     }
 
-    if (last === previous && previous === latest && last !== undefined) {
-      return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />;
-    }
+    // if (last === previous && previous === latest && last !== undefined) {
+    //   return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />;
+    // }
 
     if (last > previous && previous > latest) {
       return <img src="/static/trend-red-123.svg" alt="Profit" className="img-fluid" />;
     }
 
-    if (last > previous && previous > latest) {
+    if (last < previous && previous > latest) {
       return <img src="/static/trend-red-121.svg" alt="Profit" className="img-fluid" />;
     }
     if (last > previous && previous === latest) {
       return <img src="/static/trend-red-113.svg" alt="Loss" className="img-fluid" />;
     }
   }
+};
+
+export const addressValidtion = (data) => {
+  if (data.addressType === null || data.addressType === '' || data.addressType === undefined) {
+    handleErrorToast('Please Select addresss Type');
+    return false;
+  }
+  if (data.pinCode === null || data.pinCode === '' || data.pinCode === undefined) {
+    handleErrorToast('Please add pin code');
+    return false;
+  }
+  // if (data.state === null || data.state === '' || data.state === undefined) {
+  //   handleErrorToast('Please add state');
+  //   return false;
+  // }
+  if (data.city === null || data.city === '' || data.city === undefined) {
+    handleErrorToast('Please add city');
+    return false;
+  }
+  if (data.email === null || data.email === '' || data.email === undefined) {
+    handleErrorToast('Please add email');
+
+    return false;
+  }
+  if (
+    !String(data.email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      )
+  ) {
+    handleErrorToast('Please add valid email id');
+    return false;
+  }
+  if (data.email === null || data.email === '' || data.email === undefined) {
+    handleErrorToast('Please add email');
+
+    return false;
+  }
+  if (data.fullAddress === null || data.fullAddress === '' || data.fullAddress === undefined) {
+    handleErrorToast('Please add address');
+    return false;
+  }
+  if (data.address === null || data.fullAddress === '' || data.fullAddress === undefined) {
+    handleErrorToast('Please add address');
+    return false;
+  }
+  return true;
+};
+
+export const bankValidtion = (data, countryName) => {
+
+  if(countryName == 'India') {
+  if (data.Bank_Name === null || data.Bank_Name === '' || data.Bank_Name === undefined) {
+    handleErrorToast('Please add bank name');
+    return false;
+  }
+  if (data.IFSC === null || data.IFSC === '' || data.IFSC === undefined) {
+    handleErrorToast('Please add ifsc');
+    return false;
+  }
+  if (data.Account_No === null || data.Account_No === '' || data.Account_No === undefined) {
+    handleErrorToast('Please add account no.');
+    return false;
+  }
+  return true;
+}else {
+  if (data.Bank_Name === null || data.Bank_Name === '' || data.Bank_Name === undefined) {
+    handleErrorToast('Please add bank name');
+    return false;
+  }
+  if (data.Swift_Code === null || data.Swift_Code === '' || data.Swift_Code === undefined) {
+    handleErrorToast('Please add swift code');
+    return false;
+  }
+  if (data.Account_No === null || data.Account_No === '' || data.Account_No === undefined) {
+    handleErrorToast('Please add account no.');
+    return false;
+  }
+  return true;
+}
+};
+
+export const portValidtion = (data) => {
+  if (data.Country === null || data.Country === '' || data.Country === undefined) {
+    handleErrorToast('Please Select country');
+    return false;
+  }
+  if (data.Port_Name === null || data.Port_Name === '' || data.Port_Name === undefined) {
+    handleErrorToast('Please add Port Name');
+    return false;
+  }
+  if (data.State === null || data.State === '' || data.State === undefined) {
+    handleErrorToast('Please add state');
+    return false;
+  }
+  if (data.Container_Handling === null || data.Container_Handling === '' || data.Container_Handling === undefined) {
+    handleErrorToast('Please select Container Handling');
+    return false;
+  }
+  if (data.Approved === null || data.Approved === '' || data.Approved === undefined) {
+    handleErrorToast('Please select Approved or not');
+    return false;
+  }
+  return true;
+
+};
+
+export const currencyValidation = (data) => {
+  if (data.Currency === null || data.Currency === '' || data.Currency === undefined) {
+    handleErrorToast('Please select currency');
+    return false;
+  }
+  if (data.Currency_Name === null || data.Currency_Name === '' || data.Currency_Name === undefined) {
+    handleErrorToast('Please add Currency Name');
+    return false;
+  }
+  if (data.Symbol === null || data.Symbol === '' || data.Symbol === undefined) {
+    handleErrorToast('Please add symbol');
+    return false;
+  }
+  if (data.Status === null || data.Status === '' || data.Status === undefined) {
+    handleErrorToast('Please select Status');
+    return false;
+  }
+ 
+  return true;
+
+};
+
+export const vendorValidation = (data, vendorRadio) => {
+
+  if(vendorRadio == 'Domestic') {
+  if (data.vendor === null || data.vendor === '' || data.vendor === undefined) {
+    handleErrorToast('Please select vendor');
+    return false;
+  }
+  if (data.vendorType === null || data.vendorType === '' || data.vendorType === undefined) {
+    handleErrorToast('Please add vendor type');
+    return false;
+  }
+  if ((data.phoneNumber === null || data.phoneNumber === '' || data.phoneNumber === undefined) && phoneValidation(data.phoneNumber)) {
+    handleErrorToast('Please add a valid phone number');
+    return false;
+  }
+  if ((data.emailId === null || data.emailId === '' || data.emailId === undefined) && emailValidation(data.emailId)) {
+    handleErrorToast('Please add a valid email address');
+    return false;
+  }
+  if (data.pan_taxId === null || data.pan_taxId === '' || data.pan_taxId === undefined) {
+    handleErrorToast('Please add a valid pan/taxId');
+    return false;
+  }
+  if (data.activationDate === null || data.activationDate === '' || data.activationDate === undefined) {
+    handleErrorToast('activation date is mandatory');
+    return false;
+  }
+  if (data.companyName === null || data.companyName === '' || data.companyName === undefined) {
+    handleErrorToast('company name is mandatory');
+    return false;
+  }
+  return true;
+}else {
+  if (data.vendor === null || data.vendor === '' || data.vendor === undefined) {
+    handleErrorToast('Please select vendor');
+    return false;
+  }
+  if (data.vendorType === null || data.vendorType === '' || data.vendorType === undefined) {
+    handleErrorToast('Please add vendor type');
+    return false;
+  }
+  if (data.phoneNumber === null || data.phoneNumber === '' || data.phoneNumber === undefined || phoneValidation(data.phoneNumber)) {
+    handleErrorToast('Please add a valid phone number');
+    return false;
+  }
+  if (data.emailId === null || data.emailId === '' || data.emailId === undefined || emailValidation(data.emailId)) {
+    handleErrorToast('Please add a valid email address');
+    return false;
+  }
+  if (data.country === null || data.country === '' || data.country === undefined) {
+    handleErrorToast('country is mandatory');
+    return false;
+  }
+  if (data.activationDate === null || data.activationDate === '' || data.activationDate === undefined) {
+    handleErrorToast('activation date is mandatory');
+    return false;
+  }
+  if (data.companyName === null || data.companyName === '' || data.companyName === undefined) {
+    handleErrorToast('company name is mandatory');
+    return false;
+  }
+  return true;
+}
 };

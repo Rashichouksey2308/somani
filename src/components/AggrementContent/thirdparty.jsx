@@ -17,11 +17,11 @@ function Index(props) {
       bankName: '',
       chequeNo: '',
       chequeDate: null,
-      amount: '',
+      amount: 0,
     },
   ]);
 
-  const [isFieldInFocus, setIsFieldInFocus] = useState([])
+  const [isFieldInFocus, setIsFieldInFocus] = useState([{amount:false}]);
   const onAddContact = () => {
     setListContact([
       ...listContact,
@@ -30,40 +30,24 @@ function Index(props) {
         bankName: '',
         chequeNo: '',
         chequeDate: null,
-        amount: '',
+        amount: 0,
       },
     ]);
-    setIsFieldInFocus([...isFieldInFocus, { amount: false }])
+    setIsFieldInFocus([...isFieldInFocus, { amount: false }]);
   };
+ 
   const handleDeleteContact = (index) => {
-    setListContact([
-      ...listContact.slice(0, index),
-      ...listContact.slice(index + 1),
-    ]);
+    setListContact([...listContact.slice(0, index), ...listContact.slice(index + 1)]);
 
-    setIsFieldInFocus([
-      ...isFieldInFocus.slice(0, index),
-      ...isFieldInFocus.slice(index + 1),
-    ])
+    setIsFieldInFocus([...isFieldInFocus.slice(0, index), ...isFieldInFocus.slice(index + 1)]);
   };
 
-
-
-  useEffect(() => {
-    let tempArray = []
-
-    listContact.forEach((item) => {
-      tempArray.push({ amount: false })
-    })
-    setIsFieldInFocus(tempArray)
-  }, [listContact])
+ 
 
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
-
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'));
-
 
         setDeliveryData(savedData?.deliveryTerm);
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
@@ -73,44 +57,62 @@ function Index(props) {
           savedData?.cheque?.length > 0
             ? savedData.cheque
             : [
-              {
-                sNo: '',
-                bankName: '',
-                chequeNo: '',
-                chequeDate: null,
-                amount: '',
-              },
-            ],
+                {
+                  sNo: '',
+                  bankName: '',
+                  chequeNo: '',
+                  chequeDate: null,
+                  amount: 0,
+                },
+              ],
         );
+         if(savedData?.cheque.length>0){
+          let temp=[]
+          savedData?.cheque.forEach((val,index)=>{
+              temp.push({ amount: false })
+          })
+          setIsFieldInFocus([...temp])
+        }
       } else {
+       
+        setDeliveryData(props?.data?.deliveryTerm
+          ? props?.data?.deliveryTerm : props?.genericData?.order?.termsheet?.transactionDetails?.incoTerms
 
-        setDeliveryData(props?.data?.deliveryTerm);
+          );
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
-        setPaymentTerms(props?.data?.paymentTerms);
+        setPaymentTerms(props?.data?.paymentTerms ? props?.data?.paymentTerms : props?.genericData?.order?.termsheet?.paymentDueDate?.computationOfDueDate);
         setListContact(
           props?.data?.cheque?.length > 0
             ? props.data.cheque
             : [
-              {
-                sNo: '',
-                bankName: '',
-                chequeNo: '',
-                chequeDate: null,
-                amount: '',
-              },
-            ],
+                {
+                  sNo: '',
+                  bankName: '',
+                  chequeNo: '',
+                  chequeDate: null,
+                  amount: 0,
+                },
+              ],
         );
+
+        if(props?.data?.cheque.length>0){
+          let temp=[]
+          props?.data?.cheque.forEach((val,index)=>{
+            
+              temp.push({ amount: false })
+          })
+          setIsFieldInFocus([...temp])
+        }
       }
     }
   }, [props.data]);
 
   useEffect(() => {
-    let temp=[...listContact]
-      temp.forEach((val,index)=>{
+    let temp = [...listContact];
+    temp.forEach((val, index) => {
       delete val?._id;
-      })
+    });
     if (props.saveData == true && props.active == 'Delivery Terms') {
-      
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
@@ -120,7 +122,7 @@ function Index(props) {
       props.sendData('Delivery Terms', data);
     }
     if (props.submitData == true && props.active == 'Delivery Terms') {
-      console.log(temp,"listContact")
+     
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
@@ -134,13 +136,9 @@ function Index(props) {
 
   const handleInput = (name, value, key) => {
     setDeliveryData(value);
-    let dataToSend2 = {
-      deliveryTerms: value,
-    };
-    // sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
+   
   };
   const handleChangeInput = (name, value, index) => {
-
     let temp = [...listContact];
     temp[index][name] = value;
     setListContact([...temp]);
@@ -162,15 +160,13 @@ function Index(props) {
                   value={deliveryData}
                 >
                   <option value="">Select an option</option>
-                  <option value="CIF	Cost Insurance Freight Incoterms 2000">
+                  <option value="CIF">
                     CIF Cost Insurance Freight Incoterms 2000
                   </option>
-                  <option value={`CFR	Cost & Freight Incoterms 2000`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
-                  <option value="DDP	Delivery Duties Paid Incoterms 2000">
-                    DDP Delivery Duties Paid Incoterms 2000
-                  </option>
-                  <option value="">EXW Ex Works Incoterms 2000</option>
-                  <option value="FOB	Free on Board Incoterms 2000">FOB Free on Board Incoterms 2000</option>
+                  <option value={`CFR`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
+                  
+                 
+                  <option value="FOB">FOB Free on Board Incoterms 2000</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Delivery Terms <strong className="text-danger">*</strong>
@@ -190,7 +186,7 @@ function Index(props) {
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date </option>
+                  <option value="DaysfromVesselDate"> Days From Vessel Discharge Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
@@ -199,7 +195,7 @@ function Index(props) {
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
             </Form.Group>
-            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+            {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -229,7 +225,7 @@ function Index(props) {
                 </Form.Label>
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
               </div>
-            </Form.Group>
+            </Form.Group> */}
           </div>
         </Form>
       </div>
@@ -291,13 +287,12 @@ function Index(props) {
                               onChange={(e) => {
                                 handleChangeInput(e.target.name, e.target.value, index);
                               }}
-                            // readOnly={!saveContactTable}
+                              // readOnly={!saveContactTable}
                             />
                           </td>
-                          <td style={{minWidth:'200px'}}>
+                          <td style={{ minWidth: '200px' }}>
                             <div className="d-flex align-items-center">
                               <DateCalender
-                            
                                 name="chequeDate"
                                 saveDate={(val, name, index) => {
                                   handleChangeInput(name, val, index);
@@ -315,39 +310,40 @@ function Index(props) {
                           </td>
                           <td>
                             <input
-                              // onFocus={(e) => {
-                              //   let tempArray = [...isFieldInFocus]
-                              //   tempArray[index].amount = true
-                              //   setIsFieldInFocus(tempArray),
+                              onFocus={(e) => {
+                                let tempArray = [...isFieldInFocus]
+                                tempArray[index].amount = true
+                                setIsFieldInFocus([...tempArray])
 
-                              //     (e.target.type = 'number');
-                              // }}
-                              // onBlur={(e) => {
-                              //   let tempArray = [...isFieldInFocus]
-                              //   tempArray[index].amount = false
-                              //   setIsFieldInFocus(tempArray),
+                                e.target.type = 'number';
+                              }}
+                              onBlur={(e) => {
+                                let tempArray = [...isFieldInFocus]
+                                tempArray[index].amount = false
+                                 setIsFieldInFocus([...tempArray])
 
-                              //     (e.target.type = 'text');
-                              // }}
+                                  e.target.type = 'text';
+                              }}
                               onWheel={(event) => event.currentTarget.blur()}
-                              // value={
-                              //   isFieldInFocus[index].amount
-                              //     ? val.amount
-                              //     : `INR ` + Number(
-                              //       val.amount
-                              //     )?.toLocaleString('en-In', {
-                              //       maximumFractionDigits: 2,
-                              //     })
-                              // }
+                              value={
+                                isFieldInFocus[index]?.amount
+                                  ? val.amount==0?"": val.amount
+                                  : `INR ` + Number(
+                                    val.amount
+                                  )?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2
+                                  })
+                              }
                               className="input"
                               name="amount"
                               type="text"
-                              value={val.amount}
+                              // value={val.amount}
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               onChange={(e) => {
                                 handleChangeInput(e.target.name, e.target.value, index);
                               }}
-                            // readOnly={!saveContactTable}
+                              // readOnly={!saveContactTable}
                             />
                           </td>
 

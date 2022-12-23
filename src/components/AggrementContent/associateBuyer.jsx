@@ -3,7 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
-
+import moment from 'moment';
+import TermSheetPopUp from '../TermsheetPopUp';
+import { useDispatch, useSelector } from 'react-redux';
+import { emailValidation } from '@/utils/helper';
+import { ShareDocument } from 'redux/shareDoc/action';
 let associate = {
   branchName: '',
   shortName: '',
@@ -11,12 +15,30 @@ let associate = {
 };
 
 function Index(props) {
-
+   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const [associateData, setAssociateData] = useState(associate);
   const [addressList, setAddressList] = useState([]);
   const [docList, setDocList] = useState([]);
   const [doc, setdoc] = useState({ attachDoc: '' });
   const [removedOption, setRemovedOption] = useState(null);
+  const [removedArr, setRemovedArr] = useState([]);
+  const [masterList,setmasterList] = useState([])
+  const [options,setOptions] = useState([])
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
+  const [gstArray, setgstArr] = useState([]);
+   const [sharedDoc, setSharedDoc] = useState({
+    company: '',
+    order: '',
+    path: '',
+    data: {
+      subject: 'this is subject',
+      text: 'this is text',
+      receiver: '',
+    },
+  });
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -48,34 +70,27 @@ function Index(props) {
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
   const [list, setList] = useState([]);
-  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
-  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
-  let masterList = [
-    {
-      name: 'Bhawana Jain',
-      designation: 'Vice President (Finance & Accounts)',
-      email: 'bhawanajain@somanigroup.com',
-      phoneNo: '',
-    },
-    {
-      name: 'Vipin Kumar',
-      designation: 'Manager Accounts',
-      email: 'vipinrajput@somanigroup.com',
-      phoneNo: '',
-    },
-    {
-      name: 'Devesh Jain',
-      designation: 'Director',
-      email: 'devesh@indointertrade.ch',
-      phoneNo: '',
-    },
-    {
-      name: 'Fatima Yannoulis',
-      designation: 'Chief Financial Officer',
-      email: 'fatima@indointertrade.ch',
-      phoneNo: '',
-    },
-  ];
+ 
+  useEffect(() => {
+    if(props.directors){
+      let temp=[]
+      let options=[]
+       props.directors.forEach((val,index)=>{
+         temp.push(
+          {
+          name: val.name,
+          designation: val.designation,
+          email: val.email,
+          phoneNo: '',
+         }
+         )
+          options.push(val.name)
+       })
+      
+       setmasterList([...temp])
+       setOptions([...options])
+    }
+  },[props.directors])
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Associate')) {
@@ -113,17 +128,17 @@ function Index(props) {
         setDocList(temp);
         setAssociateData(buyer);
         let tempArr = savedData?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
-        setOptions([...optionArray]);
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
+        // setOptions([...optionArray]);
       } else {
 
         let buyer = {
@@ -158,22 +173,22 @@ function Index(props) {
 
         setAssociateData(buyer);
         let tempArr = props.data?.authorisedSignatoryDetails;
-        let optionArray = [...options];
-        tempArr.forEach((val, index) => {
-          val.actions = 'true';
-          if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
-            if (index > -1) {
-              optionArray.splice(index, 1);
-            }
-          }
-        });
+        // let optionArray = [...options];
+        // tempArr.forEach((val, index) => {
+        //   val.actions = 'true';
+        //   if (tempArr?.length > 0) {
+        //     let index = optionArray.indexOf(val.name);
+        //     if (index > -1) {
+        //       optionArray.splice(index, 1);
+        //     }
+        //   }
+        // });
         setAddressList(props?.data.addresses);
-        setOptions([...optionArray]);
+        // setOptions([...optionArray]);
       }
     }
-  }, [props]);
-
+  }, [props.data]);
+console.log(list,"lsiuii")
   useEffect(() => {
     if (props?.address) {
       let a = {
@@ -212,6 +227,63 @@ function Index(props) {
       props.updateData('Associate Buyer', data);
     }
   }, [props.saveData, props.submitData]);
+    useEffect(() => {
+    
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      
+    } else {
+     
+      setToShow([]);
+      // setToView(false);
+    }
+  }, [getPincodesMasterData]);
+    const handleData = (name, value) => {
+    
+    const newInput = { ...newAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setNewAddress(newInput);
+    setToView(false);
+  };
+    const handleShareDoc = async () => {
+    if (emailValidation(sharedDoc.data.receiver)) {
+      let tempArr = { ...sharedDoc };
+      tempArr.company = props.orderData.company;
+      tempArr.order =  props.orderData._id;
+      if(list.length>0){
+        list?.forEach((val,index)=>{
+          console.log(val?.document?.path,"val?.document?.path")
+        if(val?.document?.path != undefined){
+            tempArr.path = val?.document?.path
+        }
+        })
+      }
+      
+      let data = await dispatch(ShareDocument(tempArr));
+      if (data?.code == 200) {
+        setOpen(false);
+      }
+    } else {
+      handleErrorToast('please provide a valid email');
+    }
+  };
+
+    const handleDataEdit = (name, value) => {
+    const newInput = { ...EditAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setEditAddress(newInput);
+    setToView(false);
+  };
+  const viewSet=()=>{
+    
+     setToView(true)
+ }
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -255,7 +327,7 @@ function Index(props) {
       const newState = prevState.map((obj, i) => {
         // 👇️ if id equals 2, update country property
         if (i == index) {
-          setRemovedOption(obj.name);
+         
           return { ...obj, actions: 'false' };
         }
 
@@ -279,13 +351,17 @@ function Index(props) {
       });
 
       return newState;
+      
     });
     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
-    setRemovedOption(value.name);
+
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
+     let removed=[...removedArr];
+     removed.push(value.name)
+    setRemovedArr([...removed])
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -300,7 +376,7 @@ function Index(props) {
         addnew: 'false',
       },
     ]);
-    setRemovedOption(null);
+   
   };
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
@@ -309,24 +385,28 @@ function Index(props) {
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
-    if (
-      val?.name == 'Bhawana Jain' ||
-      val?.name == 'Vipin Kumar' ||
-      val?.name == 'Devesh Jain' ||
-      val?.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
-    }
+    
+     masterList.forEach((master,index)=>{
+      if(val.name== master.name){
+        let temp = [...options];
+        temp.push(val.name);
+        setOptions([...temp]);
+      }
+     })
+     let temp = [...removedArr];
+      var indexOption = temp.indexOf(val.name);
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+        setRemovedArr([...temp])
+   
   };
   const removeDoc = (index) => {
 
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: '' };
+          return { ...obj, attachDoc: '',date:"" };
         }
 
         return obj;
@@ -372,7 +452,7 @@ function Index(props) {
     };
 
     if (value == 'addnew') {
-      if (docList.length < 1) {
+      if (docList.length == 0) {
         arrayToSave = {
           name: '',
           designation: '',
@@ -417,6 +497,7 @@ function Index(props) {
       return newState;
     });
   };
+  
   const onAddressRemove = (index) => {
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
@@ -427,11 +508,12 @@ function Index(props) {
   };
   const [isEdit, setIsEdit] = useState(false);
   const [toEditIndex, setToEditIndex] = useState(0);
-  const handleEditAddressInput = (index) => {
+    const handleEditAddressInput = (index,addresstype) => {
     setIsEdit(true);
     setToEditIndex(index);
     let tempArr = addressList;
-
+  
+    
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
@@ -443,6 +525,7 @@ function Index(props) {
           state: val.state,
           city: val.city,
         });
+        setAddressEditType(val.addressType)
       }
     });
   };
@@ -452,7 +535,7 @@ function Index(props) {
     newInput[name] = value;
     setEditAddress(newInput);
   };
-  const cancelEditAddress = () => {
+const cancelEditAddress = () => {
     setIsEdit(false);
     setEditAddress({
       addressType: '',
@@ -463,6 +546,8 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType("Registered")
+    setAddressEditType("Registered")
   };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
@@ -543,7 +628,6 @@ function Index(props) {
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
-                required
                 type="text"
                 name="branchName"
                 value={associateData.branchName}
@@ -563,7 +647,7 @@ function Index(props) {
                   }}
                   value={associateData.gstin}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   {props.gstList &&
                     props.gstList.map((val, index) => {
                       return <option value={val}>{val}</option>;
@@ -648,9 +732,15 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            props.gettingPins,
+            toShow,
+            toView,
+            handleDataEdit,
+            viewSet,
+            props.gstList
           )}
         {isEdit == false && (
-          <div className={`${styles.newAddressContainer} card m-0 border_color`}>
+          <div className={`${styles.newAddressContainer} card border_color`}>
             <div className={`${styles.newAddressHead} border_color`}>
               <span>Add a new address</span>
             </div>
@@ -667,10 +757,10 @@ function Index(props) {
                         setAddress(e.target.name, e.target.value);
                       }}
                     >
-                      <option disabled>Select an option</option>
+                      <option disabled >Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      {/* <option value="Branch">Branch </option> */}
-                      <option value="Supplier">Supplier Address</option>
+                      <option value="Branch">Branch Office </option>
+                      <option value="Corporate">Corporate Address</option>
                     </select>
                     <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                       Address Type<strong className="text-danger">*</strong>
@@ -683,64 +773,204 @@ function Index(props) {
                   </div>
                 </Form.Group>
 
-                <>
-                  <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="fullAddress"
-                      value={newAddress.fullAddress}
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value);
-                      }}
-                    />
-                    <Form.Label className={`${styles.label_heading} label_heading`}>
-                      Address<strong className="text-danger">*</strong>
-                    </Form.Label>
-                  </Form.Group>
-                  <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="number"
-                      onWheel={(event) => event.currentTarget.blur()}
-                      name="pinCode"
-                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                      value={newAddress.pinCode}
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value);
-                      }}
-                    />
-                    <Form.Label className={`${styles.label_heading} label_heading`}>
-                      Pin Code<strong className="text-danger">*</strong>
-                    </Form.Label>
-                    <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
-                  </Form.Group>
-                  <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      value={newAddress.country}
-                      name="country"
-                      onChange={(e) => {
-                        let temp = e.target.value;
-                        // if(temp=="1"||temp=="2"||temp=="3"||temp=="4"||temp=="5"||temp=="6"||temp=="7"||temp=="8"||temp=="9"||temp=="0"){
-                        //   temp=""
-                        // }
-                        setAddress(e.target.name, temp);
-                      }}
-                      onKeyDown={(evt) =>
-                        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
-                      }
-                    />
-                    <Form.Label className={`${styles.label_heading} label_heading`}>
-                      Country<strong className="text-danger">*</strong>
-                    </Form.Label>
-                    <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
-                  </Form.Group>
-                </>
+                 {addressType == 'Registered' || addressType == 'Corporate' ? (
+                  <>
+                    <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="fullAddress"
+                        value={newAddress.fullAddress}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Address<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
+                        name="pinCode"
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        value={newAddress.pinCode}
+                        onChange={(e) => {
+                          props.gettingPins(e.target.value);
+                          viewSet();
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      {toShow.length > 0 && toView && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Pin Code<strong className="text-danger">*</strong>
+                      </Form.Label>
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        value={newAddress.country}
+                        name="country"
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                        onKeyDown={(evt) =>
+                          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
+                        }
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Country<strong className="text-danger">*</strong>
+                      </Form.Label>
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+                    </Form.Group>
+                  </>
+                ) : (
+                  <>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <div className="d-flex">
+                        <input
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="gstin"
+                          value={newAddress.gstin}
+                          onChange={(e) => {
+                            setAddress(e.target.name, e.target.value);
+                          }}
+                        >
+                          
+                        </input>
+                        <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                          GSTIN<strong className="text-danger">*</strong>
+                        </Form.Label>
+                       
+                      </div>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
+                        name="pinCode"
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        value={newAddress.pinCode}
+                        onChange={(e) => {
+                          props.gettingPins(e.target.value);
+                          viewSet();
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      {toShow.length > 0 && toView && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Pin Code<strong className="text-danger">*</strong>
+                      </Form.Label>
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="country"
+                        value={newAddress.country}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                        onKeyDown={(evt) =>
+                          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
+                        }
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Country<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="state"
+                        value={newAddress.state}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        State<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="city"
+                        value={newAddress.city}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        City<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="fullAddress"
+                        value={newAddress.fullAddress}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Address<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                  </>
+                )}
               </div>
               <div className="d-flex">
                 <div
@@ -796,7 +1026,7 @@ function Index(props) {
                       list.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions == 'true' || val.actions == undefined ? (
                               <tr key={index} className="table_row">
                                 <td>{val.name}</td>
                                 <td>{val.designation}</td>
@@ -819,20 +1049,19 @@ function Index(props) {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
+                               
                                   {val.addnew == 'false' ? (
                                     <>
                                       <select
                                         value={val.name}
                                         className={`${styles.customSelect} input`}
                                         onChange={(e) => {
-                                          setRemovedOption(e.target.value);
+                                     
                                           handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
-                                        <option>Select an option</option>
-                                        {removedOption != null ? (
-                                          <option value={removedOption}>{removedOption}</option>
-                                        ) : null}
+                                        <option value="">Select an option</option>
+                                      
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
@@ -846,52 +1075,16 @@ function Index(props) {
                                       />
                                     </>
                                   ) : (
-                                    <>
-                                      {val.name == 'Vipin Kumar' ||
-                                      val.name == 'Bhawana Jain' ||
-                                      val.name == 'Devesh Jain' ||
-                                      val.name == 'Fatima Yannoulis' ? (
-                                        <>
-                                          <select
-                                            value={val.name}
-                                            className={`${styles.customSelect} input`}
-                                            onChange={(e) => {
-                                              handleChangeInput(e.target.name, e.target.value, index);
-                                            }}
-                                          >
-                                            <option>Select an option</option>
-                                            <option value={'Vipin Kumar'}>Vipin Kumar</option>
-                                            <option value={'Bhawana Jain'}>Bhawana Jain</option>
-                                            <option value={'Devesh Jain'}>Devesh Jain</option>
-                                            <option value={'Fatima Yannoulis'}>Fatima Yannoulis</option>
-
-                                            {/* {options.map((val,i)=>{
-                                return(<option value={val}>{val}</option>)
-                              })} */}
-
-                                            <option value={'addnew'}>{'Add New'}</option>
-                                          </select>
-                                          <img
-                                            className={`${styles.arrow2} image_arrow img-fluid`}
-                                            src="/static/inputDropDown.svg"
-                                            alt="Search"
-                                          />
-                                        </>
-                                      ) : (
-                                        <>
-                                          <input
-                                            type="text"
-                                            className="input"
-                                            placeholder={'Add new'}
-                                            name="name"
-                                            value={val.name}
-                                            onChange={(e) => {
-                                              handleChangeInput2(e.target.name, e.target.value, index);
-                                            }}
-                                          />
-                                        </>
-                                      )}
-                                    </>
+                                    <input
+                                    type="text"
+                                    className="input"
+                                    value={val.name}
+                                    name="name"
+                                    // readOnly={val.addnew!="true"?true:false}
+                                    onChange={(e) => {
+                                      handleChangeInput2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
                                   )}
                                 </td>
                                 <td>
@@ -917,6 +1110,7 @@ function Index(props) {
                                     }}
                                   />
                                 </td>
+                               
                                 <td>
                                   <input
                                     value={val.phoneNo}
@@ -924,7 +1118,7 @@ function Index(props) {
                                     name="phoneNo"
                                     type="number"
                                     onWheel={(event) => event.currentTarget.blur()}
-                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-',"."].includes(evt.key) && evt.preventDefault()}
                                     onChange={(e) => {
                                       handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
@@ -1034,6 +1228,7 @@ function Index(props) {
 
                   {docList.length > 0 &&
                     docList.map((val, index) => {
+                      
                       return (
                         <>
                           <tr key={index} className="table_row">
@@ -1047,7 +1242,8 @@ function Index(props) {
                               <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                               {/* {val.designation} */}
                             </td>
-                            <td>{`28-02-2022,5:30 PM`}</td>
+                            <td>{val.attachDoc.date?moment(val.attachDoc.date).format("DD-MM-YYYY,h:mm A"):""}</td>
+                          
                             <td>
                               {val.attachDoc == '' || val.attachDoc == 'new' ? (
                                 <div className={styles.uploadBtnWrapper}>
@@ -1077,7 +1273,15 @@ function Index(props) {
                             </td>
                             <td>
                               {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
-                              <img src="/static/upload.svg" alt="upload" />
+                              <img src="/static/upload.svg" alt="upload"
+                               onClick={() => {
+                                  setOpen(true);
+                                  setSharedDoc({
+                                    ...sharedDoc,
+                                    path: document.path,
+                                  });
+                                }}
+                              />
                             </td>
                           </tr>
                         </>
@@ -1089,6 +1293,20 @@ function Index(props) {
           </div>
         </div>
       </div>
+         {open ? (
+        <TermSheetPopUp
+          close={() => setOpen(false)}
+          open={open}
+          istermsheet
+          shareEmail={handleShareDoc}
+          setEmail={(e) =>
+            setSharedDoc({
+              ...sharedDoc,
+              data: { ...sharedDoc.data, receiver: e },
+            })
+          }
+        />
+      ) : null}
     </>
   );
 }
@@ -1102,6 +1320,12 @@ const editData = (
   cancelEditAddress,
   saveNewAddress,
   setAddressEditType,
+  gettingPins,
+  toShow,
+  toView,
+  handleDataEdit,
+  viewSet,
+  gstArray
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -1121,9 +1345,9 @@ const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier">Supplier</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -1132,63 +1356,203 @@ const editData = (
           </div>
         </Form.Group>
 
-        <>
-          <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
-            <Form.Control
-              className={`${styles.input_field} input form-control`}
-              required
-              type="text"
-              name="fullAddress"
-              value={EditAddress.fullAddress}
-              onChange={(e) => {
-                editNewAddress(e.target.name, e.target.value);
-              }}
-            />
-            <Form.Label className={`${styles.label_heading} label_heading`}>
-              Address<strong className="text-danger">*</strong>
-            </Form.Label>
-          </Form.Group>
-          <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-            <Form.Control
-              className={`${styles.input_field} input form-control`}
-              required
-              type="number"
-              onWheel={(event) => event.currentTarget.blur()}
-              name="pinCode"
-              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-              value={EditAddress.pinCode}
-              onChange={(e) => {
-                editNewAddress(e.target.name, e.target.value);
-              }}
-            />
-            <Form.Label className={`${styles.label_heading} label_heading`}>
-              Pin Code<strong className="text-danger">*</strong>
-            </Form.Label>
-            <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
-          </Form.Group>
-          <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-            <Form.Control
-              className={`${styles.input_field} input form-control`}
-              required
-              type="text"
-              value={EditAddress.country}
-              name="country"
-              onChange={(e) => {
-                let temp = e.target.value;
+       {addressEditType == 'Registered' || addressEditType == 'Corporate' ? (
+          <>
+            <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="fullAddress"
+                value={EditAddress.fullAddress}
+                onChange={(e) => {
+                  editNewAddress(e.target.name, e.target.value);
+                }}
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+                Address<strong className="text-danger">*</strong>
+              </Form.Label>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="number"
+                onWheel={(event) => event.currentTarget.blur()}
+                name="pinCode"
+                value={EditAddress.pinCode}
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                onChange={(e) => {
+                  gettingPins(e.target.value);
+                  viewSet();
+                  editNewAddress(e.target.name, e.target.value);
+                }}
+              />
+              {toShow.length > 0 && toView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map((results, index) => (
+                          <li
+                            onClick={() => handleDataEdit('pinCode', results)}
+                            id={results._id}
+                            key={index}
+                            value={results.Pincode}
+                          >
+                            {results.Pincode}{' '}
+                          </li>
+                        ))
+                      : ''}
+                  </ul>
+                </div>
+              )}
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+                Pin Code<strong className="text-danger">*</strong>
+              </Form.Label>
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                value={EditAddress.country}
+                name="country"
+                onChange={(e) => {
+                  editNewAddress(e.target.name, e.target.value);
+                }}
+                onKeyDown={(evt) =>
+                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
+                }
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+                Country<strong className="text-danger">*</strong>
+              </Form.Label>
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+            </Form.Group>
+          </>
+        ) : (
+          <>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className="d-flex">
+                <input
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  name="gstin"
+                  value={EditAddress.gstin}
+                  onChange={(e) => {
+                    editNewAddress(e.target.name, e.target.value);
+                  }}
+                >
+                 
+                  
+                </input>
+                <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
+                  GSTIN<strong className="text-danger">*</strong>
+                </Form.Label>
                
-               
-                editNewAddress(e.target.name, temp);
-              }}
-              onKeyDown={(evt) =>
-                ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
-              }
-            />
-            <Form.Label className={`${styles.label_heading} label_heading`}>
-              Country<strong className="text-danger">*</strong>
-            </Form.Label>
-            <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
-          </Form.Group>
-        </>
+              </div>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="number"
+                onWheel={(event) => event.currentTarget.blur()}
+                name="pinCode"
+                value={EditAddress.pinCode}
+                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                onChange={(e) => {
+                  gettingPins(e.target.value);
+                  viewSet();
+                  editNewAddress(e.target.name, e.target.value);
+                }}
+              />
+              {toShow.length > 0 && toView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map((results, index) => (
+                          <li
+                            onClick={() => handleDataEdit('pinCode', results)}
+                            id={results._id}
+                            key={index}
+                            value={results.Pincode}
+                          >
+                            {results.Pincode}{' '}
+                          </li>
+                        ))
+                      : ''}
+                  </ul>
+                </div>
+              )}
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+                Pin Code<strong className="text-danger">*</strong>
+              </Form.Label>
+              <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="country"
+                value={EditAddress.country}
+                onChange={(e) => {
+                  editNewAddress(e.target.name, e.target.value);
+                }}
+                onKeyDown={(evt) =>
+                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(evt.key) && evt.preventDefault()
+                }
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>Short Name</Form.Label>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="state"
+                value={EditAddress.state}
+                onChange={(e) => {
+                  editNewAddress(e.target.name, e.target.value);
+                }}
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+                State<strong className="text-danger">*</strong>
+              </Form.Label>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="city"
+                value={EditAddress.city}
+                onChange={(e) => {
+                  editNewAddress(e.target.name, e.target.value);
+                }}
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+                City<strong className="text-danger">*</strong>
+              </Form.Label>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="fullAddress"
+                value={EditAddress.fullAddress}
+                onChange={(e) => {
+                  editNewAddress(e.target.name, e.target.value);
+                }}
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+                Address<strong className="text-danger">*</strong>
+              </Form.Label>
+            </Form.Group>
+          </>
+        )}
       </div>
       <div className="d-flex">
         <div

@@ -13,11 +13,8 @@ function Index(props) {
   const [cmaState, setCmaState] = useState(cma);
   const [list, setList] = useState([]);
 
-
-
   useEffect(() => {
     if (window) {
-      
       if (sessionStorage.getItem('exe')) {
         let savedData = JSON.parse(sessionStorage.getItem('exe'));
 
@@ -35,7 +32,7 @@ function Index(props) {
         setList(temp);
       }
     }
-  }, [props]);
+  }, [props.data]);
   useEffect(() => {
     if (props.saveData == true && props.active == 'Place of Execution') {
       let data = {
@@ -51,12 +48,13 @@ function Index(props) {
       props.updateData('Place of Execution', data);
     }
   }, [props.saveData, props.submitData]);
-  const onEdit = (index) => {
+    const onEdit = (index) => {
+   
     let tempArr = list;
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'false' };
+          return { ...obj, actions: 'true' };
         }
         // 👇️ otherwise return object as is
         return obj;
@@ -69,7 +67,7 @@ function Index(props) {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' };
+          return { ...obj, actions: 'false' };
         }
 
         return obj;
@@ -82,32 +80,24 @@ function Index(props) {
     setList([
       ...list,
       {
-        name: 'Sales Agreement',
+        name: '',
         execution: '',
         dateOfExecution: null,
-        actions: 'false',
+        actions: 'true',
       },
     ]);
   };
   const handleRemove = (index) => {
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
   };
-  const handleInput = (name, value, key) => {
-    const newInput = { ...cmaState };
-
-    newInput[name] = value;
-    setCmaState(newInput);
-  };
+ 
 
   const handleChangeInput = (name, value, index) => {
-
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return { ...obj, [name]: value };
         }
-
         return obj;
       });
 
@@ -115,29 +105,12 @@ function Index(props) {
     });
   };
 
-  const handleAddressInput = () => {
-    // let tempArr=[...addressList]
-    setAddressList((current) => [...current, newAddress]);
-    // setAddressList([...addressList],newAddress)
-    setNewAddress({
-      addressType: '',
-      fullAddress: '',
-      pinCode: '',
-      country: '',
-      gstin: '',
-      state: '',
-      city: '',
-    });
-  };
-  const onAddressRemove = (index) => {
-    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
-  };
+  const placeExicutionOptions = []
 
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
         <div className={`${styles.tableContainer} border_color card p-0`}>
-      
           <div id="customerDetail" className={` ${styles.body} card-body row`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
@@ -149,18 +122,19 @@ function Index(props) {
                     <th className="border-0 generic_th">Actions</th>
                   </tr>
                   <tbody>
+                    
                     {list?.length > 0 &&
-                      list?.map((val, index) => {
+                      list?.map((val, index) => {    
+                        placeExicutionOptions.push(val.name)             
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions !== 'true' ? (
                               <tr key={index}>
                                 <td>{val.name}</td>
                                 <td>{val.execution}</td>
                                 <td>
                                   {val.dateOfExecution == null ? '' : moment(val.dateOfExecution).format('DD-MM-YYYY')}
                                 </td>
-
                                 <td className={`d-flex`}>
                                   <img
                                     className={`${styles.image} img-fluid mr-3`}
@@ -182,13 +156,13 @@ function Index(props) {
                                       handleChangeInput(e.target.name, e.target.value, index);
                                     }}
                                   >
-                                    <option>Select an option</option>
-                                    <option value={'Sales Agreement'}>{'Sales Agreement'}</option>
-                                    <option value={'Associateship Agreement'}>{'Associateship Agreement'}</option>
-                                    <option value={'TPA (Seller)'}>{'TPA (Seller)'}</option>
-                                    <option value={'Assignment Letter'}>{'Assignment Letter'}</option>
-                                    <option value={'QPA'}>{'QPA'}</option>
-                                    <option value={'TPA (CMA)'}>{'TPA (CMA)'}</option>
+                                    <option value="">Select an option</option>
+                                    <option value={'Sales Agreement'} disabled={placeExicutionOptions.includes('Sales Agreement') ?true :false}>{'Sales Agreement'}</option>
+                                    <option value={'Associateship Agreement'} disabled={placeExicutionOptions.includes('Associateship Agreement') ? true :false}>{'Associateship Agreement'}</option>
+                                    <option value={'TPA (Seller)'} disabled={placeExicutionOptions.includes('TPA (Seller)') ? true :false}>{'TPA (Seller)'}</option>
+                                    <option value={'Assignment Letter'} disabled={placeExicutionOptions.includes('Assignment Letter') ? true :false}>{'Assignment Letter'}</option>
+                                    <option value={'QPA'} disabled={placeExicutionOptions.includes('QPA') ? true :false}>{'QPA'}</option>
+                                    <option value={'TPA (CMA)'} disabled={placeExicutionOptions.includes('TPA (CMA)') ? true :false}>{'TPA (CMA)'}</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow2} image_arrow img-fluid`}
@@ -223,7 +197,7 @@ function Index(props) {
                                       index={index}
                                     />
                                     <img
-                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 image_arrow`}
                                       src="/static/caldericon.svg"
                                       alt="Search"
                                     />

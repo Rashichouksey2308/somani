@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -10,6 +11,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
     orderValue: false,
     tolerance: false,
   });
+  let numberArr=["1","2","3","4","5","6","7","8","9","0","."]
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -26,7 +28,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
     let filterData = commodity.filter((o) => {
       return o.Commodity.toLowerCase().includes(value.toLowerCase());
     });
-
 
     setToShow(filterData);
     setToView(true);
@@ -45,36 +46,42 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Quantity:</h5>
-            <select
-              className={`${styles.options} accordion_DropDown`}
-              name="unitOfQuantity"
-              onChange={(e) => {
-                saveOrderData(e.target.name, e.target.value);
-              }}
-            >
-              <option>Select</option>
-              <option selected value="MT">
-                MT
-              </option>
-              <option value="KG">KG</option>
-            </select>
+            <div className='d-flex align-items-center position-relative'>
+              <select
+                className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
+                name="unitOfQuantity"
+                onChange={(e) => {
+                  
+                  saveOrderData(e.target.name, e.target.value);
+                }}
+              >
+                <option value="" disabled>Select</option>
+                <option selected value="MT">
+                  MT
+                </option>
+                <option value="KG">KG</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+            </div>
           </div>
 
           <div className={`${styles.unit_container} ${styles.last} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit:</h5>
-            <select
-              className={`${styles.options} accordion_DropDown `}
-              name="unitOfValue"
-              onChange={(e) => saveOrderData(e.target.name, e.target.value)}
-              style={{ paddingRight: '0px' }}
-            >
-              <option>Select</option>
-              <option value="Crores" selected>
-                Crores
-              </option>
-              <option value="Million">Million</option>
-              <option value="Lakh">Lakh</option>
-            </select>
+            <div className='d-flex align-items-center position-relative'>
+              <select
+                className={`${styles.options} ${styles.customSelect} pr-0 accordion_DropDown `}
+                name="unitOfValue"
+                onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+              >
+                <option value="" disabled>Select</option>
+                <option value="Crores" selected>
+                  Crores
+                </option>
+                {/* <option value="Million">Million</option> */}
+                {/* <option value="Lakh">Lakh</option> */}
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+            </div>
           </div>
           <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
             +
@@ -123,7 +130,9 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     type="text"
                     name="commodity"
                     value={orderData.commodity}
+                     onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
+                    
                       filterCommodity(e.target.value);
                       saveOrderData(e.target.name, e.target.value);
                     }}
@@ -133,15 +142,15 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                       <ul>
                         {toShow
                           ? toShow?.map((results, index) => (
-                              <li
-                                onClick={() => handleData('commodity', results.Commodity)}
-                                id={results._id}
-                                key={index}
-                                value={results.Commodity}
-                              >
-                                {results.Commodity}{' '}
-                              </li>
-                            ))
+                            <li
+                              onClick={() => handleData('commodity', results.Commodity)}
+                              id={results._id}
+                              key={index}
+                              value={results.Commodity}
+                            >
+                              {results.Commodity}{' '}
+                            </li>
+                          ))
                           : ''}
                       </ul>
                     </div>
@@ -165,12 +174,12 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
                   }}
-                 
                   value={
                     isFieldInFocus.quantity
                       ? orderData.quantity
-                      : Number(orderData.quantity).toLocaleString('en-In') + ` ${orderData.unitOfQuantity}`
+                      : returnReadableNumber(orderData.quantity, 'en-In', 2) + ` ${orderData.unitOfQuantity}`
                   }
+                  
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -196,16 +205,14 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   value={
                     isFieldInFocus.orderValue
                       ? orderData.orderValue
-                      : Number(orderData.orderValue).toLocaleString('en-In') +
-                        ` ${
-                          orderData.unitOfValue == 'Crores'
-                            ? 'Cr'
-                            : orderData.unitOfValue == 'Million'
-                            ? 'Mn'
-                            : orderData.unitOfValue
-                        }`
+                      : returnReadableNumber(orderData.orderValue,'en-In',2) +
+                      ` ${orderData.unitOfValue == 'Crores'
+                        ? 'Cr'
+                        : orderData.unitOfValue == 'Million'
+                          ? 'Mn'
+                          : orderData.unitOfValue
+                      }`
                   }
-                 
                   name="orderValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -236,13 +243,12 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="countryOfOrigin"
-                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   >
                     <option selected>Select an option</option>
-                    {country.map((val, index) => {
+                    {country?.map((val, index) => {
                       return <option value={`${val.Country}`}>{val.Country}</option>;
                     })}
                   </select>
@@ -274,12 +280,11 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     isFieldInFocus.tolerance
                       ? orderData.tolerance
                       : '± ' +
-                        Number(orderData.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        }) +
-                        ' %'
+                      Number(orderData.tolerance)?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      }) +
+                      ' %'
                   }
-                
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -297,6 +302,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     required
                     type="text"
                     name="supplierName"
+                    onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
@@ -317,7 +323,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   {/* <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     name="manufacturerName"
-                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
@@ -331,13 +336,12 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                     required
                     type="text"
                     name="manufacturerName"
+                    onKeyDown={(evt) => numberArr.includes(evt.key) && evt.preventDefault()}
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label className={`${styles.label_heading} label_heading`}>
-                    Manufacturer / Mines name
-                  </Form.Label>
+                  <Form.Label className={`${styles.label_heading} label_heading`}>Manufacturer / Mines name</Form.Label>
                   {/* <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
@@ -351,21 +355,19 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   <select
                     className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     name="portOfDischarge"
-                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   >
                     <option selected>Select an option</option>
-                    {port
-                      .filter((val, index) => {
-                        if (val.Country.toLowerCase() == 'india') {
+                    {port?.filter((val, index) => {
+                        if (val.Country.toLowerCase() == 'india' ) {
                           return val;
                         }
                       })
                       .map((val, index) => {
                         return (
-                          <option value={`${val.Port_Name},${val.Country}`}>
+                          <option value={`${val.Port_Name}`}>
                             {val.Port_Name},{val.Country}
                           </option>
                         );
@@ -387,7 +389,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="incoTerm"
-                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
@@ -446,7 +447,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-',"."].includes(evt.key) && evt.preventDefault()}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Transaction Period (Days)

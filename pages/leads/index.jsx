@@ -119,7 +119,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
-              <span style={{ fontSize: '28px' }}>+</span>
+              <span className={styles.plus_sign}>+</span>
               <span className={`ml-1 mr-2`}>New Customer</span>
             </button>
           </div>
@@ -192,9 +192,8 @@ function Index() {
                 </span>
                 <a
                   onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
+                    if (currentPage === 0) return 
+                    else {
                       setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
@@ -250,13 +249,13 @@ function Index() {
                           >
                             {buyer.company.companyName}
                           </td>
-                          <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : 'RM'}</td>
-                          <td>{buyer.createdBy.fName}</td>
-                          <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                          <td>{buyer?.createdBy?.userRole  ? buyer.createdBy.userRole : 'RM'}</td>
+                          <td>{buyer?.createdBy?.fName}</td>
+                          <td>{buyer?.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
                             <span
                               className={`${styles.status} ${
-                                buyer.queue === 'Rejected'
+                                buyer?.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
                                   ? styles.review

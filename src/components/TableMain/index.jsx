@@ -55,9 +55,8 @@ function Index({
           </span>
           <a
             onClick={() => {
-              if (currentPage === 0) {
-                return;
-              } else {
+              if (currentPage === 0) return 
+              else {
                 setCurrentPage((prevState) => prevState - 1);
               }
             }}
@@ -119,6 +118,8 @@ function Index({
             <tbody>
               {insuranceResponse &&
                 insuranceResponse?.data?.map((insured, index) => (
+
+                  
                   <tr key={index} className="table_row">
                     <td>{insured?.order?.orderId}</td>
                     <td
@@ -127,20 +128,17 @@ function Index({
                         handleRoute(insured);
                       }}
                     >
+                      
                       {insured?.company?.companyName}
                     </td>
                     <td>{insured?.order?.commodity}</td>
                     <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
-                      {
-                        insured?.quotationRequest?.insuranceType == 'Marine Insurance'
-                          ? moment(insured?.marineInsurance?.insuranceTo).format('DD-MM-YYYY')
-                          : insured?.quotationRequest?.insuranceType == 'Storage Insurance'
-                          ? moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
-                          : moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
-
-                      
-                      }
+                      {insured?.quotationRequest?.insuranceType == 'Marine Insurance'
+                        ? moment(insured?.marineInsurance?.insuranceTo).format('DD-MM-YYYY')
+                        : insured?.quotationRequest?.insuranceType == 'Storage Insurance'
+                        ? moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
+                        : moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')}
                     </td>
 
                     {getStatus(insured) ? (

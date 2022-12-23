@@ -5,16 +5,21 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 
-const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
+const index = ({ orderDetail, orderState, saveShipmentData, shipment, port, setLimit }) => {
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
     saveShipmentData(name, text);
+    // if(name=="lastDateOfShipment"){
+    //   setLimit(value)
+    // }
   };
+
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
   });
+
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
     if (name == 'loadPort.fromDate') {
@@ -73,10 +78,12 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                 <div className="d-flex">
                   <DateCalender
                     name="loadPort.fromDate"
-                 
                     defaultDate={orderDetail?.shipmentDetail?.loadPort?.fromDate ?? ''}
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
+                    maxDate={
+                      shipment?.lastDateOfShipment ? moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY') : ''
+                    }
                     labelName="Laycan at Load Port from"
                   />
                   <img
@@ -93,7 +100,14 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     name="loadPort.toDate"
                     defaultDate={orderDetail?.shipmentDetail?.loadPort?.toDate ?? ''}
                     saveDate={saveDate}
-                    startFrom={dateStartFrom.laycan}
+                    startFrom={
+                      shipment?.loadPort?.fromDate
+                        ? moment(shipment?.loadPort?.fromDate).format('DD-MM-YYYY')
+                        : dateStartFrom.laycan
+                    }
+                    maxDate={
+                      shipment?.lastDateOfShipment ? moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY') : ''
+                    }
                     labelName="Laycan at Load Port to"
                   />
                   <img
@@ -108,9 +122,22 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                   <DateCalender
                     name="lastDateOfShipment"
                     defaultDate={orderDetail?.shipmentDetail?.lastDateOfShipment ?? ''}
-                  
                     saveDate={saveDate}
+                    startFrom={
+                      shipment?.loadPort?.toDate
+                        ? moment(shipment?.loadPort?.toDate).format('DD-MM-YYYY')
+                        : shipment?.loadPort?.fromDate
+                        ? moment(shipment?.loadPort?.fromDate).format('DD-MM-YYYY')
+                        : moment(orderState?.ExpectedDateOfShipment).format('DD-MM-YYYY')
+                    }
                     labelName="Last date of shipment"
+                    maxDate={
+                      shipment?.ETAofDischarge?.toDate
+                        ? moment(shipment?.ETAofDischarge?.toDate).format('DD-MM-YYYY')
+                        : shipment?.ETAofDischarge?.fromDate
+                        ? moment(shipment?.ETAofDischarge?.fromDate).format('DD-MM-YYYY')
+                        : ''
+                    }
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -138,6 +165,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     setStartDateFrom={setStartDate}
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port from"
+                    startFrom={moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY')}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -161,7 +189,14 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     name="ETAofDischarge.toDate"
                     defaultDate={orderDetail?.shipmentDetail?.ETAofDischarge?.toDate ?? ''}
                     saveDate={saveDate}
-                    startFrom={dateStartFrom.eta}
+                    // startFrom={dateStartFrom.eta}
+                    startFrom={
+                      shipment?.ETAofDischarge?.fromDate
+                        ? moment(shipment?.ETAofDischarge?.fromDate).format('DD-MM-YYYY')
+                        : shipment?.lastDateOfShipment
+                        ? moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY')
+                        : moment(new Date()).format('DD-MM-YYYY')
+                    }
                     labelName="ETA at Discharge Port to"
                   />
                   <img
@@ -196,15 +231,15 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     </option> */}
                     <option selected>Select an option</option>
                     {port
-                      .filter((val, index) => {
+                      ?.filter((val, index) => {
                         if (val.Country.toLowerCase() !== 'india') {
                           return val;
                         }
                       })
                       .map((val, index) => {
                         return (
-                          <option value={`${val.Port_Name},${val.Country}`}>
-                            {val.Port_Name},{val.Country}
+                          <option value={`${val.Port_Name}, ${val.Country}`}>
+                            {val.Port_Name}, {val.Country}
                           </option>
                         );
                       })}

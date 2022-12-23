@@ -7,10 +7,10 @@ import UploadDocument from '../UploadDocument';
 import UploadOther from '../UploadOther';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-
 import Router from 'next/router';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 function Index({
   vesselData,
@@ -26,14 +26,9 @@ function Index({
   OnVesselTransitFieldsChangeHandler,
   OnVesselBasicFieldsChangeHandler,
   shipmentTypeChangeHandler,
-  setlastDate,
-  lastDate,
-  setStartDate,
-  startDate,
   OnAddvesselInformation,
   onAddVessel,
   list,
-  orderID,
   id1,
   onDeleteVessel,
   OnAddvesselInformationDelete,
@@ -51,14 +46,14 @@ function Index({
   setOnBlur,
   country,
   port,
+  currencyMasters,
 }) {
   const [orderValueinFocus, setOrderValueInFocus] = useState(false);
 
   const dispatch = useDispatch();
-  
+
   const getSn = (index) => {
-    let a = Number(index);
-    return a + 1;
+    return Number(index) + 1;
   };
 
   const uploadDocHandler1 = (e) => {
@@ -131,7 +126,7 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                            {index == 0 ? (
+                            {index >= 0 && (
                               <button
                                 className={styles.add_btn}
                                 onClick={(e) => {
@@ -140,7 +135,7 @@ function Index({
                               >
                                 <span className={styles.add_sign}>+</span>Add
                               </button>
-                            ) : null}
+                            )}
                             {index > 0 ? (
                               <button
                                 className={`${styles.add_btn} border-danger text-danger`}
@@ -158,28 +153,10 @@ function Index({
                     <div className={`${styles.dashboard_form} card-body`}>
                       <div className="row ">
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
-                          <div className="d-flex">
-                            <select
-                              disabled
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              onChange={(e) => shipmentTypeChangeHandler(e, index)}
-                              value={val.shipmentType}
-                            >
-                              <option>Select an option</option>
-                              <option value="Bulk">Bulk</option>
-                              <option value="Liner">Liner</option>
-                            </select>
-                            <label className={`${styles.label_heading} label_heading`}>
-                              Shipment Type
-                              <strong className="text-danger">*</strong>
-                            </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
+                          <div className={`${styles.label} text`}>Shipment Type</div>
+                          <span className={styles.value}>{val.shipmentType}</span>
                         </div>
+
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                           <input
                             className={`${styles.input_field} input form-control`}
@@ -201,7 +178,6 @@ function Index({
                             }}
                             onBlur={(e) => {
                               setOnBlur(index);
-
                               e.target.type = 'text';
                             }}
                             id="quantity"
@@ -225,12 +201,16 @@ function Index({
                             className={`${styles.input_field} pl-2 pr-3 input w-35 border-right-0`}
                             style={{ color: '#3687E8' }}
                             value={currency}
+                            disabled
                             required
                           >
-                            <option>Select</option>
-                            <option value="USD">USD</option>
-                            <option value="INR">INR</option>
-                            <option value="EURO">EURO</option>
+                            {currencyMasters.map((val, index) => {
+                              return (
+                                <option key={index} value={`${val.Currency}`}>
+                                  {val.Currency}
+                                </option>
+                              );
+                            })}
                           </select>
                           <input
                             onWheel={(event) => event.currentTarget.blur()}
@@ -245,12 +225,11 @@ function Index({
                             id="orderValue"
                             type="text"
                             onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                            className={`${styles.input_field} border-left-0 input form-control`}
-                            
+                            className={`${styles.input_field} border-left-0 px-2 input form-control`}
                             value={
                               orderValueinFocus
                                 ? val.orderValue
-                                : Number(val.orderValue)?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                                : returnReadableNumber(val.orderValue,currency === 'INR' ? 'en-In': 'en-EN')
                             }
                             onChange={(e) => OnVesselBasicFieldsChangeHandler(e, index)}
                           />
@@ -278,7 +257,7 @@ function Index({
                               {/* <option value={val.countryOfOrigin}>
                                 {val.countryOfOrigin}
                               </option> */}
-                              {country.map((val, index) => {
+                              {country?.map((val, index) => {
                                 return <option value={val.Country}>{val.Country}</option>;
                               })}
                               {/* <option value="India">India</option>
@@ -311,15 +290,11 @@ function Index({
                                 {val.portOfLoading}
                               </option> */}
                               {port
-                                .filter((val, index) => {
-                                  if (val.Country.toLowerCase() !== 'india') {
-                                    return val;
-                                  }
-                                })
-                                .map((val, index) => {
+                                ?.filter((val) => val.Country.toLowerCase() !== 'india')
+                                ?.map((val, index) => {
                                   return (
-                                    <option value={`${val.Port_Name},${val.Country}`}>
-                                      {val.Port_Name},{val.Country}
+                                    <option key={index} value={`${val.Port_Name}, ${val.Country}`}>
+                                      {val.Port_Name}, {val.Country}
                                     </option>
                                   );
                                 })}
@@ -348,15 +323,11 @@ function Index({
                                 {val.portOfDischarge}
                               </option> */}
                               {port
-                                .filter((val, index) => {
-                                  if (val.Country.toLowerCase() == 'india') {
-                                    return val;
-                                  }
-                                })
-                                .map((val, index) => {
+                                ?.filter((val) => val.Country.toLowerCase() === 'india' && val.Approved == 'YES')
+                                ?.map((val, index) => {
                                   return (
-                                    <option value={`${val.Port_Name},${val.Country}`}>
-                                      {val.Port_Name},{val.Country}
+                                    <option key={index} value={`${val.Port_Name}`}>
+                                      {val.Port_Name}, {val.Country}
                                     </option>
                                   );
                                 })}
@@ -530,11 +501,10 @@ function Index({
                                   <div className="d-flex">
                                     <input
                                       id="yearOfBuilt"
-                                  
                                       value={
                                         vesselInfo.yearOfBuilt
                                           ? vesselInfo?.yearOfBuilt?.slice(0, 4)
-                                          : 
+                                          : // moment(vesselInfo.yearOfBuilt).format("YYYY")
                                             ''
                                       }
                                       className={`${styles.input_field} input form-control`}
@@ -718,14 +688,12 @@ function Index({
                                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                                   <input
                                     id="yearOfBuilt"
-                                 
                                     value={
                                       newVessel.yearOfBuilt
                                         ? newVessel.yearOfBuilt?.slice(0, 4)
-                                        :
+                                        : // moment(vesselInfo.yearOfBuilt).format("YYYY")
                                           ''
                                     }
-                                  
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
                                     onWheel={(event) => event.currentTarget.blur()}
@@ -808,7 +776,10 @@ function Index({
               setContainerListDocument={setContainerListDocument}
             />
 
-            <UploadOther module="Agreements&Insurance&LC&Opening" orderid={id1} />
+            <UploadOther
+              module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
+              orderid={id1}
+            />
           </div>
         </div>
       </div>

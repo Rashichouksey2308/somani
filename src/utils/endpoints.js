@@ -88,10 +88,8 @@ export default {
   // getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
+  sendGst: '/karza/send-gst-link',
   getConsolidatedGst: '/lead/consolidate-gst',
-
-  // mcaReport
-  getMcaReport: '/karza/request-mca-document',
 
   // getGstKarza: 'karza/send-gst-link',
 
@@ -132,22 +130,49 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
-  //preview
+  //mcaReport
+  getMcaReport: '/karza/request-mca-document',
+  // preview
   preview: '/document/access/preview',
 
   // Commodity
   getCommodity: '/commodity',
 
-  //ALL MASTER URL's
-  masterBaseUrl:'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
-  countriesMaster: 'country.json',
-  portsMaster: 'ports.json',
-  commoditiesMaster: 'commodity.json',
-  documentsMaster: 'document.json',
-  currencyMaster: 'currency.json',
-  internalCompaniesMaster: 'internalCompanies.json',
-  vendorsMaster: 'vendors.json',
+  // Internal Companies
+  getInternalCompanies: '/internal-company',
+
+  // PORTS
+  getPorts: '/port',
+
+  // City State
+  getState: '/city-master',
+
+  // COUNTRY
+  getCountry: '/country-master',
+
+  // DOCUMENT MASTER
+  getDocument: '/document-master',
+
+  // GO NO GO
+  getGoNoGo: '/gng-master',
+
+  // CURRENCY
+  getCurrency: '/currency-master',
+
+  // ALL MASTER URL's
+  masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
+  countriesMaster: '/country-master/',
+  portsMaster: '/port/',
+  commoditiesMaster: '/commodity',
+  documentsMaster: '/document-master/',
+  currencyMaster: '/currency-master/',
+  internalCompaniesMaster: '/internal-company/',
+  vendorsMaster: '/vendor/',
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
+  zipCodeMaster: '/world-master/',
+
+  //VENDOR API ROoutes
+  getVendor: '/vendor',
 };

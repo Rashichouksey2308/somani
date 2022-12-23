@@ -343,6 +343,10 @@
               border-radius: 50%;
               display: inline-block;
               vertical-align: middle;
+              @include respond(lg-desktop) {
+                width: 12px;
+                height: 12px;
+              }
             }
 
             .approved {
@@ -369,9 +373,9 @@
 
 .upload_main {
   border-radius: 6px;
-  margin-bottom: 26px;
+  margin-bottom: 162px;
   @include respond(lg-desktop) {
-    margin-bottom: 20px;
+    margin-bottom: 130px;
   }
 
   .head_container {
@@ -528,7 +532,8 @@
 
         @include respond(lg-desktop) {
           font-size: 14px;
-          line-height: 15px;
+          line-height: 16px;
+          
         }
       }
 
@@ -621,7 +626,6 @@
             font-weight: bold;
             line-height: 18px;
             padding: 20px 15px;
-            vertical-align: middle;
             background: #fafafb;
             text-transform: uppercase;
             border-top: 2px solid #f2f5f9;
@@ -916,7 +920,7 @@
   border-radius: 50%;
   display: inline-block;
   vertical-align: middle;
-  @include respond(sm-desktop) {
+  @include respond(lg-desktop) {
     width: 12px;
     height: 12px;
   }
@@ -952,15 +956,18 @@
   border: 1px solid #0000001f;
   border-radius: 4px;
   padding: 10px 9px 10px 9px;
-  @include respond(md-desktop) {
+  @include respond(lg-desktop) {
+    width: 30px;
     height: 30px;
     padding: 7px;
   }
   @include respond(sm-desktop) {
+    width: 28px;
     height: 28px;
     padding: 6px;
   }
   @include respond(phone) {
+    width: 25px;
     height: 25px;
     padding: 5px;
   }
@@ -986,7 +993,17 @@
     height: 25px;
   }
 }
-
+.upload {
+  @include respond(lg-desktop) {
+    width: 30px;
+  }
+  @include respond(sm-desktop) {
+    width: 28px;
+  }
+  @include respond(phone) {
+    width: 25px;
+  }
+}
 .arrow {
   margin-left: -40px;
   width: 13px;

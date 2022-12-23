@@ -99,7 +99,7 @@
 
       .value {
         font-size: 20px;
-       
+
         line-height: 25px;
         font-weight: 500;
         @include respond(lg-desktop) {
@@ -116,6 +116,10 @@
         display: inline-block;
         vertical-align: middle;
         background: #26dd73;
+        @include respond(lg-desktop) {
+          width: 12px;
+          height: 12px;
+        }
       }
     }
   }
@@ -153,6 +157,10 @@
       display: inline-block;
       vertical-align: middle;
       background: #26dd73;
+      @include respond(lg-desktop) {
+        width: 12px;
+        height: 12px;
+      }
     }
   }
 }

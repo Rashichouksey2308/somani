@@ -3,40 +3,84 @@ import styles from './index.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
-import Router from 'next/router';
-import { GetAllSupplier } from 'redux/supplier/action';
-import moment from 'moment';
+import _get from 'lodash/get';
+import _ from 'lodash';
+import ToggleSwitch from '../ToggleSwitch';
 
-const index = ({tableName, header1, header2, header3, header4, isHeader, header}) => {
-  const dispatch = useDispatch();
-  const [serachterm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageLimit, setPageLimit] = useState(10);
+const index = ({
+  tableName,
+  header1,
+  header2,
+  header3,
+  header4,
+  isHeader,
+  header,
+  isDate,
+  isCurrency,
+  handleRoute,
+  selectorData,
+  currentPage,
+  setCurrentPage,
+  pageLimit,
+  setPageLimit
+}) => {
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const [pageLimit, setPageLimit] = useState(10);
 
-  const { searchedLeads } = useSelector((state) => state.order);
-  const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier);
+  let queueData;
 
-  const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
-    if (query.length >= 3) {
-      dispatch(SearchLeads(query));
-    }
-  };
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
-  };
-  useEffect(() => {
-    dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
-  }, [currentPage, pageLimit]);
+  if (tableName === 'Ports') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        // prevDate: moment(item.Date).format('MMMD'),
+        col2: item.Country,
+        col1: item.Port_Name,
+        col3: item.State,
+        date: '11-11-2022',
+        status: item.Approved === 'Yes' ? 'Approved' : 'Pending',
+        Id: item._id,
+      };
+    });
+  } else if (tableName === 'Internal Companies') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        // prevDate: moment(item.Date).format('MMMD'),
+        col1: item.Company_Name,
+        col2: item.Short_Name,
+        col3: item.Country,
+        status: 'Approved',
+        Id: item._id,
+      };
+    });
+  }
+  else if (tableName === 'Vendor Management') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        col1: item?.vendorDetails?.vendorType,
+        col2: item?.vendorDetails?.vendor,
+        col3: item?.vendorDetails?.Country,
+        date:item?.vendorDetails?.activationDate,
+        status: 'Approved',
+        Id: item._id,
+      };
+    });
 
-  const handleRoute = (id) => {
-    sessionStorage.setItem('supplier', id);
-    Router.push('/supplier');
-  };
-
+  }
+  else if (tableName === 'Currency') {
+    queueData = _.map(selectorData?.data, (item, index) => {
+      return {
+        id: index + 1,
+        col1: item.Currency,
+        col2: item.Currency_Name,
+        status: 'Approved',
+        Id: item._id,
+      };
+    });
+  }
+  
   return (
     <>
       {/*UserTable*/}
@@ -59,13 +103,12 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
             <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>
                 {' '}
-                Showing Page {currentPage + 1} out of {Math.ceil(allSupplierResponse?.totalCount / pageLimit)}
+                Showing Page {currentPage + 1} out of {Math.ceil(selectorData?.totalCount / pageLimit)}
               </span>
               <a
                 onClick={() => {
-                  if (currentPage === 0) {
-                    return;
-                  } else {
+                  if (currentPage === 0) return 
+                  else {
                     setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
@@ -76,7 +119,7 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
               </a>
               <a
                 onClick={() => {
-                  if (currentPage + 1 < Math.ceil(allSupplierResponse?.totalCount / 7)) {
+                  if (currentPage + 1 < Math.ceil(selectorData?.totalCount / pageLimit)) {
                     setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
@@ -105,7 +148,7 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
                   </th>
 
                   <th className={`${styles.table_heading} table_heading`}>
-                  {header2}{' '}
+                    {header2}{' '}
                     <Image
                       width="9px"
                       height="14px"
@@ -114,31 +157,37 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
                       alt="Sort icon"
                     />
                   </th>
+                   {isCurrency ? '' :
                   <th className={`${styles.table_heading} table_heading`}>
                   {header3}{' '}
-                    <Image
-                      width="9px"
-                      height="14px"
-                      className={`${styles.sort_img}`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    />
-                  </th>
-{isHeader ? 
-                  <th className={`${styles.table_heading} table_heading`}>
-                    {header}{' '}
-                    <Image
-                      width="9px"
-                      height="14px"
-                      className={`${styles.sort_img}`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    /></th>
-                    : ''
+                  <Image
+                    width="9px"
+                    height="14px"
+                    className={`${styles.sort_img}`}
+                    src="/static/icons8-sort-24.svg"
+                    alt="Sort icon"
+                  />
+                </th>
 
-         }         
-         <th className={`${styles.table_heading} table_heading`}>
-                  {header4}{' '}
+                
+                  
+ } 
+                  {isHeader ? (
+                    <th className={`${styles.table_heading} table_heading`}>
+                      {header}{' '}
+                      <Image
+                        width="9px"
+                        height="14px"
+                        className={`${styles.sort_img}`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                  ) : (
+                    ''
+                  )}
+                  <th className={`${styles.table_heading} table_heading`}>
+                    {header4}{' '}
                     <Image
                       width="9px"
                       height="14px"
@@ -151,38 +200,43 @@ const index = ({tableName, header1, header2, header3, header4, isHeader, header}
                 </tr>
               </thead>
               <tbody>
-                <tr className={`${styles.table_row} table_row17`}>
-                  <td className={styles.buyerName}>Indo German Private Limited</td>
-                  <td>IGPL</td>
-                  <td>India</td>
-                  <td>22-02-2022</td>
-                  <td>
-                    <img src="/static/active.svg" className="img-fluid" alt="active" />
-                    <span className="m-3">Approved</span>
-                  </td>
+                {queueData &&
+                  queueData?.map((supplier, index) => (
+                    <tr key={index} className={`${styles.table_row} table_row17`}>
+                      <td className={styles.buyerName}>{supplier.col1}</td>
+                      <td>{supplier.col2}</td>
+                      {isCurrency ? '' :
+                      <td>{supplier.col3}</td> 
+}
+                      {/* <td>{supplier.col4}</td> */}
+                      {supplier?.date && <td>{supplier.date}</td>}
+                      <td>
+                        <ToggleSwitch />
+                      </td>
 
-                  <td>
-                    {' '}
-                    <div className={`${styles.edit_image} img-fluid`}>
-                      <Image
-                        onClick={() => {
-                          handleRoute(supplier._id);
-                        }}
-                        height="40px"
-                        width="40px"
-                        src="/static/mode_edit.svg"
-                        alt="Edit"
-                      />
-                    </div>
-                  </td>
-                </tr>
+                      <td>
+                        {' '}
+                        <div className={`${styles.edit_image} img-fluid`}>
+                          <Image
+                            onClick={() => {
+                              handleRoute(supplier.Id);
+                            }}
+                            height="40px"
+                            width="40px"
+                            src="/static/mode_edit.svg"
+                            alt="Edit"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}               
               </tbody>
             </table>
           </div>
         </div>
       </div>
       <div className={`${styles.total_count}`}>
-        Total Count: <span>{allSupplierResponse?.totalCount}</span>
+        Total Count: <span>{selectorData?.totalCount}</span>
       </div>
     </>
   );

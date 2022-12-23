@@ -1,19 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
+import _get from 'lodash/get';
+import moment from 'moment';
+import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
-import styles from './payment.module.scss';
-import ReleaseOrder from '../../src/components/ReleaseOrder';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import DeliveryOrder from '../../src/components/DeliveryOrder';
 import LiftingDetails from '../../src/components/LiftingDetails';
-import { useDispatch, useSelector } from 'react-redux';
-import Router from 'next/router';
-import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
-import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action';
-import _get from 'lodash/get';
-import { toast } from 'react-toastify';
-import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
+import ReleaseOrder from '../../src/components/ReleaseOrder';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action';
+import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
+import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
+import styles from './payment.module.scss';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 function Index() {
   const dispatch = useDispatch();
@@ -45,6 +47,12 @@ function Index() {
     );
   }, [ReleaseOrderData]);
 
+  const generateDoNumber = (index) => {
+    let orderDONumber = index < 10 ? `0${index + 1}` : index + 1;
+    let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
+    let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
+    return `${string}/${orderDONumber}`;
+  };
   useEffect(() => {
     let temp = [];
     if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
@@ -77,9 +85,7 @@ function Index() {
   useEffect(() => {
     getOrderData();
   }, [dispatch]);
-  useEffect(() => {
-    getOrderData();
-  }, []);
+
   const getOrderData = async () => {
     let id = sessionStorage.getItem('ROrderID');
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '');
@@ -139,7 +145,8 @@ function Index() {
     setLifting([...tempArr]);
   };
   const handleChange = (name, value, index, index2) => {
-    let tempArr = lifting;
+    let tempArr = [...lifting];
+
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.detail.forEach((val2, i2) => {
@@ -315,7 +322,7 @@ function Index() {
 
   const [deliveryOrder, setDeliveryOrder] = useState([
     {
-      orderNumber: 1,
+      orderNumber: '',
       unitOfMeasure: 'MT',
       isDelete: false,
       Quantity: '',
@@ -324,6 +331,7 @@ function Index() {
       status: '',
     },
   ]);
+
   useEffect(() => {
     let tempArr = [];
     if (_get(ReleaseOrderData, 'data[0].deliveryDetail', []).length > 0) {
@@ -365,7 +373,7 @@ function Index() {
     setDeliveryOrder([
       ...deliveryOrder,
       {
-        orderNumber: 1,
+        orderNumber: '',
         unitOfMeasure: 'MT',
         isDelete: false,
         Quantity: '',
@@ -386,6 +394,23 @@ function Index() {
     setLastMileDelivery(val);
   };
 
+  const BalanceQuantity = () => {
+    let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
+    if (boe !== 0) {
+      let boeTotalQuantity = boe?.reduce((accumulator, object) => {
+        return accumulator + Number(object.boeDetails.invoiceQuantity);
+      }, 0);
+
+      deliveryOrder.forEach((item) => {
+        console.log('itemm', item);
+        if (item.status !== 'DO cancelled') {
+          boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
+        }
+      });
+      return boeTotalQuantity;
+    }
+  };
+
   useEffect(() => {
     let limit = DOlimit;
     filteredDOArray.forEach((item, index) => {
@@ -394,39 +419,51 @@ function Index() {
     });
   }, [filteredDOArray, deliveryOrder]);
 
-  const onEdit = (index, value) => {
+  const onEdit = (index, value, type) => {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
+        console.log(val, 'cvalala');
+
+        let number = 0;
+        for (let i = 0; i < releaseDetail.length; i++) {
+          if (releaseDetail[i].orderNumber == val.orderNumber) {
+            number = Number(releaseDetail[i].netQuantityReleased);
+          }
+          if (val.orderNumber == 'Not Available') {
+            number = BalanceQuantity();
+          }
+        }
+        console.log(Number(val.Quantity), number, deliveryOrder, 'val.Quantity>Number');
+        if (val.orderNumber !== 'Not Available' && Number(val.Quantity) > number) {
+          handleErrorToast('Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order');
+          return;
+        }
+        if (val.orderNumber === 'Not Available' && 0 > number) {
+          handleErrorToast('Quantity Release Cannot Be Greater Than balance Quantity');
+          return;
+        }
+        if (type == 'Save') {
+          val.deliveryOrderDate = new Date();
+          if (val.status !== 'DO cancelled') {
+            val.status = 'DO Issued';
+          }
+        }
         val.isDelete = value;
       }
     });
     setDeliveryOrder([...tempArr]);
   };
+  const cancelDo = (index, value) => {
+    let tempArr = deliveryOrder;
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        console.log(val.deliveryOrderDate, 'cvalala');
 
-  const generateDoNumber = (index) => {
-    let orderDONumber = index < 10 ? `0${index}` : index;
-    let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
-    let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
-    return `${string}/${orderDONumber}`;
-  };
-
-  const BalanceQuantity = () => {
-    let boe = _get(
-      ReleaseOrderData,
-      'data[0].order.customClearance.billOfEntry.billOfEntry',
-      0,
-    )
-     if(boe!==0){
-      let boeTotalQuantity = boe?.reduce((accumulator, object) => {
-      return accumulator + Number(object.boeDetails.invoiceQuantity);
-    }, 0);
-
-    deliveryOrder.forEach((item) => {
-      boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
+        val.status = 'DO cancelled';
+      }
     });
-    return boeTotalQuantity;
-    }
+    setDeliveryOrder([...tempArr]);
   };
 
   const returnLiftingData = (number) => {
@@ -456,6 +493,8 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
+    let releaseOrder;
+    let customObj = false;
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -467,6 +506,8 @@ function Index() {
 
           setFilteredDOArray(filteredArray);
         }
+
+        console.log(val, 'indexxx');
         if (name === 'Quantity') {
           if (value <= 0) {
             setDoLimit(quantity);
@@ -475,7 +516,17 @@ function Index() {
             filteredDOArray.forEach((item, index) => {
               tempLimit = tempLimit - Number(item.Quantity);
             });
-
+            let totalDONumber = 0;
+            let temparr = [...deliveryOrder];
+            let filteredArray2 = temparr.filter((item, index2) => {
+              if (item.orderNumber == val.orderNumber) {
+                totalDONumber = totalDONumber + Number(item.Quantity);
+              }
+            });
+            const filterForReleaseOrder = releaseDetail.filter((item) => {
+              return item.orderNumber == val.orderNumber;
+            });
+            console.log(filterForReleaseOrder, totalDONumber, 'totlNumber');
             setDoLimit(tempLimit);
           }
         }
@@ -510,8 +561,16 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= deliveryOrder.length - 1; i++) {
+      if (deliveryOrder[i]?.orderNumber == '' || deliveryOrder[i]?.orderNumber == null) {
+        toastMessage = `please select an release order number for DO ${i + 1}  `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
       if (deliveryOrder[i]?.Quantity == '' || deliveryOrder[i]?.Quantity == null) {
-        toastMessage = `please provide quantity for delivery  order   ${i + 1}  `;
+        toastMessage = `please provide quantity for delivery  order for DO  ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -535,7 +594,9 @@ function Index() {
         return item.orderNumber == orderId;
       });
       const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
-        let quantity = Number(acc) + Number(curr.Quantity);
+        if (curr.status !== 'DO cancelled') {
+          let quantity = Number(acc) + Number(curr.Quantity);
+        }
         return quantity;
       }, 0);
       if (finalScore > orderQuantity) {
@@ -564,6 +625,7 @@ function Index() {
           deliveryOrderNumber: item.deliveryOrderNo,
           deliveryOrderDate: item.deliveryOrderDate,
           deliveryStatus: item.status,
+          authorisedSignatory: '',
         });
       });
 
@@ -601,7 +663,32 @@ function Index() {
   useEffect(() => {
     dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
   }, []);
+  const isDisabled = (orderNumber) => {
+    let release = 0;
+    let delivery = 0;
+    releaseDetail.forEach((item, index) => {
+      if (item.orderNumber == orderNumber) {
+        release = item.netQuantityReleased;
+      }
+    });
+    deliveryOrder.forEach((item, index) => {
+      console.log(item, 'itemitem');
+      if (item.orderNumber == orderNumber) {
+        if (item.status == 'DO cancelled') {
+          return false;
+        }
+        delivery = delivery + Number(item.Quantity);
+      }
+    });
 
+    console.log(delivery, release, 'delivery>=release');
+
+    if (delivery >= release) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   return (
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
@@ -615,9 +702,9 @@ function Index() {
               style={{ cursor: 'pointer' }}
             />
             <h1 className={`${styles.title} heading`}>
-              <span style={{ textTransform: 'capitalize' }}>
-                {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
+              {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
+              <span>
+                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').toUpperCase().slice(0, 8)}-${_get(
                   ReleaseOrderData,
                   'data[0].order.orderId',
                   '',
@@ -713,6 +800,8 @@ function Index() {
                       onEdit={onEdit}
                       deliverChange={deliverChange}
                       deleteNewDelivery={deleteNewDelivery}
+                      cancelDo={cancelDo}
+                      isDisabled={isDisabled}
                     />
                   </div>
                 </div>
@@ -737,7 +826,6 @@ function Index() {
             </div>
           </div>
         </div>
-        {/* <DeliveryPreview/> */}
       </div>
     </>
   );

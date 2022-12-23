@@ -31,7 +31,7 @@ function index({ data, Heading, val, totalData }) {
     dispatch(GetCaseDetails({ cin: cinNo }));
   };
   const totalNumberOfCases = data?.length;
-  
+
   return (
     <div className={`${styles.card_litigations} card border_color shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
@@ -39,7 +39,7 @@ function index({ data, Heading, val, totalData }) {
           className={`${styles.cardHeader_litigations} card-header d-flex border-bottom-0 align-items-center justify-content-between`}
           data-toggle="collapse"
           data-target={`#${val}`}
-          aria-expanded="true"
+          aria-expanded="false"
           aria-controls={`${val}`}
         >
           <Row className={`${styles.row} align-items-center`}>

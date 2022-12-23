@@ -20,7 +20,6 @@ function Index() {
 
   const { marginMoneyResponse } = useSelector((state) => state.marginMoney);
 
-
   useEffect(() => {
     dispatch(GetAllMarginMoney(`?page=${currentPage}&limit=7`));
   }, [dispatch, currentPage]);
@@ -40,22 +39,24 @@ function Index() {
   };
 
   const handleRoute = (margin) => {
-   
     sessionStorage.setItem('marginId', margin?.order?._id);
+    sessionStorage.setItem('orderID', margin?.order?._id);
+
     dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
     Router.push('/margin-money/id');
   };
 
   const handlePreviewRoute = (margin) => {
-    
     if (margin.revisedMarginMoney.isActive !== true) {
-      sessionStorage.setItem('marginId', margin?.order?._id);
+        sessionStorage.setItem('marginId', margin?.order?._id);
+           sessionStorage.setItem('orderID', margin?.order?._id);
       dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
       Router.push('/margin-preview');
     } else {
-      sessionStorage.setItem('marginId', margin?.order?._id);
+         sessionStorage.setItem('marginId', margin?.order?._id);
+             sessionStorage.setItem('orderID', margin?.order?._id);
       dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
       Router.push('/revised-margin-preview');
@@ -113,9 +114,8 @@ function Index() {
                 </span>
                 <a
                   onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
+                    if (currentPage === 0) return 
+                    else {
                       setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
@@ -189,7 +189,7 @@ function Index() {
                         <td>
                           <img
                             src="/static/preview.svg"
-                            className="img-fluid"
+                            className={`${styles.eye_icon}`}
                             alt="Preview"
                             onClick={() => {
                               handlePreviewRoute(margin);
@@ -218,7 +218,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')
@@ -248,7 +248,7 @@ function Index() {
                         <img
                           src="/static/preview.svg"
                           className="img-fluid"
-                          alt="Preview"
+                          className={`${styles.eye_icon}`}
                           onClick={() => {
                             Router.push('/margin-preview')
                           }}
@@ -276,7 +276,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')
@@ -305,7 +305,7 @@ function Index() {
                       <td>
                         <img
                           src="/static/preview.svg"
-                          className="img-fluid"
+                          className={`${styles.eye_icon}`}
                           alt="Preview"
                           onClick={() => {
                             Router.push('/margin-preview')

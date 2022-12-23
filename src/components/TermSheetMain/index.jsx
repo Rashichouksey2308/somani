@@ -55,10 +55,8 @@ function Index() {
 
   return (
     <>
-      {!gettingAllTermsheet ? (
         <div className="container-fluid p-0 border-0">
           <div className={styles.container_inner}>
-            {/*filter*/}
             <div className={`${styles.filter} d-flex align-items-center`}>
               <div className={styles.search}>
                 <div className="input-group">
@@ -86,14 +84,6 @@ function Index() {
                 )}
               </div>
               <Filter />
-              {/* <a href="#" className={`${styles.filterList} filterList`}>
-              Ramesh Shetty
-              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-            </a>
-            <a href="#" className={`${styles.filterList} filterList`}>
-              Raj Traders
-              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-            </a> */}
             </div>
             <div className={`${styles.datatable} border datatable card`}>
               <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
@@ -103,13 +93,7 @@ function Index() {
                     Showing Page {currentPage + 1} out of {Math.ceil(allTermsheets?.totalCount / 7)}
                   </span>
                   <a
-                    onClick={() => {
-                      if (currentPage === 0) {
-                        return;
-                      } else {
-                        setCurrentPage((prevState) => prevState - 1);
-                      }
-                    }}
+                    onClick={() => {if(currentPage !== 0) setCurrentPage((prevState) => prevState - 1)}}
                     href="#"
                     className={`${styles.arrow} ${styles.leftArrow} arrow`}
                   >
@@ -166,7 +150,7 @@ function Index() {
                             <td>
                               <img
                                 src="/static/preview.svg"
-                                className="img-fluid"
+                                className={`${styles.eye_icon}`}
                                 alt="Preview"
                                 onClick={() => {
                                   handleRoutePreview(sheet);
@@ -182,9 +166,7 @@ function Index() {
             </div>
           </div>
         </div>
-      ) : (
-        <Loader />
-      )}
+     
     </>
   );
 }

@@ -1,0 +1,331 @@
+@import '../../src/components/styles/Core/config';
+
+.card {
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  margin: 28px;
+  margin-bottom: 165px;
+  @include respond(sm-desktop) {
+    margin: 20px;
+    margin-bottom: 60px;
+  }
+  @include respond(phone) {
+    margin: 15px;
+    margin-bottom: 71px;
+  }
+
+  .head_container {
+    height: 48px;
+    display: flex;
+    border: none;
+    background: none;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 27px 10px;
+    @include respond(lg-desktop) {
+      height: 40px;
+      margin-bottom: 20px;
+    }
+    @include respond(phone) {
+      align-items: center;
+      padding: 0.75rem 0rem;
+    }
+
+    .head_header {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+
+      .back_arrow {
+        width: 13px;
+        height: 21px;
+        cursor: pointer;
+        background: transparent;
+        @include respond(lg-desktop) {
+          width: 10px;
+          height: auto;
+        }
+      }
+
+      .heading {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 41px;
+        margin: 0;
+        padding-left: 18px;
+        text-transform: lowercase;
+
+        &:first-letter {
+          text-transform: uppercase;
+        }
+
+        &:first-line {
+          text-transform: capitalize;
+        }
+
+        @include respond(lg-desktop) {
+          font-size: 24px;
+          line-height: 1.4;
+          padding-left: 10px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 20px;
+        }
+        @include respond(phone) {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+.backgroundMain {
+  .vessel_card {
+    border-radius: 6px;
+    margin: 0px 10px;
+
+    h2 {
+      font-size: 22px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 27px;
+      @include respond(md-desktop) {
+        font-size: 22px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 18px;
+      }
+      @include respond(phone) {
+        font-size: 15px;
+      }
+    }
+
+    .main {
+      border-radius: 6px;
+    }
+
+    .dashboard_form {
+      padding: 20px 35px 25px 40px;
+
+      .form_group {
+        margin-top: 40px;
+        position: relative;
+        margin-bottom: 15px;
+
+        .search_image {
+          margin-left: -40px;
+        }
+        .sub_heading {
+          font-size: 19px;
+          line-height: 23px;
+        }
+        .input_field {
+          font-size: 20px;
+          height: 60px;
+          outline: none;
+          line-height: 25px;
+          box-shadow: none;
+          border-radius: 4px;
+          position: relative;
+          box-sizing: border-box;
+          white-space: nowrap;
+          letter-spacing: 0.19px;
+          padding: 13px 30px 13px 17px;
+          border: 1px solid #0000001f;
+
+          &:invalid + label {
+            transform: translateY(0);
+          }
+
+          &:focus {
+            & + label {
+              transform: translateY(-30px);
+              @include respond(lg-desktop) {
+                transform: translateY(-22px);
+              }
+            }
+          }
+
+          @include respond(lg-desktop) {
+            height: 45px;
+            font-size: 15px;
+            line-height: 1.3;
+          }
+        }
+        .show_record {
+          letter-spacing: 0.19px;
+          font-size: 20px;
+          line-height: 25px;
+          margin-right: 20px;
+          @include respond(lg-desktop) {
+            font-size: $font_size_mobile_input_label;
+          }
+          @include respond(md-desktop) {
+            font-size: 19px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 15px;
+          }
+        }
+        .input_value {
+          width: 104px;
+          height: 46px;
+          border: 1px solid #0000001f;
+          border-radius: 4px;
+          margin-top: -8px;
+          letter-spacing: 0.19px;
+          font-size: 20px;
+          line-height: 25px;
+        }
+        .radio_form {
+          .radio_group {
+            display: flex;
+            @include respond(phone) {
+              justify-content: space-between;
+            }
+
+            .radio {
+              font-size: 20px;
+              color: #111111;
+              letter-spacing: 0.19px;
+              line-height: 25px;
+              padding-right: 60px;
+              @include respond(lg-desktop) {
+                padding-right: 15px;
+              }
+
+              input {
+                width: 15px;
+                height: 15px;
+                margin-right: 12px;
+                transform: scale(1);
+                @include respond(lg-desktop) {
+                  width: 13px;
+                  height: 13px;
+                }
+                // @include respond(sm-desktop) {
+                //     font-size: 14px;
+                //     padding-right: 0px;
+                // }
+                // @include respond(phone) {
+                //     font-size: 12px;
+                // }
+              }
+
+              // @include respond(xl-desktop) {
+              //     padding-right: 0px;
+
+              // }
+              @include respond(lg-desktop) {
+                // padding-right: 0px;
+                font-size: $font_size_mobile_input_label;
+              }
+              @include respond(md-desktop) {
+                font-size: 19px;
+                padding-right: 0px;
+              }
+              @include respond(sm-desktop) {
+                font-size: 19px;
+                padding-right: 0px;
+              }
+              @include respond(phone) {
+                font-size: 15px;
+                padding-right: 0px;
+              }
+
+              label {
+                white-space: nowrap;
+                @include respond(lg-desktop) {
+                  padding-right: 0px;
+                  font-size: $font_size_mobile_input_label;
+                }
+                @include respond(md-desktop) {
+                  font-size: 14px;
+                  padding-right: 0px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 14px;
+                  padding-right: 0px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+        .line {
+          border: 3px solid #d9dde8;
+        }
+      }
+    }
+  }
+}
+.down_container {
+  border-bottom: 2px solid #cad6e6;
+  padding: 25px 35px !important;
+  height: 80px;
+  cursor: pointer;
+
+  .heading {
+    color: #3687e8;
+    font-weight: bold;
+    font-size: 22px;
+    text-transform: capitalize;
+    line-height: 27px;
+  }
+  .version_heading {
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: 500;
+    color: #718096;
+    span {
+      letter-spacing: 0.17px;
+      font-size: 18px;
+      line-height: 25px;
+      color: #111111;
+      font-weight: normal !important;
+    }
+  }
+}
+
+.arrow {
+  margin-left: -40px;
+  width: 13px;
+  pointer-events: none;
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+
+.customSelect {
+  appearance: none;
+  // position: relative;
+}
+
+.edit_image {
+  background: #c3c3c31f;
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  padding: 9px;
+  width: 40px;
+  height: 40px;
+  @include respond(md-desktop) {
+    height: 30px;
+    padding: 7px;
+  }
+  @include respond(sm-desktop) {
+    height: 28px;
+    padding: 6px;
+  }
+  @include respond(phone) {
+    height: 25px;
+    padding: 5px;
+  }
+}

@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
-import styles from './index.module.scss';
-import { Col, Form, Row } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import DateCalender from '../DateCalender';
 import Image from 'next/image';
+import { useState } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
+import DateCalender from '../DateCalender';
+import SaveBar from '../SaveBar';
+import styles from './index.module.scss';
 
 export default function Index({}) {
   const [serviceType, setServiceType] = useState('goods');
@@ -48,11 +48,7 @@ export default function Index({}) {
                     <span className={`${styles.rate}`}>INR 10 CR</span>
                   </div>
                   <div className={`${styles.tooltip} `}>
-                    <img
-                    
-                      className={`${styles.info_circle} img-fluid`}
-                      src="/static/info-circle.svg"
-                    />
+                    <img className={`${styles.info_circle} img-fluid`} src="/static/info-circle.svg" />
 
                     <div className={`${styles.tooltiptext}`}>Ex. Margin Money</div>
                   </div>
@@ -508,12 +504,7 @@ export default function Index({}) {
                         </label>
                       </div>
                       <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        
-                        />
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
                         <label className={`${styles.label_heading} label_heading`}>
                           IFSC No. <strong className="text-danger">*</strong>
@@ -587,12 +578,7 @@ export default function Index({}) {
                         </label>
                       </div>
                       <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        
-                        />
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
                         <label className={`${styles.label_heading} label_heading`}>
                           Swift Code <strong className="text-danger">*</strong>
@@ -628,12 +614,7 @@ export default function Index({}) {
                         </div>
                       </div>
                       <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        
-                        />
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
                         <label className={`${styles.label_heading} label_heading`}>Swift Code</label>
                       </div>
@@ -651,12 +632,10 @@ export default function Index({}) {
               <Row className="mt-4">
                 <Col lg={12}>
                   <div className="mt-4">
-                    <input
-                      as="textarea"
+                    <textarea
                       rows={3}
                       required
                       className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                    
                     />
                     <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                       Narration Remarks

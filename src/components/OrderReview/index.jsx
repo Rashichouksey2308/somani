@@ -7,10 +7,7 @@ import { ViewDocument } from 'redux/ViewDoc/action';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
-  
-
   const { buyerList } = useSelector((state) => state.buyer);
-
 
   return (
     <div className={`${styles.wrapper} card`}>
@@ -30,7 +27,6 @@ function Index() {
         id="orderDetail"
         className={`collapse ${styles.body} value_card card-body row`}
         aria-labelledby="orderDetail"
-       
       >
         {fields('Commodity', buyerList?.order?.commodity)}
         {fields('Quantity (in MT)', buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity.toUpperCase())}

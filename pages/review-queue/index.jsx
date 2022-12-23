@@ -42,7 +42,7 @@ function Index() {
     sessionStorage.setItem('orderID', buyer._id);
     sessionStorage.setItem('company', buyer.company._id);
     sessionStorage.setItem('companyID', buyer.company._id);
-  
+
     Router.push('/review/id');
   };
 
@@ -176,9 +176,8 @@ function Index() {
                 </span>
                 <a
                   onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
+                    if (currentPage === 0) return 
+                    else {
                       setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
@@ -242,9 +241,9 @@ function Index() {
                               >
                                 {buyer.company.companyName}
                               </td>
-                              <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : 'RM'}</td>
-                              <td>{buyer.createdBy.fName}</td>
-                              <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                              <td>{buyer?.createdBy?.userRole  ? buyer.createdBy.userRole : 'RM'}</td>
+                              <td>{buyer?.createdBy?.fName}</td>
+                              <td>{buyer?.existingCustomer ? 'Yes' : 'No'}</td>
                               <td>
                                 <span className={`${styles.status} ${styles.review}`}></span>
 

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import * as XLSX from 'xlsx';
+import { toast } from 'react-toastify';
 
 function Index(props) {
   const [excelData, setExcelData] = useState(null);
@@ -45,8 +46,6 @@ function Index(props) {
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Product')) {
-
-
         let savedData = JSON.parse(sessionStorage.getItem('Product'));
         let temp = [];
         savedData.list.forEach((val, index) => {
@@ -64,11 +63,11 @@ function Index(props) {
       }
     }
   }, [props]);
+
   const handleEditAddressInput = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-
           return { ...obj, action: !obj.action };
         }
 
@@ -96,18 +95,31 @@ function Index(props) {
   };
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
-    if (selectedFile) {
+   
+    if( e.target.files[0]){
+    let extention =  e.target.files[0].name.split('.')
+    
+    if(!["csv","xls","xlsx"].includes(extention[extention.length-1])){
+      let  toastMessage = `Please add valid file `;
+        toast.error(toastMessage.toUpperCase(), {
+                  toastId: toastMessage,
+        });
+    
+      return
+     }
+    }
+    
       
+   
+    if (selectedFile) {
       let reader = new FileReader();
       reader.readAsArrayBuffer(selectedFile);
       reader.onload = (e) => {
         setExcelData(e.target.result);
       };
     } else {
-     
     }
   };
-  
 
   useEffect(() => {
     if (excelData !== null) {
@@ -135,7 +147,7 @@ function Index(props) {
               value={value}
             />
             <img
-              className="ml-4"
+              className={`${styles.add_btn} ml-4`}
               src="/static/add-btn.svg"
               alt="add button"
               onClick={() => {
@@ -151,11 +163,7 @@ function Index(props) {
                   type="file"
                   name="myfile"
                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                  // onChange={(e) => {
-                  //   // addDoc(e.target.files[0], index)
-                  //   // uploadDocument2(e)
-                  //   setdoc({ attachDoc: e.target.files[0].name })
-                  // }}
+                  
                   onChange={handleFile}
                 />
                 <button className={`${styles.button_upload2} btn`}>Upload Specifications</button>
@@ -173,7 +181,7 @@ function Index(props) {
             )}
             <div className={`${styles.file_text}`}>
               <span>
-                <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX
+                ONLY .XLS FILES ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX
                 FILE SIZE UP TO 50 MB
               </span>
             </div>
@@ -229,31 +237,32 @@ function Index(props) {
                         handleInput(e.target.value, index);
                       }}
                       className="input"
-                      readOnly={val.action}
+                      readOnly={!val.action}
                     />
                     <div className={`d-flex justify-content-evenly align-items-center`}>
                       {val.action ? (
-                        <img
-                          className={`${styles.image} ml-4 mr-3`}
-                          src="/static/mode_edit.svg"
-                          alt="edit button"
-                          onClick={() => {
-                            handleEditAddressInput(index);
-                          }}
-                        ></img>
+                       <img
+                       src="/static/save-3.svg"
+                       className={`${styles.image} ml-4 mr-3`}
+                       alt="save"
+                       onClick={(e) => {
+                         handleEditAddressInput(index);
+                       }}
+                     />
                       ) : (
                         <img
-                          src="/static/save-3.svg"
-                          className={`${styles.image} ml-4 mr-3`}
-                          alt="save"
-                          onClick={(e) => {
-                            handleEditAddressInput(index);
-                          }}
-                        />
+                        className={`${styles.image} ml-4 mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit button"
+                        onClick={() => {
+                          handleEditAddressInput(index);
+                        }}
+                     />
+                       
                       )}
                       <img
                         src="/static/delete 2.svg"
-                        className="img-fluid"
+                        className={`${styles.delete}`}
                         alt="delete"
                         onClick={() => {
                           onAddressRemove(index);

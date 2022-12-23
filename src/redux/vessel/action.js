@@ -135,7 +135,6 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     });
     if (response.data.code === 200) {
-     
       dispatch(setNotLoading());
       return response.data.data;
     } else {

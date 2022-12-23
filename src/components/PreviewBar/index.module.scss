@@ -1,5 +1,4 @@
 @import '../styles/Core/config';
-
 .root {
   left: 0;
   right: 0;
@@ -18,7 +17,7 @@
   padding: 0rem 2rem 0rem 2rem;
   flex-direction: row;
   background-color: rgb(255, 255, 255);
-  margin-left: 345px;
+  margin-left: 330px;
   @include respond(lg-desktop) {
     font-size: 18px;
     line-height: 1.3;
@@ -35,7 +34,6 @@
     bottom: 55px;
     height: auto;
   }
-
   .reject {
     cursor: pointer;
     width: 260px;
@@ -55,7 +53,6 @@
       font-size: 12px;
     }
   }
-
   .approve {
     cursor: pointer;
     width: 260px;
@@ -76,11 +73,9 @@
     }
   }
 }
-
 .no_sidebar {
   margin-left: 102px !important;
 }
-
 .no_sidebar_mobile {
   margin-left: 0px !important;
 }

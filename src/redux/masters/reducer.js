@@ -2,6 +2,8 @@ import * as types from './actionType';
 
 const initialState = {
   getCountriesMasterData: [],
+  gettingState: false,
+  getStateMasterData: [],
   getPortsMasterData: [],
   getCommoditiesMasterData: [],
   getDocumentsMasterData: [],
@@ -11,6 +13,7 @@ const initialState = {
   getBanksMasterData: [],
   getBranchesMasterData: [],
   getPincodesMasterData: [],
+  zipCode: [],
 };
 
 function MastersReducer(state = initialState, action) {
@@ -29,6 +32,22 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getCountriesMasterData: [],
+      };
+    case types.GET_STATE_MASTERS:
+      return {
+        ...state,
+        gettingState: true,
+        getStateMasterData: [],
+      };
+    case types.GET_STATE_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getStateMasterData: action.payload,
+      };
+    case types.GET_STATE_MASTERS_FAILURE:
+      return {
+        ...state,
+        getStateMasterData: [],
       };
 
     case types.GET_PORTS_MASTERS:
@@ -173,6 +192,22 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getPincodesMasterData: [],
+      };
+
+    case types.GET_ZIPCODES_MASTERS:
+      return {
+        ...state,
+        zipCode: [],
+      };
+    case types.GET_ZIPCODES_MASTERS_SUCCESS:
+      return {
+        ...state,
+        zipCode: action.payload,
+      };
+    case types.GET_ZIPCODES_MASTERS_FAILURE:
+      return {
+        ...state,
+        zipCode: [],
       };
 
     default:

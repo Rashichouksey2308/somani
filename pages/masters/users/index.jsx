@@ -6,6 +6,7 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../../src/components/DownloadMasterBar';
 import Image from 'next/image';
 import Router from 'next/router';
+import ToggleSwitch from '../../../src/components/ToggleSwitch'
 
 const index = () => {
   const dispatch = useDispatch();
@@ -134,15 +135,14 @@ const index = () => {
                     </tr>
                   </thead>
                   <tbody>
+                
                     <tr className={`${styles.table_row} table_row17`}>
                       <td>ramakrishnan@email.com</td>
                       <td className={styles.buyerName}>Rajsekhar</td>
                       <td>22-02-2022</td>
                       <td>Finance</td>
-
                       <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
+                       <ToggleSwitch/>
                       </td>
                       <td>
                         {' '}
@@ -151,105 +151,7 @@ const index = () => {
                         </div>
                       </td>
                     </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Active</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-                      <td>
-                        <img src="/static/inactive.svg" className="img-fluid" alt="inactive" />
-                        <span className="m-3">Inactive</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-                      <td>
-                        <img src="/static/blacklisted.svg" className="img-fluid" alt="blacklisted" />
-                        <span className="m-3">Blacklisted</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td>ramakrishnan@email.com</td>
-                      <td className={styles.buyerName}>Rajsekhar</td>
-                      <td>22-02-2022</td>
-                      <td>Finance</td>
-                      <td>
-                        <img src="/static/notice.svg" className="img-fluid" alt="Notice Period" />
-                        <span className="m-3">Notice Period</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
+                    
                   </tbody>
                 </table>
               </div>
@@ -261,7 +163,7 @@ const index = () => {
         </div>
       </div>
 
-      <DownloadMasterBar btnName="Download" />
+      <DownloadMasterBar btnName="Download as Excel" isUser={true} />
     </>
   );
 };

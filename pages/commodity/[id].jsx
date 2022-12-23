@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import styles from './commodity.module.scss';
+import React from 'react';
+import styles from '../add-new-user/user.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import AddCommodity from '../../src/components/AddCommodity'
+import AddCommodity from '../../src/components/AddCommodity';
 
 function Index() {
   return (
     <div className="container-fluid p-0 border-0">
-    <Card className={`${styles.card}`}>
-        <Card.Header
-          className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}
-        >
+      <Card className={`${styles.card}`}>
+        <Card.Header className={`${styles.head_container} d-flex justify-content-between border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div
-              onClick={() => Router.push('/commodity')}
-              style={{ cursor: 'pointer' }}
-            >
+            <div onClick={() => Router.push('/commodity')} style={{ cursor: 'pointer' }}>
               <img
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
@@ -33,9 +28,8 @@ function Index() {
             </div>
           </div>
         </Card.Header>
-     <AddCommodity/>
-    
-    </Card>
+        <AddCommodity />
+      </Card>
     </div>
   );
 }

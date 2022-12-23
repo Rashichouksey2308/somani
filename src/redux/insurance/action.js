@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
-
+import Router from 'next/router';
 function getAllInsurance() {
   return {
     type: types.GET_ALL_INSURANCE,
@@ -235,6 +235,7 @@ export const RenewInsurance = (payload) => async (dispatch, getState, api) => {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
         dispatch(setNotLoading());
+        Router.push('/insurance');
       } else {
         dispatch(renewInsuranceFailed(response.data.data));
         const toastMessage = 'RENEW REQUEST FAILED';

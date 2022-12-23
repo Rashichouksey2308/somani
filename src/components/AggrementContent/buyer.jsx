@@ -5,6 +5,10 @@ import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import _get from 'lodash/get';
 
+import { addressLists } from './addressList';
+import { signatoryList } from './signatoryList';
+import { addNewAddress } from './addNewAddress';
+import { useDispatch, useSelector } from 'react-redux';
 let buyer = {
   name: 'Indo German International Private Limited',
 
@@ -19,15 +23,18 @@ function Index(props) {
       name: 'Indo German International Private Limited',
     });
   }, [props.order]);
-
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [gstin, setGstin] = useState('');
   const [list, setList] = useState([]);
-  const [shortName, setShotName] = useState('IGI');
+  const [shortName, setShotName] = useState('');
   const [addressList, setAddressList] = useState([]);
   const [docList, setDocList] = useState([]);
   const [doc, setdoc] = useState({ attachDoc: '' });
   const [pan, setPan] = useState('');
   const [removedOption, setRemovedOption] = useState(null);
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  const [removedArr, setRemovedArr] = useState([]);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -46,11 +53,13 @@ function Index(props) {
     state: '',
     city: '',
   });
-  const [options, setOptions] = useState(['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']);
-  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
+  const [gstArray, setgstArr] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [signatoryDetails, setSignatoryDetails] = useState([]);
   const [addressType, setAddressType] = useState('Registered');
   const [addressEditType, setAddressEditType] = useState('Registered');
   useEffect(() => {
+  
     if (window) {
       if (sessionStorage.getItem('Buyer')) {
         let savedData = JSON.parse(sessionStorage.getItem('Buyer'));
@@ -58,14 +67,15 @@ function Index(props) {
           name: savedData.name || 'Indo German International Private Limited',
           branchName: savedData.branchName,
         };
-        setGstin(savedData.gstin || '');
-        setPan(savedData.pan || '');
-        // if (savedData.branchName == 'Delhi') {
-        //   setGstin('07AAACI3028D1Z4');
-        // } else if (savedData.branchName == 'Andhra Pradesh') {
-        //   setGstin('37AAACI3028D2Z0');
-        // }
-        setAddressList(savedData.addresses);
+          setGstin(savedData.gstin || '');
+          setPan(savedData.pan || '');
+        if (savedData.addresses.length > 0) {
+           setAddressList(savedData.addresses);
+           setShotName(savedData.shortName)
+        } else {
+          getAddress(savedData.name, savedData.branchName);
+        }
+
         setList(
           savedData.authorisedSignatoryDetails?.length > 0
             ? savedData.authorisedSignatoryDetails
@@ -94,6 +104,8 @@ function Index(props) {
           }
         });
         setOptions([...optionArray]);
+        
+       
       } else {
         let buyer = {
           name: props?.data?.name || 'Indo German International Private Limited',
@@ -101,12 +113,14 @@ function Index(props) {
         };
         setGstin(props?.data.gstin || '');
         setPan(props?.data.pan || '');
-        // if (props?.data?.branch == 'Delhi') {
-        //   setGstin('07AAACI3028D1Z4');
-        // } else if (props?.data?.branch == 'Andhra Pradesh') {
-        //   setGstin('37AAACI3028D2Z0');
-        // }
-        setAddressList(props?.data.addresses);
+        
+        if (props?.data.addresses.length > 0) {
+          setAddressList(props?.data.addresses);
+          setShotName(props.data.shortName)
+        } else {
+          getAddress(props?.data.name, props?.data.branchName);
+        }
+
         setList(
           props?.data?.authorisedSignatoryDetails.length > 0
             ? props?.data?.authorisedSignatoryDetails
@@ -136,38 +150,15 @@ function Index(props) {
         });
         setOptions([...optionArray]);
       }
+     
     }
-  }, [props]);
-  let masterList = [
-    {
-      name: 'Bhawana Jain',
-      designation: 'Vice President (Finance & Accounts)',
-      email: 'bhawanajain@somanigroup.com',
-      phoneNo: '',
-    },
-    {
-      name: 'Vipin Kumar',
-      designation: 'Manager Accounts',
-      email: 'vipinrajput@somanigroup.com',
-      phoneNo: '',
-    },
-    {
-      name: 'Devesh Jain',
-      designation: 'Director',
-      email: 'devesh@indointertrade.ch',
-      phoneNo: '',
-    },
-    {
-      name: 'Fatima Yannoulis ',
-      designation: 'Chief Financial Officer',
-      email: 'fatima@indointertrade.ch',
-      phoneNo: '',
-    },
-  ];
+  }, [props.data, props.internal]);
+  
   useEffect(() => {
     if (props.saveData == true && props.active == 'Buyer') {
       let data = {
         buyerData: buyerData,
+        shortName: shortName,
         list: list,
         addresses: addressList,
         list: list,
@@ -180,6 +171,7 @@ function Index(props) {
     if (props.submitData == true && props.active == 'Buyer') {
       let data = {
         buyerData: buyerData,
+        shortName: shortName,
         list: list,
         addresses: addressList,
         list: list,
@@ -192,18 +184,25 @@ function Index(props) {
     }
   }, [props.saveData, props.submitData]);
 
+  useEffect(() => {
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+    } else {
+      setToShow([]);
+      // setToView(false);
+    }
+  }, [getPincodesMasterData]);
+  const viewSet = () => {
+    setToView(true);
+  };
   const onEdit = (index) => {
     let tempArr = list;
-    // tempArr[index].actions.edit="false"
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
-        // 👇️ if id equals 2, update country property
         if (i == index) {
           setRemovedOption(obj.name);
           return { ...obj, actions: 'false' };
         }
-
         // 👇️ otherwise return object as is
         return obj;
       });
@@ -211,9 +210,8 @@ function Index(props) {
       return newState;
     });
   };
+
   const onEditRemove = (index, value) => {
-
-
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -228,11 +226,12 @@ function Index(props) {
     let temp = [...options];
     var indexOption = temp.indexOf(value.name);
 
-    setRemovedOption(value.name);
     if (indexOption !== -1) {
       temp.splice(indexOption, 1);
     }
-
+    let removed = [...removedArr];
+    removed.push(value.name);
+    setRemovedArr([...removed]);
     setOptions([...temp]);
   };
   const addMoreRows = () => {
@@ -256,18 +255,31 @@ function Index(props) {
       }
     });
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
-
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
-    ) {
-      let temp = [...options];
-      temp.push(val.name);
+    if (options.length == 1) {
+      let temp = [];
+      signatoryDetails.forEach((master, index) => {
+        if (val.name == master.name) {
+          temp.push(master.name);
+        }
+      });
       setOptions([...temp]);
+      setRemovedArr([]);
     }
+    signatoryDetails.forEach((master, index) => {
+      if (val.name == master.name) {
+        let temp = [...options];
+        temp.push(val.name);
+        setOptions([...temp]);
+      }
+    });
+    let temp = [...removedArr];
+    var indexOption = temp.indexOf(val.name);
+    if (indexOption !== -1) {
+      temp.splice(indexOption, 1);
+    }
+    setRemovedArr([...temp]);
   };
+
   const handleInput = (name, value, key) => {
     const newInput = { ...buyerData };
 
@@ -295,7 +307,7 @@ function Index(props) {
       };
       setDocList([...docList, { attachDoc: '', index: index }]);
     } else {
-      masterList.forEach((val, index) => {
+      signatoryDetails.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
           arrayToSave.designation = val.designation;
@@ -330,20 +342,7 @@ function Index(props) {
       return newState;
     });
   };
-  const removeDoc = (index) => {
 
-    setDocList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, attachDoc: '' };
-        }
-
-        return obj;
-      });
-
-      return newState;
-    });
-  };
   //address
   const handleAddressInput = () => {
     if (props.addressValidation(addressType, newAddress)) {
@@ -371,15 +370,16 @@ function Index(props) {
   };
   const [isEdit, setIsEdit] = useState(false);
   const [toEditIndex, setToEditIndex] = useState(0);
-  const handleEditAddressInput = (index) => {
+  const handleEditAddressInput = (index, addresstype) => {
     setIsEdit(true);
     setToEditIndex(index);
     let tempArr = addressList;
 
+    setAddressEditType(addresstype);
     tempArr.forEach((val, i) => {
       if (i == index) {
         setEditAddress({
-          addressType: val.addressType,
+          addressType: addresstype,
           fullAddress: val.fullAddress,
           pinCode: val.pinCode,
           country: val.country,
@@ -407,41 +407,15 @@ function Index(props) {
       state: '',
       city: '',
     });
+    setAddressType('Registered');
+    setAddressEditType('Registered');
   };
-  const addDoc = (e, index) => {
-    setDocList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, attachDoc: e };
-        }
 
-        return obj;
-      });
-
-      return newState;
-    });
-    setList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (obj.document) {
-
-          if ((obj.document = 'new')) {
-            return { ...obj, document: e };
-          }
-        }
-
-        return obj;
-      });
-
-      return newState;
-    });
-  };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-   
             return EditAddress;
           }
           // 👇️ otherwise return object as is
@@ -476,169 +450,249 @@ function Index(props) {
   };
   const [branchOptions, setBranchOptions] = useState([]);
   useEffect(() => {
-    if (buyerData?.name) {
+    
+    if (buyerData.name || buyerData.branchName) {
       let filter;
-     
+      
       if (buyerData.name == 'Indo German International Private Limited') {
-        setShotName('IGIPL');
-
-        filter = props.internal.filter((val) => {
+        filter = props?.internal?.filter((val) => {
           if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
             return val;
           }
         });
-        let otherData = props.internal.filter((val) => {
-         
-          if (val.Branch == buyerData.branchName) {
-            return val;
-          }
-        });
 
-        if (otherData.length > 0) {
-          setGstin(otherData[0]?.GSTIN);
-          setPan(otherData[0]?.PAN);
+        if (filter && filter.length > 0) {
+          let tempOptions = [];
+          let tempDetail = [];
+          let gst = [];
         
-          if (_get(otherData[0], 'Branch_Address', '') !== '') {
-            let add = otherData[0]?.Branch_Address?.split(',');
-            let newAddress = [];
-            add.forEach((val, index) => {
-              if (index < add.length - 1) {
-                newAddress.push(val);
-              }
-            });
 
-            let pincode = add[add.length - 1].split('-');
-     
-            setAddressList([
-              {
-                addressType: 'Registered',
-                fullAddress: newAddress.join(),
-                pinCode: pincode[1],
-                country: 'India',
-                gstin: '',
-                state: pincode[0],
-                city: add[4],
-              },
-            ]);
-          } else {
-            setAddressList([
-              {
-                addressType: '',
-                fullAddress: '',
-                pinCode: '',
-                country: '',
-                gstin: '',
-                state: '',
-                city: '',
-              },
-            ]);
-          }
-        } else {
-          setGstin('');
-          setPan('');
+          filter.forEach((val, index) => {
+            if (val.authorisedSignatoryDetails[0].name !== '') {
+              tempDetail.push(val.authorisedSignatoryDetails[0]);
+              tempOptions.push(val.authorisedSignatoryDetails[0].name);
+            }
+            if (val.keyAddresses[0].gstin !== '') {
+              gst.push(val.keyAddresses[0].gstin);
+            }
+          });
+          setgstArr([...gst]);
+          setOptions([...tempOptions]);
+          setSignatoryDetails([...tempDetail]);
         }
       }
-      if (buyerData.name == 'Emergent Industrial Solution limited') {
-        setShotName('EISL');
+      if (buyerData.name == 'Emergent Industrial Solution Limited') {
+     
 
-        filter = props.internal.filter((val) => {
+        filter = props?.internal?.filter((val) => {
+          
           if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
             return val;
           }
         });
-        let otherData = props.internal.filter((val) => {
-          if (val.Branch == buyerData.branchName && val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-            return val;
-          }
-        });
 
-        if (otherData.length > 0) {
-          setGstin(otherData[0].GSTIN);
-          setPan(otherData[0].PAN);
-          if (_get(otherData[0], 'Branch_Address', '') !== '') {
-            let add = otherData[0]?.Branch_Address?.split(',');
-            let newAddress = [];
-            add.forEach((val, index) => {
-              if (index < add.length - 1) {
-                newAddress.push(val);
-              }
-            });
-
-            let pincode = add[add.length - 1].split('-');
-        
-            setAddressList([
-              {
-                addressType: 'Registered',
-                fullAddress: newAddress.join(),
-                pinCode: pincode[1],
-                country: 'India',
-                gstin: '',
-                state: pincode[0],
-                city: add[4],
-              },
-            ]);
-          } else {
-            setAddressList([
-              {
-                addressType: '',
-                fullAddress: '',
-                pinCode: '',
-                country: '',
-                gstin: '',
-                state: '',
-                city: '',
-              },
-            ]);
-          }
-        } else {
-          setGstin('');
-          setPan('');
+        if (filter && filter.length > 0) {
+          let tempOptions = [];
+          let tempDetail = [];
+          let gst = [];
+          
+          // setShotName(filter[0].Short_Name);
+          filter.forEach((val, index) => {
+            if (val.authorisedSignatoryDetails[0].name !== '') {
+              tempDetail.push(val.authorisedSignatoryDetails[0]);
+              tempOptions.push(val.authorisedSignatoryDetails[0].name);
+            }
+            if (val.keyAddresses[0].gstin !== '') {
+              gst.push(val.keyAddresses[0].gstin);
+            }
+          });
+          setgstArr([...gst]);
+          setOptions([...tempOptions]);
+          setSignatoryDetails([...tempDetail]);
         }
-        // if (buyerData.branchName == 'Delhi') {
-        //   setGstin('07AAACS8253L1Z0');
-        //   setAddressList([
-        //     {
-        //       addressType: 'Registered',
-        //       fullAddress: '8B, SAGAR, 6 TILAK MARG',
-        //       pinCode: '110001',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: 'DELHI',
-        //       city: 'NEW DELHI',
-        //     },
-        //   ]);
-        // } else if (buyerData.branchName == 'Vizag') {
-        //   setGstin('37AAACS8253L1ZX');
-        //   setAddressList([
-        //     {
-        //       addressType: 'Registered',
-        //       fullAddress: '8B, SAGAR, 6 TILAK MARG',
-        //       pinCode: '110001',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: 'DELHI',
-        //       city: 'NEW DELHI',
-        //     },
-        //     {
-        //       addressType: 'Branch',
-        //       fullAddress:
-        //         '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM',
-        //       pinCode: '530016',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: ' ANDHRA PRADESH',
-        //       city: 'VISAKHAPATNAM',
-        //     },
-        //   ]);
-        // } else {
-        //   setGstin('');
-        // }
       }
 
-      setBranchOptions([...filter]);
-    }
-  }, [buyerData.name, buyerData.branchName, props.internal]);
+      setRemovedArr([]);
 
+      if (filter) {
+        setBranchOptions([...filter]);
+      }
+    }
+  }, [props.internal,props.data]);
+  const getAddress = (name, branch) => {
+    
+    if (props?.internal?.length > 0) {
+      if (name || branch) {
+        let filter;
+        
+        if (name == 'Indo German International Private Limited') {
+          filter = props?.internal?.filter((val) => {
+            if (val.Company_Name == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
+              return val;
+            }
+          });
+
+          setShotName(filter[0].Short_Name);
+          //signatory
+
+          if (filter && filter.length > 0) {
+            let tempOptions = [];
+            let tempDetail = [];
+            let gst = [];
+            setShotName(filter[0].Short_Name);
+            filter.forEach((val, index) => {
+              if (val.authorisedSignatoryDetails[0].name !== '') {
+                tempDetail.push(val.authorisedSignatoryDetails[0]);
+                tempOptions.push(val.authorisedSignatoryDetails[0].name);
+              }
+              if (val.keyAddresses[0].gstin !== '') {
+                gst.push(val.keyAddresses[0].gstin);
+              }
+            });
+            setgstArr([...gst]);
+            setOptions([...tempOptions]);
+            setSignatoryDetails([...tempDetail]);
+          }
+
+          let otherData = filter.filter((val) => {
+            if (val?.keyAddresses?.length > 0) {
+              if (val.keyAddresses[0].Branch == branch) {
+                return val;
+              }
+            }
+          });
+          
+          if (otherData.length > 0) {
+            setGstin(otherData[0].keyAddresses[0].gstin);
+            setPan(otherData[0]?.PAN);
+
+            if (_get(otherData[0], 'keyAddresses[0]', '') !== '') {
+              setAddressList([
+                {
+                  addressType: 'Registered',
+                  fullAddress: _get(otherData[0], 'keyAddresses[0]', '').fullAddress,
+                  pinCode: _get(otherData[0], 'keyAddresses[0]', '').pinCode,
+                  country: 'India',
+                  gstin: _get(otherData[0], 'keyAddresses[0]', '').gstin,
+                  state: _get(otherData[0], 'keyAddresses[0]', '').state,
+                  city: _get(otherData[0], 'keyAddresses[0]', '').city,
+                },
+              ]);
+            } else {
+              setAddressList([
+                {
+                  addressType: '',
+                  fullAddress: '',
+                  pinCode: '',
+                  country: '',
+                  gstin: '',
+                  state: '',
+                  city: '',
+                },
+              ]);
+            }
+          } else {
+            setGstin('');
+            setPan('');
+          }
+        }
+        if (name == 'Emergent Industrial Solution Limited') {
+          filter = props?.internal?.filter((val) => {
+            
+            if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+              return val;
+            }
+          });
+          setShotName(filter[0].Short_Name);
+          if (filter.length > 0) {
+            let tempOptions = [];
+            let tempDetail = [];
+            let gst = [];
+            setShotName(filter[0].Short_Name);
+            filter.forEach((val, index) => {
+              if (val.authorisedSignatoryDetails[0].name !== '') {
+                tempDetail.push(val.authorisedSignatoryDetails[0]);
+                tempOptions.push(val.authorisedSignatoryDetails[0].name);
+              }
+              if (val.keyAddresses[0].gstin !== '') {
+                gst.push(val.keyAddresses[0].gstin);
+              }
+            });
+            setgstArr([...gst]);
+            setOptions([...tempOptions]);
+            setSignatoryDetails([...tempDetail]);
+          }
+          let otherData = filter.filter((val) => {
+            if (val?.keyAddresses?.length > 0) {
+              if (val.keyAddresses[0].Branch == branch) {
+                return val;
+              }
+            }
+          });
+          
+
+          if (otherData.length > 0) {
+            setGstin(otherData[0].keyAddresses[0].gstin);
+            setPan(otherData[0]?.PAN);
+            if (_get(otherData[0], 'keyAddresses[0]', '') !== '') {
+              setAddressList([
+                {
+                  addressType: 'Registered',
+                  fullAddress: _get(otherData[0], 'keyAddresses[0]', '').fullAddress,
+                  pinCode: _get(otherData[0], 'keyAddresses[0]', '').pinCode,
+                  country: 'India',
+                  gstin: _get(otherData[0], 'keyAddresses[0]', '').gstin,
+                  state: _get(otherData[0], 'keyAddresses[0]', '').state,
+                  city: _get(otherData[0], 'keyAddresses[0]', '').city,
+                },
+              ]);
+            } else {
+              setAddressList([
+                {
+                  addressType: '',
+                  fullAddress: '',
+                  pinCode: '',
+                  country: '',
+                  gstin: '',
+                  state: '',
+                  city: '',
+                },
+              ]);
+            }
+          } else {
+            setGstin('');
+            setPan('');
+          }
+        }
+        
+        if (filter) {
+          setBranchOptions([...filter]);
+        }
+      }
+    }
+  };
+  
+  const handleData = (name, value) => {
+    
+    const newInput = { ...newAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+
+    setNewAddress(newInput);
+    setToView(false);
+  };
+  const handleDataEdit = (name, value) => {
+    const newInput = { ...EditAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = 'India';
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setEditAddress(newInput);
+    setToView(false);
+  };
+  
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -648,31 +702,28 @@ function Index(props) {
               <div className="d-flex">
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  required
                   type="text"
                   name="name"
                   value={buyerData.name}
                   onChange={(e) => {
+                    setRemovedArr([]);
+                    setList([]);
                     handleInput(e.target.name, e.target.value);
+                    getAddress(e.target.value, buyerData.branchName);
                   }}
                 >
-                  <option>Select an option</option>
+                  <option  value="">Select an option</option>
                   <option
                     value={`Indo German International Private Limited`}
                   >{`Indo German International Private Limited`}</option>
                   <option
-                    value={`Emergent Industrial Solution limited`}
-                  >{`Emergent Industrial Solution limited`}</option>
+                    value={`Emergent Industrial Solution Limited`}
+                  >{`Emergent Industrial Solution Limited`}</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Name<strong className="text-danger">*</strong>
                 </Form.Label>
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
-                {/* <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    /> */}
               </div>
             </Form.Group>
 
@@ -680,28 +731,34 @@ function Index(props) {
               <div className="d-flex">
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  required
                   type="text"
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
-                    let filter = props.internal.filter((val) => {
+                    let filter = props?.internal?.filter((val) => {
                       if (val.Company_Name?.toLowerCase() == e.target.value?.toLowerCase()) {
                         return val;
                       }
                     });
-              
-                    //  setGstin(props?.data.gstin||"")
-                    //  setPan(props?.data.pan||"")
+
                     setBranchOptions([...filter]);
                     handleInput(e.target.name, e.target.value);
+                    getAddress(buyerData.name, e.target.value);
                   }}
                 >
-                  <option>Select an option</option>
+                  <option  value="" >
+                    Select an option
+                  </option>
 
-                  {branchOptions.map((val, index) => {
-                    return <option value={`${val.Branch}`}>{val.Branch}</option>;
-                  })}
+                  {[...new Set(branchOptions.map((item) => item.keyAddresses[0].Branch))]
+                    .filter((val, index) => {
+                      if (val !== undefined) {
+                        return val;
+                      }
+                    })
+                    .map((val, index) => {
+                      return <option value={`${val}`}>{val}</option>;
+                    })}
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Branch Name<strong className="text-danger">*</strong>
@@ -727,34 +784,7 @@ function Index(props) {
           <span className={`mb-3`}>Addresses</span>
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
             {addressList?.map((val, index) => {
-              return (
-                <div key={index} className={`${styles.registeredAddress} d-flex justify-content-between border_color`}>
-                  <div className={`${styles.registeredAddressHeading}`}>
-                    <span>{val.addressType} Address</span>
-                    <div className={`${styles.address_text}`}>
-                      {val.fullAddress} {val.pinCode} {val.country}
-                    </div>
-                  </div>
-                  <div className={`d-flex ${styles.actions} `}>
-                    <div
-                      className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
-                      onClick={() => {
-                        handleEditAddressInput(index);
-                      }}
-                    >
-                      <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
-                    </div>
-                    <div
-                      className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
-                      onClick={() => {
-                        onAddressRemove(index);
-                      }}
-                    >
-                      <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
-                    </div>
-                  </div>
-                </div>
-              );
+              return addressLists(val, index, handleEditAddressInput, onAddressRemove);
             })}
           </div>
         </div>
@@ -767,6 +797,12 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            props.gettingPins,
+            toShow,
+            toView,
+            handleDataEdit,
+            viewSet,
+            gstArray,
           )}
         {isEdit == false && (
           <div className={`${styles.newAddressContainer} card m-0 border_color`}>
@@ -788,7 +824,8 @@ function Index(props) {
                     >
                       <option disabled>Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      <option value="Branch">Branch</option>
+                      <option value="Branch">Branch Office</option>
+                       <option value="Corporate">Corporate Office</option>
                     </select>
                     <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                       Address Type<strong className="text-danger">*</strong>
@@ -800,7 +837,7 @@ function Index(props) {
                     />
                   </div>
                 </Form.Group>
-                {addressType == 'Registered' || addressType == 'Supplier' ? (
+                {addressType == 'Registered' || addressType == 'Corporate' ? (
                   <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -827,9 +864,29 @@ function Index(props) {
                         onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         value={newAddress.pinCode}
                         onChange={(e) => {
+                          props.gettingPins(e.target.value);
+                          viewSet();
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
+                      {toShow.length > 0 && toView && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                       <Form.Label className={`${styles.label_heading} label_heading`}>
                         Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
@@ -868,7 +925,19 @@ function Index(props) {
                           }}
                         >
                           <option>Select an option</option>
-                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          {gstArray?.length > 0 && gstArray !== undefined > 0 ? (
+                            gstArray
+                              .filter((val) => {
+                                if (val !== undefined) {
+                                  return val;
+                                }
+                              })
+                              .map((val, index) => {
+                                return <option value={`${val}`}>{val}</option>;
+                              })
+                          ) : (
+                            <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          )}
                         </select>
                         <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                           GSTIN<strong className="text-danger">*</strong>
@@ -890,9 +959,29 @@ function Index(props) {
                         onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         value={newAddress.pinCode}
                         onChange={(e) => {
+                          props.gettingPins(e.target.value);
+                          viewSet();
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
+                      {toShow.length > 0 && toView && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map((results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                       <Form.Label className={`${styles.label_heading} label_heading`}>
                         Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
@@ -985,6 +1074,7 @@ function Index(props) {
             </div>
           </div>
         )}
+
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -1018,7 +1108,7 @@ function Index(props) {
                       list.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions == 'true'  || val.actions == undefined ? (
                               <tr key={index} className="table_row">
                                 <td>{val.name}</td>
                                 <td>{val.designation}</td>
@@ -1041,25 +1131,21 @@ function Index(props) {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
+                                  {console.log(val.addnew, 'val.addnew ')}
                                   {val.addnew == 'false' ? (
                                     <>
                                       <select
                                         value={val.name}
                                         className={`${styles.customSelect} input`}
                                         onChange={(e) => {
-                                          setRemovedOption(e.target.value);
                                           handleChangeInput(e.target.name, e.target.value, index);
                                         }}
                                       >
                                         <option>Select an option</option>
-                                        {removedOption != null ? (
-                                          <option value={removedOption}>{removedOption}</option>
-                                        ) : null}
+
                                         {options.map((val, i) => {
                                           return <option value={val}>{val}</option>;
                                         })}
-
-                                       
                                       </select>
                                       <img
                                         className={`${styles.arrow2} image_arrow img-fluid`}
@@ -1068,52 +1154,16 @@ function Index(props) {
                                       />
                                     </>
                                   ) : (
-                                    <>
-                                      {val.name == 'Vipin Kumar' ||
-                                      val.name == 'Bhawana Jain' ||
-                                      val.name == 'Devesh Jain' ||
-                                      val.name == 'Fatima Yannoulis' ? (
-                                        <>
-                                          <select
-                                            value={val.name}
-                                            className={`${styles.customSelect} input`}
-                                            onChange={(e) => {
-                                              handleChangeInput(e.target.name, e.target.value, index);
-                                            }}
-                                          >
-                                            <option>Select an option</option>
-                                            <option value={'Vipin Kumar'}>Vipin Kumar</option>
-                                            <option value={'Bhawana Jain'}>Bhawana Jain</option>
-                                            <option value={'Devesh Jain'}>Devesh Jain</option>
-                                            <option value={'Fatima Yannoulis'}>Fatima Yannoulis</option>
-
-                                            {/* {options.map((val,i)=>{
-                                return(<option value={val}>{val}</option>)
-                              })} */}
-
-                                            
-                                          </select>
-                                          <img
-                                            className={`${styles.arrow2} image_arrow img-fluid`}
-                                            src="/static/inputDropDown.svg"
-                                            alt="Search"
-                                          />
-                                        </>
-                                      ) : (
-                                        <>
-                                          <input
-                                            type="text"
-                                            className="input"
-                                            placeholder={'Add new'}
-                                            name="name"
-                                            value={val.name}
-                                            onChange={(e) => {
-                                              handleChangeInput2(e.target.name, e.target.value, index);
-                                            }}
-                                          />
-                                        </>
-                                      )}
-                                    </>
+                                    <input
+                                      type="text"
+                                      className="input"
+                                      value={val.name}
+                                      name="name"
+                                      // readOnly={val.addnew!="true"?true:false}
+                                      onChange={(e) => {
+                                        handleChangeInput2(e.target.name, e.target.value, index);
+                                      }}
+                                    />
                                   )}
                                 </td>
                                 <td>
@@ -1146,7 +1196,9 @@ function Index(props) {
                                     name="phoneNo"
                                     type="number"
                                     onWheel={(event) => event.currentTarget.blur()}
-                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                                    onKeyDown={(evt) =>
+                                      ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()
+                                    }
                                     onChange={(e) => {
                                       handleChangeInput2(e.target.name, e.target.value, index);
                                     }}
@@ -1205,6 +1257,12 @@ const editData = (
   cancelEditAddress,
   saveNewAddress,
   setAddressEditType,
+  gettingPins,
+  toShow,
+  toView,
+  handleDataEdit,
+  viewSet,
+  gstArray,
 ) => {
   return (
     <div className={`${styles.newAddressContainer}`}>
@@ -1224,8 +1282,9 @@ const editData = (
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered</option>
-              <option value="Branch">Branch</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -1233,7 +1292,7 @@ const editData = (
             <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
           </div>
         </Form.Group>
-        {addressEditType == 'Registered' || addressEditType == 'Supplier' ? (
+        {addressEditType == 'Registered' || addressEditType == 'Corporate' ? (
           <>
             <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
               <Form.Control
@@ -1260,9 +1319,29 @@ const editData = (
                 value={EditAddress.pinCode}
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={(e) => {
+                  gettingPins(e.target.value);
+                  viewSet();
                   editNewAddress(e.target.name, e.target.value);
                 }}
               />
+              {toShow.length > 0 && toView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map((results, index) => (
+                          <li
+                            onClick={() => handleDataEdit('pinCode', results)}
+                            id={results._id}
+                            key={index}
+                            value={results.Pincode}
+                          >
+                            {results.Pincode}{' '}
+                          </li>
+                        ))
+                      : ''}
+                  </ul>
+                </div>
+              )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
@@ -1301,7 +1380,19 @@ const editData = (
                   }}
                 >
                   <option>Select an option</option>
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  {gstArray?.length > 0 && gstArray !== undefined > 0 ? (
+                    gstArray
+                      .filter((val) => {
+                        if (val !== undefined) {
+                          return val;
+                        }
+                      })
+                      .map((val, index) => {
+                        return <option value={`${val}`}>{val}</option>;
+                      })
+                  ) : (
+                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  )}
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
@@ -1319,9 +1410,29 @@ const editData = (
                 value={EditAddress.pinCode}
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={(e) => {
+                  gettingPins(e.target.value);
+                  viewSet();
                   editNewAddress(e.target.name, e.target.value);
                 }}
               />
+              {toShow.length > 0 && toView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map((results, index) => (
+                          <li
+                            onClick={() => handleDataEdit('pinCode', results)}
+                            id={results._id}
+                            key={index}
+                            value={results.Pincode}
+                          >
+                            {results.Pincode}{' '}
+                          </li>
+                        ))
+                      : ''}
+                  </ul>
+                </div>
+              )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>

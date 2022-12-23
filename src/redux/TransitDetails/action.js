@@ -134,7 +134,6 @@ export const GetTransitDetails = (payload) => async (dispatch, getState, api) =>
       headers: headers,
     });
     if (response.data.code === 200) {
-  
       dispatch(setNotLoading());
       return response.data.data;
     } else {
@@ -177,6 +176,8 @@ export const UpdateTransitDetails = (payload) => async (dispatch, getState, api)
 
       if (payload.task === 'save') {
         toastMessage = 'Saved successfully';
+      } else {
+        sessionStorage.setItem('headgingId', response.data.data.order.forwardHedging);
       }
 
       if (!toast.isActive(toastMessage.toUpperCase())) {

@@ -53,6 +53,8 @@ function Index(props) {
   };
 
   const handleRoute = (term) => {
+    sessionStorage.removeItem('setgenActive');
+    sessionStorage.removeItem('genericSide');
     sessionStorage.setItem('genericSelected', JSON.stringify(term));
     sessionStorage.setItem('genericID', term.order.orderId);
     Router.push('/generic');
@@ -93,9 +95,8 @@ function Index(props) {
                 </span>
                 <a
                   onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
+                    if (currentPage === 0) return 
+                    else {
                       setCurrentPage((prevState) => prevState - 1);
                     }
                   }}

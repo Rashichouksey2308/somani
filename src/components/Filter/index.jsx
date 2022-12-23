@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.module.scss';
 
-export default function index() {
+export default function index({isSupplier}) {
   return (
     <div className={`${styles.dropdown} filter dropdown`}>
       <a
@@ -21,18 +21,19 @@ export default function index() {
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href="#">
           <input type="checkbox" id="orderId" name="orderId" value="Order ID" />{' '}
-          <label htmlFor="orderId">Order ID</label>
+          {!isSupplier ? <label htmlFor="orderId">Order ID</label> : <label htmlFor="orderId">Supplier Name</label>}
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href="#">
           <input type="checkbox" id="commodity" name="commodity" value="Commodity" />{' '}
-          <label htmlFor="commodity">Commodity</label>
+          {!isSupplier ? <label htmlFor="commodity">Commodity</label> : <label htmlFor="orderId">Onboarding Date</label>}
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href="#">
-          <input type="checkbox" id="status" name="status" value="Status" /> <label htmlFor="status">Status</label>
+          <input type="checkbox" id="status" name="status" value="Status" />
+          {!isSupplier ? <label htmlFor="status">Status</label> : <label htmlFor="orderId">Country</label>}
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href="#">
           <input type="checkbox" id="createdBy" name="createdBy" value="Created by" />{' '}
-          <label htmlFor="createdBy">Created by</label>
+          {!isSupplier ? <label htmlFor="createdBy">Created by</label> : <label htmlFor="orderId">Status</label>}
         </div>
         <button className={`${styles.btn} btn`} type="button">
           Apply Filter

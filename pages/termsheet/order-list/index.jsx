@@ -21,7 +21,7 @@ function Index() {
   useEffect(() => {
     let Id = sessionStorage.getItem('termsheetId');
     dispatch(GetTermsheet(`?company=${Id}&page=${currentPage}&limit=${7}`));
-  }, [dispatch]);
+  }, [dispatch,currentPage]);
 
   useEffect(() => {
     dispatch(setPageName(_get(termsheet, 'data[0].company.companyName', 'All Termsheet Order')));
@@ -150,9 +150,8 @@ function Index() {
                   </span>
                   <a
                     onClick={() => {
-                      if (currentPage === 0) {
-                        return;
-                      } else {
+                      if (currentPage === 0) return 
+                      else {
                         setCurrentPage((prevState) => prevState - 1);
                       }
                     }}
@@ -233,7 +232,7 @@ function Index() {
                               {term.status === 'Approved' ? (
                                 <img
                                   src="/static/preview.svg"
-                                  className="img-fluid"
+                                  className={`${styles.eye_icon}`}
                                   alt="Preview"
                                   onClick={() => {
                                     sessionStorage.setItem('termID', term._id);
@@ -241,7 +240,7 @@ function Index() {
                                     dispatch(GetTermsheet(`?company=${term.company._id}`));
 
                                     dispatch(setDynamicName(term.order.orderId));
-                                  
+
                                     Router.push('/termsheet-preview');
                                   }}
                                 />

@@ -25,6 +25,8 @@ import _get from 'lodash/get';
 
 import { addPrefixOrSuffix, checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 import { isArray } from 'lodash';
+import { returnReadableNumber } from '@/utils/helpers/global';
+import { cssNumber } from 'jquery';
 
 Chart.register(
   ArcElement,
@@ -35,7 +37,7 @@ Chart.register(
   Title,
   CategoryScale,
   Filler,
-  Tooltip,
+  // Tooltip,
   Legend,
 );
 
@@ -61,33 +63,40 @@ function Index({
   CreditAgency,
   litigationStatus,
   debtProfileColor,
+  allBuyerList,
+  unit,
+  chartType,
+  setChartType,
 }) {
   const dispatch = useDispatch();
-
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
   });
-
+  const [limitValueChecked, setLimitValueChecked] = useState(false);
+  const [orderValueChecked, setOrderValueChecked] = useState(false);
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);
-
 
   useEffect(() => {
     let id1 = sessionStorage.getItem('orderID');
     dispatch(GetDocuments(`?order=${id1}`));
   }, [dispatch]);
 
-
-
-  const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
+  const[filteredCreditRating,setfilteredCreditRating]=useState([])
+ 
+  useEffect(() => {
+   
+  let  a = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
+  
   });
-
+    
+    setfilteredCreditRating(a)
+  }, [camData]);
+ 
   const { documentsFetched } = useSelector((state) => state.review);
-
-
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
@@ -100,8 +109,14 @@ function Index({
     // }
   };
 
-
-
+  useEffect(() => {
+    if (approvedCredit.approvedCreditValue) {
+      setLimitValueChecked(true);
+    }
+    if (approvedCredit.approvedOrderValue) {
+      setOrderValueChecked(true);
+    }
+  }, [filteredCreditRating]);
   const [sanctionComments, setSanctionComments] = useState('');
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {});
@@ -125,12 +140,10 @@ function Index({
   };
 
   const primaryBankName = () => {
-    
     let filteredData = [];
     filteredData = camData?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
 
     const length = _get(filteredData[0], 'bankName', '');
-
 
     return length;
   };
@@ -175,7 +188,7 @@ function Index({
   useEffect(() => {
     let data;
     if (camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern) {
-      data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+      data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.forEach((element, index) => {
         if (element.fullName === '') {
         } else {
           if (index < 2) {
@@ -206,10 +219,7 @@ function Index({
         }
       });
     }
-
-
   }, [camData]);
-
 
   let data = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
@@ -223,27 +233,147 @@ function Index({
     ],
   };
 
+  // const options = {
+  //   elements: {
+  //     arc: {
+  //       borderWidth: 0,
+  //     },
+  //   },
+  //   plugins: {
+  //     title: {
+  //       animation: {
+  //         animateScale: true,
+  //       },
+  //     },
+
+  //     legend: {
+  //       display: false,
+  //     },
+  //   },
+  //   responsive: true,
+  //   cutout: 130,
+  // };
+
   const options = {
+    aspectRatio: 1,
+    elements: {
+      arc: {
+        borderWidth: 0,
+      },
+    },
+    tooltip: {
+      position: 'nearest',
+      callbacks: {
+          label: function (context) {
+            let label;
+            if (context.parsed !== null && context.parsed !== undefined) {
+              
+              let number = Number(context.raw).toLocaleString('en-In');
+              label = `${context.label}:`+ "/n" + `${number}`;
+            }
+
+            return '';
+          },
+          afterBody: function(data) {
+             
+              let label=[`${data[0].label}:`]
+            
+          // do some stuff
+           label.push(Number(data[0].raw).toLocaleString('en-In'));
+
+          return label;
+      }
+        },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
+
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+
+        animation: {
+          animateScale: false,
+        },
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 95,
+  };
+  const options2 = {
+    aspectRatio: 1,
     elements: {
       arc: {
         borderWidth: 0,
       },
     },
     plugins: {
-      title: {
-        animation: {
-          animateScale: true,
-        },
-      },
-
       legend: {
         display: false,
       },
-    },
-    responsive: true,
-    cutout: 130,
-  };
+      tooltip: {
+        position: 'nearest',
+        callbacks: {
+          label: function (context) {
+            let label;
+            if (context.parsed !== null && context.parsed !== undefined) {
+              
+              let number = Number(context.raw).toLocaleString('en-In');
+              label = `${context.label}:`+ "/n" + `${number}`;
+            }
 
+            return '';
+          },
+          afterBody: function(data) {
+             
+              let label=[`${data[0].label}:`]
+            
+          // do some stuff
+           label.push(Number(data[0].raw).toLocaleString('en-In'));
+
+          return label;
+      }
+        },
+      },
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
+
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 95,
+  };
   const covertMonths = (months) => {
     const CovertedMonts = [];
     months?.map((month) => {
@@ -281,6 +411,19 @@ function Index({
       tooltip: {
         enabled: true,
         position: 'nearest',
+         callbacks: {
+        label: function (context) {
+          let label;
+          if (context.raw !== null && context.raw !== undefined) {
+          
+            let number = Number(context.raw).toLocaleString('en-In');
+            
+            label = `${number} `;
+          }
+
+          return label;
+        },
+      },
         // external: externalTooltipHandler
       },
       legend: {
@@ -289,14 +432,10 @@ function Index({
     },
   };
 
-
   function createGradient(ctx, area, color, color2) {
-
-
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
     gradient.addColorStop(1, color);
-
 
     return gradient;
   }
@@ -310,18 +449,10 @@ function Index({
     datasets: [],
   });
 
-  // let data = {
-  //   labels: ['Sail', 'Jindal Grou', 'SR Steel'],
-  //   datasets: [
-  //     {
-  //       label: '',
-  //       data: [25, 20, 55],
 
-  //       backgroundColor: ['#4CAF50', '#FF9D00', '#2884DE'],
-  //     },
-  //   ],
-  // }
   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+  let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
+
   const [top5Customers, setTop5Customers] = useState({
     labels: [],
     datasets: [],
@@ -405,14 +536,13 @@ function Index({
     }
   };
   const findTop3Share = (data) => {
-
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
         temp.push({ name: val.fullName, value: val.numberOfShares });
       });
       let sortedval = temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-      let length = 3;
+      let length = data.length < 3 ? data.length : 3;
       let lable = [];
       let dataSet = [];
       let total = 0;
@@ -428,7 +558,6 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 4,
           },
         ],
       };
@@ -438,13 +567,12 @@ function Index({
     }
   };
   const findTop3Open = (data) => {
-
     let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
-        if (val.finalAmountSecured !== null || !val.dateOfSatisfactionOfChargeInFull  ||val.dateOfSatisfactionOfChargeInFull === '' ) {
+        if (!val.dateOfSatisfactionOfChargeInFull || val.dateOfSatisfactionOfChargeInFull === '') {
           temp.push({
-            name: val.nameOfChargeHolder1,
+            name: val.nameOfChargeHolder1 || val.nameOfChargeHolder,
             value: val.finalAmountSecured,
           });
         }
@@ -454,6 +582,7 @@ function Index({
       let lable = [];
       let dataSet = [];
       let total = 0;
+
       for (let i = 0; i < length; i++) {
         lable.push(sortedval[i]?.name);
         dataSet.push(sortedval[i]?.value || 0);
@@ -465,7 +594,6 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 20,
           },
         ],
       };
@@ -475,7 +603,6 @@ function Index({
     }
   };
 
-
   useEffect(() => {
     findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus);
     findTop5Suppliers(GstData?.detail?.summaryCharts?.top10Suppliers);
@@ -483,20 +610,48 @@ function Index({
     findTop3Share(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern);
     findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges);
   }, [GstData, camData]);
+
   useEffect(() => {
     const chart = chartRef.current;
     const chart2 = chartRef2.current;
 
+    const filteredData = (data) => {
+      let arr = [];
+      if (!data || !data?.length) return arr;
+      for (let i = 2; i <= data.length - 1; i = i + 3) {
+        arr.push(data[i]);
+      }
+      return arr;
+    };
+
+    const filteredData1 = (data) => {
+      let arr = [];
+      if (!data || !data?.length) return arr;
+      for (let i = 2; i <= data.length - 1; i = i + 3) {
+        let b = 0;
+
+        b = data[i] + data[i - 1] + data[i - 2];
+        arr.push((Number(b) / 1000).toFixed(2));
+      }
+
+      return arr;
+    };
     if (!chart) {
       return;
     }
 
     const data = {
-      labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
+      labels:
+        chartType == 'Monthly'
+          ? covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month)
+          : covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossRevenue?.month)),
       datasets: [
         {
           label: 'First dataset',
-          data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
+          data:
+            chartType == 'Monthly'
+              ? gstData?.detail?.summaryCharts?.grossRevenue?.values
+              : filteredData1(gstData?.detail?.summaryCharts?.grossRevenue?.values),
           fill: true,
           backgroundColor: createGradient(chart.ctx, chart.chartArea, 'rgb(71, 145, 255,0.1)', 'rgb(71, 145, 255,0.2)'),
           borderColor: '#2979F2',
@@ -508,11 +663,17 @@ function Index({
     }
 
     const data2 = {
-      labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
+      labels:
+        chartType == 'Monthly'
+          ? covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month)
+          : covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossPurchases?.month)),
       datasets: [
         {
           label: 'First dataset',
-          data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+          data:
+            chartType == 'Monthly'
+              ? gstData?.detail?.summaryCharts?.grossPurchases?.values
+              : filteredData1(gstData?.detail?.summaryCharts?.grossPurchases?.values),
           fill: true,
           backgroundColor: createGradient(chart2.ctx, chart2.chartArea, 'rgb(250, 95, 28,0.1)', 'rgb(250, 95, 28,0.2)'),
           borderColor: '#FA5F1C',
@@ -522,9 +683,14 @@ function Index({
 
     setChartData(data);
     setChartData2(data2);
-  }, [chartRef.current, chartRef2.current]);
+  }, [chartRef.current, chartRef2.current, gstData, chartType]);
 
   const [rating, setRating] = useState(`rotate(0deg)`);
+  const [rotateImage, setRotateImage] = useState({
+   top: '40%',
+    left: '36%',
+  });
+  
   useEffect(() => {
     if (filteredCreditRating) {
       getRotate(filteredCreditRating[0]?.totalRating);
@@ -532,52 +698,107 @@ function Index({
     }
   }, [filteredCreditRating]);
 
+ 
   const getRotate = (rat = 1) => {
-    let r = Math.round(rat);
-    // let r = 10;
+    let r = Math.floor(rat);
+    
     if (r == 0) {
       setRating(`rotate(90deg)`);
+      setRotateImage({
+        top : '40%',
+        left : '35%'
+      })
+     
     }
     if (r == 1) {
       setRating(`rotate(90deg)`);
+       setRotateImage({
+        top : '40%',
+        left : '35.5%'
+      })
+      
     }
     if (r == 2) {
       setRating(`rotate(130deg)`);
+       setRotateImage({
+        top : '39.5%',
+        left : '36%'
+      })
+      
     }
     if (r == 3) {
       setRating(`rotate(180deg)`);
+       setRotateImage({
+        top :'39.5%',
+        left : '36.5%'
+      })
+     
     }
     if (r == 4) {
       setRating(`rotate(200deg)`);
+       setRotateImage({
+        top : '39%',
+        left : '37%'
+      })
+    
     }
     if (r == 5) {
       setRating(`rotate(225deg)`);
+       setRotateImage({
+        top :'39.5%',
+        left : '37%'
+      })
+    
     }
     if (r == 6) {
       setRating(`rotate(250deg)`);
+       setRotateImage({
+        top : '39.5%',
+        left : '37.5%'
+      })
+    
     }
     if (r == 7) {
-      setRating(`rotate(270deg)`);
+      setRating(`rotate(276deg)`);
+       setRotateImage({
+        top : '40%',
+        left : '37.5%'
+      })
+     
     }
-
     if (r == 8) {
       setRating(`rotate(310deg)`);
+       setRotateImage({
+        top :'40.5%',
+        left : '37.5%' 
+      })
+      
     }
     if (r == 9) {
-      setRating(`rotate(330deg)`);
+      setRating(`rotate(340deg)`);
+       setRotateImage({
+        top : '40.5%',
+        left : '36.5%'
+      })
+    
     }
     if (r == 10) {
-      setRating(`rotate(2deg)`);
+      setRating(`rotate(10deg)`);
+       setRotateImage({
+        top :'40.5%',
+        left : '36.5%'
+      })
+      
     }
   };
 
   return (
     <>
-      {basicInfo(camData, orderDetails, camConversionunit)}
+      {basicInfo(camData, orderDetails, camConversionunit, unit)}
       {supplierInfo(camData)}
-      {customerRating(camData, filteredCreditRating, rating, darkMode)}
+      {customerRating(camData, filteredCreditRating, rating, darkMode, rotateImage)}
       {groupExposure(camData, camConversionunit)}
-      {orderSummary(camData, camConversionunit)}
+      {orderSummary(camData, camConversionunit, allBuyerList)}
       {creditProfile(
         camData,
         openChargesLength,
@@ -588,15 +809,25 @@ function Index({
         CreditAgency,
       )}
       {directorDetails(camData)}
-      {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
-      {chargeDetails(top3Open, options, tempArr, camData, backgroundColor, camConversionunit)}
+      {shareHolding(top3Share, options2, tempArr, camData, backgroundColor, backgroundColor1)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit, unit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
-      {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit)}
+      {trends(
+        chartData,
+        chartRef,
+        chartRef2,
+        chartData2,
+        lineOption,
+        gstData,
+        camConversionunit,
+        setChartType,
+        chartType,
+      )}
       {skewness(
         top5Customers,
-        options,
+        options2,
         tempArr,
         gstData,
         top5Suppliers,
@@ -631,6 +862,12 @@ function Index({
         approvedCredit,
         isFieldInFocus,
         setIsFieldInFocus,
+        unit,
+        camConversionunit,
+        limitValueChecked,
+        orderValueChecked,
+        setLimitValueChecked,
+        setOrderValueChecked,
       )}
       {Documents(documentsFetched)}
     </>
@@ -639,8 +876,7 @@ function Index({
 
 export default Index;
 
-const basicInfo = (camData, orderDetails, camConversionunit) => {
-  // console
+const basicInfo = (camData, orderDetails, camConversionunit, unit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -716,10 +952,10 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value`}>
-                    {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
+                    {convertValue(camData?.existingOrderValue, camConversionunit)?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    {camData?.unitOfValue == 'Crores' ? 'Cr' : camData?.unitOfValue}
+                    {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
@@ -761,7 +997,7 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Port of Discharge</span>
-                  <span className={`${styles.value} value`}>{camData?.portOfDischarge}</span>
+                  <span className={`${styles.value} value`}>{camData?.portOfDischarge}, India</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -837,7 +1073,6 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
   );
 };
 const supplierInfo = (camData) => {
-
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -860,7 +1095,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.shipmentNumber}</span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Port of Destination</span>
+                  <span className={`${styles.key} label1`}>Port of Destination</span>
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.portOfDestination}</span>
                 </Col>
               </Row>
@@ -870,7 +1105,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.consigneesNumber}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Latest Shipment date</span>
+                  <span className={`${styles.key} label1`}>Latest Shipment date</span>
                   <span className={`${styles.value} value`}>
                     {/* {camData?.supplierCredential?.latestShipmentDate
                       ? moment(
@@ -891,7 +1126,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.HSCodesNumber}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Oldest shipment date</span>
+                  <span className={`${styles.key} label1`}>Oldest shipment date</span>
                   <span className={`${styles.value} value`}>
                     {/* {camData?.supplierCredential?.oldestShipmentDate
                       ? moment(
@@ -912,11 +1147,9 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.value} value`}>{camData?.supplierCredential?.countryOfOrigin}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Commodity to total trade (24 months)</span>
+                  <span className={`${styles.key} label1`}>Commodity to total trade (24 months)</span>
                   <span className={`${styles.value} ${styles.danger_highlight} value`}>
-                    {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })}{' '}
+                  {returnReadableNumber(camData?.supplierCredential?.commodityOfTotalTrade,'en-In',2,2)}{' '}
                     %
                   </span>
                 </Col>
@@ -979,13 +1212,12 @@ const groupExposure = (camData, camConversionunit) => {
                                 <span className={`${styles.limit_label} `}>LIMIT</span>
                               </div>
                               <span>
-                                {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
+                                {returnReadableNumber(convertValue(exp.limit, camConversionunit), 'en-In', 2, 2)}{' '}
+                                {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                               </span>
                             </div>
                             <div className={`${styles.bar}`}>
-                              <div className={`${styles.fill}`}></div>
+                              <div className={`${styles.fill}`} style={{ width: `100%` }}></div>
                             </div>
                           </Col>
                           <Col sm={12} className={`${styles.limit}   mb-5`}>
@@ -996,13 +1228,20 @@ const groupExposure = (camData, camConversionunit) => {
                                 <span className={`${styles.limit_label} `}>O/S BALANCE</span>
                               </div>
                               <span>
-                                {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
+                                {returnReadableNumber(
+                                  convertValue(exp.outstandingLimit, camConversionunit),
+                                  'en-In',
+                                  2,
+                                  2,
+                                )}{' '}
+                                {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                               </span>
                             </div>
                             <div className={`${styles.bar}`}>
-                              <div className={`${styles.fill}`}></div>
+                              <div
+                                className={`${styles.fill}`}
+                                style={{ width: `${Number((exp.outstandingLimit / exp.limit) * 100)}%` }}
+                              ></div>
                             </div>
                           </Col>
                           <Col sm={12} className={`${styles.limit}   mb-5`}>
@@ -1027,10 +1266,7 @@ const groupExposure = (camData, camConversionunit) => {
     </>
   );
 };
-const orderSummary = (camData, camConversionunit) => {
-  let name = camData?.company?.companyName ?? 'N A';
-  let Initials = name?.split(' ');
-
+const orderSummary = (camData, camConversionunit, allBuyerList) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1048,13 +1284,14 @@ const orderSummary = (camData, camConversionunit) => {
           <div className={`${styles.order_wrapper} px-0 card-body border_color`}>
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
-                <th>CUSTOMER NAME</th>
+                <th>SUPPLIER NAME</th>
                 <th>ORDER NO</th>
-                <th>ORDER VALUE</th>
+                <th>ORDER DATE</th>
+                <th className="text-right">ORDER VALUE</th>
                 <th>COMMODITY</th>
                 <th>STATUS</th>
 
-                <th>DAYS DUE</th>
+                <th className="text-right">DAYS DUE</th>
               </tr>
               {/* <tr>
                 <td>JUL 2022 - JUN 2023</td>
@@ -1063,30 +1300,35 @@ const orderSummary = (camData, camConversionunit) => {
                   <div className={`${styles.dashedLine}`}></div>
                 </td>
               </tr> */}
-              <tr>
-                <td className={`d-flex justify-content-start align-content-center`}>
-                  <div className={`${styles.icon} `}>
-                    <span className={`d-flex justify-content-center align-content-center`}>
-                      {`${Initials[0]?.charAt(0)}${Initials[1]?.charAt(0)}`}
-                    </span>
-                  </div>
+              {allBuyerList &&
+                allBuyerList?.data?.data.map((item, index) => {
+                  let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                  let [fName, lName] = name?.split(' ');
+                  return (
+                    <tr ke={index} className="table_row">
+                      <td className={`d-flex justify-content-start align-items-center`}>
+                        <div className={`${styles.icon} `}>
+                          <span className={`d-flex justify-content-center align-items-center`}>
+                            {' '}
+                            {fName?.charAt(0)}
+                            {lName?.charAt(0)}
+                          </span>
+                        </div>
 
-                  <span className={` ${styles.name} ml-3  `}>{camData?.company?.companyName}</span>
-                </td>
-                <td>{camData?.orderId}</td>
-                <td>
-                  {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
-                  })}
-                </td>
-                <td>{camData?.commodity}</td>
-                <td>In Process</td>
-
-                <td>12</td>
-              </tr>
-              <tr>
-                <td colSpan={6} height="10"></td>
-              </tr>
+                        <span className={` ${styles.name} ml-4`}>{item?.supplierName}</span>
+                      </td>
+                      <td>{item?.orderId ? item?.orderId : item?.applicationId}</td>
+                      <td>{item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}</td>
+                      <td>
+                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)}{' '}
+                        {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
+                      </td>
+                      <td>{item?.commodity}</td>
+                      <td>In Process</td>
+                      <td> 12</td>
+                    </tr>
+                  );
+                })}
             </table>
           </div>
         </div>
@@ -1125,7 +1367,7 @@ const creditProfile = (
                   <span className={`${styles.value} value`}>{primaryBankName()}</span>
                 </Col>
                 <Col className={`  d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>External Credit rating</span>
+                  <span className={`${styles.key} label1`}>External Credit rating</span>
                   <span className={`${styles.value} value`}>{CreditAgency()?.rating_}</span>
                 </Col>
               </Row>
@@ -1135,7 +1377,7 @@ const creditProfile = (
                   <span className={`${styles.value} value`}>{openChargesLength()}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Credit Rating Agency</span>
+                  <span className={`${styles.key} label1`}>Credit Rating Agency</span>
                   <span className={`${styles.value} value`}>{CreditAgency()?.ratingAgency}</span>
                 </Col>
               </Row>
@@ -1145,7 +1387,7 @@ const creditProfile = (
                   <span className={`${styles.value} value`}>{latestAuditorData?.nameOfAuditor}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Change in Auditor</span>
+                  <span className={`${styles.key} label1`}>Change in Auditor</span>
                   <span className={`${styles.value} value `}>
                     {latestAuditorData?.nameOfAuditor
                       ? latestAuditorData?.nameOfAuditor === previousAuditorData?.nameOfAuditor
@@ -1186,7 +1428,7 @@ const directorDetails = (camData) => {
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
                 <th className="40%">NAME</th>
-                <th>PAN</th>
+                <th className="text-left">PAN</th>
                 <th>DIN NUMBER</th>
                 <th>DATE OF APPOINTMENT</th>
                 <th>% SHAREHOLDING</th>
@@ -1208,10 +1450,14 @@ const directorDetails = (camData) => {
 
                       <span className={` ${styles.name} ml-3  `}>{director?.name}</span>
                     </td>
-                    <td>{director?.pan[0]}</td>
+                    <td className="text-left">{director?.pan[0]}</td>
                     <td>{director.din}</td>
                     <td>{director.tenureStartDate}</td>
-                    <td>{director.percentageShareHolding}%</td>
+                    <td>
+                      {director.percentageShareHolding || director.percentageShareHolding === 0
+                        ? returnReadableNumber(director.percentageShareHolding, undefined, 2, 2) + ' %'
+                        : ''}
+                    </td>
                   </tr>
                 );
               })}
@@ -1225,7 +1471,7 @@ const directorDetails = (camData) => {
     </>
   );
 };
-const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
+const shareHolding = (top3Share, options, tempArr, camData, backgroundColor, backgroundColor1) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1250,10 +1496,10 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
                   <Doughnut id={`shareHoldingChart`} data={top3Share} options={options} />
-                  <div className={styles.total_value}>
+                  {/* <div className={styles.total_value}>
                     <span></span>
                     <span className={styles.highlight}></span>
-                  </div>
+                  </div> */}
                 </div>
                 <div className={`${styles.name} `}>
                   {top3Share.datasets &&
@@ -1273,7 +1519,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>
-                <table className={`${styles.table} table  border_color `} cellPadding="0" cellSpacing="0">
+                <table className={`${styles.table} table  border_color mr-3`} cellPadding="0" cellSpacing="0">
                   <tr>
                     <th>NAME</th>
                     <th>NO. OF SHARES</th>
@@ -1304,9 +1550,12 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                       return (
                         <tr key={index}>
                           <td className={`d-flex justify-content-start align-content-center`}>
-                            <div style={{ background: `${randColor.primary}` }} className={`${styles.icon}   `}>
+                            <div
+                              style={{ background: `${index < 4 ? backgroundColor1[index] : randColor.primary}` }}
+                              className={`${styles.icon}   `}
+                            >
                               <span
-                                style={{ color: `${randColor.secondary}` }}
+                                style={{ color: `${index < 4 ? backgroundColor[index] : randColor.secondary}` }}
                                 className={`d-flex justify-content-center align-content-center`}
                               >
                                 {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
@@ -1319,10 +1568,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                           <td>{Number(share?.numberOfShares)?.toLocaleString('en-In')}</td>
                           <td>
                             {share?.percentageShareHolding
-                              ? (share?.percentageShareHolding * 100)?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }) + '%'
+                              ? returnReadableNumber(share?.percentageShareHolding * 100, 'en-In', 2, 2) + '%'
                               : ''}
                           </td>
                           <td>{share?.director ? 'Yes' : 'No'}</td>
@@ -1378,8 +1624,22 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
     </>
   );
 };
-const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, camConversionunit) => {
-
+const chargeDetails = (
+  top3Open,
+  options,
+  tempArr,
+  camData,
+  backgroundColor,
+  backgroundColor1,
+  camConversionunit,
+  unit,
+) => {
+  const returnFilteredCharges = () => {
+    let data = _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+      return !item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '';
+    });
+    return data;
+  };
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1404,14 +1664,15 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
                   <Doughnut id={`openBankChargeChart`} data={top3Open} options={options} />
-                  <div className={styles.total_value}>
-                    {/* <span>Bindu Singh</span>
-                    <span className={styles.highlight}>83.80%</span> */}
-                  </div>
+                  {/* <div className={styles.total_value}>
+                    <span>Bindu Singh</span>
+                    <span className={styles.highlight}>83.80%</span>
+                  </div> */}
                 </div>
                 <div className={`${styles.name} `}>
-                  {top3Open.datasets &&
-                    top3Open?.datasets[0]?.data.map((val, index) => {
+                  {camData &&
+                    returnFilteredCharges().map((val, index) => {
+                      if (index > 2) return null;
                       return (
                         <div
                           key={index}
@@ -1435,7 +1696,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                   </tr>
 
                   {camData &&
-                    _get(camData, 'company.detailedCompanyInfo.financial.openCharges', []).map((charge, index) => {
+                    returnFilteredCharges().map((charge, index) => {
                       let name = charge?.nameOfChargeHolder;
                       let [fName, lName] = name?.split(' ');
 
@@ -1454,43 +1715,45 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor, cam
                         },
                       ];
                       let randColor = colors[Math.floor(Math.random() * colors.length)];
-                      if (charge.dateOfSatisfactionOfChargeInFull || charge.dateOfSatisfactionOfChargeInFull === '') {
-                        return null
-                      }else{
-                        return (
-                          <tr key={index}>
-                            <td className={`d-flex justify-content-start align-content-center`}>
-                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon} `}>
-                                <span
-                                  style={{ color: `${randColor.secondary}` }}
-                                  className={`d-flex justify-content-center align-content-center`}
-                                >
-                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
-                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
-                                </span>
-                              </div>
-  
-                              <span className={` ${styles.name} ml-3  `}>
-                                {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge.nameOfChargeHolder1}
+
+                      return (
+                        <tr key={index}>
+                          <td className={`d-flex justify-content-start align-content-center`}>
+                            <div
+                              style={{ background: `${index < 4 ? backgroundColor1[index] : randColor.primary}` }}
+                              className={`${styles.icon} `}
+                            >
+                              <span
+                                style={{ color: `${index < 4 ? backgroundColor[index] : randColor.secondary}` }}
+                                className={`d-flex justify-content-center align-content-center`}
+                              >
+                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                               </span>
-                            </td>
-                            <td>
-                              {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                              })}
-                              {/* {Number(
+                            </div>
+
+                            <span className={` ${styles.name} ml-3  `}>
+                              {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge.nameOfChargeHolder1}
+                            </span>
+                          </td>
+                          <td>
+                            {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}{' '}
+                            {unit == 'Crores' ? 'Cr' : unit == 'Lakhs' ? 'LAKH' : camData?.unitOfValue}
+                            {/* {Number(
                                   charge?.finalAmountSecured,
                                 )?.toLocaleString('en-In')} */}
-                            </td>
-  
-                            <td>
-                              {charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
-                                : ''}
-                            </td>
-                          </tr>
-                        )
-                      }
+                          </td>
+
+                          <td>
+                            {charge?.dateOfCreationOfCharge
+                              ? moment(charge?.dateOfCreationOfCharge, 'DD-MM-YYYY').format('DD-MM-YYYY')
+                              : ''}
+                          </td>
+                        </tr>
+                      );
                     })}
                   {/* <tr>
                     <td
@@ -1556,7 +1819,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
           <span>+</span>
         </div>
         <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#profileAccordion">
-          <div className={`${styles.order_wrapper} card-body`}>
+          <div className={`${styles.order_wrapper} ${styles.debt_profile} card-body`}>
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={`${styles.label} d-flex justify-content-between align-content-center  `}>
@@ -1569,46 +1832,46 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                     })}
                   </span>
                 </div>
-                <div className={`${styles.bar}`}>
+                <div className={`${styles.bar} mb-4`}>
                   <div className={`${styles.fill}`} style={{ width: '100%' }}></div>
                 </div>
 
                 {camData &&
                   camData?.company?.debtProfile?.map((debt, index) => (
                     <>
-                      <div className={`mt-4 mb-4`} key={index}>
+                      <div className={`${styles.box}`} key={index}>
                         <div className={`${styles.label} d-flex justify-content-between align-content-center  `}>
                           <div className={`${styles.limit_box} `}>
                             <span className={`${styles.limit_label} text-uppercase`}>{debt.bankName}</span>
                           </div>
                           <span>
                             {debt.limit?.toLocaleString('en-In', {
-                              maximumFractionDigits: 2,
+                              miniumFractionDigits: 2,
                             })}
                           </span>
                         </div>
                         <div className={`${styles.bar} ${styles.small_bar}`}>
-                          <span
-                            className={`${styles.conduct}  
-                   `}
-                            style={{
-                              color: ` 
-                      ${debtProfileColor(debt.conduct)}`,
-                            }}
-                          >
-                            {debt.limitType}
-                          </span>
                           <div
                             style={{
                               backgroundColor: `${debtProfileColor(debt.conduct)}`,
-                              width: `${(Number(debt.limit) / totalLimitDebt() > 1
-                                ? 1
-                                : Number(debt.limit) / totalLimitDebt()) * 100
-                                }%`,
+                              width: `${
+                                (Number(debt.limit) / totalLimitDebt() > 1
+                                  ? 1
+                                  : Number(debt.limit) / totalLimitDebt()) * 100
+                              }%`,
                             }}
                             className={`${styles.fill}`}
                           ></div>
                         </div>
+                        <span
+                          className={`${styles.conduct}`}
+                          style={{
+                            color: ` 
+                          ${debtProfileColor(debt.conduct)}`,
+                          }}
+                        >
+                          {debt.limitType}
+                        </span>
                       </div>
                     </>
                   ))}
@@ -1653,7 +1916,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                     <th>BANK NAME</th>
                     <th>LIMIT TYPE</th>
                     <th>LIMITS</th>
-                    <th>CONDUCT</th>
+                    <th className="text-right">CONDUCT</th>
                   </tr>
 
                   {camData &&
@@ -1663,19 +1926,21 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                         <td> {debt?.limitType} </td>
 
                         <td>
-                          {debt?.limit?.toLocaleString('en-In', {
+                          {Number(debt?.limit)?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
                           })}
                         </td>
                         <td
-                          className={`${styles.conduct}  ${debt.conduct == 'Good'
-                            ? 'good'
-                            : debt.conduct == 'Satisfactory'
+                          className={`${styles.conduct}  ${
+                            debt.conduct == 'Good'
+                              ? 'good'
+                              : debt.conduct == 'Satisfactory'
                               ? 'satisfactory'
                               : debt.conduct == 'Average'
-                                ? 'average'
-                                : 'danger'
-                            }`}
+                              ? 'average'
+                              : 'danger'
+                          } text-right`}
                         >
                           {debt?.conduct}
                         </td>
@@ -1715,7 +1980,6 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
   );
 };
 const operationalDetails = (camData) => {
-
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1743,21 +2007,23 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
-                    {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
+                    {camData?.productSummary?.monthlyProductionCapacity
+                      ? `${camData?.unitOfQuantity.toUpperCase()}`
+                      : ''}
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Stock in Transit - Commodity</span>
+                  <span className={`${styles.key} label1`}>Stock in Transit - Commodity</span>
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
-                    {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
+                    {camData?.productSummary?.averageStockInTransit ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
               </Row>
@@ -1772,7 +2038,7 @@ const operationalDetails = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Stock Coverage of Commodity</span>
+                  <span className={`${styles.key} label1`}>Stock Coverage of Commodity</span>
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
@@ -1795,14 +2061,14 @@ const operationalDetails = (camData) => {
                     })} */}
                     {camData?.productSummary?.availableStock
                       ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
-                    {camData?.productSummary?.availableStock ? 'MT' : ''}
+                    {camData?.productSummary?.availableStock ? `${camData?.unitOfQuantity.toUpperCase()}` : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Avg Monthly Electricity Bill</span>
+                  <span className={`${styles.key} label1`}>Avg Monthly Electricity Bill</span>
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.AvgMonthlyElectricityBill ? '₹' : ''}{' '}
                     {/* {checkNan(
@@ -1813,8 +2079,8 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.AvgMonthlyElectricityBill
                       ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}
                   </span>
                 </Col>
@@ -1831,10 +2097,12 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.dailyConsumptionOfCommodity
                       ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
-                    {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
+                    {camData?.productSummary?.dailyConsumptionOfCommodity
+                      ? `${camData?.unitOfQuantity.toUpperCase()}`
+                      : ''}
                   </span>
                 </Col>
               </Row>
@@ -1873,7 +2141,7 @@ const revenuDetails = (gstData, camConversionunit) => {
             <table className={`${styles.table} table mb-0 border_color`} cellPadding="0" cellSpacing="0">
               <tr>
                 <th></th>
-                <th>TREND</th>
+                <th className="text-center">TREND</th>
                 <th>LATEST YEAR</th>
                 <th>PREVIOUS YEAR</th>
                 <th>GROWTH</th>
@@ -1881,7 +2149,7 @@ const revenuDetails = (gstData, camConversionunit) => {
 
               <tr>
                 <td>Gross Revenue</td>
-                <td>
+                <td className="text-center">
                   {RevenueDetails?.grossTurnover?.previous?.value || RevenueDetails?.grossTurnover?.current?.value ? (
                     <img
                       src={
@@ -1905,7 +2173,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {convertValue(RevenueDetails?.grossTurnover?.previous?.value, camConversionunit)?.toLocaleString(
@@ -1915,22 +2183,25 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(
                       RevenueDetails?.grossTurnover?.previous?.value,
                       RevenueDetails?.grossTurnover?.current?.value,
                     ),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
               <tr>
                 <td>Related Party Sales</td>
-                <td>
+                <td className="text-center">
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                    RevenueDetails?.relatedPartySales?.current?.value ? (
+                  RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -1953,7 +2224,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {convertValue(RevenueDetails?.relatedPartySales?.previous?.value, camConversionunit)?.toLocaleString(
@@ -1963,22 +2234,25 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(
                       RevenueDetails?.relatedPartySales?.previous?.value,
                       RevenueDetails?.relatedPartySales?.current?.value,
                     ),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
               <tr>
                 <td>Intra Organization Sales</td>
-                <td>
+                <td className="text-center">
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2009,7 +2283,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2027,20 +2301,23 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(
                       RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                       RevenueDetails?.intraOrgSalesPercent?.current?.value,
                     ),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
               <tr>
                 <td>B2B Sales</td>
-                <td>
+                <td className="text-center">
                   {RevenueDetails?.B2BSales?.previous?.value || RevenueDetails?.B2BSales?.current?.value ? (
                     <img
                       src={
@@ -2064,7 +2341,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2077,17 +2354,20 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
               <tr>
                 <td>B2C Sales</td>
-                <td>
+                <td className="text-center">
                   {RevenueDetails?.B2CSales?.previous?.value || RevenueDetails?.B2CSales?.current?.value ? (
                     <img
                       src={
@@ -2111,7 +2391,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2124,17 +2404,20 @@ const revenuDetails = (gstData, camConversionunit) => {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
               <tr>
                 <td>Export Sales</td>
-                <td>
+                <td className="text-center">
                   {RevenueDetails?.exportSales?.previous?.value || RevenueDetails?.exportSales?.current?.value ? (
                     <img
                       src={
@@ -2164,7 +2447,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2180,17 +2463,20 @@ const revenuDetails = (gstData, camConversionunit) => {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
               <tr>
                 <td>Total Customers</td>
-                <td>
+                <td className="text-center">
                   {RevenueDetails?.ttlCustomer?.previous?.value || RevenueDetails?.ttlCustomer?.current?.value ? (
                     <img
                       src={
@@ -2219,14 +2505,17 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {RevenueDetails?.ttlCustomer?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}{' '}
                 </td>
                 <td>
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
               <tr>
                 <td>Total Invoices</td>
-                <td>
+                <td className="text-center">
                   {RevenueDetails?.ttlInv?.previous?.value || RevenueDetails?.ttlInv?.current?.value ? (
                     <img
                       src={
@@ -2258,18 +2547,22 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {RevenueDetails?.ttlInv?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}{' '}
                 </td>
                 <td>
-                  {checkNan(calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value)) +
-                    '%'}
+                  {returnReadableNumber(
+                    calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value),
+                    'en-In',
+                    2,
+                    2,
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
                 <td>Gross Margin</td>
-                <td>
+                <td className="text-center">
                   <img src="/static/arrow-down-red.svg" alt="Arrow Red" className="img-fluid" />
                 </td>
                 <td>11,900.00</td>
                 <td>1,900.00</td>
-                <td>40%</td>
+                <td>40.00%</td>
               </tr>
               <tr>
                 <td colSpan={5} height="10"></td>
@@ -2292,6 +2585,9 @@ const financeDetails = (
   previousYearData,
   camConversionunit,
 ) => {
+  let dataLatestYear = _get(companyData, 'financial.balanceSheet[0]', {});
+  let dataPreviousYear = _get(companyData, 'financial.balanceSheet[1]', {});
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2316,119 +2612,127 @@ const financeDetails = (
                       {_get(companyData, 'financial.balanceSheet[0].date', '') === ''
                         ? ''
                         : moment(_get(companyData, 'financial.balanceSheet[0].date', ''))
-                          .format('MMM-YY')
-                          .toUpperCase()}
+                            .format('MMM-YY')
+                            .toUpperCase()}
                     </th>
                     <th>
                       {_get(companyData, 'financial.balanceSheet[1].date', '') === ''
                         ? ''
                         : moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
-                          .format('MMM-YY')
-                          .toUpperCase()}
+                            .format('MMM-YY')
+                            .toUpperCase()}
                     </th>
                   </tr>
                   <tr>
                     <td>Net Worth</td>
                     <td>
-                      {convertValue(
-                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', ''),
-                        camConversionunit,
-                      ).toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', ''),
+                          camConversionunit,
+                        ),
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                     <td>
-                      {convertValue(
-                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', ''),
-                        camConversionunit,
-                      ).toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', ''),
+                          camConversionunit,
+                        ),
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {convertValue(
-                        Number(
-                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent', '') +
-                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''),
+                      {returnReadableNumber(
+                        convertValue(
+                          Number(
+                            dataLatestYear?.equityLiabilities?.borrowingsCurrent +
+                              dataLatestYear?.equityLiabilities?.borrowingsNonCurrent,
+                          ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                     <td>
-                      {convertValue(
-                        Number(
-                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
-                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''),
+                      {returnReadableNumber(
+                        convertValue(
+                          Number(
+                            dataPreviousYear?.equityLiabilities?.borrowingsCurrent +
+                              dataPreviousYear?.equityLiabilities?.borrowingsNonCurrent,
+                          ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
                     <td>
-                      {convertValue(
-                        Number(
-                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                            '',
+                      {returnReadableNumber(
+                        convertValue(
+                          Number(
+                            dataLatestYear?.equityLiabilities?.tradePay +
+                              dataLatestYear?.equityLiabilities?.tradePayablesNoncurrent,
                           ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                     <td>
-                      {convertValue(
-                        Number(
-                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                            '',
+                      {returnReadableNumber(
+                        convertValue(
+                          Number(
+                            dataPreviousYear?.equityLiabilities?.tradePay +
+                              dataPreviousYear?.equityLiabilities?.tradePayablesNoncurrent,
                           ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                   </tr>
                   <tr>
                     <td>Other Current Liabilities</td>
                     <td>
-                      {convertValue(
-                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities', ''),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(companyData, 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities', ''),
+                          camConversionunit,
+                        ),
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                     <td>
-                      {convertValue(
-                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', ''),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', ''),
+                          camConversionunit,
+                        ),
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                   </tr>
 
@@ -2501,88 +2805,100 @@ const financeDetails = (
                   <tr>
                     <td>Cash from Operations</td>
                     <td>
-                      {convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                          '',
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(
+                            companyData,
+                            'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                            '',
+                          ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                     <td>
-                      {convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                          '',
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(
+                            companyData,
+                            'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                            '',
+                          ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                   </tr>
                   <tr>
                     <td>Cash from Financing</td>
                     <td>
-                      {convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                          '',
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(
+                            companyData,
+                            'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                            '',
+                          ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                     <td>
-                      {convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                          '',
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(
+                            companyData,
+                            'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                            '',
+                          ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                   </tr>
                   <tr>
                     <td>Cash from Investing</td>
                     <td>
-                      {convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                          '',
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(
+                            companyData,
+                            'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                            '',
+                          ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                     <td>
-                      {convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                          '',
+                      {returnReadableNumber(
+                        convertValue(
+                          _get(
+                            companyData,
+                            'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                            '',
+                          ),
+                          camConversionunit,
                         ),
-                        camConversionunit,
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumSignificantDigits: 2,
-                      })}
+                        'en-In',
+                        2,
+                        2,
+                      )}
                     </td>
                   </tr>
 
@@ -2668,22 +2984,22 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>GST Return Filing</span>
                   <span className={`${styles.value} value`} style={{ color: '#EA3F3F' }}>
-                    {[].forEach((l, index2) => { })}
+                    {[].forEach((l, index2) => {})}
                     {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') !=
-                      ''
+                    ''
                       ? moment(
-                        _get(
-                          companyData,
-                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                          '',
-                        ),
-                        'MMyyyy',
-                      ).format('MM-yyyy')
+                          _get(
+                            companyData,
+                            'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                            '',
+                          ),
+                          'MMyyyy',
+                        ).format('MM-yyyy')
                       : ''}
                   </span>
                 </Col>
                 <Col className={` col-md-offset-2 d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>NCLT</span>
+                  <span className={`${styles.key} label1`}>NCLT</span>
                   <span className={`${styles.value} value`}>{companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
@@ -2695,7 +3011,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>BIFR</span>
+                  <span className={`${styles.key} label1`}>BIFR</span>
                   <span className={`${styles.value} value`}>{companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</span>
                 </Col>
               </Row>
@@ -2707,7 +3023,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Defaulter Company</span>
+                  <span className={`${styles.key} label1`}>Defaulter Company</span>
                   <span className={`${styles.value} value`}>
                     {companyData?.compliance.other?.defaulterCompany ? 'YES' : 'NO'}
                   </span>
@@ -2721,7 +3037,7 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
+                  <span className={`${styles.key} label1`}>Active Directors</span>
                   <span className={`${styles.value} value`}>{companyData?.profile?.directorDetail?.length ?? 0}</span>
                 </Col>
               </Row>
@@ -2848,10 +3164,13 @@ const sectionTerms = (
   approvedCredit,
   isFieldInFocus,
   setIsFieldInFocus,
+  unit,
+  camConversionunit,
+  limitValueChecked,
+  orderValueChecked,
+  setLimitValueChecked,
+  setOrderValueChecked,
 ) => {
-  const [limitValueChecked, setLimitValueChecked] = useState(false);
-  const [orderValueChecked, setOrderValueChecked] = useState(false);
-
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2863,11 +3182,13 @@ const sectionTerms = (
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
             <span className={` ${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Total Limit:</span>
-              {addPrefixOrSuffix(
-                convertValue(camData?.company?.creditLimit?.totalLimit)?.toLocaleString('en-In'),
+              {/* { addPrefixOrSuffix(
+                checkNan(convertValue(camData?.company?.creditLimit?.totalLimit))?.toLocaleString('en-In'),
                 'Cr',
                 '',
-              )}
+              )} */}
+              {convertValue(camData?.company?.creditLimit?.totalLimit, camConversionunit)?.toLocaleString('en-In')}{' '}
+              {` ${unit == 'Crores' ? 'Cr' : unit == 'Lakhs' ? 'LAKH' : camData?.unitOfValue}`}
             </span>
             <span className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}>
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>Utilised Limit:</span>
@@ -2906,7 +3227,10 @@ const sectionTerms = (
                         {filteredCreditRating &&
                           filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
-                            <td key={index}>{checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'))} </td>
+                            <td key={index}>
+                              {returnReadableNumber((convertValue(val?.derived?.value, camConversionunit)),'en-In',2,2)}{' '}
+                              {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}{' '}
+                            </td>
                           ))}{' '}
                       </>
                     ) : (
@@ -2919,8 +3243,10 @@ const sectionTerms = (
                           filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
-                              {checkNan(convertValue(val?.suggested?.value))?.toLocaleString('en-In')}
-                              {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                              {checkNan(convertValue(val?.suggested?.value, camConversionunit))?.toLocaleString(
+                                'en-In',
+                              )}
+                              {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                             </td>
                           ))}{' '}
                       </>
@@ -2934,13 +3260,15 @@ const sectionTerms = (
                         onChange={() => setLimitValueChecked(!limitValueChecked)}
                       ></input>
                     </td>
-                    <td>
+                    {/* <td>
                       <input
                         className={`${styles.text} input`}
-                        disabled={!limitValueChecked}
                         required={true}
                         type="number"
+                        disabled={!limitValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
+
+                        name="approvedCreditValue"
                         onFocus={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
@@ -2960,10 +3288,42 @@ const sectionTerms = (
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(Number(approvedCredit?.approvedCreditValue))?.toLocaleString('en-In')
                         }
-                        // defaultValue={approvedCredit?.approvedCreditValue}
-                        name="approvedCreditValue"
-                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
+                        onChange={(e) => {
+                          onApprove(e.target.name, Number(e.target.value));
+                        }}
+                      ></input>
+                    </td> */}
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        type="text"
+                        disabled={!limitValueChecked}
+                        onWheel={(event) => event.currentTarget.blur()}
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                        name="approvedCreditValue"
+                        onFocus={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: true,
+                          }),
+                            (e.target.type = 'number');
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: false,
+                          }),
+                            (e.target.type = 'text');
+                        }}
+                        value={
+                          isFieldInFocus.LimitValue
+                            ? approvedCredit?.approvedCreditValue
+                            : `${checkNan(
+                                convertValue(Number(approvedCredit?.approvedCreditValue), camConversionunit),
+                              )?.toLocaleString('en-In')}  ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
+                        }
+                        // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
                           onApprove(e.target.name, Number(e.target.value));
                         }}
@@ -2973,11 +3333,14 @@ const sectionTerms = (
                   <tr>
                     <td>Order Value</td>
                     <td>-</td>
-                    <td>{checkNan(CovertvaluefromtoCR(camData?.orderValue))}</td>
+                    <td>
+                      {checkNan(convertValue(camData?.existingOrderValue, camConversionunit))}{' '}
+                      {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
+                    </td>
                     <td>-</td>
                     <td>
-                      {checkNan(convertValue(camData?.suggestedOrderValue))?.toLocaleString('en-In')}
-                      {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                      {checkNan(convertValue(camData?.suggestedOrderValue, camConversionunit))?.toLocaleString('en-In')}
+                      {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
 
                       {/* {camData?.suggestedOrderValue} */}
                     </td>
@@ -2991,11 +3354,10 @@ const sectionTerms = (
                     <td>
                       <input
                         className={`${styles.text} input`}
-                        type="number"
+                        type="text"
                         disabled={!orderValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
-                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         name="approvedOrderValue"
                         onFocus={(e) => {
                           setIsFieldInFocus({
@@ -3013,8 +3375,10 @@ const sectionTerms = (
                         }}
                         value={
                           isFieldInFocus.OrderValue
-                            ? approvedCredit?.approvedOrderValue
-                            : checkNan(Number(approvedCredit?.approvedOrderValue))?.toLocaleString('en-In')
+                            ? `${Number(Number(approvedCredit?.approvedOrderValue)) ?? 0}`
+                            : `${checkNan(
+                                convertValue(Number(approvedCredit?.approvedOrderValue), camConversionunit),
+                              )} ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3046,11 +3410,15 @@ const sectionTerms = (
                   className="form-control input"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  value={sanctionComments}
                   onChange={(e) => setSanctionComments(e.target.value)}
                 ></textarea>
                 <button
                   className={`${styles.button} mt-3 d-flex  align-items-center justify-content-center `}
-                  onClick={() => sanctionComments.length > 0 && addApproveRemarkArr(sanctionComments)}
+                  onClick={() => {
+                    sanctionComments.length > 0 && addApproveRemarkArr(sanctionComments);
+                    setSanctionComments('');
+                  }}
                 >
                   Add
                 </button>
@@ -3198,7 +3566,17 @@ const Documents = (documentsFetched) => {
     </>
   );
 };
-const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit) => {
+const trends = (
+  chartData,
+  chartRef,
+  chartRef2,
+  chartData2,
+  lineOption,
+  gstData,
+  camConversionunit,
+  setChartType,
+  chartType,
+) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3211,13 +3589,16 @@ const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData,
             <h5 className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:</h5>
             <div className="d-flex align-items-center position-relative">
               <select
+                value={chartType}
+                onChange={(e) => {
+                  setChartType(e.target.value);
+                }}
                 className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
                 aria-label="Default select example"
               >
-                <option>Select an option</option>
-                <option selected value="1">
-                  Quarterly
-                </option>
+                <option disabled>Select an option</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Quarterly">Quarterly</option>
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
@@ -3254,7 +3635,7 @@ const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData,
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                     {/* {checkNan(
                       Number(
                         gstData?.detail?.salesDetailAnnual?.saleSummary
@@ -3294,7 +3675,7 @@ const trends = (chartData, chartRef, chartRef2, chartData2, lineOption, gstData,
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                     {/* {checkNan(
                       Number(
                         gstData?.detail?.purchaseDetailAnnual?.saleSummary
@@ -3387,7 +3768,7 @@ const skewness = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </div>
                 <Row className={`d-flex  d-flex align-items-center justify-content-evenly`}>
@@ -3448,7 +3829,7 @@ const skewness = (
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    Cr
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </div>
                 {/* <div className={`${styles.chart}`}>
@@ -3499,8 +3880,8 @@ const skewness = (
     </>
   );
 };
-const customerRating = (data, filteredCreditRating, rating, darkMode) => {
-
+const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImage) => {
+  
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3522,164 +3903,393 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
               <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
                 <div className={`${styles.gauge}`}>
                   <div className={`${styles.container}`}>
-                    <svg width="100%" height="100%" viewBox="0 0 39 39" className={`${styles.donut}`}>
-                      <circle
-                        className={`${styles.donutHole}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="#fff"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutRing}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke={`${!darkMode ? '#fff' : '#293141'}`}
-                        strokeWidth="3"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#FF4230"
-                        strokeWidth="3"
-                        strokeDasharray="30 70"
-                        strokeDashoffset="15"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#FFB700"
-                        strokeWidth="3"
-                        strokeDasharray="20 70"
-                        strokeDashoffset="75"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#8AC41C"
-                        strokeWidth="3"
-                        strokeDasharray="10 90"
-                        strokeDashoffset="65"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#00B81E"
-                        strokeWidth="3"
-                        strokeDasharray="20 70"
-                        strokeDashoffset="45"
-                      ></circle>
+                    <svg
+                      className={styles.donut2}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="349.566"
+                      height="338.124"
+                      viewBox="0 0 349.566 338.124"
+                    >
+                      <g id="Group_4111" data-name="Group 4111" transform="translate(-410 -1684.939)">
+                        <path
+                          id="Path_4045"
+                          data-name="Path 4045"
+                          d="M110.687,337.532a174.785,174.785,0,1,1,126.477.807l-11.45-30.068a142.606,142.606,0,1,0-103.2-.658Z"
+                          transform="translate(409.817 1684.724)"
+                          fill="#008015"
+                        />
+                        <path
+                          id="Path_4046"
+                          data-name="Path 4046"
+                          d="M120.8,294.226A136.267,136.267,0,0,1,82.38,63.92L95.845,79.675a115.544,115.544,0,0,0,32.576,195.279Z"
+                          transform="translate(413.869 1692.214)"
+                          fill="#e4e8eb"
+                        />
+                        <path
+                          id="Path_4047"
+                          data-name="Path 4047"
+                          d="M80.352,64.59a136.267,136.267,0,0,1,177.09,5.745l-13.977,15.3A115.542,115.542,0,0,0,93.308,80.766Z"
+                          transform="translate(419.243 1688.775)"
+                          fill="#e4e8eb"
+                        />
+                        <path
+                          id="Path_4048"
+                          data-name="Path 4048"
+                          d="M242.873,68.977a136.27,136.27,0,0,1,41.2,88.664l-20.677,1.41a115.539,115.539,0,0,0-34.938-75.179Z"
+                          transform="translate(436.656 1692.808)"
+                          fill="#e4e8eb"
+                        />
+                        <path
+                          id="Path_4049"
+                          data-name="Path 4049"
+                          d="M288.45,152.029a136.269,136.269,0,0,1-87.868,132.539l-7.347-19.379A115.545,115.545,0,0,0,267.74,152.808Z"
+                          transform="translate(432.515 1702.572)"
+                          fill="#e4e8eb"
+                        />
+                        <path
+                          id="Path_4050"
+                          data-name="Path 4050"
+                          d="M110.687,337.532a174.783,174.783,0,1,1,238.771-172.6l-32.121,1.854A142.607,142.607,0,1,0,122.519,307.613Z"
+                          transform="translate(409.817 1684.724)"
+                          fill="#8ac41c"
+                        />
+                        <path
+                          id="Path_4051"
+                          data-name="Path 4051"
+                          d="M110.687,337.532A174.783,174.783,0,1,1,294.268,47.265L272.307,70.779A142.608,142.608,0,1,0,122.519,307.613Z"
+                          transform="translate(409.817 1684.724)"
+                          fill="#ffb700"
+                        />
+                        <path
+                          id="Path_4055"
+                          data-name="Path 4055"
+                          d="M210.872,156.611a49.117,49.117,0,1,1-98.234,0Z"
+                          transform="translate(423.039 1703.111)"
+                          fill="#bdbdbd"
+                        />
+                        <path
+                          id="Path_4057"
+                          data-name="Path 4057"
+                          d="M110.394,333.259A174.783,174.783,0,0,1,64.281,35.572l20.375,24.9a142.607,142.607,0,0,0,37.625,242.888Z"
+                          transform="translate(409.817 1688.881)"
+                          fill="#ff4230"
+                        />
+                        <g id="Group_3088" data-name="Group 3088" transform="translate(453.221 1856.429)" opacity="0.5">
+                          <path
+                            id="Path_4058"
+                            data-name="Path 4058"
+                            d="M57.776,199.577l-.631-1.952-3.152,1.018-.474-1.467c-.647-2-2.026-2.869-3.94-2.251-1.787.578-2.432,1.984-1.722,4.179l1.076,3.331Zm-5.123-.5-2.935.948-.379-1.173c-.33-1.021-.087-1.579,1.01-1.933a1.334,1.334,0,0,1,1.937,1.023Z"
+                            transform="translate(-37.832 -148.836)"
+                          />
+                          <path
+                            id="Path_4059"
+                            data-name="Path 4059"
+                            d="M53.456,184.571c-.614-2.389-2.582-3.85-5.621-3.069l-.286.074c-3.052.785-4.043,2.908-3.423,5.324s2.585,3.863,5.612,3.086l.286-.074C53.089,189.124,54.081,187,53.456,184.571Zm-1.5.345c.381,1.481-.482,2.38-2.482,2.895l-.442.114c-1.792.46-3.034.046-3.392-1.344-.381-1.536.5-2.4,2.466-2.9l.455-.116C50.337,183.1,51.592,183.514,51.953,184.916Z"
+                            transform="translate(-38.258 -150.416)"
+                          />
+                          <path
+                            id="Path_4060"
+                            data-name="Path 4060"
+                            d="M50.411,170.963c-.456-2.425-2.324-4.012-5.408-3.432l-.29.055c-3.1.582-4.225,2.637-3.764,5.088s2.326,4.024,5.4,3.448l.29-.055C49.746,175.481,50.874,173.427,50.411,170.963Zm-1.523.245c.283,1.5-.637,2.345-2.667,2.726l-.448.085c-1.819.342-3.031-.153-3.3-1.563-.279-1.558.661-2.363,2.651-2.737l.461-.086C47.395,169.292,48.62,169.785,48.888,171.207Z"
+                            transform="translate(-38.622 -152.048)"
+                          />
+                          <path
+                            id="Path_4061"
+                            data-name="Path 4061"
+                            d="M48.555,161l-.251-2.036-3.58.441-.151-1.225,3.346-2.345-.268-2.17-3.762,2.694-.053.006a2.335,2.335,0,0,0-2.568-1.318c-1.877.231-2.629,1.472-2.357,3.681l.42,3.407Zm-5.146-1.406-2.862.352-.139-1.131c-.135-1.091.236-1.6,1.194-1.714,1-.123,1.532.257,1.666,1.349Z"
+                            transform="translate(-38.857 -153.664)"
+                          />
+                        </g>
+                        <g id="Group_3089" data-name="Group 3089" transform="translate(683.752 1781.513)" opacity="0.5">
+                          <path
+                            id="Path_4062"
+                            data-name="Path 4062"
+                            d="M245.953,93.86a8.681,8.681,0,0,0,2.076,2.461l3.837-2.178-1.734-3.056-1.236.7.774,1.365-1.609.914a3.96,3.96,0,0,1-.791-.985c-.973-1.714-.118-2.708,1.5-3.629l.362-.205c1.446-.821,2.863-.932,3.9.9a6.484,6.484,0,0,1,.816,2.389l1.353-.768a6.063,6.063,0,0,0-.852-2.586c-1.218-2.146-3.314-3.5-6.393-1.753l-.245.139C244.814,89.218,244.563,91.411,245.953,93.86Z"
+                            transform="translate(-245.135 -86.63)"
+                          />
+                          <path
+                            id="Path_4063"
+                            data-name="Path 4063"
+                            d="M251.858,105.058c1.084,2.216,3.307,3.25,6.125,1.871l.265-.13c2.831-1.385,3.373-3.666,2.276-5.906s-3.312-3.262-6.119-1.888l-.265.13C251.3,100.525,250.756,102.8,251.858,105.058Zm1.4-.641c-.672-1.373-.008-2.43,1.847-3.337l.409-.2c1.663-.813,2.963-.658,3.593.631.684,1.427-.009,2.453-1.828,3.343l-.421.206C255.21,105.867,253.9,105.717,253.26,104.417Z"
+                            transform="translate(-244.407 -85.247)"
+                          />
+                          <path
+                            id="Path_4064"
+                            data-name="Path 4064"
+                            d="M257.6,117.76c.941,2.281,3.093,3.453,5.995,2.256l.273-.113c2.914-1.2,3.6-3.443,2.648-5.749s-3.1-3.466-5.987-2.274l-.273.113C257.329,113.2,256.643,115.441,257.6,117.76Zm1.442-.551c-.583-1.414.145-2.425,2.054-3.213l.421-.174c1.711-.705,3-.467,3.546.858.591,1.468-.165,2.447-2.037,3.22l-.434.18C260.893,118.781,259.593,118.548,259.041,117.209Z"
+                            transform="translate(-243.717 -83.716)"
+                          />
+                          <path
+                            id="Path_4065"
+                            data-name="Path 4065"
+                            d="M261.508,127.169l1.059,3.1c.957,2.792,2.924,3.776,5.8,2.789l.279-.095c2.93-1,3.635-3,2.706-5.718l-1.056-3.083Zm2.111,1.446,5.9-2.021.356,1.04c.507,1.484.178,2.547-1.9,3.26l-.445.152c-2,.686-3,.232-3.517-1.29Z"
+                            transform="translate(-243.21 -82.217)"
+                          />
+                        </g>
+                        <g id="Group" transform="translate(537.847 1728.123)">
+                          <path
+                            id="Path_4084"
+                            data-name="Path 4084"
+                            d="M3.185,17.155l1.782-.466.156-2.232,3.14-.821L9.5,15.5l2.012-.526L6.066,6.911l-2.051.536ZM5.428,9.392l.051-.013,1.98,3.015-2.269.593Z"
+                            transform="translate(0 0.507)"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4085"
+                            data-name="Path 4085"
+                            d="M19.129,13.565l2.012-.342,1.623-9.589-1.855.315-1.052,7.019-.039.007L16.481,4.7l-2.051.348Z"
+                            transform="translate(1.171 0.166)"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4086"
+                            data-name="Path 4086"
+                            d="M29.426,12.025l6.06-.511-.127-1.505-4.053.342L31.1,7.908l3.076-.259L34.052,6.17l-3.076.259-.187-2.218,3.961-.334-.127-1.505-5.967.5Z"
+                            transform="translate(2.651 0.034)"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4087"
+                            data-name="Path 4087"
+                            d="M41.313,11.225H43.34V7.661h1.219l1.895,3.564h2.16L46.427,7.211V7.158A2.307,2.307,0,0,0,48.03,4.8c0-1.868-1.126-2.756-3.326-2.756H41.313Zm2-4.876V3.5h1.126c1.086,0,1.537.424,1.537,1.378,0,.994-.437,1.471-1.524,1.471Z"
+                            transform="translate(3.969)"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4088"
+                            data-name="Path 4088"
+                            d="M53.574,11.416l1.835.161.9-2.049,3.234.284.541,2.175,2.072.182L59.734,2.74l-2.112-.185ZM58.3,4.862l.053,0,.85,3.506-2.336-.2Z"
+                            transform="translate(5.245 0.053)"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4089"
+                            data-name="Path 4089"
+                            d="M71.179,13.739a8.578,8.578,0,0,0,3.18-.03l.759-4.292-3.418-.6L71.456,10.2l1.526.27-.318,1.8a3.92,3.92,0,0,1-1.248-.019C69.5,11.908,69.28,10.632,69.6,8.818l.072-.4c.286-1.618,1.095-2.766,3.143-2.4a6.415,6.415,0,0,1,2.333.883l.268-1.513a5.989,5.989,0,0,0-2.5-.981c-2.4-.424-4.752.317-5.361,3.761l-.048.274C66.928,11.682,68.439,13.255,71.179,13.739Z"
+                            transform="translate(6.682 0.234)"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4090"
+                            data-name="Path 4090"
+                            d="M79.923,15.447,85.8,17.005l.387-1.46L82.257,14.5l.628-2.369,2.984.791.38-1.434L83.265,10.7l.57-2.152,3.842,1.019.387-1.46L82.276,6.572Z"
+                            transform="translate(7.988 0.471)"
+                            fill="#717374"
+                          />
+                        </g>
+                        <g id="Group-1" transform="matrix(1, -0.017, 0.017, 1, 641.996, 1870.77)">
+                          <path
+                            id="Path_4075"
+                            data-name="Path 4075"
+                            d="M62.325,6.912,61.5,12.358l1.353.2.549-3.643,2.2.331-.417,2.765,1.329.2L66.93,9.45l1.993.3-.537,3.56,1.353.2.809-5.363Z"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4076"
+                            data-name="Path 4076"
+                            d="M60.367,18.121l-.473,1.774,2.5,2.53-.012.046-3.432.948-.519,1.948,4.8-1.317,3.279,3.308.47-1.763-2.375-2.272.012-.046,3.219-.893.519-1.948L63.83,21.714Z"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4077"
+                            data-name="Path 4077"
+                            d="M55.1,34.312a5,5,0,0,0-.4,2.344l1.275.5a4.591,4.591,0,0,1,.314-1.964c.605-1.554,1.771-1.77,3.426-1.125l.38.148c1.688.658,2.06,1.755,1.554,3.052a5.273,5.273,0,0,1-1.008,1.629l1.286.5a4.8,4.8,0,0,0,1.14-1.836c.806-2.069.4-4.144-2.414-5.241l-.28-.109C57.753,31.183,55.976,32.075,55.1,34.312Z"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4078"
+                            data-name="Path 4078"
+                            d="M51.831,42.162,49.3,47.054l1.215.629,1.694-3.271,1.971,1.021-1.286,2.483,1.194.618,1.286-2.483,1.79.927-1.655,3.2,1.215.629,2.494-4.817Z"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4079"
+                            data-name="Path 4079"
+                            d="M46.019,52.634l-2.866,4.334,1.141.755,1.853-2.8,5.8,3.832,1.013-1.531Z"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4080"
+                            data-name="Path 4080"
+                            d="M39.128,62.43l-3.31,4.005,1.054.871,2.141-2.59,5.355,4.427,1.17-1.415Z"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4081"
+                            data-name="Path 4081"
+                            d="M31.234,71.437l-3.94,3.849.956.979,2.635-2.574,1.551,1.588-2,1.954.939.961,2-1.954,1.409,1.442L32.209,80.2l.956.979,3.88-3.79Z"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4082"
+                            data-name="Path 4082"
+                            d="M22.448,79.576l-1.253.969,3.568,4.613-.038.029-6.235-2.55-1.414,1.094,5.087,6.578,1.262-.976-3.3-4.262.028-.022,5.783,2.339,1.595-1.233Z"
+                            fill="#717374"
+                          />
+                          <path
+                            id="Path_4083"
+                            data-name="Path 4083"
+                            d="M9.666,88.666l-1.572.949,3.59,5.949-1.973,1.19.707,1.171L15.925,94.6l-.707-1.171-1.962,1.184Z"
+                            fill="#717374"
+                          />
+                        </g>
+                      </g>
                     </svg>
-                    <svg width="76%" height="76%" viewBox="0 0 39 39" className={`${styles.donut2}`}>
-                      <circle
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        // fill='#000'
-                        fill={`${!darkMode ? '#fff' : '#293141'}`}
-                      ></circle>
-                      <circle
-                        className={`${styles.donutRing}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        // stroke="white"
-                        stroke={`${!darkMode ? '#fff' : '#293141'}`}
-                        strokeWidth="3"
-                      ></circle>
 
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="29 71"
-                        strokeDashoffset="15"
-                      ></circle>
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="19 71"
-                        strokeDashoffset="75"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="9 91"
-                        strokeDashoffset="65"
-                      ></circle>
-
-                      <circle
-                        className={`${styles.donutSegment}`}
-                        cx="21"
-                        cy="21"
-                        r="15.91549430918954"
-                        fill="transparent"
-                        stroke="#D2D7E5"
-                        strokeWidth="3"
-                        strokeDasharray="19 71"
-                        strokeDashoffset="45"
-                      ></circle>
-                    </svg>
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
-                      style={{ transform: `${rating}` }}
+                      style={{ transform: `${rating}`, top:`${rotateImage.top}`, left:`${rotateImage.left}`}}
                     ></img>
-                    <div className={`${styles.score}`}>
-                      {checkNan(Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0), false, 1)}
+                    <div className={`${styles.hideBackground}`}></div>
+                    <div
+                      className={`${styles.score}`}
+                      style={{
+                        color: `${
+                          checkNan(
+                            Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                            false,
+                            1,
+                          ) <= 3
+                            ? '#FF4230'
+                            : checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 4 ||
+                              checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) <= 6
+                            ? '#ffb700'
+                            : checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 7 ||
+                              checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 8
+                            ? '#8ac41c'
+                            : checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 9 ||
+                              checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) == 10
+                            ? '#008015'
+                            : 'black'
+                        }`,
+                      }}
+                    >
+                      {checkNan(Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0), false, 1)}
                     </div>
                   </div>
                 </div>
 
                 <div className={`${styles.score}`}>
-                  <div className={`${styles.excellent}`}>
-                    <span>
+                  <div
+                    className={`${styles.excellent}`}
+                    style={{
+                      background: `${
+                        filteredCreditRating?.length > 0
+                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                            ? '#ff423045'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                            ? '#ad7e0742'
+                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                            ? '#00b81e52'
+                            : 'rgba(0, 184, 31, 0.1882352941)'
+                          : null
+                      }`,
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: `${
+                          filteredCreditRating?.length > 0
+                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              ? '#ff4230'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              ? '#ffb700'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              ? '#8ac41c'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'GOOD'
+                              ? 'rgb(138, 196, 28)'
+                              : null
+                            : null
+                        }`,
+                      }}
+                    >
                       {filteredCreditRating?.length > 0 ? filteredCreditRating[0]?.creditResult?.toUpperCase() : ''}
                     </span>
                   </div>
                   <div className={`${styles.creditScore} border_color`}>
-                    <div className={`${styles.tickContainer}`}>
-                      <img src="static/darktick.svg"></img>
+                    <div
+                      className={`${styles.tickContainer}`}
+                      style={{
+                        background: `${
+                          filteredCreditRating?.length > 0
+                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              ? '#ff423045'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              ? '#ad7e0742'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              ? '#00b81e52'
+                              : 'rgba(0, 184, 31, 0.1882352941)'
+                            : null
+                        }`,
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22.141"
+                        height="17.047"
+                        viewBox="0 0 22.141 17.047"
+                      >
+                        <path
+                          id="check-2"
+                          d="M10.222,18.482,5.14,13.4,3.41,15.119l6.812,6.812L24.844,7.308,23.126,5.59Z"
+                          transform="translate(-3.056 -5.237)"
+                          fill={`${
+                            filteredCreditRating?.length > 0
+                              ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                ? '#ff4230'
+                                : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                ? '#ffb700'
+                                : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                ? '#8ac41c'
+                                : 'rgb(138 196 28)'
+                              : null
+                          }`}
+                          stroke={`${
+                            filteredCreditRating?.length > 0
+                              ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                ? '#ff4230'
+                                : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                ? '#ffb700'
+                                : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                ? '#8ac41c'
+                                : 'rgb(138 196 28)'
+                              : null
+                          }`}
+                          stroke-width="0.5"
+                        />
+                      </svg>
                     </div>
                     <div className={`${styles.content}`}>
                       <span className={`${styles.content_heading}`}>CREDIT SCORE</span>
                       <div>
                         <span className={`${styles.score}`}>
                           {checkNan(
-                            Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                            Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                             false,
                             1,
                           )}
@@ -3689,8 +4299,45 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     </div>
                   </div>
                   <div className={`${styles.creditScore} border_color`}>
-                    <div className={`${styles.tickContainer}`}>
-                      <img src="static/star.svg"></img>
+                    <div
+                      className={`${styles.tickContainer}`}
+                      style={{
+                        background: `${
+                          filteredCreditRating?.length > 0
+                            ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                              ? '#ff423045'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                              ? '#ad7e0742'
+                              : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                              ? '#00b81e52'
+                              : 'rgba(0, 184, 31, 0.1882352941)'
+                            : null
+                        }`,
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28.055"
+                        height="26.652"
+                        viewBox="0 0 28.055 26.652"
+                      >
+                        <path
+                          id="star_purple500"
+                          d="M16.027,23.42,24.7,28.652l-2.3-9.861,7.659-6.635L19.969,11.3,16.027,2l-3.942,9.3L2,12.156l7.659,6.635-2.3,9.861Z"
+                          transform="translate(-2 -2)"
+                          fill={`${
+                            filteredCreditRating?.length > 0
+                              ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                ? '#ff4230'
+                                : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                ? '#ffb700'
+                                : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                ? '#8ac41c'
+                                : 'rgb(138 196 28)'
+                              : null
+                          }`}
+                        />
+                      </svg>
                     </div>
                     <div className={`${styles.content}`}>
                       <span className={`${styles.content_heading}`}>RATING</span>
@@ -3711,23 +4358,24 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#FFB700',
-                          width: `${filteredCreditRating?.length > 0
-                            ? (filteredCreditRating[0].businessProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating) *
-                            100
-                            : '0'
-                            }%`,
+                          width: `${
+                            filteredCreditRating?.length > 0
+                              ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                            Number(
-                              filteredCreditRating[0].businessProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating,
-                            ) * 100
-                          ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].businessProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
@@ -3741,23 +4389,24 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#FF4230',
-                          width: `${filteredCreditRating?.length > 0
-                            ? (filteredCreditRating[0].revenueProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating) *
-                            100
-                            : '0'
-                            }%`,
+                          width: `${
+                            filteredCreditRating?.length > 0
+                              ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                            Number(
-                              filteredCreditRating[0].revenueProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating,
-                            ) * 100
-                          ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].revenueProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>
@@ -3771,23 +4420,24 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       <div
                         style={{
                           backgroundColor: '#83C400',
-                          width: `${filteredCreditRating?.length > 0
-                            ? (filteredCreditRating[0].financialProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating) *
-                            100
-                            : '0'
-                            }%`,
+                          width: `${
+                            filteredCreditRating?.length > 0
+                              ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
                       <span>
                         {filteredCreditRating?.length > 0
                           ? (
-                            Number(
-                              filteredCreditRating[0].financialProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating,
-                            ) * 100
-                          ).toFixed(2)
+                              Number(
+                                filteredCreditRating[0].financialProfile.total.overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
                           : '0'}{' '}
                         %
                       </span>

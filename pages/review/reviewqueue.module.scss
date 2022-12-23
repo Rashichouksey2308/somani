@@ -1,7 +1,6 @@
 @import '../../src/components/styles/Core/config';
 /*-----Dashboard Tab------*/
 .dashboardTab {
-
   .tabHeader {
     padding: 28px 28px 0;
     margin-bottom: 10px;
@@ -237,7 +236,7 @@
 
     .card {
       margin-bottom: 26px;
-     
+
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
@@ -307,7 +306,6 @@
         }
 
         .categories {
-          
           @include respond(md-desktop) {
             width: 100%;
           }
@@ -326,7 +324,7 @@
             max-width: 272px;
             border-radius: 4px;
             letter-spacing: 0.19px;
-           
+
             margin-right: 67px;
             box-shadow: none;
             @include respond(lg-desktop) {
@@ -470,7 +468,7 @@
 
           td {
             font-size: 19px;
-           
+
             font-weight: 500;
             line-height: 24px;
             padding: 15px 30px;
@@ -577,7 +575,7 @@
         .card {
           margin-bottom: 1rem;
           border-radius: 6px !important;
-        
+
           .cardHeader {
             cursor: pointer;
             border-bottom: none;
@@ -588,8 +586,6 @@
 
               .unit_label {
                 font-size: 18px;
-              
-                text-transform: capitalize;
                 font-weight: bold;
                 margin-top: 10px;
                 padding-right: 15px;
@@ -602,17 +598,12 @@
               .options {
                 font-size: 18px;
                 color: #3687e8;
-                text-transform: capitalize;
-                margin-right: 10px;
                 background: #f3f4f7;
                 border-radius: 14px;
                 border: none;
                 font-weight: bold;
                 text-align: center;
-                padding-left: 8px;
-                padding-right: 6px;
-                padding-top: 4px;
-                padding-bottom: 4px;
+                padding: 4px 6px 4px 8px;
                 margin-right: 50px;
                 @include respond(lg-desktop) {
                   font-size: 15px;
@@ -717,13 +708,11 @@
 
         .cardBody {
           padding: 17px 25px;
-         
         }
       }
     }
 
     .cardBody_compliance {
-     
       border-top: 2px solid red;
       @include respond(md-desktop) {
         padding: 15px !important;
@@ -752,7 +741,7 @@
             font-size: 16px;
             line-height: 18px;
             font-weight: bold;
-          
+
             @include respond(lg-desktop) {
               font-size: 15px;
               line-height: 1.3;
@@ -776,7 +765,6 @@
 
       .checkbox_Container {
         p {
-         
           font-size: 16px;
           line-height: 17px;
         }
@@ -802,7 +790,7 @@
               align-items: center;
               min-width: 197px;
               height: 61px;
-            
+
               border: 2px solid #cccccc;
               border-radius: 31px;
               justify-content: center;
@@ -815,7 +803,6 @@
               }
 
               span {
-               
                 text-align: center;
                 font-size: 19px;
                 line-height: 24px;
@@ -1176,7 +1163,7 @@
         tr {
           th {
             background: #fafafb;
-       
+
             font-weight: bold;
             font-size: 15px;
             color: #3687e8;
@@ -1398,7 +1385,6 @@
     background: #f0f0f0;
     height: 62px;
 
-
     .filter {
       margin-bottom: 15px;
       @include respond(sm-desktop) {
@@ -1453,7 +1439,7 @@
       .search {
         width: 492px;
         position: relative;
-       
+
         @include respond(lg-desktop) {
           width: 400px;
         }
@@ -1501,7 +1487,7 @@
           box-shadow: none !important;
           padding-left: 65px !important;
           border-radius: 24px !important;
-       
+
           @include respond(lg-desktop) {
             font-size: 16px !important;
             line-height: 1.3 !important;
@@ -1752,6 +1738,10 @@
         border-radius: 50%;
         display: inline-block;
         vertical-align: middle;
+        @include respond(lg-desktop) {
+          width: 12px;
+          height: 12px;
+        }
       }
 
       .approved {
@@ -1818,7 +1808,7 @@ img {
   &.arrow2 {
     width: 13px !important;
     margin-left: -25px;
-  
+
     pointer-events: none;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
 
@@ -1841,5 +1831,4 @@ img {
 
 .customSelect {
   appearance: none;
-
 }

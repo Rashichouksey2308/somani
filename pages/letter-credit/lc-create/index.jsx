@@ -32,6 +32,7 @@ function Index() {
   }, []);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const [lcData, setLcData] = useState();
+
   useEffect(() => {
     dispatch(setPageName('Lc'));
 
@@ -53,7 +54,8 @@ function Index() {
         ? lcModuleData?.lcApplication?.beneficiary
         : lcModuleData?.order?.supplierName,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue ?? '',
-      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit ?? '',
+      currecyCodeAndAmountUnit:
+        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit || lcModuleData?.order?.orderCurrency,
       tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage
         ? lcModuleData?.lcApplication?.tolerancePercentage
         : lcModuleData?.order?.tolerance,
@@ -183,18 +185,7 @@ function Index() {
       }
     }
     setLcComments([...lcComments, { value: currentComment2, action: false }]);
-    //   setLcComments(prevState => {
-    //   const newState = prevState.map((obj ,i)=> {
 
-    //     if (i == index) {
-    //       return {...obj, value: currentComment2,action:false};
-    //     }
-
-    //     return obj;
-    //   });
-
-    //   return newState;
-    // });
     setCurrentComment2('');
   };
   const deleteLcCondition = (index) => {
@@ -258,20 +249,20 @@ function Index() {
     //   }
     // }
 
-    if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
-      toastMessage = 'Please add  Date Of Expiry';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.placeOfExpiry === '' || lcData.placeOfExpiry == undefined) {
-      toastMessage = 'Please add Place Of Expiry';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
+    // if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
+    //   toastMessage = 'Please add  Date Of Expiry';
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //     return false;
+    //   }
+    // }
+    // if (lcData.placeOfExpiry === '' || lcData.placeOfExpiry == undefined) {
+    //   toastMessage = 'Please add Place Of Expiry';
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //     return false;
+    //   }
+    // }
     if (lcData.applicant === '' || lcData.applicant == undefined) {
       toastMessage = 'Please Select Applicant';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -321,7 +312,8 @@ function Index() {
         return false;
       }
     }
-    if (lcData.atSight == 'SPECIFY') {
+   
+    if (lcData.atSight == 'Usuance') {
       if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
         toastMessage = 'Please add number of Days';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -345,7 +337,7 @@ function Index() {
       }
     }
     if (lcData.shipmentForm === '' || lcData.shipmentForm == undefined) {
-      toastMessage = 'Please select  shipment Form';
+      toastMessage = 'Please add  place of taking charge';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
@@ -415,13 +407,6 @@ function Index() {
     //     return false
     //   }
     // }
-    if (lcData.adviceThroughBank === '' || lcData.adviceThroughBank == undefined) {
-      toastMessage = 'Please select  advice Through Bank';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
     // if (
     //   lcData.requestedConfirmationParty === '' ||
     //   lcData.requestedConfirmationParty == undefined
@@ -463,8 +448,8 @@ function Index() {
         });
       }
       let lcObj = { ...lcData };
-      lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue);
-      lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage);
+      lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue).toString();
+      lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage).toString();
       let obj = {
         lcApplication: { ...lcObj },
         additionalConditions: [...comment],
@@ -473,12 +458,12 @@ function Index() {
       };
 
       let code = await dispatch(UpdateLcModule({ obj: obj }));
-      if (code == 200) {
-        sessionStorage.setItem('VesselCompany', _get(lcModule, 'data[0].company._id', ''));
-        sessionStorage.setItem('VesselId', _get(lcModule, 'data[0].order.vessel', ''));
-        dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'));
-        router.push(`/vessel`);
-      }
+      // if (code == 200) {
+      //   sessionStorage.setItem('VesselCompany', _get(lcModule, 'data[0].company._id', ''));
+      //   sessionStorage.setItem('VesselId', _get(lcModule, 'data[0].order.vessel', ''));
+      //   dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'));
+      //   router.push(`/vessel`);
+      // }
     }
   };
 

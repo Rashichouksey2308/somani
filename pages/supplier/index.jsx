@@ -1,84 +1,130 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import DateCalender from '../../src/components/DateCalender';
-import InspectionDocument from '../../src/components/InspectionDocument';
-import { setPageName } from '../../src/redux/userData/action';
-import SaveBar from '../../src/components/SaveBar';
-import { Form } from 'react-bootstrap';
-
-import Image from 'next/image';
-import AddressComponent from '../../src/components/AddressSupplier';
-import { toast } from 'react-toastify';
-import { emailValidation } from 'utils/helper';
-import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier, DeleteSupplierDoc } from 'redux/supplier/action';
-import _get from 'lodash/get';
-import Router from 'next/router';
-import moment from 'moment';
 import Axios from 'axios';
-import API from 'utils/endpoints'
 import Cookies from 'js-cookie';
-import TermsheetPopUp from '../../src/components/TermsheetPopUp'
+import _get from 'lodash/get';
+import moment from 'moment';
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { ClearSupplier, CreateSupplier, DeleteSupplierDoc, GetSupplier, UpdateSupplier } from 'redux/supplier/action';
+import API from 'utils/endpoints';
+import { emailValidation } from 'utils/helper';
+import AddressComponent from '../../src/components/AddressSupplier';
+import DateCalender from '../../src/components/DateCalender';
+import SaveBar from '../../src/components/SaveBar';
+import TermsheetPopUp from '../../src/components/TermsheetPopUp';
+import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src/utils/helpers/global';
+import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
-
-
+import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
+import { getZipCode, getCountries } from 'redux/masters/action';
+import { isPossiblePhoneNumber, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js';
+import { countryCodes } from '@/utils/jsons/countryCodes.json';
 
 function Index() {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  const specialCharacter = [
+    '+',
+    '-',
+    '.',
+    '@',
+    '$',
+    '#',
+    '%',
+    '^',
+    '',
+    '!',
+    ';',
+    '/',
+    '|',
+    `'`,
+    `[`,
+    ']',
+    ',',
+    '{',
+    '}',
+    '?',
+    `'`,
+    ':',
+    '<',
+    '>',
+    `"`,
+    '(',
+    ')',
+    '=',
+    '*',
+  ];
+
+  const gettingPins = (value) => {
+    dispatch(getZipCode(`?Zip_Code=${value}`));
+  };
 
   let id = sessionStorage.getItem('supplier');
+
   useEffect(() => {
-    if (id) {
-      dispatch(GetSupplier(`?supplierId=${id}`))
-    } else {
-      dispatch(ClearSupplier())
-    }
+    dispatch(getCountries());
+  }, []);
+
+  useEffect(() => {
+    if (id) dispatch(GetSupplier(`?supplierId=${id}`));
+    else dispatch(ClearSupplier());
   }, [id]);
 
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
 
+  useEffect(() => {
+    setFormData(
+      supplierData?.supplierProfile ?? {
+        supplierName: '',
+        constitution: '',
+        incorporationDate: '',
+        countryOfIncorporation: '',
+        nationalIdentificationNumber: '',
+        website: '',
+        status: '',
+      },
+    );
+    setKeyAddData(supplierData?.keyAddress ?? []);
+    setPerson(supplierData.contactPerson ?? []);
+    setDetail(supplierData?.shareHoldersDetails ?? []);
+    setListDirector(supplierData?.directorsAndAuthorizedSignatory ?? []);
+    setBusinessArray(supplierData?.bussinessSummary ?? []);
+    setListCommodity(supplierData?.commoditiesTraded ?? []);
+    setInfoArray(supplierData?.additionalInformation ?? []);
+    setdocs(supplierData?.extraDocument ?? []);
+    setFilteredDocs(supplierData?.extraDocument ?? []);
+    setIncumbencyDoc(supplierData?.incumbencyCertificateDocument ?? null);
+    SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
+  }, [supplierResponse]);
 
+  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
 
   useEffect(() => {
-    setFormData(supplierData?.supplierProfile ?? {
-      supplierName: '',
-      constitution: '',
-      incorporationDate: '',
-      countryOfIncorporation: '',
-      nationalIdentificationNumber: '',
-      website: '',
-      status: "Active"
-    })
-    setKeyAddData(supplierData?.keyAddress ?? [])
-    setPerson(supplierData.contactPerson ?? [])
-    setDetail(supplierData?.shareHoldersDetails ?? [])
-    setListDirector(supplierData?.directorsAndAuthorizedSignatory ?? [])
-    setBusinessArray(supplierData?.bussinessSummary ?? [])
-    setListCommodity(supplierData?.commoditiesTraded ?? [])
-    setInfoArray(supplierData?.additionalInformation ?? [])
-    setdocs(supplierData?.extraDocument ?? [])
-    if (_get(supplierData, 'document[0]', '') !== '') {
-      setIncumbencyDoc(supplierData?.document[0])
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      setToView(true);
+    } else {
+      setToShow([]);
+      setToView(false);
     }
-    if (_get(supplierData, 'document[1]', '') !== '') {
-      SetThirdParty(supplierData?.document[1])
-    }
+  }, [getPincodesMasterData]);
 
-  }, [supplierResponse])
- 
-  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '')
-
-
-  const [saveShareTable, setSaveTable] = useState(false);
-  const [saveContactTable, setContactTable] = useState(false);
-  const [saveDirectorTable, setDirectorTable] = useState(false);
-  const [saveCommodityTable, setCommodityTable] = useState(false);
-
-  const [open, setOpen] = useState(false)
+  useEffect(() => {
+    dispatch(setPageName('Supplier'));
+    // dispatch(setDynamicName(_get(TransitDetails, 'data[0].company.companyName')));
+    dispatch(setDynamicOrder(supplierName));
+  }, [supplierName]);
+  const [open, setOpen] = useState(false);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
     order: '',
@@ -90,7 +136,6 @@ function Index() {
     },
   });
 
-
   const [formData, setFormData] = useState({
     supplierName: '',
     constitution: '',
@@ -98,9 +143,8 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
-    status: "Active"
+    status: '',
   });
-
 
   const [address, setAddress] = useState({
     contactPerson: '',
@@ -111,53 +155,61 @@ function Index() {
     emailId: '',
   });
 
-  const [person, setPerson] = useState([{
-    name: '',
-    designation: '',
-    contact: '',
-    emailId: '',
-    action: false
-  }]);
- 
+  const [person, setPerson] = useState([
+    {
+      name: '',
+      designation: '',
+      contact: '',
+      emailId: '',
+      callingCode: '+91',
+      action: true,
+    },
+  ]);
 
-  const [detail, setDetail] = useState([{
-    shareHoldersName: '',
-    designation: '',
-    contact: '',
-    ownershipPercentage: '',
-    action: false
-  }]);
+  const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
 
-  const [signatory, setSignatory] = useState({
-    name: '',
-    nationality: '',
-    authoriztyToSign: '',
-  });
+  const changeFiledFocus = (value, index) => {
+    let tempArray = [...isPercentageInFocus];
+    tempArray[index] = value;
+    setIsPercentageInFocus(tempArray);
+  };
+  const [detail, setDetail] = useState([
+    {
+      shareHoldersName: '',
+      designation: '',
+      contact: '',
+      ownershipPercentage: '',
+      action: true,
+    },
+  ]);
+
+  useEffect(() => {
+    let tempArray = [false];
+    supplierData?.shareHoldersDetails?.forEach((item) => {
+      tempArray.push(false);
+    });
+    setIsPercentageInFocus(tempArray);
+  }, [supplierResponse]);
+
   const [business, setBusiness] = useState('');
   const [businessArray, setBusinessArray] = useState([]);
-  const [commodity, setCommidity] = useState([{
-    hsnCode: '',
-    commodity: '',
-    action: false
-  }]);
-
 
   const [info, setInfo] = useState('');
   const [infoArray, setInfoArray] = useState([]);
 
-  const [incumbencyDoc, setIncumbencyDoc] = useState(null)
-  const [thirdParty, SetThirdParty] = useState(null)
+  const [incumbencyDoc, setIncumbencyDoc] = useState(null);
+  const [thirdParty, SetThirdParty] = useState(null);
   const [newDoc, setNewDoc] = useState({
     document: null,
-    name: ''
-  })
+    name: '',
+  });
 
-  const [docs, setdocs] = useState([])
-
-
+  const [docs, setdocs] = useState([]);
+  const [filteredDocs, setFilteredDocs] = useState([]);
 
   const handleShareDelete = (index) => {
     setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
+    setIsPercentageInFocus([...isPercentageInFocus.slice(0, index), ...isPercentageInFocus.slice(index + 1)]);
   };
   const handleDeletePersonContact = (index) => {
     setPerson([...person.slice(0, index), ...person.slice(index + 1)]);
@@ -173,10 +225,9 @@ function Index() {
     {
       hsnCode: '',
       commodity: '',
-      action: false,
+      action: true,
     },
   ]);
-
 
   const onAddCommodity = () => {
     setListCommodity([
@@ -184,7 +235,7 @@ function Index() {
       {
         hsnCode: '',
         commodity: '',
-        action: false,
+        action: true,
       },
     ]);
   };
@@ -203,8 +254,9 @@ function Index() {
         name: '',
         designation: '',
         contactNo: '',
+        callingCode: '+91',
         emailID: '',
-        action: false,
+        action: true,
       },
     ]);
   };
@@ -214,10 +266,11 @@ function Index() {
       designation: '',
       contactNo: '',
       emailID: '',
-      action: false,
+      action: true,
     },
   ]);
   const onAddShare = () => {
+    setIsPercentageInFocus([...isPercentageInFocus, false]);
     setDetail([
       ...detail,
       {
@@ -225,7 +278,7 @@ function Index() {
         designation: '',
         contact: '',
         ownershipPercentage: '',
-        action: false,
+        action: true,
       },
     ]);
   };
@@ -234,7 +287,7 @@ function Index() {
       name: '',
       nationality: '',
       authorityToSign: false,
-      action: false
+      action: true,
     },
   ]);
 
@@ -246,18 +299,15 @@ function Index() {
         nationality: '',
         authorityToSign: false,
 
-        action: false,
+        action: true,
       },
     ]);
   };
 
-
-  const handleShareDoc = async (doc) => {
+  const handleShareDoc = async () => {
     if (emailValidation(sharedDoc.data.receiver)) {
       let tempArr = { ...sharedDoc };
-      tempArr.company = documentsFetched.company;
-      tempArr.order = orderid;
-     
+      let data = await dispatch(ShareDocument(tempArr));
       if (data?.code == 200) {
         setClose(false);
       }
@@ -269,19 +319,13 @@ function Index() {
     }
   };
 
-
-
   const saveDate = (value, name) => {
-   
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
-   
   };
 
   const saveQuotationData = (name, value) => {
- 
-
     formData.incorporationDate = value;
     setFormData({
       ...formData,
@@ -296,38 +340,27 @@ function Index() {
     });
   };
 
-  const onChangeHandler1 = (e) => {
-    const { name, value } = e.target;
-    setAddress({
-      ...address,
-      [name]: value,
-    });
-  };
-
   const onChangeHandler2 = (name, value, index) => {
-
     let newInput = [...person];
-   
+
     newInput[index][name] = value;
-   
+
     setListShare([...newInput]);
   };
- 
-  const onChangeHandler3 = (name, value, index) => {
 
+  const onChangeHandler3 = (name, value, index) => {
     let newInput = [...detail];
-   
+
     newInput[index][name] = value;
-   
+
     setDetail([...newInput]);
   };
 
   const onChangeHandler4 = (name, value, index) => {
-
     let newInput = [...listDirector];
-  
+
     newInput[index][name] = value;
-   
+
     setListDirector([...newInput]);
   };
 
@@ -337,19 +370,17 @@ function Index() {
     setBusiness(value);
   };
   const addToBusinessArray = (e) => {
- 
     let temp = [...businessArray];
-   
-    setBusinessArray([...temp, { businessSummary: business }])
+
+    setBusinessArray([...temp, { businessSummary: business }]);
     setBusiness('');
   };
 
   const onChangeHandler6 = (name, value, index) => {
-   
     let newInput = [...listCommodity];
 
     newInput[index][name] = value;
-   
+
     setListCommodity([...newInput]);
   };
 
@@ -359,191 +390,148 @@ function Index() {
   };
   const onChangeHandler7Array = (e) => {
     let temp = [...infoArray];
-  
-    setInfoArray([...temp, { remarks: info }])
+    // temp.push(info)
+    setInfoArray([...temp, { remarks: info }]);
     setInfo('');
   };
 
-
   const contactPersonDetailsValidation = () => {
+    if (person.length < 1) {
+      handleErrorToast('atLEast 1 COntact PErson detail Is Mandatory');
+      return false;
+    }
+
     let isOk = true;
-    let toastMessage = '';
     for (let i = 0; i <= person.length - 1; i++) {
       if (person[i].name === '' || person[i].name === null) {
-        toastMessage = ` name cannot be empty in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);
+        isOk = false;
+        break;
       }
-    
       if (
-        person[i]?.contact === '' ||
-        person[i]?.contact === null ||
-        person[i]?.contact?.length !== 10
-
+        person[i].contact === '' ||
+        person[i].contact === null ||
+        !isValidPhoneNumber(person[i].contact, returnSelectedCountryCode(person[i].callingCode))
       ) {
-        toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(` please provide a valid contact no in Contact Person Details ${i + 1} `);
+        isOk = false;
+        break;
       }
       if (person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
-        toastMessage = `please provide a valid email Id  in Contact Person Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
-      }
-    }
-    return isOk;
-  };
-
-  const shareholdersDetailsValidation = () => {
-    let isOk = true;
-    let toastMessage = '';
-    for (let i = 0; i <= detail.length - 1; i++) {
-      if (detail[i].shareHoldersName === '' || detail[i].shareHoldersName === null) {
-        toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
-      }
-    
-      if (
-        detail[i].ownershipPercentage === '' ||
-        detail[i].ownershipPercentage === null ||
-        detail[i].ownershipPercentage >= 100
-      ) {
-        toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`please provide a valid email Id  in Contact Person Details ${i + 1} `);
+        isOk = false;
+        break;
       }
     }
     return isOk;
   };
 
   const directorsAndAuthorisedSignatoryValidation = () => {
+    if (listDirector.length < 1) {
+      handleErrorToast('atLEast 1  directors And Authorised Signatory Is Mandatory');
+      return false;
+    }
     let isOk = true;
-    let toastMessage = '';
     for (let i = 0; i <= listDirector.length - 1; i++) {
       if (listDirector[i].name === '' || listDirector[i].name === null) {
-        toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`Name cannot be empty in Directors And Authorized Signatory ${i + 1}`);
+        isOk = false;
+        break;
       }
       if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
-        toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`nationality cannot be empty in Directors And Authorized Signatory ${i + 1}`);
+        isOk = false;
+        break;
       }
-    
     }
     return isOk;
   };
   const commoditiesTradedValidation = () => {
+    if (listCommodity?.length < 1) {
+      handleErrorToast('atLEast 1 commodities Traded Is Mandatory');
+      return false;
+    }
     let isOk = true;
-    let toastMessage = '';
     for (let i = 0; i <= listCommodity.length - 1; i++) {
-      if (listCommodity[i].hsnCode === '' || listCommodity[i].hsnCode === null) {
-        toastMessage = `  hsn code cannot be empty in Commodities Traded ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+      if (
+        listCommodity[i].hsnCode.trim() === '' ||
+        listCommodity[i].hsnCode === null ||
+        listCommodity[i].hsnCode.length !== 8
+      ) {
+        handleErrorToast(`please provide a valid hsnCode Commodities Traded ${i + 1}`);
+        isOk = false;
+        break;
       }
       if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
-        toastMessage = ` commodity cannot be empty in Commodities Traded ${i + 1} `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
-        }
+        handleErrorToast(`commodity cannot be empty in Commodities Traded ${i + 1}`);
+        isOk = false;
+        break;
       }
-     
     }
     return isOk;
   };
 
   const supplierValidtaion = () => {
-    if (!formData.supplierName || formData.supplierName === '') {
-      let toastMessage = `supplier Name cannot be empty`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    if (!formData.status || formData.status === '') {
+      handleErrorToast(`please select an status`);
+      return false;
+    } else if (!formData.supplierName || formData.supplierName === '') {
+      handleErrorToast(`supplier Name cannot be empty`);
       return false;
     } else if (!formData.constitution || formData.constitution === '') {
-      let toastMessage = `please select a constitution`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please select a constitution`);
       return false;
     } else if (!formData.incorporationDate || formData.incorporationDate === '') {
-      let toastMessage = `please select a incorporation Date`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please select a incorporation Date`);
       return false;
     } else if (!formData.countryOfIncorporation || formData.countryOfIncorporation === '') {
-      let toastMessage = `please provide a country Of Incorporation`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please provide a country Of Incorporation`);
       return false;
     } else if (!formData.nationalIdentificationNumber || formData.nationalIdentificationNumber === '') {
-      let toastMessage = `please provide a national Identification Number`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast(`please provide a national Identification Number`);
+      return false;
+    } else if (keyAddData.length < 1) {
+      handleErrorToast('atLEast 1 KEy Address  Is Mandatory');
       return false;
     } else if (!contactPersonDetailsValidation()) {
       return false;
-    } else if (!shareholdersDetailsValidation()) {
-      return false;
     } else if (!directorsAndAuthorisedSignatoryValidation()) {
-      return false
-    }
-    else if (!commoditiesTradedValidation()) {
-      return false
+      return false;
+    } else if (!commoditiesTradedValidation()) {
+      return false;
     } else if (!incumbencyDoc) {
-      let toastMessage = `please upload incumbency certificate`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false
+      handleErrorToast(`please upload incumbency certificate`);
+      return false;
     } else if (!thirdParty) {
-      let toastMessage = `please upload third party certificate`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false
+      handleErrorToast(`please upload third party certificate`);
+      return false;
+    } else {
+      return true;
     }
-    else {
-      return true
-    }
+  };
+  const saveButtonChangeHelper = (array) => {
+    return array.forEach((item) => (item.action = false));
+  };
+
+  const saveIconHandler = () => {
+    let tempPerson = [...person];
+    let tempShare = [...detail];
+    let tempDirector = [...listDirector];
+    let TempCommodity = [...listCommodity];
+
+    saveButtonChangeHelper(tempPerson);
+    saveButtonChangeHelper(tempShare);
+    saveButtonChangeHelper(tempDirector);
+    saveButtonChangeHelper(TempCommodity);
+
+    setListDirector(tempDirector);
+    setPerson(tempPerson);
+    setDetail(tempShare);
+    setListCommodity(TempCommodity);
   };
 
   const handleSave = () => {
     if (supplierValidtaion()) {
-     
-
-
       let apiData = {
         supplierProfile: formData,
         keyAddress: keyAddData,
@@ -555,11 +543,13 @@ function Index() {
         additionalInformation: infoArray,
         incumbencyCertificateDocument: incumbencyDoc,
         thirdPartyCertificateDocument: thirdParty,
-        extraDocument: docs
-      }
-    
+        extraDocument: docs,
+      };
+
       let fd = new FormData();
-      fd.append('supplierId', supplierData?._id)
+      if (id) {
+        fd.append('supplierId', supplierData?._id);
+      }
       fd.append('supplierProfile', JSON.stringify(formData));
       fd.append('keyAddress', JSON.stringify(keyAddData));
       fd.append('contactPerson', JSON.stringify(person));
@@ -568,17 +558,15 @@ function Index() {
       fd.append('bussinessSummary', JSON.stringify(businessArray));
       fd.append('commoditiesTraded', JSON.stringify(listCommodity));
       fd.append('additionalInformation', JSON.stringify(infoArray));
-      fd.append('incumbencyCertificateDocument', incumbencyDoc);
-      fd.append('thirdPartyCertificateDocument', thirdParty);
+      fd.append('incumbencyCertificateDocument', JSON.stringify(incumbencyDoc));
+      fd.append('thirdPartyCertificateDocument', JSON.stringify(thirdParty));
       fd.append('extraDocument', JSON.stringify(docs));
-
-
+      saveIconHandler();
       if (id) {
         dispatch(UpdateSupplier(fd));
       } else {
-        dispatch(CreateSupplier(fd))
+        dispatch(CreateSupplier(fd));
       }
-      
     }
   };
 
@@ -593,17 +581,22 @@ function Index() {
   };
 
   const [darkMode, setDarkMode] = useState(false);
-  useEffect(() => {
-    dispatch(setPageName('inception2'));
-  });
+
   const [keyAddData, setKeyAddData] = useState([]);
   const deleteComponent = (index) => {
     setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
+
+  const returnSelectedCountryCode = (code) => {
+    const filter = countryCodes.filter((item) => item.code == code);
+    if (filter.length > 0) return filter[0].iso2;
+  };
   const addressValidtion = (data) => {
+    let findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) != index);
+
     const emailValidate = () => {
       let isOk = true;
-      data.email.forEach((email, index) => {
+      data.emailId.forEach((email, index) => {
         if (
           !String(email)
             .toLowerCase()
@@ -611,19 +604,17 @@ function Index() {
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             )
         ) {
-          let toastMessage = `Please add valid email id for Email Field ${index}`;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
+          handleErrorToast(`Please add valid email id for Email Field ${index + 1}`);
           isOk = false;
           return;
         }
       });
-
       return isOk;
     };
-
-
+    if (findDuplicates(data.emailId).length > 0) {
+      handleErrorToast('cannot add duplicate email');
+      return false;
+    }
     if (data.address === null || data.address === '' || data.address === undefined) {
       let toastMessage = 'Please add address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -644,20 +635,25 @@ function Index() {
       }
 
       return false;
-    }
-    else if (!emailValidate()) {
+    } else if (!emailValidate()) {
       return false;
-    }
-    else if (
+    } else if (
       data.contact.phoneNumber === null ||
       data.contact.phoneNumber === '' ||
-      data.contact.phoneNumber === undefined
+      data.contact.phoneNumber === undefined ||
+      !isValidPhoneNumber(data.contact.phoneNumber, returnSelectedCountryCode(data.contact.phoneNumberCallingCode))
     ) {
-      let toastMessage = 'Please add phone phoneNumber';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-
+      handleErrorToast('Please add a valid  phone Number');
+      return false;
+    } else if (
+      data.contact.alternatePhoneNumber &&
+      data.contact.alternatePhoneNumber.trim().length > 0 &&
+      !isValidPhoneNumber(
+        data.contact.alternatePhoneNumber,
+        returnSelectedCountryCode(data.contact.alternatePhoneNumberCallingCode),
+      )
+    ) {
+      handleErrorToast('Please add a valid Alternate phone Number');
       return false;
     } else {
       return true;
@@ -665,24 +661,9 @@ function Index() {
   };
   const [showAddress, setShowAddress] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
-  const [Index, setIndex] = useState('0');
+  const [Index, setIndex] = useState('');
   const [editData, setEditData] = useState({
-    GSTIN: '',
-    GSTIN_document: '',
-    addressType: '',
-    branch: '',
-    city: '',
-    state: '',
-    email: '',
-    completeAddress: '',
-    contact: {
-      callingCode: '',
-      number: '',
-    },
-    pinCode: '',
-  });
-  const [keyAddressData, setKeyAddressData] = useState({
-    email: [''],
+    emailId: [''],
     address: '',
     country: '',
     contact: {
@@ -694,23 +675,36 @@ function Index() {
     pinCode: null,
   });
 
+  const [editingAddress, setEditingAddress] = useState(false);
+
+  const [keyAddressData, setKeyAddressData] = useState({
+    emailId: [''],
+    address: '',
+    country: '',
+    contact: {
+      phoneNumberCallingCode: '+91',
+      alternatePhoneNumberCallingCode: '+91',
+      phoneNumber: null,
+      alternatePhoneNumber: null,
+    },
+    pinCode: null,
+  });
 
   const editAddress = (index) => {
-    setShowAddress(false);
-    setShowEditAddress(true);
+    setEditingAddress(true);
     setIndex(index);
-
-    let tempArr = keyAddData;
+    let tempArr = keyAddData[index];
     setEditData({
-      email: tempArr[index].email,
-      country: tempArr[index].country,
-      address: tempArr[index].address,
+      emailId: tempArr?.emailId?.length > 0 ? tempArr?.emailId : [''],
+      country: tempArr?.country,
+      address: tempArr?.address,
       contact: {
-        callingCode: tempArr[index].contact.callingCode,
-        phoneNumber: tempArr[index].contact.phoneNumber,
-        alternatePhoneNumber: tempArr[index].contact.alternatePhoneNumber,
+        phoneNumberCallingCode: tempArr?.contact?.phoneNumberCallingCode,
+        alternatePhoneNumberCallingCode: tempArr?.contact?.alternatePhoneNumberCallingCode,
+        phoneNumber: tempArr?.contact?.phoneNumber,
+        alternatePhoneNumber: tempArr?.contact?.alternatePhoneNumber,
       },
-      pinCode: tempArr[index].pinCode,
+      pinCode: tempArr?.pinCode,
     });
   };
   const keyAddDataArr = (keyAddressData) => {
@@ -718,22 +712,46 @@ function Index() {
     newArr.push(keyAddressData);
     setKeyAddData(newArr);
   };
+
+  const handleUpdateAdress = () => {
+    if (addressValidtion(editData)) {
+      let tempArr = [...keyAddData];
+      tempArr[Index] = editData;
+      setKeyAddData(tempArr);
+      setEditingAddress(false);
+    }
+  };
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData);
       setKeyAddressData({
-        email: [''],
+        emailId: [''],
         address: '',
         country: '',
         contact: {
           phoneNumberCallingCode: '+91',
           alternatePhoneNumberCallingCode: '+91',
-          phoneNumber: null,
-          alternatePhoneNumber: null,
+          phoneNumber: '',
+          alternatePhoneNumber: '',
         },
-        pinCode: null,
+        pinCode: '',
       });
     }
+  };
+  const handleAddressUpdate = (value, name, index) => {
+    const newInput = { ...editData };
+
+    let namesplit = name.split('.');
+
+    if (name === 'emailId') {
+      newInput.emailId[index] = value;
+    } else if (namesplit.length > 1) {
+      newInput[namesplit[0]][namesplit[1]] = value;
+    } else {
+      newInput[name] = value;
+    }
+
+    setEditData(newInput);
   };
 
   const handleChange = (value, name, index) => {
@@ -741,15 +759,13 @@ function Index() {
 
     let namesplit = name.split('.');
 
-
     if (name === 'emailId') {
-      newInput.email[index] = value;
+      newInput.emailId[index] = value;
     } else if (namesplit.length > 1) {
       newInput[namesplit[0]][namesplit[1]] = value;
     } else {
       newInput[name] = value;
     }
-
 
     setKeyAddressData(newInput);
   };
@@ -759,59 +775,85 @@ function Index() {
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
     try {
-      Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
+      let response = await Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
         headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-     
-          setdocs([...docs, response.data.data])
-        } else {
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-        }
       });
-    } catch (error) {
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      if (response.data.code === 200) {
+        return response.data.data;
+      } else {
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
       }
+    } catch (error) {
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THE MOMENT');
     }
   };
 
-
-
   const uploadDocumentHandler = async (e) => {
-    if (newDoc?.document) {
+    e.preventDefault();
+    if (!newDoc?.document) {
+      handleErrorToast('please Select a document first');
+    } else if (!newDoc?.name) {
+      handleErrorToast('please provide a document first');
+    } else {
       let fd = new FormData();
       fd.append('document', newDoc.document);
-      docUploader(fd)
-    } else {
-      let toastMessage = 'please upload a document first';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      let data = await docUploader(fd);
+      data.name = newDoc.name;
+      if (data?.originalName) handleSuccessToast('document uploaded successfully');
+      setdocs([...docs, data]);
+      setFilteredDocs([...docs, data]);
+      setNewDoc({
+        document: null,
+        name: '',
+      });
     }
-  }
-  const deleteDocumentHandler = ({ document, index }) => {
-    let tempArray = docs;
-    tempArray.splice(index, 1);
-    setdocs(tempArray);
-    
+  };
 
+  const uploadDocHandler2 = async (e, doc) => {
+    let fd = new FormData();
+    fd.append('document', e.target.files[0]);
+    let data = await docUploader(fd);
+    if (doc == 'thirdPartyDoc') {
+      SetThirdParty(data);
+    } else {
+      setIncumbencyDoc(data);
+    }
+  };
+
+  const deleteDocumentHandler = (document, index) => {
+    setFilteredDocs([...filteredDocs.slice(0, index), ...filteredDocs.slice(index + 1)]);
+    setdocs([...docs.slice(0, index), ...docs.slice(index + 1)]);
     let payload = {
       supplierId: supplierData._id,
-      path: document?.path
+      path: document?.path,
+    };
+    dispatch(DeleteSupplierDoc(payload));
+  };
+
+  const filterDocBySearch = (searchQuery) => {
+    if (searchQuery.length > 0) {
+      let filteredArray = docs?.filter((item) => item.name.includes(searchQuery));
+      setFilteredDocs(filteredArray);
+    } else {
+      setFilteredDocs([...docs]);
     }
-    dispatch(DeleteSupplierDoc(payload))
-  }
+  };
 
+  const handleDeleteUpdateAddress = (index) => {
+    let tempArr = { ...editData };
+    tempArr.emailId.splice(index, 1);
+    setEditData(tempArr);
+  };
 
+  const handleDeleteNewAddress = (index) => {
+    let tempArr = { ...keyAddressData };
+    tempArr.emailId.splice(index, 1);
+    setKeyAddressData(tempArr);
+  };
 
   return (
     <>
-      <div className={`${styles.dashboardTab}`}>
+      <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
@@ -827,8 +869,7 @@ function Index() {
         </div>
 
         <div className={`${styles.backgroundMain}`}>
-          <div className={`${styles.main} vessel_card card border_color`}
-          >
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
               style={{ cursor: 'default' }}
@@ -836,21 +877,22 @@ function Index() {
               <h3 className={`${styles.heading}`}>Supplier Profile</h3>
 
               <div className="d-flex align-items-center">
-                <label className={`${styles.dropDown_label} text`}>
-                  Status:
-                </label>
+                <label className={`${styles.dropDown_label} text`}>Status:</label>
                 <div className="position-relative">
                   <select
                     className={`${styles.dropDown} ${styles.customSelect} input`}
                     style={{ marginRight: '5px' }}
                     name="status"
+                    value={formData?.status}
                     onChange={onChangeHandler}
                   >
                     <>
                       {' '}
-                      <option>Select an option</option>
-                      <option value='Active'>Active</option>
-                      <option value='InActive'>Not active</option>
+                      <option disabled value="">
+                        Select an option
+                      </option>
+                      <option value="Active">Active</option>
+                      <option value="InActive">Not active</option>
                     </>
                   </select>
                   <img
@@ -872,47 +914,32 @@ function Index() {
                 </span>
               </div>
             </div>
-            <div
-              id="supplierProfile"
-           
-              aria-labelledby="supplierProfile"
-              data-parent="#supplierProfile"
-            >
+            <div id="supplierProfile" aria-labelledby="supplierProfile" data-parent="#supplierProfile">
               <div className={`${styles.dashboard_form} mt-1 card-body border_color`}>
                 <div className="row">
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         required
+                        onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
                         onChange={onChangeHandler}
                         name="supplierName"
                         value={formData?.supplierName}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Supplier Name
                         <strong className="text-danger">*</strong>
                       </label>
-                      <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
+                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <select
                         onChange={onChangeHandler}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        required
                         name="constitution"
                         value={formData?.constitution}
                       >
@@ -920,9 +947,7 @@ function Index() {
                         <option value="India">Private Limited</option>
                         <option value="America">ABC</option>
                       </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Constitution<strong className="text-danger">*</strong>
                       </label>
                       <img
@@ -932,9 +957,7 @@ function Index() {
                       />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <DateCalender
                         defaultDate={formData?.incorporationDate ?? ''}
@@ -950,9 +973,7 @@ function Index() {
                       />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <select
                         onChange={onChangeHandler}
@@ -964,9 +985,7 @@ function Index() {
                         <option value="India">India</option>
                         <option value="America">USA</option>
                       </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Country of Incorporation
                         <strong className="text-danger">*</strong>
                       </label>
@@ -977,32 +996,23 @@ function Index() {
                       />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <input
                       onChange={onChangeHandler}
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                       required
                       name="nationalIdentificationNumber"
                       value={formData?.nationalIdentificationNumber}
                     />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                    >
+                    <label className={`${styles.label_heading} label_heading`}>
                       National Identification No. / Commercial Registry No.
                       <strong className="text-danger">*</strong>
                     </label>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <input
                       onChange={onChangeHandler}
                       className={`${styles.input_field} input form-control`}
@@ -1011,11 +1021,7 @@ function Index() {
                       name="website"
                       value={formData?.website}
                     />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                    >
-                      Website
-                    </label>
+                    <label className={`${styles.label_heading} label_heading`}>Website</label>
                   </div>
                 </div>
               </div>
@@ -1032,16 +1038,10 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
               <span>+</span>
             </div>
-            <div
-              id="keyAddress"
-              className="collapse"
-              aria-labelledby="keyAddress"
-            >
+            <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
               <div className={`${styles.dashboard_form} card-body border_color`}>
                 <div className="d-flex align-items-center justify-content-between">
-
                   {keyAddData?.map((address, index) => {
-
                     return (
                       <>
                         <AddressComponent
@@ -1053,74 +1053,327 @@ function Index() {
                           alterNumber={address?.contact?.alternatePhoneNumber}
                           alterCallingCode={address?.contact?.alternatePhoneNumberCallingCode}
                           country={address?.country}
-                          email={address?.email}
+                          email={address?.emailId}
                           deleteComponent={deleteComponent}
                           editAddress={editAddress}
                           pinCode={address.pinCode}
-                     
                           path={''}
-
                         />
                       </>
                     );
                   })}
-
                 </div>
-                <div
-                  className={`${styles.address_card} mt-3 pb-5 value background1`}
-                >
+                {editingAddress && (
+                  <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
+                    <div
+                      className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
+                    >
+                      <h3 className={`${styles.heading}`} style={{ textTransform: 'none' }}>
+                        Update address
+                      </h3>
+                      <img
+                        onClick={() => {
+                          setEditingAddress(false);
+                        }}
+                        style={{ marginRight: '-15px' }}
+                        src="/static/accordion_close_black.svg"
+                        className="image_arrow"
+                      />
+                    </div>
+                    <div className={`${styles.dashboard_form} card-body border_color`}>
+                      <div className="row">
+                        <div className={`${styles.form_group} col-md-12 col-sm-6`}>
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            type="text"
+                            name="address"
+                            value={editData?.address}
+                            onChange={(e) => {
+                              handleAddressUpdate(e.target.value, e.target.name);
+                            }}
+                          />
+                          <label className={`${styles.label_heading} label_heading`}>
+                            Address
+                            <strong className="text-danger">*</strong>
+                          </label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-4`}>
+                          <div className="d-flex">
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                              name="pinCode"
+                              onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
+                              value={editData?.pinCode}
+                              onWheel={(e) => e.target.blur()}
+                              onChange={(e) => {
+                                // gettingPins(e.target.value);
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            {editData?.pinCode?.length > 0 && toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map((results, index) => (
+                                        <li
+                                          onClick={() => {
+                                            handleAddressUpdate(results.Pincode, 'pinCode');
+                                            //  handleChange('pinCode', results.Pincode)
+                                            setToShow([]);
+                                            setToView(false);
+                                          }}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ))
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Pin Code
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.search_image} img-fluid`}
+                              src="/static/search-grey.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+
+                        <div className={`${styles.form_group} col-md-4 col-sm-4`}>
+                          <div className="d-flex">
+                            <select
+                              name="country"
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                              // className={`${styles.code_phone} input border-right-0`}
+                              value={editData?.country}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              {' '}
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {getCountriesMasterData?.map((options, index) => {
+                                return (
+                                  <option key={index} value={`${options.Country}`}>
+                                    {options.Country}
+                                  </option>
+                                );
+                              })}{' '}
+                            </select>
+                            {/* <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              name="country"
+                              onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                              value={editData?.country}
+                              onChange={(e) => {handleAddressUpdate(e.target.value.replace(/[^a-zA-Z]+/g, ''), e.target.name)}}
+                            /> */}
+
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Country
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                        <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                          <div className={`${styles.phone_card}`}>
+                            <select
+                              type="tel"
+                              name="contact.phoneNumberCallingCode"
+                              id="Code"
+                              className={`${styles.code_phone} input border-right-0`}
+                              value={editData.contact.phoneNumberCallingCode}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {countryCodes.map((countryCode) => (
+                                <option value={countryCode.code}>{countryCode.code}</option>
+                              ))}
+                            </select>
+                            <input
+                              type="tel"
+                              id="textNumber"
+                              name="contact.phoneNumber"
+                              value={editData?.contact.phoneNumber}
+                              className={`${styles.input_field}  input form-control border-left-0`}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                              Phone Number
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </div>
+                        </div>
+                        <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                          <div className={`${styles.phone_card}`}>
+                            <select
+                              name="contact.alternatePhoneNumberCallingCode"
+                              id="Code"
+                              className={`${styles.code_phone} input border-right-0`}
+                              value={editData.contact.alternatePhoneNumberCallingCode}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            >
+                              {' '}
+                              <option disabled value="">
+                                Select an option
+                              </option>
+                              {countryCodes.map((countryCode) => (
+                                <option value={countryCode.code}>{countryCode.code}</option>
+                              ))}
+                            </select>
+                            <input
+                              type="tel"
+                              id="textNumber"
+                              name="contact.alternatePhoneNumber"
+                              value={editData?.contact.alternatePhoneNumber}
+                              className={`${styles.input_field} input form-control border-left-0`}
+                              onChange={(e) => {
+                                handleAddressUpdate(e.target.value, e.target.name);
+                              }}
+                            />
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                              Alternate Phone Number
+                            </label>
+                          </div>
+                        </div>
+                        {editData.emailId.map((email, index) => (
+                          <div className={`${styles.form_group} ${styles.email_id} col-md-4 col-sm-6`}>
+                            <div className="d-flex position-relative">
+                              <input
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                type="text"
+                                name="emailId"
+                                value={email}
+                                onChange={(e) => {
+                                  handleAddressUpdate(e.target.value, e.target.name, index);
+                                }}
+                              />
+                              <label className={`${styles.label_heading} label_heading`}>
+                                Email ID
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <div className={`${styles.btn_block}`}>
+                                {editData?.emailId?.length - 1 == index && (
+                                  <img
+                                    onClick={() =>
+                                      setEditData((prev) => {
+                                        return { ...prev, emailId: [...prev.emailId, ''] };
+                                      })
+                                    }
+                                    className={`${styles.plus_add} img-fluid`}
+                                    src="/static/add-btn.svg"
+                                    alt="Search"
+                                  />
+                                )}
+                                {editData?.emailId?.length > 1 && (
+                                  <img
+                                    onClick={() => handleDeleteUpdateAddress(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete} img-fluid`}
+                                    alt="Delete"
+                                  />
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <button className={`${styles.add_btn}`} onClick={() => handleUpdateAdress()}>
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
                   <div
                     className={`${styles.head_container}  card-header border_color align-items-center d-flex justify-content-between align-items-center bg-transparent`}
                   >
-                    <h3
-                      className={`${styles.heading}`}
-                      style={{ textTransform: 'none' }}
-                    >
+                    <h3 className={`${styles.heading}`} style={{ textTransform: 'none' }}>
                       Add a new address
                     </h3>
                   </div>
-                  <div
-                    className={`${styles.dashboard_form} card-body border_color`}
-                  >
+                  <div className={`${styles.dashboard_form} card-body border_color`}>
                     <div className="row">
-                      <div
-                        className={`${styles.form_group} col-md-12 col-sm-6`}
-                      >
+                      <div className={`${styles.form_group} col-md-12 col-sm-6`}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="text"
-
                           name="address"
                           value={keyAddressData?.address}
                           onChange={(e) => {
-                            handleChange(e.target.value, e.target.name)
+                            handleChange(e.target.value, e.target.name);
                           }}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Address
                           <strong className="text-danger">*</strong>
                         </label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-md-4 col-sm-4`}
-                      >
+                      <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                         <div className="d-flex">
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
                             name="pinCode"
+                            onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                             value={keyAddressData?.pinCode}
                             onWheel={(e) => e.target.blur()}
                             onChange={(e) => {
+                              // gettingPins(e.target.value);
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          {keyAddressData?.pinCode?.length > 0 && toShow.length > 0 && toView && (
+                            <div className={styles.searchResults}>
+                              <ul>
+                                {toShow
+                                  ? toShow?.map((results, index) => (
+                                      <li
+                                        onClick={() => {
+                                          handleChange(results.Pincode, 'pinCode');
+                                          //  handleChange('pinCode', results.Pincode)
+                                          setToShow([]);
+                                          setToView(false);
+                                        }}
+                                        id={results._id}
+                                        key={index}
+                                        value={results.Pincode}
+                                      >
+                                        {results.Pincode}{' '}
+                                      </li>
+                                    ))
+                                  : ''}
+                              </ul>
+                            </div>
+                          )}
+                          <label className={`${styles.label_heading} label_heading`}>
                             Pin Code
                             <strong className="text-danger">*</strong>
                           </label>
@@ -1132,156 +1385,154 @@ function Index() {
                         </div>
                       </div>
 
-                      <div
-                        className={`${styles.form_group} col-md-4 col-sm-4`}
-                      >
+                      <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                         <div className="d-flex">
-                          <input
-                            className={`${styles.input_field} input form-control`}
-                            required
+                          <select
                             type="text"
                             name="country"
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                             value={keyAddressData?.country}
-                            onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
-                            }}
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
+                            onChange={(e) => handleChange(e.target.value, e.target.name)}
                           >
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {getCountriesMasterData?.map((options, index) => {
+                              return (
+                                <option key={index} value={`${options.Country}`}>
+                                  {options.Country}
+                                </option>
+                              );
+                            })}{' '}
+                          </select>
+                          <label className={`${styles.label_heading} label_heading`}>
                             Country
                             <strong className="text-danger">*</strong>
                           </label>
                           <img
-                            className={`${styles.search_image} img-fluid`}
-                            src="/static/search-grey.svg"
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
                             alt="Search"
                           />
                         </div>
                       </div>
 
-                      <div
-                        className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-                      >
+                      <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                         <div className={`${styles.phone_card}`}>
                           <select
+                            type="tel"
                             name="contact.phoneNumberCallingCode"
                             id="Code"
                             className={`${styles.code_phone} input border-right-0`}
                             value={keyAddressData.contact.phoneNumberCallingCode}
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           >
-                            <option value='+91'>+91</option>
-                            <option value='+1'>+1</option>
-                            <option value='+92'>+92</option>
-                            <option value='+95'>+95</option>
-                            <option value='+24'>+24</option>
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {countryCodes.map((countryCode) => (
+                              <option value={countryCode.code}>{countryCode.code}</option>
+                            ))}
                           </select>
                           <input
                             type="tel"
                             id="textNumber"
                             name="contact.phoneNumber"
-                            value={keyAddressData?.phoneNumber}
+                            value={keyAddressData?.contact.phoneNumber}
                             className={`${styles.input_field}  input form-control border-left-0`}
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                            id="textNumber"
-                          >
+                          <label className={`${styles.label_heading} label_heading`} id="textNumber">
                             Phone Number
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-                      >
+                      <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                         <div className={`${styles.phone_card}`}>
                           <select
                             name="contact.alternatePhoneNumberCallingCode"
                             id="Code"
                             className={`${styles.code_phone} input border-right-0`}
                             value={keyAddressData.contact.alternatePhoneNumberCallingCode}
-
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           >
                             {' '}
-                            <option value='+91'>+91</option>
-                            <option value='+1'>+1</option>
-                            <option value='+92'>+92</option>
-                            <option value='+95'>+95</option>
-                            <option value='+24'>+24</option>
+                            <option disabled value="">
+                              Select an option
+                            </option>
+                            {countryCodes.map((countryCode) => (
+                              <option value={countryCode.code}>{countryCode.code}</option>
+                            ))}
                           </select>
                           <input
                             type="tel"
                             id="textNumber"
                             name="contact.alternatePhoneNumber"
-                            value={keyAddressData?.alternatePhoneNumber}
+                            value={keyAddressData?.contact.alternatePhoneNumber}
                             className={`${styles.input_field} input form-control border-left-0`}
                             onChange={(e) => {
-                              handleChange(e.target.value, e.target.name)
+                              handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                            id="textNumber"
-                          >
+                          <label className={`${styles.label_heading} label_heading`} id="textNumber">
                             Alternate Phone Number
                           </label>
                         </div>
                       </div>
-                      {keyAddressData.email.map((email, index) => (
-                        <div
-                          className={`${styles.form_group} col-md-4 col-sm-6`}
-                        >
-                          <div className="d-flex">
+                      {keyAddressData.emailId.map((email, index) => (
+                        <div className={`${styles.form_group} ${styles.email_id} col-md-4 col-sm-6`}>
+                          <div className="d-flex position-relative">
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
                               name="emailId"
                               value={email}
-
                               onChange={(e) => {
-                                handleChange(e.target.value, e.target.name, index)
+                                handleChange(e.target.value, e.target.name, index);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Email ID
                               <strong className="text-danger">*</strong>
                             </label>
-
-
-                            <img
-                              onClick={() => setKeyAddressData((prev) => {
-                                return { ...prev, email: [...prev.email, ''] }
-                              })}
-                              className={`${styles.plus_add} img-fluid`}
-                              src="/static/add-btn.svg"
-                              alt="Search"
-                            />
-
+                            <div className={`${styles.btn_block}`}>
+                              {keyAddressData?.emailId?.length - 1 == index && (
+                                <img
+                                  onClick={() =>
+                                    setKeyAddressData((prev) => {
+                                      return { ...prev, emailId: [...prev.emailId, ''] };
+                                    })
+                                  }
+                                  className={`${styles.plus_add} img-fluid`}
+                                  src="/static/add-btn.svg"
+                                  alt="Search"
+                                />
+                              )}
+                              {keyAddressData?.emailId?.length > 1 && (
+                                <img
+                                  onClick={() => handleDeleteNewAddress(index)}
+                                  src="/static/delete 2.svg"
+                                  className={`${styles.delete} img-fluid`}
+                                  alt="Delete"
+                                />
+                              )}
+                            </div>
                           </div>
                         </div>
                       ))}
                     </div>
-                    <button
-                      className={`${styles.add_btn}`}
-                      onClick={() => handleClick()}
-                    >
+                    <button className={`${styles.add_btn}`} onClick={() => handleClick()}>
                       Add
                     </button>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -1297,12 +1548,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Contact Person Details</h3>
               <span>+</span>
             </div>
-            <div
-              id="keyContact"
-              className="collapse"
-              aria-labelledby="keyContact"
-              data-parent="#keyContact"
-            >
+            <div id="keyContact" className="collapse" aria-labelledby="keyContact" data-parent="#keyContact">
               <div className={`${styles.datatable} border_color card-body datatable`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
@@ -1328,57 +1574,108 @@ function Index() {
                           person?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="name"
-                                  value={val?.name}
-                                  type="text"
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                  readOnly={!val.action}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.name}</span>
+                                ) : (
+                                  <input
+                                    className="input font-weight-bold"
+                                    name="name"
+                                    value={val?.name}
+                                    type="text"
+                                    onChange={(e) => {
+                                      onChangeHandler2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td>
-                                <input
-                                  className="input"
-                                  name="designation"
-                                  value={val?.designation}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.designation}</span>
+                                ) : (
+                                  <input
+                                    className="input"
+                                    name="designation"
+                                    value={val?.designation}
+                                    type="text"
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
 
                               <td>
-                                <input
-                                  className="input"
-                                  name="contact"
-                                  value={val?.contact}
-                                  type="number"
-                                  onWheel={(event) => event.currentTarget.blur()}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                                  readOnly={!val.action}
-                                />
+                                {!val.action ? (
+                                  <span>
+                                    {val?.callingCode} {val?.contact}
+                                  </span>
+                                ) : (
+                                  <div className={`${styles.phone_card}`}>
+                                    <select
+                                      name="callingCode"
+                                      id="Code"
+                                      className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
+                                      value={val?.callingCode}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                    >
+                                      {' '}
+                                      <option disabled value="">
+                                        Select an option
+                                      </option>
+                                      {countryCodes.map((countryCode) => (
+                                        <option value={countryCode.code}>{countryCode.code}</option>
+                                      ))}
+                                    </select>
+                                    <input
+                                      name="contact"
+                                      value={val?.contact}
+                                      type="number"
+                                      onWheel={(event) => event.currentTarget.blur()}
+                                      className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0 flex-grow-1`}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                      onKeyDown={(evt) =>
+                                        ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+                                      }
+                                      readOnly={!val.action}
+                                    />
+                                  </div>
+
+                                  // <input
+                                  //   className="input"
+                                  //   name="contact"
+                                  //   value={val?.contact}
+                                  //   type="number"
+                                  //   onWheel={(event) => event.currentTarget.blur()}
+                                  //   onChange={(e) => {
+                                  //     onChangeHandler2(e.target.name, e.target.value, index);
+                                  //   }}
+                                  //   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                                  //   readOnly={!val.action}
+                                  // />
+                                )}
                               </td>
                               <td>
-                                <input
-                                  className="input"
-                                  name="emailId"
-                                  value={val?.emailId}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.emailId}</span>
+                                ) : (
+                                  <input
+                                    className="input"
+                                    name="emailId"
+                                    value={val?.emailId}
+                                    type="text"
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler2(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
-                      
+
                               <td className="text-right">
                                 <div>
                                   {!val.action ? (
@@ -1388,9 +1685,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3`}
                                         alt="edit"
                                         onClick={(e) => {
-                          
                                           onChangeHandler2('action', true, index);
-                                  
                                         }}
                                       />
                                     </>
@@ -1401,9 +1696,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                   
                                           onChangeHandler2('action', false, index);
-                                        
                                         }}
                                       />
                                     </>
@@ -1424,7 +1717,7 @@ function Index() {
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddPersonContact();
                   }}
@@ -1446,12 +1739,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Shareholders Details</h3>
               <span>+</span>
             </div>
-            <div
-              id="shareHolding"
-              className="collapse"
-              aria-labelledby="shareHolding"
-              data-parent="#shareHolding"
-            >
+            <div id="shareHolding" className="collapse" aria-labelledby="shareHolding" data-parent="#shareHolding">
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
@@ -1464,50 +1752,76 @@ function Index() {
                           <th></th>
                         </tr>
                       </thead>
-
                       <tbody>
                         {detail?.length > 0 &&
                           detail?.map((val, index) => {
                             return (
                               <tr key={index} className="table_credit">
                                 <td>
-                                  <input
-                                    className="input font-weight-bold"
-                                    name="shareHoldersName"
-                                    value={val?.shareHoldersName}
-                                    type="text"
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index);
-                                    }}
-                                    readOnly={!val.action}
-                                  />
+                                  {!val.action ? (
+                                    <span>{val?.shareHoldersName}</span>
+                                  ) : (
+                                    <input
+                                      className="input font-weight-bold"
+                                      name="shareHoldersName"
+                                      value={val?.shareHoldersName}
+                                      type="text"
+                                      onChange={(e) => {
+                                        onChangeHandler3(e.target.name, e.target.value, index);
+                                      }}
+                                      readOnly={!val.action}
+                                    />
+                                  )}
                                 </td>
                                 <td>
-                                  <input
-                                    className="input"
-                                    name="designation"
-                                    value={val?.designation}
-                                    type="text"
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index);
-                                    }}
-                                    readOnly={!val.action}
-                                  />
+                                  {!val.action ? (
+                                    <span>{val?.designation}</span>
+                                  ) : (
+                                    <input
+                                      className="input"
+                                      name="designation"
+                                      value={val?.designation}
+                                      type="text"
+                                      onChange={(e) => {
+                                        onChangeHandler3(e.target.name, e.target.value, index);
+                                      }}
+                                      readOnly={!val.action}
+                                    />
+                                  )}
                                 </td>
 
                                 <td>
-                                  <input
-                                    className="input"
-                                    name="ownershipPercentage"
-                                    value={val?.ownershipPercentage}
-                                    type="number"
-                                    onWheel={(event) => event.currentTarget.blur()}
-                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index);
-                                    }}
-                                    readOnly={!val.action}
-                                  />
+                                  {!val.action ? (
+                                    <span>{val?.ownershipPercentage ? val?.ownershipPercentage + ' %' : ''}</span>
+                                  ) : (
+                                    <input
+                                      className="input"
+                                      name="ownershipPercentage"
+                                      onFocus={(e) => {
+                                        changeFiledFocus(true, index), (e.target.type = 'number');
+                                      }}
+                                      onBlur={(e) => {
+                                        changeFiledFocus(false, index), (e.target.type = 'text');
+                                      }}
+                                      value={
+                                        isPercentageInFocus[index]
+                                          ? val?.ownershipPercentage
+                                          : Number(val?.ownershipPercentage)?.toLocaleString('en-In', {
+                                              maximumFractionDigits: 2,
+                                            }) + ` %`
+                                      }
+                                      // value={val?.ownershipPercentage}
+                                      type="text"
+                                      onWheel={(event) => event.currentTarget.blur()}
+                                      onKeyDown={(evt) =>
+                                        ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+                                      }
+                                      onChange={(e) => {
+                                        onChangeHandler3(e.target.name, e.target.value, index);
+                                      }}
+                                      readOnly={!val.action}
+                                    />
+                                  )}
                                 </td>
 
                                 <td className="text-right">
@@ -1551,7 +1865,7 @@ function Index() {
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddShare();
                   }}
@@ -1573,12 +1887,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Directors and Authorised Signatory</h3>
               <span>+</span>
             </div>
-            <div
-              id="director"
-              className="collapse"
-              aria-labelledby="director"
-              data-parent="#director"
-            >
+            <div id="director" className="collapse" aria-labelledby="director" data-parent="#director">
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
@@ -1605,28 +1914,40 @@ function Index() {
                           listDirector?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="name"
-                                  value={val?.name}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.name}</span>
+                                ) : (
+                                  <input
+                                    className="input font-weight-bold"
+                                    name="name"
+                                    value={val?.name}
+                                    type="text"
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      if (!e.target.value.match(/[^a-zA-Z]+/g))
+                                        onChangeHandler4(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td>
-                                <input
-                                  className="input"
-                                  name="nationality"
-                                  value={val?.nationality}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.nationality}</span>
+                                ) : (
+                                  <input
+                                    className="input"
+                                    name="nationality"
+                                    value={val?.nationality}
+                                    type="text"
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      if (!e.target.value.match(/[^a-zA-Z]+/g))
+                                        onChangeHandler4(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td>
                                 <input
@@ -1636,7 +1957,7 @@ function Index() {
                                   type="checkbox"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(e.target.name, !val?.authoriztyToSign, index)
+                                    onChangeHandler4(e.target.name, !val?.authoriztyToSign, index);
                                   }}
                                 />
                               </td>
@@ -1681,7 +2002,7 @@ function Index() {
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddDirector();
                   }}
@@ -1710,11 +2031,8 @@ function Index() {
               data-parent="#businessSummary"
             >
               <div className={`${styles.dashboard_form} mr-3 card-body border_color`}>
-
-
                 <div className="d-flex pb-4 ml-4 position-relative">
-                  <input
-                    as="textarea"
+                  <textarea
                     rows={3}
                     placeholder=""
                     className={`${styles.comment_field} input form-control`}
@@ -1734,7 +2052,7 @@ function Index() {
                 </div>
                 <ol>
                   {businessArray?.map((val, index) => {
-                    return <li>{val?.businessSummary}</li>
+                    return <li>{val?.businessSummary}</li>;
                   })}
                 </ol>
               </div>
@@ -1751,12 +2069,7 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Commodities Traded</h3>
               <span>+</span>
             </div>
-            <div
-              id="commodity"
-              className="collapse"
-              aria-labelledby="commodity"
-              data-parent="#commodity"
-            >
+            <div id="commodity" className="collapse" aria-labelledby="commodity" data-parent="#commodity">
               <div className={`${styles.datatable} card-body datatable border_color`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
@@ -1780,30 +2093,43 @@ function Index() {
                           listCommodity.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="hsnCode"
-                                  value={val?.hsnCode}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.hsnCode}</span>
+                                ) : (
+                                  <input
+                                    onKeyDown={(evt) => specialCharacter.includes(evt.key) && evt.preventDefault()}
+                                    className="input font-weight-bold"
+                                    name="hsnCode"
+                                    value={val?.hsnCode}
+                                    type="text"
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler6(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td>
-                                <input
-                                  className="input"
-                                  name="commodity"
-                                  value={val?.commodity}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index);
-                                  }}
-                                />
+                                {!val.action ? (
+                                  <span>{val?.commodity}</span>
+                                ) : (
+                                  <input
+                                    onKeyDown={(evt) =>
+                                      [...specialCharacter, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
+                                        evt.key,
+                                      ) && evt.preventDefault()
+                                    }
+                                    className="input"
+                                    name="commodity"
+                                    value={val?.commodity}
+                                    type="text"
+                                    readOnly={!val.action}
+                                    onChange={(e) => {
+                                      onChangeHandler6(e.target.name, e.target.value, index);
+                                    }}
+                                  />
+                                )}
                               </td>
-             
 
                               <td className="text-right">
                                 <div>
@@ -1846,7 +2172,7 @@ function Index() {
                   </div>
                 </div>
                 <div
-                  className={`${styles.add_row} p-3 d-flex justify-content-end`}
+                  className={`${styles.add_row} p-3 align-items-center d-flex justify-content-end`}
                   onClick={(e) => {
                     onAddCommodity();
                   }}
@@ -1868,18 +2194,10 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Additional Information</h3>
               <span>+</span>
             </div>
-            <div
-              id="additional"
-              className="collapse"
-              aria-labelledby="additional"
-              data-parent="#additional"
-            >
+            <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">
               <div className={`${styles.dashboard_form} card-body border_color vessel_card mr-3`}>
-             
-
                 <div className="d-flex mt-4 pb-4 position-relative">
-                  <input
-                    as="textarea"
+                  <textarea
                     rows={3}
                     placeholder=""
                     name="remarks"
@@ -1899,541 +2217,347 @@ function Index() {
                   />
                 </div>
                 <ol>
-                  {infoArray?.length > 0 && infoArray?.map((val, index) => {
-                    return <li>{val?.remarks}</li>
-
-                  })}
+                  {infoArray?.length > 0 &&
+                    infoArray?.map((val, index) => {
+                      return <li>{val?.remarks}</li>;
+                    })}
                 </ol>
               </div>
             </div>
           </div>
-          <div className="ml-2 mr-2">
+          <div className={`${styles.upload_main} vessel_card card border_color upload_main`}>
             <div
-              className={`${styles.upload_main} vessel_card card border_color upload_main`}
+              className={`${styles.head_container} border_color align-items-center d-flex justify-content-between`}
+              data-toggle="collapse"
+              data-target="#uploadOther"
+              aria-expanded="true"
+              aria-controls="uploadOther"
             >
-              <div
-                className={`${styles.head_container} border_color align-items-center d-flex justify-content-between`}
-                data-toggle="collapse"
-                data-target="#uploadOther"
-                aria-expanded="true"
-                aria-controls="uploadOther"
-              >
-                <h3 className={`${styles.heading} mb-0`}>Document</h3>
-                <span>+</span>
-              </div>
-              <div
-                id="uploadOther"
-                className={false ? 'collapse' : ''}
-                aria-labelledby="uploadOther"
-                data-parent="#uploadOther"
-              >
-                <div className={styles.table_container}>
-                  <div className={styles.table_scroll_outer}>
-                    <div className={styles.table_scroll_inner}>
-                      <table
-                        className={`${styles.table} table`}
-                        cellPadding="0"
-                        cellSpacing="0"
-                        border="0"
-                      >
-                        <thead>
-                          <tr>
-                            <th>
-                              DOCUMENT NAME{' '}
-                              <img
-                                className={`${styles.sort_image} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th>
-                              FORMAT{' '}
-                              <img
-                                className={`${styles.sort_image} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th>
-                              DOCUMENT DATE{' '}
-                              <img
-                                className={`${styles.sort_image} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th width="30%">ACTION</th>
-                          </tr>
-                        </thead>
-                        <tbody>
+              <h3 className={`${styles.heading} mb-0`}>Document</h3>
+              <span>+</span>
+            </div>
+            <div
+              id="uploadOther"
+              className={false ? 'collapse' : ''}
+              aria-labelledby="uploadOther"
+              data-parent="#uploadOther"
+            >
+              <div className={styles.table_container}>
+                <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+                      <thead>
+                        <tr>
+                          <th>
+                            DOCUMENT NAME{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            FORMAT{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            DOCUMENT DATE{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th width="30%">ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>
+                            Incumbency Certificate
+                            <strong className="text-danger ml-0">*</strong>{' '}
+                          </td>
 
-                          <tr className="table_row">
-                            <td className={styles.doc_name}>
-                              Incumbency Certificate
-                              <strong className="text-danger ml-0">*</strong>{' '}
-                            </td>
-
-                            <td>
-                              {incumbencyDoc?.name
-                                ?.toLowerCase()
-                                ?.endsWith('.xls') ||
-                                incumbencyDoc?.name
-                                  ?.toLowerCase()
-                                  ?.endsWith('.xlsx') ? (
-                                <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              ) : incumbencyDoc?.name
-                                ?.toLowerCase()
-                                ?.endsWith('.doc') ||
-                                incumbencyDoc?.name
-                                  ?.toLowerCase()
-                                  ?.endsWith('.docx') ? (
-                                <img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              ) : (
-                                <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              )}
-                            </td>
-                            <td className={styles.doc_row}>
-                              {incumbencyDoc && incumbencyDoc?.lastModifiedDate
-                                ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
-                                : ''}
-                            </td>
-                            <td colSpan={2}>
-                              {incumbencyDoc === null ? (
-                                <>
-                                  <div className={styles.uploadBtnWrapper}>
-                                    <input
-                                      type="file"
-                                      name="myfile"
-                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                      onChange={(e) => setIncumbencyDoc(e.target.files[0])}
-                                    />
-                                    <button className={`${styles.button_upload} btn`}>
-                                      Upload
-                                    </button>
-                                  </div>
-                                </>
-                              ) : (
-                                <div
-                                  className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
-                                >
-                                  <span>{incumbencyDoc?.name ? incumbencyDoc?.name : incumbencyDoc?.originalName}</span>
-                                  <img
-                                    onClick={(e) =>
-                                      setIncumbencyDoc(null)
-                                    }
-                                    className={`${styles.close_image} image_arrow mx-2`}
-                                    src="/static/close.svg"
-                                    alt="Close"
-                                  />{' '}
+                          <td>{incumbencyDoc?.originalName ? returnDocFormat(incumbencyDoc?.originalName) : null}</td>
+                          <td className={styles.doc_row}>
+                            {incumbencyDoc && incumbencyDoc?.date
+                              ? moment(incumbencyDoc?.date).format('DD-MM-YYYY,HH:mm A')
+                              : ''}
+                          </td>
+                          <td colSpan={2}>
+                            {incumbencyDoc === null ? (
+                              <>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    name="myfile"
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => uploadDocHandler2(e, 'incumbencyDoc')}
+                                  />
+                                  <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
-                              )}
-                            </td>
-                          </tr>
-
-                          <tr className="table_row">
-                            <td className={styles.doc_name}>
-                              third Party Certificate
-                              <strong className="text-danger ml-0">*</strong>{' '}
-                            </td>
-
-                            <td>
-                              {thirdParty?.name
-                                ?.toLowerCase()
-                                ?.endsWith('.xls') ||
-                                thirdParty?.name
-                                  ?.toLowerCase()
-                                  ?.endsWith('.xlsx') ? (
-                                <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              ) : thirdParty?.name
-                                ?.toLowerCase()
-                                ?.endsWith('.doc') ||
-                                thirdParty?.name
-                                  ?.toLowerCase()
-                                  ?.endsWith('.docx') ? (
-                                <img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              ) : (
-                                <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              )}
-                            </td>
-                            <td className={styles.doc_row}>
-                              {thirdParty && thirdParty?.lastModifiedDate
-                                ? moment(new Date()).format('DD-MM-YYYY,HH:mm A')
-                                : ''}
-                            </td>
-                            <td colSpan={2}>
-                              {thirdParty === null ? (
-                                <>
-                                  <div className={styles.uploadBtnWrapper}>
-                                    <input
-                                      type="file"
-                                      name="myfile"
-                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                      onChange={(e) => SetThirdParty(e.target.files[0])}
-                                    />
-                                    <button className={`${styles.button_upload} btn`}>
-                                      Upload
-                                    </button>
-                                  </div>
-                                </>
-                              ) : (
-                                <div
-                                  className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
-                                >
-                                  <span>{thirdParty?.name ? thirdParty?.name : thirdParty?.originalName}</span>
-                                  <img
-                                    onClick={(e) =>
-                                      SetThirdParty(null)
-                                    }
-                                    className={`${styles.close_image} image_arrow mx-2`}
-                                    src="/static/close.svg"
-                                    alt="Close"
-                                  />{' '}
-                                </div>
-                              )}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div className={`${styles.dashboard_form} card-body rounded-0 border-0`}>
-                  <Form>
-                    <div className="row align-items-center pb-4">
-                      <div
-                        className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
-                      >
-                        <div className="text-center w-100">
-                          <img
-                            className={`${styles.upload_image} img-fluid d-block mx-auto`}
-                            src="/static/browse.svg"
-                            alt="Browse"
-                            onChange={(e) => uploadDocument2(e)}
-                          />
-                          {newDoc?.document ? (
-                            <div className="d-flex justify-content-center align-items-center">
+                              </>
+                            ) : (
                               <div
-                                className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
+                                className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
                               >
-                                <span>{newDoc?.document?.name}</span>
+                                <span>{incumbencyDoc?.name ? incumbencyDoc?.name : incumbencyDoc?.originalName}</span>
                                 <img
+                                  onClick={(e) => setIncumbencyDoc(null)}
                                   className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
-                                  onClick={() => setNewDoc({ ...newDoc, document: null })}
                                   alt="Close"
                                 />{' '}
                               </div>
-                            </div>
-                          ) : (
-                            <p className={styles.drop_para}>
-                              Drop Files here or
-                              <br />
-                              <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  onChange={(e) => setNewDoc({ ...newDoc, document: e.target.files[0] })}
-                                  type="file"
-                                  name="myfile"
-                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                                />
+                            )}
+                          </td>
+                        </tr>
 
-                                <a href="#">Browse</a>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>
+                            third Party Certificate
+                            <strong className="text-danger ml-0">*</strong>{' '}
+                          </td>
+
+                          <td>{thirdParty?.originalName ? returnDocFormat(thirdParty?.originalName) : null}</td>
+                          <td className={styles.doc_row}>
+                            {thirdParty && thirdParty?.date
+                              ? moment(thirdParty?.date).format('DD-MM-YYYY,HH:mm A')
+                              : ''}
+                          </td>
+                          <td colSpan={2}>
+                            {thirdParty === null ? (
+                              <>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    name="myfile"
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => uploadDocHandler2(e, 'thirdPartyDoc')}
+                                  />
+                                  <button className={`${styles.button_upload} btn`}>Upload</button>
+                                </div>
+                              </>
+                            ) : (
+                              <div
+                                className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
+                              >
+                                <span>{thirdParty?.name ? thirdParty?.name : thirdParty?.originalName}</span>
+                                <img
+                                  onClick={(e) => SetThirdParty(null)}
+                                  className={`${styles.close_image} image_arrow mx-2`}
+                                  src="/static/close.svg"
+                                  alt="Close"
+                                />{' '}
                               </div>
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div className="col-md-4 offset-md-1 col-sm-6">
-                        <Form.Group className={styles.form_group}>
-                          <div className="d-flex">
-                            <select
-                              className={`${styles.value} ${styles.customSelect} input form-control`}
-                            
-                              id="name"
-                          
-                            >
-                              <option value="others">Others</option>
-                            </select>
-                            <Form.Label className={`${styles.label} label_heading`}>
-                              Document Type
-                            </Form.Label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
-                        </Form.Group>
-                        <Form.Group className={styles.form_group}>
-                          <input
-                            onChange={(e) =>
-                              setNewDoc({ ...newDoc, name: e.target.value })
-                            }
-                            id="otherDocName"
-                            className={`${styles.value} input form-control`}
-                            type="text"
-                            required
-                         
-                          />
-                          <Form.Label className={`${styles.label} label_heading`}>
-                            Please Specify Document Name
-                          </Form.Label>
-                        </Form.Group>
-                        <div className={styles.uploadBtnWrapper}>
-                          <button
-                            onClick={(e) => uploadDocumentHandler(e)}
-                            className={`${styles.upload_button} btn`}
-                         
-                          >
-                            Upload
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </Form>
-                </div>
-
-                <div className={styles.table_container}>
-                  <div className={styles.table_scroll_outer}>
-                    <div className={styles.table_scroll_inner}>
-                      <div
-                        className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-end align-items-center`}
-                      >
-
-                        <div
-                          className={`d-flex align-items-center ${styles.searchBarContainer} `}
-                        >
-                          <img
-                            className={` ${styles.searchImage} img-fluid`}
-                            src="/static/search.svg"
-                            alt="Search"
-                          ></img>
-                          <input
-                            className={`${styles.searchBar} statusBox border_color input form-control`}
-                            placeholder="Search"
-                            onChange={(e) => filterDocBySearch(e.target.value)}
-                          ></input>
-                        </div>
-                      </div>
-                      <table
-                        className={`${styles.table} table`}
-                        cellPadding="0"
-                        cellSpacing="0"
-                        border="0"
-                      >
-                        <thead>
-                          <tr>
-                            <th>
-                              DOCUMENT NAME{' '}
-                              <img
-                                className={`${styles.sort_image} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th>
-                              FORMAT{' '}
-                              <img
-                                className={`${styles.sort_image} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th>
-                              DOCUMENT DATE{' '}
-                              <img
-                                className={`${styles.sort_image} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th>
-                              UPLOADED BY{' '}
-                              <img
-                                className={`${styles.sort_image} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th>STATUS</th>
-                            <th>ACTION</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {docs &&
-                            docs?.map((document, index) => {
-                              if (document?.deleted) {
-                                return null;
-                              } else {
-                                return (
-                                  <tr key={index} className="uploadRowTable">
-                                    <td className={`${styles.doc_name}`}>
-                                      {document?.originalName}
-                                    </td>
-                                    <td>
-                                      {document?.originalName
-                                        ?.toLowerCase()
-                                        ?.endsWith('.xls') ||
-                                        document?.originalName
-                                          .toLowerCase()
-                                          .endsWith('.xlsx') ? (
-                                        <img
-                                          src="/static/excel.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      ) : document?.originalName
-                                        .toLowerCase()
-                                        .endsWith('.doc') ||
-                                        document?.originalName
-                                          .toLowerCase()
-                                          .endsWith('.docx') ? (
-                                        <img
-                                          src="/static/doc.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      ) : (
-                                        <img
-                                          src="/static/pdf.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      )}
-                                    </td>
-                                    <td className={styles.doc_row}>{moment(document?.date).format('DD-MM-YYYY, h:mm A')}</td>
-                                    <td className={styles.doc_row}>
-                                      {document?.uploadedBy?.fName}{' '}
-                                      {document?.uploadedBy?.lName}
-                                    </td>
-                                    <td>
-                                      <span
-                                        className={`${styles.status} ${styles.approved}`}
-                                      ></span>
-                                      {document?.verification?.status}
-                                    </td>
-                                    <td colSpan="2">
-                                      <img
-                                        onClick={(e) => {
-                                          deleteDocumentHandler({document, index})
-                                        }}
-                                        src="/static/delete.svg"
-                                        className={`${styles.delete_image} mr-3`}
-                                        alt="Bin"
-                                      />
-                                      <img
-                                        src="/static/upload.svg"
-                                        className="mr-3"
-                                        alt="Share"
-                                        onClick={() => {
-                                          setOpen(true);
-                                          setSharedDoc({ ...sharedDoc, path: document.path })
-
-                                        }}
-                                      />
-
-                                    </td>
-                                  </tr>
-                                );
-                              }
-                            })}
-                          {false &&
-                            documentsFetched?.documents?.map((document, index) => {
-                              if (document.deleted) {
-                                return null
-                              } else if (document.module === documentsDropDownFilter) {
-                                return (
-                                  <tr key={index} className="uploadRowTable">
-                                    <td className={`${styles.doc_name}`}>
-                                      {document.name}
-                                    </td>
-                                    <td>
-                                      <img
-                                        src="/static/pdf.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    </td>
-                                    <td className={styles.doc_row}>{document.date}</td>
-                                    <td className={styles.doc_row}>
-                                      {document.uploadedBy?.fName}{' '}
-                                      {document.uploadedBy?.lName}
-                                    </td>
-                                    <td>
-                                      <span
-                                        className={`${styles.status} ${styles.approved}`}
-                                      ></span>
-                                      {document?.verification?.status}
-                                    </td>
-                                    <td colSpan="2">
-                                      <img
-                                        onClick={() =>
-                                          dispatch(
-                                            DeleteDocument({
-                                              orderDocumentId: documentsFetched._id,
-                                              name: document.name,
-                                            }),
-                                          )
-                                        }
-                                        src="/static/delete.svg"
-                                        className={`${styles.delete_image} img-fluid mr-3`}
-                                        alt="Bin"
-                                      />
-                                      <img
-                                        src="/static/upload.svg"
-                                        className="img-fluid mr-3"
-                                        alt="Share"
-                                        onClick={() => {
-                                          dispatch(ViewDocument({
-                                            path: document.path,
-                                            orderId: documentsFetched._id
-                                          }))
-                                        }}
-                                      />
-                                      <img
-                                        src="/static/drive_file.svg"
-                                        className={`${styles.edit_image} img-fluid mr-3`}
-                                        alt="Share"
-                                      />
-                                    </td>
-                                  </tr>
-                                )
-                              } else {
-                                return null
-                              }
-                            })}
-
-                        </tbody>
-                      </table>
-                    </div>
+                            )}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
-              {open ? <TermsheetPopUp close={() => setOpen(false)} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}
+              <div className={`${styles.dashboard_form} card-body rounded-0 border-0`}>
+                <Form>
+                  <div className="row align-items-center pb-4">
+                    <div
+                      className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
+                    >
+                      <div className="text-center w-100">
+                        <img
+                          className={`${styles.upload_image} img-fluid d-block mx-auto`}
+                          src="/static/browse.svg"
+                          alt="Browse"
+                          onChange={(e) => uploadDocument2(e)}
+                        />
+                        {newDoc?.document ? (
+                          <div className="d-flex justify-content-center align-items-center">
+                            <div className={`${styles.certificate} text1 d-inline-flex justify-content-between`}>
+                              <span>{newDoc?.document?.name}</span>
+                              <img
+                                className={`${styles.close_image} image_arrow mx-2`}
+                                src="/static/close.svg"
+                                onClick={() => setNewDoc({ ...newDoc, document: null })}
+                                alt="Close"
+                              />{' '}
+                            </div>
+                          </div>
+                        ) : (
+                          <p className={styles.drop_para}>
+                            Drop Files here or
+                            <br />
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                onChange={(e) => setNewDoc({ ...newDoc, document: e.target.files[0] })}
+                                type="file"
+                                name="myfile"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                              />
+
+                              <a href="#">Browse</a>
+                            </div>
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="col-md-4 offset-md-1 col-sm-6">
+                      <Form.Group className={styles.form_group}>
+                        <div className="d-flex">
+                          <select className={`${styles.value} ${styles.customSelect} input form-control`} id="name">
+                            <option value="others">Others</option>
+                          </select>
+                          <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
+                          <img
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </Form.Group>
+                      <Form.Group className={styles.form_group}>
+                        <input
+                          onChange={(e) => setNewDoc({ ...newDoc, name: e.target.value })}
+                          id="otherDocName"
+                          className={`${styles.value} input form-control`}
+                          type="text"
+                          value={newDoc?.name}
+                        />
+                        <Form.Label className={`${styles.label} label_heading`}>
+                          Please Specify Document Name
+                        </Form.Label>
+                      </Form.Group>
+                      <div className={styles.uploadBtnWrapper}>
+                        <button onClick={(e) => uploadDocumentHandler(e)} className={`${styles.upload_button} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </Form>
+              </div>
+
+              <div className={styles.table_container}>
+                <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
+                    <div
+                      className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-end align-items-center`}
+                    >
+                      <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
+                        <img className={` ${styles.searchImage} img-fluid`} src="/static/search.svg" alt="Search"></img>
+                        <input
+                          className={`${styles.searchBar} statusBox border_color input form-control`}
+                          placeholder="Search"
+                          onChange={(e) => filterDocBySearch(e.target.value)}
+                        ></input>
+                      </div>
+                    </div>
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+                      <thead>
+                        <tr>
+                          <th>
+                            DOCUMENT NAME{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            FORMAT{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            DOCUMENT DATE{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            UPLOADED BY{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>STATUS</th>
+                          <th>ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredDocs &&
+                          filteredDocs?.map((document, index) => {
+                            if (document?.deleted) {
+                              return null;
+                            } else {
+                              return (
+                                <tr key={index} className="uploadRowTable">
+                                  <td className={`${styles.doc_name}`}>{document?.name}</td>
+                                  <td>{document?.originalName ? returnDocFormat(document?.originalName) : null}</td>
+                                  <td className={styles.doc_row}>
+                                    {moment(document?.date).format('DD-MM-YYYY, h:mm A')}
+                                  </td>
+                                  <td className={styles.doc_row}>
+                                    {document?.uploadedBy?.fName} {document?.uploadedBy?.lName}
+                                  </td>
+                                  <td>
+                                    <span className={`${styles.status} ${styles.approved}`}></span>
+                                    {document?.verification?.status ?? 'Pending'}
+                                  </td>
+                                  <td colSpan="2">
+                                    <img
+                                      onClick={(e) => {
+                                        deleteDocumentHandler(document, index);
+                                      }}
+                                      src="/static/delete.svg"
+                                      className={`${styles.delete_image} mr-3`}
+                                      alt="Bin"
+                                    />
+                                    <img
+                                      src="/static/upload.svg"
+                                      className={`${styles.upload_image} mr-3`}
+                                      alt="Share"
+                                      onClick={() => {
+                                        setOpen(true);
+                                        setSharedDoc({ ...sharedDoc, path: document.path });
+                                      }}
+                                    />
+                                  </td>
+                                </tr>
+                              );
+                            }
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
+            {open ? (
+              <TermsheetPopUp
+                close={() => setOpen(false)}
+                open={open}
+                istermsheet
+                shareEmail={handleShareDoc}
+                setEmail={(e) =>
+                  setSharedDoc({
+                    ...sharedDoc,
+                    data: { ...sharedDoc.data, receiver: e },
+                  })
+                }
+              />
+            ) : null}
           </div>
         </div>
         <SaveBar

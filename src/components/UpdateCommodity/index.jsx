@@ -1,16 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
-import { Card } from 'react-bootstrap';
 import Image from 'next/image';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UpdateCommodity } from 'redux/commodity/action';
-import { useSelector } from 'react-redux';
 import _get from 'lodash/get';
-import moment from 'moment';
 
 function Index() {
   const dispatch = useDispatch();
@@ -26,7 +23,6 @@ function Index() {
     Approved_Commodity: '',
     Approved_Date: '',
   });
-
 
   useEffect(() => {
     setCommodityData({
@@ -179,4 +175,5 @@ function Index() {
     </div>
   );
 }
+
 export default Index;

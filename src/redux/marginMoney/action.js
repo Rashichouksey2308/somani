@@ -181,9 +181,11 @@ export const UpdateMarginMoney = (payload) => async (dispatch, getState, api) =>
             toastId: toastMessage,
           });
         }
+        let id = sessionStorage.getItem('marginId');
+        dispatch(GetMarginMoney({ orderId: id }));
         dispatch(setNotLoading());
         dispatch(settingSidebar('Agreement & LC Module', 'Generic', 'Generic', '2'));
-        router.push('/generic/generic-list');
+        // router.push('/generic/generic-list')
       } else {
         dispatch(updateMarginMoneyFailed(response.data));
         const toastMessage = 'UPDATE REQUEST FAILED';
@@ -230,7 +232,6 @@ export const RevisedMarginMoney = (payload) => async (dispatch, getState, api) =
 
         dispatch(GetMarginMoney({ orderId: id }));
         dispatch(setNotLoading());
-   
       } else {
         dispatch(updatingRevisedMarginMoneyFailed(response.data));
         const toastMessage = 'UPDATE REQUEST FAILED';

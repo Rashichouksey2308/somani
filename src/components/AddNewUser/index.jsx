@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import styles from './index.module.scss';
-import { Form } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
-import Image from 'next/image';
+import React from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+import Image from 'next/image'
 
-function Index() {
+function Index () {
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -20,7 +20,7 @@ function Index() {
           <div className={`${styles.dashboard_form} card-body`}>
             <div className={`${styles.radio_form} mb-4`}>
               <div className={`${styles.sub_heading} label_heading`}>
-                User Type <strong className="text-danger">*</strong>
+                User Type <strong className='text-danger'>*</strong>
               </div>
               {['radio'].map((type, index) => (
                 <div key={`inline-${index}`} className={`${styles.radio_group} mt-2`}>
@@ -28,145 +28,145 @@ function Index() {
                     className={styles.radio}
                     inline
                     defaultChecked
-                    label="Internal"
-                    name="group1"
+                    label='Internal'
+                    name='group1'
                     type={type}
                     id={`inline-${type}-1`}
                   />
                   <Form.Check
                     className={styles.radio}
                     inline
-                    label="External"
-                    name="group1"
+                    label='External'
+                    name='group1'
                     type={type}
                     id={`inline-${type}-2`}
                   />
                 </div>
               ))}
             </div>
-            <div className="row">
+            <div className='row'>
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="text"
+                  type='text'
                   required
-                  name="supplierName"
+                  name='supplierName'
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Company Business Name
-                  <strong className="text-danger">*</strong>
+                  <strong className='text-danger'>*</strong>
                 </label>
               </div>
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="text"
+                  type='text'
                   required
-                  name="supplierName"
+                  name='supplierName'
                 />
                 <label className={`${styles.label_heading} label_heading`}>Short Name</label>
               </div>
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="number"
+                  type='number'
                   required
-                  name="supplierName"
+                  name='supplierName'
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   PAN
-                  <strong className="text-danger">*</strong>
+                  <strong className='text-danger'>*</strong>
                 </label>
               </div>
 
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
-                <div className="d-flex">
-                  <DateCalender labelName="Date of Incorporation" />
+                <div className='d-flex'>
+                  <DateCalender labelName='Date of Incorporation' />
                   <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
+                    <Image width='22px' height='24px' src='/static/caldericon.svg' alt='Calender' />
                   </div>
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <input
-                  type="text"
-                  id="textInput"
-                  name="email"
+                  type='text'
+                  id='textInput'
+                  name='email'
                   className={`${styles.input_field} border_color input form-control`}
                 />
-                <label className={`${styles.label_heading} label_heading`} id="textInput">
-                  Official Email ID<strong className="text-danger">*</strong>
+                <label className={`${styles.label_heading} label_heading`} id='textInput'>
+                  Official Email ID<strong className='text-danger'>*</strong>
                 </label>
               </div>
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="password"
-                  name="supplierName"
+                  type='password'
+                  name='supplierName'
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  Password<strong className="text-danger">*</strong>
+                  Password<strong className='text-danger'>*</strong>
                 </label>
               </div>
 
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="text"
+                  type='text'
                   required
-                  name="supplierName"
+                  name='supplierName'
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
+                  User Role<strong className='text-danger'>*</strong>
                 </label>
               </div>
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="number"
+                  type='number'
                   onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   required
-                  name="supplierName"
+                  name='supplierName'
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Phone Number
-                  <strong className="text-danger">*</strong>
+                  <strong className='text-danger'>*</strong>
                 </label>
               </div>
               <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="number"
+                  type='number'
                   onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   required
-                  name="supplierName"
+                  name='supplierName'
                 />
                 <label className={`${styles.label_heading} label_heading`}>Alternate Phone Number</label>
               </div>
               <div className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`} style={{ marginTop: -1 }}>
                 <div className={styles.radio_form} style={{ paddingLeft: 10 }}>
                   <div className={`${styles.sub_heading} label_heading`}>
-                    Communication Mode<strong className="text-danger">*</strong>
+                    Communication Mode<strong className='text-danger'>*</strong>
                   </div>
-                  <Form selected="">
+                  <Form selected=''>
                     {['checkbox'].map((type) => (
                       <div key={`inline-${type}`} className={styles.radio_group}>
                         <Form.Check
                           className={`${styles.radio} radio`}
                           inline
                           // defaultChecked={true}
-                          label="Email ID"
-                          name="Email"
+                          label='Email ID'
+                          name='Email'
                           type={type}
                           id={`inline-${type}-1`}
                         />
                         <Form.Check
                           className={`${styles.radio} radio`}
                           inline
-                          label="SMS"
-                          name="SMS"
+                          label='SMS'
+                          name='SMS'
                           type={type}
                           id={`inline-${type}-2`}
                         />
@@ -174,8 +174,8 @@ function Index() {
                         <Form.Check
                           className={`${styles.radio} radio`}
                           inline
-                          label="Whatsapp"
-                          name="Whatsapp"
+                          label='Whatsapp'
+                          name='Whatsapp'
                           // type={type}
                           id={`inline-${type}-2`}
                         />
@@ -186,7 +186,7 @@ function Index() {
               </div>
               <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                 <div className={`${styles.phone_card}`}>
-                  <select name="callingCode" id="Code" className={`${styles.code_phone} input border-right-0`}>
+                  <select name='callingCode' id='Code' className={`${styles.code_phone} input border-right-0`}>
                     <option>+91</option>
                     <option>+1</option>
                     <option>+92</option>
@@ -194,14 +194,14 @@ function Index() {
                     <option>+24</option>
                   </select>
                   <input
-                    type="number"
+                    type='number'
                     onWheel={(event) => event.currentTarget.blur()}
                     onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                    id="textNumber"
-                    name="phoneNumber"
+                    id='textNumber'
+                    name='phoneNumber'
                     className={`${styles.input_field}  input form-control border-left-0`}
                   />
-                  <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                  <label className={`${styles.label_heading} label_heading`} id='textNumber'>
                     Whatsapp Number (Optional)
                   </label>
                 </div>
@@ -213,19 +213,19 @@ function Index() {
         <div className={`${styles.main} mt-4 card border_color`}>
           <div
             className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
-            data-toggle="collapse"
-            data-target="#keyAddress"
-            aria-expanded="true"
-            aria-controls="keyAddress"
+            data-toggle='collapse'
+            data-target='#keyAddress'
+            aria-expanded='true'
+            aria-controls='keyAddress'
           >
             <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
             <span>+</span>
           </div>
-          <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
+          <div id='keyAddress' className='collapse' aria-labelledby='keyAddress'>
             <div className={`${styles.dashboard_form} card-body`}>
-              <div className="d-flex justify-content-between">
+              <div className='d-flex justify-content-between'>
                 <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
-                  <div className="d-flex justify-content-between">
+                  <div className='d-flex justify-content-between'>
                     <div>
                       <label className={styles.label}>Registered Office Address</label>
                       <div className={styles.address_values}>
@@ -236,36 +236,16 @@ function Index() {
                       </div>
                     </div>
                     <div>
-                      <div className="d-flex">
-                        <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
+                      <div className='d-flex'>
+                        <img className={`${styles.edit_image} img-fluid`} src='/static/mode_edit.svg' alt='Edit' />
                         <div className={`${styles.delete_image} ml-3`}>
-                          <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
+                          <Image src='/static/delete.svg' width='40px' height='40px' alt='Bin' />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.address_card} value background1`} style={{ padding: '22px' }}>
-                  <div className="d-flex justify-content-between">
-                    <div>
-                      <label className={styles.label}>Registered Office Address</label>
-                      <div className={styles.address_values}>
-                        <p>N-11, 29 Tilak Marg, New Delhi</p>
-                        <p>
-                          <span>GSTIN:</span> RTF67WTF76RT456
-                        </p>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="d-flex">
-                        <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
-                        <div className={`${styles.delete_image} ml-3`}>
-                          <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+               
               </div>
               <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
                 <div
@@ -274,22 +254,22 @@ function Index() {
                   <h3 className={`${styles.heading}`}>Add a new address</h3>
                 </div>
                 <div className={`${styles.dashboard_form} card-body border_color`}>
-                  <div className="row">
+                  <div className='row'>
                     <div className={`${styles.form_group} col-md-3 col-sm-4`}>
-                      <div className="d-flex">
+                      <div className='d-flex'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                          name="countryOfOrigin"
+                          name='countryOfOrigin'
                           required
                         >
-                          <option value="India">Agra</option>
-                          <option value="Dubai">Dubai</option>
+                          <option value='India'>Agra</option>
+                          <option value='Dubai'>Dubai</option>
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
-                          Address Type<strong className="text-danger">*</strong>
+                          Address Type<strong className='text-danger'>*</strong>
                         </label>
                         <div className={`${styles.image_arrow} image_arrow`}>
-                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
+                          <Image width='13px' height='8px' src='/static/inputDropDown.svg' alt='Search' />
                         </div>
                       </div>
                     </div>
@@ -297,48 +277,48 @@ function Index() {
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
-                        type="number"
-                        name="pinCode"
+                        type='number'
+                        name='pinCode'
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         Pin Code
-                        <strong className="text-danger">*</strong>
+                        <strong className='text-danger'>*</strong>
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <div className="d-flex">
+                      <div className='d-flex'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                          name="countryOfOrigin"
+                          name='countryOfOrigin'
                           required
                           style={{ paddingRight: '35px' }}
                         >
-                          <option value="India">Uttar Pradesh</option>
-                          <option value="Dubai">Dubai</option>
+                          <option value='India'>Uttar Pradesh</option>
+                          <option value='Dubai'>Dubai</option>
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
-                          State<strong className="text-danger">*</strong>
+                          State<strong className='text-danger'>*</strong>
                         </label>
                         <div className={`${styles.image_arrow} image_arrow`}>
-                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
+                          <Image width='13px' height='8px' src='/static/inputDropDown.svg' alt='Search' />
                         </div>
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <div className="d-flex">
+                      <div className='d-flex'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                          name="countryOfOrigin"
+                          name='countryOfOrigin'
                           required
                         >
-                          <option value="India">Agra</option>
-                          <option value="Dubai">Dubai</option>
+                          <option value='India'>Agra</option>
+                          <option value='Dubai'>Dubai</option>
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>
-                          City<strong className="text-danger">*</strong>
+                          City<strong className='text-danger'>*</strong>
                         </label>
                         <div className={`${styles.image_arrow} image_arrow`}>
-                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
+                          <Image width='13px' height='8px' src='/static/inputDropDown.svg' alt='Search' />
                         </div>
                       </div>
                     </div>
@@ -346,8 +326,8 @@ function Index() {
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
-                        type="text"
-                        name="pinCode"
+                        type='text'
+                        name='pinCode'
                       />
                       <label className={`${styles.label_heading} label_heading`}>GSTIN</label>
                     </div>
@@ -355,18 +335,17 @@ function Index() {
                       <input
                         className={`${styles.input_field} ${styles.address_field} border_color input form-control`}
                         required
-                        type="text"
-                        name="pinCode"
+                        type='text'
+                        name='pinCode'
                       />
                       <label className={`${styles.label_heading} label_heading`}>
-                        Address<strong className="text-danger">*</strong>
+                        Address<strong className='text-danger'>*</strong>
                       </label>
                     </div>
                   </div>
                 </div>
                 <button
                   className={`${styles.add_btn}`}
-                  // onClick={() => addData('address')}
                 >
                   Add
                 </button>
@@ -378,102 +357,102 @@ function Index() {
         <div className={`${styles.doc_main} mt-4 border_color card`}>
           <div
             className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
-            data-toggle="collapse"
-            data-target="#upload"
-            aria-expanded="true"
-            aria-controls="upload"
+            data-toggle='collapse'
+            data-target='#upload'
+            aria-expanded='true'
+            aria-controls='upload'
           >
             <h3 className={styles.heading}>Documents</h3>
             <span>+</span>
           </div>
-          <div id="upload" className="collapse" aria-labelledby="upload" data-parent="#upload">
+          <div id='upload' className='collapse' aria-labelledby='upload' data-parent='#upload'>
             <div className={`${styles.table_form}`}>
               <div className={styles.table_container}>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
-                    <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
+                    <table className={`${styles.table} mb-0 table`} cellPadding='0' cellSpacing='0' border='0'>
                       <thead>
                         <tr>
                           <th>
                             DOCUMENT NAME{' '}
                             <Image
-                              width="14px"
-                              height="14px"
+                              width='14px'
+                              height='14px'
                               className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
+                              src='/static/icons8-sort-24.svg'
+                              alt='Sort icon'
                             />
                           </th>
                           <th>
                             FORMAT{' '}
                             <Image
-                              width="14px"
-                              height="14px"
+                              width='14px'
+                              height='14px'
                               className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
+                              src='/static/icons8-sort-24.svg'
+                              alt='Sort icon'
                             />
                           </th>
                           <th>
                             DOCUMENT DATE{' '}
                             <Image
-                              width="14px"
-                              height="14px"
+                              width='14px'
+                              height='14px'
                               className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
+                              src='/static/icons8-sort-24.svg'
+                              alt='Sort icon'
                             />
                           </th>
                           <th>
                             UPLOADED BY{' '}
                             <Image
-                              width="14px"
-                              height="14px"
+                              width='14px'
+                              height='14px'
                               className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
+                              src='/static/icons8-sort-24.svg'
+                              alt='Sort icon'
                             />
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr className="table_row">
+                        <tr className='table_row'>
                           <td className={styles.doc_name}>PAN</td>
                           <td>
                             <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
+                              width='57px'
+                              height='25px'
+                              src='/static/pdf.svg'
                               className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
+                              alt='Pdf'
                             />
                           </td>
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                           <td>John Doe</td>
                         </tr>
-                        <tr className="table_row">
+                        <tr className='table_row'>
                           <td className={styles.doc_name}>GST Certificate</td>
                           <td>
                             <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
+                              width='57px'
+                              height='25px'
+                              src='/static/pdf.svg'
                               className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
+                              alt='Pdf'
                             />
                           </td>
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                           <td>John Doe</td>
                         </tr>
-                        <tr className="table_row">
+                        <tr className='table_row'>
                           <td className={styles.doc_name}>Board Resolution</td>
                           <td>
                             <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
+                              width='57px'
+                              height='25px'
+                              src='/static/pdf.svg'
                               className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
+                              alt='Pdf'
                             />
                           </td>
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
@@ -489,7 +468,7 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index
