@@ -27,6 +27,8 @@ const Index = ({
   savedataRevised,
   orderList,
 }) => {
+
+  console.log(invoiceDataRevised,'invoiceDataRevised')
   const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
@@ -793,7 +795,7 @@ const Index = ({
                     type="text"
                     id="textInput"
                     name="buyerName"
-                    defaultValue={marginData?.company?.companyName}
+                    defaultValue={invoiceDataRevised?.buyerName}
                     className={`${styles.input_field} input form-control`}
                     required
                     onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
