@@ -89,17 +89,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     let newArray = cimsDetails.slice();
     newArray[index].vesselName = _get(filteredBL, '[0].vesselName', '');
     newArray[index].quantity = filteredBL.length > 1 ?  data : _get(filteredBL, '[0].blQuantity', '')
-     let quan=  Number(newArray[index].quantity)
-     if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
-       quan = Number(quan)*0.001
-       quan= quan*1
-      }else{
-        quan= Number(quan)*1
-      }
-      if(Number(quan)>100000){
-                  quan=100000
-        }
-    newArray[index].cimsCharges=quan
+    //  let quan=  Number(newArray[index].quantity)
+    //  if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
+    //    quan = Number(quan)*0.001
+    //    quan= quan*1
+    //   }else{
+    //     quan= Number(quan)*1
+    //   }
+    //   if(Number(quan)>100000){
+    //               quan=100000
+    //     }
+    // newArray[index].cimsCharges=quan
     setCimsDetails(newArray.slice());
   };
 

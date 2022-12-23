@@ -182,7 +182,7 @@ export default function UnderTaking_1(data, preview, setPreviewValue) {
                     {moment(val.chequeDate).format('DD-MM-YYYY')}
                   </Col>
                   <Col md={3} className={styles.right}>
-                  INR  {returnReadableNumber(val.amount,"en-IN",2)}
+                  INR  {returnReadableNumber(val.amount,"en-IN",2,2)}
                   
                   </Col>
                 </Row>
