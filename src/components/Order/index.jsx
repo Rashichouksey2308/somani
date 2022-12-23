@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
+import { checkNan } from '@/utils/helper';
 import moment from 'moment';
 const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,shipment }) => {
  
@@ -281,9 +282,10 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,
                   value={
                     isFieldInFocus.tolerance
                       ? orderDetail?.tolerance
-                      : Number(orderDetail?.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        }) + ' %'
+                      : 
+                      
+                      checkNan(orderDetail?.tolerance)
+                      + ' %'
                   }
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
