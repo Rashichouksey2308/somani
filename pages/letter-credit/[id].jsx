@@ -584,6 +584,7 @@ function Index() {
                               required
                               type="number"
                               ref={inputRef}
+                              onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                               // defaultValue={
                               //   editInput ? editCurrent?.newValue : ''
                               // }
