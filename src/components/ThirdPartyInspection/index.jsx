@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { UpdateInspection } from 'redux/Inspections/action';
-import { ViewDocument } from 'redux/ViewDoc/action';
+import { ViewDocument,previewDocument } from 'redux/ViewDoc/action';
 import { GetAllInspection } from '../../redux/Inspections/action';
 import DateCalender from '../DateCalender';
 import SaveBar from '../SaveBar';
@@ -17,7 +17,7 @@ import styles from './index.module.scss';
 export default function Index({ addButton, setComponentId, componentId, ports }) {
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(() => { 
     let id = sessionStorage.getItem('inspectionId');
     dispatch(GetAllInspection(`?inspectionId=${id}`));
   }, []);
@@ -1364,9 +1364,10 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                         };
                                       } else {
                                         dispatch(
-                                          ViewDocument({
+                                          previewDocument({
                                             path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                             order: inspectionData?.order?._id,
+                                            company: inspectionData?.company?._id,
                                           }),
                                         );
                                       }
@@ -1479,9 +1480,10 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                         };
                                       } else {
                                         dispatch(
-                                          ViewDocument({
-                                            path: inspectionData?.thirdPartyInspection?.certificateOfQuality?.path,
+                                          previewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                             order: inspectionData?.order?._id,
+                                            company: inspectionData?.company?._id,
                                           }),
                                         );
                                       }
@@ -1595,9 +1597,10 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                         };
                                       } else {
                                         dispatch(
-                                          ViewDocument({
-                                            path: inspectionData?.thirdPartyInspection?.certificateOfWeight?.path,
+                                          previewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                             order: inspectionData?.order?._id,
+                                            company: inspectionData?.company?._id,
                                           }),
                                         );
                                       }
@@ -1784,10 +1787,10 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                         };
                                       } else {
                                         dispatch(
-                                          ViewDocument({
-                                            path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin
-                                              ?.path,
+                                          previewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                             order: inspectionData?.order?._id,
+                                            company: inspectionData?.company?._id,
                                           }),
                                         );
                                       }
@@ -1902,10 +1905,10 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                         };
                                       } else {
                                         dispatch(
-                                          ViewDocument({
-                                            path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfQuality
-                                              ?.path,
+                                          previewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                             order: inspectionData?.order?._id,
+                                            company: inspectionData?.company?._id,
                                           }),
                                         );
                                       }
@@ -2020,10 +2023,10 @@ export default function Index({ addButton, setComponentId, componentId, ports })
                                         };
                                       } else {
                                         dispatch(
-                                          ViewDocument({
-                                            path: inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeight
-                                              ?.path,
+                                          previewDocument({
+                                            path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
                                             order: inspectionData?.order?._id,
+                                            company: inspectionData?.company?._id,
                                           }),
                                         );
                                       }
