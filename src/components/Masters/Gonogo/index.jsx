@@ -2,44 +2,33 @@ import React, { useEffect, useState, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
-import ToggleSwitch from '../../../components/ToggleSwitch';
 import { useDispatch, useSelector } from 'react-redux';
 import DownloadMasterBar from '../../../components/DownloadMasterBar';
-import { GetMastersCommodity } from 'redux/masters/action';
+import { GetAllGonogo } from 'redux/masters/action';
 import Table from '../../Table';
 import Filter from '../../../components/Filter';
 import Image from 'next/image';
-
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
-
   const [searchTerm, setSearchTerm] = useState('');
-
   const dispatch = useDispatch();
-
   const { searchedLeads } = useSelector((state) => state.order);
-
-  const { getCommodityMasterData } = useSelector((state) => state.MastersData);
+  const { getGonogoMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
-    dispatch(GetMastersCommodity());
+    dispatch(GetAllGonogo());
   }, []);
   const tableColumns = useMemo(() => [
     {
-      Header: 'COMMODITY',
-      accessor: 'Commodity',
+      Header: 'VERSION',
+      accessor: 'version',
     },
     {
-      Header: 'CHAPTER NAME.',
-      accessor: 'Chapter_Name',
-    },
-    {
-      Header: 'CHAPTER CODE',
-      accessor: 'Chapter_Code',
+      Header: 'VERSION APPROVAL DATE',
+      accessor: 'versionApprovalDate',
     },
     {
       Header: 'STATUS',
-      accessor: 'Approved_Commodity',
-      Cell: ({ value }) => <ToggleSwitch value={value} />,
+      accessor: 'verification.status',
     },
   ]);
   const tableHooks = (hooks) => {
@@ -70,7 +59,7 @@ function Index() {
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
-              <h1 className={styles.heading}>Commodity</h1>
+              <h1 className={styles.heading}>Go No Go Logic</h1>
             </div>
             <div className={`${styles.search}`}>
               <div className="input-group">
@@ -96,7 +85,6 @@ function Index() {
               )}
             </div>
             <Filter />
-
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
@@ -108,7 +96,7 @@ function Index() {
           {/*UserTable*/}
           <div className={`${styles.datatable} border datatable card mt-4`}>
             <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-              <h3 className="heading_card">Commodity</h3>
+              <h3 className="heading_card">Go No Go Logic</h3>
               <div className="d-flex align-items-center">
                 <div className={`${styles.show_record}`}>Show Records:</div>
                 <div className="d-flex align-items-center position-relative ml-2">
@@ -130,11 +118,7 @@ function Index() {
               </div>
             </div>
             <div className="generic-table">
-              <Table
-                columns={tableColumns}
-                data={getCommodityMasterData && getCommodityMasterData}
-                tableHooks={tableHooks}
-              />
+              <Table columns={tableColumns} data={getGonogoMasterData && getGonogoMasterData} tableHooks={tableHooks} />
             </div>
           </div>
           <div className={`${styles.total_count}`}>
