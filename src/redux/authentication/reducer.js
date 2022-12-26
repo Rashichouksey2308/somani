@@ -69,6 +69,11 @@ function AuthReducer (state = initialState, action) {
         fetchingUserPermissionsStatus: null,
         userPermissions: []
       }
+         case types.VERIFY_TOKEN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload
+      }
 
     case types.FETCH_USER_PERMISSIONS_SUCCESS:
       return {
