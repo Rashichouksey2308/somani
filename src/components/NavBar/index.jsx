@@ -45,6 +45,8 @@ function Index () {
 
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const darkMode = useSelector((state) => state.user.isDark)
+  const { user } = useSelector((state) => state.auth);
+
   const handleOpen = () => {
     if (!sidebar) {
       dispatch(showSidebar(true))
@@ -55,7 +57,7 @@ function Index () {
   const changeDarkMode = () => {
     dispatch(ChangeTheme())
   }
-
+  const returnString = (string) => string ? string?.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()) : ''
   return (
     <header className={`${`navbar-static-top`} ${styles.main_container} darknavbar`} role='navigation'>
       <div className='d-flex align-items-center'>
@@ -117,14 +119,14 @@ function Index () {
           >
             <img src='/static/profile-icon.png' alt='profile icon' className='img-fluid' />
             <name className='d-none d-md-inline-block'>
-              Javanika Seth<span>ID: 39853-09343</span>
+              {returnString(user?.fName)} {returnString(user?.lName)}<span>ID: 39853-09343</span>
             </name>
           </a>
 
           <div className='dropdown-menu' aria-labelledby='userProfile'>
-            <a className={`${styles.dropdown_item} dropdown-item`}>Name: Javanika</a>
-            <a className={`${styles.dropdown_item} dropdown-item`}>Age : 21 Years</a>
-            <a className={`${styles.dropdown_item} dropdown-item`}
+            <a className={`${styles.dropdown_item} dropdown-item`}>Name:  {returnString(user?.fName)}</a>
+            <a className={`${styles.dropdown_item} dropdown-item`}>Age :       </a>
+            <a className={`${styles.dropdown_item} dropdown-item`} 
               role='button'
               onClick={() => {
                 dispatch(logoutUser())
