@@ -153,7 +153,6 @@ export default {
   getMasterUsersQueueRecords: 'user-master/filterUser',
   filterUsersQueue: 'user-master/searchUser',
 
-
   //Checker
   getCommodityDetails: '/commodity/commodity/',
   updateCommodityRemark: '/commodity/checker-commodity/',
@@ -161,6 +160,9 @@ export default {
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
+
+  //Masters
+  getAllCommodity: '/commodity/commodityRes',
   getCommodityPickupRecords: '/commodity/checker-pending-requests',
   getVendorPickupRecords: '/vendor/checker-pending-requests',
   getCreditCAMPickupRecords: '/lead/cam/getCamLeads',

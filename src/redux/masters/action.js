@@ -1,39 +1,31 @@
+/*eslint-disable*/
 import * as types from './actionType';
 import Axios from 'axios';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import router from 'next/router';
+import { settingSidebar } from '../breadcrumb/action';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 
-function getMasterUsersQueueRecordsSuccess(payload) {
+function getMastersCommodity() {
   return {
-    type: types.GET_MASTER_USERS_QUEUE_RECORDS_SUCCESSFULL,
+    type: types.GET_COMMODITY_MASTERS,
+  };
+}
+
+function getAllCommoditySuccess(payload) {
+  return {
+    type: types.GET_COMMODITY_MASTERS_SUCCESS,
     payload,
   };
 }
 
-function getMasterUsersQueueRecordsFailed(payload = {}) {
+function getAllCommodityFailed() {
   return {
-    type: types.GET_MASTER_USERS_QUEUE_RECORDS_FAILED,
-    payload,
+    type: types.GET_COMMODITY_MASTERS_FAILURE,
   };
 }
-
-// ******** Search & Filter Users Queue  ***********/////
-
-function filterUsersQueue() {
-  return {
-    type: types.FILTER_USERS_QUEUE,
-  };
-}
-
-function filterUsersQueueSuccess(payload) {
-  return {
-    type: types.FILTER_USERS_QUEUE_SUCCESSFULL,
-    payload,
-  };
-}
-
 function filterUsersQueueFailed() {
   return {
     type: types.FILTER_USERS_QUEUE_FAILED,
@@ -65,6 +57,41 @@ export const getCountries = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+export const GetMastersCommodity = () => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
+    Axios.get(`${API.corebaseUrl}/${API.getAllCommodity}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllCommoditySuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getAllCommodityFailed(response.data.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getAllMarginMoneyFailed());
+    dispatch(setNotLoading());
+    const toastMessage = 'GET MASTER COMMODITY API FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
   }
 };
 
