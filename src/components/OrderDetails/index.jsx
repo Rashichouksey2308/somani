@@ -197,7 +197,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
               >
                 <option value="">Select an option</option>
                 {port
-                  .filter((val, index) => {
+                  ?.filter((val, index) => {
                     if (val.Country.toLowerCase() == 'india') {
                       return val;
                     }
