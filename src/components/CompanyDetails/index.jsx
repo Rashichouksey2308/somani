@@ -22,27 +22,27 @@ const Index = ({
   companyDetails,
   setCompanyDetails,
 }) => {
+
   const { gstList } = useSelector((state) => state.buyer);
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan);
+
   const dispatch = useDispatch();
+
   const [slider, setSlider] = useState(0);
   const [typeOfSlider, setSliderType] = useState(1);
   const [isSliderOnFocus, setIsSliderOnFocus] = useState(false);
   const [sliderWithCr, setSliderWithCr] = useState('');
-  const [highlight, setHighlight] = useState(0);
-  const [highlight3, setHighlight3] = useState(0);
-  const setSlide = (val) => {
-    setSlider(val);
-    getSlider(val);
-  };
+
   useEffect(() => {
     getSlider();
   }, [slider]);
+
   useEffect(() => {
     if (isSliderOnFocus === false) {
       setSliderWithCr(slider.toString() + ' Cr');
     }
   }, [slider, isSliderOnFocus]);
+
   const getvalue = () => {
     if (!isSliderOnFocus) {
       if (sliderWithCr == '0 Cr') return '';
@@ -52,6 +52,7 @@ const Index = ({
       else return slider;
     }
   };
+
   const getSlider = (val) => {
     if (typeOfSlider == 1) {
       return (
@@ -93,13 +94,16 @@ const Index = ({
       );
     }
   };
+
   useEffect(() => {
     setCompPanName(gstList?.data?.companyData?.companyName);
   }, [gstList]);
+
   const [serachterm, setSearchTerm] = useState('');
   const [compPan, setCompPan] = useState();
   const [compPanName, setCompPanName] = useState();
   const [boolean1, setBoolean1] = useState(false);
+
   useEffect(() => {
     if (compPan !== '') {
       const newInput = { ...companyDetails };
@@ -108,6 +112,7 @@ const Index = ({
       // dispatch(GetGst(compPan))
     }
   }, [compPan]);
+
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
@@ -115,6 +120,7 @@ const Index = ({
       dispatch(GetPanGst({ query: query }));
     }
   };
+
   const handleFilteredData = (results) => {
     if (results?.pans?.length > 0) {
       setCompPan(results?.pans[0]);
@@ -128,6 +134,7 @@ const Index = ({
       }
     }
   };
+  
   return (
     <>
       <div className={`${styles.main} border_color`}>
