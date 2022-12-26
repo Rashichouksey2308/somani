@@ -196,7 +196,7 @@ function Index({ btnName, isUser, isVendor, rightBtn, rightBtnClick, isSupplier 
                         Status
                         <select className={`${styles.input_field} ${styles.customSelect} mt-3 input form-control`}>
                           <option value="India">All</option>
-                          <option value="America">America</option>
+                          <option value="America">No</option>
                         </select>
                       </label>
 
