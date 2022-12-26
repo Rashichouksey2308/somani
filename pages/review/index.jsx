@@ -7689,11 +7689,18 @@ function Index() {
                           lineHeight: '23px',
                           padding: '36px 10px 24px',
                         }}
-                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) } {camConversionunit == 10000000 ? ' CR' : ' LAKH'} </td>
+                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) } {camConversionunit == 10000000 ? ' CR' : ' LAKH'} 
+                            </td>
                           ))}
                       </>
                     ) : (
-                      <td>-</td>
+                      <td  align="center"
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        padding: '36px 10px 24px',
+                      }}>-</td>
                     )}
                          {filteredCreditRating &&
                           filteredCreditRating?.length > 0   ? (
@@ -7715,7 +7722,13 @@ function Index() {
                           ))}
                       </>
                     ) : (
-                      <td>-</td>
+                      <td  align="center"
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        padding: '36px 10px 24px',
+                      }}>-</td>
                     )}
                       
                       <td
