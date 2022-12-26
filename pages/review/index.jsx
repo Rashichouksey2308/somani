@@ -4726,7 +4726,7 @@ function Index() {
                   }}
                 >
                   {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
+                    maximumFractionDigits: 0,
                   })}{' '}
                   {camData?.productSummary?.averageStockOfCommodity ? 'Days' : ''}
                 </td>
@@ -7676,12 +7676,11 @@ function Index() {
                       >
                        -
                       </td>
-                       {filteredCreditRating ? (
+                       {filteredCreditRating &&
+                          filteredCreditRating?.length > 0   ? (
                       <>
                         {' '}
-                        {filteredCreditRating &&
-                          filteredCreditRating?.length > 0 &&
-                          filteredCreditRating.map((val, index) => (
+                        {filteredCreditRating.map((val, index) => (
                             <td
                       align="center"
                         style={{
@@ -7690,18 +7689,24 @@ function Index() {
                           lineHeight: '23px',
                           padding: '36px 10px 24px',
                         }}
-                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) } {camConversionunit == 10000000 ? ' CR' : ' LAKH'} </td>
+                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) } {camConversionunit == 10000000 ? ' CR' : ' LAKH'} 
+                            </td>
                           ))}
                       </>
                     ) : (
-                      <td>-</td>
+                      <td  align="center"
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        padding: '36px 10px 24px',
+                      }}>-</td>
                     )}
-                          {filteredCreditRating ? (
+                         {filteredCreditRating &&
+                          filteredCreditRating?.length > 0   ? (
                       <>
                         {' '}
-                        {filteredCreditRating &&
-                          filteredCreditRating?.length > 0 &&
-                          filteredCreditRating.map((val, index) => (
+                        {filteredCreditRating.map((val, index) => (
                             <td
                       align="center"
                         style={{
@@ -7717,7 +7722,13 @@ function Index() {
                           ))}
                       </>
                     ) : (
-                      <td>-</td>
+                      <td  align="center"
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        padding: '36px 10px 24px',
+                      }}>-</td>
                     )}
                       
                       <td

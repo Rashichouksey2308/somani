@@ -55,9 +55,50 @@ function Index() {
   }, [lcModuleData]);
 
   const [lcData, setLcData] = useState();
+  const [lcData2, setLcData2] = useState();
 
   useEffect(() => {
     setLcData({
+      formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+      applicableRules: lcModuleData?.lcApplication?.applicableRules,
+      dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+      placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+      lcIssuingBank: 'ING Bank',
+      applicant: lcModuleData?.lcApplication?.applicant,
+      beneficiary: lcModuleData?.lcApplication?.beneficiary,
+      currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+      tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+      creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+      creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+      atSight: lcModuleData?.lcApplication?.atSight,
+      numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
+      drawee: lcModuleData?.lcApplication?.drawee,
+      deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+      partialShipment: lcModuleData?.lcApplication?.partialShipment,
+      transhipments: lcModuleData?.lcApplication?.transhipments,
+      shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+      portOfLoading: lcModuleData?.lcApplication?.portOfLoading
+        ? lcModuleData?.lcApplication?.portOfLoading
+        : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort,
+      portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+      latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+      DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+      presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
+      confirmationInstructions: lcModuleData?.lcApplication?.confirmationInstructions,
+      reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
+      adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
+      secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
+      requestedConfirmationParty: lcModuleData?.lcApplication?.requestedConfirmationParty,
+      charges: lcModuleData?.lcApplication?.charges,
+      instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
+      senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
+      documentaryCreditNumber: lcModuleData?.lcApplication?.documentaryCreditNumber,
+      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+      dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
+      numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
+    });
+    setLcData2({
       formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
@@ -183,14 +224,14 @@ function Index() {
     newInput[name] = value;
     setClauseObj(newInput);
 
-    const newInput1 = { ...lcData };
+    const newInput1 = { ...lcData2 };
     if (drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == 'Usuance') {
       newInput1['numberOfDays'] = value;
     } else {
       newInput1[drop] = value;
     }
 
-    setLcData(newInput1);
+    setLcData2(newInput1);
   };
 
   const saveDropDownDate = (value, name) => {
@@ -258,9 +299,13 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage });
       }
     } else {
-      let sendLcData = { ...lcData };
-      sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage));
+
+      let sendLcData = { ...lcData2 };
+      sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData2.tolerancePercentage));
+      sendLcData.numberOfAmendment = lcData.numberOfAmendment
+      sendLcData.dateOfAmendment = lcData.dateOfAmendment
       const task = lcModuleData.isPostAmmended;
+
       let fd = new FormData();
 
       fd.append('lcNewApplication', JSON.stringify(clauseArr));
