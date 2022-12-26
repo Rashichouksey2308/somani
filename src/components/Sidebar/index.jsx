@@ -155,6 +155,7 @@ function Index() {
         { name: 'Inspection', image: '/static/inspection.svg', route: '/checker/inspection' },
         { name: 'Credit CAM', image: '/static/inspection.svg', route: '/checker/credit-cam' },
         { name: 'Transaction Summary', image: '/static/term-sheets.svg', route: '/checker/transaction-summary' },
+        { name: 'Generic', image: '/static/inspection.svg', route: '/checker/generic' },
       ],
       image: '/static/Masters.svg',
       route: '',
