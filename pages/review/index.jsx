@@ -8493,7 +8493,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(true);
+                  setUploadBtn(false);
                 }}
               >
                 Orders
@@ -8509,7 +8509,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(true);
+                  setUploadBtn(false);
                 }}
               >
                 Credit
@@ -8541,7 +8541,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(true);
+                  setUploadBtn(false);
                 }}
               >
                 CAM
