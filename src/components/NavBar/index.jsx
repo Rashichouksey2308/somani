@@ -57,7 +57,7 @@ function Index () {
   const changeDarkMode = () => {
     dispatch(ChangeTheme())
   }
-  const returnString = (string) => string?.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()) ?? ''
+  const returnString = (string) => string ? string?.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()) : ''
   return (
     <header className={`${`navbar-static-top`} ${styles.main_container} darknavbar`} role='navigation'>
       <div className='d-flex align-items-center'>
