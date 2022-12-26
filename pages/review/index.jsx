@@ -4726,7 +4726,7 @@ function Index() {
                   }}
                 >
                   {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
+                    maximumFractionDigits: 0,
                   })}{' '}
                   {camData?.productSummary?.averageStockOfCommodity ? 'Days' : ''}
                 </td>
@@ -7676,12 +7676,11 @@ function Index() {
                       >
                        -
                       </td>
-                       {filteredCreditRating ? (
+                       {filteredCreditRating &&
+                          filteredCreditRating?.length > 0   ? (
                       <>
                         {' '}
-                        {filteredCreditRating &&
-                          filteredCreditRating?.length > 0 &&
-                          filteredCreditRating.map((val, index) => (
+                        {filteredCreditRating.map((val, index) => (
                             <td
                       align="center"
                         style={{
@@ -7696,12 +7695,11 @@ function Index() {
                     ) : (
                       <td>-</td>
                     )}
-                          {filteredCreditRating ? (
+                         {filteredCreditRating &&
+                          filteredCreditRating?.length > 0   ? (
                       <>
                         {' '}
-                        {filteredCreditRating &&
-                          filteredCreditRating?.length > 0 &&
-                          filteredCreditRating.map((val, index) => (
+                        {filteredCreditRating.map((val, index) => (
                             <td
                       align="center"
                         style={{

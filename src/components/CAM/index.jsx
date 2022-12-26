@@ -2041,7 +2041,7 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key} label1`}>Stock Coverage of Commodity</span>
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
+                      maximumFractionDigits: 0,
                     })}{' '}
                     {camData?.productSummary?.averageStockOfCommodity ? 'Days' : ''}
                   </span>
@@ -3221,12 +3221,11 @@ const sectionTerms = (
                     <td>Limit Value</td>
                     <td>{camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}</td>
                     <td>-</td>
-                    {filteredCreditRating ? (
+                    {filteredCreditRating &&
+                          filteredCreditRating?.length > 0 ? (
                       <>
                         {' '}
-                        {filteredCreditRating &&
-                          filteredCreditRating?.length > 0 &&
-                          filteredCreditRating.map((val, index) => (
+                        {filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {returnReadableNumber((convertValue(val?.derived?.value, camConversionunit)),'en-In',2,2)}{' '}
                               {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}{' '}
@@ -3236,12 +3235,11 @@ const sectionTerms = (
                     ) : (
                       <td>-</td>
                     )}
-                    {filteredCreditRating ? (
+                    {filteredCreditRating &&
+                          filteredCreditRating?.length > 0  ? (
                       <>
                         {' '}
-                        {filteredCreditRating &&
-                          filteredCreditRating?.length > 0 &&
-                          filteredCreditRating.map((val, index) => (
+                        { filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {checkNan(convertValue(val?.suggested?.value, camConversionunit))?.toLocaleString(
                                 'en-In',
