@@ -2,6 +2,7 @@ import * as types from './actionType';
 
 const initialState = {
   getCountriesMasterData: [],
+  getCommodityMasterData: [],
   getPortsMasterData: [],
   getCommoditiesMasterData: [],
   getDocumentsMasterData: [],
@@ -11,6 +12,10 @@ const initialState = {
   getBanksMasterData: [],
   getBranchesMasterData: [],
   getPincodesMasterData: [],
+  usersQueueRecords: [],
+  gettingUsersQueueRecords: false,
+  filteringUsersQueue: false,
+  filteredUsersQueue: [],
 };
 
 function MastersReducer(state = initialState, action) {
@@ -30,7 +35,21 @@ function MastersReducer(state = initialState, action) {
         ...state,
         getCountriesMasterData: [],
       };
-
+    case types.GET_COMMODITY_MASTERS:
+      return {
+        ...state,
+        getCommodityMasterData: [],
+      };
+    case types.GET_COMMODITY_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getCommodityMasterData: action.payload,
+      };
+    case types.GET_COMMODITY_MASTERS_FAILURE:
+      return {
+        ...state,
+        getCommodityMasterData: [],
+      };
     case types.GET_PORTS_MASTERS:
       return {
         ...state,
@@ -173,6 +192,40 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getPincodesMasterData: [],
+      };
+
+    case types.GET_MASTER_USERS_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingUsersQueueRecords: false,
+        usersQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_USERS_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingUsersQueueRecords: false,
+        usersQueueRecords: {},
+      };
+
+    case types.FILTER_USERS_QUEUE:
+      return {
+        ...state,
+        filteringUsersQueue: true,
+      };
+
+    case types.FILTER_USERS_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringUsersQueue: false,
+        filteredUsersQueue: action.payload,
+      };
+
+    case types.FILTER_USERS_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringUsersQueue: false,
+        filteredUsersQueue: null,
       };
 
     default:

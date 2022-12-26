@@ -26,3 +26,18 @@ export const LEADS_QUEUE_FILTER_ITEMS = [
         name: 'Status'
     }
 ];
+
+export const CHECKER_USERS_QUEUE = [
+    {
+        id: 'department',
+        name: 'Department'
+    },
+    {
+        id: 'status',
+        name: 'status'
+    },
+    {
+        id: 'fullname',
+        name: 'Fullname'
+    }
+];
