@@ -5,6 +5,7 @@ import styles from './index.module.scss';
 
 function Index({
   tableHeading, currentPage, totalCount, setCurrentPage, pageLimit, setPageLimit, tableHooks = () => { }, columns = [], data = [], handleSort = () => { }, sortByState = {}, serverSortEnabled = false,
+  totalCountEnabled = false
 }) {
   const {
     getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
@@ -156,7 +157,7 @@ function Index({
             </div>
           </div>
         </div>
-        {totalCount && (
+        {totalCountEnabled && totalCount && (
           <div className={`${styles.total_count}`}>
             Total Count:
             {' '}
