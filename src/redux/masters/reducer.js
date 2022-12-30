@@ -16,6 +16,11 @@ const initialState = {
   gettingUsersQueueRecords: false,
   filteringUsersQueue: false,
   filteredUsersQueue: [],
+  portsQueueRecords: [],
+  gettingPortsQueueRecords: false,
+  filteringPortsQueue: false,
+  filteredPortsQueue: [],
+  creatingPortMaster: false
 };
 
 function MastersReducer(state = initialState, action) {
@@ -227,6 +232,54 @@ function MastersReducer(state = initialState, action) {
         filteringUsersQueue: false,
         filteredUsersQueue: null,
       };
+
+    case types.GET_MASTER_PORTS_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingPortsQueueRecords: false,
+        portsQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_PORTS_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingPortsQueueRecords: false,
+        portsQueueRecords: {},
+      };
+
+    case types.FILTER_PORTS_QUEUE:
+      return {
+        ...state,
+        filteringPortsQueue: true,
+      };
+
+    case types.FILTER_PORTS_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringPortsQueue: false,
+        filteredPortsQueue: action.payload,
+      };
+
+    case types.FILTER_PORTS_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringPortsQueue: false,
+        filteredPortsQueue: null,
+      };
+
+    case types.CREATE_PORT_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingPortMaster: false,
+      };
+
+    case types.CREATE_PORT_MASTER_FAILED:
+      return {
+        ...state,
+        creatingPortMaster: false,
+      };
+
+
 
     default:
       return state;

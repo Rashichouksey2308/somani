@@ -41,3 +41,18 @@ export const CHECKER_USERS_QUEUE = [
         name: 'Fullname'
     }
 ];
+
+export const MASTERS_PORTS_QUEUE = [
+    {
+        id: 'port',
+        name: 'Port'
+    },
+    {
+        id: 'country',
+        name: 'Country',
+    },
+    {
+        id: 'status',
+        name: 'Status'
+    }
+]

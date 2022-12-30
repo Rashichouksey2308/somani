@@ -136,6 +136,11 @@ function Index() {
           image: '/static/Review Queue.svg',
           route: '',
         },
+        {
+          name: 'Ports',
+          image: '/static/gl.svg',
+          route: '/masters/ports',
+        },
       ],
       image: '/static/Masters.svg',
       route: '',
