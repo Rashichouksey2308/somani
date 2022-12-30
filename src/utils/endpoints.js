@@ -164,8 +164,9 @@ export default {
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
 
   //Masters
-  getAllCommodity: '/commodity/commodityRes',
+  getAllCommodity: 'commodity/get-commodities',
   getCommodityPickupRecords: '/commodity/checker-pending-requests',
   getVendorPickupRecords: '/vendor/checker-pending-requests',
   getCreditCAMPickupRecords: '/lead/cam/getCamLeads',
+  getAllGonogo: '/gng-master',
 };

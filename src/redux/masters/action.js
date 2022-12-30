@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import * as types from './actionType';
 import Axios from 'axios';
 import API from '../../utils/endpoints';
@@ -38,6 +37,24 @@ function getAllCommoditySuccess(payload) {
 function getAllCommodityFailed() {
   return {
     type: types.GET_COMMODITY_MASTERS_FAILURE,
+  };
+}
+function getAllGonogo() {
+  return {
+    type: types.GET_GONOGO_MASTERS,
+  };
+}
+
+function getAllGonogoSuccess(payload) {
+  return {
+    type: types.GET_GONOGO_MASTERS_SUCCESS,
+    payload,
+  };
+}
+
+function getAllGonogoFailed() {
+  return {
+    type: types.GET_GONOGO_MASTERS_FAILURE,
   };
 }
 function filterUsersQueueFailed() {
@@ -142,7 +159,7 @@ export const GetMastersCommodity = () => async (dispatch, getState, api) => {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getAllCommoditySuccess(response.data));
+        dispatch(getAllCommoditySuccess(response.data.data.data));
         dispatch(setNotLoading());
       } else {
         dispatch(getAllCommodityFailed(response.data.data));
@@ -154,7 +171,42 @@ export const GetMastersCommodity = () => async (dispatch, getState, api) => {
       }
     });
   } catch (error) {
-    dispatch(getAllMarginMoneyFailed());
+    dispatch(getAllCommodityFailed());
+    dispatch(setNotLoading());
+    const toastMessage = 'GET MASTER COMMODITY API FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+  }
+};
+export const GetAllGonogo = () => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
+    Axios.get(`${API.corebaseUrl}/${API.getAllGonogo}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllGonogoSuccess(response.data.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getAllGonogoFailed(response.data.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getAllGonogoFailed());
     dispatch(setNotLoading());
     const toastMessage = 'GET MASTER COMMODITY API FAILED';
     if (!toast.isActive(toastMessage.toUpperCase())) {
