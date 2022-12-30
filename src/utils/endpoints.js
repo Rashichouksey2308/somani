@@ -152,6 +152,8 @@ export default {
   pincodesMaster: 'locations/pincodes/',
   getMasterUsersQueueRecords: 'user-master/filterUser',
   filterUsersQueue: 'user-master/searchUser',
+  getMasterPortsQueueRecords: 'port/filterPorts',
+  filterPortsQueue: 'port/search',
 
   //Checker
   getCommodityDetails: '/commodity/commodity/',

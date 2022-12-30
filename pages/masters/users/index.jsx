@@ -289,7 +289,7 @@ const index = () => {
               handleSort={handleSort}
               sortByState={sortByState}
               serverSortEnabled={true}
-              totalCountEnable={true}
+              totalCountEnabled={true}
             />
           )}
         </div>
