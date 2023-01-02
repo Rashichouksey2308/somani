@@ -125,9 +125,23 @@ function getCreditCAMPickupRecordsSuccess(payload) {
     };
 }
 
-function getCCreditCAMPickupRecordsFailed(payload = {}) {
+function getCreditCAMPickupRecordsFailed(payload = {}) {
     return {
         type: types.GET_CREDIT_CAM_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
+
+function getTransactionSummaryPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_TRASACTION_SUMMARY_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getTransactionSummaryPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_TRASACTION_SUMMARY_PICKUP_RECORDS_FAILED,
         payload,
     };
 }
@@ -443,8 +457,8 @@ export const GetCreditCAMPickupRecords = (payload) => async (dispatch, getState,
                 dispatch(getCreditCAMPickupRecordsSuccess(response.data.data));
                 dispatch(setNotLoading());
             } else {
-                dispatch(getCCreditCAMPickupRecordsFailed(response.data.data));
-                const toastMessage = 'Could not fetch Commodity Details';
+                dispatch(getCreditCAMPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Credit CAM Details';
                 if (!toast.isActive(toastMessage.toUpperCase())) {
                     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
                 }
@@ -452,7 +466,41 @@ export const GetCreditCAMPickupRecords = (payload) => async (dispatch, getState,
             }
         });
     } catch (error) {
-        dispatch(getCCreditCAMPickupRecordsFailed());
+        dispatch(getCreditCAMPickupRecordsFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetTransactionSummaryPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getTransactionSummaryPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getTransactionSummaryPickupRecordsSuccess(response.data.data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getTransactionSummaryPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Transaction Summary Details';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getTransactionSummaryPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };
