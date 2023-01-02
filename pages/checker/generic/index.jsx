@@ -9,7 +9,7 @@ import { GetGenericsPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
     const dispatch = useDispatch();
-    const { genercisPickupRecords } = useSelector((state) => state.checker);
+    const { genericsPickupRecords } = useSelector((state) => state.checker);
 
     const [currentPage, setCurrentPage] = useState(0);
     const [pageLimit, setPageLimit] = useState(10);
@@ -126,11 +126,11 @@ function Index() {
                 <Table
                     tableHeading="Generic"
                     currentPage={currentPage}
-                    totalCount={genercisPickupRecords?.total}
+                    totalCount={genericsPickupRecords?.total}
                     setCurrentPage={setCurrentPage}
                     tableHooks={tableHooks}
                     columns={tableColumns}
-                    data={genercisPickupRecords?.data || []}
+                    data={genericsPickupRecords?.data || []}
                     pageLimit={pageLimit}
                     setPageLimit={setPageLimit}
                     serverSortEnabled={true}

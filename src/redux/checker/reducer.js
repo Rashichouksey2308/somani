@@ -22,7 +22,7 @@ const initialState = {
     gettingTransactionSummaryPickupRecords: false,
     transactionSummaryPickupRecords: {},
     gettingGenericsPickupRecords: false,
-    genercisPickupRecords: {},
+    genericsPickupRecords: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -171,14 +171,14 @@ function CheckerReducer(state = initialState, action) {
             return {
                 ...state,
                 gettingGenericsPickupRecords: false,
-                genercisPickupRecords: action.payload,
+                genericsPickupRecords: action.payload,
             };
 
         case types.GET_GENERICS_PICKUP_RECORDS_FAILED:
             return {
                 ...state,
                 gettingGenericsPickupRecords: false,
-                genercisPickupRecords: {},
+                genericsPickupRecords: {},
             };
 
         default:
