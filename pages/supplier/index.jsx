@@ -960,6 +960,7 @@ function Index() {
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                     <div className="d-flex">
                       <DateCalender
+                      startFrom ='noLimit'
                         defaultDate={formData?.incorporationDate ?? ''}
                         saveDate={saveDate}
                         saveQuotationData={saveQuotationData}
@@ -981,9 +982,14 @@ function Index() {
                         name="countryOfIncorporation"
                         value={formData?.countryOfIncorporation}
                       >
-                        <option>Select an option</option>
-                        <option value="India">India</option>
-                        <option value="America">USA</option>
+                        <option value='' disabled>Select an option</option>
+                        {getCountriesMasterData?.map((options, index) => {
+                                return (
+                                  <option key={index} value={`${options.Country}`}>
+                                    {options.Country}
+                                  </option>
+                                );
+                              })}
                       </select>
                       <label className={`${styles.label_heading} label_heading`}>
                         Country of Incorporation

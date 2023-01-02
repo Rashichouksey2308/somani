@@ -917,14 +917,14 @@ export default function AssociateShipAgreement(data, preview, setPreviewValue,ac
           <div
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
-            <div className={`${styles.approve} mr-3`}>
-              <span
-                className="mb-0"
-                onClick={(e) => {
+            <div   onClick={(e) => {
                   sessionStorage.setItem('preview', JSON.stringify(data));
                   Router.push('agreement/preview');
                   setPreviewValue('ASSO');
-                }}
+                }} className={`${styles.approve} mr-3`}>
+              <span
+                className="mb-0"
+              
               >
                 Preview
               </span>
