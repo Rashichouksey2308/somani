@@ -134,14 +134,28 @@ function getCreditCAMPickupRecordsFailed(payload = {}) {
 
 function getTransactionSummaryPickupRecordsSuccess(payload) {
     return {
-        type: types.GET_TRASACTION_SUMMARY_PICKUP_RECORDS_SUCCESSFULL,
+        type: types.GET_TRANSACTION_SUMMARY_PICKUP_RECORDS_SUCCESSFULL,
         payload,
     };
 }
 
 function getTransactionSummaryPickupRecordsFailed(payload = {}) {
     return {
-        type: types.GET_TRASACTION_SUMMARY_PICKUP_RECORDS_FAILED,
+        type: types.GET_TRANSACTION_SUMMARY_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
+
+function getGenericPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_GENERICS_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getGenericPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_GENERICS_PICKUP_RECORDS_FAILED,
         payload,
     };
 }
@@ -501,6 +515,40 @@ export const GetTransactionSummaryPickupRecords = (payload) => async (dispatch, 
         });
     } catch (error) {
         dispatch(getTransactionSummaryPickupRecordsFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetGenericsPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getGenericsPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getGenericPickupRecordsSuccess(response.data.data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getGenericPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Generic Details';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getGenericPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };
