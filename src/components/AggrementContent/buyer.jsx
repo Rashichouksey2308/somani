@@ -108,7 +108,7 @@ function Index(props) {
        
       } else {
         let buyer = {
-          name: props?.data?.name || 'Indo German International Private Limited',
+          name: props?.data?.name || props?.order?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank === 'Emergent Industrial Solutions Limited (EISL)' ? 'Emergent Industrial Solution Limited' : 'Indo German International Private Limited',
           branchName: props?.data?.branch,
         };
         setGstin(props?.data.gstin || '');
