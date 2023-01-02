@@ -171,4 +171,5 @@ export default {
   getAllGonogo: '/gng-master',
   getTransactionSummaryPickupRecords: '/termsheet/checker-pending-requests',
   getGenericsPickupRecords: '/generic/checker-pending-requests',
+  getLetterofCreditPickupRecords: '/lc-module/checker-pending-requests',
 };
