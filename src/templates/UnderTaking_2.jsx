@@ -118,15 +118,16 @@ export default function UnderTaking_2(data, preview, setPreviewValue) {
           <div
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
-            <div className={`${styles.approve} mr-3`}>
+            <div
+             onClick={(e) => {
+              sessionStorage.setItem('preview', JSON.stringify(data));
+
+              Router.push('agreement/preview');
+              setPreviewValue('UNDERTAKING2');
+            }} className={`${styles.approve} mr-3`}>
               <span
                 className="mb-0"
-                onClick={(e) => {
-                  sessionStorage.setItem('preview', JSON.stringify(data));
-
-                  Router.push('agreement/preview');
-                  setPreviewValue('UNDERTAKING2');
-                }}
+               
               >
                 Preview
               </span>
