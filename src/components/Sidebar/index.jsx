@@ -141,6 +141,11 @@ function Index() {
           image: '/static/gl.svg',
           route: '/masters/ports',
         },
+        {
+          name: 'Document-Master',
+          image: '/static/gl.svg',
+          route: '/masters/document-master',
+        },
       ],
       image: '/static/Masters.svg',
       route: '',
