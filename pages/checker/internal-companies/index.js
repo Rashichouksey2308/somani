@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import styles from './index.module.scss';
+import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
@@ -208,6 +209,15 @@ function Index() {
       Header: 'Company Name',
       accessor: 'Company_Name',
       disableSortBy: true,
+      Cell: ({ cell: { value }, row: { original } }) => (
+        <span
+          onClick={() => {
+            handleRoute(original);
+          }}
+        >
+          {value}
+        </span>
+      ),
     },
     {
       Header: 'Short Name',
@@ -231,7 +241,7 @@ function Index() {
         Cell: ({ row }) => {
           return (
             <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-              <a className="cursor-pointer">
+              <a className="cursor-pointer" onClick={() => handleRoute(row?.original)}>
                 <Image height="20px" width="20px" src="/static/mode_edit.svg" alt="Edit" />
               </a>
             </div>
@@ -239,6 +249,13 @@ function Index() {
         },
       },
     ]);
+  };
+
+  const handleRoute = (internalCompany) => {
+    sessionStorage.setItem('checkerInternalCompanyId', internalCompany?._id);
+    sessionStorage.setItem('checkerInternalCompanyName', internalCompany?.companyName);
+    dispatch(setDynamicName(internalCompany?.companyName));
+    Router.push('/checker/internal-companies/id');
   };
 
   return (

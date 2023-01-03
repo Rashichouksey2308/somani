@@ -720,6 +720,19 @@
   }
 }
 
+.footer_content {
+  p {
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: #283756;
+    font-weight: bold;
+    & span {
+      font-weight: 400;
+      margin-left: 5px;
+    }
+  }
+}
+
 //basic info and supplier info
 .info_wrapper {
   padding: 0px;
