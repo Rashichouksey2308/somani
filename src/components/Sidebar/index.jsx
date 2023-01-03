@@ -151,7 +151,7 @@ function Index() {
         {
           name: 'Users',
           image: '/static/credit-queue.svg',
-          route: '/masters/users',
+          route: '/checker/users',
         },
         { name: 'Vendors', image: '/static/review-queue.svg', route: '/checker/vendor' },
         { name: 'Commodity', image: '/static/review-queue.svg', route: '/checker/commodity' },
