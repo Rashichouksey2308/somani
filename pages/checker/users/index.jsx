@@ -190,6 +190,7 @@ function Index() {
           data={mockData?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
+          totalCountEnabled={true}
         />
       </div>
     </div>
