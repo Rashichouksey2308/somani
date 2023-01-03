@@ -771,6 +771,10 @@ export const CreateDocumentMaster = (payload) => async (dispatch, getState, api)
     });
     if (response.data.code === 200) {
       dispatch(createDocumentMasterSuccess(response.data.data));
+      let toastMessage = 'DOCUMENT CREATED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
       dispatch(setNotLoading());
     } else {
       dispatch(createDocumentMasterFailed(response.data.data));

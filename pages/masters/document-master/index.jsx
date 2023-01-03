@@ -250,7 +250,7 @@ function Index() {
                         <button
                             type="button"
                             className={`${styles.createBtn} btn ml-auto btn-primary`}
-                            onClick={() => Router.push('/add-document-master')}
+                            onClick={() => Router.push('/masters/document-master/add-document')}
                         >
                             Add
                         </button>
