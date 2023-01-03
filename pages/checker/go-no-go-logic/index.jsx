@@ -76,7 +76,7 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    dispatch(setPageName('checker-go-no-go-logic123'));
+    dispatch(setPageName('checker-go-no-go-logic'));
     dispatch(setDynamicName(null));
   });
 
