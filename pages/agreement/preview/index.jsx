@@ -245,19 +245,19 @@ function Index() {
       }
         doc.save(name);
       },
-      margin:[40,0,40,0],
+      margin:[40,0],
       autoPaging: 'text',
       
     });
   };
   return (
     <>
-      {preview == 'Sales' ? <Contract preview={true} /> : null}
-      {preview == 'QPA' ? <QPA preview={true} /> : null}
-      {preview == 'TPASELLER' ? <TPASeller preview={true} /> : null}
-      {preview == 'TPAIGI' ? <TPAIGI preview={true} /> : null}
-      {preview == 'LETTER' ? <AssignmentLetter preview={true} /> : null}
-      {preview == 'ASSO' || preview == 'UNDERTAKING1' || preview == 'UNDERTAKING2' ? (
+      {preview === 'Sales' ? <Contract preview={true} /> : null}
+      {preview === 'QPA' ? <QPA preview={true} /> : null}
+      {preview === 'TPASELLER' ? <TPASeller preview={true} /> : null}
+      {preview === 'TPAIGI' ? <TPAIGI preview={true} /> : null}
+      {preview === 'LETTER' ? <AssignmentLetter preview={true} /> : null}
+      {preview === 'ASSO' || preview === 'UNDERTAKING1' || preview === 'UNDERTAKING2' ? (
         <AssociateshipAgreement preview={true} type={preview} />
       ) : null}
 

@@ -23,13 +23,13 @@ function Index() {
     setShow(true);
   };
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId');
+    const id = sessionStorage.getItem('letterId');
     dispatch(GettingAllInsurance(`?insuranceId=${id}`));
   }, [dispatch]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {});
+  const insuranceData = _get(insuranceResponse, 'data[0]', {});
 
   dispatch(setPageName('insurance Request Letter'));
   dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')));
@@ -47,7 +47,7 @@ function Index() {
   ]);
 
   const addMoreRows = (val) => {
-    if (val == 'email') {
+    if (val === 'email') {
       setEmailAdd([
         ...emailAdd,
         {
