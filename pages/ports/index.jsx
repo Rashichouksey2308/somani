@@ -8,7 +8,7 @@ import Router from 'next/router';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 import { GetAllPorts, GetPorts } from '../../src/redux/ports/action';
 
-const index = () => {
+const Index = () => {
 
   const dispatch = useDispatch();
   
@@ -125,4 +125,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
