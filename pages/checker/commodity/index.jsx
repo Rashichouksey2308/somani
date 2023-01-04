@@ -125,7 +125,7 @@ function Index() {
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
           serverSortEnabled={true}
-          totalCountEnable={true}
+          totalCountEnabled={true}
           handleSort={handleSort}
           sortByState={sortByState}
         />

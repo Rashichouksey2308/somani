@@ -128,6 +128,7 @@ function Index() {
           serverSortEnabled={true}
           handleSort={handleSort}
           sortByState={sortByState}
+          totalCountEnabled={true}
         />
       </div>
     </div>
