@@ -19,6 +19,18 @@ const initialState = {
     inspectionPickupRecords: {},
     gettingCreditCAMPickupRecords: false,
     creditCAMPickupRecords: {},
+    gettingTransactionSummaryPickupRecords: false,
+    transactionSummaryPickupRecords: {},
+    gettingGenericsPickupRecords: false,
+    genericsPickupRecords: {},
+    gettingLetterOfCreditPickupRecords: false,
+    letterOfCreditPickupRecords: {},
+    gettingGoNoGoLogicPickupRecords: false,
+    goNoGoLogicPickupRecords: {},
+    gettingUserPickupRecords: false,
+    userPickupRecords: {},
+    gettingInternalCompanyPickupRecords: false,
+    internalCompanyPickupRecords: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -149,6 +161,90 @@ function CheckerReducer(state = initialState, action) {
                 creditCAMPickupRecords: {},
             };
 
+        case types.GET_TRANSACTION_SUMMARY_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingTransactionSummaryPickupRecords: false,
+                transactionSummaryPickupRecords: action.payload,
+            };
+
+        case types.GET_TRANSACTION_SUMMARY_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingTransactionSummaryPickupRecords: false,
+                transactionSummaryPickupRecords: {},
+            };
+
+        case types.GET_GENERICS_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingGenericsPickupRecords: false,
+                genericsPickupRecords: action.payload,
+            };
+
+        case types.GET_GENERICS_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingGenericsPickupRecords: false,
+                genericsPickupRecords: {},
+            };
+
+        case types.GET_LETTER_OF_CREDIT_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingLetterOfCreditPickupRecords: false,
+                letterOfCreditPickupRecords: action.payload,
+            };
+
+        case types.GET_LETTER_OF_CREDIT_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingLetterOfCreditPickupRecords: false,
+                letterOfCreditPickupRecords: {},
+            };
+            
+        case types.GET_USER_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingUserPickupRecords: false,
+                userPickupRecords: action.payload,
+            };
+    
+        case types.GET_USER_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingUserPickupRecords: false,
+                userPickupRecords: {},
+            };
+
+        case types.GET_GO_NO_GO_LOGIC_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingGoNoGoLogicPickupRecords: false,
+                goNoGoLogicPickupRecords: action.payload,
+            };
+
+        case types.GET_GO_NO_GO_LOGIC_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingGoNoGoLogicPickupRecords: false,
+                goNoGoLogicPickupRecords: {},
+            };
+
+        case types.GET_INTERNAL_COMPANY_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingInternalCompanyPickupRecords: false,
+                internalCompanyPickupRecords: action.payload,
+            };
+
+        case types.GET_INTERNAL_COMPANY_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingInternalCompanyPickupRecords: false,
+                internalCompanyPickupRecords: {},
+            };
+    
         default:
             return state;
     }

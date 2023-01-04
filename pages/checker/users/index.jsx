@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
-import { GetCommodityPickupRecords } from '../../../src/redux/checker/action';
+import { GetUserPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
   const dispatch = useDispatch();
-  const { commodityPickupRecords } = useSelector((state) => state.checker);
-  
+  const { userPickupRecords } = useSelector((state) => state.checker);
+
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
@@ -21,18 +21,18 @@ function Index() {
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Checker');
-      sessionStorage.setItem('loadedSubPage', `Commodity`);
+      sessionStorage.setItem('loadedSubPage', `Users`);
       sessionStorage.setItem('openList', 6);
     }
   }, []);
 
   useEffect(() => {
-    dispatch(setPageName('checker-commodity'));
+    dispatch(setPageName('checker-users'));
     dispatch(setDynamicName(null));
   });
 
   useEffect(() => {
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetUserPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
   const handleSort = (column) => {
@@ -45,28 +45,19 @@ function Index() {
       let data = { column: column.id, order: !column.isSortedDesc };
       setSortByState(data);
     }
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
+    dispatch(GetUserPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
   };
 
   const tableColumns = useMemo(() => [
     {
-      Header: 'Commodity',
-      accessor: 'Commodity',
+      Header: 'User ID',
+      accessor: 'profileDetails.officialEmailId',
       disableSortBy: true,
     },
     {
-      Header: 'Chapter Name',
-      accessor: 'Chapter_Name',
+      Header: 'Full Name',
+      accessor: 'profileDetails.fullName',
       disableSortBy: true,
-      Cell: ({ cell: { value }, row: { original } }) => (
-        <span
-          onClick={() => {
-            handleRoute(original);
-          }}
-        >
-          {value}
-        </span>
-      ),
     },
     {
       Header: 'Submitted On',
@@ -102,11 +93,10 @@ function Index() {
     ])
   };
 
-  const handleRoute = (commodity) => {
-    sessionStorage.setItem('checkerCommodityId', commodity?._id);
-    sessionStorage.setItem('checkerCommodityName', commodity?.company?.companyName);
-    dispatch(setDynamicName(commodity?.company?.companyName));
-    Router.push('/checker/commodity/id');
+  const handleRoute = (user) => {
+    sessionStorage.setItem('checkeruserId', user?._id);
+    dispatch(setDynamicName(user?.profileDetails?.fullName));
+    Router.push('/checker/users/id');
   };
 
   return (
@@ -115,17 +105,17 @@ function Index() {
 
         {/* Queue Table */}
         <Table
-          tableHeading="Commodity"
+          tableHeading="Users"
           currentPage={currentPage}
-          totalCount={commodityPickupRecords?.total}
+          totalCount={userPickupRecords?.total}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={commodityPickupRecords?.data || []}
+          data={userPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
-          serverSortEnabled={true}
           totalCountEnabled={true}
+          serverSortEnabled={true}
           handleSort={handleSort}
           sortByState={sortByState}
         />

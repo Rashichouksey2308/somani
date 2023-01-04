@@ -23,6 +23,16 @@ const initialState = {
   filteredPortsQueue: [],
   creatingPortMaster: false,
   addNewCommodityData: [],
+  documentMasterQueueRecords: [],
+  gettingDocumentMasterQueueRecords: false,
+  filteringDocumentMasterQueue: false,
+  filteredDocumentMasterQueue: [],
+  creatingDocumentMaster: false,
+  countryQueueRecords: [],
+  gettingCountryQueueRecords: false,
+  filteringCountryQueue: false,
+  filteredCountryQueue: [],
+  creatingCountryMaster: false,
 };
 
 function MastersReducer(state = initialState, action) {
@@ -311,6 +321,98 @@ function MastersReducer(state = initialState, action) {
         ...state,
         getPincodesMasterData: [],
       };
+    case types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingDocumentMasterQueueRecords: false,
+        documentMasterQueueRecords: action.payload,
+      };
+
+    case types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingDocumentMasterQueueRecords: false,
+        documentMasterQueueRecords: {},
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: true,
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: false,
+        filteredDocumentMasterQueue: action.payload,
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: false,
+        filteredDocumentMasterQueue: null,
+      };
+
+    case types.CREATE_DOCUMENT_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingDocumentMaster: false,
+      };
+
+    case types.CREATE_DOCUMENT_MASTER_FAILED:
+      return {
+        ...state,
+        creatingDocumentMaster: false,
+      };
+
+    case types.GET_MASTER_COUNTRY_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingCountryQueueRecords: false,
+        countryQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_COUNTRY_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingCountryQueueRecords: false,
+        countryQueueRecords: {},
+      };
+
+    case types.FILTER_COUNTRY_QUEUE:
+      return {
+        ...state,
+        filteringCountryQueue: true,
+      };
+
+    case types.FILTER_COUNTRY_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringCountryQueue: false,
+        filteredCountryQueue: action.payload,
+      };
+
+    case types.FILTER_COUNTRY_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringCountryQueue: false,
+        filteredCountryQueue: null,
+      };
+
+    case types.CREATE_COUNTRY_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingCountryMaster: false,
+      };
+
+    case types.CREATE_COUNTRY_MASTER_FAILED:
+      return {
+        ...state,
+        creatingCountryMaster: false,
+      };
+
 
     default:
       return state;

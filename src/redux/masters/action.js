@@ -137,6 +137,114 @@ function createPortMasterFailed(payload = {}) {
   };
 }
 
+// Document Master Queue
+function getDocumentMasterQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getDocumentMasterQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter Document Master Queue  ***********/////
+
+function filterDocumentMasterQueue() {
+  return {
+    type: types.FILTER_DOCUMENT_MASTER_QUEUE,
+  };
+}
+
+function filterDocumentMasterQueueSuccess(payload) {
+  return {
+    type: types.FILTER_DOCUMENT_MASTER_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterDocumentMasterQueueFailed() {
+  return {
+    type: types.FILTER_DOCUMENT_MASTER_QUEUE_FAILED,
+  };
+}
+
+
+// ******** Port Master Add ******** //
+
+function createDocumentMasterSuccess(payload) {
+  return {
+    type: types.CREATE_DOCUMENT_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createDocumentMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_DOCUMENT_MASTER_FAILED,
+    payload,
+  };
+}
+
+// Master Country Queue
+function getMasterCountryQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_COUNTRY_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterCountryQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_COUNTRY_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter Ports Queue  ***********/////
+
+function filterCountryQueue() {
+  return {
+    type: types.FILTER_COUNTRY_QUEUE,
+  };
+}
+
+function filterCountryQueueSuccess(payload) {
+  return {
+    type: types.FILTER_COUNTRY_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterCountryQueueFailed() {
+  return {
+    type: types.FILTER_COUNTRY_QUEUE_FAILED,
+  };
+}
+
+
+// ******** Port Master Add ******** //
+
+function createCountryMasterSuccess(payload) {
+  return {
+    type: types.CREATE_COUNTRY_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createCountryMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_COUNTRY_MASTER_FAILED,
+    payload,
+  };
+}
+
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -667,6 +775,10 @@ export const CreatePortMaster = (payload) => async (dispatch, getState, api) => 
     });
     if (response.data.code === 200) {
       dispatch(createPortMasterSuccess(response.data.data));
+      let toastMessage = 'PORT ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
       dispatch(setNotLoading());
     } else {
       dispatch(createPortMasterFailed(response.data.data));
@@ -679,10 +791,227 @@ export const CreatePortMaster = (payload) => async (dispatch, getState, api) => 
   } catch (error) {
     dispatch(createPortMasterFailed());
 
-    let toastMessage = 'COULD NOT ADD USER DETAILS';
+    let toastMessage = 'COULD NOT ADD PORT DETAILS';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
     dispatch(setNotLoading());
   }
 };
+
+export const GetDocumentMasterQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getDocumentMasterQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getDocumentMasterQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getDocumentMasterQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Document Master Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getDocumentMasterQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterDocumentMasterQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterDocumentMasterQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterDocumentMasterQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterDocumentMasterQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterDocumentMasterQueueFailed(response.data));
+        const toastMessage = 'Search Document Master Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterDocumentMasterQueueFailed());
+    const toastMessage = 'Search Document Master request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateDocumentMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createDocumentMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createDocumentMasterSuccess(response.data.data));
+      let toastMessage = 'DOCUMENT CREATED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createDocumentMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createDocumentMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD DOCUMENT MASTER';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+
+// Handler for Country-master Start ---->
+export const GetMasterCountryQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterCountryQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterCountryQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterCountryQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Country Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterCountryQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterCountryQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterCountryQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterCountryQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterCountryQueueFailed(response.data));
+        const toastMessage = 'Search Country Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterCountryQueueFailed());
+    const toastMessage = 'Search Country request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateCountryMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createCountryMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createCountryMasterSuccess(response.data.data));
+      let toastMessage = 'COUNTRY ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createCountryMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createCountryMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD COUNTRY DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for Country-master End ---->

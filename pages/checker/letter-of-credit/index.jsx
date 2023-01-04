@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
-import { GetCommodityPickupRecords } from '../../../src/redux/checker/action';
+import { GetLetterOfCreditPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
   const dispatch = useDispatch();
-  const { commodityPickupRecords } = useSelector((state) => state.checker);
-  
+  const { letterOfCreditPickupRecords } = useSelector((state) => state.checker);
+
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
@@ -21,18 +21,18 @@ function Index() {
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Checker');
-      sessionStorage.setItem('loadedSubPage', `Commodity`);
+      sessionStorage.setItem('loadedSubPage', `LC`);
       sessionStorage.setItem('openList', 6);
     }
   }, []);
 
   useEffect(() => {
-    dispatch(setPageName('checker-commodity'));
+    dispatch(setPageName('checker-letter-of-credit'));
     dispatch(setDynamicName(null));
   });
 
   useEffect(() => {
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetLetterOfCreditPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
   const handleSort = (column) => {
@@ -45,33 +45,24 @@ function Index() {
       let data = { column: column.id, order: !column.isSortedDesc };
       setSortByState(data);
     }
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
+    dispatch(GetLetterOfCreditPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
   };
 
   const tableColumns = useMemo(() => [
     {
-      Header: 'Commodity',
-      accessor: 'Commodity',
+      Header: 'Order ID',
+      accessor: 'order.orderId',
       disableSortBy: true,
     },
     {
-      Header: 'Chapter Name',
-      accessor: 'Chapter_Name',
+      Header: 'Buyer Name',
+      accessor: 'company.companyName',
       disableSortBy: true,
-      Cell: ({ cell: { value }, row: { original } }) => (
-        <span
-          onClick={() => {
-            handleRoute(original);
-          }}
-        >
-          {value}
-        </span>
-      ),
     },
     {
       Header: 'Submitted On',
       accessor: 'createdAt',
-      Cell: ({ value }) => value?.slice(0, 10)
+      Cell: ({ value }) => value?.slice(0, 10),
     },
   ]);
 
@@ -79,34 +70,26 @@ function Index() {
     hooks.visibleColumns.push((columns) => [
       ...columns,
       {
-        id: "Preview",
-        Header: "Action",
+        id: 'Preview',
+        Header: 'Action',
         disableSortBy: true,
         Cell: ({ row }) => {
-          return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-            <a className="cursor-pointer"
-              onClick={() =>
-                handleRoute(row?.original)
-              }
-            >
-              <Image
-                height="20px"
-                width="20px"
-                src="/static/mode_edit.svg"
-                alt="Edit"
-              />
-            </a>
-          </div >
-        }
-      }
-    ])
+          return (
+            <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
+              <a className="cursor-pointer">
+                <Image height="20px" width="20px" src="/static/mode_edit.svg" alt="Edit" />
+              </a>
+            </div>
+          );
+        },
+      },
+    ]);
   };
 
-  const handleRoute = (commodity) => {
-    sessionStorage.setItem('checkerCommodityId', commodity?._id);
-    sessionStorage.setItem('checkerCommodityName', commodity?.company?.companyName);
-    dispatch(setDynamicName(commodity?.company?.companyName));
-    Router.push('/checker/commodity/id');
+  const handleRoute = (lcModule) => {
+    sessionStorage.setItem('checkerletterOfCreditId', lcModule?._id);
+    dispatch(setDynamicName(lcModule?.company?.companyName));
+    Router.push('/checker/letter-of-credit/id');
   };
 
   return (
@@ -115,19 +98,19 @@ function Index() {
 
         {/* Queue Table */}
         <Table
-          tableHeading="Commodity"
+          tableHeading="Letter of Credit"
           currentPage={currentPage}
-          totalCount={commodityPickupRecords?.total}
+          totalCount={letterOfCreditPickupRecords?.total}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={commodityPickupRecords?.data || []}
+          data={letterOfCreditPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
           serverSortEnabled={true}
-          totalCountEnabled={true}
           handleSort={handleSort}
           sortByState={sortByState}
+          totalCountEnabled={true}
         />
       </div>
     </div>

@@ -1,16 +1,15 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import styles from './index.module.scss';
-import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
-import { GetCommodityPickupRecords } from '../../../src/redux/checker/action';
+import { GetGoNoGoLogicPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
   const dispatch = useDispatch();
-  const { commodityPickupRecords } = useSelector((state) => state.checker);
-  
+  const { goNoGoLogicPickupRecords } = useSelector((state) => state.checker);
+
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
@@ -21,18 +20,18 @@ function Index() {
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Checker');
-      sessionStorage.setItem('loadedSubPage', `Commodity`);
+      sessionStorage.setItem('loadedSubPage', `Go No Go Logic`);
       sessionStorage.setItem('openList', 6);
     }
   }, []);
 
   useEffect(() => {
-    dispatch(setPageName('checker-commodity'));
+    dispatch(setPageName('checker-go-no-go-logic'));
     dispatch(setDynamicName(null));
   });
 
   useEffect(() => {
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetGoNoGoLogicPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
   const handleSort = (column) => {
@@ -45,33 +44,25 @@ function Index() {
       let data = { column: column.id, order: !column.isSortedDesc };
       setSortByState(data);
     }
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
+    dispatch(GetGoNoGoLogicPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
   };
 
   const tableColumns = useMemo(() => [
     {
-      Header: 'Commodity',
-      accessor: 'Commodity',
+      Header: 'Version',
+      accessor: 'version',
       disableSortBy: true,
     },
     {
-      Header: 'Chapter Name',
-      accessor: 'Chapter_Name',
+      Header: 'Version Approval Date',
+      accessor: 'versionApprovalDate',
       disableSortBy: true,
-      Cell: ({ cell: { value }, row: { original } }) => (
-        <span
-          onClick={() => {
-            handleRoute(original);
-          }}
-        >
-          {value}
-        </span>
-      ),
+      Cell: ({ value }) => value?.slice(0, 10),
     },
     {
       Header: 'Submitted On',
       accessor: 'createdAt',
-      Cell: ({ value }) => value?.slice(0, 10)
+      Cell: ({ value }) => value?.slice(0, 10),
     },
   ]);
 
@@ -79,34 +70,20 @@ function Index() {
     hooks.visibleColumns.push((columns) => [
       ...columns,
       {
-        id: "Preview",
-        Header: "Action",
+        id: 'Preview',
+        Header: 'Action',
         disableSortBy: true,
         Cell: ({ row }) => {
-          return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-            <a className="cursor-pointer"
-              onClick={() =>
-                handleRoute(row?.original)
-              }
-            >
-              <Image
-                height="20px"
-                width="20px"
-                src="/static/mode_edit.svg"
-                alt="Edit"
-              />
-            </a>
-          </div >
-        }
-      }
-    ])
-  };
-
-  const handleRoute = (commodity) => {
-    sessionStorage.setItem('checkerCommodityId', commodity?._id);
-    sessionStorage.setItem('checkerCommodityName', commodity?.company?.companyName);
-    dispatch(setDynamicName(commodity?.company?.companyName));
-    Router.push('/checker/commodity/id');
+          return (
+            <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
+              <a className="cursor-pointer">
+                <Image height="20px" width="20px" src="/static/mode_edit.svg" alt="Edit" />
+              </a>
+            </div>
+          );
+        },
+      },
+    ]);
   };
 
   return (
@@ -115,20 +92,21 @@ function Index() {
 
         {/* Queue Table */}
         <Table
-          tableHeading="Commodity"
+          tableHeading="Go No Go Logic"
           currentPage={currentPage}
-          totalCount={commodityPickupRecords?.total}
+          totalCount={goNoGoLogicPickupRecords?.total}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={commodityPickupRecords?.data || []}
+          data={goNoGoLogicPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
-          serverSortEnabled={true}
           totalCountEnabled={true}
+          serverSortEnabled={true}
           handleSort={handleSort}
           sortByState={sortByState}
         />
+
       </div>
     </div>
   );

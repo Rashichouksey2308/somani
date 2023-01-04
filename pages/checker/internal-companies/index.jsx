@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
-import { GetCommodityPickupRecords } from '../../../src/redux/checker/action';
+import { GetInternalCompanyPickupRecords } from '../../../src/redux/checker/action';
 
 function Index() {
   const dispatch = useDispatch();
-  const { commodityPickupRecords } = useSelector((state) => state.checker);
+  const { internalCompanyPickupRecords } = useSelector((state) => state.checker);
   
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
@@ -21,18 +21,18 @@ function Index() {
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Checker');
-      sessionStorage.setItem('loadedSubPage', `Commodity`);
+      sessionStorage.setItem('loadedSubPage', `Internal Companies`);
       sessionStorage.setItem('openList', 6);
     }
   }, []);
 
   useEffect(() => {
-    dispatch(setPageName('checker-commodity'));
+    dispatch(setPageName('checker-internal-companies'));
     dispatch(setDynamicName(null));
   });
 
   useEffect(() => {
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
+    dispatch(GetInternalCompanyPickupRecords(`?page=${currentPage}&limit=${pageLimit}`));
   }, [dispatch, currentPage, pageLimit]);
 
   const handleSort = (column) => {
@@ -45,18 +45,13 @@ function Index() {
       let data = { column: column.id, order: !column.isSortedDesc };
       setSortByState(data);
     }
-    dispatch(GetCommodityPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
+    dispatch(GetInternalCompanyPickupRecords(`?page=${currentPage}&limit=${pageLimit}&createdAt=${sortByState.order ? '1' : '-1'}`));
   };
 
   const tableColumns = useMemo(() => [
     {
-      Header: 'Commodity',
-      accessor: 'Commodity',
-      disableSortBy: true,
-    },
-    {
-      Header: 'Chapter Name',
-      accessor: 'Chapter_Name',
+      Header: 'Company Name',
+      accessor: 'Company_Name',
       disableSortBy: true,
       Cell: ({ cell: { value }, row: { original } }) => (
         <span
@@ -69,9 +64,14 @@ function Index() {
       ),
     },
     {
+      Header: 'Short Name',
+      accessor: 'Short_Name',
+      disableSortBy: true,
+    },
+    {
       Header: 'Submitted On',
       accessor: 'createdAt',
-      Cell: ({ value }) => value?.slice(0, 10)
+      Cell: ({ value }) => value?.slice(0, 10),
     },
   ]);
 
@@ -79,34 +79,27 @@ function Index() {
     hooks.visibleColumns.push((columns) => [
       ...columns,
       {
-        id: "Preview",
-        Header: "Action",
+        id: 'Preview',
+        Header: 'Action',
         disableSortBy: true,
         Cell: ({ row }) => {
-          return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-            <a className="cursor-pointer"
-              onClick={() =>
-                handleRoute(row?.original)
-              }
-            >
-              <Image
-                height="20px"
-                width="20px"
-                src="/static/mode_edit.svg"
-                alt="Edit"
-              />
-            </a>
-          </div >
-        }
-      }
-    ])
+          return (
+            <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
+              <a className="cursor-pointer" onClick={() => handleRoute(row?.original)}>
+                <Image height="20px" width="20px" src="/static/mode_edit.svg" alt="Edit" />
+              </a>
+            </div>
+          );
+        },
+      },
+    ]);
   };
 
-  const handleRoute = (commodity) => {
-    sessionStorage.setItem('checkerCommodityId', commodity?._id);
-    sessionStorage.setItem('checkerCommodityName', commodity?.company?.companyName);
-    dispatch(setDynamicName(commodity?.company?.companyName));
-    Router.push('/checker/commodity/id');
+  const handleRoute = (internalCompany) => {
+    sessionStorage.setItem('checkerInternalCompanyId', internalCompany?._id);
+    sessionStorage.setItem('checkerInternalCompanyName', internalCompany?.Company_Name);
+    dispatch(setDynamicName(internalCompany?.Company_Name));
+    Router.push('/checker/internal-companies/id');
   };
 
   return (
@@ -115,17 +108,17 @@ function Index() {
 
         {/* Queue Table */}
         <Table
-          tableHeading="Commodity"
+          tableHeading="Internal Companies"
           currentPage={currentPage}
-          totalCount={commodityPickupRecords?.total}
+          totalCount={internalCompanyPickupRecords?.total}
           setCurrentPage={setCurrentPage}
           tableHooks={tableHooks}
           columns={tableColumns}
-          data={commodityPickupRecords?.data || []}
+          data={internalCompanyPickupRecords?.data || []}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
-          serverSortEnabled={true}
           totalCountEnabled={true}
+          serverSortEnabled={true}
           handleSort={handleSort}
           sortByState={sortByState}
         />

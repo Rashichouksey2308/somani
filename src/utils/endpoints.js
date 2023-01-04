@@ -154,6 +154,13 @@ export default {
   filterUsersQueue: 'user-master/searchUser',
   getMasterPortsQueueRecords: 'port/filterPorts',
   filterPortsQueue: 'port/search',
+  createPortMaster: 'port',
+  getDocumentMasterQueueRecords: 'document-master/filterDocs',
+  filterDocumentMasterQueue: 'document-master/search',
+  createDocumentMaster: 'document-master',
+  getMasterCountryQueueRecords: 'country-master/filterCountryMaster',
+  filterCountryQueue: 'country-master/search',
+  createCountryMaster: 'country-master',
 
   //Checker
   getCommodityDetails: '/commodity/commodity/',
@@ -162,12 +169,18 @@ export default {
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
-
-  //Masters
-  getAllCommodity: 'commodity/get-commodities',
   getCommodityPickupRecords: '/commodity/checker-pending-requests',
   getVendorPickupRecords: '/vendor/checker-pending-requests',
   getCreditCAMPickupRecords: '/lead/cam/getCamLeads',
+  getTransactionSummaryPickupRecords: '/termsheet/checker-pending-requests',
+  getGenericsPickupRecords: '/generic/checker-pending-requests',
+  getLetterofCreditPickupRecords: '/lc-module/checker-pending-requests',
+  getUserPickupRecords: '/user-master/checker-pending-requests',
+  getInternalCompanyPickupRecords: '/internal-company/checker-pending-requests',
+  getGoNoGoLogicPickupRecords: '/gng-master/checker-pending-requests',
+  
+  //Masters
+  getAllCommodity: 'commodity/get-commodities',
   getAllGonogo: '/gng-master',
   addNewCommodity: '/commodity',
 };
