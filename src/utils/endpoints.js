@@ -165,14 +165,15 @@ export default {
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
-
-  //Masters
-  getAllCommodity: 'commodity/get-commodities',
   getCommodityPickupRecords: '/commodity/checker-pending-requests',
   getVendorPickupRecords: '/vendor/checker-pending-requests',
   getCreditCAMPickupRecords: '/lead/cam/getCamLeads',
-  getAllGonogo: '/gng-master',
   getTransactionSummaryPickupRecords: '/termsheet/checker-pending-requests',
   getGenericsPickupRecords: '/generic/checker-pending-requests',
   getLetterofCreditPickupRecords: '/lc-module/checker-pending-requests',
+  getUserPickupRecords: '/user-master/checker-pending-requests',
+  
+  //Masters
+  getAllCommodity: 'commodity/get-commodities',
+  getAllGonogo: '/gng-master',
 };
