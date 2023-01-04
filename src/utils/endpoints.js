@@ -172,6 +172,7 @@ export default {
   getGenericsPickupRecords: '/generic/checker-pending-requests',
   getLetterofCreditPickupRecords: '/lc-module/checker-pending-requests',
   getUserPickupRecords: '/user-master/checker-pending-requests',
+  getInternalCompanyPickupRecords: '/internal-company/checker-pending-requests',
   
   //Masters
   getAllCommodity: 'commodity/get-commodities',
