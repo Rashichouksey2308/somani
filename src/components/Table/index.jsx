@@ -78,7 +78,7 @@ function Index({
             </div>
           )}
           <div className={styles.table_scroll_outer}>
-            <div className={styles.table_scrolATBB3tLsLpgxnXHyHcjmymws28bkBD5306F2l_inner}>
+            <div className={styles.table_scroll_inner}>
               <table
                 className={`${styles.table} table common-table`}
                 cellPadding="0"

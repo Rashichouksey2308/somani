@@ -160,6 +160,20 @@ function getGenericPickupRecordsFailed(payload = {}) {
     };
 }
 
+function getLetterofCreditPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_LETTER_OF_CREDIT_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getLetterofCreditPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_LETTER_OF_CREDIT_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
+
 export const GetCommodity = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
 
@@ -549,6 +563,40 @@ export const GetGenericsPickupRecords = (payload) => async (dispatch, getState, 
         });
     } catch (error) {
         dispatch(getGenericPickupRecordsFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetLetterOfCreditPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getLetterofCreditPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getLetterofCreditPickupRecordsSuccess(response.data.data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getLetterofCreditPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Letter of Credit Details';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getLetterofCreditPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };
