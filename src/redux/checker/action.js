@@ -174,6 +174,20 @@ function getLetterofCreditPickupRecordsFailed(payload = {}) {
     };
 }
 
+function getGoNoGoLogicPickupRecordsSuccess(payload) {
+    return {
+        type: types.GET_GO_NO_GO_LOGIC_PICKUP_RECORDS_SUCCESSFULL,
+        payload,
+    };
+}
+
+function getGoNoGoLogicPickupRecordsFailed(payload = {}) {
+    return {
+        type: types.GET_GO_NO_GO_LOGIC_PICKUP_RECORDS_FAILED,
+        payload,
+    };
+}
+
 export const GetCommodity = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
 
@@ -597,6 +611,40 @@ export const GetLetterOfCreditPickupRecords = (payload) => async (dispatch, getS
         });
     } catch (error) {
         dispatch(getLetterofCreditPickupRecordsFailed());
+        dispatch(setNotLoading());
+    }
+};
+
+export const GetGoNoGoLogicPickupRecords = (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading());
+
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    const [, , jwtAccessToken] = decodedString.split('#');
+    const headers = {
+        authorization: jwtAccessToken,
+        Cache: 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+    };
+    try {
+        Axios.get(`${API.corebaseUrl}${API.getGoNoGoLogicPickupRecords}${payload}`, {
+            headers: headers,
+        }).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getGoNoGoLogicPickupRecordsSuccess(response.data.data));
+                dispatch(setNotLoading());
+            } else {
+                dispatch(getGoNoGoLogicPickupRecordsFailed(response.data.data));
+                const toastMessage = 'Could not fetch Go No Go Logic Details';
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                }
+                dispatch(setNotLoading());
+            }
+        });
+    } catch (error) {
+        dispatch(getGoNoGoLogicPickupRecordsFailed());
         dispatch(setNotLoading());
     }
 };

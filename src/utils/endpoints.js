@@ -165,7 +165,8 @@ export default {
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
   getInspectionPickupRecords: '/inspection/requiredInspectionDetails',
-
+  getGoNoGoLogicPickupRecords: '/gng-master/checker-pending-requests',
+  
   //Masters
   getAllCommodity: 'commodity/get-commodities',
   getCommodityPickupRecords: '/commodity/checker-pending-requests',
