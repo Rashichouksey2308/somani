@@ -20,7 +20,7 @@ import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 import { returnReadableNumber } from '@/utils/helpers/global';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
-function index() {
+function Index() {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     seller: '',
@@ -130,13 +130,10 @@ function index() {
         detailsOfEndBuyer: data?.company.companyName,
         detailsOfComm: data?.order?.commodity,
         quan: data?.order?.quantity,
-        unitPrice: data.order?.perUnitPrice,
         totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
         lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
         dischargePort: data?.order?.portOfDischarge,
-
         lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-
         terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
         addComm: comment,
         spec: data?.productSpecifications?.specificationTable,
@@ -164,16 +161,13 @@ function index() {
         stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
         cma: data?.CMA?.name,
         cmaAddress: _get(data, 'CMA.addresses[0]', {}),
-
         cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
         cha: data?.CHA?.name,
         chaAddress: _get(data, 'CHA.addresses[0]', {}),
-
         chaAuthorized: _get(data, 'CHA.authorisedSignatoryDetails', []),
         vessel: data?.shippingLine?.vesselName,
         storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
         loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
-        priceOfGoods: data?.order?.perUnitPrice,
         dateOfContract: dateOfContract,
         designatedStorageArea: data?.CMA?.designatedStorageArea,
         supplier: data?.supplier?.name,
@@ -272,7 +266,7 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
 
 export const undertaking1Pdf = (data) => {
   return (

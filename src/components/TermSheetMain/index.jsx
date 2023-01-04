@@ -47,7 +47,6 @@ function Index() {
     await dispatch(GetCompanyDetails({ company: buyer.company._id }));
     sessionStorage.setItem('orderID', buyer.order._id);
     sessionStorage.setItem('companyID', buyer.company._id);
-
     sessionStorage.setItem('showCAM', true);
     dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'));
     Router.push('/review');
@@ -110,18 +109,16 @@ function Index() {
                       allTermsheets?.data?.map((sheet, index) => (
                         <tr key={index} className={`${styles.table_row} table_row`}>
                           <td>
-                            {sheet.company.customerId ? sheet.company.customerId : sheet.company.temporaryCustomerId}
+                            {sheet.company.customerId ?? sheet.company.temporaryCustomerId}
                           </td>
                           <td
-                            onClick={() => {
-                              handleRoute(sheet);
-                            }}
+                            onClick={() => handleRoute(sheet)}
                             className={`${styles.buyerName}`}
                           >
                             {sheet.company.companyName}
                           </td>
                           <td>{sheet.order.existingCustomer ? 'Yes' : 'No'}</td>
-                          <td>{moment(sheet.createdAt.slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}</td>
+                          <td>{moment(sheet.createdAt).format('DD-MM-YYYY')}</td>
                           <td>
                             <span className={`${styles.status} ${styles.approved}`}></span>
                             {sheet.status}
@@ -131,9 +128,7 @@ function Index() {
                               src="/static/preview.svg"
                               className="img-fluid"
                               alt="Preview"
-                              onClick={() => {
-                                handleRoutePreview(sheet);
-                              }}
+                              onClick={() => handleRoutePreview(sheet)}
                             />
                           </td>
                         </tr>

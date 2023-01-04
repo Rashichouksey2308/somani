@@ -8,7 +8,7 @@ import Router from 'next/router';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 import { GetAllCurrency, GetCurrency } from '../../src/redux/currency/action'
 
-const index = () => {
+const Index = () => {
 
   const dispatch = useDispatch();
   
@@ -117,4 +117,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

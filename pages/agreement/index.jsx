@@ -83,6 +83,30 @@ const [agreementDoc, setagreementDoc] = useState({
     ));
     setagreementDoc(newInput);
   };
+  const saveDoc=async()=>{
+          const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
+    
+     let dataToSend = {
+      
+            genericId:  JSON.parse(sessionStorage.getItem('genericSelected'))._id,
+            agreementDocument:doc
+          };
+        await dispatch(updateGenericData(dataToSend, 'Save'));
+      }
+      const submitDoc=async()=>{
+        const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
+    
+        if(!doc){
+          handleErrorToast('please upload Sales Agreement ')
+          return
+        }
+     let dataToSend = {
+            genericId:  JSON.parse(sessionStorage.getItem('genericSelected'))._id,
+          document:doc
+          };
+        await dispatch(updateGenericData(dataToSend, 'Submitted'));
+      }
+      const [show,setShow]=useState(false)
  
   return (
     <div className={`${styles.dashboardTab} w-100`}>
