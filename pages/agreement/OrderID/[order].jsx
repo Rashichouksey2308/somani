@@ -20,20 +20,19 @@ function Index() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId');
+    const id = sessionStorage.getItem('letterId');
     dispatch(GettingAllInsurance(`?insuranceId=${id}`));
   }, [dispatch]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {});
+  const insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
   const handlePopup = () => {
     setShow(true);
   };
-  const [modalviewShow, setModalViewShow] = useState('insurance');
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
@@ -46,7 +45,7 @@ function Index() {
   ]);
 
   const addMoreRows = (val) => {
-    if (val == 'email') {
+    if (val === 'email') {
       setEmailAdd([
         ...emailAdd,
         {
@@ -63,7 +62,7 @@ function Index() {
     }
   };
   const deleteArr = (val, index) => {
-    if (val == 'email') {
+    if (val === 'email') {
       setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
     } else {
       setinsuranceAdd([...insuranceAdd.slice(0, index), ...insuranceAdd.slice(index + 1)]);

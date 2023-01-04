@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import _get from 'lodash/get';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import ReactDOMServer from 'react-dom/server';
 import { useDispatch, useSelector } from 'react-redux';
