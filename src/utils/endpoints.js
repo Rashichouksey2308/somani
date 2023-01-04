@@ -157,6 +157,9 @@ export default {
   getDocumentMasterQueueRecords: 'document-master/filterDocs',
   filterDocumentMasterQueue: 'document-master/search',
   createDocumentMaster: 'document-master',
+  getMasterCountryQueueRecords: 'country-master/filterCountryMaster',
+  filterCountryQueue: 'country-master/search',
+  createCountryMaster: 'country-master',
 
   //Checker
   getCommodityDetails: '/commodity/commodity/',

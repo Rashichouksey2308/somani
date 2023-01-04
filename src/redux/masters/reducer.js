@@ -26,7 +26,12 @@ const initialState = {
   gettingDocumentMasterQueueRecords: false,
   filteringDocumentMasterQueue: false,
   filteredDocumentMasterQueue: [],
-  creatingDocumentMaster: false
+  creatingDocumentMaster: false,
+  countryQueueRecords: [],
+  gettingCountryQueueRecords: false,
+  filteringCountryQueue: false,
+  filteredCountryQueue: [],
+  creatingCountryMaster: false,
 };
 
 function MastersReducer(state = initialState, action) {
@@ -344,6 +349,52 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         creatingDocumentMaster: false,
+      };
+
+    case types.GET_MASTER_COUNTRY_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingCountryQueueRecords: false,
+        countryQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_COUNTRY_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingCountryQueueRecords: false,
+        countryQueueRecords: {},
+      };
+
+    case types.FILTER_COUNTRY_QUEUE:
+      return {
+        ...state,
+        filteringCountryQueue: true,
+      };
+
+    case types.FILTER_COUNTRY_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringCountryQueue: false,
+        filteredCountryQueue: action.payload,
+      };
+
+    case types.FILTER_COUNTRY_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringCountryQueue: false,
+        filteredCountryQueue: null,
+      };
+
+    case types.CREATE_COUNTRY_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingCountryMaster: false,
+      };
+
+    case types.CREATE_COUNTRY_MASTER_FAILED:
+      return {
+        ...state,
+        creatingCountryMaster: false,
       };
 
 
