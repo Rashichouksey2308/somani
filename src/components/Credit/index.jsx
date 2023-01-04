@@ -493,7 +493,7 @@ const index = ({
       setSupplierShow(true)
     }
   },[searchedSupplier])
-  
+ 
   const handleSearch = (e) => {
     setRemoveInput(false);
     const query = e;
@@ -1252,7 +1252,7 @@ const index = ({
                         <>
                           {!person.isEdit ? (
                             <>
-                            
+                          
                               <tr>
                                 <td>{person.name}</td>
                                 <td>{person.designation}</td>

@@ -179,6 +179,7 @@ function Index() {
   };
 
   const validation = () => {
+   
     if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {

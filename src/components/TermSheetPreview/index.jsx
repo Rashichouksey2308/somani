@@ -211,12 +211,12 @@ function Index() {
       ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
       {
         callback: function (doc) {
-          
+         
          var out = doc.output('blob');
          var reader = new FileReader();
           let blob =  reader.readAsBinaryString(out);
          reader.onload = () => {
-            // console.log(reader.result,"image.png");
+            
             
           }
          
@@ -234,18 +234,9 @@ function Index() {
   const shareEmail = async (email) => {
     let doc = exportPDF2();
  
-    // let formData = new FormData();
-    // formData.append('document1', '');
-    // formData.append('data', {
-    //   subject: 'this is subject',
-    //   text: 'this is text',
-    //   receiver: email,
-    // });
-
-    // await dispatch(sharingTermsheetEmail(formData));
-    // setOpen(false);
+   
   };
-
+ 
   return (
     <>
       <div className={`${styles.root_container}  `} ref={toPrint}>

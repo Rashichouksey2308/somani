@@ -1131,7 +1131,7 @@ function Index(props) {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
-                                  {console.log(val.addnew, 'val.addnew ')}
+                                 
                                   {val.addnew == 'false' ? (
                                     <>
                                       <select

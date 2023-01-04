@@ -188,7 +188,7 @@ function Index(props) {
       }
     }
   }, [props.data]);
-console.log(list,"lsiuii")
+
   useEffect(() => {
     if (props?.address) {
       let a = {
@@ -255,7 +255,7 @@ console.log(list,"lsiuii")
       tempArr.order =  props.orderData._id;
       if(list.length>0){
         list?.forEach((val,index)=>{
-          console.log(val?.document?.path,"val?.document?.path")
+        
         if(val?.document?.path != undefined){
             tempArr.path = val?.document?.path
         }

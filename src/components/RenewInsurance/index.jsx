@@ -72,7 +72,7 @@ const Index = () => {
   })
   
   useEffect(()=>{
-  
+   
     if(insuranceResponse?.data){
           if(insuranceResponse?.data[0].quotationRequest.insuranceType == `"Marine Insurance"`){
        setActiveInsurance({...activeInsurance,marine:true})
@@ -88,6 +88,7 @@ const Index = () => {
       if(moment(insuranceResponse?.data[0]?.marineInsurance?.insuranceTo).isBefore(moment()) && moment(insuranceResponse?.data[0]?.storageInsurance?.insuranceTo).isBefore(moment()) ){
          setActiveInsurance({...activeInsurance,marine:true,storage:true}) 
       }else{
+         
          if(moment(insuranceResponse?.data[0]?.storageInsurance?.insuranceTo).isBefore(moment())){
          setActiveInsurance({...activeInsurance,storage:true,marine:false}) 
           setInsuranceType(true)

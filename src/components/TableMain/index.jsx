@@ -98,7 +98,7 @@ function Index({
                         handleRoute(insured);
                       }}
                     >
-                      
+                   
                       {insured?.company?.companyName}
                     </td>
                     <td>{insured?.order?.commodity}</td>

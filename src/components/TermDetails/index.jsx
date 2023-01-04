@@ -20,7 +20,7 @@ const Index = ({
   country,
   currency,
 }) => {
-  
+ 
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
  

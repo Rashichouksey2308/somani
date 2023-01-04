@@ -84,7 +84,7 @@ function Index(props) {
       
       getVendorsMasterData.filter((val,index)=>{
         if(val.vendorDetails.vendor=="CMA"){
-          console.log(val,"ssasdasda")
+         
            val.keyAddresses.forEach((add,index)=>{
              if(add.address!=="" && add.address!== undefined){
                cmaAddress.push(add)
@@ -93,7 +93,7 @@ function Index(props) {
                
            })
            val.keyContactPerson.forEach((sig,index)=>{
-            console.log(sig.authorizedSignatory,"sig.authorizedSignatory")
+           
               if(sig.authorizedSignatory!=="No"){
                   cmaAutorized.push(sig)
                   cmaOptions.push(sig.name)
@@ -103,7 +103,7 @@ function Index(props) {
            cmaName=val.vendorDetails.companyName
         }
          if(val.vendorDetails.vendor=="CHA"){
-          console.log(val,"ssasdasda")
+         
            val.keyAddresses.forEach((add,index)=>{
              if(add.address!=="" && add.address!== undefined){
                chaAddress.push(add)
@@ -121,7 +121,7 @@ function Index(props) {
            chaName=val.vendorDetails.companyName
         }
          if(val.vendorDetails.vendor=="Stevedore"){
-          console.log(val,"ssasdasda")
+        
            val.keyAddresses.forEach((add,index)=>{
             if(add.address!=="" && add.address!== undefined){
                stevedoreAddress.push(add)
@@ -160,13 +160,13 @@ function Index(props) {
         address:stevedoreAddress||[],
         gstin:stevedoregstin||[]
       }
-      console.log(tempCma,"tempCma")
+     
       setCmaDetails({...tempCma})
       setChaDetails({...tempCha})
       setsteveDoreDetails({...tempsteved})
     }
   },[getVendorsMasterData,sameAsCHA])
-  console.log(cmaDetails,"cmaDetails")
+ 
   const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
@@ -1566,7 +1566,7 @@ let masterList = [
           isSubmitted: true,
         },
       };
-      console.log(dataToSend,"dataToSend")
+     
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
@@ -1881,7 +1881,7 @@ let masterList = [
       }
     }
     if (key == 'Stevedore') {
-      console.log(data.seteveState.gstin.length,"ata.seteveState.gstin")
+     
       dataToSend = {
         genericId: props.genericData?._id,
         stevedore: {
@@ -1902,7 +1902,7 @@ let masterList = [
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-     console.log(dataToSend.stevedore.gstin,"dataToSend.stevedore.gstin")
+    
       if (dataToSend.stevedore.name == '' || dataToSend.stevedore.name == undefined) {
         toastMessage = `Please add stevedore name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -2064,7 +2064,7 @@ let masterList = [
           return;
         }
       }
-      console.log(data.shippingData.gstin,"data.shippingData.gstin")
+     
     if(data.shippingData.gstin!=="" && data.shippingData.gstin!==undefined){
       let valid=  gSTINValidation(data.shippingData.gstin)
       if(valid==false){
@@ -2081,7 +2081,7 @@ let masterList = [
       
     }
     if (key == 'Delivery Terms') {
-      console.log(data.listContact, 'data.listContact');
+     
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {
@@ -2284,7 +2284,7 @@ let masterList = [
         addresses: data.address,
         authorisedSignatoryDetails: data.list,
       };
-      console.log(dataToSend,"dataToSend")
+     
       sessionStorage.setItem('Associate', JSON.stringify(dataToSend2));
 
       if (dataToSend.associateBuyer.gstin == '' || dataToSend.associateBuyer.gstin == undefined) {
@@ -2321,9 +2321,9 @@ let masterList = [
       }
       let error = false;
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0) {
-        console.log("herher")
+       
         for (let i = 0; i < dataToSend.associateBuyer.authorisedSignatoryDetails.length; i++) {
-          console.log("herher",dataToSend.associateBuyer.authorisedSignatoryDetails[i])
+      
           if (dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'true' || dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew == 'false') {
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].name == '' ||
@@ -2381,7 +2381,7 @@ let masterList = [
               return;
             }
           }
-            console.log( dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,"")
+          
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == '' ||
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo == undefined

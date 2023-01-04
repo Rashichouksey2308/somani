@@ -4,7 +4,6 @@ import { returnReadableNumber } from '@/utils/helpers/global';
 
 
 export default function RevisedMarginPreviewTemp(marginData) {
- 
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>

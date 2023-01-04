@@ -51,7 +51,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                 className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
                 name="unitOfQuantity"
                 onChange={(e) => {
-                  
+                 
                   saveOrderData(e.target.name, e.target.value);
                 }}
               >

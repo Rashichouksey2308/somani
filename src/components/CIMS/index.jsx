@@ -48,6 +48,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     if(Number(quan)>100000){
       quan=100000
     }
+   
     if (data.length > 0) {
       setCimsDetails(data);
     } else {
@@ -144,7 +145,19 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   // };
   const onChangeCims = (e, index) => {
     const name = e.target.id;
-    const value = e.target.value;
+    let value = e.target.value;
+   
+     let quan=  Number(value)
+     if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
+       quan = Number(quan)*0.001
+       quan= quan*1
+      }else{
+        quan= Number(quan)*1
+      }
+    if(Number(quan)>100000){
+              quan=100000
+    }
+
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {

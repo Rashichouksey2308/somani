@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 
 export default function SalesContract(changeHandler, data, preview) {
-  console.log(data?.addComm,"data?.addComm")
+
   return (
     <>
       <div className={`${styles.card_body}`}>

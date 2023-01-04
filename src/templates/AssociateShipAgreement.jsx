@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { Col, Row } from 'react-bootstrap';
 
 export default function AssociateShipAgreement(data, preview, setPreviewValue,active) {
-  console.log(active, 'data');
+
   return (
     <>
       <div className="card-body" style={{ minHeight: 'auto', flex: 'none' }}>

@@ -394,6 +394,63 @@ function Index() {
     setLastMileDelivery(val);
   };
 
+  useEffect(() => {
+    let limit = DOlimit;
+    filteredDOArray.forEach((item, index) => {
+      limit = DOlimit - item.Quantity;
+      setDoLimit(limit);
+    });
+  }, [filteredDOArray, deliveryOrder]);
+
+  const onEdit = (index, value,type) => {
+    let tempArr = deliveryOrder;
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+       
+       
+        let number=0
+        for (let i = 0; i < releaseDetail.length; i++) {
+        if(releaseDetail[i].orderNumber==val.orderNumber){
+        number=Number(releaseDetail[i].netQuantityReleased);
+        }
+
+        }
+       
+        if(Number(val.Quantity)>number){
+        let  toastMessage = `Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order`;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+
+        }
+        return
+        }
+        if(type=="Save"){
+        val.deliveryOrderDate= new Date() 
+        if(val.status !== "DO Canceled"){
+        val.status="DO Issued"
+        }
+        }
+        val.isDelete = value;
+      }
+    });
+    setDeliveryOrder([...tempArr]);
+  };
+    const cancelDo = (index, value) => {
+    let tempArr = deliveryOrder;
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        
+       
+        val.status="DO Canceled"
+        
+      }
+    });
+    setDeliveryOrder([...tempArr]);
+  };
+
+
+
+
   const BalanceQuantity = () => {
     let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
     if (boe !== 0) {
@@ -402,10 +459,10 @@ function Index() {
       }, 0);
 
       deliveryOrder.forEach((item) => {
-        console.log('itemm', item);
-        if (item.status !== 'DO cancelled') {
-          boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
-        }
+       
+        if(item.status !== "DO Cancelled"){
+         boeTotalQuantity = boeTotalQuantity - Number(item.Quantity); 
+        } 
       });
       return boeTotalQuantity;
     }
@@ -506,8 +563,8 @@ function Index() {
 
           setFilteredDOArray(filteredArray);
         }
-
-        console.log(val, 'indexxx');
+      
+      
         if (name === 'Quantity') {
           if (value <= 0) {
             setDoLimit(quantity);
@@ -525,8 +582,8 @@ function Index() {
             });
             const filterForReleaseOrder = releaseDetail.filter((item) => {
               return item.orderNumber == val.orderNumber;
-            });
-            console.log(filterForReleaseOrder, totalDONumber, 'totlNumber');
+              });
+            
             setDoLimit(tempLimit);
           }
         }
@@ -688,7 +745,22 @@ function Index() {
     } else {
       return false;
     }
-  };
+    
+  });
+   deliveryOrder.forEach((item, index) => {
+    
+    if(item.orderNumber==orderNumber){
+     delivery = delivery+Number(item.Quantity)
+    }
+    
+  });
+  
+    if(delivery>=release){
+      return true
+    }else{
+      return false
+    }
+  }
   return (
     <>
       <div className={`${styles.dashboardTab}  w-100`}>

@@ -16,7 +16,7 @@ let stevedore = {
 };
 
 function Index(props) {
-  console.log(props.vendor.name,"Sdasd")
+ 
   const [removedOption, setRemovedOption] = useState(null);
   const [options, setOptions] = useState([]);
    const [removedArr, setRemovedArr] = useState([]);
@@ -156,7 +156,7 @@ function Index(props) {
             city: val.city
             })
           })
-          console.log(temp,"temp")
+        
           setAddressList([...temp])
           }
             }else{
@@ -233,7 +233,7 @@ function Index(props) {
                 city: val.city
                 })
               })
-              console.log(temp,"temp")
+            
               setAddressList([...temp])
               }
                 }else{
@@ -241,7 +241,7 @@ function Index(props) {
                 }
         setSeteveState(supplier);
       } else {
-         console.log("herer")
+        
         let supplier = {
           name: props.data?.name || props?.vendor?.name,
           shortName: props.data?.shortName || '',
@@ -264,10 +264,10 @@ function Index(props) {
               ],
         );
         if(props.data?.addresses?.length==0){
-          console.log('ssdasdasd',props.vendor.address)
+         
         let temp=[];
         if(props.vendor.address?.length>0 || props.vendor.address!==undefined ){
-          console.log(props.vendor.address,"props.vendor.address")
+         
           props.vendor.address.forEach((val,index)=>{
               temp.push({
               addressType: 'Registered',
@@ -279,7 +279,7 @@ function Index(props) {
               city: val.city
               })
             })
-            console.log(temp,"temp")
+          
             setAddressList([...temp])
             }
         }else{
@@ -287,7 +287,7 @@ function Index(props) {
         }
         setSeteveState(supplier);
             let tempArr = props.data?.authorisedSignatoryDetails;
-            console.log(props?.vendor?.options?.length,"props?.vendor?.options?.length")
+          
        if(props?.vendor?.options?.length>0){
            let optionArray =  props?.vendor?.options
           tempArr.forEach((val, index) => {
@@ -299,7 +299,7 @@ function Index(props) {
               }
             }
           });
-          console.log(tempArr,optionArray,"optionArray")
+    
         setOptions([...optionArray]);
          }
        
@@ -307,7 +307,7 @@ function Index(props) {
       }
     }
   }, [props.data, props.sameAsCHA,props?.vendor]);
-console.log(options,"options")
+
   useEffect(() => {
     if (props.saveData == true && props.active == 'Stevedore') {
       let data = {
@@ -577,11 +577,11 @@ console.log(options,"options")
     }
   }, [getPincodesMasterData]);
   const viewSet = () => {
-    console.log("sadasd")
+  
     setToView(true);
   };
     const handleData = (name, value) => {
-    console.log('thsss');
+ 
     const newInput = { ...newAddress };
     newInput[name] = value.Pincode;
     newInput.country = 'India';
@@ -600,7 +600,7 @@ console.log(options,"options")
     setEditAddress(newInput);
     setToView(false);
   };
-  console.log(seteveState.gstin,"seteveState.gstin")
+
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>

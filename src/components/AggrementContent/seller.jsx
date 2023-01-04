@@ -357,7 +357,7 @@ function Index(props) {
       }
     });
   };
-  console.log(EditAddress,"EditAddress")
+ 
   const editNewAddress = (name, value) => {
     setIsEdit(true);
     const newInput = { ...EditAddress };

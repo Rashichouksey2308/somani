@@ -50,7 +50,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
 
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
-  const consolidatedDataGstData = JSON?.parse(JSON?.stringify(companyData?.gstConsolidated ?? []));
+  const consolidatedDataGstData = JSON?.parse(JSON?.stringify(companyData?.gstConsolidated  ?? []))
+
+
+
 
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
@@ -66,6 +69,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
     datasets: [],
   });
   const [gstFilteredData, SetGstFilteredData] = useState(orderList?.company?.gstList);
+ 
 
   const [revenueProfile, setRevenueProfile] = useState(10000000);
   const [saleDetails, setSalesDetails] = useState(10000000);
@@ -152,8 +156,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
       };
 
       selected.forEach((item) => {
-        payload.gstinList.push(item.value);
-      });
+        payload.gstinList.push(item.value)
+      })
+
+    
       dispatch(getConsolidatedGstData(payload));
     }
   };
@@ -175,6 +181,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
         payload.gstinList.push(item.value);
       });
 
+      
       dispatch(getGstData(payload));
     }
 
@@ -184,7 +191,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
     //   username: credential.username,
     //   password: credential.password,
     // };
-    // console.log(payload, 'payload')
+  
 
     // // dispatch(VerifyGstKarza(payload));
     // handleClose();
@@ -192,10 +199,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
 
   useEffect(() => {
     if (selected.length < 1) {
-      return;
+    
+      return
     } else if (selected.length === 1) {
-      const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === selected[0].value);
+     
+
+      const filteredgstin = GstData?.filter(
+        (GstinData) => GstinData.gstin === selected[0].value,
+      );
       if (filteredgstin?.length === 1) {
+
         filteredgstin?.map((gstData) => {
           const data = { ...gstData };
           SetGstFilteredData(data);
@@ -208,18 +221,18 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
       }
     } else {
       let consolidatedDataExist = false;
-      let selectedGstin = [];
+      let selectedGstin = []
+    
 
       selected.forEach((item) => {
-        selectedGstin.push(item.value);
-      });
-      selectedGstin.sort();
-      const filteredData = consolidatedDataGstData.filter((item) => {
-        if (_.isEqual(item.gstin.sort(), selectedGstin)) return item;
-      });
+        selectedGstin.push(item.value)
+      })
+      selectedGstin.sort()
+const filteredData = consolidatedDataGstData.filter((item) =>{
+ 
+  if(_.isEqual(item.gstin.sort(),selectedGstin))  return item })
 
-      // let a =['37AAACI3028D2Z0', '07AAACI3028D1Z4']
-      // let b = ['07AAACI3028D1Z4','37AAACI3028D2Z0']
+
 
       // a.sort()
       // b.sort()
@@ -230,33 +243,44 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
       //         consolidatedDataGstData?.forEach((gstin2,index) => {
       //           console.log(gstin2.gstin, selectedGstin, 'handleChangeGstin 3')
 
-      //           const areEqual = () => {
-      //             if (selectedGstin.length === gstin2.gstin.length) {
-      //               console.log('handleChangeGstin 3.1')
-      //               return selectedGstin.every((element) => {
-      //                 if (gstin2.gstin.includes(element)) {
-      //                   console.log('handleChangeGstin 3.2')
+// a.sort()
+// b.sort()
 
-      //                   consolidatedIndex = index
-      //                   return true;
-      //                 }
-      //                 return false;
-      //               });
-      //             }
-      //             return false;
 
-      //           }
-      //           console.log(areEqual(),consolidatedIndex, 'handleChangeGstin 4')
+//       let consolidatedIndex = null
+//       selectedGstin.forEach((gstin) => {
+//         consolidatedDataGstData?.forEach((gstin2,index) => {
 
-      //         })
-      //       })
+
+          
+//           const areEqual = () => {
+//             if (selectedGstin.length === gstin2.gstin.length) {
+//              
+//               return selectedGstin.every((element) => {
+//                 if (gstin2.gstin.includes(element)) {
+//                  
+
+//                   consolidatedIndex = index
+//                   return true;
+//                 }
+//                 return false;
+//               });
+//             }
+//             return false;
+
+//           }
+//         
+         
+
+//         })
+//       })
       if (filteredData) {
-        SetGstFilteredData(filteredData[filteredData.length - 1]);
-        GstDataHandler(filteredData[filteredData.length - 1]);
+        SetGstFilteredData(filteredData[filteredData.length-1]);
+          GstDataHandler(filteredData[filteredData.length-1]);
        
       }
-     
-      if (fetchedGstData && _.isEqual(fetchedGstData?.gstin?.sort(), selectedGstin)) {
+    
+      if(fetchedGstData && _.isEqual(fetchedGstData?.gstin?.sort(),selectedGstin)){
         SetGstFilteredData(fetchedGstData);
         GstDataHandler(fetchedGstData);
       }
@@ -267,7 +291,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj, fetchedGstDat
     // const filteredgstin = GstData?.filter(
     //   (GstinData) => GstinData.gstin === e.target.value,
     // );
-    // // console.log(filteredgstin.length, 'filteredgstin')
+
     // if (filteredgstin?.length === 1) {
     //   filteredgstin?.map((gstData) => {
     //     const data = { ...gstData };

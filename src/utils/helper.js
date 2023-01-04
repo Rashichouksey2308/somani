@@ -135,7 +135,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'front', comma = 'e
 
 export const removePrefixOrSuffix = (unitOfValue) => {
   const value = String(unitOfValue).replace(/([a-zA-Z])/g, '');
- 
+  
   return Number(value);
 };
 

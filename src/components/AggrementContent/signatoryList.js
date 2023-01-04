@@ -14,7 +14,7 @@ export const signatoryList = (
   type,
   removeArr,
 ) => {
-  console.log(list, 'ASasdasd');
+ 
   return (
     <div className={`${styles.tableContainer} border_color card p-0`}>
       <div
