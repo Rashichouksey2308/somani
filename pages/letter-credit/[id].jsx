@@ -203,7 +203,7 @@ function Index() {
     let val2 = e.target.value;
     setDrop(val2);
 
-    newInput['existingValue'] = lcData[e.target.value] || '';
+    newInput['existingValue'] = lcData[e.target.value] ?? '';
     if (e.target.value === 'draftAt')
       newInput['existingValue'] =
         lcData.atSight == 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${lcData['numberOfDays']} Days` || '';

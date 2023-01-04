@@ -8,7 +8,7 @@ import Router from 'next/router';
 import {GetAllInternalCompanies, GetInternalCompanies} from '../../src/redux/internalCompanies/action'
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 
-const index = () => {
+const Index = () => {
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
@@ -112,4 +112,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
