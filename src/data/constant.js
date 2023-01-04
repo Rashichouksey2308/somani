@@ -63,3 +63,14 @@ export const MASTERS_DOCUMENT_MASTER_QUEUE = [
         name: 'Module'
     }
 ]
+
+export const MASTERS_COUNTRY_MASTER_QUEUE = [
+    {
+        id: 'country',
+        name: 'Country'
+    },
+    {
+        id: 'status',
+        name: 'Status',
+    }
+]

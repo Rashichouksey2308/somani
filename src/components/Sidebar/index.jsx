@@ -146,6 +146,11 @@ function Index() {
           image: '/static/gl.svg',
           route: '/masters/document-master',
         },
+        {
+          name: 'Country',
+          image: '/static/gl.svg',
+          route: '/masters/country',
+        }
       ],
       image: '/static/Masters.svg',
       route: '',
