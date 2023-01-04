@@ -6,62 +6,6 @@ import Table from '../../../src/components/Table';
 import Image from 'next/image';
 import { GetGoNoGoLogicPickupRecords } from '../../../src/redux/checker/action';
 
-const mockData = {
-  "data": [
-    {
-      "verification": {
-        "status": "Active"
-      },
-      "transactionType": [
-        "Import",
-        "Export"
-      ],
-      "typeOfBusiness": [
-        "Manufacturer"
-      ],
-      "_id": "63ad2e5e15e5a038ae6c0db2",
-      "minTurnOver": 500000000,
-      "minOrderValue": 10000000,
-      "daysAllowedInExpectedDateOfShipment": 90,
-      "remarks": "second",
-      "version": 1.1,
-      "createdBy": "62fc856c15027f0021336e1e",
-      "lastUpdatedBy": "62fc856c15027f0021336e1e",
-      "createdAt": "2022-11-01T12:45:24.924Z",
-      "updatedAt": "2022-12-29T06:16:33.586Z",
-      "__v": 0,
-      "versionApprovalDate": "2022-11-07T12:45:24.924Z",
-      "status": "GONOGOPENDINGCHECKER"
-    },
-    {
-      "verification": {
-        "status": "Active"
-      },
-      "transactionType": [
-        "Import",
-        "Export"
-      ],
-      "typeOfBusiness": [
-        "Manufacturer"
-      ],
-      "_id": "63ad2e5e15e5a038ae6c0db2",
-      "minTurnOver": 500000000,
-      "minOrderValue": 10000000,
-      "daysAllowedInExpectedDateOfShipment": 90,
-      "remarks": "second",
-      "version": 1.1,
-      "createdBy": "62fc856c15027f0021336e1e",
-      "lastUpdatedBy": "62fc856c15027f0021336e1e",
-      "createdAt": "2022-11-13T12:45:24.924Z",
-      "updatedAt": "2022-12-29T06:16:33.586Z",
-      "__v": 0,
-      "versionApprovalDate": "2022-11-15T12:45:24.924Z",
-      "status": "GONOGOPENDINGCHECKER"
-    }
-  ],
-  "total": 2
-};
-
 function Index() {
   const dispatch = useDispatch();
   const { goNoGoLogicPickupRecords } = useSelector((state) => state.checker);
