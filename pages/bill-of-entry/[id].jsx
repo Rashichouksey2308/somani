@@ -21,47 +21,41 @@ function Index() {
   const dispatch = useDispatch();
   const [componentId, setComponentId] = useState(1);
 
-  const [darkMode, setDarkMode] = useState(false);
   const [arrivalDate, setArrivalDate] = useState(null);
 
   useEffect(() => {
-    let id = sessionStorage.getItem('customId');
+    const id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
   }, [dispatch]);
 
   const { allCustomClearance } = useSelector((state) => state.Custom);
 
-  let customData = _get(allCustomClearance, 'data[0]', {});
-  let OrderId = _get(customData, 'order._id', {});
-  let CompanyOrderId = _get(customData, 'order', {});
+  const customData = _get(allCustomClearance, 'data[0]', {});
+  const OrderId = _get(customData, 'order._id', {});
+  const CompanyOrderId = _get(customData, 'order', {});
   const uploadDoc = async (e) => {
-    let fd = new FormData();
+    const fd = new FormData();
     fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
 
-    let cookie = Cookies.get('SOMANI');
+    const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    let headers = {
+    const [jwtAccessToken] = decodedString.split('#');
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+      const response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
       });
 
       if (response.data.code === 200) {
-        // dispatch(getCustomClearanceSuccess(response.data.data))
 
         return response.data.data;
-        // let toastMessage = 'DOCUMENT UPDATED'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       } else {
-        // dispatch(getCustomClearanceFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -69,7 +63,7 @@ function Index() {
         return null;
       }
     } catch (error) {
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -87,19 +81,6 @@ function Index() {
     );
   }, [allCustomClearance]);
 
-  //   useEffect(() => {
-  //     if(allCustomClearance){
-  //  dispatch(
-  //       getBreadcrumbValues({
-  //         companyName: allCustomClearance.data[0].customData?.company?.companyName,
-  //         companyId: allCustomClearance.data[0].customData?.order?.orderId,
-  //         orderTabs: 'Bill of Entry',
-  //       }),
-  //     );
-  //     }
-
-  //   }, [allCustomClearance]);
-
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -114,8 +95,6 @@ function Index() {
             />
             <h3 className={`${styles.title} heading`}>
               <span
-              // className={`${styles.title} heading`}
-              // style={{ textTransform: 'capitalize' }}
               >
                 {customData?.company?.companyName} -{' '}
                 <span style={{ textTransform: 'capitalize' }}>{CompanyOrderId?.orderId}</span>
@@ -126,11 +105,6 @@ function Index() {
             <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
-                // data-toggle="tab"
-                // href="#billEntry"
-                // role="tab"
-                // aria-controls="billEntry"
-                // aria-selected="true"
                 role="button"
                 onClick={() => {
                   setComponentId(1);
@@ -148,11 +122,6 @@ function Index() {
               <a
                 className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
                 role="button"
-                // data-toggle="tab"
-                // id="#dischargeCargo"
-                // role="tab"
-                // aria-controls="dischargeCargo"
-                // aria-selected="false"
                 onClick={() => {
                   setComponentId(2);
                   dispatch(
@@ -169,11 +138,6 @@ function Index() {
               <a
                 className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'}`}
                 role="button"
-                // data-toggle="tab"
-                // href="#warehouse"
-                // role="tab"
-                // aria-controls="warehouse"
-                // aria-selected="false"
                 onClick={() => {
                   setComponentId(3);
                   dispatch(
@@ -194,7 +158,6 @@ function Index() {
             <div className="row">
               <div className="col-md-12 p-0 accordion_body">
                 <div className={`${styles.tabContent} `}>
-                  {/* <div className="fade" id="billEntry" role="tabpanel"> */}
                   <div className={`${styles.card}  accordion_body`}>
                     {componentId === 1 && (
                       <BillOfEntry
@@ -206,13 +169,6 @@ function Index() {
                       />
                     )}
                   </div>
-                  {/* </div> */}
-
-                  {/* <div
-                    className="tab-pane fade"
-                    id="dischargeCargo"
-                    role="tabpanel"
-                  > */}
                   <div className={`${styles.card}  accordion_body`}>
                     {componentId === 2 && (
                       <DischargeCargo
@@ -225,9 +181,6 @@ function Index() {
                       />
                     )}
                   </div>
-                  {/* </div> */}
-
-                  {/* <div className="tab-pane fade" id="warehouse" role="tabpanel"> */}
                   <div className={`${styles.card}  accordion_body`}>
                     {componentId === 3 && (
                       <Warehouse
@@ -238,7 +191,6 @@ function Index() {
                       />
                     )}
                   </div>
-                  {/* </div> */}
                 </div>
               </div>
             </div>
