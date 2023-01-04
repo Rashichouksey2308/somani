@@ -155,7 +155,7 @@ function Index() {
         },
         { name: 'Vendors', image: '/static/review-queue.svg', route: '/checker/vendor' },
         { name: 'Commodity', image: '/static/review-queue.svg', route: '/checker/commodity' },
-        { name: 'Internal Companies', image: '/static/review-queue.svg', route: '' },
+        { name: 'Internal Companies', image: '/static/review-queue.svg', route: '/checker/internal-companies' },
         { name: 'Rejected Records', image: '/static/review-queue.svg', route: '' },
         { name: 'Inspection', image: '/static/inspection.svg', route: '/checker/inspection' },
         { name: 'Credit CAM', image: '/static/inspection.svg', route: '/checker/credit-cam' },
