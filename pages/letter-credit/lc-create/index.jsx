@@ -74,8 +74,12 @@ function Index() {
         ? lcModuleData?.lcApplication?.portOfLoading
         : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort,
       portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge
-        ? lcModuleData?.lcApplication?.portOfDischarge
-        : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge,
+        ? lcModuleData?.lcApplication?.portOfDischarge.includes('India')
+          ? lcModuleData?.lcApplication?.portOfDischarge
+          : `${lcModuleData?.lcApplication?.portOfDischarge}, India`
+        : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge.includes('India')
+        ? lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge
+        : `${lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge}, India`,
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment
         ? lcModuleData?.lcApplication?.latestDateOfShipment
         : lcModuleData?.order?.supplierCredential?.latestShipmentDate,
@@ -312,7 +316,7 @@ function Index() {
         return false;
       }
     }
-   
+
     if (lcData.atSight == 'Usuance') {
       if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
         toastMessage = 'Please add number of Days';

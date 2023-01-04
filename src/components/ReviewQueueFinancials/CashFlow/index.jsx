@@ -74,7 +74,7 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                           color: `${returnDataPeriodAndColour(previousYearData?.financialEndDate).colour}`,
                         }}
                       >
-                        {returnDataPeriodAndColour(latestYearData?.financialEndDate, 1).date}
+                        {returnDataPeriodAndColour(previousYearData?.financialEndDate, 1).date}
                       </th>
                       <th
                         width="12.5%"
@@ -82,7 +82,7 @@ function Index({ cashData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                           color: `${returnDataPeriodAndColour(lastYearData?.financialEndDate).colour}`,
                         }}
                       >
-                        {returnDataPeriodAndColour(latestYearData?.financialEndDate, 2).date}
+                        {returnDataPeriodAndColour(lastYearData?.financialEndDate, 2).date}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND

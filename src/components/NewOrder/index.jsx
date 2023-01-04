@@ -26,7 +26,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
       return;
     }
     let filterData = commodity.filter((o) => {
-      return o.Commodity.toLowerCase().includes(value.toLowerCase());
+      return o?.Commodity?.toLowerCase()?.includes(value.toLowerCase());
     });
 
     setToShow(filterData);
