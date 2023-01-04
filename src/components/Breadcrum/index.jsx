@@ -395,6 +395,22 @@ export default function Index({ isQuery }) {
       }
     }
 
+    if ('document-master' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/Document-Master` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/Document-Master` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Master' + '/Document-Master';
+      }
+    }
+
 
 
     router.route.split('/').map((subRoute, index) => {
@@ -453,14 +469,14 @@ export default function Index({ isQuery }) {
                 <span
                   key={index}
                   className={`${styles.breadcrumcontainer} ${myUrlLength == 4
-                      ? myUrlLength - 2 == index
-                        ? `${styles.highlight} highlight`
-                        : myUrlLength - 1 == index
-                          ? `${styles.highlight} highlight`
-                          : null
+                    ? myUrlLength - 2 == index
+                      ? `${styles.highlight} highlight`
                       : myUrlLength - 1 == index
                         ? `${styles.highlight} highlight`
                         : null
+                    : myUrlLength - 1 == index
+                      ? `${styles.highlight} highlight`
+                      : null
                     }`}
                 >
                   <span className="breadcrum_mode">/</span>

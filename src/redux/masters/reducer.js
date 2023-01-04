@@ -21,7 +21,12 @@ const initialState = {
   gettingPortsQueueRecords: false,
   filteringPortsQueue: false,
   filteredPortsQueue: [],
-  creatingPortMaster: false
+  creatingPortMaster: false,
+  documentMasterQueueRecords: [],
+  gettingDocumentMasterQueueRecords: false,
+  filteringDocumentMasterQueue: false,
+  filteredDocumentMasterQueue: [],
+  creatingDocumentMaster: false
 };
 
 function MastersReducer(state = initialState, action) {
@@ -295,6 +300,51 @@ function MastersReducer(state = initialState, action) {
         creatingPortMaster: false,
       };
 
+    case types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingDocumentMasterQueueRecords: false,
+        documentMasterQueueRecords: action.payload,
+      };
+
+    case types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingDocumentMasterQueueRecords: false,
+        documentMasterQueueRecords: {},
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: true,
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: false,
+        filteredDocumentMasterQueue: action.payload,
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: false,
+        filteredDocumentMasterQueue: null,
+      };
+
+    case types.CREATE_DOCUMENT_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingDocumentMaster: false,
+      };
+
+    case types.CREATE_DOCUMENT_MASTER_FAILED:
+      return {
+        ...state,
+        creatingDocumentMaster: false,
+      };
 
 
     default:

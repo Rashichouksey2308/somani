@@ -56,3 +56,10 @@ export const MASTERS_PORTS_QUEUE = [
         name: 'Status'
     }
 ]
+
+export const MASTERS_DOCUMENT_MASTER_QUEUE = [
+    {
+        id: 'module',
+        name: 'Module'
+    }
+]

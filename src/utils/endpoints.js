@@ -154,6 +154,9 @@ export default {
   filterUsersQueue: 'user-master/searchUser',
   getMasterPortsQueueRecords: 'port/filterPorts',
   filterPortsQueue: 'port/search',
+  getDocumentMasterQueueRecords: 'document-master/filterDocs',
+  filterDocumentMasterQueue: 'document-master/search',
+  createDocumentMaster: 'document-master',
 
   //Checker
   getCommodityDetails: '/commodity/commodity/',
