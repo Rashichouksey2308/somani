@@ -112,16 +112,6 @@ function Index() {
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
-        <div className={`${styles.filter} d-flex align-items-center`}>
-          <div className={`${styles.head_header} align-items-center`}>
-            <img
-              className={`${styles.arrow} mr-2 image_arrow img-fluid`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-            />
-            <h1 className={styles.heading}>Commodity</h1>
-          </div>
-        </div>
 
         {/* Queue Table */}
         <Table
@@ -135,7 +125,7 @@ function Index() {
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
           serverSortEnabled={true}
-          totalCountEnable={true}
+          totalCountEnabled={true}
           handleSort={handleSort}
           sortByState={sortByState}
         />
