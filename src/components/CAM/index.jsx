@@ -233,27 +233,6 @@ function Index({
     ],
   };
 
-  // const options = {
-  //   elements: {
-  //     arc: {
-  //       borderWidth: 0,
-  //     },
-  //   },
-  //   plugins: {
-  //     title: {
-  //       animation: {
-  //         animateScale: true,
-  //       },
-  //     },
-
-  //     legend: {
-  //       display: false,
-  //     },
-  //   },
-  //   responsive: true,
-  //   cutout: 130,
-  // };
-
   const options = {
     aspectRatio: 1,
     elements: {
