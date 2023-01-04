@@ -1,6 +1,5 @@
 @import '../../../../src/components/styles/Core/config';
 
-
 .card {
   border: none !important;
   box-shadow: none !important;
@@ -26,5 +25,9 @@
       font-weight: 400;
       margin-left: 5px;
     }
+  }
+  .footer_created {
+    display: flex;
+    justify-content: end;
   }
 }

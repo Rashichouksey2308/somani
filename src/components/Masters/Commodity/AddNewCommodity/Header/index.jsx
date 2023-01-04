@@ -14,7 +14,15 @@ function Index() {
             alt="ArrowRight"
           />
         </div>
-        <h1 className={styles.heading}>Internal Companies</h1>
+        <h1 className={styles.heading}>Add New Commodity</h1>
+      </div>
+      <div className="d-flex align-items-center">
+        <div className={`${styles.lastModified} text `}>
+          <span style={{ marginRight: '7px' }} className="accordion_Text">
+            Last Modified:
+          </span>
+          Balakrishna SGF001 - 28 Jan,11:34am
+        </div>
       </div>
     </Card.Header>
   );

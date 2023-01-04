@@ -1,0 +1,67 @@
+@import '../../../../styles/Core/config';
+
+.main {
+  margin-bottom: 26px;
+  border-radius: 6px !important;
+
+  .form_group {
+    margin-top: 40px;
+    position: relative;
+    margin-bottom: 10px;
+
+    .label_heading {
+      font-size: 16px;
+      letter-spacing: 0.53px;
+      line-height: 17px;
+      top: 22px;
+      left: 30px;
+      margin-bottom: 0;
+      position: absolute;
+      pointer-events: none;
+      box-sizing: border-box;
+      transform: translateY(-30px);
+      transition: 0.3s all ease-in-out;
+      z-index: 1;
+      max-width: 77%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &::before {
+        top: 51%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        content: '';
+        z-index: -1;
+        position: absolute;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+.btn_sec {
+  display: flex;
+  justify-content: space-between;
+  margin: 18px 28px 18px 28px;
+
+  .btn_green {
+    padding: 12px 42px 12px 42px;
+    background: #3687e8;
+    letter-spacing: 0px;
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
+    font: normal normal bold 20px/25px Helvetica Neue;
+    border-radius: 5px;
+  }
+  .btn_updated {
+    color: #3687e8;
+    padding: 12px 40px 12px 40px;
+    background: none;
+    border: 3px solid #3687e8;
+    border-radius: 5px;
+    font-size: 20px;
+    font: normal normal bold 20px/25px Helvetica Neue;
+  }
+}

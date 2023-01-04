@@ -169,4 +169,5 @@ export default {
   getVendorPickupRecords: '/vendor/checker-pending-requests',
   getCreditCAMPickupRecords: '/lead/cam/getCamLeads',
   getAllGonogo: '/gng-master',
+  addNewCommodity: '/commodity',
 };
