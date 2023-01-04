@@ -22,27 +22,27 @@ const Index = ({
   companyDetails,
   setCompanyDetails,
 }) => {
+
   const { gstList } = useSelector((state) => state.buyer);
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan);
+
   const dispatch = useDispatch();
+
   const [slider, setSlider] = useState(0);
   const [typeOfSlider, setSliderType] = useState(1);
   const [isSliderOnFocus, setIsSliderOnFocus] = useState(false);
   const [sliderWithCr, setSliderWithCr] = useState('');
-  const [highlight, setHighlight] = useState(0);
-  const [highlight3, setHighlight3] = useState(0);
-  const setSlide = (val) => {
-    setSlider(val);
-    getSlider(val);
-  };
+
   useEffect(() => {
     getSlider();
   }, [slider]);
+
   useEffect(() => {
     if (isSliderOnFocus === false) {
       setSliderWithCr(slider.toString() + ' Cr');
     }
   }, [slider, isSliderOnFocus]);
+
   const getvalue = () => {
     if (!isSliderOnFocus) {
       if (sliderWithCr == '0 Cr') return '';
@@ -52,6 +52,7 @@ const Index = ({
       else return slider;
     }
   };
+
   const getSlider = (val) => {
     if (typeOfSlider == 1) {
       return (
@@ -93,13 +94,16 @@ const Index = ({
       );
     }
   };
+
   useEffect(() => {
     setCompPanName(gstList?.data?.companyData?.companyName);
   }, [gstList]);
+
   const [serachterm, setSearchTerm] = useState('');
   const [compPan, setCompPan] = useState();
   const [compPanName, setCompPanName] = useState();
   const [boolean1, setBoolean1] = useState(false);
+
   useEffect(() => {
     if (compPan !== '') {
       const newInput = { ...companyDetails };
@@ -108,6 +112,7 @@ const Index = ({
       // dispatch(GetGst(compPan))
     }
   }, [compPan]);
+
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
@@ -115,6 +120,7 @@ const Index = ({
       dispatch(GetPanGst({ query: query }));
     }
   };
+
   const handleFilteredData = (results) => {
     if (results?.pans?.length > 0) {
       setCompPan(results?.pans[0]);
@@ -128,6 +134,7 @@ const Index = ({
       }
     }
   };
+  
   return (
     <>
       <div className={`${styles.main} border_color`}>
@@ -143,8 +150,8 @@ const Index = ({
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
-                  <option>Select an option</option>
-                  <option value="MT" selected> 
+                  <option value="">Select an option</option>
+                  <option value="MT" selected>
                     MT
                   </option>
                   <option value="KG">KG</option>
@@ -163,12 +170,12 @@ const Index = ({
                     dispatch(ChangeCurrency(e.target.value.toUpperCase()));
                   }}
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="Crores" selected>
                     Crores
                   </option>
                   {/* <option value="Million">Million</option> */}
-                  <option value="Lakh">Lakh</option>
+                  {/* <option value="Lakh">Lakh</option> */}
                 </select>
                 <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
              </div>
@@ -276,10 +283,9 @@ const Index = ({
                   }}
                   name="GST"
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  required
                 >
                   {' '}
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   {gstList &&
                     gstList?.data?.gstList?.map((gstId, index) => (
                       <option key={index + 1} value={gstId}>
@@ -305,9 +311,8 @@ const Index = ({
                   }}
                   name="typeOfBusiness"
                   className={`${styles.input_field}   ${styles.customSelect} input form-control`}
-                  required
                 >
-                  <option>Select an option</option>
+                  <option value="">Select an option</option>
                   <option value="Manufacturer">Manufacturer</option>
                   {/* <option value="Retailer">Retailer</option> */}
                   <option value="Trading">Trading</option>
@@ -364,18 +369,7 @@ const Index = ({
                 type="text"
                 id="textInput"
                 onChange={(e) => {
-                  if (emailValidation(e.target.value)) {
                     saveCompanyData(e.target.name, e.target.value);
-                    //green tick
-                  } else {
-                    //red mark
-                    let toastMessage = 'Email Invalid';
-                    if (!toast.isActive(toastMessage.toUpperCase())) {
-                      toast.error(toastMessage.toUpperCase(), {
-                        toastId: toastMessage,
-                      });
-                    }
-                  }
                 }}
                 name="email"
                 className={`${styles.input_field} input form-control`}

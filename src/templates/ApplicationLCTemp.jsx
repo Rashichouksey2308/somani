@@ -1,9 +1,10 @@
 import _get from 'lodash/get';
 import moment from 'moment';
 import { addPrefixOrSuffix } from '@/utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 export default function ApplicationLCTemp(lcModuleData, lcModule) {
-  console.log(_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []),"lcModuleData.lcModuleData",lcModule)
+  
   let d = new Date();
    const getIndex = (index) => {
     if (_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0) {
@@ -12,8 +13,10 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
       return index + 1;
     }
   };
+  
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
+      
       <tr>
         <td valign="top" style={{ paddingBottom: '20px' }}>
           <table
@@ -21,7 +24,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
             bgColor="#D8EAFF"
             style={{
               fontFamily: 'Arial, Helvetica, sans-serif',
-              marginBottom: '26px',
+              marginBottom: '10px',
               border: '1px solid #D2D7E5',
               borderRadius: '6px',
               height: '126px',
@@ -30,60 +33,8 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
             cellSpacing="0"
             border="0"
           >
-            <tr>
-              <td valign="bottom" align="left" width="33%">
-                <span
-                  style={{
-                    fontSize: '20px',
-                    color: '#111111',
-                    lineHeight: '25px',
-                    fontWeight: '500',
-                    padding: '10px 0 0 25px',
-                  }}
-                >
-                  Order ID:{' '}
-                  <span
-                    style={{
-                      lineHeight: '24px',
-                      fontWeight: 'normal',
-                      opacity: '0.7',
-                    }}
-                  >
-                    {lcModuleData.lcModuleData?.order?.orderId}
-                  </span>
-                </span>
-                <br />
-                <span
-                  style={{
-                    fontSize: '20px',
-                    color: '#111111',
-                    lineHeight: '25px',
-                    fontWeight: '500',
-                  }}
-                >
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      paddingLeft: '25px',
-                      width: '90px',
-                      float: 'left',
-                      height: '50px',
-                    }}
-                  >
-                    Buyer:{' '}
-                  </span>
-                  <span
-                    style={{
-                      lineHeight: '24px',
-                      fontWeight: 'normal',
-                      opacity: '0.7',
-                    }}
-                  >
-                    {lcModuleData.lcModuleData?.company?.companyName}
-                  </span>
-                </span>
-              </td>
-              <td valign="top" align="center" width="34%">
+            <tr>              
+              <td valign="top" colSpan={2} align="center">
                 <h2
                   style={{
                     fontSize: '34px',
@@ -93,29 +44,53 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     textTransform: 'uppercase',
                   }}
                 >
-                  APPLICATION FOR LETTER OF CREDIT
+                   {lcModuleData.lcModuleData.firstTimeUpdate==false?'APPLICATION FOR LETTER OF CREDIT':
+                  "LC DRAFT"
+                  }
+                
                 </h2>
               </td>
-              <td valign="bottom" align="right" width="33%">
+            </tr>
+            <tr>
+              <td valign="bottom" align="left" width="70%" style={{paddingLeft:'25px', paddingBottom:'25px'}}>
                 <span
                   style={{
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '25px',
                     fontWeight: '500',
-                    paddingRight: '25px',
+                    padding: '5px 0',
+                    display: 'inline-block'
                   }}
-                >
-                  Date:{' '}
-                  <span
-                    style={{
-                      lineHeight: '24px',
-                      fontWeight: 'normal',
-                      opacity: '0.7',
-                    }}
-                  >
-                    {moment(d).format('DD.MM.yyyy')}
-                  </span>
+                  >Order ID:
+                  <span style={{ineHeight:'24px', display:'inline-block', fontWeight:'normal', color:'#585858', paddingLeft:'10px'}}>{lcModuleData.lcModuleData?.order?.orderId}</span>
+                </span>
+                <br/>
+                <span 
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '25px',
+                    fontWeight: '500',
+                    padding: '5px 0',
+                    display: 'inline-block'
+                  }}
+                  >Buyer:
+                  <span style={{ineHeight:'24px', display:'inline-block', fontWeight:'normal', color:'#585858', paddingLeft:'10px'}}>{lcModuleData.lcModuleData?.company?.companyName}</span>
+                </span>
+              </td>
+              <td valign="bottom" align="right" width="30%" style={{paddingRight:'25px', paddingBottom:'25px'}}>
+                <span
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '25px',
+                    fontWeight: '500',
+                    padding: '5px 0',
+                    display: 'inline-block'
+                  }}
+                  >Date:
+                  <span style={{ineHeight:'24px', display:'inline-block', fontWeight:'normal', color:'#585858', paddingLeft:'10px'}}>{moment(d).format('DD.MM.yyyy')}</span>
                 </span>
               </td>
             </tr>
@@ -152,28 +127,26 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
-                              color: 'rgba(17, 17, 17, 0.7)',
+                              color:'#585858',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              40A
-                            </span>
-                            FORM OF DOCUMENTARY CREDIT
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>40A</span>FORM OF DOCUMENTARY CREDIT
+                            </span>                            
+                          </span>
                         </td>
                         <td
                           width="60%"
@@ -182,19 +155,19 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -209,30 +182,26 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              40E
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>40E</span>APPLICABLE RULES
                             </span>
-                            APPLICABLE RULES
-                          </p>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -240,19 +209,19 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -267,30 +236,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              31D
-                            </span>
-                            DATE OF EXPIRY
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>31D</span>DATE OF EXPIRY</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -298,19 +262,19 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {moment(lcModuleData.lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY')}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -325,30 +289,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              31D
-                            </span>
-                            PLACE OF EXPIRY
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>31D</span>PLACE OF EXPIRY</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -356,19 +315,19 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -383,30 +342,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              51D
-                            </span>
-                            LC ISSUING BANK
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>51D</span>LC ISSUING BANK</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -414,19 +368,19 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -441,30 +395,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              50
-                            </span>
-                            APPLICANT
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>50</span>APPLICANT</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -472,19 +421,24 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.applicant?.toUpperCase()}
-                          </p>
+                            <br></br>
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].fullAddress","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].city","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].country","")},
+                              {_get(lcModuleData.lcModule,"data[0].order.generic.seller.addresses[0].pinCode","")}
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -499,30 +453,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              59
-                            </span>
-                            BENEFICIARY
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>59</span>BENEFICIARY</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -530,20 +479,37 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
-                          </p>
+                               <br></br>
+                                {
+                              _get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].addressType', '')=="Registered"?
+                              <>
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].fullAddress', '')},
+                                  
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].country', '')},
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].pinCode', '')}
+                              </>:
+                              <>
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].fullAddress', '')},
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].city', '')},
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].country', '')},
+                                  {_get(lcModuleData.lcModule, 'data[0].order.generic.supplier.addresses[0].pinCode', '')}
+                              </>
+                            }
+                              
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -558,30 +524,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              32B
-                            </span>
-                            CURRENCY CODE &amp; AMOUNT
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>32B</span>CURRENCY CODE &amp; AMOUNT</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -589,22 +550,28 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
-                            USD{' '}
+                           {lcModuleData.lcModuleData.order.orderCurrency}{' '}
                             {lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
-                              ? lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                              ? 
+                              returnReadableNumber(
+                                  lcModuleData.lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+                                  lcModuleData.lcModuleData.order.orderCurrency=="INR"?"en-In":"en-En",
+                                  2,
+                                )
+                              
                               : 0}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -619,30 +586,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              39A
-                            </span>
-                            TOLERANCE (+/-) PERCENTAGE
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>39A</span>TOLERANCE (+/-) PERCENTAGE</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -650,15 +612,15 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
@@ -670,7 +632,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               '%',
                               '',
                             )}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -685,30 +647,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              41A
-                            </span>
-                            CREDIT AVAILABLE WITH
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>41A</span>CREDIT AVAILABLE WITH</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -716,20 +673,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -744,30 +701,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              41B
-                            </span>
-                            CREDIT AVAILABLE BY
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>41B</span>CREDIT AVAILABLE BY</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -775,20 +727,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}{' '}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -803,32 +755,28 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              42C
-                            </span>
-                            DRAFT AT
-                            <br />
-                            {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : `NO. OF DAYS`}
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>42C</span>DRAFT AT
+                              <br />
+                              {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? null : `NO. OF DAYS`}
+                              </span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -836,20 +784,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
-                            {lcModuleData.lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />
-                            {lcModuleData.lcModuleData?.lcApplication?.numberOfDays}
-                          </p>
+                            {lcModuleData?.lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />
+                            {lcModuleData?.lcModuleData?.lcApplication?.numberOfDays}{` ${lcModuleData?.lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? '' : 'Days'}`}
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -864,30 +812,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              42A
-                            </span>
-                            DRAWEE
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>42A</span>DRAWEE</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -895,20 +838,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.drawee?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -923,30 +866,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              42P
-                            </span>
-                            DEFERRED PAYMENT
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>42P</span>DEFERRED PAYMENT</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -954,19 +892,19 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {lcModuleData.lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -981,30 +919,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              43P
-                            </span>
-                            PARTIAL SHIPMENT
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>43P</span>PARTIAL SHIPMENT</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1012,25 +945,27 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
-                            {lcModuleData.lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
-                          </p>
+                            {lcModuleData?.lcModuleData?.lcApplication?.partialShipment?.toUpperCase() === 'YES' ? 'Allowed' :lcModuleData?.lcModuleData?.lcApplication?.partialShipment?.toUpperCase()== "NO" ?' Not Allowed' :"Conditional" }
+                            
+                          </span>
                         </td>
                       </tr>
                     ) : (
                       ''
                     )}
+                   
                     {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.transhipments ? (
                       <tr>
                         <td
@@ -1040,30 +975,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              43T
-                            </span>
-                            TRANSHIPMENTS
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>43T</span>TRANSHIPMENTS</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1071,19 +1001,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
-                            {lcModuleData.lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
-                          </p>
+                             {lcModuleData.lcModuleData && lcModuleData.lcModuleData?.lcApplication?.transhipments?.toUpperCase() === 'YES' ? 'Allowed' : ' Not Allowed'}
+                            
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1098,30 +1029,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              44A
-                            </span>
-                            SHIPMENT FROM
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>44A</span>SHIPMENT FROM</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1129,20 +1055,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1159,30 +1085,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              44E
-                            </span>
-                            PORT OF LOADING
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>44E</span>PORT OF LOADING</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1190,20 +1111,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1218,30 +1139,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              44F
-                            </span>
-                            PORT OF DISCHARGE
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>44F</span>PORT OF DISCHARGE</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1249,19 +1165,19 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
-                            {lcModuleData.lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
-                          </p>
+                            {lcModuleData.lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}, INDIA
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1276,31 +1192,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              {' '}
-                              44C
-                            </span>
-                            LATEST DATE OF SHIPMENT
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>44C</span>LATEST DATE OF SHIPMENT</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1308,21 +1218,21 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {moment(lcModuleData.lcModuleData?.lcApplication?.latestDateOfShipment).format(
                               'DD-MM-YYYY',
                             )}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1337,30 +1247,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              45A
-                            </span>
-                            DESCRIPTION OF THE GOODS
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>45A</span>DESCRIPTION OF THE GOODS</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1368,20 +1273,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1389,18 +1294,18 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                     )}
                     <tr height="67">
                       <th colSpan={2} bgColor="#FAFAFB" align="left">
-                        <h3
+                        <span
                           style={{
                             fontSize: '22px',
                             color: '#3687E8',
                             lineHeight: '27px',
                             fontWeight: 'bold',
                             padding: '20px 15px 20px 35px',
-                            marginBottom: '0',
+                            display: 'block'
                           }}
                         >
                           46A DOCUMENT REQUIRED:
-                        </h3>
+                        </span>
                       </th>
                     </tr>
                     {lcModuleData.lcModuleData &&
@@ -1410,82 +1315,87 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             align="left"
                             style={{
                               borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
-                            <p
+                            <span
                               style={{
                                 fontSize: '20px',
                                 color: 'rgba(17, 17, 17, 0.7)',
                                 lineHeight: '24px',
                                 fontWeight: 'normal',
                                 padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
+                                display: 'block'
                               }}
                             >
                               <span
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  display: 'table',
                                   color: '#111111',
                                   fontWeight: '500',
                                 }}
                               >
-                                {index + 1}
+                                <span style={{color:'#111111', display:'table-cell', width:'66px'}}>{index + 1}</span>
                               </span>
-                            </p>
+                            </span>
                           </td>
-                          <td align="left">
-                            <p
+                          <td align="left"
+                            style={{
+                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                            >
+                            <span
                               style={{
                                 fontSize: '20px',
                                 color: '#111111',
                                 lineHeight: '24px',
                                 fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
+                                display: 'block',
                                 textTransform: 'uppercase',
+                                padding: '16px 15px 16px 24px',
                               }}
                             >
                               {doc}
-                            </p>
+                            </span>
                           </td>
                         </tr>
                       ))}
+                      <tr colSpan={4}>
+                        <td>
+                          <br/><br/><br/><br/>
+                        </td>
+                      </tr>
                     {/* <tr>
                     <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                      <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
-                    </td>
-                    
+                      <span style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></span>
+                    </td>                    
                   </tr> */}
                     {/* <tr>
                     <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                      <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>2</span></p>
+                      <span style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>2</span></span>
                     </td>
                     <td align='left'>
-                      <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                      <span style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</span>
                     </td>
                   </tr> */}
                     <tr height="67">
                       <th colSpan={2} bgColor="#FAFAFB" align="left">
-                        <h3
+                        <span
                           style={{
                             fontSize: '22px',
                             color: '#3687E8',
                             lineHeight: '27px',
                             fontWeight: 'bold',
                             padding: '20px 15px 20px 35px',
-                            marginBottom: '0',
+                            display: 'block'
                           }}
                         >
                           47A ADDITIONAL CONDITIONS:
-                        </h3>
+                        </span>
                       </th>
-                    </tr>
-
-                    <tr></tr>
-                    {_get(lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0 ? (
+                    </tr>                          
+                    {/* <tr></tr> */}
+                    {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []).length > 0 ? (
                       <>
                         <tr>
                           <td
@@ -1495,29 +1405,26 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
-                            <p
+                            <span
                               style={{
                                 fontSize: '20px',
                                 color: 'rgba(17, 17, 17, 0.7)',
                                 lineHeight: '24px',
                                 fontWeight: 'normal',
                                 padding: '19px 15px 34px 35px',
-                                marginBottom: '0',
+                                display: 'block'
                               }}
                             >
                               <span
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  display: 'table',
                                   color: '#111111',
                                   fontWeight: '500',
                                 }}
                               >
-                                1
+                                <span style={{color:'#111111', display:'table-cell', width:'66px'}}>1</span>
                               </span>
-                            </p>
+                            </span>
                           </td>
                           <td
                             align="left"
@@ -1526,6 +1433,13 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               padding: '25px 24px',
                             }}
                           >
+                            <span style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              display: 'block',
+                              marginBottom: '16px'
+                            }}>PRODUCT SPECIFICATION</span>
                             <table
                               width="80%"
                               cellPadding="10"
@@ -1542,24 +1456,32 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                                   color: '#111111',
                                   lineHeight: '24px',
                                 }}
-                              >
-                                {_get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', []) &&
-                                  _get(lcModuleData.lcModule, 'data[0].order.generic.productSpecifications.specificationTable', [])
-                                    .length > 0 &&
+                              >                              
+                              </tr>
+                                 <tr className="table_row">
+                                {_get(
+                                  lcModuleData.lcModule,
+                                  'data[0]order.generic.productSpecifications.specificationTable',
+                                  [],
+                                ) &&
+                                  _get(
+                                    lcModuleData.lcModule,
+                                    'data[0]order.generic.productSpecifications.specificationTable',
+                                    [],
+                                  ).length > 0 &&
                                   Object.keys(
                                     _get(
                                       lcModuleData.lcModule,
-                                      'data[0].order.generic.productSpecifications.specificationTable',
+                                      'data[0]order.generic.productSpecifications.specificationTable',
                                       [],
-                                    ),
+                                    )[0],
                                   ).map((val, index) => (
-                                    <th
-                                      key={index}
-                                      style={{
-                                        borderBottom: '1px solid #CAD6E6',
-                                        borderLeft: '1px solid #CAD6E6',
-                                      }}
-                                    >
+                                    <th 
+                                     style={{
+                                      fontSize: '20px',
+                                      color: '#8492a6',
+                                      lineHeight: '24px',
+                                    }} key={index}>
                                       {val}
                                     </th>
                                   ))}
@@ -1585,6 +1507,7 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                                         style={{
                                           borderBottom: '1px solid #CAD6E6',
                                           borderLeft: '1px solid #CAD6E6',
+                                          padding:'16px 22px'
                                         }}
                                       >
                                         {value}
@@ -1608,29 +1531,26 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
-                            <p
+                            <span
                               style={{
                                 fontSize: '20px',
                                 color: 'rgba(17, 17, 17, 0.7)',
                                 lineHeight: '24px',
                                 fontWeight: 'normal',
                                 padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
+                                display: 'block'
                               }}
                             >
                               <span
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  display: 'table',
                                   color: '#111111',
                                   fontWeight: '500',
                                 }}
                               >
-                                {getIndex(index)}
+                                <span style={{color:'#111111', display:'table-cell', width:'66px'}}>{getIndex(index)}</span>
                               </span>
-                            </p>
+                            </span>
                           </td>
                           <td
                             align="left"
@@ -1638,19 +1558,19 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                               borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                             }}
                           >
-                            <p
+                            <span
                               style={{
                                 fontSize: '20px',
                                 color: '#111111',
                                 lineHeight: '24px',
                                 fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
+                                display: 'block',
                                 textTransform: 'uppercase',
+                                padding: '16px 15px 16px 24px',
                               }}
                             >
                               {comment}
-                            </p>
+                            </span>
                           </td>
                         </tr>
                       ))}
@@ -1663,30 +1583,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              48
-                            </span>
-                            PRESENTATION PERIOD
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>48</span>PRESENTATION PERIOD</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1694,20 +1609,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1722,30 +1637,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              49
-                            </span>
-                            CONFIRMATION INSTRUCTIONS
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>49</span>CONFIRMATION INSTRUCTIONS</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1753,20 +1663,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1781,30 +1691,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              53A
-                            </span>
-                            REIMBURSING BANK
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>53A</span>REIMBURSING BANK</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1812,20 +1717,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1840,30 +1745,26 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              57
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>57</span>ADVISE THROUGH BANK
                             </span>
-                            ADVISE THROUGH BANK
-                          </p>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1871,20 +1772,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1899,30 +1800,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              57A
-                            </span>
-                            SECOND ADVISING BANK, IF APPLICABLE
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>57A</span>SECOND ADVISING BANK, IF APPLICABLE</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1930,20 +1826,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -1958,30 +1854,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              58A
-                            </span>
-                            REQUESTED CONFIRMATION PARTY
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>58A</span>REQUESTED CONFIRMATION PARTY</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -1989,20 +1880,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -2015,32 +1906,28 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                           style={{
                             borderRight: '2px solid rgba(202, 214, 230, 0.3)',
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                            padding:"12px 0"
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              71B
-                            </span>
-                            CHARGES
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>71B</span>CHARGES</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -2048,20 +1935,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.charges?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -2076,30 +1963,25 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              78
-                            </span>
-                            INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING BANK
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>78</span>INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING BANK</span>
+                          </span>
                         </td>
                         <td
                           align="left"
@@ -2107,20 +1989,20 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              padding: '16px 15px 16px 24px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (
@@ -2134,46 +2016,44 @@ export default function ApplicationLCTemp(lcModuleData, lcModule) {
                             borderRight: '2px solid rgba(202, 214, 230, 0.3)',
                           }}
                         >
-                          <p
+                          <span
                             style={{
                               fontSize: '20px',
                               color: 'rgba(17, 17, 17, 0.7)',
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               padding: '16px 15px 16px 35px',
-                              marginBottom: '0',
+                              display: 'block'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
-                                height: '30px',
-                                width: '66px',
-                                color: '#111111',
+                                display: 'table',
+                                color:'#585858',
                                 fontWeight: '500',
                               }}
                             >
-                              72
-                            </span>
-                            SENDER TO RECEIVER INFORMATION
-                          </p>
+                              <span style={{color:'#111111', display:'table-cell', width:'66px'}}>72</span>SENDER TO RECEIVER INFORMATION</span>
+                          </span>
                         </td>
-                        <td align="left">
-                          <p
+                        <td 
+                        align="left"
+                        style={{padding:"26px 18px"}}
+                        >
+                          <span
                             style={{
                               fontSize: '20px',
                               color: '#111111',
                               lineHeight: '24px',
                               fontWeight: '500',
-                              padding: '16px 15px 16px 24px',
-                              marginBottom: '0',
+                              display: 'block',
                               textTransform: 'uppercase',
+                              // padding: '16px 15px 16px 35px',
                             }}
                           >
                             {' '}
                             {lcModuleData.lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
-                          </p>
+                          </span>
                         </td>
                       </tr>
                     ) : (

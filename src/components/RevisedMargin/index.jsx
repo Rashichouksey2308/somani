@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import DownloadBar from '../DownloadBar';
-import { addPrefixOrSuffix, convertValue } from 'utils/helper';
+import { addPrefixOrSuffix, checkNan, convertValue } from 'utils/helper';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 
@@ -11,6 +11,8 @@ const Index = ({
   finalCalRevised,
   marginData,
   saveInvoiceDataRevisedRevised,
+  setisConsigneeSameAsBuyerRevised,
+  isConsigneeSameAsBuyerRevised,
   setSameRevised,
   invoiceDataRevised,
   setInvoiceDataRevised,
@@ -23,7 +25,10 @@ const Index = ({
   getBranchesMasterData,
   getBanksMasterData,
   savedataRevised,
+  orderList,
 }) => {
+
+  console.log(invoiceDataRevised,'invoiceDataRevised')
   const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
@@ -172,7 +177,7 @@ const Index = ({
                     value={
                       isFieldInFocus.quantity
                         ? forCalculationRevised?.quantity
-                        : Number(forCalculationRevised?.quantity).toLocaleString('en-In') +
+                        : checkNan(Number(forCalculationRevised?.quantity)).toLocaleString('en-In') +
                           ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`
                     }
                     onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
@@ -434,7 +439,11 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       {marginData?.order?.orderCurrency + ' '}
-                      {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0}
+                      {/* {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0} */}
+                      {Number(finalCalRevised.orderValue).toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                 </div>
@@ -786,7 +795,7 @@ const Index = ({
                     type="text"
                     id="textInput"
                     name="buyerName"
-                    defaultValue={marginData?.company?.companyName}
+                    defaultValue={invoiceDataRevised?.buyerName}
                     className={`${styles.input_field} input form-control`}
                     required
                     onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
@@ -810,7 +819,12 @@ const Index = ({
                                     {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
                       <option selected>Select an option</option>
-                      <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                      {orderList?.company?.gstList?.map((gstin, index) => (
+                        <option key={index} value={gstin}>
+                          {gstin}
+                        </option>
+                      ))}
+                      {/* <option value="GTSDT789652JKH">GTSDT789652JKH</option> */}
                     </select>
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Buyer GSTIN
@@ -839,14 +853,14 @@ const Index = ({
                     Is Consignee same as Buyer
                     <strong className="text-danger">*</strong>
                   </div>
-                  <Form>
+                  {/* <Form>
                     {['radio'].map((type) => (
                       <div key={`inline-${type}`} className={styles.radio_group}>
                         <Form.Check
                           className={`${styles.radio} radio`}
                           inline
                           label="Yes"
-                          defaultChecked={invoiceDataRevised?.isConsigneeSameAsBuyer == true}
+                          checked={invoiceDataRevised?.isConsigneeSameAsBuyer == true ? 'checked' : ''}
                           onChange={() => {
                             saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', true);
                             setSameRevised(true);
@@ -859,11 +873,46 @@ const Index = ({
                           className={`${styles.radio} radio`}
                           inline
                           label="No"
-                          defaultChecked={invoiceDataRevised?.isConsigneeSameAsBuyer == false}
+                          checked={invoiceDataRevised?.isConsigneeSameAsBuyer == false ? 'checked' : ''}
                           onChange={() => {
                             saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', false);
                             setSameRevised(false);
                           }}
+                          name="group1"
+                          type={type}
+                          id={`inline-${type}-2`}
+                        />
+                      </div>
+                    ))}
+                  </Form> */}
+                  <Form>
+                    {['radio'].map((type) => (
+                      <div key={`inline-${type}`} className={styles.radio_group}>
+                        <Form.Check
+                          className={`${styles.radio} radio`}
+                          inline
+                          label="Yes"
+                          onChange={(e) => {
+                            saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', true);
+                            setSameRevised(true);
+                            setisConsigneeSameAsBuyerRevised(true)
+                            
+                          }}
+                          name="group1"
+                          type={type}
+                          id={`inline-${type}-1`}
+                          checked={isConsigneeSameAsBuyerRevised == true ? 'checked' : ''}
+                        />
+                        <Form.Check
+                          className={`${styles.radio} radio`}
+                          inline
+                          label="No"
+                          onChange={(e) => {
+                            saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', false);
+                            setisConsigneeSameAsBuyerRevised(false)
+                            setSameRevised(false);
+                          }}
+                          checked={isConsigneeSameAsBuyerRevised == false ? 'checked' : ''}
                           name="group1"
                           type={type}
                           id={`inline-${type}-2`}
@@ -1091,7 +1140,9 @@ const Index = ({
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      value={invoiceDataRevised?.accountNo}
+                      value={
+                        invoiceDataRevised?.accountNo ? invoiceDataRevised?.accountNo : invoiceDataRevised?.Bank_Name
+                      }
                       onChange={(e) => {
                         saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
 
@@ -1130,7 +1181,11 @@ const Index = ({
                           }
                         })
                         .map((val, index) => {
-                          return <option value={`${val.keyBanks[0].Account_No}`}>{val.keyBanks[0].Bank_Name}</option>;
+                          return (
+                            <option key={index} value={`${val.keyBanks[0].Account_No}`}>
+                              {val.keyBanks[0].Bank_Name}
+                            </option>
+                          );
                         })}
                     </select>
 

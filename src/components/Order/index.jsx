@@ -3,20 +3,23 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
+import { checkNan } from '@/utils/helper';
 import moment from 'moment';
-const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList }) => {
+const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,shipment }) => {
+ 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
     tolerance: false,
     hsnCode: false,
   });
-  console.log(commodity,"commodity")
+  
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
     saveOrderData(name, text);
   };
+
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const filterCommodity = (value) => {
@@ -76,8 +79,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                 <option value="Crores">Crores</option>
 
                 {/* <option selected>Crores</option> */}
-                <option value="Million">Million</option>
-                <option value="Lakh">Lakh</option>
+                {/* <option value="Million">Million</option> */}
+                {/* <option value="Lakh">Lakh</option> */}
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
@@ -182,7 +185,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                         }) + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   onChange={(e) => {
-                    console.log(e,'quantityty')
+                   
                     saveOrderData(e.target.name, e.target.value);
                   }}
                 />
@@ -206,13 +209,14 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                   }}
                   value={
                     isFieldInFocus.orderValue
-                      ? orderDetail?.orderValue
-                      : Number(orderDetail?.orderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
+                      ? orderDetail?.existingOrderValue
+                      : Number(orderDetail?.existingOrderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
                         ` ${orderDetail?.unitOfValue == 'Crores' ? 'Cr' : orderDetail?.unitOfValue}`
                   }
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
+                  disabled
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Order Value<strong className="text-danger">*</strong>
@@ -278,9 +282,10 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                   value={
                     isFieldInFocus.tolerance
                       ? orderDetail?.tolerance
-                      : Number(orderDetail?.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        }) + ' %'
+                      : 
+                      
+                      checkNan(orderDetail?.tolerance)
+                      + ' %'
                   }
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
@@ -348,7 +353,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                   >
                     <option>Select an option</option>
                     {port?.filter((val, index) => {
-                        if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase()=="yes") {
                           return val;
                         }
                       })
@@ -405,7 +410,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                     defaultDate={orderDetail?.ExpectedDateOfShipment ?? ''}
                     saveDate={saveDate}
                     labelName="Expected Date Of Shipment"
-                    startFrom={moment(orderList?.shipmentDetail?.lastDateOfShipment).format("DD-MM-YYYY")}
+                    // startFrom={moment(shipment?.lastDateOfShipment ?? new Date()).format("DD-MM-YYYY")}
+                    maxDate={shipment?.lastDateOfShipment ? moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY") : ''}
                   />
                   <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                 </div>
@@ -418,7 +424,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList 
                   type="text"
                   name="hsnCode"
                   maxLength="10"
-                  value={orderDetail?.hsnCode}
+                  value={orderDetail?.hsnCode==undefined?"":orderDetail?.hsnCode}
                   onChange={(e) => { saveOrderData(e.target.name, e.target.value)}}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>

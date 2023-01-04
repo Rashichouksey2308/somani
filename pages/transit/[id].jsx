@@ -97,6 +97,26 @@ function Index() {
       }
     }
   }, [Router]);
+  const getUnqueBl = () => {
+    const data = JSON.parse(JSON.stringify(_get(TransitDetails, 'data[0].BL.billOfLanding', [])));
+    const set = new Set(data.map((obj) => obj.vesselName));
+    return [...set];
+  };
+
+  const isBlNotSurrendered = () => {
+    let blNotSurrendered = true;
+    let data = _get(TransitDetails, 'data[0].BL.billOfLanding', []);
+    for (let i = 0; i <= data.length - 1; i++) {
+      if (!data[i].blSurrenderDate) {
+        blNotSurrendered = true;
+        break;
+      } else {
+        blNotSurrendered = false;
+      }
+    }
+    return blNotSurrendered;
+  };
+
   return (
     <>
       <div className={`${styles.dashboardTab} bg-transparent w-100`}>
@@ -126,18 +146,20 @@ function Index() {
                 Bill of Lading
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
-              <a
-                className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
-                role="button"
-                onClick={() => {
-                  setComponentId(2);
-                  handleBreadcrumbClick('LOI');
-                }}
-              >
-                LOI
-              </a>
-            </li>
+            {isBlNotSurrendered() && (
+              <li className={`${styles.navItem} nav-item`}>
+                <a
+                  className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
+                  role="button"
+                  onClick={() => {
+                    setComponentId(2);
+                    handleBreadcrumbClick('LOI');
+                  }}
+                >
+                  LOI
+                </a>
+              </li>
+            )}
             {commodity?.toLowerCase().includes('coal') && (
               <li className={`${styles.navItem} nav-item`}>
                 <a
@@ -189,17 +211,18 @@ function Index() {
                 </div>
 
                 <div className={`${styles.card}  accordion_body`}>
-                  {componentId === 2 && <LetterIndermity TransitDetails={TransitDetails} />}
+                  {isBlNotSurrendered() && componentId === 2 && <LetterIndermity TransitDetails={TransitDetails} />}
                 </div>
                 {/* </div> */}
                 {commodity?.toLowerCase().includes('coal') && (
                   <div className={`${styles.card}  accordion_body`}>
-                    {componentId === 3 && (
+                    {commodity?.toLowerCase().includes('coal') && componentId === 3 && (
                       <CIMS
                         orderid={objID}
                         docUploadFunction={uploadDoc}
                         TransitDetails={TransitDetails}
                         isShipmentTypeBULK={isShipmentTypeBULK}
+                        getUnqueBl={getUnqueBl}
                       />
                     )}
                   </div>
@@ -212,6 +235,7 @@ function Index() {
                       TransitDetails={TransitDetails}
                       isShipmentTypeBULK={isShipmentTypeBULK}
                       orderId={objID}
+                      getUnqueBl={getUnqueBl}
                     />
                   )}
                 </div>

@@ -216,7 +216,7 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateLcAmendmentPost}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.updateLcAmendmentPost}`, payload.fd, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -226,7 +226,7 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         dispatch(setNotLoading())
-        Router.push('/amend-letter')
+        !payload.task ? Router.push('/amend-letter') : Router.push('/letter-table')
       } else {
         dispatch(updatingAmendmentFailed(response.data.data))
         const toastMessage = 'UPDATE REQUEST FAILED'

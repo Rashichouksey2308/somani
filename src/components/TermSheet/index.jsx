@@ -65,7 +65,7 @@ const Index = () => {
               orderCurrency: sheet?.order?.orderCurrency || 'USD',
               quantity: sheet?.order?.quantity,
               perUnitPrice:
-                sheet?.order?.perUnitPrice || Number(sheet?.order?.orderValue / sheet?.order.quantity).toFixed(2) || '',
+                sheet?.order?.perUnitPrice  || '',
               commodity: sheet?.order?.commodity,
               tolerance: sheet?.order?.tolerance ?? '',
             },
@@ -214,7 +214,6 @@ const Index = () => {
   const onChangeTransactionDetails = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-    console.log(value,'termsheetDetails')
 
     setTermsheetDetails((prev) => ({
       ...prev,

@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
 import _get from 'lodash/get';
+import moment from 'moment';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +15,7 @@ import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action
 import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
 import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
 import styles from './payment.module.scss';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 function Index() {
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ function Index() {
   }, [ReleaseOrderData]);
 
   const generateDoNumber = (index) => {
-    let orderDONumber = index < 10 ? `0${index}` : index;
+    let orderDONumber = index < 10 ? `0${index + 1}` : index + 1;
     let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '');
     let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
     return `${string}/${orderDONumber}`;
@@ -144,7 +146,7 @@ function Index() {
   };
   const handleChange = (name, value, index, index2) => {
     let tempArr = [...lifting];
-    console.log(tempArr,"tempArr")
+
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.detail.forEach((val2, i2) => {
@@ -330,7 +332,6 @@ function Index() {
     },
   ]);
 
-
   useEffect(() => {
     let tempArr = [];
     if (_get(ReleaseOrderData, 'data[0].deliveryDetail', []).length > 0) {
@@ -393,26 +394,6 @@ function Index() {
     setLastMileDelivery(val);
   };
 
-  useEffect(() => {
-    let limit = DOlimit;
-    filteredDOArray.forEach((item, index) => {
-      limit = DOlimit - item.Quantity;
-      setDoLimit(limit);
-    });
-  }, [filteredDOArray, deliveryOrder]);
-
-  const onEdit = (index, value) => {
-    let tempArr = deliveryOrder;
-    tempArr.forEach((val, i) => {
-      if (i == index) {
-        val.isDelete = value;
-      }
-    });
-    setDeliveryOrder([...tempArr]);
-  };
-
-
-
   const BalanceQuantity = () => {
     let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
     if (boe !== 0) {
@@ -421,10 +402,68 @@ function Index() {
       }, 0);
 
       deliveryOrder.forEach((item) => {
-        boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
+        console.log('itemm', item);
+        if (item.status !== 'DO cancelled') {
+          boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
+        }
       });
       return boeTotalQuantity;
     }
+  };
+
+  useEffect(() => {
+    let limit = DOlimit;
+    filteredDOArray.forEach((item, index) => {
+      limit = DOlimit - item.Quantity;
+      setDoLimit(limit);
+    });
+  }, [filteredDOArray, deliveryOrder]);
+
+  const onEdit = (index, value, type) => {
+    let tempArr = deliveryOrder;
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        console.log(val, 'cvalala');
+
+        let number = 0;
+        for (let i = 0; i < releaseDetail.length; i++) {
+          if (releaseDetail[i].orderNumber == val.orderNumber) {
+            number = Number(releaseDetail[i].netQuantityReleased);
+          }
+          if (val.orderNumber == 'Not Available') {
+            number = BalanceQuantity();
+          }
+        }
+        console.log(Number(val.Quantity), number, deliveryOrder, 'val.Quantity>Number');
+        if (val.orderNumber !== 'Not Available' && Number(val.Quantity) > number) {
+          handleErrorToast('Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order');
+          return;
+        }
+        if (val.orderNumber === 'Not Available' && 0 > number) {
+          handleErrorToast('Quantity Release Cannot Be Greater Than balance Quantity');
+          return;
+        }
+        if (type == 'Save') {
+          val.deliveryOrderDate = new Date();
+          if (val.status !== 'DO cancelled') {
+            val.status = 'DO Issued';
+          }
+        }
+        val.isDelete = value;
+      }
+    });
+    setDeliveryOrder([...tempArr]);
+  };
+  const cancelDo = (index, value) => {
+    let tempArr = deliveryOrder;
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        console.log(val.deliveryOrderDate, 'cvalala');
+
+        val.status = 'DO cancelled';
+      }
+    });
+    setDeliveryOrder([...tempArr]);
   };
 
   const returnLiftingData = (number) => {
@@ -454,6 +493,8 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
+    let releaseOrder;
+    let customObj = false;
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -465,6 +506,8 @@ function Index() {
 
           setFilteredDOArray(filteredArray);
         }
+
+        console.log(val, 'indexxx');
         if (name === 'Quantity') {
           if (value <= 0) {
             setDoLimit(quantity);
@@ -473,7 +516,17 @@ function Index() {
             filteredDOArray.forEach((item, index) => {
               tempLimit = tempLimit - Number(item.Quantity);
             });
-
+            let totalDONumber = 0;
+            let temparr = [...deliveryOrder];
+            let filteredArray2 = temparr.filter((item, index2) => {
+              if (item.orderNumber == val.orderNumber) {
+                totalDONumber = totalDONumber + Number(item.Quantity);
+              }
+            });
+            const filterForReleaseOrder = releaseDetail.filter((item) => {
+              return item.orderNumber == val.orderNumber;
+            });
+            console.log(filterForReleaseOrder, totalDONumber, 'totlNumber');
             setDoLimit(tempLimit);
           }
         }
@@ -541,7 +594,9 @@ function Index() {
         return item.orderNumber == orderId;
       });
       const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
-        let quantity = Number(acc) + Number(curr.Quantity);
+        if (curr.status !== 'DO cancelled') {
+          let quantity = Number(acc) + Number(curr.Quantity);
+        }
         return quantity;
       }, 0);
       if (finalScore > orderQuantity) {
@@ -570,7 +625,7 @@ function Index() {
           deliveryOrderNumber: item.deliveryOrderNo,
           deliveryOrderDate: item.deliveryOrderDate,
           deliveryStatus: item.status,
-          authorisedSignatory:""
+          authorisedSignatory: '',
         });
       });
 
@@ -608,7 +663,32 @@ function Index() {
   useEffect(() => {
     dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
   }, []);
+  const isDisabled = (orderNumber) => {
+    let release = 0;
+    let delivery = 0;
+    releaseDetail.forEach((item, index) => {
+      if (item.orderNumber == orderNumber) {
+        release = item.netQuantityReleased;
+      }
+    });
+    deliveryOrder.forEach((item, index) => {
+      console.log(item, 'itemitem');
+      if (item.orderNumber == orderNumber) {
+        if (item.status == 'DO cancelled') {
+          return false;
+        }
+        delivery = delivery + Number(item.Quantity);
+      }
+    });
 
+    console.log(delivery, release, 'delivery>=release');
+
+    if (delivery >= release) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   return (
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
@@ -623,11 +703,13 @@ function Index() {
             />
             <h1 className={`${styles.title} heading`}>
               {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-              {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
-                ReleaseOrderData,
-                'data[0].order.orderId',
-                '',
-              ).slice(8)}`}
+              <span>
+                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').toUpperCase().slice(0, 8)}-${_get(
+                  ReleaseOrderData,
+                  'data[0].order.orderId',
+                  '',
+                ).slice(8)}`}
+              </span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -718,6 +800,8 @@ function Index() {
                       onEdit={onEdit}
                       deliverChange={deliverChange}
                       deleteNewDelivery={deleteNewDelivery}
+                      cancelDo={cancelDo}
+                      isDisabled={isDisabled}
                     />
                   </div>
                 </div>

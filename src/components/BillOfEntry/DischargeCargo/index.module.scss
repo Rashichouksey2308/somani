@@ -35,6 +35,7 @@
         margin: 0 50px;
         width: 184px;
         height: 38px;
+        cursor: pointer;
         white-space: nowrap;
         @include respond(lg-desktop) {
           width: 160px;
@@ -119,6 +120,7 @@
             background-color: transparent;
             margin: 0 15px 0 30px;
             width: 78px;
+            cursor: pointer;
             height: 36px;
             @include respond(md-desktop) {
               font-size: 16px;
@@ -663,7 +665,10 @@
   overflow: hidden;
   position: relative;
   display: block;
-  height: 36px;
+  height: 38px;
+  @include respond(lg-desktop) {
+    height: 34px;
+  }
   input {
     top: 0;
     left: 0;
@@ -724,5 +729,10 @@
   @include respond(lg-desktop) {
     font-size: 14px;
     line-height: 15px;
+  }
+}
+.label_port {
+  @include respond(lg-desktop) {
+    padding-top: 36px !important;
   }
 }

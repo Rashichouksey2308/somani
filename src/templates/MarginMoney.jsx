@@ -1,7 +1,9 @@
+import { returnReadableNumber } from '@/utils/helpers/global';
 import moment from 'moment';
 import { addPrefixOrSuffix } from 'utils/helper';
 
 export default function MarginMoney(marginData) {
+ 
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -202,7 +204,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData.marginData?.order?.quantity ? marginData.marginData?.order?.quantity : 0, 'MT', '')}
+                        {marginData.marginData?.order?.quantity ? returnReadableNumber(marginData.marginData?.order?.quantity,'en-In',2) + ' '+  marginData?.marginData?.order?.unitOfQuantity : ''}
                       </p>
                     </td>
                   </tr>
@@ -243,7 +245,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD {marginData.marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
+                          {marginData?.marginData?.order?.orderCurrency} {marginData?.marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
                       </p>
                     </td>
                   </tr>
@@ -284,7 +286,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData.marginData?.conversionRate}
+                        {returnReadableNumber(marginData.marginData?.conversionRate,'en-In',2)}
                       </p>
                     </td>
                   </tr>
@@ -325,7 +327,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
+                         {returnReadableNumber(marginData.marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,undefined,2,2) + '%'}
                       </p>
                     </td>
                   </tr>
@@ -367,10 +369,10 @@ export default function MarginMoney(marginData) {
                         }}
                       >
                         {marginData?.marginData?.order?.termsheet
-                                    ? marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString(
-                                        'en-In',
-                                      ) + ' %'
-                                    : ''}
+                            ? marginData.marginData?.order?.termsheet?.commercials?.tradeMarginPercentage?.toLocaleString(
+                                'en-In',
+                              ) + ' %'
+                            : ''}
                       </p>
                     </td>
                   </tr>
@@ -411,8 +413,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                         {marginData?.marginData?.order?.tolerance ? marginData.marginData?.order?.tolerance + ' %' : 0}
-                       
+                          {marginData.marginData?.order?.tolerance ? returnReadableNumber(marginData.marginData?.order?.tolerance,undefined,2,2) : 0} %
                       </p>
                     </td>
                   </tr>
@@ -453,11 +454,13 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {marginData.marginData?.order?.termsheet
-                                    ? marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney?.toLocaleString(
-                                        'en-In',
-                                      ) + ' %'
-                                    : ''}
+                        {
+                        (marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney
+                          ? returnReadableNumber(marginData.marginData?.order?.termsheet?.transactionDetails?.marginMoney ,undefined,2,2)
+                          : 0)
+                          +
+                        '%'
+                      }
                       </p>
                     </td>
                   </tr>
@@ -605,7 +608,13 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD {marginData.marginData?.calculation?.orderValue?.toLocaleString('en-In') ?? 0}
+                        {marginData.marginData?.order?.orderCurrency}{' '}
+                      {marginData.marginData?.calculation?.orderValue?.toLocaleString(marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }) ?? 0}
+                     
                       </p>
                     </td>
                   </tr>
@@ -654,7 +663,10 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        INR {marginData.marginData?.calculation?.orderValueInINR?.toLocaleString('en-In') ?? 0}
+                        INR {marginData.marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }) ?? 0}
                       </p>
                     </td>
                   </tr>
@@ -752,7 +764,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        INR {marginData.marginData?.calculation?.tradeMargin?.toLocaleString('en-In') ?? 0}
+                        INR {marginData.marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {minimumFractionDigits: 2, maximumFractionDigits: 2,}) ?? 0}                        
                       </p>
                     </td>
                   </tr>
@@ -1040,7 +1052,7 @@ export default function MarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {'INR'} {marginData.marginData?.calculation?.totalSPDC?.toLocaleString('en-In') ?? 0}
+                        INR {marginData.marginData?.calculation?.totalSPDC?.toLocaleString('en-In') ?? 0}
                       </p>
                     </td>
                   </tr>

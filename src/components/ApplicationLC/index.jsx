@@ -3,6 +3,7 @@ import ApplicationLCTemp from '@/templates/ApplicationLCTemp';
 import jsPDF from 'jspdf';
 import _get from 'lodash/get';
 import moment from 'moment';
+import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
@@ -14,6 +15,8 @@ import LCAmendBar from '../LCAmendBar';
 import styles from './index.module.scss';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 import { returnReadableNumber } from '@/utils/helpers/global';
+
+
 function Index() {
   const dispatch = useDispatch();
 
@@ -27,7 +30,7 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
-  console.log(lcModuleData,'lcModuleData')
+ const [fileType,setFileType]=useState('pdf')
 useEffect(() => {
     dispatch(setPageName('Lc'));
 
@@ -73,11 +76,22 @@ useEffect(() => {
     setNumber([...number.slice(0, index), ...number.slice(index + 1)]);
   };
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 2100]);
+    const doc = new jsPDF('p', 'pt', [1500, 2250]);
     doc.html(ReactDOMServer.renderToString(<ApplicationLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />), {
       callback: function (doc) {
+              const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      // Add the page number footer to the center of the page
+        doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });
+      
+      }
         doc.save('ApplicationLC.pdf');
       },
+      margin:[40,0,40,0],
       autoPaging: 'text',
     });
   };
@@ -88,14 +102,63 @@ useEffect(() => {
       return index + 1;
     }
   };
+  const downloadFile = async () => {
+    if (fileType == 'pdf') {
+      exportPDF();
+    } else {
+      let html = ReactDOMServer.renderToString(<ApplicationLCTemp lcModuleData={lcModuleData} lcModule={lcModule} />);
+      let blob = new Blob(['\ufeff', html], {
+        type: 'application/msword',
+      });
+      let url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+      let filename = 'LC.doc';
+      let downloadLink = document.createElement('a');
+
+      document.body.appendChild(downloadLink);
+
+      if (navigator.msSaveOrOpenBlob) {
+        navigator.msSaveOrOpenBlob(blob, filename);
+      } else {
+        // Create a link to the file
+        downloadLink.href = url;
+
+        // Setting the file name
+        downloadLink.download = filename;
+
+        //triggering the function
+        downloadLink.click();
+      }
+
+      document.body.removeChild(downloadLink);
+    }
+  };
   return (
     <>
-      <div className="container-fluid p-0 border-0">
+      <div className="container-fluid p-0 border-0">     
         <div className={`${styles.root_container} card shadow-none border-0 bg-transparent`}>
-          <div className={`${styles.term_container} container-fluid download-pdf-bg`}>
+        <div className={styles.head_container}>
+          <div className={styles.head_header}
+                                 
+
+          >
+            <img
+              className={`${styles.arrowBack} image_arrow ml-1 img-fluid`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="Arrow"
+              style={{ cursor: 'pointer' }}
+              onClick={() => Router.push('/lc-module')} 
+            />
+            <h1 className={`${styles.lcHeading}`}>
+            {lcModuleData.firstTimeUpdate == false ? 'Application for LC' : 'LC DRAFT'}
+              </h1>
+          </div>
+        </div>
+          <div className={`${styles.term_container} container-fluid download-pdf-bg`}>           
             <Row>
               <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
-                <h3 className="download-pdf-title">APPLICATION FOR LETTER OF CREDIT</h3>
+                <h3 className="download-pdf-title">
+                  {lcModuleData.firstTimeUpdate == false ? 'APPLICATION FOR LETTER OF CREDIT' : 'LC DRAFT'}
+                </h3>
               </Col>
             </Row>
 
@@ -189,7 +252,14 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>50 </span>
                             <span>APPLICANT</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.applicant?.toUpperCase()}</td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
+                            <br></br>
+                            {_get(lcModuleData, 'order.generic.seller.addresses[0].fullAddress', '')},
+                            {_get(lcModuleData, 'order.generic.seller.addresses[0].city', '')},
+                            {_get(lcModuleData, 'order.generic.seller.addresses[0].country', '')},
+                            {_get(lcModuleData, 'order.generic.seller.addresses[0].pinCode', '')}
+                          </td>
                         </tr>
                       ) : (
                         ''
@@ -197,10 +267,29 @@ useEffect(() => {
                       {lcModuleData && lcModuleData?.lcApplication?.beneficiary ? (
                         <tr className="table_row">
                           <td width="40%">
-                            <span className={`${styles.serial_no} term_para`}>59 </span>
+                            <span className={`${styles.serial_no} term_para`}> 59 </span>
                             <span>BENEFICIARY</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}</td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
+                            <br></br>
+                            {
+                              _get(lcModuleData, 'order.generic.supplier.addresses[0].addressType', '')=="Registered"?
+                              <>
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].fullAddress', '')},
+                                  
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].country', '')},
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].pinCode', '')}
+                              </>:
+                              <>
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].fullAddress', '')},
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].city', '')},
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].country', '')},
+                                  {_get(lcModuleData, 'order.generic.supplier.addresses[0].pinCode', '')}
+                              </>
+                            }
+                         
+                          </td>
                         </tr>
                       ) : (
                         ''
@@ -219,9 +308,13 @@ useEffect(() => {
                               'USD',
                               '',
                             )} */}
-                            USD{' '}
+                             {lcModuleData.order.orderCurrency}{' '}
                             {lcModuleData?.lcApplication?.currecyCodeAndAmountValue
-                              ? returnReadableNumber(lcModuleData?.lcApplication?.currecyCodeAndAmountValue,undefined,2)
+                              ? returnReadableNumber(
+                                  lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+                                  lcModuleData.order.orderCurrency=="INR"?"en-In":"en-En",
+                                  2,
+                                )
                               : 0}
                           </td>
                         </tr>
@@ -264,7 +357,7 @@ useEffect(() => {
                       {lcModuleData && lcModuleData?.lcApplication?.creditAvailableBy ? (
                         <tr className="table_row">
                           <td width="40%">
-                            <span className={`${styles.serial_no} term_para`}>41B </span>
+                            <span className={`${styles.serial_no} term_para`}>41A </span>
                             <span>CREDIT AVAILABLE BY</span>
                           </td>
                           <td className="term_para">{lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}</td>
@@ -284,7 +377,7 @@ useEffect(() => {
                           </td>
                           <td className="term_para">
                             {lcModuleData?.lcApplication?.atSight?.toUpperCase()} <br />{' '}
-                            {lcModuleData?.lcApplication?.numberOfDays}
+                            {lcModuleData?.lcApplication?.numberOfDays}{` ${lcModuleData?.lcApplication?.atSight?.toUpperCase() == 'AT SIGHT' ? '' : 'Days'}`}
                           </td>
                         </tr>
                       ) : (
@@ -318,7 +411,13 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>43P </span>
                             <span>PARTIAL SHIPMENT</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.partialShipment?.toUpperCase() === 'YES' ? 'Allowed' : ' Not Allowed'}</td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.partialShipment?.toUpperCase() === 'YES'
+                              ? 'Allowed'
+                              : lcModuleData?.lcApplication?.partialShipment?.toUpperCase() == 'NO'
+                              ? ' Not Allowed'
+                              : 'Conditional'}
+                          </td>
                         </tr>
                       ) : (
                         ''
@@ -329,7 +428,11 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>43T </span>
                             <span>TRANSHIPMENTS</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.transhipments?.toUpperCase() === 'YES' ? 'Allowed' : ' Not Allowed'}</td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.transhipments?.toUpperCase() === 'YES'
+                              ? 'Allowed'
+                              : ' Not Allowed'}
+                          </td>
                         </tr>
                       ) : (
                         ''
@@ -338,7 +441,7 @@ useEffect(() => {
                         <tr className="table_row">
                           <td width="40%">
                             <span className={`${styles.serial_no} term_para`}>44A </span>
-                            <span>SHIPMENT FROM</span>
+                            <span>Place of taking in Charge</span>
                           </td>
                           <td className="term_para">{lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}</td>
                         </tr>
@@ -362,7 +465,9 @@ useEffect(() => {
                             <span className={`${styles.serial_no} term_para`}>44F </span>
                             <span>PORT OF DISCHARGE</span>
                           </td>
-                          <td className="term_para">{lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}</td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}, INDIA
+                          </td>
                         </tr>
                       ) : (
                         ''
@@ -424,12 +529,12 @@ useEffect(() => {
                           <div className={`${styles.content_header} background2 `}>47A ADDITIONAL CONDITIONS:</div>
                         </td>
                       </tr>
-                      {_get(lcModuleData, 'order.generic.productSpecifications.specificationTable', []).length >
-                      0 ? (
+                      {_get(lcModuleData, 'order.generic.productSpecifications.specificationTable', []).length > 0 ? (
                         <>
                           <tr className="table_row">
                             <td width="40%">1</td>
                             <td className="border-top-0">
+                              <div className={styles.table_heading}>PRODUCT SPECIFICATION</div>
                               <div className={`${styles.datatable} datatable `}>
                                 <div className={styles.table_scroll_outer}>
                                   <div className={styles.table_scroll_inner}>
@@ -464,7 +569,7 @@ useEffect(() => {
                                             ))}
                                         </tr>
                                         {_get(
-                                         lcModuleData,
+                                          lcModuleData,
                                           'order.generic.productSpecifications.specificationTable',
                                           [],
                                         ) &&
@@ -725,27 +830,13 @@ useEffect(() => {
                         {emailAdd.map((val, index) => (
                           <div className="d-flex align-items-center form-group">
                             <div key={index} className={`${styles.each_input} flex-grow-1`}>
-                              <div className="d-flex">
-                                <select
-                                  id="email"
-                                  name="email"
-                                  className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                                  selected
-                                >
-                                  <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                                </select>
-                                <label
-                                  className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                                  htmlFor="email"
-                                >
-                                  Email
-                                </label>
-                                <img
-                                  className={`${styles.arrow} image_arrow img-fluid`}
-                                  src="/static/inputDropDown.svg"
-                                  alt="Search"
-                                />
-                              </div>
+                              <input id="email" name="email" className={`${styles.formControl} input form-control`} />
+                              <label
+                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                                htmlFor="email"
+                              >
+                                Email
+                              </label>
                             </div>
                             <img
                               src="/static/delete 2.svg"
@@ -878,21 +969,50 @@ useEffect(() => {
                         <label for="lc_document">
                           LC Document.pdf<span>128kb</span>
                         </label>
-                        <input type="checkbox" className="ml-auto" id="lc_document" value="LC Document" />
+                        <input
+                          type="checkbox"
+                          className="ml-auto"
+                          id="lc_document"
+                          value="LC Document"
+                          checked={fileType == 'pdf' ? true : false}
+                          onChange={() => {
+                            setFileType('pdf');
+                          }}
+                        />
                       </div>
                       <div className={`${styles.word_document} ${styles.box} d-flex align-items-center`}>
                         <img src="/static/doc-icon.png" width={`55px`} alt="DOC" className="img-fluid" />
                         <label for="word_document">
                           word document.doc<span>128kb</span>
                         </label>
-                        <input type="checkbox" className="ml-auto" id="word_document" value="word document" />
+                        <input
+                          type="checkbox"
+                          className="ml-auto"
+                          id="word_document"
+                          value="word document"
+                          checked={fileType == 'word' ? true : false}
+                          onChange={() => {
+                            setFileType('word');
+                          }}
+                        />
                       </div>
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
+                      <button
+                        onClick={handleClose}
+                        type="button"
+                        className={`${styles.close} ${styles.btn} btn mr-2 w-50`}
+                      >
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
+                      <button
+                        type="button"
+                        className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}
+                        onClick={(e) => {
+                          downloadFile();
+                          handleClose();
+                        }}
+                      >
                         Download
                       </button>
                     </div>

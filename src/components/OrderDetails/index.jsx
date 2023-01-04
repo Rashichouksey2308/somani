@@ -8,7 +8,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
     quantity: false,
     orderValue: false,
   });
-  console.log(commodity,"country")
+  
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const saveDate = (value, name) => {
@@ -98,7 +98,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
               value={
                 isFieldInFocus.quantity
                   ? orderDetails?.quantity
-                  : Number(orderDetails?.quantity).toLocaleString('en-In') + ` ${orderDetails.unitOfQuantity}`
+                  : Number(orderDetails?.quantity).toLocaleString('en-In') +  ` ${orderDetails.unitOfQuantity}`
               }
               className={`${styles.input_field} input form-control`}
               required
@@ -166,9 +166,8 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                   saveOrderData(e.target.name, e.target.value);
                 }}
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                required
               >
-                <option>Select an option</option>
+                <option value="">Select an option</option>
                 {country?.length>0
                 ?
                 <>
@@ -195,9 +194,8 @@ const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity
                   saveOrderData(e.target.name, e.target.value);
                 }}
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                required
               >
-                <option>Select an option</option>
+                <option value="">Select an option</option>
                 {port
                   .filter((val, index) => {
                     if (val.Country.toLowerCase() == 'india') {

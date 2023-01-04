@@ -63,6 +63,10 @@ export const orderValidation = (orderDetails, shipment, approvedCredit) => {
     handleErrorToast('HSN CODE IS MANDATORY & SPECIAL CHARACTERS ARE NOT ALLOWED');
     return false;
   }
+  if (orderDetails?.hsnCode?.trim()?.length !== 8 ) {
+    handleErrorToast('provide a valid HSn Code');
+    return false;
+  }
   if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
     handleErrorToast('add shipment Type');
     return false;
@@ -125,10 +129,9 @@ export const rtrnChartIndiaction = (latest, previous, last) => {
     if (last > previous && previous < latest) {
       return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />;
     }
-
-    if (last === previous && previous > latest) {
-      return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />;
-    }
+    // if (last === previous && previous > latest) {
+    //   return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />;
+    // }
     if (last > previous && previous < latest) {
       return <img src="/static/trend-orange-212.svg" alt="Profit" className="img-fluid" />;
     }
@@ -140,15 +143,15 @@ export const rtrnChartIndiaction = (latest, previous, last) => {
       return <img src="/static/trend-orange-333.svg" alt="Profit" className="img-fluid" />;
     }
 
-    if (last === previous && previous === latest && last !== undefined) {
-      return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />;
-    }
+    // if (last === previous && previous === latest && last !== undefined) {
+    //   return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />;
+    // }
 
     if (last > previous && previous > latest) {
       return <img src="/static/trend-red-123.svg" alt="Profit" className="img-fluid" />;
     }
 
-    if (last > previous && previous > latest) {
+    if (last < previous && previous > latest) {
       return <img src="/static/trend-red-121.svg" alt="Profit" className="img-fluid" />;
     }
     if (last > previous && previous === latest) {

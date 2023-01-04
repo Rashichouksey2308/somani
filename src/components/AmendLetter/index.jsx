@@ -60,17 +60,69 @@ const deleteArr=(val,index)=>{
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
 
+
+  const returnValue = (value) => {
+    if (value.dropDownValue === '(32B) Currency Code & Amount') {
+      return `${lcModuleData?.order?.orderCurrency}  ${Number(
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      )?.toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    } else if (value.dropDownValue === '(43T) Transhipments') {
+      return lcModuleData?.lcApplication?.transhipments == undefined
+        ? ''
+        : lcModuleData?.lcApplication?.transhipments == 'Yes'
+        ? 'Allowed'
+        : 'Not Allowed';
+    } else if (value.dropDownValue === '(39A) Tolerance (+/-) Percentage') {
+      return `(+/-) ${value.newValue}  %`;
+    } else if (value.dropDownValue === '(31D) Date Of Expiry'||value.dropDownValue === '(44C) Latest Date Of Shipment') {
+      return moment(value.newValue).format('DD-MM-YYYY');
+    } else if (value.dropDownValue === '(42C) Draft At' && lcModuleData?.lcApplication?.atSight == 'Usuance') {
+      return `Usuance - ${value.newValue} days`;
+    } else {
+      return value.newValue.toUpperCase()
+    }
+  };
+
+
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1500]);
-    doc.html(ReactDOMServer.renderToString(<AmendLetterTemp lcModuleData={lcModuleData} />), {
+    doc.html(ReactDOMServer.renderToString(<AmendLetterTemp lcModuleData={lcModuleData}  />), {
       callback: function (doc) {
+      const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
         doc.save('AmendLetter.pdf');
       },
       // margin:margins,
       autoPaging: 'text',
     });
   };
+const getNumber=(number)=>{
 
+let regex = /\(([^\)]*)\)/;
+let data = number.match(regex)[1];
+return data
+}
+const getString=(string)=>{
+let regex = /\([^\)]*\)/;
+let data = string.replace(regex, "");;
+return data
+}
+const getDate = (value)=>{
+  let data = moment(value).format('DD-MM-YYYY')
+  return data
+  }
+
+
+  
   return (
     <>
       <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
@@ -117,14 +169,20 @@ const deleteArr=(val,index)=>{
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
-                  <tbody>
+                 {lcModuleData?.lcNewApplication?.map((val, index) => ( <tbody key={index}>
                     <tr className="table_row">
                       <td width="40%">
-                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
+                        <b>{getNumber(val.dropDownValue.toUpperCase())}</b>
+                        <span>{getString(val.dropDownValue.toUpperCase())}</span>
+                        {}
                       </td>
-                      <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td>
+                      {/* <td width="40%">
+                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
+                      </td> */}
+                      <td>{returnValue(val)}</td>
+                      {/* <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td> */}
                     </tr>
-                    <tr className="table_row">
+                    {/* <tr className="table_row">
                       <td width="40%">
                         40E &nbsp; &nbsp; <span>APPLICABLE RULES</span>
                       </td>
@@ -147,8 +205,8 @@ const deleteArr=(val,index)=>{
                         51D &nbsp; &nbsp; <span>LC ISSUING BANK</span>
                       </td>
                       <td>{lcModuleData?.lcApplication?.lcIssuingBank}</td>
-                    </tr>
-                  </tbody>
+                    </tr> */}
+                  </tbody>))}
                 </table>
               </div>
             </div>
@@ -260,27 +318,19 @@ const deleteArr=(val,index)=>{
                     {emailAdd.map((val, index) => (
                       <div className={`d-flex align-items-center form-group`}>
                         <div key={index} className={`${styles.each_input} flex-grow-1`}>
-                          <div className="d-flex">
-                            <select
+                            <input
                               id="email"
                               name="email"
-                              className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                              selected
-                            >
-                              <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                            </select>
+                              className={`${styles.formControl} input form-control`}
+                              
+                            />
                             <label
                               className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
                               htmlFor="email"
                             >
                               Email
                             </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
+                           
                         </div>
                         <img
                             src="/static/delete 2.svg"
@@ -366,9 +416,9 @@ const deleteArr=(val,index)=>{
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
-                        +
+                        +  add another
                       </span>{' '}
-                      add another
+                     
                     </div>
                     <div className="d-flex justify-content-between">
                       <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>

@@ -9,12 +9,13 @@
     overflow-y: auto;
     box-shadow: 0px 3px 6px #cad0e2;
     border-radius: 6px;
-
+    padding-bottom: 25px;
     .cardHeader {
       padding: 15px 15px 15px 37px !important;
       border-bottom-width: 2px !important;
 
       h2 {
+        cursor: pointer;
         font-size: 22px;
         color: #3687e8;
       }
@@ -290,21 +291,29 @@
 .red {
   color: #ff0000 !important;
 }
-
 .tableWrapper {
-  overflow-y: auto;
+  overflow: auto;
   max-height: 500px;
   margin-top: 2rem;
-  margin-bottom: 2rem;
-  table {
-    border-collapse: collapse;
+  margin-bottom: 1rem;
+  .table_scroll_outer {
     width: 100%;
-  }
-  td,
-  th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+    display: table;
+    table-layout: fixed;
+    .table_scroll_inner {
+      display: table-cell;
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+    }
   }
 }
 .schedule_table {  

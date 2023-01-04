@@ -11,7 +11,7 @@ import { settingSidebar } from 'redux/breadcrumb/action';
 import { removePrefixOrSuffix } from 'utils/helper';
 import Vessels from '../../src/components/Vessel';
 import VesselSaveBar from '../../src/components/VesselSaveBar';
-import { getCountries, getPorts } from '../../src/redux/masters/action';
+import { getCountries, getPorts, getCurrency } from '../../src/redux/masters/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { GetVessel, UpdateVessel } from '../../src/redux/vessel/action';
 import API from '../../src/utils/endpoints';
@@ -25,10 +25,13 @@ export default function Home() {
     fetchInitialData();
     dispatch(getCountries());
     dispatch(getPorts());
+    dispatch(getCurrency());
   }, []);
 
-  const { getPortsMasterData } = useSelector((state) => state.MastersData);
-  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  const { getPortsMasterData, getCurrencyMasterData, getCountriesMasterData } = useSelector(
+    (state) => state.MastersData,
+  );
+
   let id = sessionStorage.getItem('VesselId');
 
   const fetchInitialData = async () => {
@@ -57,7 +60,7 @@ export default function Home() {
 
   const setData = (Vessel) => {
     setOrderId(_get(Vessel, 'data[0].order._id', ''));
-    setCurrency(_get(Vessel, 'data[0].order.marginMoney.calculation.orderValueCurrency', 'USD'));
+    setCurrency(_get(Vessel, 'data[0].order.orderCurrency', 'USD'));
     setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false));
     setVesselData(Vessel);
     setPartShipmentAllowed(_get(Vessel, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', 'No'));
@@ -116,10 +119,10 @@ export default function Home() {
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.portOfLoading', '')
                 : _get(Vessel, 'data[0].order.termsheet.transactionDetails.loadPort', ''),
             portOfDischarge:
-            '' || _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', '') !== ''
-            ? _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', '')
-            : _get(Vessel, 'data[0].order.termsheet.transactionDetails.portOfDischarge', ''),
-                
+              '' || _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', '') !== ''
+                ? _get(Vessel, 'data[0].vessels[0].transitDetails.portOfDischarge', '')
+                : _get(Vessel, 'data[0].order.termsheet.transactionDetails.portOfDischarge', ''),
+
             laycanFrom:
               _get(Vessel, 'data[0].vessels[0].transitDetails.laycanFrom', '') !== ''
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanFrom', '')
@@ -129,11 +132,11 @@ export default function Home() {
                 ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '')
                 : _get(Vessel, 'data[0].order.shipmentDetail.loadPort.toDate', '') || '',
 
-            EDTatLoadPort:
-              '' || _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '') !== ''
-                ? _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '')
+            EDTatLoadPort: '' || _get(Vessel, 'data[0].vessels[0].transitDetails.EDTatLoadPort', ''),
+            ETAatDischargePort:
+              _get(Vessel, 'data[0].vessels[0].transitDetails.ETAatDischargePort', '') !== ''
+                ? _get(Vessel, 'data[0].vessels[0].transitDetails.ETAatDischargePort', '')
                 : _get(Vessel, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
-            ETAatDischargePort: _get(Vessel, 'data[0].vessels[0].transitDetails.ETAatDischargePort', ''),
           },
           shippingInformation: {
             shippingLineOrCharter:
@@ -187,11 +190,11 @@ export default function Home() {
               ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.laycanTo', '')
               : _get(VesselToAdd, 'data[0].order.shipmentDetail.loadPort.toDate', '') || '',
 
-          EDTatLoadPort:
-            '' || _get(VesselToAdd, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '') !== ''
-              ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.EDTatLoadPort', '')
+          EDTatLoadPort: '' || _get(VesselToAdd, 'data[0].vessels[0].transitDetails.EDTatLoadPort', ''),
+          ETAatDischargePort:
+            _get(VesselToAdd, 'data[0].vessels[0].transitDetails.ETAatDischargePort', '') !== ''
+              ? _get(VesselToAdd, 'data[0].vessels[0].transitDetails.ETAatDischargePort', '')
               : _get(VesselToAdd, 'data[0].order.shipmentDetail.ETAofDischarge.toDate', ''),
-          ETAatDischargePort: _get(VesselToAdd, 'data[0].vessels[0].transitDetails.ETAatDischargePort', ''),
         },
 
         vesselInformation: [
@@ -543,6 +546,7 @@ export default function Home() {
         setOnBlur={setOnBlur}
         country={getCountriesMasterData}
         port={getPortsMasterData}
+        currencyMasters={getCurrencyMasterData}
       />
       <div className="mt-5">
         <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />

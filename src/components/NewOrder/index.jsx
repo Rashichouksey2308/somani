@@ -26,7 +26,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
       return;
     }
     let filterData = commodity.filter((o) => {
-      return o.Commodity.toLowerCase().includes(value.toLowerCase());
+      return o?.Commodity?.toLowerCase()?.includes(value.toLowerCase());
     });
 
     setToShow(filterData);
@@ -51,7 +51,7 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                 className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
                 name="unitOfQuantity"
                 onChange={(e) => {
-                  console.log(e.target.value, "Ssdd")
+                  
                   saveOrderData(e.target.name, e.target.value);
                 }}
               >
@@ -77,8 +77,8 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                 <option value="Crores" selected>
                   Crores
                 </option>
-                <option value="Million">Million</option>
-                <option value="Lakh">Lakh</option>
+                {/* <option value="Million">Million</option> */}
+                {/* <option value="Lakh">Lakh</option> */}
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
@@ -243,13 +243,12 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="countryOfOrigin"
-                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   >
                     <option selected>Select an option</option>
-                    {country.map((val, index) => {
+                    {country?.map((val, index) => {
                       return <option value={`${val.Country}`}>{val.Country}</option>;
                     })}
                   </select>
@@ -324,7 +323,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   {/* <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     name="manufacturerName"
-                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
@@ -357,14 +355,12 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   <select
                     className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     name="portOfDischarge"
-                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   >
                     <option selected>Select an option</option>
-                    {port
-                      .filter((val, index) => {
+                    {port?.filter((val, index) => {
                         if (val.Country.toLowerCase() == 'india' ) {
                           return val;
                         }
@@ -393,7 +389,6 @@ const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="incoTerm"
-                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}

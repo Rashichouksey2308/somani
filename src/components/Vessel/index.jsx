@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 function Index({
   vesselData,
@@ -45,9 +46,10 @@ function Index({
   setOnBlur,
   country,
   port,
+  currencyMasters,
 }) {
   const [orderValueinFocus, setOrderValueInFocus] = useState(false);
- console.log(vesselCertificate,"containerListDocument")
+
   const dispatch = useDispatch();
 
   const getSn = (index) => {
@@ -151,14 +153,10 @@ function Index({
                     <div className={`${styles.dashboard_form} card-body`}>
                       <div className="row ">
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
-                         
-                             <div className={`${styles.label} text`}>
-                             Shipment Type 
-                          </div>
-                         <span className={styles.value}>{val.shipmentType}</span>
-                         
-                          </div>
-                        
+                          <div className={`${styles.label} text`}>Shipment Type</div>
+                          <span className={styles.value}>{val.shipmentType}</span>
+                        </div>
+
                         <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                           <input
                             className={`${styles.input_field} input form-control`}
@@ -206,10 +204,13 @@ function Index({
                             disabled
                             required
                           >
-                            <option value= "">Select</option>
-                            <option value="USD">USD</option>
-                            <option value="INR">INR</option>
-                            <option value="EURO">EURO</option>
+                            {currencyMasters.map((val, index) => {
+                              return (
+                                <option key={index} value={`${val.Currency}`}>
+                                  {val.Currency}
+                                </option>
+                              );
+                            })}
                           </select>
                           <input
                             onWheel={(event) => event.currentTarget.blur()}
@@ -228,7 +229,7 @@ function Index({
                             value={
                               orderValueinFocus
                                 ? val.orderValue
-                                : Number(val.orderValue)?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                                : returnReadableNumber(val.orderValue,currency === 'INR' ? 'en-In': 'en-EN')
                             }
                             onChange={(e) => OnVesselBasicFieldsChangeHandler(e, index)}
                           />
@@ -289,11 +290,11 @@ function Index({
                                 {val.portOfLoading}
                               </option> */}
                               {port
-                                .filter((val) => val.Country.toLowerCase() !== 'india')
-                                .map((val, index) => {
+                                ?.filter((val) => val.Country.toLowerCase() !== 'india')
+                                ?.map((val, index) => {
                                   return (
-                                    <option key={index} value={`${val.Port_Name},${val.Country}`}>
-                                     {val.Port_Name}, {val.Country}
+                                    <option key={index} value={`${val.Port_Name}, ${val.Country}`}>
+                                      {val.Port_Name}, {val.Country}
                                     </option>
                                   );
                                 })}
@@ -322,11 +323,11 @@ function Index({
                                 {val.portOfDischarge}
                               </option> */}
                               {port
-                                .filter((val) => val.Country.toLowerCase() === 'india' && val.Approved=="YES")
-                                .map((val, index) => {
+                                ?.filter((val) => val.Country.toLowerCase() === 'india' && val.Approved == 'YES')
+                                ?.map((val, index) => {
                                   return (
                                     <option key={index} value={`${val.Port_Name}`}>
-                                     {val.Port_Name}, {val.Country}
+                                      {val.Port_Name}, {val.Country}
                                     </option>
                                   );
                                 })}
@@ -716,7 +717,10 @@ function Index({
               setContainerListDocument={setContainerListDocument}
             />
 
-            <UploadOther module={['Generic','Agreements',"LC","LC Ammendment","Vessel Nomination","Insurance"]  } orderid={id1} />
+            <UploadOther
+              module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
+              orderid={id1}
+            />
           </div>
         </div>
       </div>

@@ -317,9 +317,10 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
       headers: headers
     })
     if (response.data.code === 200) {
+      dispatch(validatingTokenSuccess(response.data.data))
       return response.data.data
     } else {
-      if (response.data.code === 401) {
+      if (response.data.code === 401||response.data.code === 402) {
         dispatch(generateToken())
       }
       dispatch(validatingTokenFailed(response.data.data))
@@ -346,18 +347,18 @@ export const generateToken = () => async (dispatch, getState, api) => {
     const cookie = await Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    const [userId, refreshToken] = decodedString.split('#')
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
 
-    const response = await api.post(API.generateNewToken, {
-      refreshToken: existingRefreshToken,
-      userId: guid
+    const response = await Axios.post(`${API.authbaseUrl}${API.generateToken}`, {
+      refreshToken: refreshToken,
+      userId: userId
     })
 
     if (response.data.code === 200) {
       const {
         data: { data: jwtAccessToken }
       } = response
-      await Cookies.remove('SOMANI')
+      // await Cookies.remove('SOMANI')
 
       await setAuthenticationCookie({
         jwtAccessToken,
@@ -365,9 +366,11 @@ export const generateToken = () => async (dispatch, getState, api) => {
         user: { userId }
       })
       dispatch(generatingTokenSuccess(response.data.data))
+    }else {
+      dispatch(logoutUser())
+      dispatch(generatingTokenFailed(response.data))
     }
-    dispatch(logoutUser())
-    dispatch(generatingTokenFailed(response.data))
+
   } catch (error) {
     dispatch(generatingTokenFailed(error))
     dispatch(logoutUser())

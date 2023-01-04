@@ -9,29 +9,22 @@ export default function TPASeller(data) {
         <p className="text-center text_sales">
           {' '}
           <strong>
-            <u>TRIPARTITE AGREEMENT</u>
+            TRIPARTITE AGREEMENT
           </strong>
         </p>
         <p className="text_sales">
-          This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by
-          and between:
+          This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:
         </p>
         <p className="text_sales">
-          <strong>{data.sellerSignature}</strong>(s), a company organized and existing in accordance with Law of Switzerland and having address at {""}{' '}
-                    {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country},{' '}
-                    {data.sellerAddress?.pinCode}{""} through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
+          <strong>{data.sellerSignature}</strong>(s), a company organized and existing in accordance with Law of Switzerland and having address at {data.sellerAddress?.fullAddress}, {data.sellerAddress?.city} {data.sellerAddress?.country}, {data.sellerAddress?.pinCode} through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.
         </p>
         <p className=" text-left text_sales">And</p>
         <p className="text_sales">
-          <strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “
-          <strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to
-          include its legal heirs, successors and permitted assigns) of the Second Part.
+          <strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Second Part.
         </p>
         <p className=" text-left text_sales">And</p>
         <p className="text_sales">
-          <strong>End Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as
-          the “<strong>End Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be
-          deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
+          <strong>End Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>End Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
         </p>
         <p className="text_sales">
           The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be referred to individually as "Party" and collectively as the "Parties".
@@ -63,7 +56,6 @@ export default function TPASeller(data) {
           </ol>
         </p>
         <p className="text-center text_sales">
-          {' '}
           <strong>Schedule I</strong>
         </p>
         <div className={`${styles.inputsContainer} border_black`}>
@@ -96,11 +88,7 @@ export default function TPASeller(data) {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.supplierAddress?.fullAddress},{" "}
-              {data.supplierAddress?.city}{" "}
-              {data.supplierAddress?.country},{" "}
-
-              {data.supplierAddress?.pinCode}
+              {data.supplierAddress?.fullAddress}, {data.supplierAddress?.city}, {data.supplierAddress?.country}, {data.supplierAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -108,21 +96,20 @@ export default function TPASeller(data) {
               Authorized signatory of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-                   <ol>
-              {data?.supplierAuthorized?.length > 0 &&
-                data?.supplierAuthorized?.map((val, index) => {
-                  return (
-                    <li>
-                      <p className='mb-0'>
-                        Name - {val.name}
-                      </p>
-                      <p className='mb-0'>
-                        Designation - {val.designation}
-                      </p>
-                    </li>
-                  );
-                })}
-            </ol>
+              <ol className='mb-0'>
+                {data?.supplierAuthorized?.length > 0 &&
+                  data?.supplierAuthorized?.map((val, index) => {
+                    return (
+                      <li>
+                        <p className='mb-0'>
+                          Name - {val.name}
+                          <br/>
+                          Designation - {val.designation}
+                        </p>
+                      </li>
+                    );
+                  })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -130,11 +117,12 @@ export default function TPASeller(data) {
               Email ID of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-           
-            {data?.supplierAuthorized?.length > 0 &&
-                  data?.supplierAuthorized?.map((val, index) => {
-                    return <li>{val.email}</li>;
-                  })}
+              <ol className='mb-0'>
+                {data?.supplierAuthorized?.length > 0 &&
+                    data?.supplierAuthorized?.map((val, index) => {
+                      return <li>{val.email}</li>;
+                    })}
+              </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -150,8 +138,7 @@ export default function TPASeller(data) {
               Address of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.associateBuyerAddress}
-              
+              {data.associateBuyerAddress}              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -159,15 +146,14 @@ export default function TPASeller(data) {
               Authorized signatory of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-                 <ol>
+              <ol className='mb-0'>
               {data?.associateBuyerAuthorized?.length > 0 &&
                 data?.associateBuyerAuthorized?.map((val, index) => {
                   return (
                     <li>
                       <p className='mb-0'>
                         Name - {val.name}
-                      </p>
-                      <p className='mb-0'>
+                        <br/>
                         Designation - {val.designation}
                       </p>
                     </li>
@@ -181,7 +167,7 @@ export default function TPASeller(data) {
               Email ID of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              <ol>
+              <ol className='mb-0'>
                 {data?.associateBuyerAuthorized?.length > 0 &&
                   data?.associateBuyerAuthorized?.map((val, index) => {
                     return <li>{val.email}</li>;
@@ -193,7 +179,7 @@ export default function TPASeller(data) {
             <Col md={5} className={`${styles.left} border_black`}>
               Details of Goods as per Sales Contract
             </Col>
-            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`}>
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start`}>
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
@@ -217,8 +203,8 @@ export default function TPASeller(data) {
                     </div>
                   </div>
                 </div>
-                {data?.specComment?.length > 0 ? <b>Comments</b> : null}
-                <ol>
+                {data?.specComment?.length > 0 ? <b className='mb-2 d-block'>Comments</b> : null}
+                <ol className='mb-2'>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
                       return <li>{val}</li>;
@@ -228,65 +214,67 @@ export default function TPASeller(data) {
             </Col>
           </Row>
         </div>
-        <div className={`row my-4`}>
-          <Col md={6}>
-            <p className="text_sales">
+        <div className={`row`}>
+          <Col md={8}>
+            <p className="text_sales text-left mt-5 pt-4">
               <strong>Buyer</strong>
             </p>
           </Col>
-          <Col md={6}>
+          <Col md={4}>
             <p className="text_sales mb-0">
                {data?.buyerAuthorized?.length > 0 &&
                   data?.buyerAuthorized?.map((val, index) => {
-                      return (
+                    return (
                       <>
-                      <span>{val.name}, {val.designation}</span>
+                        <p className='text-left mt-5 pt-4'>Name: {val.name}
+                        <br/>Designation: {val.designation}</p>
                       </>
                     )
                   })}
             </p>
-            <p className="text_sales">Authorised Signatory</p>
+            <p className="text_sales text-left"><strong>Authorised Signatory</strong></p>
           </Col>
         </div>
-        <div className={`row my-4`}>
-          <Col md={6}>          
-            <p className="text_sales">           
+        <div className={`row`}>
+          <Col md={8}>          
+            <p className="text_sales text-left mt-5 pt-4">           
               <strong>Supplier</strong>
             </p>
           </Col>
-          <Col md={6}>
+          <Col md={4}>
             <p className="text_sales mb-0">
              {data?.supplierAuthorized?.length > 0 &&
                   data?.supplierAuthorized?.map((val, index) => {
-                     return (
+                    return (
                       <>
-                      <span>{val.name}, {val.designation}</span>
+                        <p className='text-left mt-5 pt-4'>Name: {val.name}
+                        <br/>Designation: {val.designation}</p>
                       </>
                     )
                   })}
             </p>
-            <p className="text_sales">Authorised Signatory</p>
+            <p className="text_sales text-left"><strong>Authorised Signatory</strong></p>
           </Col>
         </div>
-        <div className={`row my-4`}>
-          <Col md={6}>           
-            <p className="text_sales">                
+        <div className={`row`}>
+          <Col md={8}>           
+            <p className="text_sales text-left mt-5 pt-4">                
               <strong>End Buyer</strong>
             </p>
           </Col>
-          <Col md={6}>
+          <Col md={4}>
             <p className="text_sales mb-0">
              {data?.associateBuyerAuthorized?.length > 0 &&
                   data?.associateBuyerAuthorized?.map((val, index) => {
                     return (
                       <>
-                      <span>{val.name}, {val.designation}</span>
+                        <p className='text-left mt-5 pt-4'>Name: {val.name}
+                        <br/>Designation: {val.designation}</p>
                       </>
                     )
-                    
                   })}
             </p>
-            <p className="text_sales">Authorised Signatory</p>
+            <p className="text_sales text-left"><strong>Authorised Signatory</strong></p>
           </Col>
         </div>
       </div>

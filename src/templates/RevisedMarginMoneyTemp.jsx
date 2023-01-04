@@ -783,7 +783,10 @@ export default function RevisedMarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD {marginData?.calculation?.orderValue?.toLocaleString() ?? 0}
+                      {marginData.marginData?.order?.orderCurrency}{' '} {marginData?.calculation?.orderValue?.toLocaleString(
+                         marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En",
+                      ) ?? 0}
                       </p>
                     </td>
                     <td align="left">
@@ -798,7 +801,11 @@ export default function RevisedMarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        USD {marginData?.calculation?.orderValue?.toLocaleString() ?? 0}
+                         {marginData.marginData?.order?.orderCurrency}{' '} {marginData?.calculation?.orderValue?.toLocaleString(
+
+                          marginData.marginData?.order?.orderCurrency=="INR"?
+                          'en-In':"en-En",
+                         ) ?? 0}
                       </p>
                     </td>
                   </tr>

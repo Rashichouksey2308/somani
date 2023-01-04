@@ -121,10 +121,10 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
  * @param [where=front] - front or back
  * @returns A function that takes in 3 parameters and returns a string.
  */
-export const addPrefixOrSuffix = (unitOfValue, type, where = 'front') => {
+export const addPrefixOrSuffix = (unitOfValue, type, where = 'front', comma = 'en-IN') => {
   if (where === 'front')
-    return `${addPrefixSymbol(type)} ${Number(removePrefixOrSuffix(unitOfValue)).toLocaleString('en-IN')}`;
-  return `${Number(removePrefixOrSuffix(unitOfValue)).toLocaleString('en-IN')} ${type}`;
+    return `${addPrefixSymbol(type)} ${Number(removePrefixOrSuffix(unitOfValue)).toLocaleString(comma)}`;
+  return `${Number(removePrefixOrSuffix(unitOfValue)).toLocaleString(comma)} ${type}`;
 };
 
 /**
@@ -135,7 +135,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'front') => {
 
 export const removePrefixOrSuffix = (unitOfValue) => {
   const value = String(unitOfValue).replace(/([a-zA-Z])/g, '');
-  console.log(value, 'SDadsasd', unitOfValue);
+ 
   return Number(value);
 };
 

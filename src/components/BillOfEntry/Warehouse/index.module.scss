@@ -347,7 +347,10 @@
           overflow: hidden;
           position: relative;
           display: inline-block;
-          height: 36px;
+          height: 38px;
+          @include respond(lg-desktop) {
+            height: 34px;
+          }
           input {
             top: 0;
             left: 0;
@@ -680,7 +683,10 @@
       overflow: hidden;
       position: relative;
       display: inline-block;
-      height: 36px;
+      height: 38px;
+      @include respond(lg-desktop) {
+        height: 34px;
+      }
       input {
         top: 0;
         left: 0;

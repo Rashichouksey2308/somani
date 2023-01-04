@@ -17,7 +17,7 @@ import { previewDocument } from '../../redux/ViewDoc/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
 // import { set } from 'lodash'
 import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/action';
-import { returnDocFormat } from '@/utils/helpers/global';
+import { returnDocFormat, returnReadableNumber } from '@/utils/helpers/global';
 
 
 export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
@@ -54,7 +54,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   //     setbl([...temp])
   //   }
   // },[customData])
-  console.log(bl, 'Sasdasd');
+
   useEffect(() => {
     let id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
@@ -81,8 +81,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
           return val;
         }
       });
-      console.log(check, 'check', _get(customData, 'order.termsheet.otherTermsAndConditions.buyer.bank'));
-      console.log(filter, 'filter');
+      
       setBankName(filter);
     }
   }, [getInternalCompaniesMasterData, customData]);
@@ -120,9 +119,10 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
       document1: null,
       document2: null,
       document3: null,
+      document4: null,
     },
   ]);
-
+ 
   const totalCustomDuty = (index) => {
     let number = 0;
     dutyData[index]?.forEach((val) => {
@@ -137,7 +137,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
   const uploadDoc1 = async (e, index) => {
     let name = e.target.name;
     let docs = await uploadDoc(e);
-   console.log(name,"name")
+  
     let newInput = [...billOfEntryData];
     newInput[index][name] = docs;
     setBillOfEntryData([...newInput]);
@@ -360,9 +360,18 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
         isOk = false;
         break;
       }
-
-      if (billOfEntryData[i].pdBond) {
+ if (billOfEntryData[i].boeAssessment=="Final") {
         if (billOfEntryData[i].document3 === null) {
+          let toastMessage = 'please upload BOE Final';
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+          isOk = false;
+          break;
+        }
+      }
+      if (billOfEntryData[i].pdBond) {
+        if (billOfEntryData[i].document4 === null) {
           let toastMessage = 'please upload PD Bond ';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -487,6 +496,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
           document1: val?.document1 ?? null,
           document2: val?.document2 ?? null,
           document3: val?.document3 ?? null,
+          document4: val?.document4 ?? null,
         });
 
         duty11.push(JSON.parse(JSON.stringify(val.duty)));
@@ -523,13 +533,13 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
           blDoc: val.blDoc,
         });
       });
-      console.log(temp, 'temp');
+    
       setbl([[...temp]]);
     } else {
       setbl([...bltable]);
     }
   }, [customData]);
-  console.log(bl, 'asdasd');
+
   const getIndex = (index) => {
     return index + 1;
   };
@@ -568,6 +578,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
         document1: null,
         document2: null,
         document3: null,
+        document4: null,
       },
     ]);
 
@@ -787,7 +798,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                         </div>
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
-                            BL Quantity <strong className="text-danger ml-n1">*</strong>
+                            Quantity <strong className="text-danger ml-n1">*</strong>
                           </div>
                           <span className={styles.value}>
                             {_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', '')
@@ -820,7 +831,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>Port Of Discharge</div>
                           <span className={styles.value}>
-                            {_get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                            {_get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '') !== '' ? `${_get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India` : '' }
                           </span>
                         </div>
 
@@ -945,7 +956,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 ? val?.boeDetails?.invoiceQuantity
                                 : val?.boeDetails?.invoiceQuantity == 0
                                 ? ''
-                                : Number(val?.boeDetails?.invoiceQuantity)?.toLocaleString('en-IN') + ' ' + 'MT'
+                                : Number(val?.boeDetails?.invoiceQuantity)?.toLocaleString('en-IN') + ' ' + customData?.order?.unitOfQuantity.toUpperCase()
                             }
                             onWheel={(event) => event.currentTarget.blur()}
                             name="boeDetails.invoiceQuantity"
@@ -985,7 +996,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 ? val?.boeDetails?.invoiceValue
                                 : val?.boeDetails?.invoiceValue == 0
                                 ? ''
-                                : `USD` + ' ' + Number(val?.boeDetails?.invoiceValue)?.toLocaleString('en-IN')
+                                : val?.boeDetails?.currency + ' ' + returnReadableNumber(val?.boeDetails?.invoiceValue,val?.boeDetails?.currency === 'INR' ? 'en-In': 'en-EN')
                             }
                             onWheel={(event) => event.currentTarget.blur()}
                             // value={addPrefixOrSuffix(
@@ -1025,7 +1036,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 ? val?.boeDetails?.conversionRate
                                 : val?.boeDetails?.conversionRate == 0
                                 ? ''
-                                : `INR` + ' ' + Number(val?.boeDetails?.conversionRate)?.toLocaleString('en-IN')
+                                :    Number(val?.boeDetails?.conversionRate)?.toLocaleString('en-IN')
                             }
                             // value={
 
@@ -1347,7 +1358,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                       checked={blData.check}
                                       onChange={(e) => {
                                         let temp = [...bl];
-                                        console.log(temp[index][indexbl], 'ASdasd');
+                                       
                                         temp[index][indexbl].check = !temp[index][indexbl].check;
                                         setbl([...temp]);
                                       }}
@@ -1441,6 +1452,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                             </tr>
                           </thead>
                           <tbody>
+                          {(val.boeAssessment === 'Provisional' || (val.boeAssessment === 'Final' && _get(customData, `billOfEntry.billOfEntry[${index}].document1`, null))) &&
                               <tr className="table_row">
                               
                                 <td className={styles.doc_name}>
@@ -1482,8 +1494,8 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   </div>
                                 )}
                               </td>
-                            </tr>
-                              {val.boeAssessment === 'Final' ?
+                            </tr>}
+                          { val.boeAssessment === 'Final' &&
                                 <tr className="table_row">
                               
                                 <td className={styles.doc_name}>
@@ -1526,8 +1538,8 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                 )}
                               </td>
                             </tr>
-                              :null}
-                          
+                              }
+                           
                             <tr className="table_row">
                               <td className={styles.doc_name}>
                                 Duty Paid Challan
@@ -1575,30 +1587,20 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                   <strong className="text-danger ml-0">*</strong>
                                 </td>
                                 <td>
-                                  {val?.document3 ? (
-                                    val.document3?.originalName?.toLowerCase().endsWith('.xls') ||
-                                    val.document3?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                      <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                    ) : val.document3?.originalName?.toLowerCase().endsWith('.doc') ||
-                                      val.document3?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                      <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                    ) : (
-                                      <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                    )
-                                  ) : null}
+                                  {val?.document4 ? returnDocFormat(val.document4?.originalName) : null}
                                 </td>
                                 <td className={styles.doc_row}>
-                                  {val.document3 === null
+                                  {val.document4 === null
                                     ? ''
-                                    : moment(val.document3.date).format('DD-MM-YYYY, h:mm a')}
+                                    : moment(val.document4.date).format('DD-MM-YYYY, h:mm a')}
                                 </td>
                                 <td>
-                                  {val.document3 === null ? (
+                                  {val.document4 === null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
                                         <input
                                           type="file"
-                                          name="document3"
+                                          name="document4"
                                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                           onChange={(e) => uploadDoc1(e, index)}
                                         />
@@ -1607,9 +1609,9 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                     </>
                                   ) : (
                                     <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                                      <span>{val?.document3?.originalName}</span>
+                                      <span>{val?.document4?.originalName}</span>
                                       <img
-                                        onClick={() => removeDoc('document3', index)}
+                                        onClick={() => removeDoc('document4', index)}
                                         className={`${styles.close_image} image_arrow`}
                                         src="/static/close.svg"
                                         alt="Close"

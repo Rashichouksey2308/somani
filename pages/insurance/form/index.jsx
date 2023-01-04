@@ -14,7 +14,6 @@ import moment from 'moment';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 
 const Index = () => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,8 +34,8 @@ const Index = () => {
 
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
-    expectedTimeOfArrival: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort ?? '',
-    expectedTimeOfDispatch: insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort ?? '',
+    expectedTimeOfArrival: _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '') ?? '',
+    expectedTimeOfDispatch: _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '') ?? '',
     insuranceType: '',
     laycanFrom: '',
     laycanTo: '',
@@ -60,8 +59,12 @@ const Index = () => {
 
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
-      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival ? insuranceData?.quotationRequest?.expectedTimeOfArrival : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort || undefined,
-      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch ?insuranceData?.quotationRequest?.expectedTimeOfDispatch :insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort || undefined,
+      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival
+        ? insuranceData?.quotationRequest?.expectedTimeOfArrival
+        : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort || undefined,
+      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch
+        ? insuranceData?.quotationRequest?.expectedTimeOfDispatch
+        : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort || undefined,
       insuranceType: insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
       laycanFrom: insuranceData?.quotationRequest?.laycanFrom
         ? insuranceData?.quotationRequest?.laycanFrom
@@ -69,15 +72,13 @@ const Index = () => {
       laycanTo: insuranceData?.quotationRequest?.laycanTo
         ? insuranceData?.quotationRequest?.laycanTo
         : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee: _get(
-          insuranceData,
-          'order.lc.lcApplication.lcIssuingBank',
-          insuranceData?.quotationRequest?.lossPayee,
-        ) || '',
-      
-  
+      lossPayee:
+        _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', insuranceData?.quotationRequest?.lossPayee) || '',
+
       storageDetails: {
-        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage : insuranceData?.order?.termsheet?.transactionDetails?.portOfDischarge ,
+        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
+          ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
+          : _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
         storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
@@ -184,7 +185,10 @@ const Index = () => {
         return false;
       }
     }
-    if (quotationData?.insuranceType == 'Storage Insurance') {
+    if (
+      quotationData?.insuranceType == 'Storage Insurance' ||
+      quotationData?.insuranceType == 'Marine & Storage Insurance'
+    ) {
       if (
         quotationData.storageDetails.placeOfStorage == '' ||
         quotationData.storageDetails.placeOfStorage == undefined ||
@@ -371,7 +375,7 @@ const Index = () => {
                               {Number(insuranceData?.order?.quantity)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                               })}{' '}
-                              MT
+                              {insuranceData?.order?.unitOfQuantity}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -410,7 +414,8 @@ const Index = () => {
                           <Col lg={4} md={6} sm={6}>
                             <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
                             <div className={styles.col_body}>
-                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '') +
+                                `, India`}
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
@@ -424,21 +429,11 @@ const Index = () => {
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    :  _get(
-                                    insuranceData,
-                                    'order.lc.lcApplication.lcIssuingBank',
-                                    '',
-                                  )
+                                    : _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', '')
                                 }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                              >
-                                
-                              </input>
-                              <label className={`${styles.label_heading} label_heading`}>
-                                Loss Payee
-                               
-                              </label>
-                             
+                              ></input>
+                              <label className={`${styles.label_heading} label_heading`}>Loss Payee</label>
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -619,7 +614,8 @@ const Index = () => {
                           <Col lg={4} md={6} sm={6}>
                             <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
                             <div className={styles.col_body}>
-                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '') +
+                                `, India`}
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
@@ -633,15 +629,9 @@ const Index = () => {
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
-                                    : _get(
-                                    insuranceData,
-                                    'order.lc.lcApplication.lcIssuingBank',
-                                    '',
-                                  )
+                                    : _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', '')
                                 }
-                              >
-                               
-                              </input>
+                              ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
                                 {/* <strong className="text-danger">*</strong> */}
@@ -736,7 +726,7 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
-                               onWheel={(event) => event.currentTarget.blur()}
+                              onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
@@ -791,7 +781,7 @@ const Index = () => {
                               required
                               type="text"
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                              value={quotationData.storageDetails.placeOfStorage}
+                              value={quotationData.storageDetails.placeOfStorage ?  `${quotationData.storageDetails.placeOfStorage}, India` : quotationData.storageDetails.placeOfStorage}
                               name="storageDetails.placeOfStorage"
                               onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                             />

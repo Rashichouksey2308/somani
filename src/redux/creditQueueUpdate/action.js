@@ -4,6 +4,7 @@ import API from '../../utils/endpoints';
 import * as types from './actionType';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+import { handleSuccessToast } from '@/utils/helpers/global';
 
 const errorMessage = {
   status: 400,
@@ -123,10 +124,28 @@ function VerifyingGstFailed() {
   };
 }
 
+function VerifyingConsolidatedGst() {
+  return {
+    type: types.GET_CONSOLIDATED_GST_KARZA,
+  };
+}
+
+function VerifyingConsolidatedGstSuccess(payload) {
+  return {
+    type: types.GET_CONSOLIDATED_GST_KARZA_SUCCESS,
+    payload,
+  };
+}
+function VerifyingConsolidatedGstFailed() {
+  return {
+    type: types.GET_CONSOLIDATED_GST_KARZA_FAILED,
+  };
+}
+
 export const UpdateCam = (payload, message) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-
-  const cookie = Cookies.get('SOMANI');
+  console.log(payload.status, 'payload');
+  let cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
@@ -218,7 +237,8 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     };
     dispatch(VerifyingGst());
 
-    const response = await Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
+    // Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
       headers: headers,
     });
     if (response.data.code === 200) {
@@ -242,7 +262,91 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
   }
 };
 
-export const AddingDocument = (payload, id) => async (dispatch, getState, api) => {
+export const getGstData = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
+    dispatch(VerifyingGst());
+
+    Axios.post(`${API.corebaseUrl}${API.sendGst}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(VerifyingGstSuccess(response.data.data));
+        dispatch(setNotLoading());
+        let toastMessage = 'request sent successfully';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+      } else {
+        dispatch(VerifyingGstFailed(response.data.data));
+        let toastMessage = response.data.message;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(VerifyingGstFailed());
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const getConsolidatedGstData = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
+    dispatch(VerifyingConsolidatedGst());
+
+    Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(VerifyingConsolidatedGstSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(VerifyingConsolidatedGstFailed(response.data.data));
+        let toastMessage = response.data.message;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(VerifyingConsolidatedGstFailed());
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const AddingDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -303,10 +407,9 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     });
     if (response.data.code === 200) {
       dispatch(deleteDocumentsSuccess(response.data.data));
-      const toastMessage = 'Document Successfully DELETED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleSuccessToast('Document Successfully DELETED');
+   let orderid = sessionStorage.getItem('DocRefetchId');
+   orderid && dispatch(GetDocuments(`?order=${orderid}`));
       dispatch(setNotLoading());
     } else {
       dispatch(deleteDocumentsFailed(response.data.data));
@@ -338,12 +441,9 @@ export const changeModuleDocument = (payload) => async (dispatch, getState, api)
     });
     if (response.data.code === 200) {
       dispatch(changeModuleDocumentsSuccess(response.data.data));
-      const toastMessage = 'Document Successfully MOVED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), {
-          toastId: toastMessage,
-        });
-      }
+      handleSuccessToast('Document Successfully MOVED');
+      let orderid = sessionStorage.getItem('DocRefetchId');
+      orderid && dispatch(GetDocuments(`?order=${orderid}`));
 
       dispatch(setNotLoading());
     } else {

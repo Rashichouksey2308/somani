@@ -245,7 +245,7 @@ const Index = () => {
   }, [isInsurerSameData]);
  
   const marineValidation=()=>{
-    console.log( marineData.nameOfInsurer,"marineData")
+  
      let toastMessage = '';
            if (
          marineData.policyNumber == '' ||  marineData.policyNumber == undefined || 
@@ -262,7 +262,7 @@ const Index = () => {
          marineData.nameOfInsurer == '' ||  marineData.nameOfInsurer == undefined || 
          marineData.nameOfInsurer == null
       ) {
-         console.log("asdasdasdasd")
+        
         toastMessage = 'PLEASE ADD  marine name Of Insurer';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -310,19 +310,19 @@ const Index = () => {
           return false;
         }
       }
-           if (
-         marineData.lossPayee == '' ||  marineData.lossPayee == undefined || 
-         marineData.lossPayee == null
-      ) {
-        toastMessage = 'PLEASE ADD  marine loss Payee';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
+      //      if (
+      //    marineData.lossPayee == '' ||  marineData.lossPayee == undefined || 
+      //    marineData.lossPayee == null
+      // ) {
+      //   toastMessage = 'PLEASE ADD  marine loss Payee';
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     return false;
+      //   }
+      // }
   }
   const storageValidation=()=>{
-      console.log(storageData,"storage")
+      
      let toastMessage = '';
            if (
          storageData.policyNumber == '' ||  storageData.policyNumber == undefined || 
@@ -395,16 +395,16 @@ const Index = () => {
           return false;
         }
       }
-           if (
-         storageData.lossPayee == '' ||  storageData.lossPayee == undefined || 
-         storageData.lossPayee == null
-      ) {
-        toastMessage = 'PLEASE ADD storage loss Payee';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
+      //      if (
+      //    storageData.lossPayee == '' ||  storageData.lossPayee == undefined || 
+      //    storageData.lossPayee == null
+      // ) {
+      //   toastMessage = 'PLEASE ADD storage loss Payee';
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     return false;
+      //   }
+      // }
   }
   const validate = () => {
     let toastMessage = '';
@@ -502,6 +502,7 @@ const Index = () => {
           return false;
         }
       }
+    
    if(storageValidation()==false){
       return false
 
@@ -611,7 +612,7 @@ const Index = () => {
   const handleRoute = () => {
     Router.push('/insurance');
   };
- console.log(option,"assasas")
+ 
   return (
     <div className={`container-fluid p-0`}>
       <div className={`${styles.card} accordion_body`}>
@@ -939,7 +940,7 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                              
                             </div>
@@ -1352,7 +1353,7 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                               
                             </div>
@@ -1741,7 +1742,7 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                              
                             </div>
@@ -2012,7 +2013,7 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                               
                             </div>

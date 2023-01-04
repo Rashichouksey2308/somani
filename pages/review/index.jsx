@@ -57,8 +57,7 @@ import { settingSidebar } from '../../src/redux/breadcrumb/action';
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
 import { McaReportFetch } from '../../src/redux/mcaReport/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-import { returnReadableNumber } from '@/utils/helpers/global'
-
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 let alertObj = {
   isShell: 'Shell',
@@ -163,7 +162,7 @@ let alertObj = {
 
 function Index() {
   const dispatch = useDispatch();
- 
+
   const [darkMode, setDarkMode] = useState(false);
   const [uploadBtn, setUploadBtn] = useState(true);
   const [complienceFilter, setComplienceFilter] = useState('All');
@@ -171,15 +170,19 @@ function Index() {
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([]);
   const [camConversionunit, setCamCoversionUnit] = useState(10000000);
   const [litigationStatus, setlitigationStatus] = useState(null);
-
-  const { fetchingKarzaGst } = useSelector((state) => state.review);
+  const [chartType, setChartType] = useState('Monthly');
+  const [unit, setUnit] = useState('Crores');
+  const { fetchingKarzaGst, fetchedGstData } = useSelector((state) => state.review);
   const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
   const { allBuyerList } = useSelector((state) => state.buyer);
   const [selectedTab, setSelectedTab] = useState('Profile');
   const mcaReportAvailable =
     _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
 
-
+  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+  let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
+  let dataLatestYear = _get(companyData, 'financial.balanceSheet[0]', {});
+  let dataPreviousYear = _get(companyData, 'financial.balanceSheet[1]', {});
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID');
@@ -275,7 +278,12 @@ function Index() {
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
-
+  const returnFilteredCharges = () => {
+    let data = _get(orderList, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+      return !item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '';
+    });
+    return data;
+  };
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',
@@ -293,6 +301,8 @@ function Index() {
     tolerance: '',
     hsnCode: '',
     manufacturerName: '',
+    existingOrderValue:""
+
   });
   useEffect(() => {
     let newObj = {
@@ -312,6 +322,7 @@ function Index() {
       tolerance: orderList?.tolerance,
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
+      existingOrderValue:CovertvaluefromtoCR(orderList?.existingOrderValue),
     };
 
     setOrderDetails({ ...newObj });
@@ -611,9 +622,9 @@ function Index() {
   };
 
   const [debtData, setDebtData] = useState([]);
-   const FilterUniqueBank = () => {
+  const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
-    const openCharges = filtered?.filter((item)=> !item.dateOfSatisfactionOfChargeInFull)
+    const openCharges = filtered?.filter((item) => !item.dateOfSatisfactionOfChargeInFull);
     const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
 
     return unique;
@@ -621,10 +632,10 @@ function Index() {
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
-      let repeat=[]
-     let filter = FilterUniqueBank()
-      orderList?.company?.debtProfile.forEach((val, index) => { 
-        // filter.forEach((fil,index2)=>{ 
+      let repeat = [];
+      let filter = FilterUniqueBank();
+      orderList?.company?.debtProfile.forEach((val, index) => {
+        // filter.forEach((fil,index2)=>{
         //   if(val.bankName==fil){
         //     temp.push({
         //     bankName: val?.bankName,
@@ -634,7 +645,7 @@ function Index() {
         //     primaryBank: val?.primaryBank,
         //     addnew:"false"
         //   })
-          
+
         //   }
         //   else{
         //     if(!filter.includes(val?.bankName)){
@@ -650,41 +661,35 @@ function Index() {
         //    }
         //   }
         //   }
-      
-         
-         
+
         // })
 
-        if(filter.includes(val?.bankName)){
+        if (filter.includes(val?.bankName)) {
           // if(temp.length <= orderList?.company?.debtProfile?.length){
-          temp.push({
-          bankName: val?.bankName,
-          conduct: val?.conduct,
-          limit: val?.limit,
-          limitType: val?.limitType,
-          primaryBank: val?.primaryBank,
-          addnew:"false"
-        })
-        //  }
-        }
-        else{
           temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
             limit: val?.limit,
             limitType: val?.limitType,
             primaryBank: val?.primaryBank,
-            addnew:"true"
-          })
+            addnew: 'false',
+          });
+          //  }
+        } else {
+          temp.push({
+            bankName: val?.bankName,
+            conduct: val?.conduct,
+            limit: val?.limit,
+            limitType: val?.limitType,
+            primaryBank: val?.primaryBank,
+            addnew: 'true',
+          });
         }
-       
-      
       });
 
-  
       setDebtData([...temp]);
     }
-  }, [orderList?.company?.debtProfile,companyData]);
+  }, [orderList?.company?.debtProfile, companyData]);
 
   const [personData, setPersonData] = useState([]);
 
@@ -782,17 +787,15 @@ function Index() {
 
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: suggestedValue ? suggestedValue / 10000000 : suggestedValue,
+      suggestedCreditLimit: suggestedValue ? suggestedValue : suggestedValue,
       suggestedOrderValue: orderList?.suggestedOrderValue
-        ? orderList?.suggestedOrderValue / 10000000
+        ? orderList?.suggestedOrderValue
         : orderList?.suggestedOrderValue,
     });
 
     setApprovedCredit({
-      approvedOrderValue: orderList?.approvedOrderValue
-        ? orderList?.approvedOrderValue / 10000000
-        : orderList?.approvedOrderValue,
-      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit / 10000000 : approvedCreditLimit,
+      approvedOrderValue: orderList?.approvedOrderValue ? orderList?.approvedOrderValue : orderList?.approvedOrderValue,
+      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit : approvedCreditLimit,
     });
   }, [orderList]);
 
@@ -895,7 +898,7 @@ function Index() {
       ...keyPersonData,
       {
         contact: {
-          callingCode: '',
+          callingCode: '+91',
           number: '',
         },
         department: '',
@@ -1028,7 +1031,12 @@ function Index() {
       }
       return false;
     }
-    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined || !supplierCred.latestShipmentDate || supplierCred.latestShipmentDate == 0) {
+    if (
+      supplierCred.latestShipmentDate == '' ||
+      supplierCred.latestShipmentDate == undefined ||
+      !supplierCred.latestShipmentDate ||
+      supplierCred.latestShipmentDate == 0
+    ) {
       let toastMessage = 'Please add latest Shipment Date ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1098,8 +1106,8 @@ function Index() {
         },
         debtProfile: tempDebtData,
         groupExposureDetail: [...tempArray],
-        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
-        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
+        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue),
+        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit),
       };
 
       dispatch(UpdateCredit({ ...obj }));
@@ -1158,13 +1166,25 @@ function Index() {
     }
   };
 
+  const sanctionTermsValidations = () => {
+    if (approvedCredit.approvedCreditValue == 0) {
+      handleErrorToast('approved limit value cannot be 0');
+      return false;
+    }
+    if (approvedCredit.approvedOrderValue === 0) {
+      handleErrorToast('approved order value cannot be 0');
+      return false;
+    }
+    return true;
+  };
+
   const handleCamApprove = async () => {
-    if (orderValidation(orderDetails, shipment, approvedCredit) && creditValidation()) {
+    if (orderValidation(orderDetails, shipment, approvedCredit) && creditValidation() && sanctionTermsValidations()) {
       if (gettingPercentageCredit && gettingPercentageOrder) {
         const obj = {
           approvalRemarks: [...approveComment],
-          approvedOrderValue: approvedCredit.approvedOrderValue * 10000000,
-          approvedCreditValue: approvedCredit.approvedCreditValue * 10000000,
+          approvedOrderValue: approvedCredit.approvedOrderValue,
+          approvedCreditValue: approvedCredit.approvedCreditValue,
           order: orderList._id,
           status: 'Approved',
         };
@@ -1323,9 +1343,10 @@ function Index() {
     shareHoldingChartImg,
     openBankChargeChartImg,
     debtProfileColor,
+    backgroundColor,
+    backgroundColor1,
+    returnFilteredCharges,
   ) => {
-
-  
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
@@ -1333,7 +1354,7 @@ function Index() {
       return ((n2 - n1) / n1) * 100;
     }
 
-   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+    //  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
     let neddle1 =
       'data:image/png;base64,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';
     let neddle2 =
@@ -1357,7 +1378,7 @@ function Index() {
     let rotateImageUrl = {
       neddle: neddle10,
       top: '34%',
-      left: '37%',
+      left: '47%',
       width: '26%',
       height: '35%',
     };
@@ -1366,84 +1387,84 @@ function Index() {
     });
     const getRotate = (rat = 1) => {
       let r = Math.floor(rat);
-      // let r = 4
+      // let r = 10;
       if (r == 0) {
         rotateImageUrl.neddle = neddle1;
-        rotateImageUrl.top = '37%';
-        rotateImageUrl.left = '11%';
-        rotateImageUrl.width = '200px';
-        rotateImageUrl.height = '180px';
+        rotateImageUrl.top = '38%';
+        rotateImageUrl.left = '14%';
+        rotateImageUrl.width = '185px';
+        rotateImageUrl.height = '170px';
       }
       if (r == 1) {
         rotateImageUrl.neddle = neddle1;
-        rotateImageUrl.top = '37%';
-        rotateImageUrl.left = '11%';
-        rotateImageUrl.width = '200px';
-        rotateImageUrl.height = '180px';
+        rotateImageUrl.top = '38%';
+        rotateImageUrl.left = '14%';
+        rotateImageUrl.width = '185px';
+        rotateImageUrl.height = '170px';
       }
       if (r == 2) {
         rotateImageUrl.neddle = neddle2;
-        rotateImageUrl.top = '16%';
-        rotateImageUrl.left = '0%';
-        rotateImageUrl.width = '260px';
-        rotateImageUrl.height = '260px';
+        rotateImageUrl.top = '16.5%';
+        rotateImageUrl.left = '2%';
+        rotateImageUrl.width = '250px';
+        rotateImageUrl.height = '254px';
       }
       if (r == 3) {
         rotateImageUrl.neddle = neddle3;
-        rotateImageUrl.top = '12%';
-        rotateImageUrl.left = '15%';
-        rotateImageUrl.width = '180px';
-        rotateImageUrl.height = '200px';
+        rotateImageUrl.top = '14.5%';
+        rotateImageUrl.left = '18%';
+        rotateImageUrl.width = '170px';
+        rotateImageUrl.height = '185px';
       }
       if (r == 4) {
         rotateImageUrl.neddle = neddle4;
-        rotateImageUrl.top = '2%';
-        rotateImageUrl.left = '12%';
-        rotateImageUrl.width = '250px';
-        rotateImageUrl.height = '260px';
+        rotateImageUrl.top = '3%';
+        rotateImageUrl.left = '15%';
+        rotateImageUrl.width = '235px';
+        rotateImageUrl.height = '245px';
       }
       if (r == 5) {
         rotateImageUrl.neddle = neddle5;
         rotateImageUrl.top = '2%';
-        rotateImageUrl.left = '17%';
-        rotateImageUrl.width = '260px';
-        rotateImageUrl.height = '260px';
+        rotateImageUrl.left = '18%';
+        rotateImageUrl.width = '253px';
+        rotateImageUrl.height = '252px';
       }
       if (r == 6) {
         rotateImageUrl.neddle = neddle6;
-        rotateImageUrl.top = '6%';
-        rotateImageUrl.left = '25%';
-        rotateImageUrl.width = '250px';
-        rotateImageUrl.height = '240px';
+        rotateImageUrl.top = '7.5%';
+        rotateImageUrl.left = '26.5%';
+        rotateImageUrl.width = '235px';
+        rotateImageUrl.height = '225px';
       }
       if (r == 7) {
         rotateImageUrl.neddle = neddle8;
-        rotateImageUrl.top = '16%';
-        rotateImageUrl.left = '30%';
-        rotateImageUrl.width = '265px';
-        rotateImageUrl.height = '270px';
+        rotateImageUrl.top = '17%';
+        rotateImageUrl.left = '31.5%';
+        rotateImageUrl.width = '251px';
+        rotateImageUrl.height = '255px';
       }
 
       if (r == 8) {
         rotateImageUrl.neddle = neddle9;
-        rotateImageUrl.top = '20%';
-        rotateImageUrl.left = '30%';
-        rotateImageUrl.width = '260px';
-        rotateImageUrl.height = '275px';
+        rotateImageUrl.top = '22.5%';
+        rotateImageUrl.left = '31.5%';
+        rotateImageUrl.width = '242px';
+        rotateImageUrl.height = '253px';
       }
       if (r == 9) {
         rotateImageUrl.neddle = neddle7;
-        rotateImageUrl.top = '37%';
-        rotateImageUrl.left = '36%';
-        rotateImageUrl.width = '180px';
-        rotateImageUrl.height = '200px';
+        rotateImageUrl.top = '38%';
+        rotateImageUrl.left = '37%';
+        rotateImageUrl.width = '168px';
+        rotateImageUrl.height = '185px';
       }
       if (r == 10) {
         rotateImageUrl.neddle = neddle10;
-        rotateImageUrl.top = '37%';
-        rotateImageUrl.left = '36%';
-        rotateImageUrl.width = '180px';
-        rotateImageUrl.height = '200px';
+        rotateImageUrl.top = '38%';
+        rotateImageUrl.left = '37%';
+        rotateImageUrl.width = '168px';
+        rotateImageUrl.height = '185px';
       }
     };
     if (filteredCreditRating?.length > 0) {
@@ -1462,7 +1483,7 @@ function Index() {
         cellPadding="0"
         cellSpacing="0"
         border="0"
-        bgColor="#f3f4f7"
+        // bgColor="#f3f4f7"
       >
         <tr>
           <td valign="top">
@@ -1476,7 +1497,9 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
+                borderCollapse: 'separate',
+                borderSpacing: '0px',
               }}
             >
               <tr>
@@ -1495,7 +1518,7 @@ function Index() {
                   Basic Info
                 </td>
               </tr>
-              <tr height="92">
+              <tr height="70">
                 <td
                   style={{
                     fontSize: '20px',
@@ -1504,7 +1527,7 @@ function Index() {
                     opacity: '1',
                     paddingLeft: '35px',
                     background: '#F7F9FF',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Transaction Type
@@ -1516,7 +1539,6 @@ function Index() {
                     color: '#111111',
                     lineHeight: '25px',
                     background: '#F7F9FF',
-                    borderRight: '0.5px solid #D2D7E5'
                   }}
                 >
                   {camData?.transactionType}
@@ -1524,7 +1546,7 @@ function Index() {
               </tr>
               <tr>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1536,7 +1558,7 @@ function Index() {
                   Sourcing Channel
                 </td>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1548,7 +1570,7 @@ function Index() {
                   {camData?.company?.sourceChanel}
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1559,7 +1581,7 @@ function Index() {
                   City
                 </td>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1679,13 +1701,13 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
-                  {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
+                  {convertValue(camData?.existingOrderValue, camConversionunit)?.toLocaleString('en-In', {
                     maximumFractionDigits: 2,
                   })}{' '}
-                  {camData?.unitOfValue == 'Crores' ? 'Cr' : camData?.unitOfValue}
+                  {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                 </td>
                 <td
                   style={{
@@ -1693,7 +1715,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingTop: '29px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   Commodity
@@ -1705,7 +1727,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingTop: '29px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {' '}
@@ -1720,7 +1742,7 @@ function Index() {
                     lineHeight: '24px',
                     paddingLeft: '35px',
                     background: '#F7F9FF',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   Quantity
@@ -1731,7 +1753,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {camData?.quantity?.toLocaleString('en-In', {
@@ -1744,7 +1766,7 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   Supplier
@@ -1755,7 +1777,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {' '}
@@ -1783,7 +1805,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {camData?.countryOfOrigin}
@@ -1794,10 +1816,10 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingBottom: '31px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
-                  Transaction Period
+                  Transaction Period (Days)
                 </td>
                 <td
                   style={{
@@ -1806,7 +1828,7 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingBottom: '31px',
-                    background: '#F7F9FF'
+                    background: '#F7F9FF',
                   }}
                 >
                   {camData?.transactionPeriodDays}
@@ -1855,7 +1877,7 @@ function Index() {
                     paddingTop: '36px',
                   }}
                 >
-                  {camData?.portOfDischarge}
+                  {camData?.portOfDischarge}, India
                 </td>
               </tr>
               <tr>
@@ -1947,7 +1969,7 @@ function Index() {
             </table>
           </td>
         </tr>
-        <tr>
+        <tr style={{ marginTop: '20px' }}>
           <td valign="top">
             <table
               width="100%"
@@ -1959,7 +1981,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -1980,6 +2002,7 @@ function Index() {
               </tr>
               <tr>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -1991,6 +2014,7 @@ function Index() {
                   No. of Shipments
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -2005,6 +2029,7 @@ function Index() {
                   })}
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -2015,6 +2040,7 @@ function Index() {
                   Port of Destination
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -2073,6 +2099,7 @@ function Index() {
                     : ''}
                 </td>
               </tr>
+
               <tr>
                 <td
                   style={{
@@ -2173,7 +2200,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingLeft: '35px',
-                    paddingTop: '25px',
+                    paddingTop: '20px',
                   }}
                 >
                   Remarks
@@ -2181,6 +2208,8 @@ function Index() {
               </tr>
               <tr>
                 <td
+                  height="70"
+                  valign="top"
                   colSpan={4}
                   style={{
                     fontSize: '20px',
@@ -2188,10 +2217,8 @@ function Index() {
                     fontWeight: '500',
                     lineHeight: '25px',
                     paddingLeft: '35px',
-                    paddingBottom: '53px',
                   }}
                 >
-                  {' '}
                   {camData?.supplierCredential?.remarks}
                 </td>
               </tr>
@@ -2210,7 +2237,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -2231,13 +2258,13 @@ function Index() {
               </tr>
               <tr>
                 <td width="50%" style={{ borderRight: '2px solid #CAD6E6' }}>
-                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                  <table width="100%" cellPadding="20" cellSpacing="30" border="0">
                     <tr>
                       <td
                         width="50%"
                         style={{
-                          padding: '35px 17px 35px 35px',
                           position: 'relative',
+                          padding: '25px 35px 35px',
                         }}
                       >
                         <img
@@ -2267,7 +2294,7 @@ function Index() {
                         <span
                           style={{
                             fontSize: '30px',
-                            color: '#008015',
+                            //color: '#008015',
                             lineHeight: '37px',
                             fontWeight: 'bold',
                             position: 'absolute',
@@ -2276,6 +2303,48 @@ function Index() {
                             width: '40px',
                             height: '40px',
                             transform: 'translate(-50%, -50%)',
+                            color: `${
+                              checkNan(
+                                Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                false,
+                                1,
+                              ) <= 3
+                                ? '#FF4230'
+                                : checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 4 ||
+                                  checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) <= 6
+                                ? '#ffb700'
+                                : checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 7 ||
+                                  checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 8
+                                ? '#8ac41c'
+                                : checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 9 ||
+                                  checkNan(
+                                    Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
+                                    false,
+                                    1,
+                                  ) == 10
+                                ? '#008015'
+                                : 'black'
+                            }`,
                           }}
                         >
                           {checkNan(
@@ -2285,8 +2354,8 @@ function Index() {
                           )}
                         </span>
                       </td>
-                      <td width="50%" style={{ padding: '35px 35px 35px 17px', }}>
-                        <div  align="center">
+                      <td width="50%" style={{ padding: '25px 35px 35px 17px' }}>
+                        <div align="center">
                           <span
                             style={{
                               fontSize: '20px',
@@ -2305,17 +2374,17 @@ function Index() {
                               fontWeight: 'bold',
                               padding: '6px 8px',
                               background: `${
-                        filteredCreditRating?.length > 0
-                          ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
-                            ? '#FFCCCB'
-                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
-                            ? '#FFECCF'
-                            : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
-                            ? '#00B81E'
-                            : '#E4ECF7'
-                          : null
-                      }`,
-                          
+                                filteredCreditRating?.length > 0
+                                  ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                    ? '#ffccc7'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                    ? '#FFECCF'
+                                    : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                    ? '#00B81E'
+                                    : '#E4ECF7'
+                                  : null
+                              }`,
+
                               borderRadius: '5px',
                               display: 'inline-block',
                             }}
@@ -2340,7 +2409,17 @@ function Index() {
                             <td width="25%" style={{ padding: '20px 10px 20px 20px' }}>
                               <span
                                 style={{
-                                  background: '#CEEFD1',
+                                  background: `${
+                                    filteredCreditRating?.length > 0
+                                      ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                        ? '#ffccc7'
+                                        : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                        ? '#f7e1ac'
+                                        : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                        ? '#b2d9b8'
+                                        : '#dcedba'
+                                      : null
+                                  }`,
                                   width: '64px',
                                   lineHeight: '64px',
                                   height: '64px',
@@ -2349,10 +2428,29 @@ function Index() {
                                   display: 'inline-block',
                                 }}
                               >
-                                <img
-                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAXCAYAAAD3CERpAAAABHNCSVQICAgIfAhkiAAAAX5JREFUSEu11bFKw0AYB/D/kVYXMYNz091Ni+AoWKEoFEf3voSTL+Hk0KWT5AG0nWo7OfgMAWNwsIKiKG0tPb8jjU3aSxpzl0AhvVz48b/77gtD3pcNA6bVBJ9eo+a1BcdyNQW4afXB2B44N4DpiYDzQ/2EfXBUKNj6LBwn+DgftIsCRgQCuyFwSPdvMAr7+tF40CPwEEeOqxdNAeotpJSgPrR7QHvoyPbwb0nDp0R9ea8qRZQHPUnRSEH1pA8Evv4PjKK3pTs6xPeoueepGkZGcI62yzcAr9LAD/0uV8ICHLyITrOzcA5jlzS6px3LpoFT6hzF2YPvRFgR9JN2SmfgrEX3ASrG5bC9vQbzs0fzMyUM0vrVmwbWBEYLKQn+2LiA+UUJuVLCaNLgXzz8TlO2shSN7CQsNwc5HH5XfC08jKl51x031fFamCTvSPHwkErvCaNJFfXnTGByR1qGtYCr2+Ac5pTwUTWhvJBkG+TDDYwnDZUljXakLJWg+M4vlf/IL1ywetEAAAAASUVORK5CYII="
-                                  alt="Check Green"
-                                />
+                                {filteredCreditRating?.length > 0 ? (
+                                  filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR' ? (
+                                    <img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAYAAADZsVyDAAAAAXNSR0IArs4c6QAAAPZJREFUOE+t0z1OwzAYxvG/k0xFKBzFqENXEjFzBsTKBoqgaodMvUeZGFhYEVvnXIGBpSdgCtKLQghtFOfDTnyAnx+/fl7FhEcivQFCJH9QU7kSnz+CrAFBeJoEPkJPyqDyNhqWSC9RrIAKfSYP7kbBregu2zvDXWgxDCe4D/2H5XIeFjVR79lnX0uGoL+wXOgzPLbAKZ5/3YUPRUs41q/A1V/SFzz/3oTboBWcAgkwa8Nt0cOMI52gKC5o4C5orRViwoUPFLeN8u+yfd8n1+pmwL9cUGOPDXix++WaDkhavcS4IHXcHu3cPIl1isiC7+DGJmmV+AfghJw+bPFpWgAAAABJRU5ErkJggg=="
+                                      alt="Check red"
+                                    />
+                                  ) : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE' ? (
+                                    <img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAYAAADZsVyDAAAAAXNSR0IArs4c6QAAAOtJREFUOE+t078OwVAUx/HvpYMQqbfxBBKTZxCrjQgNQyfvwWSQiKFpwrsYLJ7AyJGq/06rrd755pPfPfd3DDke8ZlyxubI0OTlis8ImGAQTsxzgR8oVG5BN3/D4uFQYMwTXWDo/QVHok0OmeE4NBhHJvgX+oBliw3YpsH+V0uSoFdYVtQoMQOqWLTj8KRoCPusgdYt6RKLvoaLjwPK7zc5aK8MYBdhgKEchadFnzP2rrCr4VnQt1aIhgs7DN2v8kc8/3Ukb3VT8GMWVO2xggf3wjVNkPSeWl2QDzw1Grt54uFSpA500iS9J74AX6dsT7uSjusAAAAASUVORK5CYII="
+                                      alt="Check yellow"
+                                    />
+                                  ) : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT' ? (
+                                    <img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAYAAADZsVyDAAAAAXNSR0IArs4c6QAAARtJREFUOE+t0z9uwjAUBvDvBVWqQFXYEyTUSzC1R+gZECsbCBUUhkwVpqeAiYGlKwwMhB4DiS6cAFUCwkMYBfHHDkmINy8/2+/7TEhxCc/6Mhjmarv+pLTc7q/dxA5tBrNB6KcCByiA3PGiNHoYFp7VIpAToEQ0WPtG7SFYhzrvi2ViOAyVw0gS3j30BHfGryae/83m2/Lv3kFRUAm7k2I+++T3mPmF4ZfD8KiohLuzwg+YPw4bZgwZfl2Fx0ElLKa2C0KDgKwO//asFjM5oGNPg0od0teNToYnPLsBwFXhSdCLVqhwAuYAqnFuGrzgom4KfEUxnn8+lpseX+NRZ3o9a+UHOcejBKUKUPvzxMx2iVHa7DKVsPR1rdgD0WO6FU1wZ5kAAAAASUVORK5CYII="
+                                      alt="Check light Green"
+                                    />
+                                  ) : (
+                                    <img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAXCAYAAAD3CERpAAAABHNCSVQICAgIfAhkiAAAAX5JREFUSEu11bFKw0AYB/D/kVYXMYNz091Ni+AoWKEoFEf3voSTL+Hk0KWT5AG0nWo7OfgMAWNwsIKiKG0tPb8jjU3aSxpzl0AhvVz48b/77gtD3pcNA6bVBJ9eo+a1BcdyNQW4afXB2B44N4DpiYDzQ/2EfXBUKNj6LBwn+DgftIsCRgQCuyFwSPdvMAr7+tF40CPwEEeOqxdNAeotpJSgPrR7QHvoyPbwb0nDp0R9ea8qRZQHPUnRSEH1pA8Evv4PjKK3pTs6xPeoueepGkZGcI62yzcAr9LAD/0uV8ICHLyITrOzcA5jlzS6px3LpoFT6hzF2YPvRFgR9JN2SmfgrEX3ASrG5bC9vQbzs0fzMyUM0vrVmwbWBEYLKQn+2LiA+UUJuVLCaNLgXzz8TlO2shSN7CQsNwc5HH5XfC08jKl51x031fFamCTvSPHwkErvCaNJFfXnTGByR1qGtYCr2+Ac5pTwUTWhvJBkG+TDDYwnDZUljXakLJWg+M4vlf/IL1ywetEAAAAASUVORK5CYII="
+                                      alt="Check Green"
+                                    />
+                                  )
+                                ) : null}
                               </span>
                             </td>
                             <td
@@ -2378,9 +2476,7 @@ function Index() {
                                     color: '#111111',
                                     lineHeight: '37px',
                                     display: 'inline-block',
-                                   
                                   }}
-                                 
                                 >
                                   {checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
@@ -2417,7 +2513,17 @@ function Index() {
                             <td width="25%" style={{ padding: '20px 10px 20px 20px' }}>
                               <span
                                 style={{
-                                  background: '#CEEFD1',
+                                  background: `${
+                                    filteredCreditRating?.length > 0
+                                      ? filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR'
+                                        ? '#ffccc7'
+                                        : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE'
+                                        ? '#f7e1ac'
+                                        : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT'
+                                        ? '#b2d9b8'
+                                        : '#dcedba'
+                                      : null
+                                  }`,
                                   width: '64px',
                                   lineHeight: '64px',
                                   height: '64px',
@@ -2426,10 +2532,29 @@ function Index() {
                                   display: 'inline-block',
                                 }}
                               >
-                                <img
-                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAbCAMAAABY1h8eAAABAlBMVEUAAAAA/wAAgAAAqgAAzDMAqisAvyAAsxoAuRcAvCEAtSAAuh0AsxwAthsAuyIAuR8Ath0AuBwAuCEAuiAAtiAAuh4AthwAtyAAtx4AuBwAuB8AuR4Atx8Atx8AuR0AuB8AuB0AuR4Atx4Atx0AuB8AuB4AuB8AuR8AuB4Atx4Atx8Atx4AuB8AuB8AuB4AuB0AuB8AuR4AuB4AuB4AuB8AuB4Atx4AuB4AuB4AuB8AuB4AuB4Atx4AuB8AuB4AuB4AuB8AuB4Atx4AuB0AuB4AuR4AuB4AuB4AuB4AuB4AuB4AuB4AuB4AuB4AuR4AuB4AuB4AuB4AuB4AuB4AuB7///+yMbGIAAAAVHRSTlMAAQIDBQYICgsXGBobHB4hIyQvMDg7P0BDSEtNUVJXWmFmZ2prb3N0d3l8gISFiIyNkaGipqmrrLO3ycrL0dTX2drd4eLk6+3v8PHy8/X29/n6+/7kE6FDAAAAAWJLR0RVkwS4MwAAAN1JREFUGBl1wQk7AlEYBtA3NEaYGUmWUEkoO1kaW6QhS5H3//8Wd+bpqe9y7znQBAHsTo5hNf3y6sJmiyzD5o68T8FsmUoeZldULmE0+01lMA+TQyYOoHP9XKFUi5iIaqVCzncR2wnbnzTotcNdpM9oceEAqP7Q5DSF2Gaf/wzKGFqK+Mf7KkYWHqnpZCHM3FC4zUBTp1CHrkmhCc1El8LbJKQsNYuQKky0WkxsQ2pQ6e07U9UPKg1IzySvfShz5yQ7EDzyaQ1DKw+kh7Hi15GDkfRev4ix9QCaYAOxX8MFXpRfmDQcAAAAAElFTkSuQmCC"
-                                  alt="Star Green"
-                                />
+                                {filteredCreditRating?.length > 0 ? (
+                                  filteredCreditRating[0]?.creditResult?.toUpperCase() == 'POOR' ? (
+                                    <img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAaCAYAAACkVDyJAAAAAXNSR0IArs4c6QAAAedJREFUSEu1VtFVwkAQnM3zX6xArcCjAkPwXztQK5AOhAqEDrQC8V9D6GCtQKhAKMCs7y4HLwl3cEG8H8jL3U5mb2d2CXssiZXCEVr0zlnT49T0gN4vHfWsf2nCd03PNwaUWLUQ4dsA5TinjGdNQJsDJqoH4MmCDCjl/n8DakanFmRGKZ//G6B01Q0ErzWAe0rZ3GnIapRSSZSuystKYEFGE+6EgJlCC90osTpDhC/n/hxtyphDYoUDaikQbp1BBS+hEqkAGkETHZugkSgIWua/IAZBAfbZhSrIQCiMgLBATgVjkWWZPUmihgAeQtJxgD0jw1Cq2jpAXGcIo9l1SiVR2qY02yKlh11r6WzeYWTu4VCgS+SIK3dYJ2LLfwzg4o8k58hxU5eLUxbWoDXTfUE/LbNF/aO36tC0IZ/2fPQJb/jBHWW8AbbTaSRRuhM8NkztiFLWHcW5tjN0eecudALTB7f3BZRd8V3vKWUvEe8LuVIxckz2AUSEjm/e8QNud5+p8UvBteeDvJOAH7Crxo6AcxB69MFap7ANWbvTagJY4U8p5diZbl/KJFG6rMuOM0COYb3crWZ1VZareUEpnwQD1prtFLnR1dbpzJ7Ro0YxEXiasttpCiPvl9MXWjylNA8pZZ3uyvoFIUO2HH3XZxEAAAAASUVORK5CYII="
+                                      alt="Star red"
+                                    />
+                                  ) : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'AVERAGE' ? (
+                                    <img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAaCAYAAACkVDyJAAAAAXNSR0IArs4c6QAAAdZJREFUSEu1lsFVAjEQhr/h5E2sQKlArEC8GTyIFYgVSAdqBWIHWoF6kD2qHWAFagXCjRPjSzYiu26WDUguPB7JfMyfmX8iLLH0iSY16mJ4iT0usQfsfk24tZ9i6MaejwbqPXU2+PKghhg+YqDxwAE9hGsPuRLD5XqBicto20M+xNBYG1AHdBDuc4AzMemdVllRkmriqnI/F/hFDAdVYK7Qqm7UhB3gvXD/lD05YlglVgzQynYaCHpXtUUyQNfQwqYLWqOJUveAFpL5XsS1cqdGIIyY+oyV8Xz2ogP6COdV5Fh5j3LjMtRsb60cNxDA9exMUk2cTfXBS/q/2Fnr/L3DmruH9B5XX2OmtDJ3mI/py/8B2F2R98mUTr5dCtvCG7TNdFnoGxNacsIo/6dL+9CPoVDvhQR4ZEK3CLbQaTRxk+AiSlpb+m16oTOLMizyznK+MJRD9pYFalR2frOYsEcHM9SEFvC8DBA4CL13wsBy93kFV4HHZa5S9FtZhrYX8wE/UXrSxv5mLdEOZOtOPy+AH8arGKfQn1UGtBnMO84VE/r5cvc9a6vyt5qFkRyyVRmYG7ZWvu6i15k/Y2dm+iIIDOVip0mN/HJevqrFM5NZ6UvbyZ1Z32eJkWApTz/oAAAAAElFTkSuQmCC"
+                                      alt="Star yellow"
+                                    />
+                                  ) : filteredCreditRating[0]?.creditResult?.toUpperCase() == 'EXCELLENT' ? (
+                                    <img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAaCAYAAACkVDyJAAAAAXNSR0IArs4c6QAAAitJREFUSEu1lkFy2kAQRX+DyDZ4bVHBJwheppAdOEF8g+ATmCyQK6uQVcpiYfkGzgninMAiiMrWOUFwIdbB2yCpUyOwI8kaMQJ7NirVzPSb7unf04QNhjXebVBI1d6B5xTdTkU3iPUDt3Ypvj1j2im6vzDw/LpeXVT8PwIUlLW9j28mkyLQwsCBu9tl0LmAMOPz6YHXf1ag5erCo1dLCE9MY7b3bMCzH7UjKvG3BIDo2GxOoztVGYVCao11B4y3KcOOaXhtFZhYowz88rNeLwf+70zDxPtmc3ajAlUGCikw+H2WUQJ9VZVIAigEjYBeRkYJDSqhusrGFoAGsPyXDIcIUSHgEHMwlh6X+S7uPVlj3QbjRCUcW68hXEQexrW1tVGJgXvNPoTUGtc6CNkGYRnSpxwx6Ty+w5CcJ4My7lDiVuIO046I9NcC/4qB11s6eQvio7RcMmUhCrRf8Z1NoQT80hZa60N7Mk8fOleHedrL8f57ZaF1smBrK83ZSO8T4VOh0BIuzKbXle3J9VBSO9fxb0zD298M6Oq8znrWvGl4UkekE4OR3mLC9SZAYrRl/Y4cGHvZH0EJQzBEBr7LOlBeJyAFWq5+lWHwlkPqnh5OxRxWD7L9vwNY4QlDs+mJgp9xVknMrJE+j1ccceoXvman011o9q/md1PZPDcNb0cZmHhsCcOgpHXWdWfRntC/fOgIJI9yZkijQs7cj4dPNXnuw0xgu2fMRLgT4x9kzeQWV7XFpAAAAABJRU5ErkJggg=="
+                                      alt="Star light Green"
+                                    />
+                                  ) : (
+                                    <img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAbCAMAAABY1h8eAAABAlBMVEUAAAAA/wAAgAAAqgAAzDMAqisAvyAAsxoAuRcAvCEAtSAAuh0AsxwAthsAuyIAuR8Ath0AuBwAuCEAuiAAtiAAuh4AthwAtyAAtx4AuBwAuB8AuR4Atx8Atx8AuR0AuB8AuB0AuR4Atx4Atx0AuB8AuB4AuB8AuR8AuB4Atx4Atx8Atx4AuB8AuB8AuB4AuB0AuB8AuR4AuB4AuB4AuB8AuB4Atx4AuB4AuB4AuB8AuB4AuB4Atx4AuB8AuB4AuB4AuB8AuB4Atx4AuB0AuB4AuR4AuB4AuB4AuB4AuB4AuB4AuB4AuB4AuB4AuR4AuB4AuB4AuB4AuB4AuB4AuB7///+yMbGIAAAAVHRSTlMAAQIDBQYICgsXGBobHB4hIyQvMDg7P0BDSEtNUVJXWmFmZ2prb3N0d3l8gISFiIyNkaGipqmrrLO3ycrL0dTX2drd4eLk6+3v8PHy8/X29/n6+/7kE6FDAAAAAWJLR0RVkwS4MwAAAN1JREFUGBl1wQk7AlEYBtA3NEaYGUmWUEkoO1kaW6QhS5H3//8Wd+bpqe9y7znQBAHsTo5hNf3y6sJmiyzD5o68T8FsmUoeZldULmE0+01lMA+TQyYOoHP9XKFUi5iIaqVCzncR2wnbnzTotcNdpM9oceEAqP7Q5DSF2Gaf/wzKGFqK+Mf7KkYWHqnpZCHM3FC4zUBTp1CHrkmhCc1El8LbJKQsNYuQKky0WkxsQ2pQ6e07U9UPKg1IzySvfShz5yQ7EDzyaQ1DKw+kh7Hi15GDkfRev4ix9QCaYAOxX8MFXpRfmDQcAAAAAElFTkSuQmCC"
+                                      alt="Star Green"
+                                    />
+                                  )
+                                ) : null}
                               </span>
                             </td>
                             <td
@@ -2505,12 +2630,13 @@ function Index() {
                           <span
                             style={{
                               background: '#FFB700',
-                              width: `${filteredCreditRating?.length > 0
-                                ? (filteredCreditRating[0].businessProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                                : '0'
-                                }%`,
+                              width: `${
+                                filteredCreditRating?.length > 0
+                                  ? (filteredCreditRating[0].businessProfile.total.overallValue /
+                                      filteredCreditRating[0].totalRating) *
+                                    100
+                                  : '0'
+                              }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2527,18 +2653,17 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
-                            whiteSpace: 'nowrap'
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           {filteredCreditRating?.length > 0
-                            ? (
-                              Number(
-                                filteredCreditRating[0].businessProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
-                            : '0'}{' '}
-                          %
+                            ? `${(
+                                Number(
+                                  filteredCreditRating[0].businessProfile.total.overallValue /
+                                    filteredCreditRating[0].totalRating,
+                                ) * 100
+                              ).toFixed(2)} %`
+                            : '0'}
                         </span>
                       </td>
                     </tr>
@@ -2581,12 +2706,13 @@ function Index() {
                           <span
                             style={{
                               background: '#FF4230',
-                              width: `${filteredCreditRating?.length > 0
-                                ? (filteredCreditRating[0].revenueProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                                : '0'
-                                }%`,
+                              width: `${
+                                filteredCreditRating?.length > 0
+                                  ? (filteredCreditRating[0].revenueProfile.total.overallValue /
+                                      filteredCreditRating[0].totalRating) *
+                                    100
+                                  : '0'
+                              }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2603,26 +2729,25 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
-                            whiteSpace: 'nowrap'
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           {filteredCreditRating?.length > 0
-                            ? (
-                              Number(
-                                filteredCreditRating[0].revenueProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                            ? `${(
+                                Number(
+                                  filteredCreditRating[0].revenueProfile.total.overallValue /
+                                    filteredCreditRating[0].totalRating,
+                                ) * 100
+                              ).toFixed(2)} %`
                             : '0'}{' '}
-                          %
                         </span>
                       </td>
                     </tr>
                   </table>
                   <table
                     width="100%"
-                    cellPadding="10"
-                    cellSpacing="0"
+                    cellPadding="15"
+                    cellSpacing="10"
                     border="0"
                     style={{ border: '1px solid #D2D7E5' }}
                   >
@@ -2654,12 +2779,13 @@ function Index() {
                           <span
                             style={{
                               background: '#83C400',
-                              width: `${filteredCreditRating?.length > 0
-                                ? (filteredCreditRating[0].financialProfile.total.overallValue /
-                                  filteredCreditRating[0].totalRating) *
-                                100
-                                : '0'
-                                }%`,
+                              width: `${
+                                filteredCreditRating?.length > 0
+                                  ? (filteredCreditRating[0].financialProfile.total.overallValue /
+                                      filteredCreditRating[0].totalRating) *
+                                    100
+                                  : '0'
+                              }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -2676,18 +2802,17 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             display: 'inline-block',
-                            whiteSpace: 'nowrap'
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           {filteredCreditRating?.length > 0
-                            ? (
-                              Number(
-                                filteredCreditRating[0].financialProfile.total.overallValue /
-                                filteredCreditRating[0].totalRating,
-                              ) * 100
-                            ).toFixed(2)
+                            ? `${(
+                                Number(
+                                  filteredCreditRating[0].financialProfile.total.overallValue /
+                                    filteredCreditRating[0].totalRating,
+                                ) * 100
+                              ).toFixed(2)} %`
                             : '0'}{' '}
-                          %
                         </span>
                       </td>
                     </tr>
@@ -2698,7 +2823,7 @@ function Index() {
           </td>
         </tr>
         <tr>
-          <td valign="top">
+          <td valign="top" style={{ paddingTop: '230px' }}>
             <table
               width="100%"
               bgColor="#ffffff"
@@ -2709,7 +2834,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -2729,14 +2854,13 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td valign="top" style={{ padding: '27px' }}>
+                <td valign="top" style={{ padding: '37px 27px' }}>
                   <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
                       {camData?.company?.groupExposureDetail?.map((exp, index) => {
-                      
                         let name = exp?.name?.split(' ') ?? 'N A';
                         return (
-                          <td key={index} valign="top" width="33.33%">
+                          <td key={index} valign="top" style={{ width: '33.33%', float: 'left' }}>
                             <table
                               width="100%"
                               cellPadding="0"
@@ -2749,10 +2873,10 @@ function Index() {
                             >
                               <tr>
                                 <td
-                                  width="10%"
+                                  colSpan={2}
                                   height="60"
                                   style={{
-                                    padding: '32px 22px 19px',
+                                    padding: '25px 22px 19px',
                                   }}
                                 >
                                   <span
@@ -2777,19 +2901,19 @@ function Index() {
                                         }
                                       })}
                                   </span>
-                                </td>
-                                <td
-                                  width="90%"
-                                  style={{
-                                    fontSize: '22px',
-                                    color: '#111111',
-                                    lineHeight: '27px',
-                                    fontWeight: 'bold',
-                                    padding: '32px 22px 19px',
-                                  }}
-                                >
-                                  {' '}
-                                  {exp.name}
+                                  <span
+                                    style={{
+                                      fontSize: '22px',
+                                      color: '#111111',
+                                      lineHeight: '27px',
+                                      fontWeight: 'bold',
+                                      textAlign: 'left',
+                                      display: 'inline-block',
+                                      padding: '25px 22px 19px',
+                                    }}
+                                  >
+                                    {exp.name}
+                                  </span>
                                 </td>
                               </tr>
                               <tr>
@@ -2819,9 +2943,8 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {convertValue(exp.limit, camConversionunit).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
+                                  {returnReadableNumber(convertValue(exp.limit, camConversionunit), 'en-In', 2, 2)}{" "}
+                                  {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
                               <tr>
@@ -2839,7 +2962,7 @@ function Index() {
                                     <span
                                       style={{
                                         background: '#3687E8',
-                                        width: '90%',
+                                        width: '100%',
                                         height: '12px',
                                         borderRadius: '2px',
                                         display: 'inline-block',
@@ -2861,7 +2984,7 @@ function Index() {
                                       borderRadius: '5px',
                                       padding: '6px 12px',
                                       display: 'inline-block',
-                                      whiteSpace: 'nowrap'
+                                      whiteSpace: 'nowrap',
                                     }}
                                   >
                                     {' '}
@@ -2878,9 +3001,13 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                 {convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
+                                  {returnReadableNumber(
+                                    convertValue(exp.outstandingLimit, camConversionunit),
+                                    'en-In',
+                                    2,
+                                    2,
+                                  )}{" "}
+                                  {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
                               <tr>
@@ -2898,7 +3025,9 @@ function Index() {
                                     <span
                                       style={{
                                         background: '#3687E8',
-                                        width: '90%',
+                                      width:`${Number(
+                                      ( (exp.outstandingLimit/exp.limit)*100)
+                                      )}%`,
                                         height: '12px',
                                         borderRadius: '2px',
                                         display: 'inline-block',
@@ -2962,7 +3091,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -2992,7 +3121,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   CUSTOMER NAME
@@ -3016,6 +3145,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   ORDER NO
@@ -3027,6 +3157,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   ORDER DATE
@@ -3039,6 +3170,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   ORDER VALUE
@@ -3050,6 +3182,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   COMMODITY
@@ -3061,6 +3194,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   STATUS
@@ -3072,7 +3206,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
-                    textAlign: 'center',
+                    textAlign: 'right',
                   }}
                 >
                   DAYS DUE
@@ -3112,51 +3246,53 @@ function Index() {
                 </td>
               </tr>
 
-              {allBuyerList && allBuyerList?.data?.data.map((item, index) => {
-                let name = item?.supplierName?.toUpperCase() ?? 'N A';
-                let [fName, lName] = name?.split(' ');
-                return (
-                  <tr>
-                    <td
-                      width="5%"
-                      height="30"
-                      style={{
-                        padding: '14px 11px 14px 32px',
-                      }}
-                    >
-                      <span
+              {allBuyerList &&
+                allBuyerList?.data?.data.map((item, index) => {
+                  let name = item?.supplierName?.toUpperCase() ?? 'N A';
+                  let [fName, lName] = name?.split(' ');
+                  return (
+                    <tr>
+                      <td
+                        width="5%"
+                        height="40"
                         style={{
-                          fontSize: '24px',
-                          color: '#FF9D00',
-                          lineHeight: '30px',
-                          fontWeight: 'bold',
-                          background: '#FFECCF',
-                          borderRadius: '8px',
-                          padding: '9px 0',
-                          width: '50px',
-                          height: '50px',
-                          textAlign: 'center',
-                          display: 'inline-block',
-                          // marginBottom: '15px'
+                          padding: '14px 11px 14px 32px',
                         }}
                       >
-                        {fName?.charAt(0)}{lName?.charAt(0)}
-                      </span>{' '}
-                    </td>
-                    <td
-                      width="30%"
-                      style={{
-                        fontSize: '22px',
-                        color: '#111111',
-                        lineHeight: '27px',
-                        fontWeight: 'bold',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {item?.supplierName}
-                    </td>
-                    {/* <td
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: '#FF9D00',
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block',
+                            // marginBottom: '15px'
+                          }}
+                        >
+                          {fName?.charAt(0)}
+                          {lName?.charAt(0)}
+                        </span>{' '}
+                      </td>
+                      <td
+                        width="30%"
+                        style={{
+                          fontSize: '22px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
+                        }}
+                      >
+                        {item?.supplierName}
+                      </td>
+                      {/* <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
@@ -3167,94 +3303,101 @@ function Index() {
                 >
                   Customer Name
                 </td> */}
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {item?.orderId ? item?.orderId : item?.applicationId}
-                    </td>
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}
-                    </td>
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)} CR
-                    </td>
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      {item?.commodity}
-                    </td>
-
-                    <td
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        fontWeight: '500',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      <span
+                      <td
                         style={{
-                          padding: '5.5px',
-                          display: 'inline-block',
-                          background: '#FF9D00',
-                          borderRadius: '50%',
-                          marginRight: '10px',
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
+                          textAlign: 'right',
                         }}
-                      ></span>
-                      In Process
-                    </td>
-                    <td
-                      align="center"
-                      style={{
-                        fontSize: '19px',
-                        color: '#EA3F3F',
-                        lineHeight: '24px',
-                        fontWeight: 'bold',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
-                      }}
-                    >
-                      12
-                    </td>
-                  </tr>
-                )
-              })}
+                      >
+                        {item?.orderId ? item?.orderId : item?.applicationId}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
+                          textAlign: 'right',
+                        }}
+                      >
+                        {item?.createdAt ? moment(item?.createdAt).format('DD-MM-YYYY') : ''}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
+                          textAlign: 'right',
+                        }}
+                      >
+                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)}{' '}
+                        {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
+                          textAlign: 'right',
+                        }}
+                      >
+                        {item?.commodity}
+                      </td>
+
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          fontWeight: '500',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
+                          textAlign: 'right',
+                        }}
+                      >
+                        {/* <span
+                          style={{
+                            padding: '5.5px',
+                            display: 'inline-block',
+                            background: '#FF9D00',
+                            borderRadius: '50%',
+                            marginRight: '10px',
+                            textAlign: 'right',
+                          }}
+                        ></span> */}
+                        In Process
+                      </td>
+                      <td
+                        align="right"
+                        style={{
+                          fontSize: '19px',
+                          color: '#EA3F3F',
+                          lineHeight: '24px',
+                          fontWeight: 'bold',
+                          paddingTop: '18px',
+                          paddingBottom: '18px',
+                          textAlign: 'right',
+                        }}
+                      >
+                        12
+                      </td>
+                    </tr>
+                  );
+                })}
             </table>
           </td>
         </tr>
         <tr>
           <td valign="top">
-            <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -3265,7 +3408,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -3286,6 +3429,7 @@ function Index() {
               </tr>
               <tr>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -3297,6 +3441,7 @@ function Index() {
                   Main Banker
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -3308,6 +3453,7 @@ function Index() {
                   {primaryBankName()}
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -3318,6 +3464,7 @@ function Index() {
                   External Credit Rating
                 </td>
                 <td
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -3392,7 +3539,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor}
+                  {camData?.company?.detailedCompanyInfo?.profile.auditorDetail[0].nameOfAuditor}
                 </td>
                 <td
                   style={{
@@ -3413,7 +3560,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor
+                  {camData.company.detailedCompanyInfo?.profile.auditorDetail[0].nameOfAuditor
                     ? camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor ==
                       camData.company.detailedCompanyInfo.profile.auditorDetail[1].nameOfAuditor
                       ? 'No'
@@ -3436,7 +3583,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -3466,7 +3613,7 @@ function Index() {
                     fontWeight: 'bold',
                     paddingLeft: '35px',
                     textTransform: 'uppercase',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   NAME
@@ -3489,6 +3636,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   DIN NUMBER
@@ -3500,6 +3648,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   DATE OF APPOINTMENT
@@ -3511,6 +3660,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   % SHAREHOLDING
@@ -3523,7 +3673,7 @@ function Index() {
                   <tr>
                     <td
                       width="5%"
-                      height="60"
+                      height="40"
                       style={{
                         padding: '21px 12px 21px 35px',
                       }}
@@ -3554,8 +3704,8 @@ function Index() {
                         color: '#111111',
                         lineHeight: '27px',
                         fontWeight: 'bold',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
                       }}
                     >
                       {director?.name}
@@ -3565,8 +3715,8 @@ function Index() {
                         fontSize: '19px',
                         color: '#111111',
                         lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
                       }}
                     >
                       {director?.pan[0]}
@@ -3576,8 +3726,9 @@ function Index() {
                         fontSize: '19px',
                         color: '#111111',
                         lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
+                        textAlign: 'right',
                       }}
                     >
                       {director.din}
@@ -3587,8 +3738,9 @@ function Index() {
                         fontSize: '19px',
                         color: '#111111',
                         lineHeight: '23px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
+                        textAlign: 'right',
                       }}
                     >
                       {director.tenureStartDate}
@@ -3598,11 +3750,14 @@ function Index() {
                         fontSize: '19px',
                         color: '#111111',
                         lineHeight: '24px',
-                        paddingTop: '21px',
-                        paddingBottom: '21px',
+                        paddingTop: '18px',
+                        paddingBottom: '18px',
+                        textAlign: 'right',
                       }}
                     >
-                      {director.percentageShareHolding}%
+                      {director.percentageShareHolding || director.percentageShareHolding === 0
+                        ? returnReadableNumber(director.percentageShareHolding, undefined, 2, 2) + ' %'
+                        : ''}
                     </td>
                   </tr>
                 );
@@ -3622,7 +3777,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -3713,6 +3868,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
                         NO. OF SHARES
@@ -3724,6 +3880,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
                         % SHARE
@@ -3735,6 +3892,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
                         DIRECTOR
@@ -3772,10 +3930,10 @@ function Index() {
                               <span
                                 style={{
                                   fontSize: '28px',
-                                  color: `${randColor.secondary}`,
+                                  color: `${index < 4 ? backgroundColor[index] : randColor.primary}`,
                                   lineHeight: '34px',
                                   fontWeight: 'bold',
-                                  background: `${randColor.primary}`,
+                                  background: `${index < 4 ? backgroundColor1[index] : randColor.secondary}`,
                                   borderRadius: '8px',
                                   padding: '13px 0',
                                   width: '60px',
@@ -3795,8 +3953,8 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '27px',
                                 fontWeight: 'bold',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
+                                paddingTop: '18px',
+                                paddingBottom: '18px',
                               }}
                             >
                               {' '}
@@ -3807,8 +3965,9 @@ function Index() {
                                 fontSize: '19px',
                                 color: '#111111',
                                 lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
+                                paddingTop: '18px',
+                                paddingBottom: '18px',
+                                textAlign: 'right',
                               }}
                             >
                               {Number(share?.numberOfShares)?.toLocaleString('en-In')}
@@ -3818,15 +3977,16 @@ function Index() {
                                 fontSize: '19px',
                                 color: '#111111',
                                 lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
+                                paddingTop: '18px',
+                                paddingBottom: '18px',
+                                textAlign: 'right',
                               }}
                             >
                               {share?.percentageShareHolding
                                 ? Number(share?.percentageShareHolding)?.toLocaleString('en-In', {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                }) + '%'
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  }) + '%'
                                 : ''}
                             </td>
                             <td
@@ -3834,8 +3994,9 @@ function Index() {
                                 fontSize: '19px',
                                 color: '#111111',
                                 lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
+                                paddingTop: '18px',
+                                paddingBottom: '18px',
+                                textAlign: 'right',
                               }}
                             >
                               {share?.director ? 'Yes' : 'No'}
@@ -3861,7 +4022,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -3893,7 +4054,7 @@ function Index() {
                         <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             {top3Open.datasets &&
-                              top3Open?.datasets[0]?.data.map((val, index) => { 
+                              top3Open?.datasets[0]?.data.map((val, index) => {
                                 return (
                                   <>
                                     <td width="5%">
@@ -3952,6 +4113,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
                         CHARGE AMOUNT
@@ -3963,13 +4125,14 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
                         DATE OF CREATION
                       </td>
                     </tr>
                     {orderList &&
-                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map((charge, index) => { 
+                      returnFilteredCharges()?.map((charge, index) => {
                         let name = charge?.nameOfChargeHolder;
                         let [fName, lName] = name?.split(' ');
 
@@ -3992,76 +4155,80 @@ function Index() {
                           return null;
                         } else {
                           return (
-                          <tr>
-                            <td
-                              width="5%"
-                              height="60"
-                              style={{
-                                padding: '21px 12px 21px 35px',
-                              }}
-                            >
-                              <span
+                            <tr>
+                              <td
+                                width="5%"
+                                height="60"
                                 style={{
-                                  fontSize: '28px',
-                                  color: `${randColor.secondary}`,
-                                  lineHeight: '34px',
+                                  padding: '21px 12px 21px 35px',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    fontSize: '28px',
+                                    color: `${index < 4 ? backgroundColor[index] : randColor.primary}`,
+                                    lineHeight: '34px',
+                                    fontWeight: 'bold',
+                                    background: `${index < 4 ? backgroundColor1[index] : randColor.secondary}`,
+                                    borderRadius: '8px',
+                                    padding: '13px 0',
+                                    width: '60px',
+                                    height: '60px',
+                                    textAlign: 'center',
+                                    display: 'inline-block',
+                                  }}
+                                >
+                                  {' '}
+                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                                </span>
+                              </td>
+                              <td
+                                width="25%"
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '27px',
                                   fontWeight: 'bold',
-                                  background: `${randColor.primary}`,
-                                  borderRadius: '8px',
-                                  padding: '13px 0',
-                                  width: '60px',
-                                  height: '60px',
-                                  textAlign: 'center',
-                                  display: 'inline-block',
+                                  paddingTop: '18px',
+                                  paddingBottom: '18px',
                                 }}
                               >
                                 {' '}
-                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
-                                {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
-                              </span>
-                            </td>
-                            <td
-                              width="25%"
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '27px',
-                                fontWeight: 'bold',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
-                              }}
-                            >
-                              {' '}
-                              {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge?.nameOfChargeHolder1}
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '19px',
-                                color: '#111111',
-                                lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
-                              }}
-                            >
-                              {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                              })}
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '19px',
-                                color: '#111111',
-                                lineHeight: '23px',
-                                paddingTop: '21px',
-                                paddingBottom: '21px',
-                              }}
-                            >
-                              {charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
-                                : ''}
-                            </td>
-                          </tr>
-                        )};
+                                {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge?.nameOfChargeHolder1}
+                              </td>
+                              <td
+                                style={{
+                                  fontSize: '19px',
+                                  color: '#111111',
+                                  lineHeight: '23px',
+                                  paddingTop: '18px',
+                                  paddingBottom: '18px',
+                                  textAlign: 'right',
+                                }}
+                              >
+                                {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2
+                                })}
+                              </td>
+                              <td
+                                style={{
+                                  fontSize: '19px',
+                                  color: '#111111',
+                                  lineHeight: '23px',
+                                  paddingTop: '18px',
+                                  paddingBottom: '18px',
+                                  textAlign: 'right',
+                                }}
+                              >
+                                {charge?.dateOfCreationOfCharge
+                                  ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
+                                  : ''}
+                              </td>
+                            </tr>
+                          );
+                        }
                       })}
                     {/* <tr>
                       <td
@@ -4143,7 +4310,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -4264,10 +4431,11 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debtProfileColor(debt.conduct)}`,
-                                    width: `${(Number(debt.limit) / totalLimitDebt() > 1
-                                      ? 1
-                                      : Number(debt.limit) / totalLimitDebt()) * 100
-                                      }%`,
+                                    width: `${
+                                      (Number(debt.limit) / totalLimitDebt() > 1
+                                        ? 1
+                                        : Number(debt.limit) / totalLimitDebt()) * 100
+                                    }%`,
                                     height: '10px',
                                     borderRadius: '2px',
                                     display: 'inline-block',
@@ -4286,7 +4454,7 @@ function Index() {
                                 color: `${debtProfileColor(debt.conduct)}`,
                                 lineHeight: '21px',
                                 fontWeight: 'bold',
-                                padding: '5px 35px 0',
+                                padding: '10px 35px 0',
                                 marginTop: '10px',
                               }}
                             >
@@ -4320,6 +4488,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
                         LIMIT TYPE
@@ -4331,6 +4500,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
                         LIMITS
@@ -4342,6 +4512,7 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
                         CONDUCT
@@ -4369,6 +4540,7 @@ function Index() {
                               letterSpacing: '0.19px',
                               paddingTop: '25px',
                               paddingBottom: '25px',
+                              textAlign: 'right',
                             }}
                           >
                             {debt?.limitType}
@@ -4380,6 +4552,7 @@ function Index() {
                               lineHeight: '23px',
                               paddingTop: '25px',
                               paddingBottom: '25px',
+                              textAlign: 'right',
                             }}
                           >
                             {debt?.limit?.toLocaleString('en-In', {
@@ -4393,14 +4566,16 @@ function Index() {
                               fontWeight: 'bold',
                               paddingTop: '25px',
                               paddingBottom: '25px',
-                              color: `${debt.conduct == 'Good'
-                                ? '#43C34D'
-                                : debt.conduct == 'Satisfactory'
+                              textAlign: 'right',
+                              color: `${
+                                debt.conduct == 'Good'
+                                  ? '#43C34D'
+                                  : debt.conduct == 'Satisfactory'
                                   ? '#FF9D00'
                                   : debt.conduct == 'Average'
-                                    ? 'average'
-                                    : '#EA3F3F'
-                                }`,
+                                  ? 'average'
+                                  : '#EA3F3F'
+                              }`,
                             }}
                           >
                             {debt?.conduct}
@@ -4426,7 +4601,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -4447,7 +4622,7 @@ function Index() {
               </tr>
               <tr>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -4459,7 +4634,7 @@ function Index() {
                   Plant Production Capacity
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -4471,13 +4646,15 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.monthlyProductionCapacity
                     ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}{' '}
-                  {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
+                  {camData?.productSummary?.monthlyProductionCapacity
+                    ? `${camData?.unitOfQuantity?.toUpperCase()}`
+                    : ''}
                 </td>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -4488,7 +4665,7 @@ function Index() {
                   Stock in Transit - Commodity
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -4500,10 +4677,10 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.averageStockInTransit
                     ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}{' '}
-                  {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
+                  {camData?.productSummary?.averageStockInTransit ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
               </tr>
               <tr>
@@ -4549,7 +4726,7 @@ function Index() {
                   }}
                 >
                   {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
+                    maximumFractionDigits: 0,
                   })}{' '}
                   {camData?.productSummary?.averageStockOfCommodity ? 'Days' : ''}
                 </td>
@@ -4576,10 +4753,10 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.availableStock
                     ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}{' '}
-                  {camData?.productSummary?.availableStock ? 'MT' : ''}
+                  {camData?.productSummary?.availableStock ? `${camData?.unitOfQuantity?.toUpperCase()}` : ''}
                 </td>
                 <td
                   style={{
@@ -4598,26 +4775,17 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {' '}
-                  {camData?.productSummary?.AvgMonthlyElectricityBill ? (
-                    <img
-                      src="data:image/png;base64,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"
-                      alt="Rupee"
-                      height="14"
-                    />
-                  ) : (
-                    ''
-                  )}{' '}
                   {/* {checkNan(
                       Number(
                         camData?.productSummary?.AvgMonthlyElectricityBill,
                       ),
                       true,
                     )} */}
+                  INR{' '}
                   {camData?.productSummary?.AvgMonthlyElectricityBill
                     ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}
                 </td>
               </tr>
@@ -4646,10 +4814,12 @@ function Index() {
                   {' '}
                   {camData?.productSummary?.dailyConsumptionOfCommodity
                     ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    })
+                        maximumFractionDigits: 2,
+                      })
                     : ''}{' '}
-                  {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
+                  {camData?.productSummary?.dailyConsumptionOfCommodity
+                    ? `${camData?.unitOfQuantity?.toUpperCase()}`
+                    : ''}
                 </td>
               </tr>
             </table>
@@ -4667,7 +4837,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -4687,7 +4857,7 @@ function Index() {
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <td width="50%" style={{ paddingLeft:'35px', borderLeft:'1px solid #D2D7E5'}}></td>
+                <td width="50%" style={{ paddingLeft: '35px', borderLeft: '1px solid #D2D7E5' }}></td>
                 <td
                   style={{
                     fontSize: '15px',
@@ -4707,6 +4877,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   LATEST YEAR
@@ -4718,6 +4889,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   PREVIOUS YEAR
@@ -4729,6 +4901,7 @@ function Index() {
                     lineHeight: '18px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
+                    textAlign: 'right',
                   }}
                 >
                   GROWTH
@@ -4768,13 +4941,17 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingTop: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.grossTurnover?.current?.value)).toFixed(2),
-                    true,
+                  {convertValue(RevenueDetails?.grossTurnover?.current?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4782,14 +4959,18 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingTop: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {' '}
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.grossTurnover?.previous?.value)).toFixed(2),
-                    true,
+                  {convertValue(RevenueDetails?.grossTurnover?.previous?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4797,6 +4978,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingTop: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {checkNan(
@@ -4820,7 +5002,7 @@ function Index() {
                 </td>
                 <td align="center">
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                    RevenueDetails?.relatedPartySales?.current?.value ? (
+                  RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -4839,40 +5021,52 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {' '}
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.relatedPartySales?.current?.value)).toFixed(2),
-                    true,
+                  {convertValue(RevenueDetails?.relatedPartySales?.current?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.relatedPartySales?.previous?.value)).toFixed(2),
-                    true,
+                  {convertValue(RevenueDetails?.relatedPartySales?.current?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
                   )}{' '}
-                  Cr
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(
                       RevenueDetails?.relatedPartySales?.previous?.value,
                       RevenueDetails?.relatedPartySales?.current?.value,
                     ),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
@@ -4889,7 +5083,7 @@ function Index() {
                 </td>
                 <td align="center">
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -4908,40 +5102,52 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.intraOrgSalesPercent?.current?.value)).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {convertValue(
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                    camConversionunit,
+                  )?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(Number(RevenueDetails?.intraOrgSalesPercent?.previous?.value)).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {convertValue(
+                    RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                    camConversionunit,
+                  )?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {' '}
-                  {checkNan(
+                  {returnReadableNumber(
                     calcPc(
                       RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                       RevenueDetails?.intraOrgSalesPercent?.current?.value,
                     ),
+                    'en-In',
+                    2,
+                    2,
                   ) + '%'}
                 </td>
               </tr>
@@ -4973,24 +5179,35 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.current?.value)).toFixed(2), true)} Cr
+                  {convertValue(RevenueDetails?.B2BSales?.current?.value, camConversionunit)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.previous?.value)).toFixed(2), true)} Cr
+                  {convertValue(RevenueDetails?.B2BSales?.previous?.value, camConversionunit)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {checkNan(
@@ -5027,24 +5244,35 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.current?.value)).toFixed(2), true)} Cr
+                  {convertValue(RevenueDetails?.B2CSales?.current?.value, camConversionunit)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.previous?.value)).toFixed(2), true)} Cr
+                  {convertValue(RevenueDetails?.B2CSales?.previous?.value, camConversionunit)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {checkNan(
@@ -5084,26 +5312,41 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.current?.value)).toFixed(2), true)}{' '}
-                  Cr
+                  {convertValue(RevenueDetails?.exportSales?.current?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
+                  )}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
-                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.previous?.value)).toFixed(2), true)}{' '}
-                  Cr
+                  {convertValue(RevenueDetails?.exportSales?.previous?.value, camConversionunit)?.toLocaleString(
+                    'en-In',
+                    {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    },
+                  )}{' '}
+                  {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {checkNan(
@@ -5143,6 +5386,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {RevenueDetails?.ttlCustomer?.current?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
@@ -5152,6 +5396,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {RevenueDetails?.ttlCustomer?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
@@ -5161,6 +5406,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {checkNan(
@@ -5197,6 +5443,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {RevenueDetails?.ttlInv?.current?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
@@ -5206,6 +5453,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {RevenueDetails?.ttlInv?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
@@ -5215,6 +5463,7 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
+                    textAlign: 'right',
                   }}
                 >
                   {checkNan(calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value)) +
@@ -5242,6 +5491,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingBottom: '78px',
+                    textAlign: 'right',
                   }}
                 >
                   11,900.00
@@ -5252,6 +5502,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingBottom: '78px',
+                    textAlign: 'right',
                   }}
                 >
                   1,900.00
@@ -5262,6 +5513,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     paddingBottom: '78px',
+                    textAlign: 'right',
                   }}
                 >
                   40%
@@ -5272,13 +5524,6 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
-            <br /> <br />
-            <br /> <br />
-            <br />
-            <br />
-            <br /> <br /> <br /> <br /> <br /> <br /> <br />
-            <br />
-            <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -5289,7 +5534,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -5318,7 +5563,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  <span style={{ color: '#3687E8', float: 'right' }}> Quarterly</span>
+                  <span style={{ color: '#3687E8', float: 'right' }}> {chartType}</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
               </tr>
@@ -5334,19 +5579,20 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
                   <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
-                    {checkNan(
-                      CovertvaluefromtoCR(
-                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value),
-                      ).toFixed(2),
-                      true,
-                    )}{' '}
-                    Cr
+                    {convertValue(
+                      gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value,
+                      camConversionunit,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })}{' '}
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
                 <td
@@ -5364,13 +5610,14 @@ function Index() {
                   <span style={{ float: 'left' }}>Gross Purchases </span>
                   <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
-                    {checkNan(
-                      CovertvaluefromtoCR(
-                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value),
-                      ).toFixed(2),
-                      true,
-                    )}{' '}
-                    Cr
+                    {convertValue(
+                      gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value,
+                      camConversionunit,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })}{' '}
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
               </tr>
@@ -5451,7 +5698,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -5496,19 +5743,20 @@ function Index() {
                     fontWeight: 'bold',
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
-                    borderLeft: '1px solid #D2D7E5'
+                    borderLeft: '1px solid #D2D7E5',
                   }}
                 >
                   <span style={{ float: 'left' }}>Gross Revenue </span>
                   <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
-                    {checkNan(
-                      CovertvaluefromtoCR(
-                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value),
-                      ).toFixed(2),
-                      true,
-                    )}{' '}
-                    Cr
+                    {convertValue(
+                      gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value,
+                      camConversionunit,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })}{' '}
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
                 <td
@@ -5526,13 +5774,14 @@ function Index() {
                   <span style={{ float: 'left' }}>Gross Purchases </span>
                   <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
-                    {checkNan(
-                      CovertvaluefromtoCR(
-                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value),
-                      ).toFixed(2),
-                      true,
-                    )}{' '}
-                    Cr
+                    {convertValue(
+                      gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value,
+                      camConversionunit,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })}{' '}
+                    {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
               </tr>
@@ -5694,7 +5943,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -5728,7 +5977,7 @@ function Index() {
                                 lineHeight: '27px',
                                 fontWeight: 'bold',
                                 paddingLeft: '35px',
-                                borderLeft: '1px solid #D2D7E5'
+                                borderLeft: '1px solid #D2D7E5',
                               }}
                             >
                               Liabilities
@@ -5740,9 +5989,14 @@ function Index() {
                                 lineHeight: '18px',
                                 fontWeight: 'bold',
                                 textTransform: 'uppercase',
+                                textAlign: 'right',
                               }}
                             >
-                              {moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY')?.toUpperCase()}
+                              {_get(companyData, 'financial.balanceSheet[0].date', '') === ''
+                                ? ''
+                                : moment(_get(companyData, 'financial.balanceSheet[0].date', ''))
+                                    .format('MMM-YY')
+                                    .toUpperCase()}
                             </td>
                             <td
                               style={{
@@ -5751,9 +6005,14 @@ function Index() {
                                 lineHeight: '18px',
                                 fontWeight: 'bold',
                                 textTransform: 'uppercase',
+                                textAlign: 'right',
                               }}
                             >
-                              {moment(companyData?.financial?.balanceSheet[1]?.date).format('MMM-YY')?.toUpperCase()}
+                              {_get(companyData, 'financial.balanceSheet[1].date', '') === ''
+                                ? ''
+                                : moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
+                                    .format('MMM-YY')
+                                    .toUpperCase()}
                             </td>
                           </tr>
                           <tr>
@@ -5775,14 +6034,18 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign: 'right',
                               }}
                             >
-                              {convertValue(
-                                _get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', ''),
-                              ).toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
-                              })}
+                              {returnReadableNumber(
+                                convertValue(
+                                  _get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', ''),
+                                  camConversionunit,
+                                ),
+                                'en-In',
+                                2,
+                                2,
+                              )}
                             </td>
                             <td
                               style={{
@@ -5791,14 +6054,18 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign: 'right',
                               }}
                             >
-                              {convertValue(
-                                _get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', ''),
-                              ).toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
-                              })}
+                              {returnReadableNumber(
+                                convertValue(
+                                  _get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', ''),
+                                  camConversionunit,
+                                ),
+                                'en-In',
+                                2,
+                                2,
+                              )}
                             </td>
                           </tr>
                           <tr>
@@ -5818,25 +6085,18 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
-                              {convertValue(
-                                Number(
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
-                                    '',
-                                  ) +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                                    '',
+                              {returnReadableNumber(
+                                convertValue(
+                                  Number(
+                                    dataLatestYear?.equityLiabilities?.borrowingsCurrent +
+                                      dataLatestYear?.equityLiabilities?.borrowingsNonCurrent,
                                   ),
+                                  camConversionunit,
                                 ),
-                              )?.toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
-                              })}
+                                'en-In', 2,2,)}
                             </td>
                             <td
                               style={{
@@ -5844,25 +6104,18 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
-                              {convertValue(
-                                Number(
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
-                                    '',
-                                  ) +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                                    '',
+                              {returnReadableNumber(
+                                convertValue(
+                                  Number(
+                                    dataPreviousYear?.equityLiabilities?.borrowingsCurrent +
+                                      dataPreviousYear?.equityLiabilities?.borrowingsNonCurrent,
                                   ),
+                                  camConversionunit,
                                 ),
-                              )?.toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
-                              })}
+                                'en-In',2,2,)}
                             </td>
                           </tr>
                           <tr>
@@ -5882,21 +6135,18 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
-                              {convertValue(
-                                Number(
-                                  _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                                    '',
+                              {returnReadableNumber(
+                                convertValue(
+                                  Number(
+                                    dataLatestYear?.equityLiabilities?.tradePay +
+                                      dataLatestYear?.equityLiabilities?.tradePayablesNoncurrent,
                                   ),
+                                  camConversionunit,
                                 ),
-                              )?.toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
-                              })}
+                                'en-In',2,2,)}
                             </td>
                             <td
                               style={{
@@ -5904,21 +6154,18 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
-                              {convertValue(
-                                Number(
-                                  _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                                    '',
+                              {returnReadableNumber(
+                                convertValue(
+                                  Number(
+                                    dataPreviousYear?.equityLiabilities?.tradePay +
+                                      dataPreviousYear?.equityLiabilities?.tradePayablesNoncurrent,
                                   ),
+                                  camConversionunit,
                                 ),
-                              )?.toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
-                              })}
+                                'en-In', 2,2,)}
                             </td>
                           </tr>
                           <tr>
@@ -5940,18 +6187,19 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '38px',
+                                textAlign: 'right',
                               }}
                             >
-                              {convertValue(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
-                                  '',
+                              {returnReadableNumber(
+                                convertValue(
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
+                                    '',
+                                  ),
+                                  camConversionunit,
                                 ),
-                              )?.toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
-                              })}
+                                'en-In',2, 2,)}
                             </td>
                             <td
                               style={{
@@ -5960,18 +6208,22 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '38px',
+                                textAlign: 'right',
                               }}
                             >
-                              {convertValue(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
-                                  '',
+                              {returnReadableNumber(
+                                convertValue(
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
+                                    '',
+                                  ),
+                                  camConversionunit,
                                 ),
-                              )?.toLocaleString('en-In', {
-                                minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
-                              })}
+                                'en-In',
+                                2,
+                                2,
+                              )}
                             </td>
                           </tr>
                         </table>
@@ -5986,7 +6238,7 @@ function Index() {
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
                               borderLeft: '1px solid #D2D7E5',
-                              borderRight: '1px solid #D2D7E5'
+                              borderRight: '1px solid #D2D7E5',
                             }}
                           >
                             <td
@@ -6022,6 +6274,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign: 'right',
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})?.workingCapitalTurnover?.toFixed(2)}
@@ -6033,6 +6286,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign: 'right',
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6057,6 +6311,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6069,6 +6324,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6093,6 +6349,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfPayablesOutstanding?.toFixed(
@@ -6105,6 +6362,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfPayablesOutstanding?.toFixed(
@@ -6129,6 +6387,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6141,6 +6400,7 @@ function Index() {
                                 color: '#111111',
                                 lineHeight: '25px',
                                 fontWeight: '500',
+                                textAlign: 'right',
                               }}
                             >
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6160,7 +6420,7 @@ function Index() {
                               height: '67px',
                               borderTop: '2px solid #CAD6E6',
                               borderLeft: '1px solid #D2D7E5',
-                              borderRight: '1px solid #D2D7E5'
+                              borderRight: '1px solid #D2D7E5',
                             }}
                           >
                             <td
@@ -6196,6 +6456,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign: 'right',
                               }}
                             >
                               {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
@@ -6207,6 +6468,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingTop: '33px',
+                                textAlign: 'right',
                               }}
                             >
                               {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
@@ -6231,6 +6493,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '52px',
+                                textAlign: 'right',
                               }}
                             >
                               {latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
@@ -6242,6 +6505,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '52px',
+                                textAlign: 'right',
                               }}
                             >
                               {previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
@@ -6266,6 +6530,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '52px',
+                                textAlign: 'right',
                               }}
                             >
                               {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
@@ -6277,6 +6542,7 @@ function Index() {
                                 lineHeight: '25px',
                                 fontWeight: '500',
                                 paddingBottom: '52px',
+                                textAlign: 'right',
                               }}
                             >
                               {previousYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
@@ -6309,9 +6575,13 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
-                        MAR-20
+                       {' '}
+                      {latestYearData?.financialEndDate
+                        ? moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()
+                        : ''}
                       </td>
                       <td
                         style={{
@@ -6320,9 +6590,13 @@ function Index() {
                           lineHeight: '18px',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
+                          textAlign: 'right',
                         }}
                       >
-                        MAR-19
+                         {' '}
+                      {previousYearData?.financialEndDate
+                        ? moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()
+                        : ''}
                       </td>
                     </tr>
                     <tr>
@@ -6344,19 +6618,18 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingTop: '33px',
+                          textAlign: 'right',
                         }}
                       >
                         {' '}
-                        {convertValue(
-                          _get(
-                            companyData,
-                            'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                            '',
-                          ),
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumSignificantDigits: 2,
-                        })}
+                        {returnReadableNumber(convertValue(
+                        _get(
+                          companyData,
+                          'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                          '',
+                        ),
+                        camConversionunit,
+                      ),'en-In',2,2)}
                       </td>
                       <td
                         style={{
@@ -6365,19 +6638,18 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingTop: '33px',
+                          textAlign: 'right',
                         }}
                       >
                         {' '}
-                        {convertValue(
-                          _get(
-                            companyData,
-                            'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                            '',
-                          ),
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumSignificantDigits: 2,
-                        })}
+                        {returnReadableNumber(convertValue(
+                        _get(
+                          companyData,
+                          'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                          '',
+                        ),
+                        camConversionunit,
+                      ),'en-In',2,2)}
                       </td>
                     </tr>
                     <tr>
@@ -6397,18 +6669,17 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
-                        {convertValue(
-                          _get(
-                            companyData,
-                            'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                            '',
-                          ),
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumSignificantDigits: 2,
-                        })}
+                       {returnReadableNumber(convertValue(
+                        _get(
+                          companyData,
+                          'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                          '',
+                        ),
+                        camConversionunit,
+                      ),'en-In',2,2)}
                       </td>
                       <td
                         style={{
@@ -6416,19 +6687,18 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {' '}
-                        {convertValue(
-                          _get(
-                            companyData,
-                            'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                            '',
-                          ),
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumSignificantDigits: 2,
-                        })}
+                        {returnReadableNumber(convertValue(
+                        _get(
+                          companyData,
+                          'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                          '',
+                        ),
+                        camConversionunit,
+                      ),'en-In',2,2)}
                       </td>
                     </tr>
                     <tr>
@@ -6450,19 +6720,18 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingBottom: '57px',
+                          textAlign: 'right',
                         }}
                       >
                         {' '}
-                        {convertValue(
-                          _get(
-                            companyData,
-                            'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                            '',
-                          ),
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumSignificantDigits: 2,
-                        })}
+                        {returnReadableNumber(convertValue(
+                        _get(
+                          companyData,
+                          'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                          '',
+                        ),
+                        camConversionunit,
+                      ),'en-In',2,2)}
                       </td>
                       <td
                         style={{
@@ -6471,19 +6740,18 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingBottom: '57px',
+                          textAlign: 'right',
                         }}
                       >
                         {' '}
-                        {convertValue(
-                          _get(
-                            companyData,
-                            'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                            '',
-                          ),
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumSignificantDigits: 2,
-                        })}
+                        {returnReadableNumber(convertValue(
+                        _get(
+                          companyData,
+                          'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                          '',
+                        ),
+                        camConversionunit,
+                      ),'en-In',2,2)}
                       </td>
                     </tr>
                     <tr>
@@ -6503,6 +6771,7 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6515,6 +6784,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6539,6 +6809,7 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6551,6 +6822,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6575,6 +6847,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6587,6 +6860,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6613,6 +6887,7 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingBottom: '57px',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {})
@@ -6626,6 +6901,7 @@ function Index() {
                           lineHeight: '25px',
                           fontWeight: '500',
                           paddingBottom: '57px',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {})
@@ -6727,6 +7003,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
@@ -6737,6 +7014,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
@@ -6759,6 +7037,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {}).currentRatio?.toFixed(2)?.toLocaleString()}
@@ -6769,6 +7048,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {}).currentRatio?.toFixed(2)?.toLocaleString()}
@@ -6791,6 +7071,7 @@ function Index() {
                           color: '#EA3F3F',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[0]', {}).debtEquity?.toFixed(2)?.toLocaleString()}
@@ -6801,6 +7082,7 @@ function Index() {
                           color: '#111111',
                           lineHeight: '25px',
                           fontWeight: '500',
+                          textAlign: 'right',
                         }}
                       >
                         {_get(companyData, 'financial.ratioAnalysis[1]', {}).debtEquity?.toFixed(2)?.toLocaleString()}
@@ -6831,7 +7113,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -6852,7 +7134,7 @@ function Index() {
               </tr>
               <tr>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -6864,7 +7146,7 @@ function Index() {
                   GST Return Filing
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#EA3F3F',
@@ -6873,16 +7155,16 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  {[].forEach((l, index2) => { })}
+                  {[].forEach((l, index2) => {})}
                   {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') != ''
                     ? moment(
-                      _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
-                      'MMyyyy',
-                    ).format('MM-yyyy')
+                        _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
+                        'MMyyyy',
+                      ).format('MM-yyyy')
                     : ''}
                 </td>
                 <td
-                  width="30%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -6893,7 +7175,7 @@ function Index() {
                   NCLT
                 </td>
                 <td
-                  width="20%"
+                  width="25%"
                   style={{
                     fontSize: '20px',
                     color: '#111111',
@@ -7053,7 +7335,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr>
@@ -7186,7 +7468,7 @@ function Index() {
                 border: '1px solid #D2D7E5',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                marginBottom: '26px',
+                marginBottom: '34px',
               }}
             >
               <tr style={{ borderBottom: '2px solid #CAD6E6' }}>
@@ -7225,7 +7507,10 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {(Number(camData?.company?.creditLimit?.totalLimit)/10000000)?.toLocaleString('en-In')} {` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                    {convertValue(camData?.company?.creditLimit?.totalLimit, camConversionunit)?.toLocaleString(
+                      'en-In',
+                    )}{" "}
+                    {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                   </span>
                 </td>
                 <td
@@ -7282,8 +7567,7 @@ function Index() {
               <tr>
                 <td colSpan={4} valign="top">
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
-                    <tr bgColor="#FAFAFB" style={{ height: '67px',
-                          borderLeft: '1px solid #D2D7E5' }}>
+                    <tr bgColor="#FAFAFB" style={{ height: '67px', borderLeft: '1px solid #D2D7E5' }}>
                       <td
                         style={{
                           fontSize: '15px',
@@ -7381,7 +7665,7 @@ function Index() {
                       >
                         {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
                       </td>
-                      <td
+                       <td
                         align="center"
                         style={{
                           fontSize: '19px',
@@ -7390,13 +7674,63 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {filteredCreditRating && filteredCreditRating?.length > 0
-                          ? filteredCreditRating?.length > 0 &&
-                          filteredCreditRating?.map((val, index) => {
-                            checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'));
-                          })
-                          : '-'}
+                       -
                       </td>
+                       {filteredCreditRating &&
+                          filteredCreditRating?.length > 0   ? (
+                      <>
+                        {' '}
+                        {filteredCreditRating.map((val, index) => (
+                            <td
+                      align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) } {camConversionunit == 10000000 ? ' CR' : ' LAKH'} 
+                            </td>
+                          ))}
+                      </>
+                    ) : (
+                      <td  align="center"
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        padding: '36px 10px 24px',
+                      }}>-</td>
+                    )}
+                         {filteredCreditRating &&
+                          filteredCreditRating?.length > 0   ? (
+                      <>
+                        {' '}
+                        {filteredCreditRating.map((val, index) => (
+                            <td
+                      align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                            key={index}>
+                           {checkNan(convertValue(val?.suggested?.value,camConversionunit))?.toLocaleString('en-In') } 
+                           {' '} {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                            </td>
+                          ))}
+                      </>
+                    ) : (
+                      <td  align="center"
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        padding: '36px 10px 24px',
+                      }}>-</td>
+                    )}
+                      
                       <td
                         align="center"
                         style={{
@@ -7406,14 +7740,12 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {camData?.company?.creditLimit?.creditRating
-                          ?.filter((rating) => {
-                            return camData?._id === rating.order;
-                          })
-                          .map((val, index) => {
-                            <td key={index}>{val?.derived?.value?.toLocaleString('en-In')}</td>;
-                          })}
-                      </td>
+                      <input
+                        type="checkbox"
+                        checked={approvedCredit.approvedCreditValue?true:false}
+                        // onChange={() => setLimitValueChecked(!limitValueChecked)}
+                      ></input>
+                    </td>
                       <td
                         align="center"
                         style={{
@@ -7423,37 +7755,8 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        -
-                      </td>
-                      <td
-                        align="center"
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          padding: '36px 10px 24px',
-                        }}
-                      >
-                        {camData?.company?.creditLimit?.creditRating
-                          ?.filter((rating) => {
-                            return camData?._id === rating.order;
-                          })
-                          .map((val, index) => {
-                            <td key={index}>
-                              {(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
-                            </td>;
-                          })}
-                      </td>
-                      <td
-                        align="center"
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          padding: '36px 10px 24px',
-                        }}
-                      >
-                        {approvedCredit?.approvedCreditValue?.toLocaleString('en-In')}
+                        {convertValue(approvedCredit?.approvedCreditValue, camConversionunit)?.toLocaleString('en-In')}{" "}
+                        {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                       </td>
                     </tr>
                     <tr>
@@ -7487,9 +7790,10 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
+                        {convertValue(camData?.existingOrderValue, camConversionunit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
-                        })}
+                        })}{" "}
+                        {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                       </td>
                       <td
                         align="center"
@@ -7511,10 +7815,12 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
+                      {checkNan(convertValue(camData?.suggestedOrderValue,camConversionunit))?.toLocaleString('en-In')}{" "}
+                      {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
+                        {/* {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
-                        Cr
+                        Cr */}
                       </td>
                       <td
                         align="center"
@@ -7524,7 +7830,14 @@ function Index() {
                           lineHeight: '23px',
                           padding: '24px 10px 54px',
                         }}
-                      ></td>
+                      >
+
+                        <input
+                        type="checkbox"
+                        checked={approvedCredit.approvedOrderValue?true:false}
+                        // onChange={() => setOrderValueChecked(!orderValueChecked)}
+                      ></input>
+                      </td>
                       <td
                         align="center"
                         style={{
@@ -7534,7 +7847,9 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')}
+                        {/* {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')} */}
+                        {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString('en-In')}
+                       {" "} {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -7547,7 +7862,7 @@ function Index() {
                           lineHeight: '27px',
                           textTransform: 'capitalize',
                           paddingLeft: '35px',
-                          borderLeft: '1px solid #D2D7E5'
+                          borderLeft: '1px solid #D2D7E5',
                         }}
                       >
                         Sanction Conditions
@@ -7612,19 +7927,18 @@ function Index() {
       </table>
     );
   };
-const [expectedLimit,setexpectedLimit] = useState(null)
-const setLimit=(date)=>{
-setexpectedLimit(date)
-}
+  const [expectedLimit, setexpectedLimit] = useState(null);
+  const setLimit = (date) => {
+    setexpectedLimit(date);
+  };
   const GstDataHandler = (data) => {
-
     setGstData(data);
   };
   const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
   const returnDataPeriodAndColour = (period, index) => {
-    if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' }
-    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' }
-  }
+    if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' };
+    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' };
+  };
 
   const handleGSTDownload = (value) => {
     let path = '';
@@ -7859,39 +8173,19 @@ setexpectedLimit(date)
         }
       };
 
-      supremeCourt =
-        supremeCourt.length <= 0
-          ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-            return partyFilter(val);
-          })
-          : supremeCourt?.filter((val) => {
-            return partyFilter(val);
-          });
-      highCourt =
-        highCourt.length <= 0
-          ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-            return partyFilter(val);
-          })
-          : highCourt?.filter((val) => {
-            return partyFilter(val);
-          });
+      supremeCourt = supremeCourt?.filter((val) => {
+        return partyFilter(val);
+      });
+      highCourt = highCourt?.filter((val) => {
+        return partyFilter(val);
+      });
 
-      tribunalCourts =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-            return partyFilter(val);
-          })
-          : tribunalCourts?.filter((val) => {
-            return partyFilter(val);
-          });
-      districtCourt =
-        districtCourt.length <= 0
-          ? companyData?.compliance?.districtCourts?.cases?.filter((val) => {
-            return partyFilter(val);
-          })
-          : districtCourt?.filter((val) => {
-            return partyFilter(val);
-          });
+      tribunalCourts = tribunalCourts?.filter((val) => {
+        return partyFilter(val);
+      });
+      districtCourt = districtCourt?.filter((val) => {
+        return partyFilter(val);
+      });
     }
 
     //civil Crimnal
@@ -7910,39 +8204,19 @@ setexpectedLimit(date)
         }
       };
 
-      supremeCourt =
-        supremeCourt?.length <= 0
-          ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-            return civilfilter(val);
-          })
-          : supremeCourt?.filter((val) => {
-            return civilfilter(val);
-          });
-      highCourt =
-        highCourt?.length <= 0
-          ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-            return civilfilter(val);
-          })
-          : highCourt?.filter((val) => {
-            return civilfilter(val);
-          });
+      supremeCourt = supremeCourt?.filter((val) => {
+        return civilfilter(val);
+      });
+      highCourt = highCourt?.filter((val) => {
+        return civilfilter(val);
+      });
 
-      tribunalCourts =
-        tribunalCourts?.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-            return civilfilter(val);
-          })
-          : tribunalCourts?.filter((val) => {
-            return civilfilter(val);
-          });
-      districtCourt =
-        districtCourt?.length <= 0
-          ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-            return civilfilter(val);
-          })
-          : districtCourt?.filter((val) => {
-            return civilfilter(val);
-          });
+      tribunalCourts = tribunalCourts?.filter((val) => {
+        return civilfilter(val);
+      });
+      districtCourt = districtCourt?.filter((val) => {
+        return civilfilter(val);
+      });
     }
 
     //party2
@@ -7967,39 +8241,19 @@ setexpectedLimit(date)
         }
       };
 
-      supremeCourt =
-        supremeCourt.length <= 0
-          ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-            return riskFilter(val);
-          })
-          : supremeCourt?.filter((val) => {
-            return riskFilter(val);
-          });
-      highCourt =
-        highCourt.length <= 0
-          ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-            return riskFilter(val);
-          })
-          : highCourt?.filter((val) => {
-            return riskFilter(val);
-          });
+      supremeCourt = supremeCourt?.filter((val) => {
+        return riskFilter(val);
+      });
+      highCourt = highCourt?.filter((val) => {
+        return riskFilter(val);
+      });
 
-      tribunalCourts =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-            return riskFilter(val);
-          })
-          : tribunalCourts?.filter((val) => {
-            return riskFilter(val);
-          });
-      districtCourt =
-        districtCourt.length <= 0
-          ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
-            return riskFilter(val);
-          })
-          : districtCourt?.filter((val) => {
-            return riskFilter(val);
-          });
+      tribunalCourts = tribunalCourts?.filter((val) => {
+        return riskFilter(val);
+      });
+      districtCourt = districtCourt?.filter((val) => {
+        return riskFilter(val);
+      });
     }
 
     setSupreme([...supremeCourt]);
@@ -8060,16 +8314,32 @@ setexpectedLimit(date)
           shareHoldingChartImg,
           openBankChargeChartImg,
           debtProfileColor,
+          backgroundColor,
+          backgroundColor1,
+          returnFilteredCharges,
         ),
       ),
       {
         callback: function (doc) {
+          const totalPages = doc.internal.getNumberOfPages();
+
+          for (let i = 1; i <= totalPages; i++) {
+            doc.setPage(i);
+            doc.text(
+              `Page ${i} of ${totalPages}`,
+              doc.internal.pageSize.getWidth() / 2,
+              doc.internal.pageSize.getHeight() - 1,
+              {
+                align: 'center',
+              },
+            );
+          }
           doc.save('CAM.pdf');
         },
-        margin: [20, 20, 20, 30],
+        margin: [40, 0, 40, 12],
         html2canvas: {
-          scale: 0.33, //this was my solution, you have to adjust to your size
-          width: 1000, //for some reason width does nothing
+          scale: 0.38, //this was my solution, you have to adjust to your size
+          width: 1500, //for some reason width does nothing
         },
 
         autoPaging: 'text',
@@ -8091,8 +8361,6 @@ setexpectedLimit(date)
       ]);
     }
   }, [companyData]);
-
-
 
   return (
     <>
@@ -8119,7 +8387,14 @@ setexpectedLimit(date)
                     <select
                       className={`${styles.select} ${styles.customSelect} border_color accordion_body form-select`}
                       aria-label="Default select example"
-                      onChange={(e) => setCamCoversionUnit(e.target.value)}
+                      onChange={(e) => {
+                        setCamCoversionUnit(e.target.value);
+                        if (e.target.value == 10000000) {
+                          setUnit('Crores');
+                        } else {
+                          setUnit('Lakhs');
+                        }
+                      }}
                     >
                       <option selected value={10000000}>
                         Crores
@@ -8218,7 +8493,7 @@ setexpectedLimit(date)
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(true);
+                  setUploadBtn(false);
                 }}
               >
                 Orders
@@ -8234,7 +8509,7 @@ setexpectedLimit(date)
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(true);
+                  setUploadBtn(false);
                 }}
               >
                 Credit
@@ -8266,7 +8541,7 @@ setexpectedLimit(date)
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(true);
+                  setUploadBtn(false);
                 }}
               >
                 CAM
@@ -8289,13 +8564,29 @@ setexpectedLimit(date)
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion shadow-none" id="FinancialsAccordion">
-                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
+                    <BalanceSheet
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      balanceData={companyData}
+                      returnDataPeriodAndColour={returnDataPeriodAndColour}
+                    />
 
-                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
+                    <IncomeStatement
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      incomeData={companyData}
+                      returnDataPeriodAndColour={returnDataPeriodAndColour}
+                    />
 
-                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
+                    <CashFlow
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      cashData={companyData}
+                      returnDataPeriodAndColour={returnDataPeriodAndColour}
+                    />
 
-                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} returnDataPeriodAndColour={returnDataPeriodAndColour} />
+                    <Ratios
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      ratioData={companyData}
+                      returnDataPeriodAndColour={returnDataPeriodAndColour}
+                    />
 
                     <Peer peerData={companyData} />
 
@@ -8309,6 +8600,7 @@ setexpectedLimit(date)
                       GstDataHandler={GstDataHandler}
                       orderList={orderList}
                       companyData={companyData}
+                      fetchedGstData={fetchedGstData}
                     />
                   </div>
                 </div>
@@ -8572,7 +8864,7 @@ setexpectedLimit(date)
                                     checked={filterType.filterBy.pending ? 'checked' : ''}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Pending<span className='pl-1'>({totalCourt.pending})</span>
+                                    Pending<span className="pl-1">({totalCourt.pending})</span>
                                   </label>
                                 </div>
                                 <div className="form-check mr-4">
@@ -8587,7 +8879,7 @@ setexpectedLimit(date)
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault1">
-                                    Disposed<span className='pl-1'>({totalCourt.disposed})</span>
+                                    Disposed<span className="pl-1">({totalCourt.disposed})</span>
                                   </label>
                                 </div>
                                 <div className="form-check">
@@ -8602,7 +8894,7 @@ setexpectedLimit(date)
                                     }}
                                   />
                                   <label className="form-check-label" htmlFor="flexCheckDefault3">
-                                    Total Cases<span className='pl-1'>({totalCourt.total})</span>
+                                    Total Cases<span className="pl-1">({totalCourt.total})</span>
                                   </label>
                                 </div>
                               </div>
@@ -8749,9 +9041,11 @@ setexpectedLimit(date)
                       country={getCountriesMasterData}
                       port={getPortsMasterData}
                       orderList={orderList}
+                      shipment={shipment}
                     />
                     <ShipmentDetails
                       orderDetail={orderList}
+                      orderState={orderDetails}
                       saveShipmentData={saveShipmentData}
                       shipment={shipment}
                       port={getPortsMasterData}
@@ -8806,13 +9100,12 @@ setexpectedLimit(date)
                     setGroupExposureData={setGroupExposureData}
                     setSanctionComment={setSanctionComment}
                     allBuyerList={allBuyerList}
-
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
                 <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther module={["Leads","Margin Money"]} orderid={id} />
+                    <UploadOther module={['Leads', 'Margin Money']} orderid={id} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
@@ -8839,6 +9132,9 @@ setexpectedLimit(date)
                     litigationStatus={litigationStatus}
                     debtProfileColor={debtProfileColor}
                     allBuyerList={allBuyerList}
+                    unit={unit}
+                    chartType={chartType}
+                    setChartType={setChartType}
                   />
                 </div>
               </div>
@@ -8998,8 +9294,8 @@ const table2 = (sat, balance, complienceFilter) => {
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
-                ? 'All'
-                : `Banking Defaults`}
+              ? 'All'
+              : `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -9009,63 +9305,63 @@ const table2 = (sat, balance, complienceFilter) => {
         </tr>
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
-          sat?.map((alert, index) => {
-            {
-            }
-            return (
-              <tr key={index}>
-                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-                <td className="text-capitalize">
-                  {' '}
-                  {alert?.value?.length > 1 ? (
-                    <>
-                      {alert.value.map((val, index) => {
-                        return (
-                          <>
-                            {val}
-                            {index !== alert.value.length - 1 ? ', ' : ''}
-                          </>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                  )}
-                </td>
-              </tr>
-            );
-          })
+            sat?.map((alert, index) => {
+              {
+              }
+              return (
+                <tr key={index}>
+                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                  <td className="text-capitalize">
+                    {' '}
+                    {alert?.value?.length > 1 ? (
+                      <>
+                        {alert.value.map((val, index) => {
+                          return (
+                            <>
+                              {val}
+                              {index !== alert.value.length - 1 ? ', ' : ''}
+                            </>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                    )}
+                  </td>
+                </tr>
+              );
+            })
           : balance.length > 0 &&
-          balance?.map((alert, index) => {
-            return (
-              <tr key={index}>
-                <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
-                <td className="text-capitalize"> {addSpace(alert.severity)}</td>
-                <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
-                <td className="text-capitalize">
-                  {' '}
-                  {alert?.value?.length > 1 ? (
-                    <>
-                      {alert.value.map((val, index) => {
-                        return (
-                          <>
-                            {val}
-                            {index !== alert.value.length - 1 ? ', ' : ''}
-                          </>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
+            balance?.map((alert, index) => {
+              return (
+                <tr key={index}>
+                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                  <td className="text-capitalize">
+                    {' '}
+                    {alert?.value?.length > 1 ? (
+                      <>
+                        {alert.value.map((val, index) => {
+                          return (
+                            <>
+                              {val}
+                              {index !== alert.value.length - 1 ? ', ' : ''}
+                            </>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
         {complienceFilter == 'All' ? (
           <>
             {sat.length &&

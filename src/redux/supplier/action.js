@@ -5,6 +5,8 @@ import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
 import { returnAuthToken } from 'utils/helpers/global'
+import Router from 'next/router';
+
 
 function createSupplier () {
   return {
@@ -168,6 +170,7 @@ export const CreateSupplier = (payload) => async (dispatch, getState, api) => {
         }
         dispatch(createSupplierSuccess(response.data))
         dispatch(setNotLoading())
+        Router.push('/add-supplier');
       } else {
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT'
         if (!toast.isActive(toastMessage.toUpperCase())) {

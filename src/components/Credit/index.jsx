@@ -170,7 +170,7 @@ const index = ({
 
   const [keyPersonData, setKeyPersonData] = useState({
     contact: {
-      callingCode: '',
+      callingCode: '+91',
       number: '',
     },
     department: '',
@@ -214,6 +214,7 @@ const index = ({
     dispatch(getPincodes(value));
   };
   const onKeyPersonSave = () => {
+   
     addPersonArr(keyPersonData);
   };
 
@@ -444,6 +445,8 @@ const index = ({
   useEffect(() => {
     if (creditDetail?.existingCHA.length > 0) {
       setemails(creditDetail?.existingCHA);
+    }else {
+      setemails([])
     }
   }, [creditDetail?.existingCHA]);
 
@@ -452,6 +455,8 @@ const index = ({
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
       setexSupplier(JSON.parse(JSON.stringify(creditDetail?.existingSuppliers)));
+    } else {
+      setexSupplier([])
     }
   }, [creditDetail?.existingSuppliers]);
 
@@ -472,7 +477,23 @@ const index = ({
 
   const [searchTerm, setSearchTerm] = useState('');
   const [removeInput, setRemoveInput] = useState(false);
-
+  const [supplierShow, setSupplierShow] = useState(false);
+    const [supplierTerm, setSupplierTerm] = useState('');
+ const handleSupplierSearch = (e) => {
+    setSupplierShow(false);
+    const query = e;
+    // const query = `${e.target.value}`;
+    setSupplierTerm(query);
+    if (query.length >= 3) {
+      dispatch(SearchSupplier(query));
+    }
+  };
+  useEffect(() => {
+    if(searchedSupplier?.data?.length > 0){
+      setSupplierShow(true)
+    }
+  },[searchedSupplier])
+  
   const handleSearch = (e) => {
     setRemoveInput(false);
     const query = e;
@@ -761,6 +782,7 @@ const index = ({
                     </option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
+                    <option value="Both">Both</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing Procurement of Commodity
@@ -954,13 +976,36 @@ const index = ({
                     type="text"
                     value={supplierCred?.supplierName}
                     onChange={(e) => {
+                      handleSupplierSearch(e.target.value)
                       saveSupplierData(e.target.name, e.target.value);
                     }}
                   ></input>
-
+                {searchedSupplier && searchedSupplier?.data?.length > 0 && supplierShow && supplierTerm && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {searchedSupplier
+                              ? searchedSupplier?.data?.map((results, index) => (
+                                  <li
+                                    onClick={() => {
+                                      saveSupplierData("supplierName",results?.supplierProfile?.supplierName)
+                                      setSupplierShow(false)
+                                      
+                                    }}
+                                    id={results._id}
+                                    key={index}
+                                    value={results}
+                                  >
+                                    {results?.supplierProfile?.supplierName}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                   <label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </label>
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -969,7 +1014,7 @@ const index = ({
                   required
                   type="number"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   value={supplierCred?.shipmentNumber}
                   name="shipmentNumber"
                   onChange={(e) => {
@@ -989,7 +1034,7 @@ const index = ({
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value);
                   }}
@@ -1005,7 +1050,7 @@ const index = ({
                   required
                   type="number"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
@@ -1024,7 +1069,7 @@ const index = ({
                     required
                     type="number"
                     onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                     value={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
@@ -1042,7 +1087,7 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                     type="number"
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
@@ -1079,6 +1124,7 @@ const index = ({
                     name="latestShipmentDate"
                     defaultDate={supplierCred?.latestShipmentDate ?? ''}
                     saveDate={saveSupplierDate}
+                    startFrom={'noLimit'}
                     labelName="Latest Shipment Date"
                   />
                   <img
@@ -1206,11 +1252,12 @@ const index = ({
                         <>
                           {!person.isEdit ? (
                             <>
+                            
                               <tr>
                                 <td>{person.name}</td>
                                 <td>{person.designation}</td>
                                 <td>{person.department}</td>
-                                <td>{person.contact.number}</td>
+                                <td>{person.contact.callingCode} {" "} {person.contact.number}</td>
                                 <td>{person.email}</td>
                                 <td>
                                   <div className="d-flex">
@@ -1348,32 +1395,58 @@ const index = ({
                             /> */}
                                 </div>
                               </td>
+
                               <td>
-                                <input
-                                  className="input"
-                                  defaultValue={person.contact.number}
-                                  placeholder={'Contact number'}
-                                  name="contact.number"
-                                  style={{ maxWidth: '170px' }}
-                                  onChange={(e) => {
-                                    handlePersonChange(e, index);
-                                  }}
-                                  onBlur={(e) => {
-                                    if (phoneValidation(e.target.value)) {
-                                      handlePersonChange(e, index);
-                                    } else {
-                                      let toastMessage = 'Enter a valid Phone Number';
-                                      if (!toast.isActive(toastMessage.toUpperCase())) {
-                                        toast.error(toastMessage, {
-                                          toastId: toastMessage,
-                                        });
+                                <div className="d-inline-flex align-items-center position-relative">
+                                  {person.addnew ? (
+                                    <>
+                                      <input
+                                        className="input"
+                                        value={person.contact.number}
+                                        placeholder={'Contact number'}
+                                        name="contact.number"
+                                        style={{ maxWidth: '170px' }}
+                                        onChange={(e) => {
+                                          handlePersonChange(e, index);
+                                        }}
+                                        type="text"
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                       <div className={`${styles.phone_card}`}>
+                                    <select
+                                      name="callingCode"
+                                      id="Code"
+                                      className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
+                                      value={person.contact.callingCode}
+                                      onChange={(e) => {
+                                        onChangeHandler2(e.target.name, e.target.value, index);
+                                      }}
+                                    >
+                                      {' '}
+                                      <option value="+91">+91</option>
+                                    </select>
+                                    <input
+                                       name="contact.number"
+                                      //value={val?.contact}
+                                      type="number"
+                                      onWheel={(event) => event.currentTarget.blur()}
+                                      className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
+                                      onChange={(e) => {
+                                        handlePersonChange(e,index);
+                                      }}
+                                      value={person.contact.number}
+                                      onKeyDown={(evt) =>
+                                        ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                                       }
-                                    }
-                                  }}
-                                  type="number"
-                                  onWheel={(event) => event.currentTarget.blur()}
-                                  disabled={!person.isEdit}
-                                />
+                                      //readOnly={!val.action}
+                                    />
+                                  </div>
+                                  
+                                    </>
+                                  )}
+                                </div>
                               </td>
                               <td>
                                 <input
@@ -1470,6 +1543,10 @@ const index = ({
                       orderDetail={orderDetail}
                       path={address?.GSTIN_document?.path}
                       communicationModeYes={address?.communication}
+                      state={address.state}
+                      city={address.city}
+                      pinCode={address.pinCode}
+
                     />
                   </>
                 );
@@ -1667,7 +1744,7 @@ const index = ({
                           onWheel={(event) => event.currentTarget.blur()}
                           name="contact.number"
                           maxLength="10"
-                          onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                          onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.contact.number == null ? '' : keyAddressData.contact.number}
                           onChange={(e) => {
                             mobileFunction(e);
@@ -2026,14 +2103,16 @@ const index = ({
                 </div>
               </div>
             ) : null}
-            <div
-              className={`${styles.add_row} pr-3 d-flex justify-content-end`}
-              onClick={() => {
-                setShowAddress(true);
-              }}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
+            <div className="d-flex justify-content-end">
+              <div
+                className={`${styles.add_row} pr-3 row`}
+                onClick={() => {
+                  setShowAddress(true);
+                }}
+              >
+                <span>+</span>
+                <div>Add More Rows</div>
+              </div>
             </div>
             {/* ))} */}
           </div>
@@ -2081,7 +2160,18 @@ const index = ({
                             disabled={!profile.actions}
                           />
                         </td>
-                        {profile.addnew == 'false' ? (
+                       
+                        {
+                          !profile.actions?
+                          <>
+                           <td>{profile.bankName}</td>
+                          <td>{profile.limitType}</td>
+                          <td>{ Number(profile?.limit)?.toLocaleString('en-In')}</td>
+                          <td>{profile?.conduct}</td>
+                          </>
+                          :
+                          <>
+                           {profile.addnew == 'false' ? (
                           <td>
                             <select
                               onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
@@ -2091,7 +2181,9 @@ const index = ({
                               disabled={!profile.actions}
                               value={profile.bankName}
                             >
-                              <option value='' selected>Select</option>
+                              <option value="" selected>
+                                Select
+                              </option>
                               {FilterUniqueBank().map((item) => (
                                 <>
                                   <option value={item}>{item}</option>
@@ -2106,8 +2198,9 @@ const index = ({
                               type="text"
                               className="input"
                               disabled={!profile.actions}
-                              value={profile.bankName}
+                              value={profile?.bankName == 'addnew' ? '' : profile?.bankName}
                               name="bankName"
+                              placeholder="Add new"
                               // placeholder={'Add new'}
                               // readOnly={val.addnew!="true"?true:false}
                               onChange={(e) => {
@@ -2116,18 +2209,29 @@ const index = ({
                             />
                           </td>
                         )}
-                        <td>
-                          <input
+                            <td>
+                          <select
                             type="text"
                             className="input"
                             disabled={!profile.actions}
                             value={profile.limitType}
+
                             name="limitType"
                             onChange={(e) => {
                               handleDebtChange(e.target.name, e.target.value, index);
                             }}
-                            // placeholder={'Limit type'}
-                          />
+                          // placeholder={'Limit type'}
+                          >
+                            <option value="">Select an option</option>
+                            <option value="Cash Credit">Cash Credit</option>
+                            <option value="LC Limits">LC Limits</option>
+                            <option value="Term Loan">Term Loan</option>
+                            <option value="Bank Guarantee">Bank Guarantee</option>
+                            <option value="Buyers Credit">Buyers Credit</option>
+                            <option value="Packing Credit">Packing Credit</option>
+                            <option value="Post Ship Credit">Post Ship Credit</option>
+                            
+                          </select>
                         </td>
                         <td>
                           <input
@@ -2145,6 +2249,7 @@ const index = ({
                               }),
                                 (e.target.type = 'text');
                             }}
+                               onWheel={(event) => event.currentTarget.blur()}
                             value={
                               profile?.actions
                                 ? isFieldInFocus.limit
@@ -2177,6 +2282,9 @@ const index = ({
                             <option value="Poor">Poor</option>
                           </select>
                         </td>
+                          </>
+                        }
+                      
                         <td>
                           <div>
                             {!profile.actions ? (

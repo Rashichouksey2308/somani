@@ -2,9 +2,9 @@
 @import '../../src/components/styles/Core/config';
 
 .dashboardTab {
-  margin-bottom: 105px;
+  margin-bottom: 152px;
   @include respond(phone) {
-    margin-bottom: 105px;
+    margin-bottom: 144px;
   }
 
   .tabHeader {
@@ -281,14 +281,16 @@
           flex-wrap: nowrap;
 
           .code_phone {
+            max-width: 21%;
             font-size: 19px;
             letter-spacing: 0.18px;
             color: #3687e8;
             outline: none;
             border-radius: 4px 0 0 4px;
-            padding-left: 10px;
+            padding-left: 7px;
             -webkit-text-fill-color: #3687e8;
             @include respond(lg-desktop) {
+              max-width: 28%;
               font-size: 15px;
               line-height: 1.3;
             }
@@ -310,7 +312,7 @@
           box-sizing: border-box;
           white-space: nowrap;
           letter-spacing: 0.19px;
-          padding: 13px 30px 13px 17px;
+          padding-right: 40px;
 
           &:invalid + label {
             transform: translateY(0);
@@ -354,6 +356,11 @@
               }
             }
           }
+        }
+      }
+      .email_id {
+        .label_heading {
+          left: 15px;
         }
       }
     }
@@ -585,6 +592,7 @@
       overflow-x: auto;
 
       .table {
+        margin-bottom: 0px;
         th {
           font-size: 15px;
           color: #8492a6;
@@ -618,7 +626,6 @@
 
         tr {
           &:last-child {
-            border-bottom: none;
           }
 
           td {
@@ -687,10 +694,14 @@
   cursor: pointer;
 
   span {
+    margin-top: -7px;
+    font-size: 30px;
     margin-right: 15px;
     @include respond(lg-desktop) {
+      margin-top: -4px;
       margin-right: 10px;
-      line-height: 1.2;
+      font-size: 24px;
+      //line-height: 1.2;
     }
   }
 
@@ -918,18 +929,29 @@ img {
     }
   }
 }
-
+.btn_block {
+  top: 12px;
+  right: 12px;
+  position: absolute;
+  @include respond(lg-desktop) {
+    top: 8px;
+  }
+}
 .plus_add {
-  margin-top: 12px;
-  z-index: 1;
-  margin-left: -60px;
   width: 36px;
   height: 36px;
   @include respond(lg-desktop) {
     width: 30px;
     height: 30px;
-    margin-top: 8px;
-    margin-left: -40px;
+  }
+}
+.delete {
+  width: 36px;
+  height: 36px;
+  margin-left: 12px;
+  @include respond(lg-desktop) {
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -2240,6 +2262,7 @@ img {
   display: flex;
   flex-wrap: nowrap;
   .code_phone2 {
+    max-width: 31%;
     font-size: 19px;
     line-height: 24px;
     letter-spacing: 0.18px;

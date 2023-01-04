@@ -10,10 +10,10 @@ import { GetMarginMoney } from 'redux/marginMoney/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
 import MarginBar from '../../src/components/MarginBar';
 import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
-import { addPrefixOrSuffix } from '../../src/utils/helper';
+import { addPrefixOrSuffix, checkNan } from '../../src/utils/helper';
 import styles from './index.module.scss';
 import { returnReadableNumber } from '@/utils/helpers/global';
-import TermsheetPopUp from '../../src/components/TermsheetPopUp'
+import TermsheetPopUp from '../../src/components/TermsheetPopUp';
 
 function Index() {
   const dispatch = useDispatch();
@@ -32,19 +32,32 @@ function Index() {
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [email,setEmail] = useState('')
-
+  const [email, setEmail] = useState('');
 
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
       callback: function (doc) {
+        const totalPages = doc.internal.getNumberOfPages();
+
+        for (let i = 1; i <= totalPages; i++) {
+          doc.setPage(i);
+          doc.text(
+            `Page ${i} of ${totalPages}`,
+            doc.internal.pageSize.getWidth() / 2,
+            doc.internal.pageSize.getHeight() - 1,
+            {
+              align: 'center',
+            },
+          );
+        }
         doc.save('RevisedMarginMoney.pdf');
       },
+      margin: [40, 0, 40, 0],
       autoPaging: 'text',
     });
   };
-  const shareEmail = () => {}
+  const shareEmail = () => {};
   return (
     <>
       <div className={`${styles.root_container} bg-transparent`}>
@@ -71,7 +84,7 @@ function Index() {
                 <span className={`${styles.termValue} text-color`}>{marginData?.company?.companyName}</span>
               </div>
             </Col>
-            <Col md={4} className="text-center">
+            <Col md={4} className="text-center p-0">
               <span className="download-pdf-title">REVISED MARGIN MONEY</span>
             </Col>
             <Col md={4} className={`${styles.left} ${styles.right} align-self-center`}>
@@ -102,28 +115,17 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {addPrefixOrSuffix(
                         marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
-                          ? Number(marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity)?.toLocaleString(
-                              'en-In',
-                              {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              },
-                            )
+                          ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
                           : 0,
-                        'MT',
+                        marginData?.order?.unitOfQuantity ? marginData?.order?.unitOfQuantity : 'MT',
                         '',
                       )}
                     </td>
                     <td>
                       {' '}
                       {addPrefixOrSuffix(
-                        marginData?.order?.quantity
-                          ? Number(marginData?.order?.quantity)?.toLocaleString('en-In', {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })
-                          : 0,
-                        'MT',
+                        marginData?.order?.quantity ? marginData?.order?.quantity : 0,
+                        marginData?.order?.unitOfQuantity ? marginData?.order?.unitOfQuantity : 'MT',
                         '',
                       )}
                     </td>
@@ -134,14 +136,21 @@ function Index() {
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      USD{' '}
+                      {marginData?.order?.orderCurrency}{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice,
-                        'en-In',
-                        2,
+                        marginData?.order?.orderCurrency == 'INR' ? 'en-In' : 'en-En',
+                        2,2
                       ) ?? 0}
                     </td>
-                    <td>USD {returnReadableNumber(marginData?.order?.perUnitPrice, 'en-In', 2) ?? 0}</td>
+                    <td>
+                      {marginData?.order?.orderCurrency}{' '}
+                      {returnReadableNumber(
+                        marginData?.order?.perUnitPrice,
+                        marginData?.order?.orderCurrency == 'INR' ? 'en-In' : 'en-En',
+                        2,2
+                      ) ?? 0}
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -152,10 +161,10 @@ function Index() {
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate,
                         'en-In',
-                        2,
+                        2,2
                       ) ?? 0}
                     </td>
-                    <td>{returnReadableNumber(marginData?.conversionRate, 'en-In', 2) ?? 0}</td>
+                    <td>{returnReadableNumber(marginData?.conversionRate, 'en-In', 2,2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -163,10 +172,16 @@ function Index() {
                       <span className={`ml-2`}>Usance Interest (%)</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
+                      {/* {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')} */}
+                      {marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ?
+                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,'en-In',2,2) + ' %':
+                      '' } 
                     </td>
                     <td>
-                      {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
+                    {marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ?
+                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,'en-In',2,2) + ' %':
+                      '' } 
+                      {/* {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')} */}
                     </td>
                   </tr>
                   <tr>
@@ -175,10 +190,16 @@ function Index() {
                       <span className={`ml-2`}>Trade Margin</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
+                    {marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ?
+                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,'en-In',2,2) + ' %':
+                      '' } 
+                      {/* {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')} */}
                     </td>
                     <td>
-                      {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
+                    {marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ?
+                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,'en-In',2,2) + ' %':
+                      '' } 
+                      {/* {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')} */}
                     </td>
                   </tr>
                   <tr>
@@ -187,18 +208,24 @@ function Index() {
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(
+                    {marginData?.order?.tolerance ?
+                      returnReadableNumber(marginData?.order?.tolerance,'en-In',2,2) + ' %':
+                      '' } 
+                      {/* {addPrefixOrSuffix(
                         marginData?.order?.tolerance ? Number(marginData?.order?.tolerance) : 0,
                         '%',
                         '',
-                      )}
+                      )} */}
                     </td>
                     <td>
-                      {addPrefixOrSuffix(
+                    {marginData?.order?.tolerance ?
+                      returnReadableNumber(marginData?.order?.tolerance,'en-In',2,2) + ' %':
+                      '' } 
+                      {/* {addPrefixOrSuffix(
                         marginData?.order?.tolerance ? Number(marginData?.order?.tolerance) : 0,
                         '%',
                         '',
-                      )}
+                      )} */}
                     </td>
                   </tr>
                   <tr>
@@ -207,22 +234,28 @@ function Index() {
                       <span className={`ml-2`}>Margin Money (%)</span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      {addPrefixOrSuffix(
+                    { marginData?.order?.termsheet?.transactionDetails?.marginMoney ?
+                      returnReadableNumber( marginData?.order?.termsheet?.transactionDetails?.marginMoney,'en-In',2,2) + ' %':
+                      '' } 
+                      {/* {addPrefixOrSuffix(
                         marginData?.order?.termsheet?.transactionDetails?.marginMoney
                           ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
                           : 0,
                         '%',
                         '',
-                      )}
+                      )} */}
                     </td>
                     <td>
-                      {addPrefixOrSuffix(
+                    { marginData?.order?.termsheet?.transactionDetails?.marginMoney ?
+                      returnReadableNumber( marginData?.order?.termsheet?.transactionDetails?.marginMoney,'en-In',2,2) + ' %':
+                      '' } 
+                      {/* {addPrefixOrSuffix(
                         marginData?.order?.termsheet?.transactionDetails?.marginMoney
                           ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
                           : 0,
                         '%',
                         '',
-                      )}
+                      )} */}
                     </td>
                   </tr>
                   <tr>
@@ -287,16 +320,22 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(A*B)</span>
                     </td>
                     <td className="pt-4">
-                      USD{' '}
+                      {marginData?.order?.orderCurrency}{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.orderValue,
-                        'en-EN',
+                        marginData?.order?.orderCurrency == 'INR' ? 'en-In' : 'en-En',
                         2,
                         2,
                       )}
                     </td>
                     <td className="pt-4">
-                      USD {returnReadableNumber(marginData?.calculation?.orderValue, 'en-EN', 2, 2) ?? 0}
+                      {marginData?.order?.orderCurrency}{' '}
+                      {returnReadableNumber(
+                        marginData?.calculation?.orderValue,
+                        marginData?.order?.orderCurrency == 'INR' ? 'en-In' : 'en-En',
+                        2,
+                        2,
+                      ) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -309,12 +348,12 @@ function Index() {
                       ₹{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR,
-                        'en-EN',
+                        'en-In',
                         2,
                         2,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.orderValueInINR, 'en-EN', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.orderValueInINR, 'en-In', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -326,12 +365,12 @@ function Index() {
                       ₹{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest,
-                        'en-EN',
+                        'en-In',
                         2,
                         2,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.usanceInterest, 'en-EN', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.usanceInterest, 'en-In', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -343,12 +382,12 @@ function Index() {
                       ₹{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin,
-                        'en-EN',
+                        'en-In',
                         2,
                         2,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.tradeMargin, 'en-EN', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.tradeMargin, 'en-In', 2, 2) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -600,14 +639,11 @@ function Index() {
         leftButtonTitle={'Revised Margin Money'}
         rightButtonTitle={'Send to Buyer'}
         openbar={() => setOpen(true)}
+        pagesDetails={{ total: 1, current: 1 }}
       />
-      {open ? <TermsheetPopUp 
-      close={() => setOpen(false)} 
-      open={open} 
-      isMargin
-      setEmail={setEmail}
-      shareEmail={shareEmail}
-      /> : null}
+      {open ? (
+        <TermsheetPopUp close={() => setOpen(false)} open={open} isMargin setEmail={setEmail} shareEmail={shareEmail} />
+      ) : null}
     </>
   );
 }

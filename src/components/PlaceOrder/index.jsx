@@ -57,6 +57,7 @@ const Index = () => {
     tolerance: '',
     transactionPeriodDays: '',
     manufacturerName: '',
+    existingOrderValue:""
   });
 
   const [shipment, setShipment] = useState({
@@ -148,6 +149,7 @@ const Index = () => {
       orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity);
       orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue) * 10000000;
       orderDataNew.tolerance = removePrefixOrSuffix(orderData.tolerance);
+      orderDataNew.existingOrderValue=removePrefixOrSuffix(orderData.orderValue) * 10000000
 
       const obj = {
         orderDetails: { ...orderDataNew, shipmentDetail: { ...shipment } },
@@ -173,7 +175,7 @@ const Index = () => {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Place a New Order</h1>
+            <h1 className={styles.heading}> Place a New Order </h1>
           </div>
           <div>
             <button onClick={() => clearData()} className={`${styles.clear_btn} clear_btn`}>
@@ -213,7 +215,7 @@ const Index = () => {
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
                 <span className={styles.value}>
                   {creditData?.data?.limitExpiry
-                    ? moment(creditData?.data?.limitExpiry?.split('T')[0]).format('DD-MM-YYYY')
+                    ? moment(creditData?.data?.limitExpiry).format('DD-MM-YYYY')
                     : ''}
                 </span>
               </div>

@@ -104,15 +104,15 @@ function Index() {
                               handleRoute(buyer);
                             }}
                           >
-                            {buyer.commodity}
+                            {buyer?.commodity}
                           </td>
-                          <td>{buyer.createdBy.fName}</td>
+                          <td>{buyer?.createdBy?.fName}</td>
 
-                          <td>{buyer.createdAt.split('T')[0]}</td>
+                          <td>{buyer?.createdAt.split('T')[0]}</td>
                           <td>
                             <span
                               className={`${styles.status} ${
-                                buyer.queue === 'Rejected'
+                                buyer?.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
                                   ? styles.review

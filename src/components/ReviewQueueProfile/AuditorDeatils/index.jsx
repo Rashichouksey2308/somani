@@ -10,6 +10,7 @@ function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
 
   const [otherAssociates, setOtherAssociates] = useState([])
+
   useEffect(() => {
     if (directorData?.profile?.directorDetail?.length > 0) {
       let temp = []
@@ -19,7 +20,7 @@ function Index({ directorData }) {
       setOtherAssociates(temp)
     }
   }, [directorData])
-  console.log(otherAssociates, 'otherAssociates')
+
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -32,7 +33,7 @@ function Index({ directorData }) {
       setDarkMode(false)
     }
   }, [])
-  console.log(directorData, 'len')
+
 
   const dscStatus = (from) => {
     var dateFrom = moment(from, 'DD-MM-YYYY')
@@ -45,7 +46,6 @@ function Index({ directorData }) {
     }
   }
 
-  console.log(_get(directorData, `profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`, []), "otherAssociatedEntitiesCurrent", otherAssociates, `profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
 
   return (
     <>
@@ -65,7 +65,7 @@ function Index({ directorData }) {
           <div
             key={index}
             id={`directorDetails`}
-            className="collapse show"
+            className="collapse"
             aria-labelledby="directorDetails3"
             data-parent="#profileAccordion"
           >
@@ -122,7 +122,8 @@ function Index({ directorData }) {
                   </div>
                   <div
                     id={`director${index}`}
-                    className={`collapse ${index == 0 ? 'show' : ''} `}
+                    //className={`collapse ${index == 0 ? 'show' : ''} `}
+                    className='collapse'
                     aria-labelledby={`director${index}`}
                     data-parent="#directorDetails"
                   >
@@ -309,14 +310,7 @@ function Index({ directorData }) {
                                 </tr>
                               </thead>
                               <tbody>
-                                {console.log(
-                                  'daat',
-                                  _get(
-                                    directorData,
-                                    `otherAssociatedEntities${otherAssociates}`,
-                                    [],
-                                  ),
-                                )}
+                              
                                 {directorData?.profile?.directorDetail[0]
                                   ?.otherAssociatedEntitiesCurrent?.length >
                                   0 &&
@@ -366,7 +360,7 @@ function Index({ directorData }) {
             </div>
           </div>
         ) : null}
-        {console.log('data22', directorData)}
+       
         {directorData?.profile?.directorDetail?.length > 0 &&
           _get(directorData, 'profile.directorDetail', []).map(
             (director, index) => {
@@ -374,7 +368,7 @@ function Index({ directorData }) {
                 <div
                   key={index}
                   id={`directorDetails`}
-                  className="collapse show"
+                  className="collapse"
                   aria-labelledby="directorDetails3"
                   data-parent="#profileAccordion"
                 >
@@ -388,9 +382,11 @@ function Index({ directorData }) {
                       <div className={`${styles.card} border_color card`}>
                         <div className="d-flex justify-content-between align-items-center">
                           <div
-                            className={`${styles.cardHeader} ${styles.collapsed}  card-header row no-gutters bg-transparent collapsed`}
+                            className={`${styles.cardHeader} ${styles.collapsed} card-header row no-gutters bg-transparent collapsed`}
                             data-toggle="collapse"
                             data-target={`#director${index}`}
+                            //aria-expanded="true"
+
                             aria-expanded={index == 0 ? 'true' : 'false'}
                             aria-controls={`director${index}`}
                           >
@@ -463,7 +459,8 @@ function Index({ directorData }) {
                         </div>
                         <div
                           id={`director${index}`}
-                          className={`collapse ${index == 0 ? 'show' : ''} `}
+                         // className={`collapse ${index == 0 ? 'show' : ''} `}
+                         className='collapse'
                           aria-labelledby={`director${index}`}
                           data-parent="#directorDetails"
                         >
@@ -586,27 +583,21 @@ function Index({ directorData }) {
                                 <p>Other Associated Entities</p>
                                 <div
                                   className={`${styles.row}  d-flex justify-content-between align-items-center`}
-                                >
+                                >                              
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
                                         let temp = [...otherAssociates]
                                         temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
-                                        console.log(
-                                          otherAssociates == 'Current',
-                                          '11111',
-                                        )
-                                      }}
-                                      value="Current"
+                                        setOtherAssociates([...temp])                                    
+                                      }}                                  
+                                      value='Current'
                                       className="form-check-input"
-                                      type="radio"
-                                      name="flexRadioDefault1"
-                                      id={`flexRadioDefault1${index}`}
-                                      checked={
-                                        otherAssociates[index] == 'Current'
-                                      }
-                                    />
+                                      type="radio"                                   
+                                      // name="flexRadioDefault"
+                                      id={`flexRadioDefault1${index}`}                                  
+                                      checked={otherAssociates[index] == 'Current'}                                                                                                                                                                                                      
+                                    />                                
                                     <label
                                       className="form-check-label"
                                       htmlFor={`flexRadioDefault1${index}`}
@@ -619,14 +610,13 @@ function Index({ directorData }) {
                                     <input
                                       onChange={(e) => {
                                         let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        console.log(temp, 'temppp', temp[index])
+                                        temp[index] = e.target.value                                      
                                         setOtherAssociates([...temp])
                                       }}
                                       value="Former"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault2"
+                                      // name="flexRadioDefault2"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
                                         otherAssociates[index] == 'Former'
@@ -650,7 +640,7 @@ function Index({ directorData }) {
                                       value="Independent"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault3"
+                                      // name="flexRadioDefault3"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
                                         otherAssociates[index] == 'Independent'
@@ -674,7 +664,7 @@ function Index({ directorData }) {
                                       value="Additional"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault4"
+                                      // name="flexRadioDefault4"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
                                         otherAssociates[index] == 'Additional'
@@ -697,7 +687,7 @@ function Index({ directorData }) {
                                       value="Nominated"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault5"
+                                      // name="flexRadioDefault5"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
                                         otherAssociates[index] == 'Nominated'
@@ -755,11 +745,7 @@ function Index({ directorData }) {
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          {console.log(_get(
-                                            director,
-                                            `otherAssociatedEntities${otherAssociates[index]}`,
-                                            [],
-                                          ), "1212222")}
+                                         
                                           {
                                             _get(
                                               director,
@@ -768,7 +754,7 @@ function Index({ directorData }) {
                                             ).map((associates, index2) => {
                                               const fromDate = associates?.fromDate
                                               const toDate = associates?.toDate
-                                              console.log(associates, "1212")
+                                              
                                               return (
                                                 <tr key={index2}>
                                                   <td className="text-color">

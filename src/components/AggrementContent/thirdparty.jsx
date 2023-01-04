@@ -17,7 +17,7 @@ function Index(props) {
       bankName: '',
       chequeNo: '',
       chequeDate: null,
-      amount: '',
+      amount: 0,
     },
   ]);
 
@@ -30,12 +30,12 @@ function Index(props) {
         bankName: '',
         chequeNo: '',
         chequeDate: null,
-        amount: '',
+        amount: 0,
       },
     ]);
     setIsFieldInFocus([...isFieldInFocus, { amount: false }]);
   };
-  console.log(isFieldInFocus,"isFieldInFocus")
+ 
   const handleDeleteContact = (index) => {
     setListContact([...listContact.slice(0, index), ...listContact.slice(index + 1)]);
 
@@ -62,7 +62,7 @@ function Index(props) {
                   bankName: '',
                   chequeNo: '',
                   chequeDate: null,
-                  amount: '',
+                  amount: 0,
                 },
               ],
         );
@@ -74,9 +74,13 @@ function Index(props) {
           setIsFieldInFocus([...temp])
         }
       } else {
-        setDeliveryData(props?.data?.deliveryTerm);
+       
+        setDeliveryData(props?.data?.deliveryTerm
+          ? props?.data?.deliveryTerm : props?.genericData?.order?.termsheet?.transactionDetails?.incoTerms
+
+          );
         setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
-        setPaymentTerms(props?.data?.paymentTerms);
+        setPaymentTerms(props?.data?.paymentTerms ? props?.data?.paymentTerms : props?.genericData?.order?.termsheet?.paymentDueDate?.computationOfDueDate);
         setListContact(
           props?.data?.cheque?.length > 0
             ? props.data.cheque
@@ -86,7 +90,7 @@ function Index(props) {
                   bankName: '',
                   chequeNo: '',
                   chequeDate: null,
-                  amount: '',
+                  amount: 0,
                 },
               ],
         );
@@ -94,7 +98,7 @@ function Index(props) {
         if(props?.data?.cheque.length>0){
           let temp=[]
           props?.data?.cheque.forEach((val,index)=>{
-            console.log("SDasdasd")
+            
               temp.push({ amount: false })
           })
           setIsFieldInFocus([...temp])
@@ -118,7 +122,7 @@ function Index(props) {
       props.sendData('Delivery Terms', data);
     }
     if (props.submitData == true && props.active == 'Delivery Terms') {
-      console.log(temp, 'listContact');
+     
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
@@ -156,15 +160,13 @@ function Index(props) {
                   value={deliveryData}
                 >
                   <option value="">Select an option</option>
-                  <option value="CIF	Cost Insurance Freight Incoterms 2000">
+                  <option value="CIF">
                     CIF Cost Insurance Freight Incoterms 2000
                   </option>
-                  <option value={`CFR	Cost & Freight Incoterms 2000`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
-                  <option value="DDP	Delivery Duties Paid Incoterms 2000">
-                    DDP Delivery Duties Paid Incoterms 2000
-                  </option>
-                  <option value="">EXW Ex Works Incoterms 2000</option>
-                  <option value="FOB	Free on Board Incoterms 2000">FOB Free on Board Incoterms 2000</option>
+                  <option value={`CFR`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
+                  
+                 
+                  <option value="FOB">FOB Free on Board Incoterms 2000</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
                   Delivery Terms <strong className="text-danger">*</strong>
@@ -184,7 +186,7 @@ function Index(props) {
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDate"> Days from Vessel Date</option>
+                  <option value="DaysfromVesselDate"> Days From Vessel Discharge Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
@@ -325,11 +327,12 @@ function Index(props) {
                               onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus[index]?.amount
-                                  ? val.amount
+                                  ? val.amount==0?"": val.amount
                                   : `INR ` + Number(
                                     val.amount
                                   )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2
                                   })
                               }
                               className="input"

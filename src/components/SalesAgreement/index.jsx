@@ -165,7 +165,7 @@ function Index(props) {
       setChaDetails({...tempCha})
       setsteveDoreDetails({...tempsteved})
     }
-  },[getVendorsMasterData])
+  },[getVendorsMasterData,sameAsCHA])
   console.log(cmaDetails,"cmaDetails")
   const changeActiveValue = (val, index) => {
     setActive(val);
@@ -655,6 +655,7 @@ let masterList = [
           address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
           directors={props.directors}
           gettingPins={gettingPins}
+          orderData={props.genericData.order}
           
         
         />
@@ -711,6 +712,7 @@ let masterList = [
           vendor={cmaDetails}
           masterList={masterList}
           gettingPins={gettingPins}
+         
           
         />
       );
@@ -788,6 +790,7 @@ let masterList = [
           submitData={submitData}
           updateData={updateData}
           active={active}
+          genericData={props?.genericData}
           data={props?.genericData?.deliveryTerms}
         />
       );
@@ -1207,7 +1210,6 @@ let masterList = [
         seller: {
           name: 'Indo Intertrade Ag',
           shortName: data.sellerData.shortName,
-
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
           isSubmitted: true,
@@ -1374,6 +1376,7 @@ let masterList = [
           branch: data.buyerData.branchName,
           gstin: data.gstin,
           pan: data.pan,
+          shortName: data.shortName,
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
@@ -1386,6 +1389,7 @@ let masterList = [
         gstin: data.gstin,
         pan: data.pan,
         addresses: data.addresses,
+        shortName: data?.shortName,
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));
@@ -1562,6 +1566,7 @@ let masterList = [
           isSubmitted: true,
         },
       };
+      console.log(dataToSend,"dataToSend")
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
@@ -1897,7 +1902,7 @@ let masterList = [
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-
+     console.log(dataToSend.stevedore.gstin,"dataToSend.stevedore.gstin")
       if (dataToSend.stevedore.name == '' || dataToSend.stevedore.name == undefined) {
         toastMessage = `Please add stevedore name  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -2112,17 +2117,7 @@ let masterList = [
         }
       }
 
-      if (
-        dataToSend?.deliveryTerms?.monthOfLoadingCargo == '' ||
-        dataToSend?.deliveryTerms?.monthOfLoadingCargo == undefined
-      ) {
-        toastMessage = `Please select month Of Loading Cargo  `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
-        }
-      }
+     
     }
 
     if (key == 'Product Specifications') {
@@ -2136,17 +2131,17 @@ let masterList = [
       };
       sessionStorage.setItem('Product', JSON.stringify({ list: data.addressList, excel: data?.excelData }));
 
-      if (
-        dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
-        dataToSend?.productSpecifications?.specificationTable == undefined
-      ) {
-        toastMessage = `Please add product specification `;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
-        }
-      }
+      // if (
+      //   dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
+      //   dataToSend?.productSpecifications?.specificationTable == undefined
+      // ) {
+      //   toastMessage = `Please add product specification `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     setSubmitData(false);
+      //     return;
+      //   }
+      // }
     }
     if (key == 'Additional Comments') {
       let list = [];
@@ -2215,9 +2210,7 @@ let masterList = [
             toastMessage = `Agreement name cannot be empty`;
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-                isOK=false
-                
-              
+                isOK=false             
               }
           }
            if(data.list[i].execution=="" || data.list[i].execution==undefined){
@@ -2474,7 +2467,7 @@ let masterList = [
     setSideStateToLocal(key);
      setSideStateToLocal(key);
       if (key == 'Additional Comments') {
-        Router.push('/agreement')
+        Router.push('/agreement-table')
       }
   };
 
@@ -2560,6 +2553,7 @@ let masterList = [
           gstin: data.gstin,
           pan: data.pan,
           addresses: data.addresses,
+          shortName: data?.shortName,
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
         },
@@ -2570,6 +2564,7 @@ let masterList = [
         gstin: data.gstin,
         pan: data.pan,
         addresses: data.addresses,
+        shortName: data?.shortName,
         authorisedSignatoryDetails: data.list,
       };
       sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));

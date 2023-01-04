@@ -46,7 +46,8 @@ function Index(props) {
           buyer: data?.buyer?.toLowerCase(),
 
           shortseller: data?.shortseller,
-          shortbuyer: `${data?.buyer == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
+          shortbuyer: `${data?.shortbuyer}`,
+
           sellerSignature: data?.sellerSignature,
           buyerSignature: data?.buyerSignature,
           dateOfExecution: data?.dateOfExecution,
@@ -61,7 +62,7 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-
+          
           addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
@@ -89,6 +90,11 @@ function Index(props) {
           cmaAuthorized: data.cmaAuthorized,
           vessel: data.vessel,
           storagePlot: data.storagePlot,
+          cin:data.cin,
+          buyerAddress: data.buyerAddress,
+          cha: data.cha,
+          chaAddress: data.chaAddress,
+          chaAuthorized: data.chaAuthorized,
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -115,7 +121,8 @@ function Index(props) {
           buyer: data?.buyer?.name,
 
           shortseller: data?.seller?.shortName,
-          shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
+         shortbuyer: `${data?.buyer.shortName}`,
+
           sellerSignature: data?.seller?.name,
           buyerSignature: data?.buyer?.name,
           dateOfExecution: dat,
@@ -162,6 +169,12 @@ function Index(props) {
           vessel: data?.shippingLine?.vesselName,
           storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
           dischargePort: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+           cin:data?.company?.detailedCompanyInfo?.profile?.companyDetail?.CIN,
+           buyerAddress: _get(data, 'buyer.addresses[0]', {}),
+           cha: data?.CHA?.name,
+          chaAddress: _get(data, 'CHA.addresses[0]', {}),
+
+          chaAuthorized: _get(data, 'CHA.authorisedSignatoryDetails', []),
         });
       }
     }
@@ -176,14 +189,14 @@ function Index(props) {
             <div
               className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
             >
-              <div className={`${styles.approve} mr-3`}>
-                <span
-                  onClick={(e) => {
+              <div   onClick={(e) => {
                     sessionStorage.setItem('preview', JSON.stringify(data));
 
                     Router.push('agreement/preview');
                     props.setPreviewValue('QPA');
-                  }}
+                  }} className={`${styles.approve} mr-3`}>
+                <span
+                
                 >
                   Preview
                 </span>

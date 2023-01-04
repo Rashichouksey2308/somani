@@ -5,9 +5,7 @@ import _get from 'lodash/get';
 import { checkNan, convertValue } from '../../../utils/helper';
 import { returnReadableNumber } from '@/utils/helpers/global';
 
-
 function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
-
   const [unit, setUnit] = useState(10000000);
   const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', {});
   const previousYearData = _get(incomeData, 'financial.incomeStatement[1]', {});
@@ -56,7 +54,6 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     <tr>
                       <th width="50%"></th>
                       <th
-                        className="text-center"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(latestYearData?.financialEndDate).colour}`,
@@ -65,20 +62,18 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                         {returnDataPeriodAndColour(latestYearData?.financialEndDate, 0).date}
                       </th>
                       <th
-                        className="text-center"
                         width="12.5%"
                         style={{
                           color: `${returnDataPeriodAndColour(previousYearData?.financialEndDate).colour}`,
                         }}
                       >
-                        {returnDataPeriodAndColour(previousYearData?.financialEndDate, 0).date}
+                        {returnDataPeriodAndColour(previousYearData?.financialEndDate, 1).date}
                       </th>
                       <th
-                        className="text-center"
                         width="12.5%"
-                        style={{color: `${returnDataPeriodAndColour(lastYearData?.financialEndDate).colour}`,}}
+                        style={{ color: `${returnDataPeriodAndColour(lastYearData?.financialEndDate).colour}` }}
                       >
-                        {returnDataPeriodAndColour(lastYearData?.financialEndDate, 0).date}
+                        {returnDataPeriodAndColour(lastYearData?.financialEndDate, 2).date}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND
@@ -88,14 +83,29 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                   <tbody>
                     <tr>
                       <td>Revenue From Operation</td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.revenue?.revenueFromOperations, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(latestYearData?.revenue?.revenueFromOperations, unit),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.revenue?.revenueFromOperations, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(previousYearData?.revenue?.revenueFromOperations, unit),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.revenue?.revenueFromOperations, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(lastYearData?.revenue?.revenueFromOperations, unit),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -107,14 +117,19 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Other Income</td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.revenue?.otherIncome, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(latestYearData?.revenue?.otherIncome, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.revenue?.otherIncome, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(previousYearData?.revenue?.otherIncome, unit),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.revenue?.otherIncome, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(lastYearData?.revenue?.otherIncome, unit), 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -128,19 +143,19 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                       <td>
                         <strong>Total Income</strong>
                       </td>
-                      <td className="text-center">
+                      <td>
                         <strong>
-                      {returnReadableNumber(convertValue(latestYearData?.revenue?.totalRev, unit), 'en-In', 2, 2,)}
+                          {returnReadableNumber(convertValue(latestYearData?.revenue?.totalRev, unit), 'en-In', 2, 2)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td>
                         <strong>
-                      {returnReadableNumber(convertValue(previousYearData?.revenue?.totalRev, unit), 'en-In', 2, 2,)}
+                          {returnReadableNumber(convertValue(previousYearData?.revenue?.totalRev, unit), 'en-In', 2, 2)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td>
                         <strong>
-                      {returnReadableNumber(convertValue(lastYearData?.revenue?.totalRev, unit), 'en-In', 2, 2,)}
+                          {returnReadableNumber(convertValue(lastYearData?.revenue?.totalRev, unit), 'en-In', 2, 2)}
                         </strong>
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -154,14 +169,24 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
 
                     <tr>
                       <td>Purchases</td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.expenses?.purchaseStock, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(latestYearData?.expenses?.purchaseStock, unit),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.expenses?.purchaseStock, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(previousYearData?.expenses?.purchaseStock, unit),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.expenses?.purchaseStock, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(lastYearData?.expenses?.purchaseStock, unit), 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -173,15 +198,13 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Other Expenses (Ex Dep, Int, Tax)</td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.expenses?.othExp, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(latestYearData?.expenses?.othExp, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.expenses?.othExp, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(previousYearData?.expenses?.othExp, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.expenses?.othExp, unit), 'en-In', 2, 2,)}
-                      </td>
+                      <td>{returnReadableNumber(convertValue(lastYearData?.expenses?.othExp, unit), 'en-In', 2, 2)}</td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.expenses?.othExp,
@@ -194,19 +217,19 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                       <td>
                         <strong>Total Expenses</strong>
                       </td>
-                      <td className="text-center">
+                      <td>
                         <strong>
-                      {returnReadableNumber(convertValue(latestYearData?.expenses?.totExp, unit), 'en-In', 2, 2,)}
+                          {returnReadableNumber(convertValue(latestYearData?.expenses?.totExp, unit), 'en-In', 2, 2)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td>
                         <strong>
-                      {returnReadableNumber(convertValue(previousYearData?.expenses?.totExp, unit), 'en-In', 2, 2,)}
+                          {returnReadableNumber(convertValue(previousYearData?.expenses?.totExp, unit), 'en-In', 2, 2)}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td>
                         <strong>
-                      {returnReadableNumber(convertValue(lastYearData?.expenses?.totExp, unit), 'en-In', 2, 2,)}
+                          {returnReadableNumber(convertValue(lastYearData?.expenses?.totExp, unit), 'en-In', 2, 2)}
                         </strong>
                       </td>
                       <td className={`${styles.trend} text-center`}>
@@ -222,51 +245,80 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                       <td>
                         <strong>EBITDA</strong>
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue( latestYearData?.revenue?.revenueFromOperations -
-                          latestYearData?.expenses?.totExp +
-                          latestYearData?.expenses?.finCost +
-                          latestYearData?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            latestYearData?.revenue?.revenueFromOperations -
+                              latestYearData?.expenses?.totExp +
+                              latestYearData?.expenses?.finCost +
+                              latestYearData?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue( previousYearData?.revenue?.revenueFromOperations -
-                          previousYearData?.expenses?.totExp +
-                          previousYearData?.expenses?.finCost +
-                          previousYearData?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            previousYearData?.revenue?.revenueFromOperations -
+                              previousYearData?.expenses?.totExp +
+                              previousYearData?.expenses?.finCost +
+                              previousYearData?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue( lastYearData?.revenue?.revenueFromOperations -
-                          lastYearData?.expenses?.totExp +
-                          lastYearData?.expenses?.finCost +
-                          lastYearData?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            lastYearData?.revenue?.revenueFromOperations -
+                              lastYearData?.expenses?.totExp +
+                              lastYearData?.expenses?.finCost +
+                              lastYearData?.expenses?.deprcnAmort,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.revenueFromOperations -
-                          latestYearData?.expenses?.totExp +
-                          latestYearData?.expenses?.finCost +
-                          latestYearData?.expenses?.deprcnAmort,
+                            latestYearData?.expenses?.totExp +
+                            latestYearData?.expenses?.finCost +
+                            latestYearData?.expenses?.deprcnAmort,
                           previousYearData?.revenue?.revenueFromOperations -
-                          previousYearData?.expenses?.totExp +
-                          previousYearData?.expenses?.finCost +
-                          previousYearData?.expenses?.deprcnAmort,
+                            previousYearData?.expenses?.totExp +
+                            previousYearData?.expenses?.finCost +
+                            previousYearData?.expenses?.deprcnAmort,
                           lastYearData?.revenue?.revenueFromOperations -
-                          lastYearData?.expenses?.totExp +
-                          lastYearData?.expenses?.finCost +
-                          lastYearData?.expenses?.deprcnAmort,
+                            lastYearData?.expenses?.totExp +
+                            lastYearData?.expenses?.finCost +
+                            lastYearData?.expenses?.deprcnAmort,
                         )}
                       </td>
                     </tr>
                     <tr>
                       <td>Depreciation</td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(latestYearData?.expenses?.deprcnAmort, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(previousYearData?.expenses?.deprcnAmort, unit),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.expenses?.deprcnAmort, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(lastYearData?.expenses?.deprcnAmort, unit), 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -280,45 +332,69 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                       <td>
                         <strong>EBIT</strong>
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.revenue?.revenueFromOperations -
-                          latestYearData?.expenses?.totExp +
-                          latestYearData?.expenses?.finCost, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            latestYearData?.revenue?.revenueFromOperations -
+                              latestYearData?.expenses?.totExp +
+                              latestYearData?.expenses?.finCost,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.revenue?.revenueFromOperations -
-                          previousYearData?.expenses?.totExp +
-                          previousYearData?.expenses?.finCost, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            previousYearData?.revenue?.revenueFromOperations -
+                              previousYearData?.expenses?.totExp +
+                              previousYearData?.expenses?.finCost,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.revenue?.revenueFromOperations -
-                          lastYearData?.expenses?.totExp +
-                          lastYearData?.expenses?.finCost, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(
+                          convertValue(
+                            lastYearData?.revenue?.revenueFromOperations -
+                              lastYearData?.expenses?.totExp +
+                              lastYearData?.expenses?.finCost,
+                            unit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.revenueFromOperations -
-                          latestYearData?.expenses?.totExp +
-                          latestYearData?.expenses?.finCost,
+                            latestYearData?.expenses?.totExp +
+                            latestYearData?.expenses?.finCost,
                           previousYearData?.revenue?.revenueFromOperations -
-                          previousYearData?.expenses?.totExp +
-                          previousYearData?.expenses?.finCost,
+                            previousYearData?.expenses?.totExp +
+                            previousYearData?.expenses?.finCost,
                           lastYearData?.revenue?.revenueFromOperations -
-                          lastYearData?.expenses?.totExp +
-                          lastYearData?.expenses?.finCost,
+                            lastYearData?.expenses?.totExp +
+                            lastYearData?.expenses?.finCost,
                         )}
                       </td>
                     </tr>
                     <tr>
                       <td>Interest Cost</td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.expenses?.finCost, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(latestYearData?.expenses?.finCost, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.expenses?.finCost, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(previousYearData?.expenses?.finCost, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.expenses?.finCost, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(lastYearData?.expenses?.finCost, unit), 'en-In', 2, 2)}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
@@ -332,15 +408,11 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                       <td>
                         <strong>PBT</strong>
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.profLossBefTax, unit), 'en-In', 2, 2,)}
+                      <td>{returnReadableNumber(convertValue(latestYearData?.profLossBefTax, unit), 'en-In', 2, 2)}</td>
+                      <td>
+                        {returnReadableNumber(convertValue(previousYearData?.profLossBefTax, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.profLossBefTax, unit), 'en-In', 2, 2,)}
-                      </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.profLossBefTax, unit), 'en-In', 2, 2,)}
-                      </td>
+                      <td>{returnReadableNumber(convertValue(lastYearData?.profLossBefTax, unit), 'en-In', 2, 2)}</td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.profLossBefTax,
@@ -351,15 +423,13 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Less: Tax</td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.totalTaxExpense, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(latestYearData?.totalTaxExpense, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.totalTaxExpense, unit), 'en-In', 2, 2,)}
+                      <td>
+                        {returnReadableNumber(convertValue(previousYearData?.totalTaxExpense, unit), 'en-In', 2, 2)}
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.totalTaxExpense, unit), 'en-In', 2, 2,)}
-                      </td>
+                      <td>{returnReadableNumber(convertValue(lastYearData?.totalTaxExpense, unit), 'en-In', 2, 2)}</td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.totalTaxExpense,
@@ -372,15 +442,9 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                       <td>
                         <strong>PAT</strong>
                       </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(latestYearData?.profitLoss, unit), 'en-In', 2, 2,)}
-                      </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(previousYearData?.profitLoss, unit), 'en-In', 2, 2,)}
-                      </td>
-                      <td className="text-center">
-                      {returnReadableNumber(convertValue(lastYearData?.profitLoss, unit), 'en-In', 2, 2,)}
-                      </td>
+                      <td>{returnReadableNumber(convertValue(latestYearData?.profitLoss, unit), 'en-In', 2, 2)}</td>
+                      <td>{returnReadableNumber(convertValue(previousYearData?.profitLoss, unit), 'en-In', 2, 2)}</td>
+                      <td>{returnReadableNumber(convertValue(lastYearData?.profitLoss, unit), 'en-In', 2, 2)}</td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.profitLoss,
@@ -391,24 +455,42 @@ function Index({ incomeData, rtrnChartIndiaction, returnDataPeriodAndColour }) {
                     </tr>
                     <tr>
                       <td>Effective Tax Rate %</td>
-                      <td className="text-center">
+                      <td>
                         {/* {latestYearData?.totalTaxExpense && latestYearData?.profLossBefTax } */}
-                      {latestYearData?.totalTaxExpense && latestYearData?.profLossBefTax ?
-                       returnReadableNumber((latestYearData?.totalTaxExpense / latestYearData?.profLossBefTax)*100 , 'en-In', 2, 2,) + '%': ''}
+                        {latestYearData?.totalTaxExpense && latestYearData?.profLossBefTax
+                          ? returnReadableNumber(
+                              (latestYearData?.totalTaxExpense / latestYearData?.profLossBefTax) * 100,
+                              'en-In',
+                              2,
+                              2,
+                            ) + '%'
+                          : ''}
                       </td>
-                      <td className="text-center">
-                      {previousYearData?.totalTaxExpense && previousYearData?.profLossBefTax ?
-                       returnReadableNumber((previousYearData?.totalTaxExpense / previousYearData?.profLossBefTax)*100 , 'en-In', 2, 2,) + '%': ''}
+                      <td>
+                        {previousYearData?.totalTaxExpense && previousYearData?.profLossBefTax
+                          ? returnReadableNumber(
+                              (previousYearData?.totalTaxExpense / previousYearData?.profLossBefTax) * 100,
+                              'en-In',
+                              2,
+                              2,
+                            ) + '%'
+                          : ''}
                       </td>
-                      <td className="text-center">
-                      {lastYearData?.totalTaxExpense && lastYearData?.profLossBefTax ?
-                       returnReadableNumber((lastYearData?.totalTaxExpense / lastYearData?.profLossBefTax)*100 , 'en-In', 2, 2,) + '%': ''}
+                      <td>
+                        {lastYearData?.totalTaxExpense && lastYearData?.profLossBefTax
+                          ? returnReadableNumber(
+                              (lastYearData?.totalTaxExpense / lastYearData?.profLossBefTax) * 100,
+                              'en-In',
+                              2,
+                              2,
+                            ) + '%'
+                          : ''}
                       </td>
                       <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           (latestYearData?.totalTaxExpense / latestYearData?.profLossBefTax)?.toLocaleString() * 100,
                           (previousYearData?.totalTaxExpense / previousYearData?.profLossBefTax)?.toLocaleString() *
-                          100,
+                            100,
                           (lastYearData?.totalTaxExpense / lastYearData?.profLossBefTax)?.toLocaleString() * 100,
                         )}
                       </td>
