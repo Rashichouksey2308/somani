@@ -168,7 +168,6 @@
   text-align: center;
   border-radius: 8px;
   background: #c3c3c31f;
-  display: inline-block;
   border: 1px solid #0000001f;
   display: flex;
   justify-content: center;
@@ -246,8 +245,7 @@
 
   .right {
     height: 100%;
-    padding-left: 50px;
-    padding: 0px;
+    padding: 0;
   }
 
   .para {
