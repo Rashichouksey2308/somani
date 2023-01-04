@@ -219,7 +219,7 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
         }
         dispatch(setNotLoading());
       } else {
-        dispatch(uploadDocVesselFailed(response.data.data));
+        dispatch(uploadDocVesselFailed());
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

@@ -7,7 +7,7 @@ import { GetAllSupplier ,SearchSupplier} from 'redux/supplier/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Filter from '../../src/components/Filter';
 import styles from './index.module.scss';
-import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
+import { setDynamicOrder, setPageName } from 'redux/userData/action';
 
 
 const Index = () => {
@@ -16,7 +16,7 @@ const Index = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
 
-  const { supplierResponse, allSupplierResponse,searchedSupplier } = useSelector((state) => state.supplier);
+  const { allSupplierResponse,searchedSupplier } = useSelector((state) => state.supplier);
 
   useEffect(() => {
     dispatch(setPageName('Supplier'));
