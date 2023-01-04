@@ -7,7 +7,7 @@ import DateCalender from '../DateCalender';
 import SaveBar from '../SaveBar';
 import styles from './index.module.scss';
 
-export default function Index({}) {
+export default function Index() {
   const [serviceType, setServiceType] = useState('goods');
   const [radioBtn, setRadioBtn] = useState('domestic');
 
