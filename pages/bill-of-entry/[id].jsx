@@ -36,8 +36,6 @@ function Index() {
   const uploadDoc = async (e) => {
     const fd = new FormData();
     fd.append('document', e.target.files[0]);
-    // dispatch(UploadCustomDoc(fd))
-
     const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -53,7 +51,6 @@ function Index() {
       });
 
       if (response.data.code === 200) {
-
         return response.data.data;
       } else {
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
@@ -94,8 +91,7 @@ function Index() {
               style={{ cursor: 'pointer' }}
             />
             <h3 className={`${styles.title} heading`}>
-              <span
-              >
+              <span>
                 {customData?.company?.companyName} -{' '}
                 <span style={{ textTransform: 'capitalize' }}>{CompanyOrderId?.orderId}</span>
               </span>
