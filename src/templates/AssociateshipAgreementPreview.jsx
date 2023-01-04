@@ -252,7 +252,7 @@ export default function AssociateshipAgreementPreview(data) {
                       <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block', marginLeft:'-16px'}}>
                         <strong>4.&nbsp; Seller's Trading Margin</strong>
                       </span><br/>
-                      <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block', fontWeight: 'normal'}}>
+                      <span style={{ fontSize: '12px', lineHeight: '18px', color: '#000000', paddingBottom:'16px', fontWeight:'normal', display:'inline-block'}}>
                         The Trading margin of Seller shall be paid by the Associate Buyer as per details mentioned in Schedule I, and the same shall be collected in the Sale Invoice raised by Seller on the Associate Buyer.
                       </span>
                     </li>

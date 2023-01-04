@@ -915,9 +915,7 @@ body.light-mode .accordionMargin {
 }
 
 body.dark-mode .accordion {
-  box-shadow: 0px 0px 10px #72727234;
   color: #ffffff;
-
   box-shadow: 0 3px 6px #404040;
 }
 
@@ -938,7 +936,6 @@ body.light-mode .termsheet_Text {
 
 body.dark-mode .termsheet_Text {
   color: #ffffff !important;
-  letter-spacing: 0.19px;
   letter-spacing: 0.19px;
   font-size: 20px;
   line-height: 25px;
