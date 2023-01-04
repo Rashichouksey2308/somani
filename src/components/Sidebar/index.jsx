@@ -162,6 +162,7 @@ function Index() {
         { name: 'Transaction Summary', image: '/static/term-sheets.svg', route: '/checker/transaction-summary' },
         { name: 'Generic', image: '/static/inspection.svg', route: '/checker/generic' },
         { name: 'Lc Module', image: '/static/lc-module.svg', route: '/checker/letter-of-credit' },
+        { name: 'Go No Go Logic', image: '/static/lc-module.svg', route: '/checker/go-no-go-logic' },
       ],
       image: '/static/Masters.svg',
       route: '',
