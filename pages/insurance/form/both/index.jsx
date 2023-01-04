@@ -821,7 +821,8 @@ const Index = () => {
                                 name="nameOfInsured"
                                 value={marineData?.nameOfInsured}
                                 onChange={(e) => {
-                                  gettingCompanyList(e.target.value), saveMarineData(e.target.name, e.target.value);
+                                  gettingCompanyList(e.target.value)
+                                   saveMarineData(e.target.name, e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
@@ -1043,7 +1044,7 @@ const Index = () => {
                                   ) : null}
                                 </td>
                                 <td className={styles.doc_row}>
-                                  {insuranceDocument?.marinePolicyDocument && insuranceDocument?.marinePolicyDocument
+                                  { insuranceDocument?.marinePolicyDocument
                                     ? moment(insuranceDocument?.marinePolicyDocument?.date).format('DD-MM-YYYY,h:mm A')
                                     : ''}
                                 </td>
@@ -1232,7 +1233,8 @@ const Index = () => {
                                 value={storageData?.nameOfInsured}
                                 name="nameOfInsured"
                                 onChange={(e) => {
-                                  gettingCompanyList(e.target.value), saveStorageData(e.target.name, e.target.value);
+                                  gettingCompanyList(e.target.value)
+                                 saveStorageData(e.target.name, e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
@@ -1623,7 +1625,8 @@ const Index = () => {
                                 value={marineData?.nameOfInsured}
                                 name="nameOfInsured"
                                 onChange={(e) => {
-                                  gettingCompanyList(e.target.value), saveMarineData(e.target.name, e.target.value);
+                                  gettingCompanyList(e.target.value)
+                                  saveMarineData(e.target.name, e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >
@@ -1892,7 +1895,8 @@ const Index = () => {
                                 value={storageData?.nameOfInsured}
                                 name="nameOfInsured"
                                 onChange={(e) => {
-                                  gettingCompanyList(e.target.value), saveStorageData(e.target.name, e.target.value);
+                                  gettingCompanyList(e.target.value)
+                                   saveStorageData(e.target.name, e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                               >

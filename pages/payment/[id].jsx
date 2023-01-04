@@ -515,7 +515,7 @@ function Index() {
             });
             let totalDONumber = 0;
             let temparr = [...deliveryOrder];
-            let filteredArray2 = temparr.filter((item, index2) => {
+             temparr.forEach((item, index2) => {
               if (item.orderNumber == val.orderNumber) {
                 totalDONumber = totalDONumber + Number(item.Quantity);
               }
@@ -629,7 +629,7 @@ function Index() {
       let payload = {
         deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
         deliveryDetail: newarr,
-        lastMileDelivery: lastMileDelivery === 'true',
+        lastMileDelivery: lastMileDelivery == 'true',
       };
       let task = 'save';
       await dispatch(UpdateDelivery({ payload, task }));
@@ -713,7 +713,8 @@ function Index() {
             <li
               className={`${styles.navItem}  nav-item`}
               onClick={() => {
-                dispatch(setPageTabName('release')), dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
+                dispatch(setPageTabName('release'))
+                 dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
               }}
             >
               <a

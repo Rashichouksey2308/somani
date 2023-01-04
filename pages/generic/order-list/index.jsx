@@ -101,7 +101,7 @@ function Index() {
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
-                              handleRoute(buyer);
+                              handleRoute();
                             }}
                           >
                             {buyer?.commodity}

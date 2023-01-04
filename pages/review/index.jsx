@@ -67,7 +67,7 @@ let alertObj = {
   NA: 'Non-Genuine Dealers of Mahavat',
   isSebiDebarred: 'SEBI Debarred',
   // file deepcode ignore DuplicateObjectProperty: Alert Object
-  NA: 'BSE Disciplinary Action',
+  // NA: 'BSE Disciplinary Action',
   isNseCompanySuspended: 'NSE Company Suspended',
   isNseExpelled: 'NSE Expelled',
   isNseCompanySuspendedNonCompliance: 'NSE Company Suspended Non Compliance',
@@ -109,10 +109,10 @@ let alertObj = {
   isGstInactive: 'GST Inactive',
   isEpfTransactionDelay: 'EPF Transaction Delay',
   isEpfClosed: 'EPF Closed',
-  NA: 'TDS Payment Delay',
+  // NA: 'TDS Payment Delay',
   isLeiRegistrationRetired: 'LEI Registration Retired',
   isIecSuspended: 'IEC Suspended',
-  NA: 'TDS Payment Default',
+  // NA: 'TDS Payment Default',
   isIecCancelled: 'IEC Cancelled',
   isGstCancelled: 'GST Cancelled',
   isGstProvisional: 'GST Provisional',
@@ -474,7 +474,7 @@ function Index() {
   }, [orderList]);
 
   const handleProductSave = (chas, exsupp) => {
-    if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
+    if (product?.capacityUtilization === '' || product?.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
