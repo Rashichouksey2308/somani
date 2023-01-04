@@ -25,6 +25,8 @@ const initialState = {
     genericsPickupRecords: {},
     gettingLetterOfCreditPickupRecords: false,
     letterOfCreditPickupRecords: {},
+    gettingInternalCompanyPickupRecords: false,
+    internalCompanyPickupRecords: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -197,6 +199,20 @@ function CheckerReducer(state = initialState, action) {
                 letterOfCreditPickupRecords: {},
             };
 
+        case types.GET_INTERNAL_COMPANY_PICKUP_RECORDS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingInternalCompanyPickupRecords: false,
+                internalCompanyPickupRecords: action.payload,
+            };
+
+        case types.GET_INTERNAL_COMPANY_PICKUP_RECORDS_FAILED:
+            return {
+                ...state,
+                gettingInternalCompanyPickupRecords: false,
+                internalCompanyPickupRecords: {},
+            };
+    
         default:
             return state;
     }
