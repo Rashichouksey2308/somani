@@ -238,7 +238,7 @@ function Index() {
 
   const checkValidation = () => {
     let toastMessage;
-    if (lcData.formOfDocumentaryCredit == '' || lcData.formOfDocumentaryCredit == undefined) {
+    if (lcData?.formOfDocumentaryCredit == '' || lcData?.formOfDocumentaryCredit == undefined) {
       toastMessage = 'Please Select Form Of Documentary Credit';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -267,49 +267,49 @@ function Index() {
     //     return false;
     //   }
     // }
-    if (lcData.applicant === '' || lcData.applicant == undefined) {
+    if (lcData?.applicant === '' || lcData?.applicant == undefined) {
       toastMessage = 'Please Select Applicant';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.beneficiary === '' || lcData.beneficiary == undefined) {
+    if (lcData?.beneficiary === '' || lcData?.beneficiary == undefined) {
       toastMessage = 'Please add Beneficiary';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.currecyCodeAndAmountValue === '' || lcData.currecyCodeAndAmountValue == undefined) {
+    if (lcData?.currecyCodeAndAmountValue === '' || lcData?.currecyCodeAndAmountValue == undefined) {
       toastMessage = 'Please add Currency Code Amount';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.tolerancePercentage === '' || lcData.tolerancePercentage == undefined) {
+    if (lcData?.tolerancePercentage === '' || lcData?.tolerancePercentage == undefined) {
       toastMessage = 'Please add Tolerance Percentage';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.creditAvailablewith === '' || lcData.creditAvailablewith == undefined) {
+    if (lcData?.creditAvailablewith === '' || lcData?.creditAvailablewith == undefined) {
       toastMessage = 'Please select Credit Available With';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.creditAvailableBy === '' || lcData.creditAvailableBy == undefined) {
+    if (lcData?.creditAvailableBy === '' || lcData?.creditAvailableBy == undefined) {
       toastMessage = 'Please select Credit Available By';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.atSight === '' || lcData.atSight == undefined) {
+    if (lcData?.atSight === '' || lcData?.atSight == undefined) {
       toastMessage = 'Please select DRAFT AT';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -317,8 +317,8 @@ function Index() {
       }
     }
 
-    if (lcData.atSight == 'Usuance') {
-      if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
+    if (lcData?.atSight == 'Usuance') {
+      if (lcData?.numberOfDays === '' || lcData?.numberOfDays == undefined) {
         toastMessage = 'Please add number of Days';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -326,42 +326,42 @@ function Index() {
         }
       }
     }
-    if (lcData.partialShipment === '' || lcData.partialShipment == undefined) {
+    if (lcData?.partialShipment === '' || lcData?.partialShipment == undefined) {
       toastMessage = 'Please select  Partial Shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.transhipments === '' || lcData.transhipments == undefined) {
+    if (lcData?.transhipments === '' || lcData?.transhipments == undefined) {
       toastMessage = 'Please select  Transhipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.shipmentForm === '' || lcData.shipmentForm == undefined) {
+    if (lcData?.shipmentForm === '' || lcData?.shipmentForm == undefined) {
       toastMessage = 'Please add  place of taking charge';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.portOfLoading === '' || lcData.portOfLoading == undefined) {
+    if (lcData?.portOfLoading === '' || lcData?.portOfLoading == undefined) {
       toastMessage = 'Please select  port Of Loading';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.portOfDischarge === '' || lcData.portOfDischarge == undefined) {
+    if (lcData?.portOfDischarge === '' || lcData?.portOfDischarge == undefined) {
       toastMessage = 'Please select  port Of Discharge';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.latestDateOfShipment === '' || lcData.latestDateOfShipment == undefined) {
+    if (lcData?.latestDateOfShipment === '' || lcData?.latestDateOfShipment == undefined) {
       toastMessage = 'Please select latest Date Of Shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -369,42 +369,42 @@ function Index() {
       }
     }
 
-    if (lcData.DescriptionOfGoods === '' || lcData.DescriptionOfGoods == undefined) {
+    if (lcData?.DescriptionOfGoods === '' || lcData?.DescriptionOfGoods == undefined) {
       toastMessage = 'Please add Description Of Goods';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcDocuments.length <= 0) {
+    if (lcDocuments?.length <= 0) {
       toastMessage = 'Please add DOCUMENT REQUIRED';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcComments.length <= 0) {
+    if (lcComments?.length <= 0) {
       toastMessage = 'Please add ADDITIONAL CONDITIONS';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.presentaionPeriod === '' || lcData.presentaionPeriod == undefined) {
+    if (lcData?.presentaionPeriod === '' || lcData?.presentaionPeriod == undefined) {
       toastMessage = 'Please add presentaion Period';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.confirmationInstructions === '' || lcData.confirmationInstructions == undefined) {
+    if (lcData?.confirmationInstructions === '' || lcData?.confirmationInstructions == undefined) {
       toastMessage = 'Please add confirmation Instructions';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    // if (lcData.reimbursingBank === '' || lcData.reimbursingBank == undefined) {
+    // if (lcData?.reimbursingBank === '' || lcData?.reimbursingBank == undefined) {
     //   toastMessage = 'Please select  reimbursing Bank'
     //   if (!toast.isActive(toastMessage.toUpperCase())) {
     //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -412,8 +412,8 @@ function Index() {
     //   }
     // }
     // if (
-    //   lcData.requestedConfirmationParty === '' ||
-    //   lcData.requestedConfirmationParty == undefined
+    //   lcData?.requestedConfirmationParty === '' ||
+    //   lcData?.requestedConfirmationParty == undefined
     // ) {
     //   toastMessage = 'Please select requested Confirmation Party'
     //   if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -421,14 +421,14 @@ function Index() {
     //     return false
     //   }
     // }
-    if (lcData.charges === '' || lcData.charges == undefined) {
+    if (lcData?.charges === '' || lcData?.charges == undefined) {
       toastMessage = 'Please select charges';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         return false;
       }
     }
-    if (lcData.instructionToBank === '' || lcData.instructionToBank == undefined) {
+    if (lcData?.instructionToBank === '' || lcData?.instructionToBank == undefined) {
       toastMessage = 'Please add instruction To Bank';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

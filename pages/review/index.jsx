@@ -483,13 +483,13 @@ function Index() {
       let data = { ...product };
       data.existingCHA = chas;
       data.existingSuppliers = exsupp;
-      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
-      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization);
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill);
-      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity);
-      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit);
-      data.availableStock = removePrefixOrSuffix(product.availableStock);
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity);
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product?.monthlyProductionCapacity);
+      data.capacityUtilization = removePrefixOrSuffix(product?.capacityUtilization);
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product?.AvgMonthlyElectricityBill);
+      data.averageStockOfCommodity = removePrefixOrSuffix(product?.averageStockOfCommodity);
+      data.averageStockInTransit = removePrefixOrSuffix(product?.averageStockInTransit);
+      data.availableStock = removePrefixOrSuffix(product?.availableStock);
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product?.dailyConsumptionOfCommodity);
       let obj = {
         order: orderList._id,
         productSummary: { ...data },
@@ -588,37 +588,37 @@ function Index() {
     // let newArr = [...companyComment]
     // newArr.pop(index)
     // setCompanyComment(newArr)
-    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)]);
+    setCompanyComment([...companyComment?.slice(0, index), ...companyComment?.slice(index + 1)]);
   };
   const dltFinancialsCommentArr = (index) => {
     // let newArr = [...financialsComment]
     // newArr.pop(index)
-    setFinancialsComment([...financialsComment.slice(0, index), ...financialsComment.slice(index + 1)]);
+    setFinancialsComment([...financialsComment?.slice(0, index), ...financialsComment?.slice(index + 1)]);
     // setFinancialsComment(newArr)
   };
   const dltSanctionCommentArr = (index) => {
     // let newArr = [...sanctionComment]
     // newArr.pop(index)
     // setSanctionComment(newArr)
-    setSanctionComment([...sanctionComment.slice(0, index), ...sanctionComment.slice(index + 1)]);
+    setSanctionComment([...sanctionComment?.slice(0, index), ...sanctionComment?.slice(index + 1)]);
   };
   const dltApproveRemarkArr = (index) => {
     // let newArr = [...approveComment]
     // newArr.pop(index)
     // setApproveComment(newArr)
-    setApproveComment([...approveComment.slice(0, index), ...approveComment.slice(index + 1)]);
+    setApproveComment([...approveComment?.slice(0, index), ...approveComment?.slice(index + 1)]);
   };
   const dltStrengthsCommentArr = (index) => {
     // let newArr = [...strengthsComment]
     // newArr.pop(index)
     // setStrengthsComment(newArr)
-    setStrengthsComment([...strengthsComment.slice(0, index), ...strengthsComment.slice(index + 1)]);
+    setStrengthsComment([...strengthsComment?.slice(0, index), ...strengthsComment?.slice(index + 1)]);
   };
   const dltWeaknessCommentArr = (index) => {
     // let newArr = [...weaknessComment]
     // newArr.pop(index)
     // setWeaknessComment(newArr)
-    setWeaknessComment([...weaknessComment.slice(0, index), ...weaknessComment.slice(index + 1)]);
+    setWeaknessComment([...weaknessComment?.slice(0, index), ...weaknessComment?.slice(index + 1)]);
   };
 
   const [debtData, setDebtData] = useState([]);
@@ -787,15 +787,15 @@ function Index() {
 
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: suggestedValue ? suggestedValue : suggestedValue,
+      suggestedCreditLimit: false ? suggestedValue : '',
       suggestedOrderValue: orderList?.suggestedOrderValue
         ? orderList?.suggestedOrderValue
-        : orderList?.suggestedOrderValue,
+        : '',
     });
 
     setApprovedCredit({
-      approvedOrderValue: orderList?.approvedOrderValue ? orderList?.approvedOrderValue : orderList?.approvedOrderValue,
-      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit : approvedCreditLimit,
+      approvedOrderValue: orderList?.approvedOrderValue ? orderList?.approvedOrderValue : '',
+      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit : '',
     });
   }, [orderList]);
 
