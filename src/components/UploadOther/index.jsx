@@ -131,7 +131,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     } else {
       const fd = new FormData();
       fd.append('document', newDoc.document);
-      fd.append('module', moduleSelected);
+      fd.append('module', module);
       fd.append('order', orderid);
       fd.append('name', newDoc.name);
       let code = await dispatch(AddingDocument(fd, orderid));

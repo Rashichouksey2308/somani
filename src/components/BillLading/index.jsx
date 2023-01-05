@@ -646,7 +646,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading} flex-grow-1`}>Bill of Lading {index + 1}</h3>
-                  {partShipmentAllowed === 'Yes' && (
+                  
                     <button
                       onClick={() => {
                         onBolAdd();
@@ -655,7 +655,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
-                  )}
+                  
                   {index > 0 && !bol?.isSubmitted ? (
                     <button
                       onClick={() => onDeleteClick(index)}
