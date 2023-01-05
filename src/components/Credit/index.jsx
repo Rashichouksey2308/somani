@@ -213,11 +213,7 @@ const index = ({
   const gettingPins = (value) => {
     dispatch(getPincodes(value));
   };
-  const onKeyPersonSave = () => {
-   
-    addPersonArr(keyPersonData);
-  };
-
+ 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData };
     newInput[name] = value;
@@ -1490,7 +1486,7 @@ const index = ({
               <div
                 className={`d-flex justify-content-end`}
                 onClick={(e) => {
-                  onKeyPersonSave(keyPersonData);
+                  addPersonArr(keyPersonData);
                 }}
               >
                 {' '}
@@ -1812,7 +1808,7 @@ const index = ({
                             <img
                               className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
-                              onClick={() => removeDoc(index)}
+                              onClick={() => removeDoc()}
                               alt="Close"
                             />{' '}
                           </div>
