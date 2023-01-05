@@ -8159,65 +8159,65 @@ function Index() {
       });
     }
 
-    if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
-      const partyFilter = (val) => {
-        if (filterType.party == 'Respondent') {
-          if (val.memberType == 'Respondent') {
-            return val;
-          }
-        }
-        if (filterType.party == 'Petitioner') {
-          if (val.memberType == 'Petitioner') {
-            return val;
-          }
-        }
-      };
+    // if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
+    //   const partyFilter = (val) => {
+    //     if (filterType.party == 'Respondent') {
+    //       if (val.memberType == 'Respondent') {
+    //         return val;
+    //       }
+    //     }
+    //     if (filterType.party == 'Petitioner') {
+    //       if (val.memberType == 'Petitioner') {
+    //         return val;
+    //       }
+    //     }
+    //   };
 
-      supremeCourt = supremeCourt?.filter((val) => {
-        return partyFilter(val);
-      });
-      highCourt = highCourt?.filter((val) => {
-        return partyFilter(val);
-      });
+    //   supremeCourt = supremeCourt?.filter((val) => {
+    //     return partyFilter(val);
+    //   });
+    //   highCourt = highCourt?.filter((val) => {
+    //     return partyFilter(val);
+    //   });
 
-      tribunalCourts = tribunalCourts?.filter((val) => {
-        return partyFilter(val);
-      });
-      districtCourt = districtCourt?.filter((val) => {
-        return partyFilter(val);
-      });
-    }
+    //   tribunalCourts = tribunalCourts?.filter((val) => {
+    //     return partyFilter(val);
+    //   });
+    //   districtCourt = districtCourt?.filter((val) => {
+    //     return partyFilter(val);
+    //   });
+    // }
 
-    //civil Crimnal
+    // //civil Crimnal
 
-    if (filterType.class == 'Civil' || filterType.class == 'Criminal') {
-      const civilfilter = (val) => {
-        if (filterType.class == 'Criminal') {
-          if (val.civilCriminal == 'Criminal') {
-            return val;
-          }
-        }
-        if (filterType.class == 'Civil') {
-          if (val.civilCriminal == 'Civil') {
-            return val;
-          }
-        }
-      };
+    // if (filterType.class == 'Civil' || filterType.class == 'Criminal') {
+    //   const civilfilter = (val) => {
+    //     if (filterType.class == 'Criminal') {
+    //       if (val.civilCriminal == 'Criminal') {
+    //         return val;
+    //       }
+    //     }
+    //     if (filterType.class == 'Civil') {
+    //       if (val.civilCriminal == 'Civil') {
+    //         return val;
+    //       }
+    //     }
+    //   };
 
-      supremeCourt = supremeCourt?.filter((val) => {
-        return civilfilter(val);
-      });
-      highCourt = highCourt?.filter((val) => {
-        return civilfilter(val);
-      });
+    //   supremeCourt = supremeCourt?.filter((val) => {
+    //     return civilfilter(val);
+    //   });
+    //   highCourt = highCourt?.filter((val) => {
+    //     return civilfilter(val);
+    //   });
 
-      tribunalCourts = tribunalCourts?.filter((val) => {
-        return civilfilter(val);
-      });
-      districtCourt = districtCourt?.filter((val) => {
-        return civilfilter(val);
-      });
-    }
+    //   tribunalCourts = tribunalCourts?.filter((val) => {
+    //     return civilfilter(val);
+    //   });
+    //   districtCourt = districtCourt?.filter((val) => {
+    //     return civilfilter(val);
+    //   });
+    // }
 
     //party2
 
@@ -8899,7 +8899,7 @@ function Index() {
                                 </div>
                               </div>
                             </Col>
-                            <Col md={3}>
+                            {/* <Col md={3}>
                               <p className={`mb-3 text`}>Select a Party</p>
                               <div className={`d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
@@ -8968,7 +8968,7 @@ function Index() {
                                   </label>
                                 </div>
                               </div>
-                            </Col>
+                            </Col> */}
                           </Row>
                         </div>
                         <div
