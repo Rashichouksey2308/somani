@@ -77,8 +77,10 @@ const Index = () => {
 
       storageDetails: {
         placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
-          ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
-          : _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
+            ? insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
+          : _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '').includes(', India')
+          ? _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')
+          : `${_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}, India`,
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
         storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
@@ -781,7 +783,7 @@ const Index = () => {
                               required
                               type="text"
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                              value={quotationData.storageDetails.placeOfStorage ?  `${quotationData.storageDetails.placeOfStorage}, India` : quotationData.storageDetails.placeOfStorage}
+                              value={quotationData.storageDetails.placeOfStorage}
                               name="storageDetails.placeOfStorage"
                               onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                             />
