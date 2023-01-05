@@ -591,10 +591,11 @@ function Index() {
         return item.orderNumber == orderId;
       });
       const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
+        let maxQuantity
         if (curr.status !== 'DO cancelled') {
-          let quantity = Number(acc) + Number(curr.Quantity);
+          maxQuantity = Number(acc) + Number(curr.Quantity);
         }
-        return quantity;
+        return maxQuantity;
       }, 0);
       if (finalScore > orderQuantity) {
         customObj = true;
