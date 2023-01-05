@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import router from 'next/router';
 import { settingSidebar } from '../breadcrumb/action';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
 
 function getAllMarginMoney() {
   return {
@@ -95,28 +96,22 @@ export const GetAllMarginMoney = (payload) => async (dispatch, getState, api) =>
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
     };
-    Axios.get(`${API.corebaseUrl}${API.getMarginMoney}${payload || ''}`, {
+   await Axios.get(`${API.corebaseUrl}${API.getMarginMoney}${payload || ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllMarginMoneySuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getAllMarginMoneyFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(getAllMarginMoneyFailed());
+       handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(getAllMarginMoneyFailed());
     dispatch(setNotLoading());
-    const toastMessage = 'GET MARGIN MONEY API FAILED';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('GET MARGIN MONEY API FAILED')
   }
 };
 
@@ -132,7 +127,7 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getMarginMoney}?order=${payload.orderId}`, {
+   await Axios.get(`${API.corebaseUrl}${API.getMarginMoney}?order=${payload.orderId}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
@@ -140,20 +135,13 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
       } else {
         dispatch(getMarginMoneyFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(getMarginMoneyFailed());
-
-    const toastMessage = 'GET MARGIN MONEY API FAILED';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('GET MARGIN MONEY API FAILED')
     dispatch(setNotLoading());
   }
 };
@@ -170,17 +158,12 @@ export const UpdateMarginMoney = (payload) => async (dispatch, getState, api) =>
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateMarginMoney}`, payload, {
+   await Axios.put(`${API.corebaseUrl}${API.updateMarginMoney}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateMarginMoneySuccess(response.data));
-        const toastMessage = 'SAVED SUCCESSFULLY';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), {
-            toastId: toastMessage,
-          });
-        }
+       handleSuccessToast('SAVED SUCCESSFULLY')
         let id = sessionStorage.getItem('marginId');
         dispatch(GetMarginMoney({ orderId: id }));
         dispatch(setNotLoading());
@@ -188,19 +171,13 @@ export const UpdateMarginMoney = (payload) => async (dispatch, getState, api) =>
         // router.push('/generic/generic-list')
       } else {
         dispatch(updateMarginMoneyFailed(response.data));
-        const toastMessage = 'UPDATE REQUEST FAILED';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+       handleErrorToast('UPDATE REQUEST FAILED')
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(updateMarginMoneyFailed());
-    const toastMessage = 'UPDATE MARGIN MONEY REQUEST FAILED';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+   handleErrorToast('UPDATE MARGIN MONEY REQUEST FAILED')
     dispatch(setNotLoading());
   }
 };
@@ -217,36 +194,25 @@ export const RevisedMarginMoney = (payload) => async (dispatch, getState, api) =
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.put(`${API.corebaseUrl}${API.reviseMarginMoney}`, payload, {
+   await Axios.put(`${API.corebaseUrl}${API.reviseMarginMoney}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updatingRevisedMarginMoneySuccess(response.data));
-        const toastMessage = 'SAVED SUCCESSFULLY';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), {
-            toastId: toastMessage,
-          });
-        }
+        handleSuccessToast('SAVED SUCCESSFULLY')
         const id = sessionStorage.getItem('marginId');
 
         dispatch(GetMarginMoney({ orderId: id }));
         dispatch(setNotLoading());
       } else {
         dispatch(updatingRevisedMarginMoneyFailed(response.data));
-        const toastMessage = 'UPDATE REQUEST FAILED';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleErrorToast('UPDATE REQUEST FAILED')
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(updatingRevisedMarginMoneyFailed());
-    const toastMessage = 'REVISE MARGIN MONEY REQUEST FAILED';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('REVISE MARGIN MONEY REQUEST FAILED')
     dispatch(setNotLoading());
   }
 };
