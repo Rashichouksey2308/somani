@@ -5,6 +5,7 @@ import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import moment from 'moment'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { handleErrorToast } from '@/utils/helpers/global'
 
 function getInspection () {
   return {
@@ -90,11 +91,8 @@ export const GetAllInspection = (payload) => async (dispatch, getState, api) => 
       dispatch(getAllInspectionSuccess(response.data.data))
       dispatch(setNotLoading())
     } else {
-      dispatch(getAllInspectionFailed(response.data.data))
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      dispatch(getAllInspectionFailed())
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
       dispatch(setNotLoading())
     }
   } catch (error) {
@@ -129,20 +127,13 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
       dispatch(updateDate(moment(response.data.data[0].updatedAt).format('DD MMM,HH:mm:a')))
       dispatch(setNotLoading())
     } else {
-      dispatch(getInspectionFailed(response.data.data))
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      dispatch(getInspectionFailed())
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
       dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(getInspectionFailed())
-
-    const toastMessage = 'COULD NOT GET   INSPECTION DATA AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT GET INSPECTION DATA AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
@@ -184,20 +175,13 @@ export const UpdateInspection = (payload) => async (dispatch, getState, api) => 
       dispatch(setNotLoading())
       return response.data.code
     } else {
-      dispatch(updateInspectionFailed(response.data.data))
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      dispatch(updateInspectionFailed())
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
       dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(updateInspectionFailed())
-
-    const toastMessage = 'COULD NOT UPDATE INSPECTION DATA AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT UPDATE INSPECTION DATA AT THIS TIME')
     dispatch(setNotLoading())
   }
 }

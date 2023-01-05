@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { handleErrorToast } from '@/utils/helpers/global'
 
 function getForwardHedging () {
   return {
@@ -73,7 +74,7 @@ export const GetAllForwardHedging = (payload) => async (dispatch, getState, api)
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload || ''}`, {
+  await  Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload || ''}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -81,20 +82,13 @@ export const GetAllForwardHedging = (payload) => async (dispatch, getState, api)
         dispatch(setNotLoading())
       } else {
         dispatch(getAllForwardHedgingFailed())
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getAllForwardHedgingFailed())
-
-    const toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT GET FORWARD HEDGING AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
@@ -111,7 +105,7 @@ export const GetForwardHedging = (payload) => async (dispatch, getState, api) =>
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload}`, {
+    await Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -119,20 +113,13 @@ export const GetForwardHedging = (payload) => async (dispatch, getState, api) =>
         dispatch(setNotLoading())
       } else {
         dispatch(getForwardHedgingFailed())
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getForwardHedgingFailed())
-
-    const toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT GET FORWARD HEDGING AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
@@ -149,7 +136,7 @@ export const UpdateForwardHedging = (payload) => async (dispatch, getState, api)
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload.obj, {
+   await Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload.obj, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -167,21 +154,14 @@ export const UpdateForwardHedging = (payload) => async (dispatch, getState, api)
         }
         dispatch(setNotLoading())
       } else {
-        dispatch(updateForwardHedgingFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(updateForwardHedgingFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(updateForwardHedgingFailed())
-
-    const toastMessage = 'COULD NOT UPDATE FORWARDHEDGING AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT UPDATE FORWARDHEDGING AT THIS TIME')
     dispatch(setNotLoading())
   }
 }

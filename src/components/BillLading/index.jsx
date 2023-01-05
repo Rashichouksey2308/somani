@@ -64,6 +64,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
       _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') === 'Bulk' ? true : false,
     );
   }, [TransitDetails]);
+  let shipmentType = _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '')
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, []);
 
@@ -522,7 +523,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         inline
                         label="Bulk"
                         name="group1"
-                        disabled={!shipmentTypeBulk}
+                        disabled={shipmentType !== 'Bulk'}
                         type={type}
                         // checked={
                         //   _get(
@@ -531,7 +532,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         //     '',
                         //   ) == 'Bulk' ? 'checked' : ''
                         // }
-                        checked={shipmentTypeBulk}
+                        checked={shipmentType === 'Bulk'}
                         id={`inline-${type}-1`}
                       />
                       <Form.Check
@@ -539,7 +540,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         inline
                         label="Liner"
                         name="group1"
-                        disabled={shipmentTypeBulk}
+                        disabled={shipmentType !== 'Liner'}
                         // checked={
                         //   _get(
                         //     TransitDetails,
@@ -547,7 +548,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         //     '',
                         //   ) == 'Liner' ? 'checked' : ''
                         // }
-                        checked={!shipmentTypeBulk}
+                        checked={shipmentType === 'Liner'}
                         type={type}
                         id={`inline-${type}-2`}
                       />
@@ -720,7 +721,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                            onKeyDown={(evt) => ['e', 'E', '+'].includes(evt.key) && evt.preventDefault()}
                           />
                           <label className={`${styles.label_heading} label_heading`}>
                             BL Number<strong className="text-danger">*</strong>

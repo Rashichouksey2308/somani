@@ -21,7 +21,7 @@ import { returnDocFormat, returnReadableNumber } from '@/utils/helpers/global';
 
 
 export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
-  const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
+  const shipmentType= _get(customData, 'order.vessel.vessels[0].shipmentType', '');
 
   const dispatch = useDispatch();
 
@@ -627,8 +627,8 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                       className={styles.radio}
                       inline
                       label="Bulk"
-                      checked={isShipmentTypeBULK}
-                      disabled={!isShipmentTypeBULK}
+                      checked={shipmentType === 'Bulk'}
+                      disabled={shipmentType !== 'Bulk'}
                       name="group1"
                       type={type}
                       id={`inline-${type}-1`}
@@ -637,8 +637,8 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                       className={styles.radio}
                       inline
                       label="Liner"
-                      disabled={isShipmentTypeBULK}
-                      checked={!isShipmentTypeBULK}
+                      disabled={shipmentType !== 'Liner'}
+                      checked={shipmentType === 'Liner'}
                       name="group1"
                       type={type}
                       id={`inline-${type}-2`}

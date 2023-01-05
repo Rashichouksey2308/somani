@@ -830,8 +830,8 @@ const Index = () => {
                                 <option value="Indo German International Private Limited">
                                   Indo German International Private Limited
                                 </option>
-                                <option value="Emergent Industrial Solutions limited">
-                                  Emergent Industrial Solutions limited
+                                <option value="Emergent Industrial Solutions Limited">
+                                  Emergent Industrial Solutions Limited
                                 </option>
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
@@ -1242,8 +1242,8 @@ const Index = () => {
                                 <option value="Indo German International Private Limited">
                                   Indo German International Private Limited
                                 </option>
-                                <option value="Emergent Industrial Solutions limited">
-                                  Emergent Industrial Solutions limited
+                                <option value="Emergent Industrial Solutions Limited">
+                                  Emergent Industrial Solutions Limited
                                 </option>
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
@@ -1634,8 +1634,8 @@ const Index = () => {
                                 <option value="Indo German International Private Limited">
                                   Indo German International Private Limited
                                 </option>
-                                <option value="Emergent Industrial Solutions limited">
-                                  Emergent Industrial Solutions limited
+                                <option value="Emergent Industrial Solutions Limited">
+                                  Emergent Industrial Solutions Limited
                                 </option>
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
@@ -1904,8 +1904,8 @@ const Index = () => {
                                 <option value="Indo German International Private Limited">
                                   Indo German International Private Limited
                                 </option>
-                                <option value="Emergent Industrial Solutions limited">
-                                  Emergent Industrial Solutions limited
+                                <option value="Emergent Industrial Solutions Limited">
+                                  Emergent Industrial Solutions Limited
                                 </option>
                               </select>
                               <label className={`${styles.label_heading} label_heading`}>
