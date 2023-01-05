@@ -1,285 +1,207 @@
-import Axios from 'axios'
-import { toast } from 'react-toastify'
-import API from '../../utils/endpoints'
-import Cookies from 'js-cookie'
-import * as types from './actionType'
-import { setIsLoading, setNotLoading } from '../Loaders/action'
+import Axios from 'axios';
+import API from '../../utils/endpoints';
+import Cookies from 'js-cookie';
+import * as types from './actionType';
+import { setIsLoading, setNotLoading } from '../Loaders/action';
+import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
 
-function getGoNoGo () {
+function getGoNoGo() {
   return {
-    type: types.GET_GONOGO
-  }
+    type: types.GET_GONOGO,
+  };
 }
 
-function getGoNoGoSuccess (payload) {
+function getGoNoGoSuccess(payload) {
   return {
     type: types.GET_GONOGO_SUCCESS,
-    payload
-  }
+    payload,
+  };
 }
 
-function getGoNoGoFailed () {
+function getGoNoGoFailed() {
   return {
-    type: types.GET_GONOGO_FAILED
-  }
+    type: types.GET_GONOGO_FAILED,
+  };
 }
 
-function getAllGoNoGo () {
+function getAllGoNoGo() {
   return {
-    type: types.GET_ALL_GONOGO
-  }
+    type: types.GET_ALL_GONOGO,
+  };
 }
 
-function getAllGoNoGoSuccess (payload) {
+function getAllGoNoGoSuccess(payload) {
   return {
     type: types.GET_ALL_GONOGO_SUCCESS,
-    payload
-  }
+    payload,
+  };
 }
 
-function getAllGoNoGoFailed () {
+function getAllGoNoGoFailed() {
   return {
-    type: types.GET_ALL_GONOGO_FAILED
-  }
+    type: types.GET_ALL_GONOGO_FAILED,
+  };
 }
 
-function updateGoNoGo () {
+function updateGoNoGo() {
   return {
-    type: types.UPDATE_GONOGO
-  }
+    type: types.UPDATE_GONOGO,
+  };
 }
 
-function updateGoNoGoSuccess (payload) {
+function updateGoNoGoSuccess(payload) {
   return {
     type: types.UPDATE_GONOGO_SUCCESS,
-    payload
-  }
+    payload,
+  };
 }
 
-function updateGoNoGoFailed () {
+function updateGoNoGoFailed() {
   return {
-    type: types.UPDATE_GONOGO_FAILED
-  }
+    type: types.UPDATE_GONOGO_FAILED,
+  };
 }
 
-function createGoNoGo () {
+function createGoNoGo() {
   return {
-    type: types.CREATE_GONOGO
-  }
+    type: types.CREATE_GONOGO,
+  };
 }
 
-function createGoNoGoSuccess (payload) {
+function createGoNoGoSuccess(payload) {
   return {
     type: types.CREATE_GONOGO_SUCCESS,
-    payload
-  }
+    payload,
+  };
 }
 
-function createGoNoGoFailed () {
+function createGoNoGoFailed() {
   return {
-    type: types.CREATE_GONOGO_FAILED
-  }
+    type: types.CREATE_GONOGO_FAILED,
+  };
 }
 
 export const GetAllGoNoGo = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading())
-  const cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*'
-  }
+    'Access-Control-Allow-Origin': '*',
+  };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getGoNoGo}${payload || ''}`, {
-      headers: headers
-    })
-      .then((response) => {
-        if (response.data.code === 200) {
-          dispatch(getAllGoNoGoSuccess(response.data.data))
-          dispatch(setNotLoading())
-        } else {
-          dispatch(getAllGoNoGoFailed())
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-          dispatch(setNotLoading())
-        }
-      })
-      .catch((error) => {
-        dispatch(getAllGoNoGoFailed())
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        dispatch(setNotLoading())
-      })
+    await Axios.get(`${API.corebaseUrl}${API.getGoNoGo}${payload || ''}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllGoNoGoSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getAllGoNoGoFailed());
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
+        dispatch(setNotLoading());
+      }
+    });
   } catch (error) {
-    dispatch(getAllGoNoGoFailed())
-
-    const toastMessage = 'COULD NOT GET GONOGO AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-    dispatch(setNotLoading())
+    dispatch(getAllGoNoGoFailed());
+    handleErrorToast('COULD NOT GET GONOGO AT THIS TIME');
+    dispatch(setNotLoading());
   }
-}
+};
 
 export const GetGoNoGo = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading())
-  const cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*'
-  }
+    'Access-Control-Allow-Origin': '*',
+  };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getGoNoGo}${payload || ''}`, {
-      headers: headers
-    })
-      .then((response) => {
-        if (response.data.code === 200) {
-          dispatch(getGoNoGoSuccess(response.data.data))
-          dispatch(setNotLoading())
-        } else {
-          dispatch(getGoNoGoFailed())
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-          dispatch(setNotLoading())
-        }
-      })
-      .catch((error) => {
-        dispatch(getGoNoGoFailed())
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        dispatch(setNotLoading())
-      })
+    await Axios.get(`${API.corebaseUrl}${API.getGoNoGo}${payload || ''}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getGoNoGoSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getGoNoGoFailed());
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
+        dispatch(setNotLoading());
+      }
+    });
   } catch (error) {
-    dispatch(getGoNoGoFailed())
-
-    const toastMessage = 'COULD NOT GET GONOGO AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-    dispatch(setNotLoading())
+    dispatch(getGoNoGoFailed());
+    handleErrorToast('COULD NOT GET GONOGO AT THIS TIME');
+    dispatch(setNotLoading());
   }
-}
+};
 
 export const CreateGoNoGo = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading())
-  const cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*'
-  }
+    'Access-Control-Allow-Origin': '*',
+  };
   try {
-    Axios.post(`${API.corebaseUrl}${API.getGoNoGo}`, payload, {
-      headers: headers
-    })
-      .then((response) => {
-        if (response.data.code === 200) {
-          dispatch(createGoNoGoSuccess(response.data.data))
-
-          const toastMessage = 'created  SUCCESSFULLY'
-
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage
-            })
-          }
-          dispatch(setNotLoading())
-        } else {
-          dispatch(createGoNoGoFailed())
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-          dispatch(setNotLoading())
-        }
-      })
-      .catch((error) => {
-        dispatch(createGoNoGoFailed())
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        dispatch(setNotLoading())
-      })
+    await Axios.post(`${API.corebaseUrl}${API.getGoNoGo}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(createGoNoGoSuccess(response.data.data));
+        handleSuccessToast('created  SUCCESSFULLY');
+        dispatch(setNotLoading());
+      } else {
+        dispatch(createGoNoGoFailed());
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
+        dispatch(setNotLoading());
+      }
+    });
   } catch (error) {
-    dispatch(createGoNoGoFailed())
-
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-    dispatch(setNotLoading())
+    dispatch(createGoNoGoFailed());
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME');
+    dispatch(setNotLoading());
   }
-}
+};
 
 export const UpdateGoNoGo = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading())
-  const cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*'
-  }
+    'Access-Control-Allow-Origin': '*',
+  };
   try {
-    Axios.put(`${API.corebaseUrl}${API.getGoNoGo}`, payload, {
-      headers: headers
-    })
-      .then((response) => {
-        if (response.data.code === 200) {
-          dispatch(updateGoNoGoSuccess(response.data.data))
-
-          const toastMessage = 'updated  SUCCESSFULLY'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage
-            })
-          }
-        //   sessionStorage.removeItem('internalCompanyId')
-          dispatch(setNotLoading())
-        } else {
-          dispatch(updateGoNoGoFailed())
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-          dispatch(setNotLoading())
-        }
-      })
-      .catch((error) => {
-        dispatch(updateGoNoGoFailed())
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        dispatch(setNotLoading())
-      })
+    await Axios.put(`${API.corebaseUrl}${API.getGoNoGo}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updateGoNoGoSuccess(response.data.data));
+        handleSuccessToast('updated  SUCCESSFULLY');
+        dispatch(setNotLoading());
+      } else {
+        dispatch(updateGoNoGoFailed());
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
+        dispatch(setNotLoading());
+      }
+    });
   } catch (error) {
-    dispatch(updateGoNoGoFailed())
-
-    const toastMessage = 'COULD NOT UPDATE GONOGO AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-    dispatch(setNotLoading())
+    dispatch(updateGoNoGoFailed());
+    handleErrorToast('COULD NOT UPDATE GONOGO AT THIS TIME');
+    dispatch(setNotLoading());
   }
-}
+};
