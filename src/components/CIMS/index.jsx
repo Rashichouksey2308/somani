@@ -319,7 +319,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     fd.append('transitId', transId._id);
 
     let task = 'save';
-    let responseData = await dispatch(UpdateTransitDetails({ fd, task, idtrans }));
+    let responseData = await dispatch(UpdateTransitDetails({ fd, task}));
       if (responseData) {
         fetchInitialData();
       }
