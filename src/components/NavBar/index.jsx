@@ -54,9 +54,7 @@ function Index () {
       dispatch(hideSidebar(false))
     }
   }
-  const changeDarkMode = () => {
-    dispatch(ChangeTheme())
-  }
+
   const returnString = (string) => string ? string?.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()) : ''
   return (
     <header className={`${`navbar-static-top`} ${styles.main_container} darknavbar`} role='navigation'>
@@ -82,7 +80,7 @@ function Index () {
               type='checkbox'
               checked={darkMode}
               onChange={(e) => {
-                changeDarkMode(e)
+                dispatch(ChangeTheme())
               }}
             />
             <span className={`${styles.slider} ${styles.round}`} />

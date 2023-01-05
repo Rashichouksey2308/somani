@@ -14,7 +14,6 @@ import moment from 'moment';
 function Index(props) {
   const [genericData, setGenericData] = useState();
   const dispatch = useDispatch();
-  const [darkMode, setDarkMode] = useState(false);
   const [lastModified, setlastModified] = useState('');
   const { companyData,  } = useSelector((state) => state.companyDetails);
 
