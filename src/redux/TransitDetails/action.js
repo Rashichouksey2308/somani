@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+import { handleErrorToast } from '@/utils/helpers/global'
 
 function getTransitDetails() {
   return {
@@ -92,28 +93,21 @@ export const GetAllTransitDetails = (payload) => async (dispatch, getState, api)
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getTransitDetails}${payload || ''}`, {
+   await Axios.get(`${API.corebaseUrl}${API.getTransitDetails}${payload || ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllTransitDetailsSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getAllTransitDetailsFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(getAllTransitDetailsFailed());
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(getAllTransitDetailsFailed());
-
-    const toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT GET TRANSIT DETAILS AT THIS TIME')
     dispatch(setNotLoading());
   }
 };
@@ -137,20 +131,13 @@ export const GetTransitDetails = (payload) => async (dispatch, getState, api) =>
       dispatch(setNotLoading());
       return response.data.data;
     } else {
-      dispatch(getTransitDetailsFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(getTransitDetailsFailed());
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(getTransitDetailsFailed());
-
-    const toastMessage = 'COULD NOT GET   TRANSIT DATA AT THIS TIME';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT GET TRANSIT DATA AT THIS TIME')
     dispatch(setNotLoading());
   }
 };
@@ -172,7 +159,7 @@ export const UpdateTransitDetails = (payload) => async (dispatch, getState, api)
     });
     if (response.data.code === 200) {
       dispatch(updateTransitDetailsSuccess(response.data.data));
-      let toastMessage = 'UPDATE SUCCESSFULL';
+      let toastMessage = 'UPDATE SUCCESSFULLY';
 
       if (payload.task === 'save') {
         toastMessage = 'Saved successfully';
@@ -186,20 +173,13 @@ export const UpdateTransitDetails = (payload) => async (dispatch, getState, api)
       dispatch(setNotLoading());
       return true;
     } else {
-      dispatch(updateTransitDetailsFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(updateTransitDetailsFailed());
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(updateTransitDetailsFailed());
-
-    const toastMessage = 'COULD NOT UPDATE TRANSIT DATA AT THIS TIME';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT UPDATE TRANSIT DATA AT THIS TIME')
     dispatch(setNotLoading());
   }
 };
@@ -215,7 +195,7 @@ export const GetAdditionalData = (payload) => async (dispatch, getState, api) =>
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(
+   await Axios.get(
       `${API.corebaseUrl}${API.fetchAdditionalData}${payload}`,
       {
         headers: headers,
@@ -226,21 +206,14 @@ export const GetAdditionalData = (payload) => async (dispatch, getState, api) =>
         dispatch(getAdditionalDataSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getAdditionalDataFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(getAdditionalDataFailed());
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(getAdditionalDataFailed());
-
-    const toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT GET TRANSIT DETAILS AT THIS TIME')
     dispatch(setNotLoading());
   }
 };
