@@ -149,7 +149,6 @@ function Index(props) {
           cmaAddress: _get(data, 'CMA.addresses[0]', {}),
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           designatedStorageArea: data?.CMA?.designatedStorageArea,
-          supplierAddress: _get(data, 'supplier.addresses[0]', {}),
         });
       }
     }

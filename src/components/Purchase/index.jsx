@@ -758,7 +758,6 @@ export default function Index() {
                         <div className={styles.uploadBtnWrapper}>
                           <input
                             id="containerExcel"
-                            onChange={(e) => uploadDocHandler1(e)}
                             type="file"
                             name="myfile"
                             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
