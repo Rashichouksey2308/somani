@@ -109,20 +109,14 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   const uploadDocumentHandler = async (e) => {
     e.preventDefault();
     if (newDoc.document === null) {
-      let toastMessage = 'please select A Document';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please select A Document')
     } else if (newDoc.name === '') {
-      let toastMessage = 'please provide a valid document name';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please provide a valid document name')
     } else {
       const fd = new FormData();
 
       fd.append('document', newDoc.document);
-      fd.append('module', moduleSelected);
+      fd.append('module', module);
       fd.append('order', orderId);
       // fd.append('type', newDoc.type))
       fd.append('name', newDoc.name);
