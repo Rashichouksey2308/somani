@@ -108,7 +108,7 @@ function Index(props) {
        
       } else {
         let buyer = {
-          name: props?.data?.name || props?.order?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank === 'Emergent Industrial Solutions Limited (EISL)' ? 'Emergent Industrial Solution Limited' : 'Indo German International Private Limited',
+          name: props?.data?.name || props?.order?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank === 'Emergent Industrial Solutions Limited (EISL)' ? 'Emergent Industrial Solutions Limited' : 'Indo German International Private Limited',
           branchName: props?.data?.branch,
         };
         setGstin(props?.data.gstin || '');
@@ -717,8 +717,8 @@ function Index(props) {
                     value={`Indo German International Private Limited`}
                   >{`Indo German International Private Limited`}</option>
                   <option
-                    value={`Emergent Industrial Solution Limited`}
-                  >{`Emergent Industrial Solution Limited`}</option>
+                    value={`Emergent Industrial Solutions Limited`}
+                  >{`Emergent Industrial Solutions Limited`}</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Name<strong className="text-danger">*</strong>
