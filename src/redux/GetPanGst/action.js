@@ -2,7 +2,6 @@ import * as types from './actionType'
 import API from '../../utils/endpoints'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
-import { toast } from 'react-toastify'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
 import { handleErrorToast } from '@/utils/helpers/global'
 

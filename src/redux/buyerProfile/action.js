@@ -7,6 +7,7 @@ import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
 import Router from 'next/router'
+import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
 
 function updateCredit () {
   return {
@@ -182,20 +183,14 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
         dispatch(searchLeadsSuccess(response.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(searchLeadsFailed(response.data))
-        const toastMessage = 'Search Leads request Failed'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(searchLeadsFailed())
+        handleErrorToast('Search Leads request Failed')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(searchLeadsFailed())
-    const toastMessage = 'Search Leads request Failed'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('Search Leads request Failed')
     dispatch(setNotLoading())
   }
 }
@@ -212,15 +207,12 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateCredit}`, payload, {
+  await Axios.put(`${API.corebaseUrl}${API.updateCredit}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(updateCreditSuccess(response.data))
-        const toastMessage = 'UPDATE REQUEST SENT'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(updateCreditSuccess())
+        handleSuccessToast('UPDATE REQUEST SENT')
         const id1 = sessionStorage.getItem('orderID')
         const id2 = sessionStorage.getItem('companyID')
         dispatch(GetAllOrders({ orderId: id1 }))
@@ -228,20 +220,14 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
 
         dispatch(setNotLoading())
       } else {
-        dispatch(updateCreditFailed(response.data))
-        const toastMessage = 'UPDATE REQUEST FAILED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(updateCreditFailed())
+        handleErrorToast('UPDATE REQUEST FAILED')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(updateCreditFailed())
-    const toastMessage = 'UPDATE CREDIT REQUEST FAILED'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('UPDATE CREDIT REQUEST FAILED')
     dispatch(setNotLoading())
   }
 }
@@ -254,37 +240,26 @@ export const UpdateCreditCalculate = (payload) => async (dispatch, getState, api
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.updateCreditCalculate}`, payload, {
+  await  Axios.post(`${API.corebaseUrl}${API.updateCreditCalculate}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateCreditCalSuccess(response.data.data))
-        const toastMessage = 'UPDATE REQUEST SENT'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), {
-            toastId: toastMessage
-          })
-        }
+        handleSuccessToast('UPDATE REQUEST SENT')
         const id1 = sessionStorage.getItem('orderID')
         const id2 = sessionStorage.getItem('companyID')
         dispatch(GetAllOrders({ orderId: id1 }))
         dispatch(GetCompanyDetails({ company: id2 }))
         dispatch(setNotLoading())
       } else {
-        dispatch(updateCreditCalFailed(response.data.data))
-        const toastMessage = 'UPDATE REQUEST FAILED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(updateCreditCalFailed())
+        handleErrorToast('UPDATE REQUEST FAILED')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(updateCreditCalFailed())
-    const toastMessage = 'UPDATE CREDIT CALCULATE REQUEST FAILED'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('UPDATE CREDIT CALCULATE REQUEST FAILED')
     dispatch(setNotLoading())
   }
 }
@@ -301,37 +276,26 @@ export const UpdateOrderShipment = (payload) => async (dispatch, getState, api) 
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.orderDetailUpdate}`, payload, {
+  await  Axios.put(`${API.corebaseUrl}${API.orderDetailUpdate}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(updateOrderSuccess(response.data.data))
-        const toastMessage = 'REQUEST SUBMITTED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), {
-            toastId: toastMessage
-          })
-        }
+        dispatch(updateOrderSuccess())
+        handleSuccessToast('REQUEST SUBMITTED')
         const id1 = sessionStorage.getItem('orderID')
         const id2 = sessionStorage.getItem('companyID')
         dispatch(GetAllOrders({ orderId: id1 }))
         dispatch(GetCompanyDetails({ company: id2 }))
         dispatch(setNotLoading())
       } else {
-        dispatch(updateOrderFailed(response.data.data))
-        const toastMessage = 'UPDATE REQUEST FAILED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(updateOrderFailed())
+        handleErrorToast('UPDATE REQUEST FAILED')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(updateOrderFailed())
-    const toastMessage = 'UPDATE ORDER REQUEST FAILED'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('UPDATE ORDER REQUEST FAILED')
     dispatch(setNotLoading())
   }
 }
@@ -352,20 +316,13 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
       dispatch(gettermsheetsuccess(response.data.data))
       dispatch(setNotLoading())
     } else {
-      dispatch(gettermsheetfailed(response.data.data))
-      const toastMessage = 'Could not fetch Termsheet'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      dispatch(gettermsheetfailed())
+      handleErrorToast('Could not fetch Termsheet')
       dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(gettermsheetfailed())
-
-    const toastMessage = 'Get Termsheet API Failed'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('Get Termsheet API Failed')
     dispatch(setNotLoading())
   }
 }
@@ -390,20 +347,14 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
         dispatch(getALLTermsheetsuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getALLTermsheetfailed(response.data.data))
-        const toastMessage = 'Could not fetch Termsheet'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getALLTermsheetfailed())
+        handleErrorToast('Could not fetch Termsheet')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(gettermsheetfailed())
-    const toastMessage = 'Get Termsheet API Failed'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('Get Termsheet API Failed')
     dispatch(setNotLoading())
   }
 }
@@ -427,17 +378,14 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
     })
     if (response.data.code === 200) {
       dispatch(updatetermsheetsuccess(response.data))
-      const toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      handleSuccessToast('TERMSHEET UPDATED SUCCESSFULLY')
       if (payload.updateObj == 'Preview') {
         Router.push('/termsheet-preview')
       }
       dispatch(setNotLoading())
       return response.data.code
     } else {
-      dispatch(updatetermsheetfailed(response.data))
+      dispatch(updatetermsheetfailed())
       const toastMessage = response.data.message
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -446,10 +394,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
     }
   } catch (error) {
     dispatch(updatetermsheetfailed())
-    const toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('UPDATE TERMSHEET REQUEST FAILED')
     dispatch(setNotLoading())
   }
 }
@@ -467,26 +412,17 @@ export const sharingTermsheetEmail = (payload) => async (dispatch, getState, api
     })
     if (response.data.code === 200) {
       dispatch(shareTermsheetEmailsuccess(response.data))
-      const toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      handleSuccessToast('TERMSHEET UPDATED SUCCESSFULLY')
       dispatch(setNotLoading())
       return response.data.code
     } else {
-      dispatch(shareTermsheetEmailfailed(response.data))
-      const toastMessage = response.data.message
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      dispatch(shareTermsheetEmailfailed())
+      handleErrorToast(response.data.message)
       dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(shareTermsheetEmailfailed())
-    const toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('UPDATE TERMSHEET REQUEST FAILED')
   }
   dispatch(setNotLoading())
 }
