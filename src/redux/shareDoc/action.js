@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global'
 
 function shareDocument () {
   return {
@@ -32,7 +33,7 @@ export const ShareDocument = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.viewDoc}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.viewDoc}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -40,27 +41,17 @@ export const ShareDocument = (payload) => async (dispatch, getState, api) => {
 
         dispatch(setNotLoading())
         dispatch(shareDocumentFailed(response.data.data))
-        const toastMessage = 'DOcument Shared Successfully'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        handleSuccessToast('DOcument Shared Successfully')
         return response.data
       } else {
-        dispatch(shareDocumentFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(shareDocumentFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(shareDocumentFailed())
-
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
     dispatch(setNotLoading())
   }
 }

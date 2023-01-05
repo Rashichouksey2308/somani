@@ -92,7 +92,7 @@ export const GetAllPorts = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getPorts}${payload || ''}`, {
+   await Axios.get(`${API.corebaseUrl}${API.getPorts}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
@@ -139,7 +139,7 @@ export const GetPorts = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getPorts}${payload || ''}`, {
+   await Axios.get(`${API.corebaseUrl}${API.getPorts}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
@@ -186,7 +186,7 @@ export const CreatePorts = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.post(`${API.corebaseUrl}${API.getPorts}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.getPorts}`, payload, {
       headers: headers
     })
       .then((response) => {
@@ -241,7 +241,7 @@ export const UpdatePorts = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.getPorts}`, payload, {
+   await Axios.put(`${API.corebaseUrl}${API.getPorts}`, payload, {
       headers: headers
     })
       .then((response) => {

@@ -18,7 +18,7 @@ export const getCountries = (payload) => async (dispatch, getState, api) => {
     type: types.GET_COUNTRIES_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.countriesMaster}`, {
+    await Axios.get(`${API.corebaseUrl}${API.countriesMaster}`, {
       headers: headers,
     }).then((response) => {
       if (response.status === 200) {
@@ -53,7 +53,7 @@ export const getState = (payload) => async (dispatch, getState, api) => {
     type: types.GET_STATE_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.getState}${payload || ''}`, {
+    await Axios.get(`${API.corebaseUrl}${API.getState}${payload || ''}`, {
       headers: headers,
     })
       .then((response) => {
@@ -92,7 +92,7 @@ export const getPorts = (payload) => async (dispatch, getState, api) => {
     type: types.GET_PORTS_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.portsMaster}`, {
+    await Axios.get(`${API.corebaseUrl}${API.portsMaster}`, {
       headers: headers,
     }).then((response) => {
       if (response.status === 200) {
@@ -125,7 +125,7 @@ export const getCommodities = (payload) => async (dispatch, getState, api) => {
     type: types.GET_COMMODITIES_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.commoditiesMaster}`, {
+    await Axios.get(`${API.corebaseUrl}${API.commoditiesMaster}`, {
       headers: headers,
     }).then((response) => {
       if (response.status === 200) {
@@ -159,7 +159,7 @@ export const getDocuments = (payload) => async (dispatch, getState, api) => {
     type: types.GET_DOCUMENTS_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.documentsMaster}`, {
+    await Axios.get(`${API.corebaseUrl}${API.documentsMaster}`, {
       headers: headers,
     }).then((response) => {
       if (response.status === 200) {
@@ -193,7 +193,7 @@ export const getCurrency = (payload) => async (dispatch, getState, api) => {
     type: types.GET_CURRENCY_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.currencyMaster}`, {
+    await Axios.get(`${API.corebaseUrl}${API.currencyMaster}`, {
       headers: headers,
     }).then((response) => {
       if (response.status === 200) {
@@ -227,7 +227,7 @@ export const getInternalCompanies = (payload) => async (dispatch, getState, api)
     type: types.GET_INTERNAL_COMPANIES_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.internalCompaniesMaster}`, {
+    await Axios.get(`${API.corebaseUrl}${API.internalCompaniesMaster}`, {
       headers: headers,
     }).then((response) => {
       if (response.status === 200) {
@@ -260,7 +260,7 @@ export const getVendors = (payload) => async (dispatch, getState, api) => {
     type: types.GET_VENDORS_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.vendorsMaster}`, {
+    await Axios.get(`${API.corebaseUrl}${API.vendorsMaster}`, {
       headers: headers,
     }).then((response) => {
       if (response.status === 200) {
@@ -289,7 +289,7 @@ export const getBanks = (payload) => async (dispatch, getState, api) => {
     type: types.GET_BANKS_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.banksMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.banksMaster}`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_BANKS_MASTERS_SUCCESS,
@@ -316,7 +316,7 @@ export const getBranches = (payload) => async (dispatch, getState, api) => {
     type: types.GET_BANK_BRANCHES_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.bankBranchesMaster}${payload}.json`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.bankBranchesMaster}${payload}.json`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_BANK_BRANCHES_MASTERS_SUCCESS,
@@ -343,7 +343,7 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
     type: types.GET_PINCODES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
+    await Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_PINCODES_MASTERS_SUCCESS,
@@ -379,7 +379,7 @@ export const getZipCode = (payload) => async (dispatch, getState, api) => {
     type: types.GET_ZIPCODES_MASTERS,
   });
   try {
-    Axios.get(`${API.corebaseUrl}${API.zipCodeMaster}${payload}`, {
+    await Axios.get(`${API.corebaseUrl}${API.zipCodeMaster}${payload}`, {
       headers: headers,
     })
       .then((response) => {

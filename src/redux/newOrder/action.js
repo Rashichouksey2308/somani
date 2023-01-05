@@ -4,6 +4,7 @@ import Axios from 'axios'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { handleErrorToast } from '@/utils/helpers/global'
 
 function placeNewOrder () {
   return {
@@ -48,7 +49,7 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.post(`${API.corebaseUrl}${API.newOrder}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.newOrder}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -60,20 +61,14 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
         }
         dispatch(setNotLoading())
       } else {
-        dispatch(placeNewOrderFailed(response.data.data))
-        const toastMessage = 'FAILED TO PLACE NEW ORDER'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(placeNewOrderFailed())
+       handleErrorToast('FAILED TO PLACE NEW ORDER')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(placeNewOrderFailed())
-    const toastMessage = error.message
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast(error.message)
     dispatch(setNotLoading())
   }
 }
