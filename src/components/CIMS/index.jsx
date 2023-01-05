@@ -12,7 +12,7 @@ import moment from 'moment';
 import { returnDocFormat } from '@/utils/helpers/global';
 import { qpaPrint } from '@/templates/agreementTemplate';
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction,getUnqueBl }) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction,getUnqueBl,fetchInitialData }) {
   let transId = _get(TransitDetails, `data[0]`, '');
   let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk';
   const [editInput, setEditInput] = useState(true);
@@ -292,7 +292,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     return isOk;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validation()) {
       const cims = { cimsDetails: cimsDetails };
       let idtrans = transId._id;
@@ -303,11 +303,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
 
       let task = 'submit';
 
-      dispatch(UpdateTransitDetails({ fd, task, idtrans }));
+
+      let responseData = await dispatch(UpdateTransitDetails({ fd, task, idtrans }));
+      if (responseData) {
+        fetchInitialData();
+      }
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const cims = { cimsDetails: cimsDetails };
 
     let fd = new FormData();
@@ -315,7 +319,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     fd.append('transitId', transId._id);
 
     let task = 'save';
-    dispatch(UpdateTransitDetails({ fd, task }));
+    let responseData = await dispatch(UpdateTransitDetails({ fd, task, idtrans }));
+      if (responseData) {
+        fetchInitialData();
+      }
   };
 
 

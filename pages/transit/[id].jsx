@@ -223,6 +223,7 @@ function Index() {
                         TransitDetails={TransitDetails}
                         isShipmentTypeBULK={isShipmentTypeBULK}
                         getUnqueBl={getUnqueBl}
+                        fetchInitialData={fetchInitialData}
                       />
                     )}
                   </div>
