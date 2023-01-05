@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { handleErrorToast } from '@/utils/helpers/global'
 
 function getLifting () {
   return {
@@ -74,28 +75,21 @@ export const GetAllLifting = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.lifting}${payload || ''}`, {
+    await Axios.get(`${API.corebaseUrl}${API.lifting}${payload || ''}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllLiftingSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getAllLiftingFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getAllLiftingFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getAllLiftingFailed())
-
-    const toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT GET INSPECTION DATA AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
@@ -112,28 +106,21 @@ export const GetLifting = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getLifting}${payload}`, {
+   await Axios.get(`${API.corebaseUrl}${API.getLifting}${payload}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getLiftingSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getLiftingFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getLiftingFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getLiftingFailed())
-
-    const toastMessage = 'COULD NOT GET   INSPECTION DATA AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT GET INSPECTION DATA AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
@@ -151,7 +138,7 @@ export const UpdateLiftingData = (payload) => async (dispatch, getState, api) =>
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.lifting}`, payload, {
+   await Axios.put(`${API.corebaseUrl}${API.lifting}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -164,21 +151,14 @@ export const UpdateLiftingData = (payload) => async (dispatch, getState, api) =>
         }
         dispatch(setNotLoading())
       } else {
-        dispatch(updateLiftingDataFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(updateLiftingDataFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(updateLiftingDataFailed())
-
-    const toastMessage = 'COULD NOT UPDATE INSPECTION DATA AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT UPDATE INSPECTION DATA AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
