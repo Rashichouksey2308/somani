@@ -301,7 +301,7 @@ function Index() {
     } else {
 
       let sendLcData = { ...lcData2 };
-      sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData2.tolerancePercentage));
+      sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData2?.tolerancePercentage));
       sendLcData.numberOfAmendment = lcData.numberOfAmendment
       sendLcData.dateOfAmendment = lcData.dateOfAmendment
       const task = lcModuleData.isPostAmmended;
@@ -536,7 +536,7 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            defaultValue={editInput ? editCurrent.dropDownValue : ''}
+                            defaultValue={editInput ? editCurrent?.dropDownValue : ''}
                             ref={inputRef1}
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}

@@ -160,7 +160,7 @@ export const CreateSupplier = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.supplier}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.supplier}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -176,7 +176,7 @@ export const CreateSupplier = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(createSupplierFailed(response.data))
+        dispatch(createSupplierFailed())
         dispatch(setNotLoading())
       }
     })
@@ -199,7 +199,7 @@ export const UpdateSupplier = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.supplier}`, payload, {
+   await Axios.put(`${API.corebaseUrl}${API.supplier}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -214,7 +214,7 @@ export const UpdateSupplier = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(updateSupplierFailed(response.data))
+        dispatch(updateSupplierFailed())
         dispatch(setNotLoading())
       }
     })
@@ -237,14 +237,14 @@ export const GetSupplier = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
+   await Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getSupplierSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getSupplierFailed(response.data))
+        dispatch(getSupplierFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -271,14 +271,14 @@ export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
+   await Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllSupplierSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getAllSupplierFailed(response.data))
+        dispatch(getAllSupplierFailed())
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -305,7 +305,7 @@ export const UploadSupplierDoc = (payload) => async (dispatch, getState, api) =>
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -317,7 +317,7 @@ export const UploadSupplierDoc = (payload) => async (dispatch, getState, api) =>
         // }
         return response
       } else {
-        dispatch(uploadSupplierDocFailed(response.data))
+        dispatch(uploadSupplierDocFailed())
 
         dispatch(setNotLoading())
       }
@@ -338,14 +338,14 @@ export const DeleteSupplierDoc = (payload) => async (dispatch, getState, api) =>
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.supplierDoc}`, payload, {
+   await Axios.put(`${API.corebaseUrl}${API.supplierDoc}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(deleteSupplierDocSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(deleteSupplierDocFailed(response.data))
+        dispatch(deleteSupplierDocFailed())
 
         dispatch(setNotLoading())
       }
@@ -366,14 +366,14 @@ export const SearchSupplier = (payload) => async (dispatch, getState, api) => {
   const headers = { authorization: jwtAccessToken }
   try {
     dispatch(searchSupplier())
-    Axios.get(`${API.corebaseUrl}${API.searchSupplier}${payload}`, {
+   await Axios.get(`${API.corebaseUrl}${API.searchSupplier}${payload}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(searchSupplierSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(searchSupplierFailed(response.data.data))
+        dispatch(searchSupplierFailed())
         const toastMessage = 'Search Supplier request Failed'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
