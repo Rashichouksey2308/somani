@@ -518,28 +518,6 @@ const Index = () => {
     }
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance') {
       if (
-        storageData.gstOfInsurer == '' ||
-        storageData.gstOfInsurer == undefined ||
-        !gSTINValidation(storageData?.gstOfInsurer)
-      ) {
-        toastMessage = 'VALID GSTIN OF INSURER IS MANDATORY IN STORAGE INSURANCE';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
-      if (
-        storageData.gstOfInsured == '' ||
-        storageData.gstOfInsured == undefined ||
-        !gSTINValidation(storageData?.gstOfInsured)
-      ) {
-        toastMessage = 'VALID GSTIN OF INSURED IS MANDATORY IN STORAGE INSURANCE';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
-      if (
         (marineData.insuranceFromType == 'Domestic' && marineData.gstOfInsurer == '') ||
         marineData.gstOfInsurer == undefined ||
         !gSTINValidation(marineData?.gstOfInsurer)
@@ -565,14 +543,21 @@ const Index = () => {
         return false
 
         }
-       
-      if (insuranceDocument.marinePolicyDocument == null || insuranceDocument.storagePolicyDocument == null) {
-        toastMessage = 'BOTH DOCUMENTS ARE MANDATORY';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
+        if (insuranceDocument.marinePolicyDocument == null) {
+          toastMessage = 'marine policy  is  Mandatory';
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            return false;
+          }
         }
-      }
+       
+      // if (insuranceDocument.marinePolicyDocument == null || insuranceDocument.storagePolicyDocument == null) {
+      //   toastMessage = 'BOTH DOCUMENTS ARE MANDATORY';
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     return false;
+      //   }
+      // }
       
     }
 
