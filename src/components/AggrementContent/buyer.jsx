@@ -163,7 +163,6 @@ function Index(props) {
         addresses: addressList,
         gstin: gstin,
         pan,
-        gstin,
       };
       props.sendData('Buyer', data);
     }
@@ -175,7 +174,6 @@ function Index(props) {
         addresses: addressList,
         gstin: gstin,
         pan,
-        gstin,
       };
 
       props.updateData('Buyer', data);
@@ -920,7 +918,7 @@ function Index(props) {
                           }}
                         >
                           <option>Select an option</option>
-                          {gstArray?.length > 0 && gstArray !== undefined > 0 ? (
+                          {gstArray?.length > 0 && gstArray != undefined > 0 ? (
                             gstArray
                               .filter((val) => {
                                 if (val !== undefined) {

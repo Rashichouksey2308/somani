@@ -309,7 +309,7 @@ function Index() {
       let tempArr = { ...sharedDoc };
       let data = await dispatch(ShareDocument(tempArr));
       if (data?.code == 200) {
-        setClose(false);
+        setOpen(false);
       }
     } else {
       let toastMessage = 'please provide a valid email';
@@ -2379,7 +2379,6 @@ function Index() {
                           className={`${styles.upload_image} img-fluid d-block mx-auto`}
                           src="/static/browse.svg"
                           alt="Browse"
-                          onChange={(e) => uploadDocument2(e)}
                         />
                         {newDoc?.document ? (
                           <div className="d-flex justify-content-center align-items-center">

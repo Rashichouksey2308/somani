@@ -1063,13 +1063,13 @@ function Index() {
         delete val.action && delete val.actions && delete val.addnew;
       });
       let data = { ...product };
-      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
-      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization);
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill);
-      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity);
-      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit);
-      data.availableStock = removePrefixOrSuffix(product.availableStock);
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity);
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product?.monthlyProductionCapacity);
+      data.capacityUtilization = removePrefixOrSuffix(product?.capacityUtilization);
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product?.AvgMonthlyElectricityBill);
+      data.averageStockOfCommodity = removePrefixOrSuffix(product?.averageStockOfCommodity);
+      data.averageStockInTransit = removePrefixOrSuffix(product?.averageStockInTransit);
+      data.availableStock = removePrefixOrSuffix(product?.availableStock);
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product?.dailyConsumptionOfCommodity);
 
       let supplierData = { ...supplierCred };
       supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred?.commodityOfTotalTrade);

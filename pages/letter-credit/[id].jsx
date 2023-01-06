@@ -206,7 +206,7 @@ function Index() {
     newInput['existingValue'] = lcData ? lcData[e.target.value] : '';
     if (e.target.value === 'draftAt')
       newInput['existingValue'] =
-        lcData.atSight == 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${lcData['numberOfDays']} Days` || '';
+        lcData?.atSight == 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${ lcData ?lcData['numberOfDays']: ''} Days` || '';
     newInput['dropDownValue'] = val1 || '';
 
     setClauseObj(newInput);
