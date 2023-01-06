@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import styles from './index.module.scss';
+import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 import Table from '../../../src/components/Table';
@@ -76,7 +77,11 @@ function Index() {
         Cell: ({ row }) => {
           return (
             <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-              <a className="cursor-pointer">
+              <a className="cursor-pointer"
+                onClick={() =>
+                  handleRoute(row?.original)
+                }
+              >
                 <Image height="20px" width="20px" src="/static/mode_edit.svg" alt="Edit" />
               </a>
             </div>
@@ -84,6 +89,13 @@ function Index() {
         },
       },
     ]);
+  };
+
+  const handleRoute = (goNoGo) => {
+    sessionStorage.setItem('checkerGoNoGoId', goNoGo?._id);
+    sessionStorage.setItem('checkerGoNoGoVersion', goNoGo?.version);
+    dispatch(setDynamicName(goNoGo?.version));
+    Router.push('/checker/go-no-go-logic/id');
   };
 
   return (
