@@ -24,8 +24,8 @@ function Index() {
         </div>
       </div>
       <div id="orderDetail" className={`collapse ${styles.body} card-body row`} aria-labelledby="orderDetail">
-        {fields('Commodity', buyerList?.order?.commodity)}
-        {fields(
+        {Fields('Commodity', buyerList?.order?.commodity)}
+        {Fields(
           'Quantity',
           buyerList?.order?.quantity?.toLocaleString('en-IN', {
             maximumFractionDigits: 2,
@@ -33,7 +33,7 @@ function Index() {
           false,
           `${' '}${buyerList?.order?.unitOfQuantity.toUpperCase()}`,
         )}
-        {fields(
+        {Fields(
           'Order value (in INR)',
           CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString('en-IN', {
             maximumFractionDigits: 2,
@@ -46,19 +46,19 @@ function Index() {
             ? 'Mn'
             : buyerList?.order?.unitOfValue}`
         )}
-        {fields('Supplier Name', buyerList?.order?.supplierName, false)}
-        {fields('Country Of Origin', buyerList?.order?.countryOfOrigin, false)}
-        {fields('INCO Terms', buyerList?.order?.incoTerm, false)}
+        {Fields('Supplier Name', buyerList?.order?.supplierName, false)}
+        {Fields('Country Of Origin', buyerList?.order?.countryOfOrigin, false)}
+        {Fields('INCO Terms', buyerList?.order?.incoTerm, false)}
         {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
-        {fields('Port Of Discharge', buyerList?.order?.portOfDischarge, false)}
-        {fields(
+        {Fields('Port Of Discharge', buyerList?.order?.portOfDischarge, false)}
+        {Fields(
           'Expected Date Of Shipment',
           moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'),
           false,
         )}
 
         {buyerList?.company?.documents.map((val, index) => {
-          return <>{fields('Document Type', val?.typeOfDocument, true, null, val?.path, buyerList)}</>;
+          return <>{Fields('Document Type', val?.typeOfDocument, true, null, val?.path, buyerList)}</>;
         })}
       </div>
     </div>
@@ -66,7 +66,7 @@ function Index() {
 }
 
 export default Index;
-const fields = (head, value, isButton, value2, value3, buyerList) => {
+const Fields = (head, value, isButton, value2, value3, buyerList) => {
   const dispatch = useDispatch();
 
   return (

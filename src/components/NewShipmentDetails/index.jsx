@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import moment from 'moment'
 
-const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
+const Index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
 
   const [expShipment, setExpectedShipment] = useState(null)
 
@@ -102,19 +102,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     alt='Search'
                   />
                 </div>
-                {/* <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  name="ETAofDischarge.fromDate"
-                  type="date"
-                  onChange={(e) => {
-                    saveDate(e)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  {' '}
-                  Laycan at Load Port from
-                  <strong className="text-danger">*</strong>
-                </Form.Label> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className='d-flex'>
@@ -133,18 +120,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     alt='Search'
                   />
                 </div>
-                {/* <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  name="ETAofDischarge.toDate"
-                  type="date"
-                  onChange={(e) => {
-                    saveDate(e)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Laycan at Load Port to
-                  <strong className="text-danger">*</strong>
-                </Form.Label> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className='d-flex'>
@@ -161,19 +136,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     alt='Search'
                   />
                 </div>
-
-                {/* <input
-                  className={`${styles.input_field} input form-control`}
-                  name="lastDateOfShipment"
-                  type="date"
-                  onChange={(e) => {
-                    saveDate(e)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Last date of shipment
-                  <strong className="text-danger">*</strong>
-                </Form.Label> */}
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
@@ -185,16 +147,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     setStartDateFrom={setStartDate}
                     labelName='ETA at Discharge Port from'
                     startFrom={moment(shipment?.lastDateOfShipment).format('DD-MM-YYYY')}
-
-                    // startFrom={moment(expectedShipment).format('DD-MM-YYYY')}
-                   
-
-                    // startFrom={
-                    //   shipment.loadPort.toDate
-                    //     ? moment(shipment.loadPort.toDate).add(1, 'days').format('DD-MM-YYYY')
-                    //     : moment(new Date()).format('DD-MM-YYYY')
-                    // }
-                    // maxDate={maxdate}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -202,22 +154,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     alt='Search'
                   />
                 </div>
-                {/* <div>
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    name="loadPort.fromDate"
-                    type="date"
-                    onChange={(e) => {
-                      saveDate(e)
-                    }}
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    ETA at Discharge Port from
-                    <strong className="text-danger">*</strong>
-                  </Form.Label>
-                </div> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className='d-flex'>
@@ -226,11 +162,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     dateFormat={'dd-MM-yyyy'}
                     saveDate={saveDate}
                     labelName='ETA at Discharge Port to'
-                    // startFrom={moment(dateStartFrom.eta).format('DD-MM-YYYY')}
                     startFrom={shipment?.ETAofDischarge.fromDate !== '' ? moment(shipment?.ETAofDischarge.fromDate).format('DD-MM-YYYY')  : moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') }
-                    // maxDate={
-                    //   shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate
-                    // }
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -238,22 +170,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     alt='Search'
                   />
                 </div>
-                {/* <div>
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    name="loadPort.toDate"
-                    type="date"
-                    onChange={(e) => {
-                      saveDate(e)
-                    }}
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    ETA at Discharge Port to
-                    <strong className="text-danger">*</strong>
-                  </Form.Label>
-                </div> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className='d-flex'>
@@ -289,7 +205,6 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                 </div>
               </Form.Group>
             </div>
-            {/* <div className={styles.button}><span>Submit</span></div> */}
           </Form>
         </div>
       </div>
@@ -297,4 +212,4 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
   )
 }
 
-export default index
+export default Index

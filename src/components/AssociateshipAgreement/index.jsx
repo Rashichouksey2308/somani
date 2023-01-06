@@ -8,6 +8,8 @@ import _get from 'lodash/get';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
+import {Row, Col} from 'react-bootstrap'
+import GrowInput from '../GrowInput'
 
 function Index(props) {
   const [active, setActive] = useState('none');

@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
 
-function index ({ handleApprove, handleReject, button, button2 }) {
+function Index ({ handleApprove, handleReject, button, button2 }) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
@@ -31,4 +31,4 @@ function index ({ handleApprove, handleReject, button, button2 }) {
   )
 }
 
-export default index
+export default Index

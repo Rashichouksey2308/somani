@@ -15,7 +15,7 @@ import AddressComponent from './addressComponent';
 import styles from './index.module.scss';
 import { getPincodes } from 'redux/masters/action';
 
-const index = ({
+const Index = ({
   creditDetail,
   keyAddDataArr,
   saveProductData,
@@ -2317,4 +2317,4 @@ const index = ({
   );
 };
 
-export default index;
+export default Index;

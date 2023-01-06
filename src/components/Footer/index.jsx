@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
 
-export default function index () {
+export default function Index () {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
