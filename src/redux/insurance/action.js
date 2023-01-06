@@ -180,7 +180,7 @@ export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
       dispatch(setNotLoading());
       return response.data.code;
     } else {
-      dispatch(updateInsuranceFailed(response.data));
+      dispatch(updateInsuranceFailed());
       handleErrorToast('UPDATE REQUEST FAILED')
       dispatch(setNotLoading());
     }
@@ -236,7 +236,7 @@ export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
       dispatch(setNotLoading());
       return response.data.code;
     } else {
-      dispatch(updateQuotationFailed(response.data));
+      dispatch(updateQuotationFailed());
      handleErrorToast('UPDATE REQUEST FAILED')
       dispatch(setNotLoading());
     }

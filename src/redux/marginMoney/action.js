@@ -134,7 +134,7 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
         dispatch(getMarginMoneySuccess(response.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getMarginMoneyFailed(response.data.data));
+        dispatch(getMarginMoneyFailed());
         handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading());
       }
@@ -170,7 +170,7 @@ export const UpdateMarginMoney = (payload) => async (dispatch, getState, api) =>
         dispatch(settingSidebar('Agreement & LC Module', 'Generic', 'Generic', '2'));
         // router.push('/generic/generic-list')
       } else {
-        dispatch(updateMarginMoneyFailed(response.data));
+        dispatch(updateMarginMoneyFailed());
        handleErrorToast('UPDATE REQUEST FAILED')
         dispatch(setNotLoading());
       }
@@ -205,7 +205,7 @@ export const RevisedMarginMoney = (payload) => async (dispatch, getState, api) =
         dispatch(GetMarginMoney({ orderId: id }));
         dispatch(setNotLoading());
       } else {
-        dispatch(updatingRevisedMarginMoneyFailed(response.data));
+        dispatch(updatingRevisedMarginMoneyFailed());
         handleErrorToast('UPDATE REQUEST FAILED')
         dispatch(setNotLoading());
       }

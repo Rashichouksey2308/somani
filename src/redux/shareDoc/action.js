@@ -40,7 +40,7 @@ export const ShareDocument = (payload) => async (dispatch, getState, api) => {
         dispatch(shareDocumentSuccess(response.data.data))
 
         dispatch(setNotLoading())
-        dispatch(shareDocumentFailed(response.data.data))
+        dispatch(shareDocumentFailed())
         handleSuccessToast('DOcument Shared Successfully')
         return response.data
       } else {

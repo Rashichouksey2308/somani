@@ -200,7 +200,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(createBuyerSuccess(response.data.data));
+        dispatch(createBuyerSuccess());
 
         const toastMessage = 'Lead Created Successfully';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -242,7 +242,7 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
     });
 
     if (response.data.code === 200) {
-      dispatch(updateBuyerSuccess(response.data));
+      dispatch(updateBuyerSuccess());
 
       dispatch(setNotLoading());
       return 200;
@@ -353,7 +353,7 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
 
       dispatch(setNotLoading());
     } else {
-      dispatch(getAllOrderFailed(response.data.data));
+      dispatch(getAllOrderFailed());
      handleErrorToast('Getting orders failed')
       dispatch(setNotLoading());
     }
@@ -383,7 +383,7 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
         dispatch(getOrderSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getOrderFailed(response.data.data));
+        dispatch(getOrderFailed());
        handleErrorToast('Getting Order List Failed')
         dispatch(setNotLoading());
       }
@@ -401,13 +401,13 @@ export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
     const response = await api.delete(`${API.createBuyer}?BuyerId=${payload.BuyerId}`);
 
     if (response.data.code === 200) {
-      dispatch(deleteBuyerSuccess(response.data.data));
+      dispatch(deleteBuyerSuccess());
 
       payload.history.go(0);
       toast.error('Buyer Deleted Succesfully');
       dispatch(setNotLoading());
     } else {
-      dispatch(deleteBuyerFailed(response.data.data));
+      dispatch(deleteBuyerFailed());
       toast.error('Buyer could not be deleted');
       dispatch(setNotLoading());
     }
@@ -436,7 +436,7 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
 
         dispatch(setNotLoading());
       } else {
-        dispatch(getGstFailed(response.data));
+        dispatch(getGstFailed());
         handleErrorToast('Could not fetch Gst at this moment')
         dispatch(setNotLoading());
       }

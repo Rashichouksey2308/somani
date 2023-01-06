@@ -59,7 +59,9 @@ function Index({handleSubmit, savePortData, portData, country}) {
                           name='Country'
                           value={portData?.Country}
                           className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                          onChange={(e) => {setCountryName(e.target.value); savePortData(e.target.name, e.target.value)}}
+                          onChange={(e) => {
+                            // setCountryName(e.target.value); 
+                            savePortData(e.target.name, e.target.value)}}
                         >
                           <option value="">Select an option</option>
                             {country.map((options, index) => {

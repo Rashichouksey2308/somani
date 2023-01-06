@@ -104,7 +104,7 @@ export const GetDelivery = (payload) => async (dispatch, getState, api) => {
         dispatch(getDeliverySuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getDeliveryFailed(response.data.data))
+        dispatch(getDeliveryFailed())
         handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
@@ -139,7 +139,7 @@ export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
        handleSuccessToast(toastMessage)
         dispatch(setNotLoading())
       } else {
-        dispatch(updateDeliveryFailed(response.data.data))
+        dispatch(updateDeliveryFailed())
         handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
@@ -166,7 +166,7 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
         dispatch(getDeliverySuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getDeliveryFailed(response.data.data))
+        dispatch(getDeliveryFailed())
         handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }

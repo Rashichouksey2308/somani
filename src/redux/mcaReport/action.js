@@ -46,7 +46,7 @@ export const McaReportFetch = (payload) => async (dispatch, getState, api) => {
        handleSuccessToast('MCA report generate request submitted successfully')
         dispatch(setNotLoading())
       } else {
-        dispatch(mcaReportFailed(response.data.data))
+        dispatch(mcaReportFailed())
         handleErrorToast('could not process your request at the moment')
         dispatch(setNotLoading())
       }
