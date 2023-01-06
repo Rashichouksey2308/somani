@@ -63,7 +63,6 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,

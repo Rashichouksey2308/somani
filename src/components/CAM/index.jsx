@@ -287,10 +287,10 @@ function Index({
       },
     },
 
-    tooltip: {
-      titleFontSize: 50,
-      bodyFontSize: 50,
-    },
+    // tooltip: {
+    //   titleFontSize: 50,
+    //   bodyFontSize: 50,
+    // },
 
     responsive: true,
     cutout: 95,
@@ -307,6 +307,8 @@ function Index({
         display: false,
       },
       tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
         position: 'nearest',
         callbacks: {
           label: function (context) {

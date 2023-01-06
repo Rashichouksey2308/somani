@@ -142,10 +142,6 @@ const Index = ({
     setDebtData([...tempArr]);
   };
 
-  const onDebtSave = () => {
-    addDebtArr(debt);
-  };
-
   const setActions = (index, val) => {
     setDebtData((prevState) => {
       const newState = prevState.map((obj, i) => {

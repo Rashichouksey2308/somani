@@ -150,7 +150,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
   };
 
   const validation = () => {
-    if (appointmentData.name == '' || appointmentData.name == undefined) {
+    if (appointmentData?.name == '' || appointmentData?.name == undefined) {
       handleErrorToast('name is mandatory');
       return false;
     } else if (appointmentData?.dateOfAppointment == '' || !appointmentData?.dateOfAppointment) {
