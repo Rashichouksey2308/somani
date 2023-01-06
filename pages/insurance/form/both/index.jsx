@@ -565,10 +565,7 @@ const Index = () => {
         return false
 
         }
-        if(storageValidation()==false){
-        return false
-
-        }
+       
       if (insuranceDocument.marinePolicyDocument == null || insuranceDocument.storagePolicyDocument == null) {
         toastMessage = 'BOTH DOCUMENTS ARE MANDATORY';
         if (!toast.isActive(toastMessage.toUpperCase())) {
