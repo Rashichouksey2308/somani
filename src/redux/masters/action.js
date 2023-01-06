@@ -20,6 +20,7 @@ function getMasterUsersQueueRecordsFailed(payload = {}) {
     payload,
   };
 }
+// Master getMastersCommodity Queue
 
 function getMastersCommodity() {
   return {
@@ -39,6 +40,8 @@ function getAllCommodityFailed() {
     type: types.GET_COMMODITY_MASTERS_FAILURE,
   };
 }
+
+// Master Gonogo Queue
 function getAllGonogo() {
   return {
     type: types.GET_GONOGO_MASTERS,
@@ -63,6 +66,24 @@ function filterUsersQueueFailed() {
   };
 }
 
+function addNewCommodity() {
+  return {
+    type: types.ADD_NEW_COMMODITY_MASTERS,
+  };
+}
+
+function addNewCommoditySuccess(payload) {
+  return {
+    type: types.ADD_NEW_COMMODITY_MASTERS_SUCCESS,
+    payload,
+  };
+}
+
+function addNewCommodityFailed() {
+  return {
+    type: types.ADD_NEW_COMMODITY_MASTERS_FAILURE,
+  };
+}
 
 // Master Port Queue
 function getMasterPortsQueueRecordsSuccess(payload) {
@@ -78,7 +99,6 @@ function getMasterPortsQueueRecordsFailed(payload = {}) {
     payload,
   };
 }
-
 
 // ******** Search & Filter Ports Queue  ***********/////
 
@@ -100,7 +120,6 @@ function filterPortsQueueFailed() {
     type: types.FILTER_PORTS_QUEUE_FAILED,
   };
 }
-
 
 // ******** Port Master Add ******** //
 
@@ -306,6 +325,41 @@ export const GetAllGonogo = () => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
       } else {
         dispatch(getAllGonogoFailed(response.data.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getAllGonogoFailed());
+    dispatch(setNotLoading());
+    const toastMessage = 'GET MASTER COMMODITY API FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+  }
+};
+export const AddNewCommodity = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
+    Axios.post(`${API.corebaseUrl}${API.addNewCommodity}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(addNewCommoditySuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(addNewCommodityFailed(response.data));
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -637,7 +691,6 @@ export const FilterUsersQueue = (payload) => async (dispatch, getState, api) => 
     dispatch(setNotLoading());
   }
 };
-
 
 export const GetMasterPortsQueueRecords = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());

@@ -22,6 +22,7 @@ const initialState = {
   filteringPortsQueue: false,
   filteredPortsQueue: [],
   creatingPortMaster: false,
+  addNewCommodityData: [],
   documentMasterQueueRecords: [],
   gettingDocumentMasterQueueRecords: false,
   filteringDocumentMasterQueue: false,
@@ -305,6 +306,21 @@ function MastersReducer(state = initialState, action) {
         creatingPortMaster: false,
       };
 
+    case types.ADD_NEW_COMMODITY_MASTERS:
+      return {
+        ...state,
+        getPincodesMasterData: [],
+      };
+    case types.ADD_NEW_COMMODITY_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getPincodesMasterData: action.payload,
+      };
+    case types.ADD_NEW_COMMODITY_MASTERS_FAILURE:
+      return {
+        ...state,
+        getPincodesMasterData: [],
+      };
     case types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_SUCCESSFULL:
       return {
         ...state,

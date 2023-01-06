@@ -184,4 +184,5 @@ export default {
   //Masters
   getAllCommodity: 'commodity/get-commodities',
   getAllGonogo: '/gng-master',
+  addNewCommodity: '/commodity',
 };
