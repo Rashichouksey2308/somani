@@ -89,7 +89,7 @@ const Index = () => {
         ? getDifferenceInDaysMarine()
         : insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-      lossPayee:insuranceData?.marineInsurance?.lossPayee ||
+      lossPayee:insuranceData?.quotationRequest?.lossPayee||
         _get(
           insuranceData,
           'order.lc.lcApplication.lcIssuingBank',
@@ -113,7 +113,7 @@ const Index = () => {
         ? getDifferenceInDaysStorage()
         : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-    lossPayee:insuranceData?.storageInsurance?.lossPayee ||
+    lossPayee:insuranceData?.quotationRequest?.lossPayee ||
         _get(
           insuranceData,
           'order.lc.lcApplication.lcIssuingBank',
@@ -1327,9 +1327,7 @@ const Index = () => {
                             <div className="d-flex">
                               <input
                                 name="lossPayee"
-                                value={
-                                   storageData?.lossPayee
-                                  }
+                                value={storageData?.lossPayee}
                                 onChange={(e) => saveStorageData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >

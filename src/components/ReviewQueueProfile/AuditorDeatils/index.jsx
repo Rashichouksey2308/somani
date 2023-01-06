@@ -377,7 +377,8 @@ function Index({ directorData }) {
                   >
                     <div
                       className="accordion shadow-none"
-                      id={`directorDetails${index}`}
+                     // id={`directorDetails${index}`}
+                     id="directorDetails3"
                     >
                       <div className={`${styles.card} border_color card`}>
                         <div className="d-flex justify-content-between align-items-center">
