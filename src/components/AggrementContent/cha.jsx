@@ -357,7 +357,7 @@ function Index(props) {
       props.vendor.signatory.forEach((val, index) => {
         if (val.name == value) {
           arrayToSave.name = val.name;
-          arrayToSave.designation = val.designation||val.designation;
+          arrayToSave.designation = val.designation || '';
           arrayToSave.email = val.email ||val.emailId;
           arrayToSave.phoneNo = val.phoneNo ||val.phoneNumber;
         }
