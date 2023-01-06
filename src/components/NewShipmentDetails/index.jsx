@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import moment from 'moment'
 
-const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
+const Index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
 
   const [expShipment, setExpectedShipment] = useState(null)
 
@@ -297,4 +297,4 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
   )
 }
 
-export default index
+export default Index
