@@ -164,7 +164,7 @@ export const UpdateCam = (payload, message) => async (dispatch, getState, api) =
       dispatch(setNotLoading());
       return response.data.code;
     } else {
-      dispatch(updatingCamFailed(response.data.data));
+      dispatch(updatingCamFailed());
       handleErrorToast(response.data.message);
       dispatch(setNotLoading());
     }
@@ -224,7 +224,7 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     dispatch(VerifyingGst());
 
     // await Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
-    await Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
+      const response =  await Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
       headers: headers,
     });
     if (response.data.code === 200) {
@@ -265,7 +265,7 @@ export const getGstData = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
         handleSuccessToast('request sent successfully');
       } else {
-        dispatch(VerifyingGstFailed(response.data.data));
+        dispatch(VerifyingGstFailed());
         handleErrorToast(response.data.message);
         dispatch(setNotLoading());
       }
@@ -299,7 +299,7 @@ export const getConsolidatedGstData = (payload) => async (dispatch, getState, ap
         dispatch(VerifyingConsolidatedGstSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(VerifyingConsolidatedGstFailed(response.data.data));
+        dispatch(VerifyingConsolidatedGstFailed());
         handleErrorToast(response.data.message);
         dispatch(setNotLoading());
       }
@@ -396,7 +396,7 @@ export const changeModuleDocument = (payload) => async (dispatch, getState, api)
 
       dispatch(setNotLoading());
     } else {
-      dispatch(changeModuleDocumentsFailed(response.data.data));
+      dispatch(changeModuleDocumentsFailed());
      handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME')
       dispatch(setNotLoading());
     }

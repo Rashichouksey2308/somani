@@ -106,9 +106,7 @@ function Index({
                     <td>
                       {insured?.quotationRequest?.insuranceType == 'Marine Insurance'
                         ? moment(insured?.marineInsurance?.insuranceTo).format('DD-MM-YYYY')
-                        : insured?.quotationRequest?.insuranceType == 'Storage Insurance'
-                        ? moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
-                        : moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')}
+                        :moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')} 
                     </td>
 
                     {getStatus(insured) ? (

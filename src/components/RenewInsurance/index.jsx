@@ -766,7 +766,7 @@ const Index = () => {
                                   ) : null}
                                 </td>
                                 <td className={styles.doc_row}>
-                                  {insuranceDocument?.marinePolicyDocument && insuranceDocument?.marinePolicyDocument
+                                  {insuranceDocument?.marinePolicyDocument 
                                     ? moment(insuranceDocument?.marinePolicyDocument?.date).format('DD-MM-YYYY,h:mm A')
                                     : ''}
                                 </td>

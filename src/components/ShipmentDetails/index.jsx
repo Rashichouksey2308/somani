@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 
-const index = ({ orderDetail, orderState, saveShipmentData, shipment, port, setLimit }) => {
+const Index = ({ orderDetail, orderState, saveShipmentData, shipment, port, setLimit }) => {
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
@@ -264,4 +264,4 @@ const index = ({ orderDetail, orderState, saveShipmentData, shipment, port, setL
   );
 };
 
-export default index;
+export default Index;

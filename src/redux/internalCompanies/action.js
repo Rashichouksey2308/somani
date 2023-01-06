@@ -95,7 +95,7 @@ export const GetAllInternalCompanies = (payload) => async (dispatch, getState, a
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getInternalCompanies}${payload || ''}`, {
+  await Axios.get(`${API.corebaseUrl}${API.getInternalCompanies}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
@@ -127,7 +127,7 @@ export const GetInternalCompanies = (payload) => async (dispatch, getState, api)
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getInternalCompanies}${payload || ''}`, {
+    await Axios.get(`${API.corebaseUrl}${API.getInternalCompanies}${payload || ''}`, {
       headers: headers
     })
       .then((response) => {
@@ -158,7 +158,7 @@ export const CreateInternalCompanies = (payload) => async (dispatch, getState, a
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.post(`${API.corebaseUrl}${API.getInternalCompanies}`, payload, {
+    await Axios.post(`${API.corebaseUrl}${API.getInternalCompanies}`, payload, {
       headers: headers
     })
       .then((response) => {
@@ -191,7 +191,7 @@ export const UpdateInternalCompanies = (payload) => async (dispatch, getState, a
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.put(`${API.corebaseUrl}${API.getInternalCompanies}`, payload, {
+    await Axios.put(`${API.corebaseUrl}${API.getInternalCompanies}`, payload, {
       headers: headers
     })
       .then((response) => {

@@ -56,9 +56,7 @@ function Index(props) {
   const { getBranchesMasterData } = useSelector((state) => state.MastersData);
   const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
   
-  const getVendor=(value)=>{
-   getVendorsMasterData
-  }
+
   const [chaDetails,setChaDetails]=useState({})
   const [cmaDetails,setCmaDetails]=useState({})
   const [steveDoreDetails,setsteveDoreDetails]=useState({})
