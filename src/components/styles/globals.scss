@@ -68,14 +68,14 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 body.light-mode {
-  font-family: 'Helvetica Neue', Helvetica;
+  font-family: 'Helvetica Neue', sans-serif;
   background: #f3f4f7 !important;
   color: #333 !important;
   transition: background-color 0.3s ease;
 }
 
 body.dark-mode {
-  font-family: 'Helvetica Neue', Helvetica;
+  font-family: 'Helvetica Neue', sans-serif;
   background-color: #171e27 !important;
   color: #ffffff !important;
   transition: background-color 0.3s ease;
