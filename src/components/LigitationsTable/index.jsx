@@ -85,43 +85,46 @@ function Index({ data, Heading, val, totalData }) {
         </div>
         <div id={`${val}`} className="collapse" aria-labelledby={`${val}`} data-parent="#profileAccordion">
           <div className={` ${styles.cardBody_Tribunals} card-body`}>
-            <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-              <thead>
-                <tr>
-                  <th className="">S.NO</th>
-                  <th className="">CINO.</th>
-                  <th className="">CASE NO.</th>
-                  <th className="">CASE TYPE</th>
-                  <th className="">SECTION</th>
-                  <th className="">PETITIONER</th>
-                  <th className="">RESPONDENT</th>
-                  <th className="">PREVIEW</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data &&
-                  data?.map((courtCase, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td className="">{courtCase?.cin}</td>
-                      <td className="">{courtCase?.caseNumber}</td>
-                      <td className="">{courtCase?.caseType}</td>
-                      <td className="">{courtCase?.section}</td>
-                      <td className="">{_get(courtCase, 'petitioner[0]', '')}</td>
-                      <td className="">{_get(courtCase, 'respondent[0]', '')}</td>
-                      <td className="text-center">
-                        <img
-                          src="./static/blue-eye.svg"
-                          className="img-fluid"
-                          alt="blue eye"
-                          onClick={() => casePreviewHandler(courtCase.cin)}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+                <thead>
+                  <tr>
+                    <th className="">S.NO</th>
+                    <th className="">CINO.</th>
+                    <th className="">CASE NO.</th>
+                    <th className="">CASE TYPE</th>
+                    <th className="">SECTION</th>
+                    <th className="">PETITIONER</th>
+                    <th className="">RESPONDENT</th>
+                    <th className="">PREVIEW</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data &&
+                    data?.map((courtCase, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td className="">{courtCase?.cin}</td>
+                        <td className="">{courtCase?.caseNumber}</td>
+                        <td className="">{courtCase?.caseType}</td>
+                        <td className="">{courtCase?.section}</td>
+                        <td className="">{_get(courtCase, 'petitioner[0]', '')}</td>
+                        <td className="">{_get(courtCase, 'respondent[0]', '')}</td>
+                        <td className="text-center">
+                          <img
+                            src="./static/blue-eye.svg"
+                            className="img-fluid"
+                            alt="blue eye"
+                            onClick={() => casePreviewHandler(courtCase.cin)}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+                </table>
+              </div>
+            </div>
             <div></div>
           </div>
         </div>
