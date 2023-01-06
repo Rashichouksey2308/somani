@@ -46,7 +46,6 @@ function Index() {
       sessionStorage.setItem('orderID', buyer._id);
       sessionStorage.setItem('companyID', buyer.company._id);
       await dispatch(GetAllOrders({ orderId: buyer._id }));
-      //dispatch(GetDocuments({order: buyer._id}))
       await dispatch(GetCompanyDetails({ company: buyer.company._id }));
     }
   };
@@ -68,10 +67,10 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    if (sorting == -1) {
+    if (sorting === -1) {
       dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
       setSorting(1);
-    } else if (sorting == 1) {
+    } else if (sorting === 1) {
       dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
       setSorting(-1);
     }

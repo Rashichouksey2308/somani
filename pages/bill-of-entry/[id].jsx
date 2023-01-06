@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
+import { handleErrorToast } from '../../src/utils/helpers/global'
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 
@@ -53,17 +54,11 @@ function Index() {
       if (response.data.code === 200) {
         return response.data.data;
       } else {
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        return null;
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
+              return null;
       }
     } catch (error) {
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
       return null;
     }
   };

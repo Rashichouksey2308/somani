@@ -34,7 +34,7 @@ function Index(props) {
   }, [currentPage, dispatch]);
 
   const getDate = async () => {
-    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`));
+    const data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`));
     setData(data?.data);
     setTotal(data?.totalCount);
   };
