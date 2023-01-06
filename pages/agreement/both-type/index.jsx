@@ -19,7 +19,7 @@ function Index() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId');
+    const id = sessionStorage.getItem('letterId');
     dispatch(GettingAllInsurance(`?insuranceId=${id}`));
   }, [dispatch]);
 
@@ -31,14 +31,14 @@ function Index() {
   };
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {});
+  const insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [emailAdd, setEmailAdd] = useState([{ emailID: '' }]);
   const [insuranceAdd, setinsuranceAdd] = useState([{ insurance: '' }]);
   const handleDeleteEmail = (index) => {
     setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
   };
   const addMoreRows = (val) => {
-    if (val == 'email') {
+    if (val === 'email') {
       setEmailAdd([
         ...emailAdd,
         {
