@@ -80,7 +80,7 @@ export default function Index({ isQuery }) {
       show.units = false;
       show.currency = false;
       removeStorage();
-      
+
       setShow({ ...show });
     } else if (isQuery?.match('/generic')) {
       show.units = false;
@@ -128,10 +128,9 @@ export default function Index({ isQuery }) {
       sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     }
-    if(router.pathname?.match('/agreement-table')){
-       sessionStorage.removeItem('agreementDoc');
-    }
-    else {
+    if (router.pathname?.match('/agreement-table')) {
+      sessionStorage.removeItem('agreementDoc');
+    } else {
       show.units = true;
       show.currency = true;
 
@@ -196,7 +195,7 @@ export default function Index({ isQuery }) {
     }
 
     if ('Supplier' == pageName) {
-      if(order !=null){
+      if (order != null) {
         router.route = '/Supplier  Onboarding' + `/${order}`;
       } else {
         router.route = '/Supplier  Onboarding';
@@ -362,16 +361,9 @@ export default function Index({ isQuery }) {
       }
     }
 
-    router.route.split('/').map((subRoute, index) => {
+    router.route.split('/').forEach((subRoute, index) => {
       if (subRoute !== '') {
-        if (subRoute == '[id]') {
-          // setUrl([...url, router.query.id])
-          // url.push(router.query.id);
-          url.push(subRoute);
-        } else {
-          // setUrl([...url, subRoute])
-          url.push(subRoute);
-        }
+        url.push(subRoute);
       } else {
         // setUrl([...url, "Home"])
         // url.push("");

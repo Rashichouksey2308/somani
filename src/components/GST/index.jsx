@@ -880,8 +880,6 @@ const filteredData = consolidatedDataGstData.filter((item) =>{
 
       return financialYear;
     }
-
-    endYear ? endYear : '';
   };
 
   const getCompliencePeriod = (period, chart) => {
