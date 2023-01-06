@@ -31,6 +31,10 @@ const initialState = {
     userPickupRecords: {},
     gettingInternalCompanyPickupRecords: false,
     internalCompanyPickupRecords: {},
+    gettingUserMasterDetails: false,
+    userMasterDetails: {},
+    updatingUserMasterRemarks: false,
+    updateUserMasterRemarkDetails: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -245,6 +249,33 @@ function CheckerReducer(state = initialState, action) {
                 internalCompanyPickupRecords: {},
             };
     
+        case types.GET_USER_MASTER_DETAILS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingUserMasterDetails: false,
+                userMasterDetails: action.payload,
+            };
+
+        case types.GET_USER_MASTER_DETAILS_FAILED:
+            return {
+                ...state,
+                gettingUserMasterDetails: false,
+                userMasterDetails: {},
+            };
+
+        case types.UPDATE_USER_MASTER_REMARK_SUCCESSFULL:
+            return {
+                ...state,
+                updatingUserMasterRemarks: false,
+                updateUserMasterRemarkDetails: action.payload,
+            };
+
+        case types.UPDATE_USER_MASTER_REMARK_FAILED:
+            return {
+                ...state,
+                updatingUserMasterRemarks: false,
+                updateUserMasterRemarkDetails: {},
+            }
         default:
             return state;
     }

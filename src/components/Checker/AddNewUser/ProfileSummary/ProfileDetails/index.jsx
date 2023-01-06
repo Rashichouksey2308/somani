@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
-
-function Index() {
+import Tooltip from '../../../../Tooltip';
+function Index({ profileDetails, profileDetailsHistory }) {
     return (
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
             <div
@@ -10,7 +10,7 @@ function Index() {
             >
                 <h3 className={`${styles.heading}`}>Profile Details</h3>
                 <div className={styles.status_heading}>
-                    User Status <span className={styles.active}>Active</span>
+                    User Status <span className={profileDetails?.status ? styles.active : styles.inActive}>{ profileDetails?.status ? 'Active' : 'Inactive' }</span>
                 </div>
             </div>
 
@@ -19,8 +19,11 @@ function Index() {
                     <div className={`mb-2 font-weight-bold label_heading`}>
                         User Type
                     </div>
-                    <div className='font-weight-light h5'>
-                        Internal
+                    <div className={`font-weight-light h5`}>
+                        <span className={`${profileDetailsHistory?.userType !== profileDetails?.userType && styles.highlighted_field}`}>
+                            { profileDetails?.userType || '-' }
+                        </span>
+                        { profileDetailsHistory?.userType !== profileDetails?.userType && <Tooltip data={profileDetailsHistory?.userType || '--'} />}
                     </div>
                 </div>
                 <div className="d-flex justify-space-between">
@@ -29,8 +32,11 @@ function Index() {
                             <div className={`font-weight-bold label_heading mb-2`}>
                                 Full Name
                             </div>
-                            <div className='font-weight-light h5'>
-                                Raj Kumar
+                            <div className={`font-weight-light h5`}>
+                                <span className={`${profileDetailsHistory?.fullName !== profileDetails?.fullName && styles.highlighted_field}`}>
+                                        { profileDetails?.fullName || '-' }
+                                </span>
+                            { profileDetailsHistory?.fullName !== profileDetails?.fullName && <Tooltip data={profileDetailsHistory?.fullName || '--'} />}
                             </div>
                         </div>
                         <div className="col-md-5 col-sm-6">
@@ -38,7 +44,10 @@ function Index() {
                                 Username
                             </div>
                             <div className='font-weight-light h5'>
-                                Rajkumar
+                                <span className={`${profileDetailsHistory?.userName !== profileDetails?.userName && styles.highlighted_field}`}>
+                                    { profileDetails?.userName || '-' }
+                                </span>
+                                { profileDetailsHistory?.userName !== profileDetails?.userName && <Tooltip data={profileDetailsHistory?.userName || '--'} />}
                             </div>
                         </div>
 
@@ -47,7 +56,10 @@ function Index() {
                                 Official Email ID
                             </div>
                             <div className='font-weight-light h5'>
-                                name@somanigroup.com
+                                <span className={`${profileDetailsHistory?.officialEmailId !== profileDetails?.officialEmailId && styles.highlighted_field}`}>
+                                    { profileDetails?.officialEmailId || '-' }
+                                </span>
+                            { profileDetailsHistory?.officialEmailId !== profileDetails?.officialEmailId && <Tooltip data={profileDetailsHistory?.officialEmailId || '--'} />}
                             </div>
                         </div>
                         <div className="col-md-5 col-sm-6 my-4">

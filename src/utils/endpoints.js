@@ -178,6 +178,8 @@ export default {
   getUserPickupRecords: '/user-master/checker-pending-requests',
   getInternalCompanyPickupRecords: '/internal-company/checker-pending-requests',
   getGoNoGoLogicPickupRecords: '/gng-master/checker-pending-requests',
+  getUserMasterDetails: '/user-master/get-user-masters',
+  updateUserMasterRemark: '/user-master/checker-user-status-update',
   
   //Masters
   getAllCommodity: 'commodity/get-commodities',

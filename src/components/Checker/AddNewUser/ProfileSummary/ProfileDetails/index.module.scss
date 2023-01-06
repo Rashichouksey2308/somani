@@ -32,7 +32,20 @@
                 font-weight: bold;
                 margin-left: 12px;
             }
-        }
 
+            .inActive {
+                color: #717772;
+                font-size: 22px;
+                line-height: 27px;
+                font-weight: bold;
+                margin-left: 12px;
+            }
+        }
     }
+}
+
+.highlighted_field {
+    background-color: yellow;
+    padding: 5px;
+    color: black;
 }
