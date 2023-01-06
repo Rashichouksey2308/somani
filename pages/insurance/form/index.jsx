@@ -72,8 +72,9 @@ const Index = () => {
       laycanTo: insuranceData?.quotationRequest?.laycanTo
         ? insuranceData?.quotationRequest?.laycanTo
         : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee:
-        _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', insuranceData?.quotationRequest?.lossPayee) || '',
+      lossPayee: insuranceData?.quotationRequest?.lossPayee  ? insuranceData?.quotationRequest?.lossPayee
+      : _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', ''),
+       
 
       storageDetails: {
         placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage
@@ -428,11 +429,7 @@ const Index = () => {
                                 onChange={(e) => {
                                   saveQuotationData(e.target.name, e.target.value);
                                 }}
-                                value={
-                                  quotationData?.lossPayee
-                                    ? quotationData?.lossPayee
-                                    : _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', '')
-                                }
+                                value={quotationData?.lossPayee}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               ></input>
                               <label className={`${styles.label_heading} label_heading`}>Loss Payee</label>
@@ -628,11 +625,7 @@ const Index = () => {
                                   saveQuotationData(e.target.name, e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                value={
-                                  quotationData?.lossPayee
-                                    ? quotationData?.lossPayee
-                                    : _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', '')
-                                }
+                                value={ quotationData?.lossPayee}
                               ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
