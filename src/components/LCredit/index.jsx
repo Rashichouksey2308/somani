@@ -196,7 +196,7 @@ function Index() {
     let val2 = e.target.value || '';
     setDrop(val2);
 
-    newInput['existingValue'] = lcData[e.target.value] || '';
+    newInput['existingValue'] = lcData ? lcData[e.target.value]  : '';
     if (e.target.value === 'draftAt')
       newInput['existingValue'] =
         lcData.atSight == 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${lcData['numberOfDays']} Days` || '';
@@ -547,7 +547,7 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            defaultValue={editInput ? editCurrent.dropDownValue : ''}
+                            defaultValue={editInput ? editCurrent?.dropDownValue : ''}
                             ref={inputRef1}
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}

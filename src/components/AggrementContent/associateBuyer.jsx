@@ -8,6 +8,7 @@ import TermSheetPopUp from '../TermsheetPopUp';
 import { useDispatch, useSelector } from 'react-redux';
 import { emailValidation } from '@/utils/helper';
 import { ShareDocument } from 'redux/shareDoc/action';
+import { handleErrorToast } from '@/utils/helpers/global';
 let associate = {
   branchName: '',
   shortName: '',

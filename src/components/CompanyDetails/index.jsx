@@ -390,12 +390,12 @@ const Index = ({
                   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   value={getvalue()}
                   onFocus={(e) => {
-                    e.target.type === 'number';
+                    e.target.type = 'number';
                     setIsSliderOnFocus(true);
                     setSliderWithCr('');
                   }}
                   onBlur={(e) => {
-                    e.target.type === 'text';
+                    e.target.type = 'text';
                     setIsSliderOnFocus(false);
                   }}
                   // max={100}
