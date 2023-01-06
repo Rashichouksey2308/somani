@@ -94,7 +94,8 @@ function Index() {
   };
 
   const handleRoute = (user) => {
-    sessionStorage.setItem('checkeruserId', user?._id);
+    sessionStorage.setItem('checkeruserMasterId', user?._id);
+    sessionStorage.setItem('userMasterFullName', user?.profileDetails?.fullName)
     dispatch(setDynamicName(user?.profileDetails?.fullName));
     Router.push('/checker/users/id');
   };

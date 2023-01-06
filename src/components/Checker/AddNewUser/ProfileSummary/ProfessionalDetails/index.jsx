@@ -2,8 +2,31 @@ import React from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import DateCalender from '../../../../DateCalender';
+import Tooltip from '../../../../Tooltip';
 
-function Index() {
+const format = (inputDate) => {
+    if (inputDate) {
+        let formatDate = new Date(inputDate);
+        let date, month, year;
+
+        date = formatDate.getDate();
+        month = formatDate.getMonth() + 1;
+        year = formatDate.getFullYear();
+
+        date = date
+            .toString()
+            .padStart(2, '0');
+
+        month = month
+            .toString()
+            .padStart(2, '0');
+
+        return `${date}-${month}-${year}`;
+    }
+    return '';
+}
+
+function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
     return (
         <div className={`${styles.main} mt-4 card border_color`}>
             <div
@@ -25,55 +48,74 @@ function Index() {
                                     User Role
                                 </div>
                                 <div className='font-weight-light h5'>
-                                    <span className='badge badge-outline mr-2'>Admin</span>
-                                    <span className='badge badge-outline'>HR</span>
+                                    <span className={`${JSON.stringify(professionalDetails?.userRole) !== JSON.stringify(professionalDetailsHistory?.userRole) && styles.highlighted_field}`}>
+                                        {professionalDetails?.userRole?.length ?
+                                            professionalDetails?.userRole.map((role) => (
+                                                <span className='badge badge-outline mr-2'>{role}</span>
+                                            ))
+                                            :
+                                            <span>--</span>
+                                        }
+                                    </span>
+                                    { JSON.stringify(professionalDetails?.userRole) !== JSON.stringify(professionalDetailsHistory?.userRole)
+                                        &&
+                                        <Tooltip data={professionalDetailsHistory?.userRole?.join(', ')} />
+                                    }
                                 </div>
                             </div>
-                            <div className='col-md-12 mb-5 px-0 mx-0 row'>
-                                <div className="col-md-4 col-sm-6">
-                                    <div className={`mb-2 font-weight-bold label_heading`}>
-                                        Company/Business Name
-                                    </div>
-                                    <div className='font-weight-light h5'>
-                                        Indo German
-                                    </div>
-                                </div>
-                                <div className="col-md-4 col-sm-6">
-                                    <div className={`mb-2 font-weight-bold label_heading`}>
-                                        Branch
-                                    </div>
-                                    <div className='font-weight-light h5'>
-                                        <span className='badge badge-outline mr-2'>New Delhi</span>
-                                        <span className='badge badge-outline'>Mumbai</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-md-12 mb-5 px-0 mx-0 row'>
-                                <div className="col-md-4 col-sm-6">
-                                    <div className={`mb-2 font-weight-bold label_heading`}>
-                                        Company/Business Name
-                                    </div>
-                                    <div className='font-weight-light h5'>
-                                        Emergent
-                                    </div>
-                                </div>
-                                <div className="col-md-4 col-sm-6">
-                                    <div className={`mb-2 font-weight-bold label_heading`}>
-                                        Branch
-                                    </div>
-                                    <div className='font-weight-light h5'>
-                                        <span className='badge badge-outline mr-2'>New Delhi</span>
-                                        <span className='badge badge-outline'>Mumbai</span>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                professionalDetails?.company.map((comp) => (
+                                     professionalDetailsHistory?.company.map((compHistory) => (
+                                        (comp._id === compHistory._id) && <div className='col-md-12 mb-5 px-0 mx-0 row'>
+                                            <div className="col-md-4 col-sm-6">
+                                                <div className={`mb-2 font-weight-bold label_heading`}>
+                                                    Company/Business Name
+                                                </div>
+                                                <div className='font-weight-light h5 d-flex align-items-center'>
+                                                    <span className={`${(comp._id === compHistory._id) && compHistory?.companyName !== comp?.companyName && styles.highlighted_field}`}>
+                                                        { comp._id === compHistory._id && comp?.companyName}
+                                                    </span>
+                                                    {(comp._id === compHistory._id) && compHistory?.companyName !== comp?.companyName && <Tooltip data={compHistory?.companyName} /> }
+                                                </div>
+                                            </div>
+                                            <div className="col-md-4 col-sm-6">
+                                                <div className={`mb-2 font-weight-bold label_heading`}>
+                                                    Branch
+                                                </div>
+
+                                                <div className='d-flex align-items-center'>
+                                                    <span className={`${(comp._id === compHistory._id) && JSON.stringify(comp?.companyBranch) !== JSON.stringify(compHistory?.companyBranch) && styles.highlighted_field} d-flex`}>
+                                                        {comp?.companyBranch.length ?
+                                                            comp?.companyBranch.map((branch) => (
+                                                                <div className='font-weight-light'>
+                                                                    <span className='badge badge-outline mr-2'>{branch}</span>
+                                                                </div>
+                                                            ))
+                                                            :
+                                                            <span>--</span>
+                                                        }
+                                                    </span>
+                                                    {(comp._id === compHistory._id) && JSON.stringify(comp?.companyBranch) !== JSON.stringify(compHistory?.companyBranch)
+                                                        &&
+                                                        <Tooltip data={compHistory?.companyBranch?.join(', ') || '--'} />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                                ))
+                                                ))
+                            }
+
                             <div className='col-md-12 mb-5 px-0 mx-0 row'>
                                 <div className="col-md-4 col-sm-6">
                                     <div className={`mb-2 font-weight-bold label_heading`}>
                                         Department
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        Finance
+                                        <span className={`${professionalDetailsHistory?.department !== professionalDetails?.department && styles.highlighted_field}`}>
+                                            {professionalDetails?.department || '--'}
+                                        </span>
+                                        { professionalDetailsHistory?.department !== professionalDetails?.department && <Tooltip data={professionalDetailsHistory?.department || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -81,7 +123,10 @@ function Index() {
                                         EMP ID
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        SG1234
+                                    <span className={`${professionalDetailsHistory?.empId !== professionalDetails?.empId && styles.highlighted_field}`}>
+                                        {professionalDetails?.empId || '--'}
+                                    </span>
+                                        { professionalDetailsHistory?.empId !== professionalDetails?.empId && <Tooltip data={professionalDetailsHistory?.empId || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -89,7 +134,10 @@ function Index() {
                                         Designation
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        Finance Executive
+                                        <span className={`${professionalDetailsHistory?.designation !== professionalDetails?.designation && styles.highlighted_field}`}>
+                                            {professionalDetails?.designation || '--'}
+                                        </span>
+                                        { professionalDetailsHistory?.designation !== professionalDetails?.designation && <Tooltip data={professionalDetailsHistory?.designation || '--'} />}
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +147,10 @@ function Index() {
                                         Reporting Manager
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        John Doe
+                                        <span className={`${professionalDetailsHistory?.reportingManager !== professionalDetails?.reportingManager && styles.highlighted_field}`}>
+                                            {professionalDetails?.reportingManager || '--'}
+                                        </span>
+                                        { professionalDetailsHistory?.reportingManager !== professionalDetails?.reportingManager && <Tooltip data={professionalDetailsHistory?.reportingManager || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -107,7 +158,10 @@ function Index() {
                                         Alternate Email ID
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        name@somanigroup.com
+                                        <span className={`${professionalDetailsHistory?.alternateEmailId !== professionalDetails?.alternateEmailId && styles.highlighted_field}`}>
+                                            {professionalDetails?.alternateEmailId || '--'}
+                                        </span>
+                                        { professionalDetailsHistory?.alternateEmailId !== professionalDetails?.alternateEmailId && <Tooltip data={professionalDetailsHistory?.alternateEmailId || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -117,7 +171,10 @@ function Index() {
                                                 Date Of Joining
                                             </div>
                                             <div className='font-weight-light h5'>
-                                                22-02-2022
+                                                <span className={`${professionalDetailsHistory?.dateOfJoining !== professionalDetails?.dateOfJoining && styles.highlighted_field}`}>
+                                                    {format(professionalDetails?.dateOfJoining) || '--'}
+                                                </span>
+                                                { professionalDetailsHistory?.dateOfJoining !== professionalDetails?.dateOfJoining && <Tooltip data={format(professionalDetailsHistory?.dateOfJoining) || '--'} />}
                                             </div>
                                         </div>
                                         <div className='col-6'>
@@ -125,7 +182,10 @@ function Index() {
                                                 Last Working Day
                                             </div>
                                             <div className='font-weight-light h5'>
-                                                22-02-2022
+                                                <span className={`${professionalDetailsHistory?.lastWorkingDay !== professionalDetails?.lastWorkingDay && styles.highlighted_field}`}>
+                                                    {format(professionalDetails?.lastWorkingDay) || '--'}
+                                                </span>
+                                                { professionalDetailsHistory?.lastWorkingDay !== professionalDetails?.lastWorkingDay && <Tooltip data={format(professionalDetailsHistory?.lastWorkingDay) || '--'} />}
                                             </div>
                                         </div>
                                     </div>
@@ -137,9 +197,11 @@ function Index() {
                                         Remarks
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        Lorem Ipsum
-                                        &nbsp;&nbsp;
-                                        <button className='btn btn-outline-primary-custom font-weight-bold py-0'>View Document</button>
+                                        <span className={`${professionalDetailsHistory?.remarks !== professionalDetails?.remarks && styles.highlighted_field} mr-5`}>
+                                            {remarks || '--'}
+                                        </span>
+                                            { professionalDetailsHistory?.remarks !== professionalDetails?.remarks && <Tooltip data={professionalDetailsHistory?.remarks || '--'} />}
+                                        {/* <button className='btn btn-outline-primary-custom font-weight-bold py-0 ml-5'>View Document</button> */}
                                     </div>
                                 </div>
                             </div>
