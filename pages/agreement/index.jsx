@@ -14,7 +14,7 @@ import VesselSaveBar from '../../src/components/VesselSaveBar';
 import { handleErrorToast } from '@/utils/helpers/global';
 
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateGenericData } from '../../src/redux/generic/actionsType';
 function Index() {
   const [preview, setPreview] = useState('');
@@ -30,7 +30,7 @@ function Index() {
   const [orderId, setOrderID] = useState('');
   useEffect(() => {
     if (window) {
-      let term = JSON.parse(sessionStorage.getItem('genericSelected'));
+      const term = JSON.parse(sessionStorage.getItem('genericSelected'));
       dispatch(setPageName('agreement'));
       dispatch(setDynamicName(term.company.companyName));
       dispatch(setDynamicOrder(term.order.orderId));
@@ -78,7 +78,7 @@ function Index() {
   const saveDoc = async () => {
     const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
 
-    let dataToSend = {
+    const dataToSend = {
       genericId: JSON.parse(sessionStorage.getItem('genericSelected'))._id,
       agreementDocument: doc,
     };
@@ -91,7 +91,7 @@ function Index() {
       handleErrorToast('please upload Sales Agreement ');
       return;
     }
-    let dataToSend = {
+    const dataToSend = {
       genericId: JSON.parse(sessionStorage.getItem('genericSelected'))._id,
       document: doc,
     };

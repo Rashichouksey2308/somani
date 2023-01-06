@@ -5,7 +5,7 @@ import _get from 'lodash/get';
 import moment from 'moment';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import ReactDOMServer from 'react-dom/server';
 import { useDispatch, useSelector } from 'react-redux';
@@ -86,7 +86,6 @@ function Index() {
       }
         doc.save('RequestLetter.pdf');
       },
-      // margin:margins,
       autoPaging: 'text',
     });
   };
@@ -114,7 +113,6 @@ function Index() {
               <div className={`${styles.details_content} mb-1 pt-2`}>
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  {/* {moment(insuranceData?.createdAt?.split('T')[0]).format('DD.MM.yyyy')} */}
                   {moment(new Date()).format('DD.MM.yyyy')}
                 </span>
               </div>
@@ -351,10 +349,6 @@ function Index() {
                         </>
                       );
                     })}
-                    {/* <div className={`${styles.labelFloat} form-group`}>
-                          <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
-                          <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
-                        </div> */}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
