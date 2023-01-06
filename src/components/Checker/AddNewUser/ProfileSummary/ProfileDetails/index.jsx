@@ -20,10 +20,10 @@ function Index({ profileDetails, profileDetailsHistory }) {
                         User Type
                     </div>
                     <div className={`font-weight-light h5`}>
-                        <span className={`${profileDetailsHistory?.userType !== profileDetails?.userType && styles.highlighted_field}`}>
+                        <span className={`${profileDetailsHistory?.userType && profileDetailsHistory?.userType !== profileDetails?.userType && styles.highlighted_field}`}>
                             { profileDetails?.userType || '-' }
                         </span>
-                        { profileDetailsHistory?.userType !== profileDetails?.userType && <Tooltip data={profileDetailsHistory?.userType || '--'} />}
+                        { profileDetailsHistory?.userType && profileDetailsHistory?.userType !== profileDetails?.userType && <Tooltip data={profileDetailsHistory?.userType || '--'} />}
                     </div>
                 </div>
                 <div className="d-flex justify-space-between">
@@ -33,10 +33,10 @@ function Index({ profileDetails, profileDetailsHistory }) {
                                 Full Name
                             </div>
                             <div className={`font-weight-light h5`}>
-                                <span className={`${profileDetailsHistory?.fullName !== profileDetails?.fullName && styles.highlighted_field}`}>
+                                <span className={`${profileDetailsHistory?.fullName && profileDetailsHistory?.fullName !== profileDetails?.fullName && styles.highlighted_field}`}>
                                         { profileDetails?.fullName || '-' }
                                 </span>
-                            { profileDetailsHistory?.fullName !== profileDetails?.fullName && <Tooltip data={profileDetailsHistory?.fullName || '--'} />}
+                            { profileDetailsHistory?.fullName && profileDetailsHistory?.fullName !== profileDetails?.fullName && <Tooltip data={profileDetailsHistory?.fullName || '--'} />}
                             </div>
                         </div>
                         <div className="col-md-5 col-sm-6">
@@ -44,10 +44,10 @@ function Index({ profileDetails, profileDetailsHistory }) {
                                 Username
                             </div>
                             <div className='font-weight-light h5'>
-                                <span className={`${profileDetailsHistory?.userName !== profileDetails?.userName && styles.highlighted_field}`}>
+                                <span className={`${profileDetailsHistory?.userName && profileDetailsHistory?.userName !== profileDetails?.userName && styles.highlighted_field}`}>
                                     { profileDetails?.userName || '-' }
                                 </span>
-                                { profileDetailsHistory?.userName !== profileDetails?.userName && <Tooltip data={profileDetailsHistory?.userName || '--'} />}
+                                { profileDetailsHistory?.userName && profileDetailsHistory?.userName !== profileDetails?.userName && <Tooltip data={profileDetailsHistory?.userName || '--'} />}
                             </div>
                         </div>
 
@@ -56,10 +56,10 @@ function Index({ profileDetails, profileDetailsHistory }) {
                                 Official Email ID
                             </div>
                             <div className='font-weight-light h5'>
-                                <span className={`${profileDetailsHistory?.officialEmailId !== profileDetails?.officialEmailId && styles.highlighted_field}`}>
+                                <span className={`${profileDetailsHistory?.officialEmailId && profileDetailsHistory?.officialEmailId !== profileDetails?.officialEmailId && styles.highlighted_field}`}>
                                     { profileDetails?.officialEmailId || '-' }
                                 </span>
-                            { profileDetailsHistory?.officialEmailId !== profileDetails?.officialEmailId && <Tooltip data={profileDetailsHistory?.officialEmailId || '--'} />}
+                            { profileDetailsHistory?.officialEmailId && profileDetailsHistory?.officialEmailId  !== profileDetails?.officialEmailId && <Tooltip data={profileDetailsHistory?.officialEmailId || '--'} />}
                             </div>
                         </div>
                         <div className="col-md-5 col-sm-6 my-4">

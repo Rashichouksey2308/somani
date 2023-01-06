@@ -163,8 +163,6 @@ export default {
   createCountryMaster: 'country-master',
 
   //Checker
-  getCommodityDetails: '/commodity/commodity/',
-  updateCommodityRemark: '/commodity/checker-commodity/',
   getUserDetails: '/user-master/user',
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
@@ -180,6 +178,8 @@ export default {
   getGoNoGoLogicPickupRecords: '/gng-master/checker-pending-requests',
   getUserMasterDetails: '/user-master/get-user-masters',
   updateUserMasterRemark: '/user-master/checker-user-status-update',
+  getCommodityDetails: '/commodity/get-commodities',
+  updateCommodityRemark: '/commodity/checker-commodity-status-update',
   
   //Masters
   getAllCommodity: 'commodity/get-commodities',

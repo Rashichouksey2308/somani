@@ -43,10 +43,10 @@ function Index({ documents, orderId, documentsHistory }) {
                     row?.original?._id === docHistory._id
                     &&
                     <>
-                        <span className={`font-weight-bold text-uppercase ${docHistory?.name !== value && styles.highlighted_field}`}>
+                        <span className={`font-weight-bold text-uppercase ${docHistory?.name && docHistory?.name !== value && styles.highlighted_field}`}>
                             {value}
                         </span>
-                        {docHistory?.name !== value && <Tooltip data={docHistory?.name || '--'} />}
+                        {docHistory?.name && docHistory?.name !== value && <Tooltip data={docHistory?.name || '--'} />}
                     </>
                 ))
             }
@@ -62,7 +62,7 @@ function Index({ documents, orderId, documentsHistory }) {
                         <span className="font-weight-bold badge badge-primary px-3 py-2 text-uppercase">
                             {value.split('/')[1]}
                         </span>
-                        {docHistory?.format !== value && <Tooltip data={docHistory?.format.split('/')[1] || '--'} />}
+                        {docHistory?.format && docHistory?.format !== value && <Tooltip data={docHistory?.format.split('/')[1] || '--'} />}
                     </>
                 ))
             }
@@ -75,10 +75,10 @@ function Index({ documents, orderId, documentsHistory }) {
                     row?.original?._id === docHistory._id
                     &&
                     <>
-                        <span className={`font-weight-bold text-uppercase ${docHistory?.date !== value && styles.highlighted_field}`}>
+                        <span className={`font-weight-bold text-uppercase ${docHistory?.date && docHistory?.date !== value && styles.highlighted_field}`}>
                             {value?.slice(0, 10)}
                         </span>
-                        {docHistory?.date !== value && <Tooltip data={docHistory?.date?.slice(0, 10) || '--'} />}
+                        {docHistory?.date && docHistory?.date !== value && <Tooltip data={docHistory?.date?.slice(0, 10) || '--'} />}
                     </>
                 ))
             }
@@ -91,10 +91,10 @@ function Index({ documents, orderId, documentsHistory }) {
                     row?.original?._id === docHistory._id
                     &&
                     <>
-                        <span className={`font-weight-bold text-uppercase ${docHistory?.uploadedBy?.fName !== value && styles.highlighted_field}`}>
+                        <span className={`font-weight-bold text-uppercase ${docHistory?.uploadedBy?.fName && docHistory?.uploadedBy?.fName !== value && styles.highlighted_field}`}>
                             {value}
                         </span>
-                        {docHistory?.uploadedBy?.fName !== value && <Tooltip data={docHistory?.uploadedBy?.fName || '--'} />}
+                        {docHistory?.uploadedBy?.fName && docHistory?.uploadedBy?.fName !== value && <Tooltip data={docHistory?.uploadedBy?.fName || '--'} />}
                     </>
 
                 ))

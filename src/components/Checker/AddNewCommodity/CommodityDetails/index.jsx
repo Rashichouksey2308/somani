@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './index.module.scss';
+import Tooltip from '../../../Tooltip';
 
-function Index() {
+function Index({ commodityDetails, commodityDetailsHistory}) {
+
     return (
         <div className={`${styles.main} mt-4 card border_color`}>
             <div
@@ -19,7 +21,10 @@ function Index() {
                                         Commodity
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        Ferro-Alloys
+                                        <span className={`${commodityDetailsHistory?.Commodity && commodityDetailsHistory?.Commodity !== commodityDetails?.Commodity && styles.highlighted_field}`}>
+                                            {commodityDetails?.Commodity || '-'}
+                                        </span>
+                                        {commodityDetailsHistory?.Commodity && commodityDetailsHistory?.Commodity !== commodityDetails?.Commodity && <Tooltip data={commodityDetailsHistory?.Commodity || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -27,7 +32,10 @@ function Index() {
                                         Chapter Name
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        Iron & Steel
+                                        <span className={`${commodityDetailsHistory?.Chapter_Name && commodityDetailsHistory?.Chapter_Name !== commodityDetails?.Chapter_Name && styles.highlighted_field}`}>
+                                            {commodityDetails?.Chapter_Name || '-'}
+                                        </span>
+                                        {commodityDetailsHistory?.Chapter_Name && commodityDetailsHistory?.Chapter_Name !== commodityDetails?.Chapter_Name && <Tooltip data={commodityDetailsHistory?.Chapter_Name || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -35,7 +43,10 @@ function Index() {
                                         Chapter Code
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        72
+                                        <span className={`${commodityDetailsHistory?.Chapter_Code && commodityDetailsHistory?.Chapter_Code !== commodityDetails?.Chapter_Code && styles.highlighted_field}`}>
+                                            {commodityDetails?.Chapter_Code || '-'}
+                                        </span>
+                                        {commodityDetailsHistory?.Chapter_Code && commodityDetailsHistory?.Chapter_Code !== commodityDetails?.Chapter_Code && <Tooltip data={commodityDetailsHistory?.Chapter_Code || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -43,7 +54,21 @@ function Index() {
                                         Approved Commodity
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        Yes
+                                        <span className={`${commodityDetailsHistory?.Approved_Commodity && commodityDetailsHistory?.Approved_Commodity !== commodityDetails?.Approved_Commodity && styles.highlighted_field}`}>
+                                            {commodityDetails?.Approved_Commodity || '-'}
+                                        </span>
+                                        {commodityDetailsHistory?.Approved_Commodity && commodityDetailsHistory?.Approved_Commodity !== commodityDetails?.Approved_Commodity && <Tooltip data={commodityDetailsHistory?.Approved_Commodity || '--'} />}
+                                    </div>
+                                </div>
+                                <div className="col-md-4 col-sm-6">
+                                    <div className={`mb-2 font-weight-bold label_heading`}>
+                                        Approved Date
+                                    </div>
+                                    <div className='font-weight-light h5'>
+                                        <span className={`${commodityDetailsHistory?.Approved_Date && commodityDetailsHistory?.Approved_Date !== commodityDetails?.Approved_Date && styles.highlighted_field}`}>
+                                            {commodityDetails?.Approved_Date || '-'}
+                                        </span>
+                                        {commodityDetailsHistory?.Approved_Date && commodityDetailsHistory?.Approved_Date !== commodityDetails?.Approved_Date && <Tooltip data={commodityDetailsHistory?.Approved_Date || '--'} />}
                                     </div>
                                 </div>
                             </div>

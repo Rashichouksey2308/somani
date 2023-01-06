@@ -48,7 +48,7 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                     User Role
                                 </div>
                                 <div className='font-weight-light h5'>
-                                    <span className={`${JSON.stringify(professionalDetails?.userRole) !== JSON.stringify(professionalDetailsHistory?.userRole) && styles.highlighted_field}`}>
+                                    <span className={`${professionalDetailsHistory?.userRole?.length >= 0 && JSON.stringify(professionalDetails?.userRole) !== JSON.stringify(professionalDetailsHistory?.userRole) && styles.highlighted_field}`}>
                                         {professionalDetails?.userRole?.length ?
                                             professionalDetails?.userRole.map((role) => (
                                                 <span className='badge badge-outline mr-2'>{role}</span>
@@ -57,7 +57,7 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                             <span>--</span>
                                         }
                                     </span>
-                                    { JSON.stringify(professionalDetails?.userRole) !== JSON.stringify(professionalDetailsHistory?.userRole)
+                                    { professionalDetailsHistory?.userRole?.length >= 0 && JSON.stringify(professionalDetails?.userRole) !== JSON.stringify(professionalDetailsHistory?.userRole)
                                         &&
                                         <Tooltip data={professionalDetailsHistory?.userRole?.join(', ')} />
                                     }
@@ -72,10 +72,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                                     Company/Business Name
                                                 </div>
                                                 <div className='font-weight-light h5 d-flex align-items-center'>
-                                                    <span className={`${(comp._id === compHistory._id) && compHistory?.companyName !== comp?.companyName && styles.highlighted_field}`}>
+                                                    <span className={`${(comp._id === compHistory._id) && compHistory?.companyName && compHistory?.companyName !== comp?.companyName && styles.highlighted_field}`}>
                                                         { comp._id === compHistory._id && comp?.companyName}
                                                     </span>
-                                                    {(comp._id === compHistory._id) && compHistory?.companyName !== comp?.companyName && <Tooltip data={compHistory?.companyName} /> }
+                                                    {(comp._id === compHistory._id) && compHistory?.companyName && compHistory?.companyName !== comp?.companyName && <Tooltip data={compHistory?.companyName} /> }
                                                 </div>
                                             </div>
                                             <div className="col-md-4 col-sm-6">
@@ -84,7 +84,7 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                                 </div>
 
                                                 <div className='d-flex align-items-center'>
-                                                    <span className={`${(comp._id === compHistory._id) && JSON.stringify(comp?.companyBranch) !== JSON.stringify(compHistory?.companyBranch) && styles.highlighted_field} d-flex`}>
+                                                    <span className={`${(comp._id === compHistory._id) && compHistory?.companyBranch?.length >= 0 && JSON.stringify(comp?.companyBranch) !== JSON.stringify(compHistory?.companyBranch) && styles.highlighted_field} d-flex`}>
                                                         {comp?.companyBranch.length ?
                                                             comp?.companyBranch.map((branch) => (
                                                                 <div className='font-weight-light'>
@@ -95,7 +95,7 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                                             <span>--</span>
                                                         }
                                                     </span>
-                                                    {(comp._id === compHistory._id) && JSON.stringify(comp?.companyBranch) !== JSON.stringify(compHistory?.companyBranch)
+                                                    {(comp._id === compHistory._id) && compHistory?.companyBranch?.length >= 0 && JSON.stringify(comp?.companyBranch) !== JSON.stringify(compHistory?.companyBranch)
                                                         &&
                                                         <Tooltip data={compHistory?.companyBranch?.join(', ') || '--'} />
                                                     }
@@ -112,10 +112,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                         Department
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        <span className={`${professionalDetailsHistory?.department !== professionalDetails?.department && styles.highlighted_field}`}>
+                                        <span className={`${professionalDetailsHistory?.department && professionalDetailsHistory?.department !== professionalDetails?.department && styles.highlighted_field}`}>
                                             {professionalDetails?.department || '--'}
                                         </span>
-                                        { professionalDetailsHistory?.department !== professionalDetails?.department && <Tooltip data={professionalDetailsHistory?.department || '--'} />}
+                                        { professionalDetailsHistory?.department && professionalDetailsHistory?.department !== professionalDetails?.department && <Tooltip data={professionalDetailsHistory?.department || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -123,10 +123,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                         EMP ID
                                     </div>
                                     <div className='font-weight-light h5'>
-                                    <span className={`${professionalDetailsHistory?.empId !== professionalDetails?.empId && styles.highlighted_field}`}>
+                                    <span className={`${professionalDetailsHistory?.empId && professionalDetailsHistory?.empId !== professionalDetails?.empId && styles.highlighted_field}`}>
                                         {professionalDetails?.empId || '--'}
                                     </span>
-                                        { professionalDetailsHistory?.empId !== professionalDetails?.empId && <Tooltip data={professionalDetailsHistory?.empId || '--'} />}
+                                        { professionalDetailsHistory?.empId && professionalDetailsHistory?.empId !== professionalDetails?.empId && <Tooltip data={professionalDetailsHistory?.empId || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -134,10 +134,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                         Designation
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        <span className={`${professionalDetailsHistory?.designation !== professionalDetails?.designation && styles.highlighted_field}`}>
+                                        <span className={`${professionalDetailsHistory?.designation && professionalDetailsHistory?.designation !== professionalDetails?.designation && styles.highlighted_field}`}>
                                             {professionalDetails?.designation || '--'}
                                         </span>
-                                        { professionalDetailsHistory?.designation !== professionalDetails?.designation && <Tooltip data={professionalDetailsHistory?.designation || '--'} />}
+                                        { professionalDetailsHistory?.designation && professionalDetailsHistory?.designation !== professionalDetails?.designation && <Tooltip data={professionalDetailsHistory?.designation || '--'} />}
                                     </div>
                                 </div>
                             </div>
@@ -147,10 +147,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                         Reporting Manager
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        <span className={`${professionalDetailsHistory?.reportingManager !== professionalDetails?.reportingManager && styles.highlighted_field}`}>
+                                        <span className={`${professionalDetailsHistory?.reportingManager && professionalDetailsHistory?.reportingManager !== professionalDetails?.reportingManager && styles.highlighted_field}`}>
                                             {professionalDetails?.reportingManager || '--'}
                                         </span>
-                                        { professionalDetailsHistory?.reportingManager !== professionalDetails?.reportingManager && <Tooltip data={professionalDetailsHistory?.reportingManager || '--'} />}
+                                        { professionalDetailsHistory?.reportingManager && professionalDetailsHistory?.reportingManager !== professionalDetails?.reportingManager && <Tooltip data={professionalDetailsHistory?.reportingManager || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -158,10 +158,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                         Alternate Email ID
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        <span className={`${professionalDetailsHistory?.alternateEmailId !== professionalDetails?.alternateEmailId && styles.highlighted_field}`}>
+                                        <span className={`${professionalDetailsHistory?.alternateEmailId && professionalDetailsHistory?.alternateEmailId !== professionalDetails?.alternateEmailId && styles.highlighted_field}`}>
                                             {professionalDetails?.alternateEmailId || '--'}
                                         </span>
-                                        { professionalDetailsHistory?.alternateEmailId !== professionalDetails?.alternateEmailId && <Tooltip data={professionalDetailsHistory?.alternateEmailId || '--'} />}
+                                        { professionalDetailsHistory?.alternateEmailId && professionalDetailsHistory?.alternateEmailId !== professionalDetails?.alternateEmailId && <Tooltip data={professionalDetailsHistory?.alternateEmailId || '--'} />}
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6">
@@ -171,10 +171,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                                 Date Of Joining
                                             </div>
                                             <div className='font-weight-light h5'>
-                                                <span className={`${professionalDetailsHistory?.dateOfJoining !== professionalDetails?.dateOfJoining && styles.highlighted_field}`}>
+                                                <span className={`${professionalDetailsHistory?.dateOfJoining && professionalDetailsHistory?.dateOfJoining !== professionalDetails?.dateOfJoining && styles.highlighted_field}`}>
                                                     {format(professionalDetails?.dateOfJoining) || '--'}
                                                 </span>
-                                                { professionalDetailsHistory?.dateOfJoining !== professionalDetails?.dateOfJoining && <Tooltip data={format(professionalDetailsHistory?.dateOfJoining) || '--'} />}
+                                                { professionalDetailsHistory?.dateOfJoining && professionalDetailsHistory?.dateOfJoining !== professionalDetails?.dateOfJoining && <Tooltip data={format(professionalDetailsHistory?.dateOfJoining) || '--'} />}
                                             </div>
                                         </div>
                                         <div className='col-6'>
@@ -182,10 +182,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                                 Last Working Day
                                             </div>
                                             <div className='font-weight-light h5'>
-                                                <span className={`${professionalDetailsHistory?.lastWorkingDay !== professionalDetails?.lastWorkingDay && styles.highlighted_field}`}>
+                                                <span className={`${professionalDetailsHistory?.lastWorkingDay && professionalDetailsHistory?.lastWorkingDay !== professionalDetails?.lastWorkingDay && styles.highlighted_field}`}>
                                                     {format(professionalDetails?.lastWorkingDay) || '--'}
                                                 </span>
-                                                { professionalDetailsHistory?.lastWorkingDay !== professionalDetails?.lastWorkingDay && <Tooltip data={format(professionalDetailsHistory?.lastWorkingDay) || '--'} />}
+                                                { professionalDetailsHistory?.lastWorkingDay && professionalDetailsHistory?.lastWorkingDay !== professionalDetails?.lastWorkingDay && <Tooltip data={format(professionalDetailsHistory?.lastWorkingDay) || '--'} />}
                                             </div>
                                         </div>
                                     </div>
@@ -197,10 +197,10 @@ function Index({ professionalDetails, remarks, professionalDetailsHistory }) {
                                         Remarks
                                     </div>
                                     <div className='font-weight-light h5'>
-                                        <span className={`${professionalDetailsHistory?.remarks !== professionalDetails?.remarks && styles.highlighted_field} mr-5`}>
+                                        <span className={`${professionalDetailsHistory?.remarks && professionalDetailsHistory?.remarks !== professionalDetails?.remarks && styles.highlighted_field} mr-5`}>
                                             {remarks || '--'}
                                         </span>
-                                            { professionalDetailsHistory?.remarks !== professionalDetails?.remarks && <Tooltip data={professionalDetailsHistory?.remarks || '--'} />}
+                                            { professionalDetailsHistory?.remarks && professionalDetailsHistory?.remarks !== professionalDetails?.remarks && <Tooltip data={professionalDetailsHistory?.remarks || '--'} />}
                                         {/* <button className='btn btn-outline-primary-custom font-weight-bold py-0 ml-5'>View Document</button> */}
                                     </div>
                                 </div>
