@@ -316,23 +316,23 @@ function Index() {
 
   const changeRoute = () => {
     if (checkValidation()) {
-      let comment = [];
+      const comment = [];
       if (lcComments.length > 0) {
         lcComments.forEach((val, index) => {
           comment.push(val.value);
         });
       }
-      let doc = [];
+      const doc = [];
       if (lcDocuments.length > 0) {
         lcDocuments.forEach((val, index) => {
           doc.push(val.value);
         });
       }
-      let task = 'preview';
-      let lcObj = { ...lcData };
+      const task = 'preview';
+      const lcObj = { ...lcData };
       lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue);
       lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage);
-      let obj = {
+      const obj = {
         lcApplication: { ...lcObj },
         additionalConditions: [...comment],
         documentRequired: [...doc],
