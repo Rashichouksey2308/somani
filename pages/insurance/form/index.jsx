@@ -163,7 +163,7 @@ const Index = () => {
       handleErrorToast('Please add expected Time Of Arrival ');
       return false;
     } else if (
-      quotationData.sumInsured === '' ||
+      quotationData.sumInsured == '' ||
       quotationData.sumInsured === undefined ||
       quotationData.sumInsured == null
     ) {

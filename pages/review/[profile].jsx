@@ -87,11 +87,6 @@ const Index = () => {
         handleErrorToast('Please add turnOver');
         return false;
       }
-    } else if (!buyerList?.countryOfOrigin?.apiResponse) {
-      if (!payloadData.hasOwnProperty('countryOfOrigin')) {
-        handleErrorToast('Please select country');
-        return false;
-      }
     } else if (!buyerList?.orderValue?.apiResponse) {
       if (!payloadData.hasOwnProperty('orderValue') || !payloadData.orderValue) {
         handleErrorToast('Please add order value');
@@ -112,19 +107,9 @@ const Index = () => {
         handleErrorToast('Please select type of business');
         return false;
       }
-    } else if (!buyerList?.orderValue?.apiResponse) {
-      if (!payloadData.hasOwnProperty('orderValue')) {
-        handleErrorToast('Please fill order Value');
-        return false;
-      }
-    } else if (!buyerList?.countryOfOrigin?.apiResponse) {
+    }  else if (!buyerList?.countryOfOrigin?.apiResponse) {
       if (!payloadData.hasOwnProperty('countryOfOrigin')) {
         handleErrorToast('Please select a country of origin');
-        return false;
-      }
-    } else if (!buyerList?.portOfDischarge?.apiResponse) {
-      if (!payloadData.hasOwnProperty('portOfDischarge')) {
-        handleErrorToast('Please select a port Of Discharge');
         return false;
       }
     } else if (!buyerList?.ExpectedDateOfShipment?.apiResponse) {
@@ -148,7 +133,7 @@ const Index = () => {
     const payload = { ...payloadData, orderReviewId: buyerList._id };
 
     const code = await dispatch(UpdateBuyer(payload));
-    if (code === 200) {
+    if (code == 200) {
       dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'));
       await Router.push('/review');
     }
