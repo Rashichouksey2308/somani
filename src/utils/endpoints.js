@@ -161,6 +161,9 @@ export default {
   getMasterCountryQueueRecords: 'country-master/filterCountryMaster',
   filterCountryQueue: 'country-master/search',
   createCountryMaster: 'country-master',
+  getMasterCurrencyQueueRecords: 'currency-master/filterCurrency',
+  filterCurrencyQueue: 'currency-master/search',
+  createCurrencyMaster: 'currency-master',
 
   //Checker
   getUserDetails: '/user-master/user',

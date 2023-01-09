@@ -245,6 +245,60 @@ function createCountryMasterFailed(payload = {}) {
   };
 }
 
+
+// ******** Master Currency Queue ***********///
+function getMasterCurrencyQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_CURRENCY_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterCurrencyQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_CURRENCY_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter Currency Queue  ***********/////
+
+function filterCurrencyQueue() {
+  return {
+    type: types.FILTER_CURRENCY_QUEUE,
+  };
+}
+
+function filterCurrencyQueueSuccess(payload) {
+  return {
+    type: types.FILTER_CURRENCY_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterCurrencyQueueFailed() {
+  return {
+    type: types.FILTER_CURRENCY_QUEUE_FAILED,
+  };
+}
+
+// ******** Currency Master Add ******** //
+
+function createCurrencyMasterSuccess(payload) {
+  return {
+    type: types.CREATE_CURRENCY_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createCurrencyMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_CURRENCY_MASTER_FAILED,
+    payload,
+  };
+}
+
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -1015,3 +1069,112 @@ export const CreateCountryMaster = (payload) => async (dispatch, getState, api) 
   }
 };
 // Handler for Country-master End ---->
+
+// Handler for Currency-master Start ---->
+export const GetMasterCurrencyQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterCurrencyQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterCurrencyQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterCurrencyQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Currency Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterCurrencyQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterCurrencyQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterCurrencyQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterCurrencyQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterCurrencyQueueFailed(response.data));
+        const toastMessage = 'Search Currency Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterCurrencyQueueFailed());
+    const toastMessage = 'Search Currency request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateCurrencyMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createCurrencyMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createCurrencyMasterSuccess(response.data.data));
+      let toastMessage = 'CURRENCY ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createCurrencyMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createCurrencyMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD CURRENCY DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for Currency-master End ---->
