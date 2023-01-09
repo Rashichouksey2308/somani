@@ -172,6 +172,9 @@ function Index() {
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
   const draftString = '(42C) Draft At';
+  const draftTransString = '(43T) Transhipments';
+  const draft44FString = '(44F) Port of Discharge';
+  const draft32BString = '(32B) Currency Code & Amount';
   const dateFormatString = 'DD-MM-YYYY';
 
   const dropDownChange = (e) => {
@@ -312,11 +315,11 @@ function Index() {
     }
     if (type === '(44C) Latest Date Of Shipment' || type === '(31D) Date Of Expiry') {
       return value ? moment(value).format(dateFormatString) : '';
-    } else if (type === '(43P) Partial Shipment' || type == '(43T) Transhipments') {
-      return value == 'Yes' ? 'Allowed' : 'Not Allowed';
-    } else if (type == '(44F) Port of Discharge') {
+    } else if (type === '(43P) Partial Shipment' || type === draftTransString) {
+      return value === 'Yes' ? 'Allowed' : 'Not Allowed';
+    } else if (type === draft44FString) {
       return `${value}, India`;
-    } else if (type == '(32B) Currency Code & Amount') {
+    } else if (type === draft32BString) {
       return Number(value).toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -329,30 +332,30 @@ function Index() {
   const [existingValue, setExistingValue] = useState('');
 
   const getDataFormDropDown = (value) => {
-    if (fieldType == 'date') {
+    if (fieldType === 'date') {
       setExistingValue(moment(value).format(dateFormatString));
     }
-    if (fieldType == 'number') {
+    if (fieldType === 'number') {
       setExistingValue(
         Number(value).toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         }),
       );
-    } else if (fieldType == 'drop') {
-      if (value == 'Yes') {
+    } else if (fieldType === 'drop') {
+      if (value === 'Yes') {
         setExistingValue('Allowed');
         return;
       }
-      if (value == 'No') {
+      if (value === 'No') {
         setExistingValue('Not Allowed');
         return;
       }
-      if (value == 'Conditional') {
+      if (value === 'Conditional') {
         setExistingValue('Conditional');
         return;
       }
-      if (value == '') {
+      if (value === '') {
         setExistingValue('');
       } else {
         setExistingValue(value);
@@ -369,24 +372,24 @@ function Index() {
   }, [editCurrent?.existingValue, clauseObj?.existingValue]);
 
   const getExistingValue = (value, existing) => {
-    if (value === '(32B) Currency Code & Amount') {
+    if (value === draft32BString) {
       return `${lcModuleData?.order?.orderCurrency}  ${Number(
         lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
       )?.toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}`;
-    } else if (value === '(43T) Transhipments') {
-      return lcModuleData?.lcApplication?.transhipments == undefined
+    } else if (value === draftTransString) {
+      return lcModuleData?.lcApplication?.transhipments === undefined
         ? ''
-        : lcModuleData?.lcApplication?.transhipments == 'Yes'
+        : lcModuleData?.lcApplication?.transhipments === 'Yes'
         ? 'Allowed'
         : 'Not Allowed';
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getData(existing, value)}  %`;
-    } else if (value === draftString && lcData?.atSight == 'Usuance') {
+    } else if (value === draftString && lcData?.atSight === 'Usuance') {
       return `Usuance - ${getData(existing, value)} days`;
-    } else if (value === '(44F) Port of Discharge') {
+    } else if (value === draft44FString) {
       return `${getData(existing, value)}`;
     } else {
       return getData(existing, value);
@@ -551,7 +554,7 @@ function Index() {
                           disabled
                           type="text"
                           value={
-                            fieldType == 'date'
+                            fieldType === 'date'
                               ? existingValue
                                 ? moment(existingValue).format(dateFormatString)
                                 : ''
@@ -563,7 +566,7 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                          {fieldType == '' ? (
+                          {fieldType === '' ? (
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -580,7 +583,7 @@ function Index() {
                               }}
                             />
                           ) : null}
-                          {fieldType == 'number' ? (
+                          {fieldType === 'number' ? (
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -599,7 +602,7 @@ function Index() {
                               }}
                             />
                           ) : null}
-                          {fieldType == 'date' ? (
+                          {fieldType === 'date' ? (
                             <>
                               <DateCalender
                                 name="newValue"
@@ -614,7 +617,7 @@ function Index() {
                               />
                             </>
                           ) : null}
-                          {fieldType == 'drop' ? (
+                          {fieldType === 'drop' ? (
                             <>
                               <select
                                 name="partialShipment"
@@ -657,19 +660,19 @@ function Index() {
                                     <option value="By Acceptance">By Acceptance</option>
                                     <option value="By Deffered Payment">By Deffered Payment</option>
                                   </>
-                                ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
+                                ) : clauseObj.dropDownValue === draftTransString ? (
                                   <>
                                     {' '}
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                   </>
-                                ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
+                                ) : clauseObj.dropDownValue === draft44FString ? (
                                   <>
                                     {getPortsMasterData
                                       ?.filter((val, index) => {
                                         if (
-                                          val.Country.toLowerCase() == 'india' &&
-                                          val.Approved.toLowerCase() == 'yes'
+                                          val.Country.toLowerCase() === 'india' &&
+                                          val.Approved.toLowerCase() === 'yes'
                                         ) {
                                           return val;
                                         }
@@ -716,7 +719,7 @@ function Index() {
                           <label className={`${styles.label_heading} label_heading`}>
                             New Value<strong className="text-danger">*</strong>
                           </label>
-                          {fieldType == '' ? (
+                          {fieldType === '' ? (
                             <img
                               className={`${styles.add_btn} ml-4`}
                               src="/static/add-btn.svg"
@@ -758,23 +761,17 @@ function Index() {
                                       <td>{clause.dropDownValue}</td>
                                       <td>{getExistingValue(clause.dropDownValue, clause.existingValue)}</td>
                                       <td>
-                                        {/* {clause.dropDownValue === '(32B) Currency Code & Amount'
-                                          ? `${lcModuleData?.order?.orderCurrency} `
-                                          : ''}
-                                        {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                          ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
-                                          : getData(clause.newValue, clause.dropDownValue)} */}
 
-                                        {clause.dropDownValue === draftString && lcData?.atSight == 'Usuance'
+                                        {clause.dropDownValue === draftString && lcData?.atSight === 'Usuance'
                                           ? `Usuance - ${getData(clause.newValue, clause.dropDownValue)} days `
-                                          : clause.dropDownValue === '(32B) Currency Code & Amount'
+                                          : clause.dropDownValue === draft32BString
                                           ? `${lcModuleData?.order?.orderCurrency} ${getData(
                                               clause.newValue,
                                               clause.dropDownValue,
                                             )} `
                                           : clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                           ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
-                                          : clause.dropDownValue === '(44F) Port of Discharge'
+                                          : clause.dropDownValue === draft44FString
                                           ? `${getData(clause.newValue, clause.dropDownValue)}`
                                           : getData(clause.newValue, clause.dropDownValue)}
                                       </td>
