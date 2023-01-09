@@ -324,9 +324,6 @@
     transition: 0.4s;
     height: 1.5rem;
   
-    @include respond(lg-desktop) {
-    }
-  
     @include respond(md-desktop) {
       bottom: 2px;
       height: 1.2rem;

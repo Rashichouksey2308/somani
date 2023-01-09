@@ -104,9 +104,6 @@ function Index() {
               <div className={`${styles.details_content} mb-1`}>
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  {/* {moment(insuranceData?.createdAt?.split('T')[0]).format(
-              'DD.MM.yyyy',
-            )} */}
                   {moment(new Date()).format('DD.MM.yyyy')}
                 </span>
               </div>

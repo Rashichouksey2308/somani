@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import { Card, Form } from 'react-bootstrap';
 import Router from 'next/router';
-import Image from 'next/image';
 import DownloadBar from '../../src/components/DownloadBar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GetGoNoGo, UpdateGoNoGo } from '../../src/redux/goNoGo/action';
-import { useSelector } from 'react-redux';
 import _get from 'lodash/get';
 import { removePrefixOrSuffix } from '../../src/utils/helper';
 
@@ -19,7 +17,7 @@ function Index() {
   })
 
   useEffect(() => {
-    let id = sessionStorage.getItem('gngMasterId');
+    const id = sessionStorage.getItem('gngMasterId');
     dispatch(GetGoNoGo(`?gngMasterId=${id}`));
   }, [dispatch]);
 
@@ -49,13 +47,13 @@ function Index() {
   }, [gngResponseData._id]);
 
   const saveGngData = (name, value) => {
-    let newInput = {...gngData}
+    const newInput = {...gngData}
     newInput[name] = value
     setGngData(newInput)
   }
 
   const handleTransaction = (e) => {
-    let transactionArr = { ...gngData };
+    const transactionArr = { ...gngData };
     if (e.target.checked) {
       transactionArr.transactionType.push(e.target.name);
     } else {
@@ -65,7 +63,7 @@ function Index() {
   };
 
   const handleTypeOfBusiness = (e) => {
-    let businessArr = { ...gngData };
+    const businessArr = { ...gngData };
     if (e.target.checked) {
       businessArr.typeOfBusiness.push(e.target.name);
     } else {
@@ -75,10 +73,10 @@ function Index() {
   };
 
   const handleApproval = () => {
-    let dataToSend = {...gngData}
+    const dataToSend = {...gngData}
     dataToSend.minOrderValue = removePrefixOrSuffix(gngData.minOrderValue) * 10000000;
     dataToSend.minTurnOver = removePrefixOrSuffix(gngData.minTurnOver) * 10000000;
-    let data = {
+    const data = {
       transactionType: [...gngData?.transactionType],
       typeOfBusiness: [...gngData?.typeOfBusiness],
       minOrderValue: dataToSend?.minOrderValue,

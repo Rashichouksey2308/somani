@@ -3,10 +3,8 @@ import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountries, getState } from '../../src/redux/masters/action';
 import _get from 'lodash/get';
 import { currencyValidation } from '../../src/utils/helpers/review';
-import Image from 'next/image';
 import SaveBar from '../../src/components/SaveBar';
 import { CreateCurrency, UpdateCurrency, GetCurrency } from '../../src/redux/currency/action';
 
@@ -16,7 +14,7 @@ function Index() {
   const { currencyResponse } = useSelector((state) => state.Currency);
   const currencyResponseData = _get(currencyResponse, 'data[0]', {});
 
-  let id = sessionStorage.getItem('currencyId');
+  const id = sessionStorage.getItem('currencyId');
 
   useEffect(() => {
     if (!id) return;
@@ -38,20 +36,20 @@ function Index() {
   });
 
   const saveCurrencyData = (name, value) => {
-    let newInput = { ...currencyData };
+    const newInput = { ...currencyData };
     newInput[name] = value;
     setCurrencyData(newInput);
   };
 
   const handleSubmit = () => {
     if (!currencyValidation(currencyData)) return;
-    let data = {
+    const data = {
       Currency: currencyData.Currency,
       Currency_Name: currencyData.Currency_Name,
       Symbol: currencyData.Symbol,
       Status: currencyData.Status,
     };
-    let data2 = {
+    const data2 = {
       Currency: currencyData.Currency,
       Currency_Name: currencyData.Currency_Name,
       Symbol: currencyData.Symbol,
@@ -155,7 +153,7 @@ function Index() {
                         <label className={styles.switch}>
                           <input
                             type="checkbox"
-                            checked={currencyData?.Status == "Active" ? true : false}
+                            checked={currencyData?.Status === "Active" ? true : false}
                            // checked={currencyData?.Status ? 'checked' : ''}
                             name="Status"
                             onChange={(e) => saveCurrencyData(e.target.name, e.target.value)}

@@ -21,7 +21,7 @@ function Index(props) {
     if (window) {
       dispatch(setPageName('generic'));
       dispatch(setDynamicOrder(sessionStorage.getItem('genericID')));
-      let data = JSON.parse(sessionStorage.getItem('genericSelected'));
+      const data = JSON.parse(sessionStorage.getItem('genericSelected'));
 
       dispatch(setDynamicName(data?.company?.companyName));
       dispatch(GetCompanyDetails({ company: data?.company._id }));
