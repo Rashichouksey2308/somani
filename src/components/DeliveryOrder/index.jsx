@@ -85,7 +85,7 @@ export default function Index(props) {
                   <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                     <div className={`${styles.label} text`}>Balance Quantity</div>
                     <span className={styles.value}>
-                      {props.BalanceQuantity()?.toLocaleString('en-In', {
+                      {props.balanceQuantity()?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })}{' '}
                       {_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '').toUpperCase()}
@@ -278,7 +278,7 @@ export default function Index(props) {
                                         }}
                                       />
                                     )}
-                                    {props.releaseOrderData.length - 1 === index && props.BalanceQuantity() > 0 && (
+                                    {props.releaseOrderData.length - 1 === index && props.balanceQuantity() > 0 && (
                                       <img
                                         onClick={(e) => {
                                           props.addNewDelivery();

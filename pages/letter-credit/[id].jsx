@@ -10,7 +10,6 @@ import SaveBar from '../../src/components/SaveBar';
 import Router from 'next/router';
 import { removePrefixOrSuffix } from '../../src/utils/helper';
 import _get from 'lodash/get';
-import { toast } from 'react-toastify';
 import moment from 'moment/moment';
 import { handleErrorToast } from '@/utils/helpers/global';
 
@@ -31,18 +30,13 @@ function Index() {
     dispatch(getPorts());
   }, []);
 
-  let lcModuleData = _get(lcModule, 'data[0]', {});
+  const lcModuleData = _get(lcModule, 'data[0]', {});
 
   const [editInput, setEditInput] = useState(false);
   const [editCurrent, setEditCurrent] = useState();
 
-  const handleEdit = (val) => {
-    setEditCurrent(val);
-    setEditInput(true);
-  };
-
   useEffect(() => {
-    let id = sessionStorage.getItem('lcAmmend');
+    const id = sessionStorage.getItem('lcAmmend');
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
 
@@ -156,7 +150,7 @@ function Index() {
 
   const saveDate = (value, name) => {
     const d = new Date(value);
-    let text = d.toISOString();
+    const text = d.toISOString();
     saveAmendmentData(name, text);
   };
 
@@ -177,41 +171,46 @@ function Index() {
 
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
+  const draftString = '(42C) Draft At';
+  const draftTransString = '(43T) Transhipments';
+  const draft44FString = '(44F) Port of Discharge';
+  const draft32BString = '(32B) Currency Code & Amount';
+  const dateFormatString = 'DD-MM-YYYY';
 
   const dropDownChange = (e) => {
-    if (e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry') {
+    if (e.target.value === 'latestDateOfShipment' || e.target.value === 'dateOfExpiry') {
       setFieldType('date');
-    } else if (e.target.value == 'currecyCodeAndAmountValue' || e.target.value == 'tolerancePercentage') {
+    } else if (e.target.value === 'currecyCodeAndAmountValue' || e.target.value === 'tolerancePercentage') {
       setFieldType('number');
     } else if (
-      e.target.value == 'partialShipment' ||
-      e.target.value == 'transhipments' ||
-      e.target.value == 'formOfDocumentaryCredit' ||
-      e.target.value == 'creditAvailableBy' ||
-      e.target.value == 'applicant' ||
-      e.target.value == 'portOfDischarge' ||
-      e.target.value == 'portOfLoading'
+      e.target.value === 'partialShipment' ||
+      e.target.value === 'transhipments' ||
+      e.target.value === 'formOfDocumentaryCredit' ||
+      e.target.value === 'creditAvailableBy' ||
+      e.target.value === 'applicant' ||
+      e.target.value === 'portOfDischarge' ||
+      e.target.value === 'portOfLoading'
     ) {
       setFieldType('drop');
     } else {
       setFieldType('');
     }
 
-    let newInput = { ...clauseObj };
+    const newInput = { ...clauseObj };
 
-    let val1 = e.target.options[e.target.selectedIndex].text;
-    let val2 = e.target.value;
+    const val1 = e.target.options[e.target.selectedIndex].text;
+    const val2 = e.target.value;
     setDrop(val2);
 
     newInput['existingValue'] = lcData ? lcData[e.target.value] : '';
     if (e.target.value === 'draftAt')
       newInput['existingValue'] =
-        lcData?.atSight == 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${ lcData ?lcData['numberOfDays']: ''} Days` || '';
+        lcData?.atSight === 'AT SIGHT' ? 'AT SIGHT' : `Usuance - ${ lcData ?lcData['numberOfDays']: ''} Days` || '';
     newInput['dropDownValue'] = val1 || '';
 
     setClauseObj(newInput);
-    if (e.target.value == 'draftAt') {
-      if (lcModuleData?.lcApplication?.atSight == 'AT SIGHT') {
+    if (e.target.value === 'draftAt') {
+      if (lcModuleData?.lcApplication?.atSight === 'AT SIGHT') {
         setDisabled(true);
       }
     } else {
@@ -225,7 +224,7 @@ function Index() {
     setClauseObj(newInput);
 
     const newInput1 = { ...lcData2 };
-    if (drop == 'draftAt' && lcModuleData?.lcApplication?.atSight == 'Usuance') {
+    if (drop === 'draftAt' && lcModuleData?.lcApplication?.atSight === 'Usuance') {
       newInput1['numberOfDays'] = value;
     } else {
       newInput1[drop] = value;
@@ -236,7 +235,7 @@ function Index() {
 
   const saveDropDownDate = (value, name) => {
     const d = new Date(value);
-    let text = d.toISOString();
+    const text = d.toISOString();
 
     arrChange(name, text);
   };
@@ -249,12 +248,12 @@ function Index() {
     else if (clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue))
       handleErrorToast('CLAUSE ALREADY ADDED');
     else {
-      let tempClauseObj = { ...clauseObj };
-      if (clauseObj.dropDownValue == '(42C) Draft At') {
+      const tempClauseObj = { ...clauseObj };
+      if (clauseObj.dropDownValue === draftString) {
         tempClauseObj.existingValue = tempClauseObj.existingValue.slice(10, tempClauseObj.existingValue.length - 5);
       }
       const newArr = [...clauseArr];
-      if (fieldType == 'date' || fieldType == 'drop' || fieldType == 'number') {
+      if (fieldType === 'date' || fieldType === 'drop' || fieldType === 'number') {
         setFieldType('');
       }
       inputRef1.current.value = '';
@@ -283,21 +282,21 @@ function Index() {
   };
 
   const handleRightButton = () => {
-    if (lcData?.dateOfAmendment === '' || lcData?.dateOfAmendment == undefined) {
+    if (lcData?.dateOfAmendment === '' || lcData?.dateOfAmendment === undefined) {
      handleErrorToast('DATE OF AMENDMENT IS MANDATORY')
-    } else if (lcData?.numberOfAmendment === '' || lcData?.numberOfAmendment == undefined) {
+    } else if (lcData?.numberOfAmendment === '' || lcData?.numberOfAmendment === undefined) {
      handleErrorToast('NUMBER OF AMENDMENT IS MANDATORY')
-    } else if (lcDoc?.lcDraftDoc === '' || lcDoc?.lcDraftDoc == undefined) {
+    } else if (lcDoc?.lcDraftDoc === '' || lcDoc?.lcDraftDoc === undefined) {
     handleErrorToast('PLEASE UPLOAD LC DRAFT')
     } else {
 
-      let sendLcData = { ...lcData2 };
+      const sendLcData = { ...lcData2 };
       sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData2?.tolerancePercentage));
       sendLcData.numberOfAmendment = lcData?.numberOfAmendment
       sendLcData.dateOfAmendment = lcData?.dateOfAmendment
       const task = lcModuleData.isPostAmmended;
 
-      let fd = new FormData();
+      const fd = new FormData();
 
       fd.append('lcNewApplication', JSON.stringify(clauseArr));
       fd.append('lcApplication', JSON.stringify(sendLcData));
@@ -309,46 +308,18 @@ function Index() {
       dispatch(UpdateAmendment({ fd, task }));
     }
   };
-
-  // const handleSubmit = () => {
-  //   if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
-  //     let toastMessage = 'DATE OF AMENDMENT IS MANDATORY';
-  //     if (!toast.isActive(toastMessage)) {
-  //       toast.error(toastMessage, { toastId: toastMessage });
-  //     }
-  //   } else if (lcData.numberOfAmendment === '' || lcData.numberOfAmendment == undefined) {
-  //     let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY';
-  //     if (!toast.isActive(toastMessage)) {
-  //       toast.error(toastMessage, { toastId: toastMessage });
-  //     }
-  //   } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-  //     let toastMessage = 'PLEASE UPLOAD LC AMENDMENT DRAFT';
-  //     if (!toast.isActive(toastMessage)) {
-  //       toast.error(toastMessage, { toastId: toastMessage });
-  //     }
-  //   } else {
-  //     let tempData = { ...lcData };
-
-  //     let fd = new FormData();
-  //     fd.append('lcApplication', JSON.stringify(tempData));
-  //     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
-  //     fd.append('document1', lcDoc.lcDraftDoc);
-
-  //     dispatch(UpdateAmendment(fd));
-  //   }
-  // };
-
+ 
   const getData = (value, type) => {
-    if (type == '(43P) Partial Shipment' && value == 'Conditional') {
+    if (type === '(43P) Partial Shipment' && value === 'Conditional') {
       return 'Conditional';
     }
-    if (type == '(44C) Latest Date Of Shipment' || type == '(31D) Date Of Expiry') {
-      return value ? moment(value).format('DD-MM-YYYY') : '';
-    } else if (type == '(43P) Partial Shipment' || type == '(43T) Transhipments') {
-      return value == 'Yes' ? 'Allowed' : 'Not Allowed';
-    } else if (type == '(44F) Port of Discharge') {
+    if (type === '(44C) Latest Date Of Shipment' || type === '(31D) Date Of Expiry') {
+      return value ? moment(value).format(dateFormatString) : '';
+    } else if (type === '(43P) Partial Shipment' || type === draftTransString) {
+      return value === 'Yes' ? 'Allowed' : 'Not Allowed';
+    } else if (type === draft44FString) {
       return `${value}, India`;
-    } else if (type == '(32B) Currency Code & Amount') {
+    } else if (type === draft32BString) {
       return Number(value).toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -361,30 +332,30 @@ function Index() {
   const [existingValue, setExistingValue] = useState('');
 
   const getDataFormDropDown = (value) => {
-    if (fieldType == 'date') {
-      setExistingValue(moment(value).format('DD-MM-YYYY'));
+    if (fieldType === 'date') {
+      setExistingValue(moment(value).format(dateFormatString));
     }
-    if (fieldType == 'number') {
+    if (fieldType === 'number') {
       setExistingValue(
         Number(value).toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         }),
       );
-    } else if (fieldType == 'drop') {
-      if (value == 'Yes') {
+    } else if (fieldType === 'drop') {
+      if (value === 'Yes') {
         setExistingValue('Allowed');
         return;
       }
-      if (value == 'No') {
+      if (value === 'No') {
         setExistingValue('Not Allowed');
         return;
       }
-      if (value == 'Conditional') {
+      if (value === 'Conditional') {
         setExistingValue('Conditional');
         return;
       }
-      if (value == '') {
+      if (value === '') {
         setExistingValue('');
       } else {
         setExistingValue(value);
@@ -400,27 +371,25 @@ function Index() {
     getDataFormDropDown(editInput ? editCurrent?.existingValue : clauseObj?.existingValue);
   }, [editCurrent?.existingValue, clauseObj?.existingValue]);
 
-  // useEffect(() => {}, [clauseObj]);
-
   const getExistingValue = (value, existing) => {
-    if (value === '(32B) Currency Code & Amount') {
+    if (value === draft32BString) {
       return `${lcModuleData?.order?.orderCurrency}  ${Number(
         lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
       )?.toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}`;
-    } else if (value === '(43T) Transhipments') {
-      return lcModuleData?.lcApplication?.transhipments == undefined
+    } else if (value === draftTransString) {
+      return lcModuleData?.lcApplication?.transhipments === undefined
         ? ''
-        : lcModuleData?.lcApplication?.transhipments == 'Yes'
+        : lcModuleData?.lcApplication?.transhipments === 'Yes'
         ? 'Allowed'
         : 'Not Allowed';
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getData(existing, value)}  %`;
-    } else if (value === '(42C) Draft At' && lcData?.atSight == 'Usuance') {
+    } else if (value === draftString && lcData?.atSight === 'Usuance') {
       return `Usuance - ${getData(existing, value)} days`;
-    } else if (value === '(44F) Port of Discharge') {
+    } else if (value === draft44FString) {
       return `${getData(existing, value)}`;
     } else {
       return getData(existing, value);
@@ -481,7 +450,7 @@ function Index() {
                         </div>
                         <span className={styles.value}>
                           {lcModuleData?.lcApplication?.dateOfIssue
-                            ? moment(lcModuleData?.lcApplication?.dateOfIssue).format('DD-MM-YYYY')
+                            ? moment(lcModuleData?.lcApplication?.dateOfIssue).format(dateFormatString)
                             : ''}
                         </span>
                       </div>
@@ -585,9 +554,9 @@ function Index() {
                           disabled
                           type="text"
                           value={
-                            fieldType == 'date'
+                            fieldType === 'date'
                               ? existingValue
-                                ? moment(existingValue).format('DD-MM-YYYY')
+                                ? moment(existingValue).format(dateFormatString)
                                 : ''
                               : existingValue
                           }
@@ -597,7 +566,7 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                          {fieldType == '' ? (
+                          {fieldType === '' ? (
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -614,7 +583,7 @@ function Index() {
                               }}
                             />
                           ) : null}
-                          {fieldType == 'number' ? (
+                          {fieldType === 'number' ? (
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -633,7 +602,7 @@ function Index() {
                               }}
                             />
                           ) : null}
-                          {fieldType == 'date' ? (
+                          {fieldType === 'date' ? (
                             <>
                               <DateCalender
                                 name="newValue"
@@ -648,7 +617,7 @@ function Index() {
                               />
                             </>
                           ) : null}
-                          {fieldType == 'drop' ? (
+                          {fieldType === 'drop' ? (
                             <>
                               <select
                                 name="partialShipment"
@@ -691,19 +660,19 @@ function Index() {
                                     <option value="By Acceptance">By Acceptance</option>
                                     <option value="By Deffered Payment">By Deffered Payment</option>
                                   </>
-                                ) : clauseObj.dropDownValue === '(43T) Transhipments' ? (
+                                ) : clauseObj.dropDownValue === draftTransString ? (
                                   <>
                                     {' '}
                                     <option value="Yes">Allowed</option>
                                     <option value="No">Not Allowed</option>
                                   </>
-                                ) : clauseObj.dropDownValue === '(44F) Port of Discharge' ? (
+                                ) : clauseObj.dropDownValue === draft44FString ? (
                                   <>
                                     {getPortsMasterData
                                       ?.filter((val, index) => {
                                         if (
-                                          val.Country.toLowerCase() == 'india' &&
-                                          val.Approved.toLowerCase() == 'yes'
+                                          val.Country.toLowerCase() === 'india' &&
+                                          val.Approved.toLowerCase() === 'yes'
                                         ) {
                                           return val;
                                         }
@@ -750,7 +719,7 @@ function Index() {
                           <label className={`${styles.label_heading} label_heading`}>
                             New Value<strong className="text-danger">*</strong>
                           </label>
-                          {fieldType == '' ? (
+                          {fieldType === '' ? (
                             <img
                               className={`${styles.add_btn} ml-4`}
                               src="/static/add-btn.svg"
@@ -792,23 +761,17 @@ function Index() {
                                       <td>{clause.dropDownValue}</td>
                                       <td>{getExistingValue(clause.dropDownValue, clause.existingValue)}</td>
                                       <td>
-                                        {/* {clause.dropDownValue === '(32B) Currency Code & Amount'
-                                          ? `${lcModuleData?.order?.orderCurrency} `
-                                          : ''}
-                                        {clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
-                                          ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
-                                          : getData(clause.newValue, clause.dropDownValue)} */}
 
-                                        {clause.dropDownValue === '(42C) Draft At' && lcData?.atSight == 'Usuance'
+                                        {clause.dropDownValue === draftString && lcData?.atSight === 'Usuance'
                                           ? `Usuance - ${getData(clause.newValue, clause.dropDownValue)} days `
-                                          : clause.dropDownValue === '(32B) Currency Code & Amount'
+                                          : clause.dropDownValue === draft32BString
                                           ? `${lcModuleData?.order?.orderCurrency} ${getData(
                                               clause.newValue,
                                               clause.dropDownValue,
                                             )} `
                                           : clause.dropDownValue === '(39A) Tolerance (+/-) Percentage'
                                           ? `(+/-) ${getData(clause.newValue, clause.dropDownValue)}  %`
-                                          : clause.dropDownValue === '(44F) Port of Discharge'
+                                          : clause.dropDownValue === draft44FString
                                           ? `${getData(clause.newValue, clause.dropDownValue)}`
                                           : getData(clause.newValue, clause.dropDownValue)}
                                       </td>

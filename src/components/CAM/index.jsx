@@ -60,7 +60,7 @@ function Index({
   setTop5Customers1,
   camConversionunit,
   totalLimitDebt,
-  CreditAgency,
+  creditAgency,
   litigationStatus,
   debtProfileColor,
   allBuyerList,
@@ -787,7 +787,7 @@ function Index({
         latestAuditorData,
         previousAuditorData,
         companyData,
-        CreditAgency,
+        creditAgency,
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options2, tempArr, camData, backgroundColor, backgroundColor1)}
@@ -1324,7 +1324,7 @@ const creditProfile = (
   latestAuditorData,
   previousAuditorData,
   companyData,
-  CreditAgency,
+  creditAgency,
 ) => {
   return (
     <>
@@ -1349,7 +1349,7 @@ const creditProfile = (
                 </Col>
                 <Col className={`  d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>External Credit rating</span>
-                  <span className={`${styles.value} value`}>{CreditAgency()?.rating_}</span>
+                  <span className={`${styles.value} value`}>{creditAgency()?.rating_}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1359,7 +1359,7 @@ const creditProfile = (
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Credit Rating Agency</span>
-                  <span className={`${styles.value} value`}>{CreditAgency()?.ratingAgency}</span>
+                  <span className={`${styles.value} value`}>{creditAgency()?.ratingAgency}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>

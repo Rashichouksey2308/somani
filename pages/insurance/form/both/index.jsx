@@ -2048,24 +2048,10 @@ const Index = () => {
                                 </td>
                                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                                 <td>
-                                  {/* <div className={styles.uploadBtnWrapper}>
-                                    <input
-                                      type="file"
-                                      onChange={(e) => uploadDocument1(e)}
-                                      name="myfile"
-                                    />
-                                    <button
-                                      name="marinePolicyDocument"
-                                      className={`${styles.upload_btn} btn`}
-                                    >
-                                      Upload
-                                    </button>
-                                  </div> */}
                                   {insuranceDocument && insuranceDocument.marinePolicyDocument == null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
                                         <input
-                                          // id={docName}
                                           type="file"
                                           name="marinePolicyDocument"
                                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
@@ -2097,24 +2083,10 @@ const Index = () => {
                                 </td>
                                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                                 <td>
-                                  {/* <div className={styles.uploadBtnWrapper}>
-                                    <input
-                                      type="file"
-                                      onChange={(e) => uploadDocument2(e)}
-                                      name="myfile"
-                                    />
-                                    <button
-                                      name="storagePolicyDocument"
-                                      className={`${styles.upload_btn} btn`}
-                                    >
-                                      Upload
-                                    </button>
-                                  </div> */}
                                   {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
                                         <input
-                                          // id={docName}
                                           type="file"
                                           name="storagePolicyDocument"
                                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"

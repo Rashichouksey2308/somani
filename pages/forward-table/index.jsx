@@ -100,11 +100,6 @@ function Index() {
             )}
           </div>
           <Filter />
-          {/* <a href="#" className={`${styles.filterList} filterList `}>
-        Bhutani Traders
-        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-      </a>
-       */}
         </div>
 
         <div className={`${styles.datatable} border datatable card`}>

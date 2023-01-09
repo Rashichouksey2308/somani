@@ -4,7 +4,6 @@ import ReviewProfile from '../../src/components/ReviewProfile';
 import CompanyReviewProfile from '../../src/components/CompanyReviewProfile';
 import ApproveBar from '../../src/components/ApproveBar';
 import OrderReview from '../../src/components/OrderReview';
-import Router from 'next/router';
 import router from 'next/router';
 import styles from './profile.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,9 +19,9 @@ const Index = () => {
     action: 'APPROVE',
   });
 
-  const [rejectPayloadData, setRejectPayloadData] = useState({
+  const rejectPayloadData = {
     action: 'REJECT',
-  });
+  };
 
   useEffect(() => {
     const orderId = sessionStorage.getItem('orderId');
@@ -58,7 +57,7 @@ const Index = () => {
         <div className={styles.wrapper}>
           <div className={`${styles.head} align-items-center`}>
             <img
-              onClick={() => Router.push('/leads')}
+              onClick={() => router.push('/leads')}
               className={`${styles.arrow} img-fluid mr-2 image_arrow`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"

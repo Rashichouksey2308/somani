@@ -25,10 +25,7 @@ function Index() {
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
   useEffect(() => {
-    // dispatch(getCountries())
     dispatch(getPorts());
-    // dispatch(getCommodities())
-    // dispatch(getDocuments())
   }, []);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const [lcData, setLcData] = useState();
@@ -245,28 +242,6 @@ function Index() {
         return false;
       }
     }
-    // if (lcData.applicableRules === '' || lcData.applicableRules == undefined) {
-    //   toastMessage = 'Please add Applicable Rules'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     return false
-    //   }
-    // }
-
-    // if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
-    //   toastMessage = 'Please add  Date Of Expiry';
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    //     return false;
-    //   }
-    // }
-    // if (lcData.placeOfExpiry === '' || lcData.placeOfExpiry == undefined) {
-    //   toastMessage = 'Please add Place Of Expiry';
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    //     return false;
-    //   }
-    // }
     if (lcData?.applicant === '' || lcData?.applicant == undefined) {
       toastMessage = 'Please Select Applicant';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -404,23 +379,6 @@ function Index() {
         return false;
       }
     }
-    // if (lcData?.reimbursingBank === '' || lcData?.reimbursingBank == undefined) {
-    //   toastMessage = 'Please select  reimbursing Bank'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     return false
-    //   }
-    // }
-    // if (
-    //   lcData?.requestedConfirmationParty === '' ||
-    //   lcData?.requestedConfirmationParty == undefined
-    // ) {
-    //   toastMessage = 'Please select requested Confirmation Party'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     return false
-    //   }
-    // }
     if (lcData?.charges === '' || lcData?.charges == undefined) {
       toastMessage = 'Please select charges';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -462,12 +420,6 @@ function Index() {
       };
 
       let code = await dispatch(UpdateLcModule({ obj: obj }));
-      // if (code == 200) {
-      //   sessionStorage.setItem('VesselCompany', _get(lcModule, 'data[0].company._id', ''));
-      //   sessionStorage.setItem('VesselId', _get(lcModule, 'data[0].order.vessel', ''));
-      //   dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'));
-      //   router.push(`/vessel`);
-      // }
     }
   };
 
@@ -498,7 +450,6 @@ function Index() {
       dispatch(UpdateLcModule({ obj: obj, task: task }));
       dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`));
       sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc);
-      // Router.push('/letter-table/letter-amend/id')
     }
   };
   return (
