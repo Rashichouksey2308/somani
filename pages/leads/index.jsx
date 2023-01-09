@@ -11,8 +11,6 @@ import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import styles from './index.module.scss';
 
-// import { getPincodes } from '../../src/redux/masters/action';
-
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
@@ -63,10 +61,10 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    if (sorting == -1) {
+    if (sorting === -1) {
       dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`));
       setSorting(1);
-    } else if (sorting == 1) {
+    } else if (sorting === 1) {
       dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`));
       setSorting(-1);
     }
