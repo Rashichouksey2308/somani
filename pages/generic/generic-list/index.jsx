@@ -58,9 +58,6 @@ function Index(props) {
     sessionStorage.setItem('genericSelected', JSON.stringify(term));
     sessionStorage.setItem('genericID', term.order.orderId);
     Router.push('/generic');
-
-    //  dispatch(setDynamicName(null))
-    // Router.push('/lc-module')
   };
 
   return (
@@ -145,23 +142,6 @@ function Index(props) {
 
                           <td>{term?.order?.commodity ?? ''}</td>
                           <td>{term?.company?.customerId ?? ''}</td>
-                          {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
-                          {/* <td>
-                        <span
-                          className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
-                            ? styles.review
-                            : term?.order?.queue === 'CreditQueue'
-                              ? styles.approved
-                              : styles.rejected
-                            }`}
-                        ></span>
-
-                        {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
-                          ? 'Review'
-                          : term?.order?.queue === 'CreditQueue'
-                            ? 'Approved'
-                            : 'Rejected'}
-                      </td> */}
                         </tr>
                       ))}
                   </tbody>

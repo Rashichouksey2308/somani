@@ -48,8 +48,11 @@ const Index = () => {
       ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
       : sumInsuredCalc,
   });
+
   const marineInsuranceString = 'Marine Insurance';
   const storageInsuranceString = 'Storage Insurance';
+  const bothInsuranceString = 'Marine & Storage Insurance';
+
   const portOfDischarge = _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '');
   const sumInsuredCalc = parseFloat(((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100);
 
@@ -98,7 +101,6 @@ const Index = () => {
   }, [insuranceData]);
 
   const saveQuotationData = (name, value) => {
-    console.log(name, 'insurance');
     const newInput = { ...quotationData };
     const namesplit = name.split('.');
     if (namesplit.length > 1) newInput[namesplit[0]][namesplit[1]] = value;
@@ -124,7 +126,6 @@ const Index = () => {
   const [reset, setReset] = useState(false);
 
   const clearAll = () => {
-    // document.getElementById('FormInsurance').value = ''
     setQuotationData({
       additionalInfo: '',
       expectedTimeOfArrival: undefined,
@@ -162,7 +163,7 @@ const Index = () => {
       handleErrorToast('Please add expected Time Of Arrival ');
       return false;
     } else if (
-      quotationData.sumInsured == '' ||
+      quotationData.sumInsured === '' ||
       quotationData.sumInsured === undefined ||
       quotationData.sumInsured == null
     ) {
@@ -170,7 +171,7 @@ const Index = () => {
       return false;
     } else if (
       quotationData?.insuranceType === storageInsuranceString ||
-      quotationData?.insuranceType === 'Marine & Storage Insurance'
+      quotationData?.insuranceType === bothInsuranceString
     ) {
       if (
         quotationData.storageDetails.placeOfStorage === '' ||
@@ -292,11 +293,11 @@ const Index = () => {
                         inline
                         label="Both"
                         name="group1"
-                        checked={quotationData.insuranceType === 'Marine & Storage Insurance' ? 'checked' : ''}
+                        checked={quotationData.insuranceType === bothInsuranceString ? 'checked' : ''}
                         type={type}
                         value="Marine & Storage Insurance"
                         onChange={(e) => {
-                          saveQuotationData('insuranceType', 'Marine & Storage Insurance');
+                          saveQuotationData('insuranceType', bothInsuranceString);
                         }}
                         id={`inline-${type}-2`}
                       />
@@ -320,7 +321,6 @@ const Index = () => {
             </div>
             <div
               id="marineInsurance"
-              // className="collapse"
               aria-labelledby="marineInsurance"
               data-parent="#marineInsurance"
             >
@@ -487,7 +487,6 @@ const Index = () => {
                                       maximumFractionDigits: 2,
                                     }) + ` Cr`
                               }
-                              // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
                                 saveQuotationData(e.target.name, e.target.value);
                               }}
@@ -585,13 +584,7 @@ const Index = () => {
                               ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                {/* <strong className="text-danger">*</strong> */}
                               </label>
-                              {/* <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              /> */}
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -599,9 +592,6 @@ const Index = () => {
                               <DateCalender
                                 name="laycanFrom"
                                 defaultDate={quotationData.laycanFrom}
-                                // defaultDate={
-                                //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')
-                                // }
                                 reset={reset}
                                 saveDate={saveDate}
                                 labelName="Laycan from"
@@ -618,9 +608,6 @@ const Index = () => {
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={quotationData.laycanTo}
-                                // defaultDate={
-                                //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')
-                                // }
                                 reset={reset}
                                 startFrom={dateStartFrom.laycan}
                                 saveDate={saveDate}
@@ -687,7 +674,6 @@ const Index = () => {
                                       maximumFractionDigits: 2,
                                     }) + ` Cr`
                               }
-                              // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                               required
                             />
@@ -731,7 +717,7 @@ const Index = () => {
                               onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                             />
                             <label className={`${styles.label_heading} label_heading`}>
-                              {quotationData?.insuranceType === 'Marine & Storage Insurance'
+                              {quotationData?.insuranceType === bothInsuranceString
                                 ? 'Period of Storage Insurance'
                                 : 'Period of Insurance (days)'}
                               <strong className="text-danger">*</strong>

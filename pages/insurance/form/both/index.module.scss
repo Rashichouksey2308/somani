@@ -601,10 +601,6 @@
   -webkit-transition: 0.4s;
   transition: 0.4s;
   height: 1.5rem;
-
-  @include respond(lg-desktop) {
-  }
-
   @include respond(md-desktop) {
     bottom: 2px;
     height: 1.2rem;
@@ -678,7 +674,6 @@ input:checked + .slider:before {
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
-  //color: #111111;
   background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
@@ -814,7 +809,6 @@ input:checked + .slider:before {
 
 .customSelect {
   appearance: none;
-  // position: relative;
 }
 
 .main {
@@ -989,7 +983,6 @@ input:checked + .slider:before {
 
           td {
             font-size: 19px;
-            //color: rgba(17, 17, 17, 0.7);
             font-weight: 500;
             line-height: 24px;
             padding: 24px 15px;
@@ -1040,8 +1033,6 @@ input:checked + .slider:before {
 
         .close_image {
           margin-left: -30px;
-          @include respond(phone) {
-          }
         }
 
         .doc_name {
@@ -1077,18 +1068,7 @@ input:checked + .slider:before {
   }
 }
 
-.pdfImage {
-  width: 57px;
-  height: 25px;
-  @include respond(sm-desktop) {
-    width: 50px;
-    height: 22px;
-  }
-  @include respond(phone) {
-    width: 35px;
-    height: 15px;
-  }
-}
+
 
 .img_arrow {
   transform: translateY(30%);
