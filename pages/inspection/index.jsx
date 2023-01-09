@@ -51,10 +51,10 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    if (sorting == -1) {
+    if (sorting === -1) {
       dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
       setSorting(1);
-    } else if (sorting == 1) {
+    } else if (sorting === 1) {
       dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
       setSorting(-1);
     }

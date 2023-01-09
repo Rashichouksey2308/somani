@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import { Card, Form } from 'react-bootstrap';
 import Router from 'next/router';
-import Image from 'next/image';
 import DownloadBar from '../../src/components/DownloadBar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GetGoNoGo } from '../../src/redux/goNoGo/action';
-import { useSelector } from 'react-redux';
 import _get from 'lodash/get';
 
 function Index() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('gngMasterId');
+    const id = sessionStorage.getItem('gngMasterId');
     dispatch(GetGoNoGo(`?gngMasterId=${id}`));
   }, [dispatch]);
 

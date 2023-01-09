@@ -17,13 +17,12 @@ import moment from 'moment/moment';
 import { getInternalCompanies } from '../../../../src/redux/masters/action';
 import {nameOfInsurerArray} from '../../../../src/utils/helpers/staticFiled'
 const Index = () => {
-  const [insuranceType, setInsuranceType] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('quotationId');
+    const id = sessionStorage.getItem('quotationId');
     dispatch(GettingAllInsurance(`?insuranceId=${id}`));
   }, [dispatch]);
 
@@ -127,27 +126,27 @@ const Index = () => {
     });
   }, [insuranceResponse, insuranceData]);
 
-  let dateM1 = new Date(marineData?.insuranceFrom);
-  let dateM2 = new Date(marineData?.insuranceTo);
+  const dateM1 = new Date(marineData?.insuranceFrom);
+  const dateM2 = new Date(marineData?.insuranceTo);
 
   function getDifferenceInDaysMarine() {
-    let date1 = moment(dateM1, 'DD.MM.YYYY');
-    let date2 = moment(dateM2, 'DD.MM.YYYY');
+    const date1 = moment(dateM1, 'DD.MM.YYYY');
+    const date2 = moment(dateM2, 'DD.MM.YYYY');
     return date2.diff(date1, 'days');
   }
 
-  let dateS1 = new Date(storageData?.insuranceFrom);
-  let dateS2 = new Date(storageData?.insuranceTo);
+  const dateS1 = new Date(storageData?.insuranceFrom);
+  const dateS2 = new Date(storageData?.insuranceTo);
 
   function getDifferenceInDaysStorage() {
-    let date3 = moment(dateS1, 'DD.MM.YYYY');
-    let date4 = moment(dateS2, 'DD.MM.YYYY');
+    const date3 = moment(dateS1, 'DD.MM.YYYY');
+    const date4 = moment(dateS2, 'DD.MM.YYYY');
     return date4.diff(date3, 'days');
   }
 
   const gettingCompanyList = (name) => {
-    let filter = getInternalCompaniesMasterData?.filter((val, index) => {
-      if (val?.Company_Name?.toLowerCase() == name?.toLowerCase()) {
+    const filter = getInternalCompaniesMasterData?.filter((val, index) => {
+      if (val?.Company_Name?.toLowerCase() === name?.toLowerCase()) {
         return val;
       }
     });
@@ -158,8 +157,8 @@ const Index = () => {
   useEffect(() => {
     // gettingCompanyList(insuranceData?.order?.generic?.buyer?.name)
 
-    let filter = getInternalCompaniesMasterData?.filter((val, index) => {
-      if (val?.Company_Name?.toLowerCase() == insuranceData?.order?.generic?.buyer?.name?.toLowerCase()) {
+    const filter = getInternalCompaniesMasterData?.filter((val, index) => {
+      if (val?.Company_Name?.toLowerCase() === insuranceData?.order?.generic?.buyer?.name?.toLowerCase()) {
         return val;
       }
     });
@@ -167,7 +166,7 @@ const Index = () => {
   }, [insuranceData, getInternalCompaniesMasterData]);
 
   const saveMarineData = (name, value) => {
-    let newInput = { ...marineData };
+    const newInput = { ...marineData };
     newInput[name] = value;
 
     setMarineData({ ...newInput });
@@ -175,18 +174,18 @@ const Index = () => {
 
   const saveDate = (value, name) => {
     const d = new Date(value);
-    let text = d.toISOString();
+    const text = d.toISOString();
     saveMarineData(name, text);
   };
 
   const saveStorageDate = (value, name) => {
     const d = new Date(value);
-    let text = d.toISOString();
+    const text = d.toISOString();
     saveStorageData(name, text);
   };
 
   const saveStorageData = (name, value) => {
-    let newInput = { ...storageData };
+    const newInput = { ...storageData };
     newInput[name] = value;
     setStorageData(newInput);
   };
@@ -227,7 +226,7 @@ const Index = () => {
     if (isInsurerSameData) {
       setStorageData({ ...marineData });
     }
-    if (isInsurerSameData == false) {
+    if (isInsurerSameData === false) {
       setStorageData({
         policyNumber: insuranceData?.storageInsurance?.policyNumber || '',
         nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || '',
@@ -248,7 +247,7 @@ const Index = () => {
   
      let toastMessage = '';
            if (
-         marineData.policyNumber == '' ||  marineData.policyNumber == undefined || 
+         marineData.policyNumber === '' ||  marineData.policyNumber === undefined || 
          marineData.policyNumber == null
       ) {
        
@@ -259,7 +258,7 @@ const Index = () => {
         }
       }
         if (
-         marineData.nameOfInsurer == '' ||  marineData.nameOfInsurer == undefined || 
+         marineData.nameOfInsurer === '' ||  marineData.nameOfInsurer === undefined || 
          marineData.nameOfInsurer == null
       ) {
         
@@ -270,7 +269,7 @@ const Index = () => {
         }
       }
          if (
-         marineData.nameOfInsured == '' ||  marineData.nameOfInsured == undefined || 
+         marineData.nameOfInsured === '' ||  marineData.nameOfInsured === undefined || 
          marineData.nameOfInsured == null
       ) {
         toastMessage = 'PLEASE ADD  marine name Of Insured';
@@ -281,7 +280,7 @@ const Index = () => {
       }
       
           if (
-         marineData.gstOfInsured == '' ||  marineData.gstOfInsured == undefined || 
+         marineData.gstOfInsured === '' ||  marineData.gstOfInsured === undefined || 
          marineData.gstOfInsured == null
       ) {
         toastMessage = 'PLEASE ADD  marine gst Of Insured';
@@ -291,7 +290,7 @@ const Index = () => {
         }
       }
            if (
-         marineData.insuranceFrom == '' ||  marineData.insuranceFrom == undefined || 
+         marineData.insuranceFrom === '' ||  marineData.insuranceFrom === undefined || 
          marineData.insuranceFrom == null
       ) {
         toastMessage = 'PLEASE ADD  marine insurance From';
@@ -301,7 +300,7 @@ const Index = () => {
         }
       }
            if (
-         marineData.insuranceTo == '' ||  marineData.insuranceTo == undefined || 
+         marineData.insuranceTo === '' ||  marineData.insuranceTo === undefined || 
          marineData.insuranceTo == null
       ) {
         toastMessage = 'PLEASE ADD  marine insurance To';
@@ -310,22 +309,12 @@ const Index = () => {
           return false;
         }
       }
-      //      if (
-      //    marineData.lossPayee == '' ||  marineData.lossPayee == undefined || 
-      //    marineData.lossPayee == null
-      // ) {
-      //   toastMessage = 'PLEASE ADD  marine loss Payee';
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     return false;
-      //   }
-      // }
   }
   const storageValidation=()=>{
       
      let toastMessage = '';
            if (
-         storageData.policyNumber == '' ||  storageData.policyNumber == undefined || 
+         storageData.policyNumber === '' ||  storageData.policyNumber === undefined || 
          storageData.policyNumber == null
       ) {
         toastMessage = 'PLEASE ADD storage policy number';
@@ -335,7 +324,7 @@ const Index = () => {
         }
       }
         if (
-         storageData.nameOfInsurer == '' ||  storageData.nameOfInsurer == undefined || 
+         storageData.nameOfInsurer === '' ||  storageData.nameOfInsurer === undefined || 
          storageData.nameOfInsurer == null
       ) {
         toastMessage = 'PLEASE ADD storage name Of Insurer';
@@ -345,7 +334,7 @@ const Index = () => {
         }
       }
            if (
-         storageData.gstOfInsurer == '' ||  storageData.gstOfInsurer == undefined || 
+         storageData.gstOfInsurer === '' ||  storageData.gstOfInsurer === undefined || 
          storageData.gstOfInsurer == null
       ) {
         toastMessage = 'PLEASE ADD storage gst Of Insurer';
@@ -355,7 +344,7 @@ const Index = () => {
         }
       }
          if (
-         storageData.nameOfInsured == '' ||  storageData.nameOfInsured == undefined || 
+         storageData.nameOfInsured === '' ||  storageData.nameOfInsured === undefined || 
          storageData.nameOfInsured == null
       ) {
         toastMessage = 'PLEASE ADD storage name Of Insured';
@@ -366,7 +355,7 @@ const Index = () => {
       }
        
           if (
-         storageData.gstOfInsured == '' ||  storageData.gstOfInsured == undefined || 
+         storageData.gstOfInsured === '' ||  storageData.gstOfInsured === undefined || 
          storageData.gstOfInsured == null
       ) {
         toastMessage = 'PLEASE ADD storage gst Of Insured';
@@ -376,7 +365,7 @@ const Index = () => {
         }
       }
            if (
-         storageData.insuranceFrom == '' ||  storageData.insuranceFrom == undefined || 
+         storageData.insuranceFrom === '' ||  storageData.insuranceFrom === undefined || 
          storageData.insuranceFrom == null
       ) {
         toastMessage = 'PLEASE ADD storage insurance From';
@@ -386,7 +375,7 @@ const Index = () => {
         }
       }
            if (
-         storageData.insuranceTo == '' ||  storageData.insuranceTo == undefined || 
+         storageData.insuranceTo === '' ||  storageData.insuranceTo === undefined || 
          storageData.insuranceTo == null
       ) {
         toastMessage = 'PLEASE ADD storage insurance To';
@@ -395,25 +384,15 @@ const Index = () => {
           return false;
         }
       }
-      //      if (
-      //    storageData.lossPayee == '' ||  storageData.lossPayee == undefined || 
-      //    storageData.lossPayee == null
-      // ) {
-      //   toastMessage = 'PLEASE ADD storage loss Payee';
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     return false;
-      //   }
-      // }
   }
   const validate = () => {
     let toastMessage = '';
 
-    if (insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance') {
+    if (insuranceData?.quotationRequest?.insuranceType === 'Marine Insurance') {
       if (
-        marineData.insuranceFromType == 'Domestic' &&
-        (marineData.gstOfInsurer == '' ||
-          marineData.gstOfInsurer == undefined ||
+        marineData.insuranceFromType === 'Domestic' &&
+        (marineData.gstOfInsurer === '' ||
+          marineData.gstOfInsurer === undefined ||
           !gSTINValidation(marineData.gstOfInsurer))
       ) {
         toastMessage = 'PLEASE ADD A VALID GSTIN OF INSURER';
@@ -423,9 +402,9 @@ const Index = () => {
         }
       }
       if (
-        marineData.insuranceFromType == 'Domestic' &&
-        (marineData.gstOfInsured == '' ||
-          marineData.gstOfInsured == undefined ||
+        marineData.insuranceFromType === 'Domestic' &&
+        (marineData.gstOfInsured === '' ||
+          marineData.gstOfInsured === undefined ||
           !gSTINValidation(marineData.gstOfInsured))
       ) {
         toastMessage = ' PLEASE ADD A VALID GSTIN OF INSURED';
@@ -435,7 +414,7 @@ const Index = () => {
         }
       }
       
-      if (marineData.insuranceFrom == '' || marineData.insuranceFrom == undefined) {
+      if (marineData.insuranceFrom === '' || marineData.insuranceFrom === undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -443,7 +422,7 @@ const Index = () => {
         }
       }
 
-      if (marineData.insuranceTo == '' || marineData.insuranceTo == undefined) {
+      if (marineData.insuranceTo === '' || marineData.insuranceTo === undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE TO';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -458,16 +437,16 @@ const Index = () => {
         }
       }
      
-     if(marineValidation()==false){
+     if(marineValidation()===false){
       return false
 
      }
     }
-    if (insuranceData?.quotationRequest?.insuranceType == 'Storage Insurance') {
+    if (insuranceData?.quotationRequest?.insuranceType === 'Storage Insurance') {
       if (
-        storageData.insuranceFromType == 'Domestic' &&
-        (storageData.gstOfInsurer == '' ||
-          storageData.gstOfInsurer == undefined ||
+        storageData.insuranceFromType === 'Domestic' &&
+        (storageData.gstOfInsurer === '' ||
+          storageData.gstOfInsurer === undefined ||
           !gSTINValidation(storageData.gstOfInsurer))
       ) {
         toastMessage = ' PLEASE ADD VALID GSTIN OF INSURER FOR STORAGE';
@@ -477,9 +456,9 @@ const Index = () => {
         }
       }
       if (
-        storageData.insuranceFromType == 'Domestic' &&
-        (storageData.gstOfInsured == '' ||
-          storageData.gstOfInsured == undefined ||
+        storageData.insuranceFromType === 'Domestic' &&
+        (storageData.gstOfInsured === '' ||
+          storageData.gstOfInsured === undefined ||
           !gSTINValidation(storageData.gstOfInsured))
       ) {
         toastMessage = ' PLEASE ADD A VALID GSTIN OF INSURED';
@@ -488,14 +467,14 @@ const Index = () => {
           return false;
         }
       }
-      if (storageData.insuranceFrom == '' || storageData.insuranceFrom == undefined) {
+      if (storageData.insuranceFrom === '' || storageData.insuranceFrom === undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
         }
       }
-      if (storageData.insuranceTo == '' || storageData.insuranceTo == undefined) {
+      if (storageData.insuranceTo === '' || storageData.insuranceTo === undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE TO';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -503,7 +482,7 @@ const Index = () => {
         }
       }
     
-   if(storageValidation()==false){
+   if(storageValidation()===false){
       return false
 
      }
@@ -516,10 +495,10 @@ const Index = () => {
       }
   
     }
-    if (insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance') {
+    if (insuranceData?.quotationRequest?.insuranceType === 'Marine & Storage Insurance') {
       if (
-        (marineData.insuranceFromType == 'Domestic' && marineData.gstOfInsurer == '') ||
-        marineData.gstOfInsurer == undefined ||
+        (marineData.insuranceFromType === 'Domestic' && marineData.gstOfInsurer === '') ||
+        marineData.gstOfInsurer === undefined ||
         !gSTINValidation(marineData?.gstOfInsurer)
       ) {
         toastMessage = 'VALID GSTIN OF INSURER IS MANDATORY IN MARINE INSURANCE';
@@ -529,8 +508,8 @@ const Index = () => {
         }
       }
       if (
-        (marineData.insuranceFromType == 'Domestic' && marineData.gstOfInsured == '') ||
-        marineData.gstOfInsured == undefined ||
+        (marineData.insuranceFromType === 'Domestic' && marineData.gstOfInsured === '') ||
+        marineData.gstOfInsured === undefined ||
         !gSTINValidation(marineData?.gstOfInsured)
       ) {
         toastMessage = ' VALID GSTIN OF INSURED IS MANDATORY IN MARINE INSURANCE';
@@ -539,7 +518,7 @@ const Index = () => {
           return false;
         }
       }
-        if(marineValidation()==false){
+        if(marineValidation()===false){
         return false
 
         }
@@ -549,16 +528,7 @@ const Index = () => {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
             return false;
           }
-        }
-       
-      // if (insuranceDocument.marinePolicyDocument == null || insuranceDocument.storagePolicyDocument == null) {
-      //   toastMessage = 'BOTH DOCUMENTS ARE MANDATORY';
-      //   if (!toast.isActive(toastMessage.toUpperCase())) {
-      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      //     return false;
-      //   }
-      // }
-      
+        }      
     }
 
 
@@ -568,13 +538,13 @@ const Index = () => {
   const handleInsuranceUpdate = async () => {
     if (!validate()) return;
 
-    let marineObj = { ...marineData };
+    const marineObj = { ...marineData };
     marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount);
 
-    let storageObj = { ...storageData };
+    const storageObj = { ...storageData };
     storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount);
 
-    let fd = new FormData();
+    const fd = new FormData();
     fd.append('marineInsurance', JSON.stringify(marineObj));
     fd.append('storageInsurance', JSON.stringify(storageObj));
     fd.append('insuranceId', insuranceData?._id);
@@ -583,8 +553,8 @@ const Index = () => {
     fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
     fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
 
-    let code = await dispatch(UpdateInsurance(fd));
-    if (code == 200) {
+    const code = await dispatch(UpdateInsurance(fd));
+    if (code === 200) {
       sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ''));
       dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'));
       Router.push(`/third-party`);
@@ -626,7 +596,7 @@ const Index = () => {
                       className={styles.radio}
                       inline
                       label="Marine Insurance"
-                      checked={insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance' ? 'checked' : ''}
+                      checked={insuranceData?.quotationRequest?.insuranceType === 'Marine Insurance' ? 'checked' : ''}
                       onChange={(e) => setInsuranceType('Marine Insurance')}
                       name="group1"
                       value="Marine"
@@ -637,7 +607,7 @@ const Index = () => {
                       className={styles.radio}
                       inline
                       label="Storage Insurance"
-                      checked={insuranceData?.quotationRequest?.insuranceType == 'Storage Insurance' ? 'checked' : ''}
+                      checked={insuranceData?.quotationRequest?.insuranceType === 'Storage Insurance' ? 'checked' : ''}
                       name="group1"
                       value="Storage"
                       onChange={(e) => {
@@ -652,7 +622,7 @@ const Index = () => {
                       label="Both"
                       value="Both"
                       checked={
-                        insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance' ? 'checked' : ''
+                        insuranceData?.quotationRequest?.insuranceType === 'Marine & Storage Insurance' ? 'checked' : ''
                       }
                       name="group1"
                       type={type}
@@ -666,7 +636,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          {insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance' ? (
+          {insuranceData?.quotationRequest?.insuranceType === 'Marine Insurance' ? (
             <>
               <div className={`${styles.wrapper} vessel_card border_color card`}>
                 <div
@@ -684,7 +654,7 @@ const Index = () => {
                             inline
                             label="Domestic"
                             name="insuranceFromType"
-                            checked={marineData?.insuranceFromType == 'Domestic'}
+                            checked={marineData?.insuranceFromType === 'Domestic'}
                             onChange={(e) => saveMarineData(e.target.name, 'Domestic')}
                             type={type}
                             id={`inline-${type}-1`}
@@ -694,7 +664,7 @@ const Index = () => {
                             className={styles.radio}
                             inline
                             label="International"
-                            checked={marineData?.insuranceFromType == 'International'}
+                            checked={marineData?.insuranceFromType === 'International'}
                             name="insuranceFromType"
                             type={type}
                             id={`inline-${type}-2`}
@@ -923,7 +893,6 @@ const Index = () => {
                               </input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                              
                             </div>

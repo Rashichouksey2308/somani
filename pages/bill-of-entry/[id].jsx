@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action';
 import _get from 'lodash/get';
 import API from '../../src/utils/endpoints';
-import { toast } from 'react-toastify';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
