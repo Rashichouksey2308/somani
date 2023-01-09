@@ -35,6 +35,10 @@ const initialState = {
     userMasterDetails: {},
     updatingUserMasterRemarks: false,
     updateUserMasterRemarkDetails: {},
+    gettingGoNoGoLogicDetails: false,
+    goNoGoLogicDetails: {},
+    updatingGoNoGoLogicRemarks: false,
+    goNoGoLogicRemarkDetails: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -276,6 +280,36 @@ function CheckerReducer(state = initialState, action) {
                 updatingUserMasterRemarks: false,
                 updateUserMasterRemarkDetails: {},
             }
+
+        case types.GET_GO_NO_GO_LOGIC_DETAILS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingGoNoGoLogicDetails: false,
+                goNoGoLogicDetails: action.payload,
+            };
+
+        case types.GET_GO_NO_GO_LOGIC_DETAILS_FAILED:
+            return {
+                ...state,
+                gettingGoNoGoLogicDetails: false,
+                goNoGoLogicDetails: {},
+            };
+
+        
+        case types.UPDATE_GO_NO_GO_LOGIC_REMARK_SUCCESSFULL:
+            return {
+                ...state,
+                updatingGoNoGoLogicRemarks: false,
+                goNoGoLogicRemarkDetails: action.payload,
+            };
+
+        case types.UPDATE_GO_NO_GO_LOGIC_REMARK_FAILED:
+            return {
+                ...state,
+                updatingGoNoGoLogicRemarks: false,
+                goNoGoLogicRemarkDetails: {},
+            }
+
         default:
             return state;
     }

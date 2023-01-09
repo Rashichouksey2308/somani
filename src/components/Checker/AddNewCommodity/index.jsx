@@ -41,7 +41,7 @@ function Index() {
             <div className={`${styles.vessel_card} border_color`}>
                 <CommodityDetails 
                     commodityDetails={commodityDetails}
-                    commodityDetailsHistory={commodityDetails.history?.length >=0 && commodityDetails?.history[0]}
+                    commodityDetailsHistory={commodityDetails.history?.length > 0 && commodityDetails?.history[0]}
                 />
                 <Remarks handleRemarkSubmit={handleRemarkSubmit}/>
             </div>
