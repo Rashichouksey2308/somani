@@ -5,14 +5,14 @@ import CompanyProfile from '../../src/components/CompanyProfile';
 import ApproveBar from '../../src/components/ApproveBar';
 import OrderProfile from '../../src/components/OrderProfile';
 import Router from 'next/router';
-import router from 'next/router';
 import styles from './profile.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetBuyer, UpdateBuyer  ,GetAllBuyer} from '../../src/redux/registerBuyer/action';
+import { GetBuyer, UpdateBuyer, GetAllBuyer } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { toast } from 'react-toastify';
 import { settingSidebar } from '../../src/redux/breadcrumb/action';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,6 @@ const Index = () => {
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
-  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const { allBuyerList } = useSelector((state) => state.buyer);
 
   const [fields, setFields] = useState([
@@ -61,9 +60,9 @@ const Index = () => {
     action: 'APPROVE',
   });
 
-  const [rejectPayloadData, setRejectPayloadData] = useState({
+  const rejectPayloadData = {
     action: 'REJECT',
-  });
+  };
 
   useEffect(() => {
     const orderId = sessionStorage.getItem('orderID');
@@ -77,71 +76,54 @@ const Index = () => {
     dispatch(setDynamicName(buyerList?.companyName));
   }, [buyerList, dispatch]);
 
-  const handleToast = (toastMessage) => {
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      return toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+  const validation = () => {
+    if (!buyerList?.commodity?.apiResponse) {
+      if (!payloadData.hasOwnProperty('commodity')) {
+        handleErrorToast('Please select commodity');
+        return false;
+      }
+    } else if (!buyerList?.turnOver?.apiResponse) {
+      if (!payloadData.hasOwnProperty('turnOver') || !payloadData.turnOver) {
+        handleErrorToast('Please add turnOver');
+        return false;
+      }
+    } else if (!buyerList?.orderValue?.apiResponse) {
+      if (!payloadData.hasOwnProperty('orderValue') || !payloadData.orderValue) {
+        handleErrorToast('Please add order value');
+        return false;
+      }
+    } else if (!buyerList?.portOfDischarge?.apiResponse) {
+      if (!payloadData.hasOwnProperty('portOfDischarge')) {
+        handleErrorToast('Please add port of discharge');
+        return false;
+      }
+    } else if (!buyerList?.transactionType?.apiResponse) {
+      if (!payloadData.hasOwnProperty('transactionType')) {
+        handleErrorToast('Please select transaction type');
+        return false;
+      }
+    } else if (!buyerList?.typeOfBusiness?.apiResponse) {
+      if (!payloadData.hasOwnProperty('typeOfBusiness')) {
+        handleErrorToast('Please select type of business');
+        return false;
+      }
+    }  else if (!buyerList?.countryOfOrigin?.apiResponse) {
+      if (!payloadData.hasOwnProperty('countryOfOrigin')) {
+        handleErrorToast('Please select a country of origin');
+        return false;
+      }
+    } else if (!buyerList?.ExpectedDateOfShipment?.apiResponse) {
+      if (!payloadData.hasOwnProperty('ExpectedDateOfShipment')) {
+        handleErrorToast('Please select a Expected Date Of Shipment');
+        return false;
+      }
     }
+    return true
   };
 
   const handleApprove = async () => {
-    if (!buyerList?.commodity?.apiResponse) {
-      if (!payloadData.hasOwnProperty('commodity')) return handleToast('Please select commodity');
-    }
-    if (!buyerList?.turnOver?.apiResponse) {
-      if (!payloadData.hasOwnProperty('turnOver') || !payloadData.turnOver) {
-        return handleToast('Please add turnOver');
-      }
-    }
-    if (!buyerList?.countryOfOrigin?.apiResponse) {
-      if (!payloadData.hasOwnProperty('countryOfOrigin')) {
-        return handleToast('Please select country');
-      }
-    }
-
-    if (!buyerList?.orderValue?.apiResponse) {
-      if (!payloadData.hasOwnProperty('orderValue') || !payloadData.orderValue) {
-        return handleToast('Please add order value');
-      }
-    }
-    if (!buyerList?.portOfDischarge?.apiResponse) {
-      if (!payloadData.hasOwnProperty('portOfDischarge')) {
-        return handleToast('Please add port of discharge');
-      }
-    }
-
-    if (!buyerList?.transactionType?.apiResponse) {
-      if (!payloadData.hasOwnProperty('transactionType')) {
-        return handleToast('Please select transaction type');
-      }
-    }
-    if (!buyerList?.typeOfBusiness?.apiResponse) {
-      if (!payloadData.hasOwnProperty('typeOfBusiness')) {
-        return handleToast('Please select type of business');
-      }
-    }
-    if (!buyerList?.orderValue?.apiResponse) {
-      if (!payloadData.hasOwnProperty('orderValue')) {
-        return handleToast('Please fill order Value');
-      }
-    }
-
-    if (!buyerList?.countryOfOrigin?.apiResponse) {
-      if (!payloadData.hasOwnProperty('countryOfOrigin')) {
-        return handleToast('Please select a country of origin');
-      }
-    }
-    if (!buyerList?.portOfDischarge?.apiResponse) {
-      if (!payloadData.hasOwnProperty('portOfDischarge')) {
-        return handleToast('Please select a port Of Discharge');
-      }
-    }
-    if (!buyerList?.ExpectedDateOfShipment?.apiResponse) {
-      if (!payloadData.hasOwnProperty('ExpectedDateOfShipment')) {
-        return handleToast('Please select a Expected Date Of Shipment');
-      }
-    }
-
-    let tempData = payloadData;
+    if(!validation()) return
+    const tempData = payloadData;
     if (tempData.turnOver) {
       tempData.turnOver = Number(payloadData.turnOver) * 10000000;
     }
@@ -150,7 +132,7 @@ const Index = () => {
     }
     const payload = { ...payloadData, orderReviewId: buyerList._id };
 
-    let code = await dispatch(UpdateBuyer(payload));
+    const code = await dispatch(UpdateBuyer(payload));
     if (code == 200) {
       dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'));
       await Router.push('/review');
@@ -161,7 +143,7 @@ const Index = () => {
     const payload = { ...rejectPayloadData, orderReviewId: buyerList._id };
 
     dispatch(UpdateBuyer(payload));
-    router.push('/leads');
+    Router.push('/leads');
   };
 
   const handleChange = (name, value) => {
@@ -194,7 +176,7 @@ const Index = () => {
             commodity={getCommoditiesMasterData}
             allBuyerList={allBuyerList}
           />
-          <CompanyProfile/>
+          <CompanyProfile />
           <OrderProfile />
         </div>
         <div className={styles.approve_Container}>

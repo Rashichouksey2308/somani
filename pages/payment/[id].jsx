@@ -44,6 +44,7 @@ function Index() {
   const liftingDetailsId = _get(ReleaseOrderData, 'data[0].order.lifting', '');
   const deliveryOrderData = _get(ReleaseOrderData, 'data[0].deliveryDetail', [{}]);
   const releaseOrderData = _get(ReleaseOrderData, 'data[0].releaseDetail', [{}]);
+  const doCancelledString = 'DO cancelled';
 
   const generateDoNumber = (index) => {
     const orderDONumber = index < 10 ? `0${index + 1}` : index + 1;
@@ -94,7 +95,6 @@ function Index() {
   }, [ReleaseOrderData]);
 
   const [lifting, setLifting] = useState([]);
-  console.log(lifting, 'lifting');
 
   const addNewLifting = (value) => {
     setLifting([
@@ -156,16 +156,13 @@ function Index() {
     });
     setLifting([...tempArr]);
   };
-
+  const valueValidation = (value) => {
+    if (value === '' || value == null) {
+      return true;
+    }
+    return false;
+  };
   const liftingValidation = () => {
-    const valueValidation = (value) => {
-      if (value === '' || value == null) {
-        return true;
-      } else {
-        return false;
-      }
-    };
-
     let isOk = true;
     for (let i = 0; i <= lifting.length - 1; i++) {
       if (returnLiftingData(lifting[i].deliveryOrder).balaceQuantity < 0) {
@@ -236,7 +233,7 @@ function Index() {
           isOk = false;
           break;
         }
-        if (lifting[i].detail[j]?.eWayBillDoc.originalName == '' || !lifting[i].detail[j]?.eWayBillDoc.originalName) {
+        if (lifting[i].detail[j]?.eWayBillDoc.originalName === '' || !lifting[i].detail[j]?.eWayBillDoc.originalName) {
           handleErrorToast(
             `please upload a eWay Bill  Of Listing Details  Of Listing Details   ${j + 1} for delivery order no - ${
               lifting[i].deliveryOrder
@@ -379,15 +376,14 @@ function Index() {
   };
 
   const balanceQuantity = () => {
-    let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
+    const boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
     if (boe !== 0) {
       let boeTotalQuantity = boe?.reduce((accumulator, object) => {
         return accumulator + Number(object.boeDetails.invoiceQuantity);
       }, 0);
 
       deliveryOrder.forEach((item) => {
-        console.log('itemm', item);
-        if (item.status !== 'DO cancelled') {
+        if (item.status !== doCancelledString) {
           boeTotalQuantity = boeTotalQuantity - Number(item.Quantity);
         }
       });
@@ -409,8 +405,6 @@ function Index() {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
-        console.log(val, 'cvalala');
-
         let number = 0;
         for (let i = 0; i < releaseDetail.length; i++) {
           if (releaseDetail[i].orderNumber == val.orderNumber) {
@@ -420,7 +414,6 @@ function Index() {
             number = balanceQuantity();
           }
         }
-        console.log(Number(val.Quantity), number, deliveryOrder, 'val.Quantity>Number');
         if (val.orderNumber !== 'Not Available' && Number(val.Quantity) > number) {
           handleErrorToast('Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order');
           return;
@@ -431,7 +424,7 @@ function Index() {
         }
         if (type == 'Save') {
           val.deliveryOrderDate = new Date();
-          if (val.status !== 'DO cancelled') {
+          if (val.status !== doCancelledString) {
             val.status = 'DO Issued';
           }
         }
@@ -444,9 +437,7 @@ function Index() {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
-        console.log(val.deliveryOrderDate, 'cvalala');
-
-        val.status = 'DO cancelled';
+        val.status = doCancelledString;
       }
     });
     setDeliveryOrder([...tempArr]);
@@ -479,8 +470,6 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
-    let releaseOrder;
-    let customObj = false;
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -492,8 +481,6 @@ function Index() {
 
           setFilteredDOArray(filteredArray);
         }
-
-        console.log(val, 'indexxx');
         if (name === 'Quantity') {
           if (value <= 0) {
             setDoLimit(quantity);
@@ -581,7 +568,7 @@ function Index() {
       });
       const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
         let maxQuantity;
-        if (curr.status !== 'DO cancelled') {
+        if (curr.status !== doCancelledString) {
           maxQuantity = Number(acc) + Number(curr.Quantity);
         }
         return maxQuantity;
@@ -659,17 +646,13 @@ function Index() {
       }
     });
     deliveryOrder.forEach((item, index) => {
-      console.log(item, 'itemitem');
       if (item.orderNumber == orderNumber) {
-        if (item.status == 'DO cancelled') {
+        if (item.status == doCancelledString) {
           return false;
         }
         delivery = delivery + Number(item.Quantity);
       }
     });
-
-    console.log(delivery, release, 'delivery>=release');
-
     if (delivery >= release) {
       return true;
     } else {
