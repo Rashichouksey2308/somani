@@ -267,29 +267,17 @@ function Index() {
   };
 
   const validation = () => {
-    if (lcData.documentaryCreditNumber === '' || lcData.documentaryCreditNumber == undefined) {
-      let toastMessage = 'DOCUMENTARY CREDIT NUMBER IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+    if (lcData?.documentaryCreditNumber === '' || lcData?.documentaryCreditNumber == undefined) {
+    handleErrorToast('DOCUMENTARY CREDIT NUMBER IS MANDATORY')
       return false;
-    } else if (lcData.lcIssuingBank === '' || lcData.lcIssuingBank == undefined) {
-      let toastMessage = 'SELECT LC ISSUING BANK FROM DROPDOWN';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+    } else if (lcData?.lcIssuingBank === '' || lcData?.lcIssuingBank == undefined) {
+     handleErrorToast('SELECT LC ISSUING BANK FROM DROPDOWN')
       return false;
-    } else if (lcData.dateOfIssue === '' || lcData.dateOfIssue == undefined) {
-      let toastMessage = 'DATE OF ISSUE IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+    } else if (lcData?.dateOfIssue === '' || lcData?.dateOfIssue == undefined) {
+      handleErrorToast('DATE OF ISSUE IS MANDATORY')
       return false;
-    } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = `PLEASE UPLOAD ${lcModuleData?.isPostAmmended ? 'LC AMENDMENT DRAFT' : 'LC DRAFT'}`;
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+    } else if (lcDoc?.lcDraftDoc === '' || lcDoc?.lcDraftDoc == undefined) {
+     handleErrorToast(`PLEASE UPLOAD ${lcModuleData?.isPostAmmended ? 'LC AMENDMENT DRAFT' : 'LC DRAFT'}`)
       return false;
     }
     return true;
@@ -301,7 +289,7 @@ function Index() {
     let sendLcData = { ...clauseData };
 
     let isOK = [];
-    clauseArr.forEach((val, index) => {
+    clauseArr?.forEach((val, index) => {
       if (val.dropDownValue == '(31D) Date Of Expiry') {
         isOK.push('date');
       }
@@ -310,30 +298,24 @@ function Index() {
       }
     });
     if (!isOK.includes('date')) {
-      let toastMessage = 'PLEASE ADD DATE OF EXPIRY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+     handleErrorToast('PLEASE ADD DATE OF EXPIRY')
       return false;
     }
     if (!isOK.includes('place')) {
-      let toastMessage = 'PLEASE ADD PLACE OF EXPIRY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+     handleErrorToast('PLEASE ADD PLACE OF EXPIRY')
       return false;
     }
 
-    sendLcData.documentaryCreditNumber = lcData.documentaryCreditNumber;
-    sendLcData.dateOfIssue = lcData.dateOfIssue;
+    sendLcData.documentaryCreditNumber = lcData?.documentaryCreditNumber;
+    sendLcData.dateOfIssue = lcData?.dateOfIssue;
     setLcData(sendLcData);
 
     let fd = new FormData();
     fd.append('lcApplication', JSON.stringify(sendLcData));
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
-    fd.append('document1', lcDoc.lcDraftDoc);
-    fd.append('route', lcModuleData.isPostAmmended ? 'postUpdated' : 'amend');
-    fd.append('isAmmended', lcModuleData.isPostAmmended ? true : false);
+    fd.append('document1', lcDoc?.lcDraftDoc);
+    fd.append('route', lcModuleData?.isPostAmmended ? 'postUpdated' : 'amend');
+    fd.append('isAmmended', lcModuleData?.isPostAmmended ? true : false);
 
     dispatch(UpdateLcAmendment(fd));
   };
@@ -434,7 +416,7 @@ function Index() {
         : 'Not Allowed';
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getValue(existing, value)}  %`;
-    } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
+    } else if (value === '(42C) Draft At' && lcData?.atSight == 'Usuance') {
       return `Usuance - ${getValue(existing, value)} days`;
     } else if (value === '(44F) Port of Discharge') {
       return `${getValue(existing, value)}`;

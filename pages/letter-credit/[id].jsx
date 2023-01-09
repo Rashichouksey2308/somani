@@ -283,27 +283,18 @@ function Index() {
   };
 
   const handleRightButton = () => {
-    if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
-      let toastMessage = 'DATE OF AMENDMENT IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
-    } else if (lcData.numberOfAmendment === '' || lcData.numberOfAmendment == undefined) {
-      let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
-    } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = 'PLEASE UPLOAD LC DRAFT';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+    if (lcData?.dateOfAmendment === '' || lcData?.dateOfAmendment == undefined) {
+     handleErrorToast('DATE OF AMENDMENT IS MANDATORY')
+    } else if (lcData?.numberOfAmendment === '' || lcData?.numberOfAmendment == undefined) {
+     handleErrorToast('NUMBER OF AMENDMENT IS MANDATORY')
+    } else if (lcDoc?.lcDraftDoc === '' || lcDoc?.lcDraftDoc == undefined) {
+    handleErrorToast('PLEASE UPLOAD LC DRAFT')
     } else {
 
       let sendLcData = { ...lcData2 };
       sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData2?.tolerancePercentage));
-      sendLcData.numberOfAmendment = lcData.numberOfAmendment
-      sendLcData.dateOfAmendment = lcData.dateOfAmendment
+      sendLcData.numberOfAmendment = lcData?.numberOfAmendment
+      sendLcData.dateOfAmendment = lcData?.dateOfAmendment
       const task = lcModuleData.isPostAmmended;
 
       let fd = new FormData();
@@ -312,8 +303,8 @@ function Index() {
       fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
       fd.append('isPostAmmended', true);
-      fd.append('route', lcModuleData.isPostAmmended ? 'PostUpdated' : 'update');
-      fd.append('document1', lcDoc.lcDraftDoc);
+      fd.append('route', lcModuleData?.isPostAmmended ? 'PostUpdated' : 'update');
+      fd.append('document1', lcDoc?.lcDraftDoc);
 
       dispatch(UpdateAmendment({ fd, task }));
     }
@@ -427,7 +418,7 @@ function Index() {
         : 'Not Allowed';
     } else if (value === '(39A) Tolerance (+/-) Percentage') {
       return `(+/-) ${getData(existing, value)}  %`;
-    } else if (value === '(42C) Draft At' && lcData.atSight == 'Usuance') {
+    } else if (value === '(42C) Draft At' && lcData?.atSight == 'Usuance') {
       return `Usuance - ${getData(existing, value)} days`;
     } else if (value === '(44F) Port of Discharge') {
       return `${getData(existing, value)}`;
