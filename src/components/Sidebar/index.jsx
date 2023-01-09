@@ -150,6 +150,11 @@ function Index() {
           name: 'Country',
           image: '/static/gl.svg',
           route: '/masters/country',
+        },
+        {
+          name: 'Currency',
+          image: '/static/gl.svg',
+          route: '/masters/currency',
         }
       ],
       image: '/static/Masters.svg',

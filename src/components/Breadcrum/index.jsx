@@ -427,6 +427,22 @@ export default function Index({ isQuery }) {
       }
     }
 
+    if ('master-currency' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/Currency` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/Currency` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Master' + '/Currency';
+      }
+    }
+
 
 
     router.route.split('/').map((subRoute, index) => {

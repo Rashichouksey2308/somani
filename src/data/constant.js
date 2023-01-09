@@ -74,3 +74,18 @@ export const MASTERS_COUNTRY_MASTER_QUEUE = [
         name: 'Status',
     }
 ]
+
+export const MASTERS_CURRENCY_MASTER_QUEUE = [
+    {
+        id: 'currency',
+        name: 'Currency'
+    },
+    {
+        id: 'currencyName',
+        name: 'Currency Name'
+    },
+    {
+        id: 'status',
+        name: 'Status',
+    }
+]

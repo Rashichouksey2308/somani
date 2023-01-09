@@ -33,6 +33,11 @@ const initialState = {
   filteringCountryQueue: false,
   filteredCountryQueue: [],
   creatingCountryMaster: false,
+  currencyQueueRecords: [],
+  gettingCurrencyQueueRecords: false,
+  filteringCurrencyQueue: false,
+  filteredCurrencyQueue: [],
+  creatingCurrencyMaster: false,
 };
 
 function MastersReducer(state = initialState, action) {
@@ -411,6 +416,52 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         creatingCountryMaster: false,
+      };
+
+    case types.GET_MASTER_CURRENCY_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingCurrencyQueueRecords: false,
+        currencyQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_CURRENCY_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingCurrencyQueueRecords: false,
+        currencyQueueRecords: {},
+      };
+
+    case types.FILTER_CURRENCY_QUEUE:
+      return {
+        ...state,
+        filteringCurrencyQueue: true,
+      };
+
+    case types.FILTER_CURRENCY_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringCurrencyQueue: false,
+        filteredCurrencyQueue: action.payload,
+      };
+
+    case types.FILTER_CURRENCY_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringCurrencyQueue: false,
+        filteredCurrencyQueue: null,
+      };
+
+    case types.CREATE_CURRENCY_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingCurrencyMaster: false,
+      };
+
+    case types.CREATE_CURRENCY_MASTER_FAILED:
+      return {
+        ...state,
+        creatingCurrencyMaster: false,
       };
 
 
