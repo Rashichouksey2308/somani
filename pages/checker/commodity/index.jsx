@@ -104,8 +104,8 @@ function Index() {
 
   const handleRoute = (commodity) => {
     sessionStorage.setItem('checkerCommodityId', commodity?._id);
-    sessionStorage.setItem('checkerCommodityName', commodity?.company?.companyName);
-    dispatch(setDynamicName(commodity?.company?.companyName));
+    sessionStorage.setItem('checkerCommodityName', commodity?.Commodity);
+    dispatch(setDynamicName(commodity?.Commodity));
     Router.push('/checker/commodity/id');
   };
 

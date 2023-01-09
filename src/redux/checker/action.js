@@ -5,14 +5,14 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 
-function getCommoditySuccess(payload) {
+function getCommodityDetailsSuccess(payload) {
   return {
     type: types.GET_COMMODITY_SUCCESSFULL,
     payload,
   };
 }
 
-function getCommodityFailed(payload = {}) {
+function getCommodityDetailsFailed(payload = {}) {
   return {
     type: types.GET_COMMODITY_FAILED,
     payload,
@@ -243,7 +243,7 @@ function updateUserMasterRemarkFailed(payload = {}) {
   };
 }
 
-export const GetCommodity = (payload) => async (dispatch, getState, api) => {
+export const GetCommodityDetails = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
 
   const cookie = Cookies.get('SOMANI');
@@ -260,10 +260,10 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getCommoditySuccess(response.data.data[0]));
+        dispatch(getCommodityDetailsSuccess(response?.data?.data?.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getCommodityFailed(response.data.data));
+        dispatch(getCommodityDetailsFailed(response.data.data));
         const toastMessage = 'Could not fetch Commodity Details';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -272,7 +272,7 @@ export const GetCommodity = (payload) => async (dispatch, getState, api) => {
       }
     });
   } catch (error) {
-    dispatch(getCommodityFailed());
+    dispatch(getCommodityDetailsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -327,7 +327,7 @@ export const UpdateCommodityRemark = (payload) => async (dispatch, getState, api
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    const response = await Axios.post(`${API.corebaseUrl}${API.updateCommodityRemark}`, payload, {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateCommodityRemark}`, payload, {
       headers: headers,
     });
 
