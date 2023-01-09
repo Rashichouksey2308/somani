@@ -243,6 +243,35 @@ function updateUserMasterRemarkFailed(payload = {}) {
   };
 }
 
+function getGoNoGoLogicDetailsSuccess(payload) {
+  return {
+    type: types.GET_GO_NO_GO_LOGIC_DETAILS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getGoNoGoLogicDetailsFailed(payload = {}) {
+  return {
+    type: types.GET_GO_NO_GO_LOGIC_DETAILS_FAILED,
+    payload,
+  };
+}
+
+function updateGoNoGoLogicRemarkSuccess(payload) {
+  return {
+    type: types.UPDATE_GO_NO_GO_LOGIC_REMARK_SUCCESSFULL,
+    payload,
+  };
+}
+
+function updateGoNoGoLogicRemarkFailed(payload = {}) {
+  return {
+    type: types.UPDATE_GO_NO_GO_LOGIC_REMARK_FAILED,
+    payload,
+  };
+}
+
+
 export const GetCommodityDetails = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
 
@@ -839,6 +868,76 @@ export const UpdateUserMasterRemark = (payload) => async (dispatch, getState, ap
   } catch (error) {
     dispatch(updateUserMasterRemarkFailed());
 
+    dispatch(setNotLoading());
+    return 500;
+  }
+};
+
+export const GetGoNoGoLogicDetails = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getGoNoGoLogicDetails}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getGoNoGoLogicDetailsSuccess(response?.data?.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getGoNoGoLogicDetailsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Go No Go Logic Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getGoNoGoLogicDetailsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateGoNoGoLogicRemark = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateGoNoGoLogicRemark}`, payload, {
+      headers: headers,
+    });
+
+    if (response.data.code === 200) {
+      dispatch(updateGoNoGoLogicRemarkSuccess(response.data));
+      dispatch(setNotLoading());
+      return 200;
+    } else {
+      dispatch(updateGoNoGoLogicRemarkFailed(response.data));
+      const toastMessage = 'Cannot add remark, something went wrong';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+      return 500;
+    }
+  } catch (error) {
+    dispatch(updateGoNoGoLogicRemarkFailed());
     dispatch(setNotLoading());
     return 500;
   }

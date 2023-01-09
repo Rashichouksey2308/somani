@@ -183,6 +183,8 @@ export default {
   updateUserMasterRemark: '/user-master/checker-user-status-update',
   getCommodityDetails: '/commodity/get-commodities',
   updateCommodityRemark: '/commodity/checker-commodity-status-update',
+  getGoNoGoLogicDetails: '/gng-master/get-gng',
+  updateGoNoGoLogicRemark: '/gng-master/checker-gngMaster-status-update',
   
   //Masters
   getAllCommodity: 'commodity/get-commodities',
