@@ -8,7 +8,6 @@ import { CreatePorts, GetPorts, UpdatePorts } from '../../src/redux/ports/action
 import { portValidtion } from '../../src/utils/helpers/review';
 import { getCountries, getState } from '../../src/redux/masters/action';
 import _get from 'lodash/get';
-import SaveBar from '../../src/components/SaveBar'
 
 function Index() {
   const dispatch = useDispatch();
@@ -20,12 +19,11 @@ function Index() {
   }, [dispatch]);
 
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
-  const { getStateMasterData } = useSelector((state) => state.MastersData);
 
   const { portsResponse } = useSelector((state) => state.ports);
   const portResponseData = _get(portsResponse, 'data[0]', {});
 
-  let id = sessionStorage.getItem('portId');
+  const id = sessionStorage.getItem('portId');
 
   useEffect(() => {
     if (!id) return;
@@ -55,21 +53,21 @@ function Index() {
   
 
   const savePortData = (name, value) => {
-    let newInput = { ...portData };
+    const newInput = { ...portData };
     newInput[name] = value;
     setPortData(newInput);
   };
 
   const handleSubmit = () => {
     if(!portValidtion(portData)) return
-    let data = {
+    const data = {
       Country: portData.Country,
       Port_Name: portData.Port_Name,
       State: portData.State,
       Container_Handling: portData.Container_Handling,
       Approved: portData.Approved,
     };
-    let data2 = {
+    const data2 = {
       Country: portData.Country,
       Port_Name: portData.Port_Name,
       State: portData.State,

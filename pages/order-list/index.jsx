@@ -18,7 +18,7 @@ function Index() {
   const { singleOrder } = useSelector((state) => state.buyer);
 
   useEffect(() => {
-    let companyIDnewOrder = sessionStorage.getItem('companyID');
+    const companyIDnewOrder = sessionStorage.getItem('companyID');
 
     dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}`));
   }, [dispatch, currentPage]);
@@ -28,7 +28,7 @@ function Index() {
     dispatch(setDynamicName(_get(singleOrder, 'data[0].company.companyName', ' ')));
   }, [dispatch, singleOrder]);
 
-  let compId = _get(singleOrder, 'data[0].company._id', '');
+  const compId = _get(singleOrder, 'data[0].company._id', '');
 
   const handleRouteNewOrder = () => {
     sessionStorage.setItem('companyID', _get(singleOrder, 'data[0].company._id', ''));
@@ -57,11 +57,11 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    let companyIDnewOrder = sessionStorage.getItem('companyID');
-    if (sorting == -1) {
+    const companyIDnewOrder = sessionStorage.getItem('companyID');
+    if (sorting === -1) {
       dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
       setSorting(1);
-    } else if (sorting == 1) {
+    } else if (sorting === 1) {
       dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
       setSorting(-1);
     }

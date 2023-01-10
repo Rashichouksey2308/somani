@@ -15,8 +15,9 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux
 import MarineInsurance from '../../../src/templates/requestLetters/MarineInsurance';
 import { convertValue } from '../../../src/utils/helper';
 import styles from './index.module.scss';
+import constants from '@/utils/constants'
 
-function Index() {
+const  Index = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ function Index() {
   }, [dispatch]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
+  const sliciingIndex = 4
 
   const insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [show, setShow] = useState(false);
@@ -73,14 +75,15 @@ function Index() {
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 2000]);
+    const pageCountNum = 2
+    const doc = new jsPDF('p', 'pt', [constants.pdfWidth, constants.pdfHeight]);
     doc.html(ReactDOMServer.renderToString(<MarineInsurance insuranceData={insuranceData} />), {
-      callback: function (doc) {
+      callback: function () {
         const totalPages = doc.internal.getNumberOfPages();
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / pageCountNum, doc.internal.pageSize.getHeight() - 1, {
         align: 'center',
         });;
       }

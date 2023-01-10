@@ -11,7 +11,7 @@ import Pagination from '../../src/components/Pagination';
 import { SearchLeads } from '../../src/redux/buyerProfile/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
-function Index(props) {
+const Index = (props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [serachterm, setSearchTerm] = useState('');
 
@@ -32,9 +32,10 @@ function Index(props) {
 
   useEffect(() => {
     if (window) {
+      const openListNum = 2;
       sessionStorage.setItem('loadedPage', 'Agreement & Lc Module');
       sessionStorage.setItem('loadedSubPage', `Agreement`);
-      sessionStorage.setItem('openList', 2);
+      sessionStorage.setItem('openList', openListNum);
     }
   }, []);
 
@@ -46,17 +47,12 @@ function Index(props) {
   };
 
   const handleSort = async () => {
-    if (sorting === -1) {
-      const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
-      setData(data.data);
-      setTotal(data.totalCount);
-      setSorting(1);
-    } else if (sorting === 1) {
-      const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
-      setData(data.data);
-      setTotal(data.totalCount);
-      setSorting(-1);
-    }
+    const pageDataLimit = 7;
+    const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${pageDataLimit}&createdAt=${sorting}`));
+    setData(data.data);
+    setTotal(data.totalCount);
+    if (sorting === -1) return setSorting(1);
+    setSorting(-1);
   };
   const handleRoute = (term) => {
     sessionStorage.setItem('genericSelected', JSON.stringify(term));
@@ -66,9 +62,10 @@ function Index(props) {
   };
 
   const handleSearch = (e) => {
+    const minTextDigits = 3;
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= minTextDigits) {
       dispatch(SearchLeads(query));
     }
   };
@@ -77,6 +74,12 @@ function Index(props) {
     setSearchTerm('');
     const id = `${e.target.id}`;
     dispatch(getGenericData(`?company=${id}`));
+  };
+  const getStyles = (status) => {
+    if (status == 'Review') {
+      return styles.review;
+    }
+    return status == 'Approved' ? styles.approved : styles.rejected;
   };
 
   return (
@@ -147,15 +150,7 @@ function Index(props) {
 
                           <td>
                             <span
-                              className={`${styles.status} ${
-                                term.order.termsheet.status === 'Rejected'
-                                  ? styles.rejected
-                                  : term.order.termsheet.status === 'Review'
-                                  ? styles.review
-                                  : term.order.termsheet.status === 'Approved'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
+                              className={`${styles.status} ${getStyles(term.order.termsheet.status)}`}
                             ></span>
 
                             {term.order.termsheet.status}
@@ -172,6 +167,6 @@ function Index(props) {
       </div>
     </>
   );
-}
+};
 
 export default Index;

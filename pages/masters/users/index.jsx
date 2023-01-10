@@ -23,7 +23,6 @@ const Index = () => {
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    // dispatch(GetLcModule(`?company=${id}`));
   };
 
   return (

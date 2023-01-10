@@ -248,7 +248,7 @@ function Index(props) {
           setRemovedOption(obj.name);
           return { ...obj, actions: 'false' };
         }
-        // 👇️ otherwise return object as is
+        //  otherwise return object as is
         return obj;
       });
 

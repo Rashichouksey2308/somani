@@ -6,12 +6,6 @@
 
   position: relative;
   min-height: 85.2vh;
-  @include respond(lg-desktop) {
-  }
-  @include respond(md-desktop) {
-  }
-  @include respond(sm-desktop) {
-  }
   @include respond(phone) {
     min-height: auto;
   }

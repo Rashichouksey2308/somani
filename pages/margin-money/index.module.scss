@@ -1206,12 +1206,6 @@
 .container {
   min-height: 85.2vh;
   margin-bottom: 120px;
-  @include respond(lg-desktop) {
-  }
-  @include respond(md-desktop) {
-  }
-  @include respond(sm-desktop) {
-  }
   @include respond(phone) {
     min-height: auto;
     margin-bottom: 140px;
@@ -1236,10 +1230,6 @@
     line-height: 15px !important;
   }
 }
-
-.lastComponent {
-}
-
 .search_image {
   margin-left: -40px;
 }
