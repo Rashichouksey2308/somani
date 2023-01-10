@@ -371,7 +371,7 @@ function Index() {
   const onOrderSave = () => {
     if (!orderValidation(orderDetails, shipment, approvedCredit)) return;
 
-    let orderToSend = { ...orderDetails };
+    const orderToSend = { ...orderDetails };
     orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity);
     orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * 10000000;
     orderToSend.tolerance = removePrefixOrSuffix(orderDetails.tolerance);
@@ -445,7 +445,7 @@ function Index() {
     if (product?.capacityUtilization === '' || product?.contributionCommoditySenstivity === '') {
       handleErrorToast('Please fill the required fields');
     } else {
-      let data = { ...product };
+      const data = { ...product };
       data.existingCHA = chas;
       data.existingSuppliers = exsupp;
       data.monthlyProductionCapacity = removePrefixOrSuffix(product?.monthlyProductionCapacity);
@@ -519,32 +519,32 @@ function Index() {
     setPersonData([...personData.slice(0, index), ...personData.slice(index + 1)]);
   };
   const addCompanyCommentArr = (companyComments) => {
-    let newArr = [...companyComment];
+    const newArr = [...companyComment];
     newArr.push(companyComments);
     setCompanyComment(newArr);
   };
   const addFinancialsCommentArr = (financialsComments) => {
-    let newArr = [...financialsComment];
+    const newArr = [...financialsComment];
     newArr.push(financialsComments);
     setFinancialsComment(newArr);
   };
   const addSanctionCommentArr = (sanctionComments) => {
-    let newArr = [...sanctionComment];
+    const newArr = [...sanctionComment];
     newArr.push(sanctionComments);
     setSanctionComment(newArr);
   };
   const addApproveRemarkArr = (sanctionComments) => {
-    let newArr = [...approveComment];
+    const newArr = [...approveComment];
     newArr.push(sanctionComments);
     setApproveComment(newArr);
   };
   const addStrengthsCommentArr = (strengthsComments) => {
-    let newArr = [...strengthsComment];
+    const newArr = [...strengthsComment];
     newArr.push(strengthsComments);
     setStrengthsComment(newArr);
   };
   const addWeaknessCommentArr = (weaknessComments) => {
-    let newArr = [...weaknessComment];
+    const newArr = [...weaknessComment];
     newArr.push(weaknessComments);
     setWeaknessComment(newArr);
   };
@@ -573,7 +573,7 @@ function Index() {
   };
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
-      let temp = [];
+      const temp = [];
       const filter = filterUniqueBank();
       orderList?.company?.debtProfile.forEach((val, index) => {
         if (filter.includes(val?.bankName)) {
@@ -605,19 +605,19 @@ function Index() {
   const [personData, setPersonData] = useState([]);
 
   useEffect(() => {
-    let groupExposureArr = [];
+    const groupExposureArr = [];
     orderList?.company?.groupExposureDetail?.forEach((element) => {
       groupExposureArr.push(element);
     });
     setGroupExposureData(groupExposureArr);
 
-    let addressArr = [];
+    const addressArr = [];
     orderList?.company?.keyAddress?.forEach((element) => {
       addressArr.push(element);
     });
     setKeyAddData(addressArr);
 
-    let personArr = [];
+    const personArr = [];
 
     if (orderList?.company?.keyContactPerson?.length > 0) {
       orderList?.company?.keyContactPerson?.forEach((element) => {
@@ -654,31 +654,31 @@ function Index() {
 
     setPersonData([...personArr]);
 
-    let commentFinancialArr = [];
+    const commentFinancialArr = [];
     orderList?.company?.recommendation?.commentsOnFinancials.forEach((element) => {
       commentFinancialArr.push(element);
     });
     setFinancialsComment(commentFinancialArr);
 
-    let companyCommentArr = [];
+    const companyCommentArr = [];
     orderList?.company?.recommendation?.companyProfile.forEach((element) => {
       companyCommentArr.push(element);
     });
     setCompanyComment(companyCommentArr);
 
-    let sanctionArr = [];
+    const sanctionArr = [];
     orderList?.company?.recommendation?.sanctionTerms.forEach((element) => {
       sanctionArr.push(element);
     });
     setSanctionComment(sanctionArr);
 
-    let strengthsArr = [];
+    const strengthsArr = [];
     orderList?.company?.recommendation?.strengths.forEach((element) => {
       strengthsArr.push(element);
     });
     setStrengthsComment(strengthsArr);
 
-    let weaknessArr = [];
+    const weaknessArr = [];
     orderList?.company?.recommendation?.weakness.forEach((element) => {
       weaknessArr.push(element);
     });
@@ -724,20 +724,20 @@ function Index() {
   };
 
   const addGroupExpArr = (exposureData) => {
-    let newArr = [...groupExposureData];
+    const newArr = [...groupExposureData];
     newArr.push(exposureData);
     setGroupExposureData(newArr);
   };
 
   const keyAddDataArr = (keyAddressData) => {
-    let newArr = [...keyAddData];
+    const newArr = [...keyAddData];
     newArr.push(keyAddressData);
     setKeyAddData(newArr);
   };
   const updateKeyAddDataArr = (newData, index) => {
     setKeyAddData((prevState) => {
       const newState = prevState.map((obj, i) => {
-        if (i == index) {
+        if (i === index) {
           return newData;
         }
 
@@ -749,7 +749,7 @@ function Index() {
   };
 
   const addDebtArr = (debt) => {
-    let newArr = [...debtData];
+    const newArr = [...debtData];
     newArr.push(debt);
     setDebtData(newArr);
   };
@@ -760,7 +760,7 @@ function Index() {
     sever: [],
   });
   useEffect(() => {
-    let a = {
+    const a = {
       high: [],
       low: [],
       medium: [],
@@ -786,7 +786,7 @@ function Index() {
   }, [companyData?.compliance?.alerts]);
 
   const creditAgency = () => {
-    let array1 = [];
+    const array1 = [];
     let finalarray = [{}];
     companyData?.profile?.creditRating?.forEach((item) => {
       const year = item.dateOfIssuance?.slice(0, 4);
@@ -821,9 +821,9 @@ function Index() {
     ]);
   };
   const setEditRow = (index) => {
-    let tempArr = [...personData];
+    const tempArr = [...personData];
     tempArr.forEach((val, i) => {
-      if (i == index) {
+      if (i === index) {
         return [(val.isEdit = !val.isEdit)];
       }
     });
@@ -831,63 +831,63 @@ function Index() {
   };
 
   const creditValidation = () => {
-    if (product?.monthlyProductionCapacity == '' || product?.monthlyProductionCapacity == undefined) {
+    if (product?.monthlyProductionCapacity === '' || product?.monthlyProductionCapacity === undefined) {
       handleErrorToast('Please add  monthly Production Capacitye');
       return false;
-    } else if (product?.capacityUtilization == '' || product?.capacityUtilization == undefined) {
+    } else if (product?.capacityUtilization === '' || product?.capacityUtilization === undefined) {
       handleErrorToast('Please add  capacity Utilization');
       return false;
-    } else if (product?.averageStockOfCommodity == '' || product?.averageStockOfCommodity == undefined) {
+    } else if (product?.averageStockOfCommodity === '' || product?.averageStockOfCommodity === undefined) {
       handleErrorToast('Please add  average Stock Of Commodity');
       return false;
-    } else if (product?.averageStockInTransit == '' || product?.averageStockInTransit == undefined) {
+    } else if (product?.averageStockInTransit === '' || product?.averageStockInTransit === undefined) {
       handleErrorToast('Please add  average Stock In Transit');
       return false;
-    } else if (product?.AvgMonthlyElectricityBill == '' || product?.AvgMonthlyElectricityBill == undefined) {
+    } else if (product?.AvgMonthlyElectricityBill === '' || product?.AvgMonthlyElectricityBill === undefined) {
       handleErrorToast('Please add  Avg Monthly Electricity Bill');
       return false;
-    } else if (product?.availableStock == '' || product?.availableStock == undefined) {
+    } else if (product?.availableStock === '' || product?.availableStock === undefined) {
       handleErrorToast('Please add  available Stock');
       return false;
-    } else if (product?.dailyConsumptionOfCommodity == '' || product?.dailyConsumptionOfCommodity == undefined) {
+    } else if (product?.dailyConsumptionOfCommodity === '' || product?.dailyConsumptionOfCommodity === undefined) {
       handleErrorToast('Please add  Daily Consumtion Of Commodity');
       return false;
-    } else if (product?.stockCoverageOfCommodity == '' || product?.stockCoverageOfCommodity == undefined) {
+    } else if (product?.stockCoverageOfCommodity === '' || product?.stockCoverageOfCommodity === undefined) {
       handleErrorToast('Please add  stock Coverage Of Commodity');
       return false;
-    } else if (product?.existingProcurementOfCommodity == '' || product?.existingProcurementOfCommodity == undefined) {
+    } else if (product?.existingProcurementOfCommodity === '' || product?.existingProcurementOfCommodity === undefined) {
       handleErrorToast('Please add  Existing Procurement Of Commodity');
       return false;
-    } else if (supplierCred?.supplierName == '' || supplierCred?.supplierName == undefined) {
+    } else if (supplierCred?.supplierName === '' || supplierCred?.supplierName === undefined) {
       handleErrorToast('Please add supplier Name');
       return false;
-    } else if (supplierCred?.shipmentNumber == '' || supplierCred?.shipmentNumber == undefined) {
+    } else if (supplierCred?.shipmentNumber === '' || supplierCred?.shipmentNumber === undefined) {
       handleErrorToast('Please add number of shipment');
       return false;
-    } else if (supplierCred?.consigneesNumber == '' || supplierCred?.consigneesNumber == undefined) {
+    } else if (supplierCred?.consigneesNumber === '' || supplierCred?.consigneesNumber === undefined) {
       handleErrorToast('Please add consignees Number');
       return false;
-    } else if (supplierCred?.HSCodesNumber == '' || supplierCred?.HSCodesNumber == undefined) {
+    } else if (supplierCred?.HSCodesNumber === '' || supplierCred?.HSCodesNumber === undefined) {
       handleErrorToast('Please add HS Codes ');
       return false;
-    } else if (supplierCred?.countryOfOrigin == '' || supplierCred?.countryOfOrigin == undefined) {
+    } else if (supplierCred?.countryOfOrigin === '' || supplierCred?.countryOfOrigin === undefined) {
       handleErrorToast('Please add country Of Origin ');
       return false;
-    } else if (supplierCred?.portOfDestination == '' || supplierCred?.portOfDestination == undefined) {
+    } else if (supplierCred?.portOfDestination === '' || supplierCred?.portOfDestination === undefined) {
       handleErrorToast('Please add port Of Destination ');
       return false;
-    } else if (supplierCred?.oldestShipmentDate == '' || supplierCred?.oldestShipmentDate == undefined) {
+    } else if (supplierCred?.oldestShipmentDate === '' || supplierCred?.oldestShipmentDate === undefined) {
       handleErrorToast('Please add oldest Shipment Date ');
       return false;
     } else if (
-      supplierCred?.latestShipmentDate == '' ||
-      supplierCred?.latestShipmentDate == undefined ||
+      supplierCred?.latestShipmentDate === '' ||
+      supplierCred?.latestShipmentDate === undefined ||
       !supplierCred?.latestShipmentDate ||
-      supplierCred?.latestShipmentDate == 0
+      supplierCred?.latestShipmentDate === 0
     ) {
       handleErrorToast('Please add latest Shipment Date ');
       return false;
-    } else if (supplierCred?.commodityOfTotalTrade == '' || supplierCred?.commodityOfTotalTrade == undefined) {
+    } else if (supplierCred?.commodityOfTotalTrade === '' || supplierCred?.commodityOfTotalTrade === undefined) {
       handleErrorToast('please add commodity Of Total Trade');
       return false;
     }
@@ -895,16 +895,16 @@ function Index() {
   };
   const onCreditSave = () => {
     if (creditValidation()) {
-      let tempPerson = [...personData];
+      const tempPerson = [...personData];
       tempPerson.forEach((val, index) => {
         delete val.isEdit;
       });
 
-      let tempDebtData = [...debtData];
+      const tempDebtData = [...debtData];
       tempDebtData.forEach((val, index) => {
         delete val.action && delete val.actions && delete val.addnew;
       });
-      let data = { ...product };
+      const data = { ...product };
       data.monthlyProductionCapacity = removePrefixOrSuffix(product?.monthlyProductionCapacity);
       data.capacityUtilization = removePrefixOrSuffix(product?.capacityUtilization);
       data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product?.AvgMonthlyElectricityBill);
@@ -913,26 +913,26 @@ function Index() {
       data.availableStock = removePrefixOrSuffix(product?.availableStock);
       data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product?.dailyConsumptionOfCommodity);
 
-      let supplierData = { ...supplierCred };
+      const supplierData = { ...supplierCred };
       supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred?.commodityOfTotalTrade);
-      let tempArray = [...groupExposureData];
+      const tempArray = [...groupExposureData];
 
       tempArray.forEach((e) => {
         if (e.limit.length >= 5) {
-          let oldValue = e?.limit?.replace(/,/g, '');
+          const oldValue = e?.limit?.replace(/,/g, '');
           e.limit = Number(oldValue);
         } else {
           Number(e.limit);
         }
         if (e.outstandingLimit.length >= 5) {
-          let oldValue = e?.outstandingLimit?.replace(/,/g, '');
+          const oldValue = e?.outstandingLimit?.replace(/,/g, '');
           e.outstandingLimit = Number(oldValue);
         } else {
           Number(e.outstandingLimit);
         }
       });
 
-      let obj = {
+      const obj = {
         productSummary: { ...data },
         supplierCredential: { ...supplierData },
         order: orderList._id,
@@ -959,18 +959,18 @@ function Index() {
     return orderList?._id === rating.order;
   });
 
-  let approvedCreditLimit =
+  const approvedCreditLimit =
     filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.approved?.value : '';
 
-  let suggestedValue =
+  const suggestedValue =
     filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.suggested?.value : '';
-  let derivedValue =
+  const derivedValue =
     filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.derived?.value : '';
-  let approvedCreditValue = approvedCredit.approvedCreditValue;
+  const approvedCreditValue = approvedCredit.approvedCreditValue;
 
-  let suggestedOrder = orderList?.suggestedOrderValue;
-  let appliedOrder = orderList?.orderValue;
-  let approvedOrderValue = approvedCredit.approvedOrderValue;
+  const suggestedOrder = orderList?.suggestedOrderValue;
+  const appliedOrder = orderList?.orderValue;
+  const approvedOrderValue = approvedCredit.approvedOrderValue;
 
   function getPercentageIncrease(numA, numB) {
     if (!numA) {
@@ -983,7 +983,7 @@ function Index() {
     if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
       // if diff is < 30% than error if approve vlaue not given
       if (!approvedCreditValue) {
-        let toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required';
+        const toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
@@ -997,7 +997,7 @@ function Index() {
     if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
       // if diff is < 30% than error if approve vlaue not given
       if (!approvedOrderValue) {
-        let toastMessage = 'More than 30% diff in applied and suggested order value,Approved order value required';
+        const toastMessage = 'More than 30% diff in applied and suggested order value,Approved order value required';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
