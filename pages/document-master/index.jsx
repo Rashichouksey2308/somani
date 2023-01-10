@@ -9,7 +9,7 @@ import Router from 'next/router';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import {GetAllDocument, GetDocument} from '../../src/redux/documentMaster/action'
 
-const index = () => {
+const Index = () => {
 
   const dispatch = useDispatch();
 
@@ -210,4 +210,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

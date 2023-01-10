@@ -35,7 +35,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
     let addressType = '';
     let pinCode=''
     
-   
+  
     if (vendor) {
     vendor?.forEach((item)=> {
       if(item?.vendorDetails?.vendor == 'Third Party Inspection'){
@@ -150,7 +150,7 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
   };
 
   const validation = () => {
-    if (appointmentData.name == '' || appointmentData.name == undefined) {
+    if (appointmentData?.name == '' || appointmentData?.name == undefined) {
       handleErrorToast('name is mandatory');
       return false;
     } else if (appointmentData?.dateOfAppointment == '' || !appointmentData?.dateOfAppointment) {
@@ -223,7 +223,6 @@ export default function Index({ inspectionData, setDate, vendor,required ,setCom
     const newInput = { ...addressData };
     const namesplit = name.split('.');
     namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value.Pincode) : (newInput[name] = value.Pincode);
-   
     // newInput[name] = value.Pincode;
     newInput.address.country = 'India';
     // newInput.city = value.City;

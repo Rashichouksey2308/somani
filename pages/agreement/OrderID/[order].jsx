@@ -5,7 +5,7 @@ import _get from 'lodash/get';
 import moment from 'moment';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import ReactDOMServer from 'react-dom/server';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,20 +20,19 @@ function Index() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId');
+    const id = sessionStorage.getItem('letterId');
     dispatch(GettingAllInsurance(`?insuranceId=${id}`));
   }, [dispatch]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {});
+  const insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
   const handlePopup = () => {
     setShow(true);
   };
-  const [modalviewShow, setModalViewShow] = useState('insurance');
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
@@ -46,7 +45,7 @@ function Index() {
   ]);
 
   const addMoreRows = (val) => {
-    if (val == 'email') {
+    if (val === 'email') {
       setEmailAdd([
         ...emailAdd,
         {
@@ -63,7 +62,7 @@ function Index() {
     }
   };
   const deleteArr = (val, index) => {
-    if (val == 'email') {
+    if (val === 'email') {
       setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
     } else {
       setinsuranceAdd([...insuranceAdd.slice(0, index), ...insuranceAdd.slice(index + 1)]);
@@ -87,7 +86,6 @@ function Index() {
       }
         doc.save('RequestLetter.pdf');
       },
-      // margin:margins,
       autoPaging: 'text',
     });
   };
@@ -115,7 +113,6 @@ function Index() {
               <div className={`${styles.details_content} mb-1 pt-2`}>
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  {/* {moment(insuranceData?.createdAt?.split('T')[0]).format('DD.MM.yyyy')} */}
                   {moment(new Date()).format('DD.MM.yyyy')}
                 </span>
               </div>
@@ -352,10 +349,6 @@ function Index() {
                         </>
                       );
                     })}
-                    {/* <div className={`${styles.labelFloat} form-group`}>
-                          <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
-                          <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
-                        </div> */}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {

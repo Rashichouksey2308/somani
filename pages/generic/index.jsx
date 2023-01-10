@@ -14,7 +14,6 @@ import moment from 'moment';
 function Index(props) {
   const [genericData, setGenericData] = useState();
   const dispatch = useDispatch();
-  const [darkMode, setDarkMode] = useState(false);
   const [lastModified, setlastModified] = useState('');
   const { companyData,  } = useSelector((state) => state.companyDetails);
 
@@ -22,7 +21,7 @@ function Index(props) {
     if (window) {
       dispatch(setPageName('generic'));
       dispatch(setDynamicOrder(sessionStorage.getItem('genericID')));
-      let data = JSON.parse(sessionStorage.getItem('genericSelected'));
+      const data = JSON.parse(sessionStorage.getItem('genericSelected'));
 
       dispatch(setDynamicName(data?.company?.companyName));
       dispatch(GetCompanyDetails({ company: data?.company._id }));

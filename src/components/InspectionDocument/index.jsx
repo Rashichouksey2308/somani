@@ -118,7 +118,6 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       fd.append('document', newDoc.document);
       fd.append('module', module);
       fd.append('order', orderId);
-      // fd.append('type', newDoc.type))
       fd.append('name', newDoc.name);
 
       let code = await   dispatch(AddingDocument(fd));
@@ -387,29 +386,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     />
                   </div>
                 </Form.Group>
-                {/* <Form.Group className={styles.form_group}> */}
-                {/* <input
-                    onChange={(e) =>
-                      setNewDoc({ ...newDoc, name: e.target.value })
-                    }
-                    id="otherDocName"
-                    className={`${styles.value} input form-control`}
-                    type="text"
-                    required
-                    disabled={manualDocModule}
-                  />
-                  <Form.Label className={`${styles.label} label_heading`}>
-                    Please Specify Document Name
-                  </Form.Label>
-                </Form.Group>
-                <div className={styles.uploadBtnWrapper}>
-                  <button
-                    onClick={(e) => uploadDocumentHandler(e)}
-                    className={`${styles.upload_button} btn`}
-                    // disabled={!editInput}
-                  >
-                    Upload
-                  </button> */}
+               
                 <Form.Group className={`${styles.form_group}`}>
                   <input
                     id="otherDocName"
@@ -586,105 +563,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           </tr>
                         );
                       }
-                    })}
-                  {/* {documentsFetched &&
-                    documentsFetched?.documents?.map((document, index) => {
-                      if (document.deleted) {
-                        return null
-                      } else if (document.module === documentsDropDownFilter) {
-                        return (
-                          <tr key={index} className="uploadRowTable">
-                            <td className={`${styles.doc_name}`}>
-                              {document.name}
-                            </td>
-                            <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
-                            </td>
-                            <td className={styles.doc_row}>{document.date}</td>
-                            <td className={styles.doc_row}>
-                              {document.uploadedBy?.fName}{' '}
-                              {document.uploadedBy?.lName}
-                            </td>
-                            <td>
-                              <span
-                                className={`${styles.status} ${styles.approved}`}
-                              ></span>
-                              {document?.verification?.status}
-                            </td>
-                            <td colSpan="2">
-                              <img
-                                onClick={() =>
-                                  dispatch(
-                                    DeleteDocument({
-                                      orderDocumentId: documentsFetched._id,
-                                      name: document.name,
-                                    }),
-                                  )
-                                }
-                                src="/static/delete.svg"
-                                className={`${styles.delete_image} mr-3`}
-                                alt="Bin"
-                              />
-                              <img
-                                src="/static/upload.svg"
-                                className={`${styles.upload} mr-3`}
-                                alt="Share"
-                                onClick={()=>{
-                                  dispatch(ViewDocument({path: document.path,
-                                    orderId: documentsFetched._id}))
-                                }}
-                              />
-                              <img
-                                src="/static/drive_file.svg"
-                                className={`${styles.edit_image} mr-3`}
-                                alt="Share"
-                              />
-                            </td>
-                          </tr>
-                        )
-                      } else {
-                        return null
-                      }
-                    })} */}
-                  {/* <tr className="table_row">
-                    <td className={styles.doc_name}>Container No. List</td>
-                    <td>
-                      <img
-                        src="/static/pdf.svg"
-                        className={`${styles.pdfImage} img-fluid`}
-                        alt="Pdf"
-                      />
-                    </td>
-                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                    <td className={styles.doc_row}>Buyer</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Verified
-                    </td>
-                    <td colSpan="2">
-                      <img
-                        src="/static/delete.svg"
-                        className={`${styles.delete_image} mr-3`}
-                        alt="Bin"
-                      />
-                      <img
-                        src="/static/upload.svg"
-                        className={`${styles.upload} mr-3`}
-                        alt="Share"
-                      />
-                      <img
-                        src="/static/drive_file.svg"
-                        className={`${styles.edit_image} mr-3`}
-                        alt="Share"
-                      />
-                    </td>
-                  </tr> */}
+                    })}                
                 </tbody>
               </table>
             </div>

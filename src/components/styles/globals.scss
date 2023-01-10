@@ -68,14 +68,14 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 body.light-mode {
-  font-family: 'Helvetica Neue';
+  font-family: 'Helvetica Neue', sans-serif;
   background: #f3f4f7 !important;
   color: #333 !important;
   transition: background-color 0.3s ease;
 }
 
 body.dark-mode {
-  font-family: 'Helvetica Neue';
+  font-family: 'Helvetica Neue', sans-serif;
   background-color: #171e27 !important;
   color: #ffffff !important;
   transition: background-color 0.3s ease;
@@ -900,7 +900,7 @@ body.light-mode .accordion {
 }
 
 body.dark-mode .accordionMargin {
-  box-shadow: 0px 0px 10px #72727234;
+  // box-shadow: 0px 0px 10px #72727234;
   color: #ffffff;
 
   box-shadow: 0 3px 6px #404040;
@@ -915,9 +915,7 @@ body.light-mode .accordionMargin {
 }
 
 body.dark-mode .accordion {
-  box-shadow: 0px 0px 10px #72727234;
   color: #ffffff;
-
   box-shadow: 0 3px 6px #404040;
 }
 
@@ -938,7 +936,6 @@ body.light-mode .termsheet_Text {
 
 body.dark-mode .termsheet_Text {
   color: #ffffff !important;
-  letter-spacing: 0.19px;
   letter-spacing: 0.19px;
   font-size: 20px;
   line-height: 25px;
@@ -980,12 +977,12 @@ body.dark-mode td {
   border-color: #434e61 !important;
 }
 
-body.light-mode table_background {
+body.light-mode .table_background {
   color: #8492a6;
   border-color: #d9dde8 !important;
 }
 
-body.dark-mode table_background {
+body.dark-mode .table_background {
   color: rgba(255, 255, 255, 0.7);
   border-color: #434e61 !important;
 }

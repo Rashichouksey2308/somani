@@ -161,10 +161,8 @@ function Index(props) {
         shortName: shortName,
         list: list,
         addresses: addressList,
-        list: list,
         gstin: gstin,
         pan,
-        gstin,
       };
       props.sendData('Buyer', data);
     }
@@ -174,10 +172,8 @@ function Index(props) {
         shortName: shortName,
         list: list,
         addresses: addressList,
-        list: list,
         gstin: gstin,
         pan,
-        gstin,
       };
 
       props.updateData('Buyer', data);
@@ -189,7 +185,6 @@ function Index(props) {
       setToShow(getPincodesMasterData);
     } else {
       setToShow([]);
-      // setToView(false);
     }
   }, [getPincodesMasterData]);
   const viewSet = () => {
@@ -495,9 +490,7 @@ function Index(props) {
           let tempOptions = [];
           let tempDetail = [];
           let gst = [];
-          
-          // setShotName(filter[0].Short_Name);
-          filter.forEach((val, index) => {
+                  filter.forEach((val, index) => {
             if (val.authorisedSignatoryDetails[0].name !== '') {
               tempDetail.push(val.authorisedSignatoryDetails[0]);
               tempOptions.push(val.authorisedSignatoryDetails[0].name);
@@ -925,7 +918,7 @@ function Index(props) {
                           }}
                         >
                           <option>Select an option</option>
-                          {gstArray?.length > 0 && gstArray !== undefined > 0 ? (
+                          {gstArray?.length > 0 && gstArray != undefined > 0 ? (
                             gstArray
                               .filter((val) => {
                                 if (val !== undefined) {
@@ -1131,7 +1124,7 @@ function Index(props) {
                             ) : (
                               <tr key={index} className="table_row">
                                 <td>
-                                  {console.log(val.addnew, 'val.addnew ')}
+                                 
                                   {val.addnew == 'false' ? (
                                     <>
                                       <select
@@ -1159,7 +1152,6 @@ function Index(props) {
                                       className="input"
                                       value={val.name}
                                       name="name"
-                                      // readOnly={val.addnew!="true"?true:false}
                                       onChange={(e) => {
                                         handleChangeInput2(e.target.name, e.target.value, index);
                                       }}
@@ -1172,7 +1164,6 @@ function Index(props) {
                                     className="input"
                                     value={val.designation}
                                     name="designation"
-                                    // readOnly={val.addnew!="true"?true:false}
                                     onChange={(e) => {
                                       handleChangeInput2(e.target.name, e.target.value, index);
                                     }}

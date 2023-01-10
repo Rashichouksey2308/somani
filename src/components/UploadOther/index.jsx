@@ -89,20 +89,12 @@ const Index = ({ orderid, module, isDocumentName }) => {
     fetchData();
   }, [orderid, moduleSelected]);
 
-  //   console.log({documentsFetched})
-  //
-  //   const filteredDocArray = documentsFetched?.documents
-  //     .filter((doc) => doc.module === moduleSelected)
-  //     .map(element => {
-  //       return {
-  //         ...element, moving: false
-  //       }
-  //     })
-  //   setFilteredDoc(filteredDocArray)
-  // }, [orderid, documentsFetched])
+
 
   /** It deletes the document at the index.*/
   const DocDlt = (index) =>    setFilteredDoc([...filteredDoc.slice(0, index), ...filteredDoc.slice(index + 1)]);
+
+
 
   const handleNewDocModule = ({ target: { value } }) => {
     if (value === 'others') return setManualDocModule(false);
@@ -122,7 +114,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const uploadDocumentHandler = async (e) => {
     e.preventDefault();
 
-    // console.log(await objectValidator({ doc: newDoc, validation: uploadDocumentValidations }));
+    
 
     if (newDoc.document === null) {
       handleErrorToast('please select A Document');

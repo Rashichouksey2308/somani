@@ -24,9 +24,9 @@ const index = () => {
               name='backgroundVideo'
               id='bgVideoUpload'
               accept='video/mp4, .mkv'
-              onChange={(e) => {
-                handleMultimediaChange(e)
-              }}
+              // onChange={(e) => {
+              //   handleMultimediaChange(e)
+              // }}
             />
           </div>
 
@@ -49,9 +49,9 @@ const index = () => {
               name='backgroundVideo'
               id='bgVideoUpload'
               accept='video/mp4, .mkv'
-              onChange={(e) => {
-                handleMultimediaChange(e)
-              }}
+              // onChange={(e) => {
+              //   handleMultimediaChange(e)
+              // }}
             />
           </div>
           <hr className={styles.hr_line} />

@@ -4,7 +4,6 @@ import { returnReadableNumber } from '@/utils/helpers/global';
 
 
 export default function RevisedMarginPreviewTemp(marginData) {
- 
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
       <tr>
@@ -223,19 +222,7 @@ export default function RevisedMarginPreviewTemp(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(
-                          marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
-                            ? marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity?.toLocaleString(
-                                'en-In',
-                                {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                },
-                              )
-                            : 0,
-                          marginData.marginData?.order?.unitOfQuantity,
-                          '',
-                        )}
+                      {marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity ? returnReadableNumber(marginData.marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity,'en-In',2,2) + marginData.marginData?.order?.unitOfQuantity: ''}
                       </p>
                     </td>
                     <td align="left">

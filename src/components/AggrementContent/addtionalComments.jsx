@@ -9,7 +9,7 @@ function Index(props) {
   const [addressList, setAddressList] = useState([]);
   const [value, setValue] = useState('');
   const [isAssignment, setIsAssignment] = useState('');
-  const additionalCommentsOptions = []
+  const additionalCommentsOptions = [];
 
   const changeEdit = (index) => {
     setAddressList((prevState) => {
@@ -175,7 +175,6 @@ function Index(props) {
                       <th width="20%" className="border-0 generic_th">
                         Month of loading of Cargo
                         <strong className="text-danger">*</strong>
-                       
                       </th>
                       <th width="15%" className="border-0 generic_th">
                         Date of Contract between Shipper and Buyer
@@ -189,7 +188,7 @@ function Index(props) {
                   <tbody>
                     {addressList?.length > 0 &&
                       addressList?.map((val, index) => {
-                        additionalCommentsOptions.push(val.name)
+                        additionalCommentsOptions.push(val.name);
                         return (
                           <>
                             {val.actions !== 'true' ? (
@@ -219,17 +218,49 @@ function Index(props) {
                                     className={`${styles.customSelect} input`}
                                     name="name"
                                     onChange={(e) => {
-                                      handleChangeInput(e.target.name, e.target.value, index),
+                                      handleChangeInput(e.target.name, e.target.value, index);
                                       setIsAssignment(e.target.value);
                                     }}
                                   >
                                     <option value="">Select an option</option>
-                                    <option value={'Sales Agreement'} disabled={additionalCommentsOptions.includes('Sales Agreement') ? true : false}>{'Sales Agreement'}</option>
-                                    <option value={'Associateship Agreement'} disabled={additionalCommentsOptions.includes('Associateship Agreement') ? true : false}>{'Associateship Agreement'}</option>
-                                    <option value={'TPA (Seller)'} disabled={additionalCommentsOptions.includes('TPA (Seller)') ? true : false}>{'TPA (Seller)'}</option>
-                                    <option value={'Assignment Letter'} disabled={additionalCommentsOptions.includes('Assignment Letter') ? true : false}>{'Assignment Letter'}</option>
-                                    <option value={'QPA'} disabled={additionalCommentsOptions.includes('QPA') ? true : false}>{'QPA'}</option>
-                                    <option value={'TPA (CMA)'} disabled={additionalCommentsOptions.includes('TPA (CMA)') ? true : false}>{'TPA (CMA)'}</option>
+                                    <option
+                                      value={'Sales Agreement'}
+                                      disabled={additionalCommentsOptions.includes('Sales Agreement') ? true : false}
+                                    >
+                                      {'Sales Agreement'}
+                                    </option>
+                                    <option
+                                      value={'Associateship Agreement'}
+                                      disabled={
+                                        additionalCommentsOptions.includes('Associateship Agreement') ? true : false
+                                      }
+                                    >
+                                      {'Associateship Agreement'}
+                                    </option>
+                                    <option
+                                      value={'TPA (Seller)'}
+                                      disabled={additionalCommentsOptions.includes('TPA (Seller)') ? true : false}
+                                    >
+                                      {'TPA (Seller)'}
+                                    </option>
+                                    <option
+                                      value={'Assignment Letter'}
+                                      disabled={additionalCommentsOptions.includes('Assignment Letter') ? true : false}
+                                    >
+                                      {'Assignment Letter'}
+                                    </option>
+                                    <option
+                                      value={'QPA'}
+                                      disabled={additionalCommentsOptions.includes('QPA') ? true : false}
+                                    >
+                                      {'QPA'}
+                                    </option>
+                                    <option
+                                      value={'TPA (CMA)'}
+                                      disabled={additionalCommentsOptions.includes('TPA (CMA)') ? true : false}
+                                    >
+                                      {'TPA (CMA)'}
+                                    </option>
                                   </select>
                                   <img
                                     className={`${styles.arrow2} image_arrow img-fluid`}

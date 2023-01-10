@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { handleErrorToast } from '@/utils/helpers/global'
 
 function getCustomClearance () {
   return {
@@ -81,11 +82,8 @@ export const GetAllCustomClearance = (payload) => async (dispatch, getState, api
       dispatch(setNotLoading())
       return response.data.code
     } else {
-      dispatch(getAllCustomClearanceFailed(response.data.data))
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      dispatch(getAllCustomClearanceFailed())
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
       dispatch(setNotLoading())
     }
   } catch (error) {
@@ -111,28 +109,21 @@ export const GetCustomClearance = (payload) => async (dispatch, getState, api) =
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.customClearance}${payload}`, {
+  await  Axios.get(`${API.corebaseUrl}${API.customClearance}${payload}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getCustomClearanceSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getCustomClearanceFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getCustomClearanceFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getCustomClearanceFailed())
-
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
@@ -168,20 +159,13 @@ export const UpdateCustomClearance = (payload) => async (dispatch, getState, api
       dispatch(setNotLoading())
       return response.data.code
     } else {
-      dispatch(updateCustomClearanceFailed(response.data.data))
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      dispatch(updateCustomClearanceFailed())
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
       dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(updateCustomClearanceFailed())
-
-    const toastMessage = 'COULD NOT SUBMIT YOUR REQUEST'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT SUBMIT YOUR REQUEST')
     dispatch(setNotLoading())
   }
 }
@@ -198,7 +182,7 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -209,21 +193,14 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
         }
         dispatch(setNotLoading())
       } else {
-        dispatch(getCustomClearanceFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getCustomClearanceFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getCustomClearanceFailed())
-
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME')
     dispatch(setNotLoading())
   }
 }

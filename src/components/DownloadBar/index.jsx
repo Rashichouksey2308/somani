@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 
-function index({
+function Index({
   handleApprove,
   handleReject,
   downLoadButtonName,
@@ -140,4 +140,4 @@ function index({
   );
 }
 
-export default index;
+export default Index;

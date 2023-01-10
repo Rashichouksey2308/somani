@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '../PreviewBar/index.module.scss'
 import { useSelector } from 'react-redux'
 
-function index (props) {
+function Index (props) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
@@ -20,4 +20,4 @@ function index (props) {
   )
 }
 
-export default index
+export default Index

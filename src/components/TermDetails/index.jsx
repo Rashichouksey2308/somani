@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import { addPrefixOrSuffix, addPrefixSymbol } from '../../utils/helper';
 import { returnReadableNumber } from '@/utils/helpers/global';
@@ -20,10 +20,9 @@ const Index = ({
   country,
   currency,
 }) => {
-  
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
- 
+
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     unitPrice: false,
@@ -60,9 +59,8 @@ const Index = ({
     }
   };
   useEffect(() => {
-    payementchangeFunc(termsheetDetails?.paymentDueDate?.computationOfDueDate)
-  }, [termsheetDetails])
-  
+    payementchangeFunc(termsheetDetails?.paymentDueDate?.computationOfDueDate);
+  }, [termsheetDetails]);
 
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
@@ -150,11 +148,11 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                
-                   <option value={"MT"}>MT</option>
-                  <option value={"L"}>L</option>
-                  <option value={"KG"}>KG</option>
-                  <option value={"M"}>M</option>
+
+                  <option value={'MT'}>MT</option>
+                  <option value={'L'}>L</option>
+                  <option value={'KG'}>KG</option>
+                  <option value={'M'}>M</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Units of Measurement (UOM)
@@ -212,7 +210,7 @@ const Index = ({
                 value={
                   isFieldInFocus.quantity
                     ? termsheetDetails?.commodityDetails?.quantity
-                    : returnReadableNumber(termsheetDetails?.commodityDetails?.quantity,'en-In',2) +
+                    : returnReadableNumber(termsheetDetails?.commodityDetails?.quantity, 'en-In', 2) +
                       ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
                 }
                 onChange={(e) => {
@@ -244,7 +242,12 @@ const Index = ({
                   isFieldInFocus.unitPrice
                     ? termsheetDetails?.commodityDetails?.perUnitPrice
                     : ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` +
-                      returnReadableNumber(termsheetDetails?.commodityDetails?.perUnitPrice,termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase() === 'INR' ? 'en-In': 'en-EN',2,2)
+                      returnReadableNumber(
+                        termsheetDetails?.commodityDetails?.perUnitPrice,
+                        termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase() === 'INR' ? 'en-In' : 'en-EN',
+                        2,
+                        2,
+                      )
                 }
                 onChange={onChangeCommodityDetails}
                 type="text"
@@ -269,8 +272,7 @@ const Index = ({
                   value={
                     isFieldInFocus.tolerance
                       ? termsheetDetails?.commodityDetails?.tolerance
-                      : '±' +
-                        returnReadableNumber(termsheetDetails?.commodityDetails?.tolerance,'en-In',2,2) + ` %`
+                      : '±' + returnReadableNumber(termsheetDetails?.commodityDetails?.tolerance, 'en-In', 2, 2) + ` %`
                   }
                   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
@@ -297,7 +299,8 @@ const Index = ({
                 value={addPrefixOrSuffix(
                   newLcVal ? newLcVal : 0,
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
-                  'front',termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()=="INR"?"en-IN":"en-En"
+                  'front',
+                  termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase() == 'INR' ? 'en-IN' : 'en-En',
                 )}
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
@@ -335,7 +338,7 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-            <input
+              <input
                 id="lcOpeningBank"
                 className={`${styles.value} ${styles.marginPercent} input form-control`}
                 type="text"
@@ -345,7 +348,7 @@ const Index = ({
               />
 
               <label className={`${styles.label} label_heading`}>
-              LC Opening Bank<strong className="text-danger">*</strong>
+                LC Opening Bank<strong className="text-danger">*</strong>
               </label>
               {/* <div className="d-flex">
                 <select
@@ -407,15 +410,14 @@ const Index = ({
                   <option selected>Select an option</option>
                   {port
                     .filter((val, index) => {
-                      if (val.Country.toLowerCase() !== 'india' ) {
+                      if (val.Country.toLowerCase() !== 'india') {
                         return val;
                       }
                     })
                     .map((val, index) => {
                       return (
-                        
                         <option key={index} value={`${val.Port_Name}, ${val.Country}`}>
-                         {val.Port_Name}, {val.Country}
+                          {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -514,10 +516,12 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option disabled selected>Select an option</option>
+                  <option disabled selected>
+                    Select an option
+                  </option>
                   {port
                     .filter((val, index) => {
-                      if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                      if (val.Country.toLowerCase() == 'india' && val.Approved == 'YES') {
                         return val;
                       }
                     })
@@ -639,19 +643,17 @@ const Index = ({
                   value={termsheetDetails?.transactionDetails?.storageOfGoods}
                   required
                 >
-                  <option disabled >
-                    Select an option
-                  </option>
-                    {port
+                  <option disabled>Select an option</option>
+                  {port
                     .filter((val, index) => {
-                      if (val.Country.toLowerCase() == 'india' && val.Approved=="YES") {
+                      if (val.Country.toLowerCase() == 'india' && val.Approved == 'YES') {
                         return val;
                       }
                     })
                     .map((val, index) => {
                       return (
                         <option key={index} value={`${val.Port_Name}`}>
-                         {val.Port_Name}, {val.Country}
+                          {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -675,9 +677,8 @@ const Index = ({
                   id="computationOfDueDate"
                   value={termsheetDetails?.paymentDueDate?.computationOfDueDate}
                   onChange={(e) => {
-                    {
-                      payementchangeFunc(e.target.value), onChangePaymentDueDate(e);
-                    }
+                    payementchangeFunc(e.target.value);
+                    onChangePaymentDueDate(e);
                   }}
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   required
@@ -724,11 +725,7 @@ const Index = ({
                 value={termsheetDetails?.paymentDueDate?.daysFromVesselDate}
                 onChange={onChangePaymentDueDate}
                 disabled={
-                  IsBlSelected == 'DaysfromVesselDate'
-                    ? false
-                    : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                  IsBlSelected == 'DaysfromVesselDate' ? false : IsBlSelected == 'Whicheverisearlier' ? false : true
                 }
                 required
               />
@@ -779,7 +776,9 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6 d-flex`}>
-              <div className={`${styles.value} input form-control w-25 disable d-flex align-items-center border-right-0 rounded-left`}>
+              <div
+                className={`${styles.value} input form-control w-25 disable d-flex align-items-center border-right-0 rounded-left`}
+              >
                 {addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase())}
               </div>
               <input
@@ -805,7 +804,10 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningCharges
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
-                    : returnReadableNumber(termsheetDetails?.commercials?.lcOpeningChargesUnit,termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase() === 'INR' ? 'en-In': 'en-EN')
+                    : returnReadableNumber(
+                        termsheetDetails?.commercials?.lcOpeningChargesUnit,
+                        termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase() === 'INR' ? 'en-In' : 'en-EN',
+                      )
                 }
                 onChange={onChangeCommercialTerms}
                 required
@@ -840,7 +842,8 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage
                     ? termsheetDetails?.commercials?.lcOpeningChargesPercentage
-                    : `${Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage)?.toLocaleString("en-IN")}` + ` %`
+                    : `${Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage)?.toLocaleString('en-IN')}` +
+                      ` %`
                 }
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}

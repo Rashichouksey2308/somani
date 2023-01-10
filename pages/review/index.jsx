@@ -33,13 +33,7 @@ import Peer from '../../src/components/ReviewQueueFinancials/Peer';
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
 import { ViewDocument } from '../../src/redux/ViewDoc/action';
-import {
-  addPrefixOrSuffix,
-  checkNan,
-  convertValue,
-  CovertvaluefromtoCR,
-  removePrefixOrSuffix,
-} from '../../src/utils/helper';
+import { checkNan, convertValue, CovertvaluefromtoCR, removePrefixOrSuffix } from '../../src/utils/helper';
 
 import { orderValidation, rtrnChartIndiaction } from '../../src/utils/helpers/review';
 import { handleErrorToast } from '../../src/utils/helpers/global';
@@ -48,18 +42,18 @@ import { handleErrorToast } from '../../src/utils/helpers/global';
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateCredit, UpdateCreditCalculate, UpdateOrderShipment } from '../../src/redux/buyerProfile/action';
 import { RefetchCombineKarza, UpdateCompanyDetails } from '../../src/redux/companyDetail/action';
+import { settingSidebar } from '../../src/redux/breadcrumb/action';
+import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
+import { McaReportFetch } from '../../src/redux/mcaReport/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
 import _get from 'lodash/get';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import UploadOther from '../../src/components/UploadOther';
-import { settingSidebar } from '../../src/redux/breadcrumb/action';
-import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
-import { McaReportFetch } from '../../src/redux/mcaReport/action';
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { returnReadableNumber } from '@/utils/helpers/global';
 
-let alertObj = {
+const alertObj = {
   isShell: 'Shell',
   isCompanyUnderLiquidation: 'Company Under Liquidation',
   isMlm: 'MLM',
@@ -67,7 +61,7 @@ let alertObj = {
   NA: 'Non-Genuine Dealers of Mahavat',
   isSebiDebarred: 'SEBI Debarred',
   // file deepcode ignore DuplicateObjectProperty: Alert Object
-  NA: 'BSE Disciplinary Action',
+  // NA: 'BSE Disciplinary Action',
   isNseCompanySuspended: 'NSE Company Suspended',
   isNseExpelled: 'NSE Expelled',
   isNseCompanySuspendedNonCompliance: 'NSE Company Suspended Non Compliance',
@@ -109,10 +103,10 @@ let alertObj = {
   isGstInactive: 'GST Inactive',
   isEpfTransactionDelay: 'EPF Transaction Delay',
   isEpfClosed: 'EPF Closed',
-  NA: 'TDS Payment Delay',
+  // NA: 'TDS Payment Delay',
   isLeiRegistrationRetired: 'LEI Registration Retired',
   isIecSuspended: 'IEC Suspended',
-  NA: 'TDS Payment Default',
+  // NA: 'TDS Payment Default',
   isIecCancelled: 'IEC Cancelled',
   isGstCancelled: 'GST Cancelled',
   isGstProvisional: 'GST Provisional',
@@ -163,7 +157,6 @@ let alertObj = {
 function Index() {
   const dispatch = useDispatch();
 
-  const [darkMode, setDarkMode] = useState(false);
   const [uploadBtn, setUploadBtn] = useState(true);
   const [complienceFilter, setComplienceFilter] = useState('All');
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([]);
@@ -173,31 +166,32 @@ function Index() {
   const [chartType, setChartType] = useState('Monthly');
   const [unit, setUnit] = useState('Crores');
   const { fetchingKarzaGst, fetchedGstData } = useSelector((state) => state.review);
-  const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
+  const { companyData } = useSelector((state) => state.companyDetails);
   const { allBuyerList } = useSelector((state) => state.buyer);
   const [selectedTab, setSelectedTab] = useState('Profile');
   const mcaReportAvailable =
     _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
 
-  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
-  let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
-  let dataLatestYear = _get(companyData, 'financial.balanceSheet[0]', {});
-  let dataPreviousYear = _get(companyData, 'financial.balanceSheet[1]', {});
+  const backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+  const backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
+  const dataLatestYear = _get(companyData, 'financial.balanceSheet[0]', {});
+  const dataPreviousYear = _get(companyData, 'financial.balanceSheet[1]', {});
+  const tabContents = 'tab-content';
   useEffect(() => {
     if (window) {
-      let id1 = sessionStorage.getItem('orderID');
-      let id2 = sessionStorage.getItem('companyID');
+      const id1 = sessionStorage.getItem('orderID');
+      const id2 = sessionStorage.getItem('companyID');
 
-      if (sessionStorage.getItem('showCAM') == 'true') {
+      if (sessionStorage.getItem('showCAM') === 'true') {
         sessionStorage.setItem('showCAM', false);
         setSelectedTab('CAM');
         dispatch(GetAllOrders({ orderId: id1 }));
         dispatch(GetCompanyDetails({ company: id2 }));
 
-        let list = document.getElementsByClassName('nav-tabs') || [];
-        let tab = document.getElementsByClassName('tab-content') || [];
+        const list = document.getElementsByClassName('nav-tabs') || [];
+        const tab = document.getElementsByClassName(tabContents) || [];
 
-        let tempIndex = 7;
+        const tempIndex = 7;
 
         list[0]?.children[0]?.children[0]?.classList?.remove('active');
 
@@ -207,7 +201,7 @@ function Index() {
         tab[0]?.children[tempIndex]?.classList?.add('show');
         tab[0]?.children[tempIndex]?.classList?.add('active');
       }
-      if (sessionStorage.getItem('showCAM') == 'false' || sessionStorage.getItem('showCAM') == undefined) {
+      if (sessionStorage.getItem('showCAM') === 'false' || sessionStorage.getItem('showCAM') === undefined) {
         dispatch(GetAllOrders({ orderId: id1 }));
         dispatch(GetCompanyDetails({ company: id2 }));
         dispatch(GetAllBuyer(`?company=${id2}&limit=${6}`));
@@ -220,17 +214,17 @@ function Index() {
     dispatch(getCommodities());
     dispatch(getDocuments());
   }, []);
-  const { getPortsMasterData } = useSelector((state) => state.MastersData);
-  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
-  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
-  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
+
+  const { getPortsMasterData, getCountriesMasterData, getCommoditiesMasterData } = useSelector(
+    (state) => state.MastersData,
+  );
 
   useEffect(() => {
     if (companyData) {
       let statutory = [];
       let balance = [];
       companyData.compliance?.alerts?.forEach((val, index) => {
-        if (val.alert.trim() == 'isIbbi') {
+        if (val.alert.trim() === 'isIbbi') {
           balance.push(val);
         } else {
           statutory.push(val);
@@ -279,7 +273,7 @@ function Index() {
 
   const id = sessionStorage.getItem('orderID');
   const returnFilteredCharges = () => {
-    let data = _get(orderList, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+    const data = _get(orderList, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
       return !item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '';
     });
     return data;
@@ -301,11 +295,10 @@ function Index() {
     tolerance: '',
     hsnCode: '',
     manufacturerName: '',
-    existingOrderValue:""
-
+    existingOrderValue: '',
   });
   useEffect(() => {
-    let newObj = {
+    const newObj = {
       transactionType: orderList?.transactionType,
       commodity: orderList?.commodity,
       quantity: orderList?.quantity,
@@ -322,7 +315,7 @@ function Index() {
       tolerance: orderList?.tolerance,
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
-      existingOrderValue:CovertvaluefromtoCR(orderList?.existingOrderValue),
+      existingOrderValue: CovertvaluefromtoCR(orderList?.existingOrderValue),
     };
 
     setOrderDetails({ ...newObj });
@@ -370,7 +363,8 @@ function Index() {
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment };
     const namesplit = name.split('.');
-    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
+    if (namesplit.length > 1) newInput[namesplit[0]][namesplit[1]] = value;
+    newInput[name] = value;
     setShipment(newInput);
   };
 
@@ -412,49 +406,23 @@ function Index() {
 
   useEffect(() => {
     setProduct({
-      AvgMonthlyElectricityBill: orderList?.productSummary?.AvgMonthlyElectricityBill
-        ? orderList?.productSummary?.AvgMonthlyElectricityBill
-        : '',
-      availableStock: orderList?.productSummary?.availableStock ? orderList?.productSummary?.availableStock : '',
-      averageStockInTransit: orderList?.productSummary?.averageStockInTransit
-        ? orderList?.productSummary?.averageStockInTransit
-        : '',
-      averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity
-        ? orderList?.productSummary?.averageStockOfCommodity
-        : '',
-      capacityUtilization: orderList?.productSummary?.capacityUtilization
-        ? orderList?.productSummary?.capacityUtilization
-        : '',
-      contributionCommoditySenstivity: orderList?.productSummary?.contributionCommoditySenstivity
-        ? orderList?.productSummary?.contributionCommoditySenstivity
-        : '',
-      dailyConsumptionOfCommodity: orderList?.productSummary?.dailyConsumptionOfCommodity
-        ? orderList?.productSummary?.dailyConsumptionOfCommodity
-        : '',
-      existingCHA: orderList?.productSummary?.existingCHA ? orderList?.productSummary?.existingCHA : [],
-      existingProcurementOfCommodity: orderList?.productSummary?.existingProcurementOfCommodity
-        ? orderList?.productSummary?.existingProcurementOfCommodity
-        : 'Import',
-      existingSuppliers: orderList?.productSummary?.existingSuppliers
-        ? orderList?.productSummary?.existingSuppliers
-        : [],
-      monthlyProductionCapacity: orderList?.productSummary?.monthlyProductionCapacity
-        ? orderList?.productSummary?.monthlyProductionCapacity
-        : '',
-      paymentStatusForElectricityBills: orderList?.productSummary?.paymentStatusForElectricityBills
-        ? orderList?.productSummary?.paymentStatusForElectricityBills
-        : '',
-      stockCoverageOfCommodity: orderList?.productSummary?.stockCoverageOfCommodity
-        ? orderList?.productSummary?.stockCoverageOfCommodity
-        : undefined,
-      typeOfCurrency: orderList?.productSummary?.typeOfCurrency
-        ? orderList?.productSummary?.typeOfCurrency
-        : orderList?.orderCurrency,
-      unitOfQuantity: orderList?.productSummary?.unitOfQuantity
-        ? orderList?.productSummary?.unitOfQuantity
-        : orderList?.unitOfQuantity,
+      AvgMonthlyElectricityBill: orderList?.productSummary?.AvgMonthlyElectricityBill ?? '',
+      availableStock: orderList?.productSummary?.availableStock ?? '',
+      averageStockInTransit: orderList?.productSummary?.averageStockInTransit ?? '',
+      averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity ?? '',
+      capacityUtilization: orderList?.productSummary?.capacityUtilization ?? '',
+      contributionCommoditySenstivity: orderList?.productSummary?.contributionCommoditySenstivity ?? '',
+      dailyConsumptionOfCommodity: orderList?.productSummary?.dailyConsumptionOfCommodity ?? '',
+      existingCHA: orderList?.productSummary?.existingCHA ?? [],
+      existingProcurementOfCommodity: orderList?.productSummary?.existingProcurementOfCommodity ?? 'Import',
+      existingSuppliers: orderList?.productSummary?.existingSuppliers ?? [],
+      monthlyProductionCapacity: orderList?.productSummary?.monthlyProductionCapacity ?? '',
+      paymentStatusForElectricityBills: orderList?.productSummary?.paymentStatusForElectricityBills ?? '',
+      stockCoverageOfCommodity: orderList?.productSummary?.stockCoverageOfCommodity ?? undefined,
+      typeOfCurrency: orderList?.productSummary?.typeOfCurrency ?? orderList?.orderCurrency,
+      unitOfQuantity: orderList?.productSummary?.unitOfQuantity ?? orderList?.unitOfQuantity,
     });
-    let tempSupplierCredentials = {
+    const tempSupplierCredentials = {
       ...supplierCred,
       HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber ?? '',
       commodityOfTotalTrade: orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
@@ -474,23 +442,20 @@ function Index() {
   }, [orderList]);
 
   const handleProductSave = (chas, exsupp) => {
-    if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
-      let toastMessage = 'Please fill the required fields';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    if (product?.capacityUtilization === '' || product?.contributionCommoditySenstivity === '') {
+      handleErrorToast('Please fill the required fields');
     } else {
       let data = { ...product };
       data.existingCHA = chas;
       data.existingSuppliers = exsupp;
-      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
-      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization);
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill);
-      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity);
-      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit);
-      data.availableStock = removePrefixOrSuffix(product.availableStock);
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity);
-      let obj = {
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product?.monthlyProductionCapacity);
+      data.capacityUtilization = removePrefixOrSuffix(product?.capacityUtilization);
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product?.AvgMonthlyElectricityBill);
+      data.averageStockOfCommodity = removePrefixOrSuffix(product?.averageStockOfCommodity);
+      data.averageStockInTransit = removePrefixOrSuffix(product?.averageStockInTransit);
+      data.availableStock = removePrefixOrSuffix(product?.availableStock);
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product?.dailyConsumptionOfCommodity);
+      const obj = {
         order: orderList._id,
         productSummary: { ...data },
         gstin: gstData.gstin ? gstData.gstin : orderList?.company?.GST,
@@ -585,87 +550,33 @@ function Index() {
   };
 
   const dltCompanyCommentArr = (index) => {
-    // let newArr = [...companyComment]
-    // newArr.pop(index)
-    // setCompanyComment(newArr)
-    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)]);
+    setCompanyComment([...companyComment?.slice(0, index), ...companyComment?.slice(index + 1)]);
   };
   const dltFinancialsCommentArr = (index) => {
-    // let newArr = [...financialsComment]
-    // newArr.pop(index)
-    setFinancialsComment([...financialsComment.slice(0, index), ...financialsComment.slice(index + 1)]);
-    // setFinancialsComment(newArr)
+    setFinancialsComment([...financialsComment?.slice(0, index), ...financialsComment?.slice(index + 1)]);
   };
   const dltSanctionCommentArr = (index) => {
-    // let newArr = [...sanctionComment]
-    // newArr.pop(index)
-    // setSanctionComment(newArr)
-    setSanctionComment([...sanctionComment.slice(0, index), ...sanctionComment.slice(index + 1)]);
-  };
-  const dltApproveRemarkArr = (index) => {
-    // let newArr = [...approveComment]
-    // newArr.pop(index)
-    // setApproveComment(newArr)
-    setApproveComment([...approveComment.slice(0, index), ...approveComment.slice(index + 1)]);
+    setSanctionComment([...sanctionComment?.slice(0, index), ...sanctionComment?.slice(index + 1)]);
   };
   const dltStrengthsCommentArr = (index) => {
-    // let newArr = [...strengthsComment]
-    // newArr.pop(index)
-    // setStrengthsComment(newArr)
-    setStrengthsComment([...strengthsComment.slice(0, index), ...strengthsComment.slice(index + 1)]);
+    setStrengthsComment([...strengthsComment?.slice(0, index), ...strengthsComment?.slice(index + 1)]);
   };
   const dltWeaknessCommentArr = (index) => {
-    // let newArr = [...weaknessComment]
-    // newArr.pop(index)
-    // setWeaknessComment(newArr)
-    setWeaknessComment([...weaknessComment.slice(0, index), ...weaknessComment.slice(index + 1)]);
+    setWeaknessComment([...weaknessComment?.slice(0, index), ...weaknessComment?.slice(index + 1)]);
   };
 
   const [debtData, setDebtData] = useState([]);
-  const FilterUniqueBank = () => {
-    let filtered = _get(companyData, 'financial.openCharges', []);
+  const filterUniqueBank = () => {
+    const filtered = _get(companyData, 'financial.openCharges', []);
     const openCharges = filtered?.filter((item) => !item.dateOfSatisfactionOfChargeInFull);
-    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
-
-    return unique;
+    return [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
   };
   useEffect(() => {
     if (orderList?.company?.debtProfile?.length > 0) {
       let temp = [];
-      let repeat = [];
-      let filter = FilterUniqueBank();
+      const filter = filterUniqueBank();
       orderList?.company?.debtProfile.forEach((val, index) => {
-        // filter.forEach((fil,index2)=>{
-        //   if(val.bankName==fil){
-        //     temp.push({
-        //     bankName: val?.bankName,
-        //     conduct: val?.conduct,
-        //     limit: val?.limit,
-        //     limitType: val?.limitType,
-        //     primaryBank: val?.primaryBank,
-        //     addnew:"false"
-        //   })
-
-        //   }
-        //   else{
-        //     if(!filter.includes(val?.bankName)){
-        //     if(temp.length <= orderList?.company?.debtProfile?.length){
-        //     temp.push({
-        //     bankName: val?.bankName,
-        //     conduct: val?.conduct,
-        //     limit: val?.limit,
-        //     limitType: val?.limitType,
-        //     primaryBank: val?.primaryBank,
-        //     addnew:"true"
-        //   })
-        //    }
-        //   }
-        //   }
-
-        // })
-
         if (filter.includes(val?.bankName)) {
-          // if(temp.length <= orderList?.company?.debtProfile?.length){
           temp.push({
             bankName: val?.bankName,
             conduct: val?.conduct,
@@ -723,7 +634,8 @@ function Index() {
           addnew: false,
         });
       });
-    } else if (companyData?.profile?.directorDetail.length > 0) {
+    }
+    if (companyData?.profile?.directorDetail.length > 0) {
       companyData?.profile?.directorDetail?.forEach((val, index) => {
         personArr.push({
           contact: {
@@ -787,15 +699,13 @@ function Index() {
 
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: suggestedValue ? suggestedValue : suggestedValue,
-      suggestedOrderValue: orderList?.suggestedOrderValue
-        ? orderList?.suggestedOrderValue
-        : orderList?.suggestedOrderValue,
+      suggestedCreditLimit: false ? suggestedValue : '',
+      suggestedOrderValue: orderList?.suggestedOrderValue ? orderList?.suggestedOrderValue : '',
     });
 
     setApprovedCredit({
-      approvedOrderValue: orderList?.approvedOrderValue ? orderList?.approvedOrderValue : orderList?.approvedOrderValue,
-      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit : approvedCreditLimit,
+      approvedOrderValue: orderList?.approvedOrderValue ? orderList?.approvedOrderValue : '',
+      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit : '',
     });
   }, [orderList]);
 
@@ -858,16 +768,16 @@ function Index() {
     };
     if (companyData?.compliance?.alerts) {
       companyData?.compliance?.alerts.forEach((val, index) => {
-        if (val.severity == 'low') {
+        if (val.severity === 'low') {
           a.low.push(val);
         }
-        if (val.severity == 'high') {
+        if (val.severity === 'high') {
           a.high.push(val);
         }
-        if (val.severity == 'medium') {
+        if (val.severity === 'medium') {
           a.medium.push(val);
         }
-        if (val.severity == 'severe') {
+        if (val.severity === 'severe') {
           a.sever.push(val);
         }
       });
@@ -875,15 +785,15 @@ function Index() {
     }
   }, [companyData?.compliance?.alerts]);
 
-  const CreditAgency = () => {
+  const creditAgency = () => {
     let array1 = [];
     let finalarray = [{}];
     companyData?.profile?.creditRating?.forEach((item) => {
-      let year = item.dateOfIssuance?.slice(0, 4);
+      const year = item.dateOfIssuance?.slice(0, 4);
       array1.push(year);
     });
     finalarray = [...new Set(array1)];
-    let tempdates = finalarray.sort((a, b) => b - a).slice(0, 1);
+    const tempdates = finalarray.sort((a, b) => b - a).slice(0, 1);
 
     const filteredCreditRatingNew = companyData?.profile?.creditRating?.filter(
       (rating) => rating?.dateOfIssuance?.slice(0, 4) === tempdates[0],
@@ -913,141 +823,72 @@ function Index() {
   const setEditRow = (index) => {
     let tempArr = [...personData];
     tempArr.forEach((val, i) => {
-      if (i == index) [(val.isEdit = !val.isEdit)];
+      if (i == index) {
+        return [(val.isEdit = !val.isEdit)];
+      }
     });
     setPersonData(tempArr);
   };
 
   const creditValidation = () => {
-    if (product.monthlyProductionCapacity == '' || product.monthlyProductionCapacity == undefined) {
-      let toastMessage = 'Please add  monthly Production Capacitye';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    if (product?.monthlyProductionCapacity == '' || product?.monthlyProductionCapacity == undefined) {
+      handleErrorToast('Please add  monthly Production Capacitye');
       return false;
-    }
-    if (product.capacityUtilization == '' || product.capacityUtilization == undefined) {
-      let toastMessage = 'Please add  capacity Utilization';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (product?.capacityUtilization == '' || product?.capacityUtilization == undefined) {
+      handleErrorToast('Please add  capacity Utilization');
       return false;
-    }
-    if (product.averageStockOfCommodity == '' || product.averageStockOfCommodity == undefined) {
-      let toastMessage = 'Please add  average Stock Of Commodity';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (product?.averageStockOfCommodity == '' || product?.averageStockOfCommodity == undefined) {
+      handleErrorToast('Please add  average Stock Of Commodity');
       return false;
-    }
-    if (product.averageStockInTransit == '' || product.averageStockInTransit == undefined) {
-      let toastMessage = 'Please add  average Stock In Transit';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (product?.averageStockInTransit == '' || product?.averageStockInTransit == undefined) {
+      handleErrorToast('Please add  average Stock In Transit');
       return false;
-    }
-    if (product.AvgMonthlyElectricityBill == '' || product.AvgMonthlyElectricityBill == undefined) {
-      let toastMessage = 'Please add  Avg Monthly Electricity Bill';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (product?.AvgMonthlyElectricityBill == '' || product?.AvgMonthlyElectricityBill == undefined) {
+      handleErrorToast('Please add  Avg Monthly Electricity Bill');
       return false;
-    }
-    if (product.availableStock == '' || product.availableStock == undefined) {
-      let toastMessage = 'Please add  available Stock';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (product?.availableStock == '' || product?.availableStock == undefined) {
+      handleErrorToast('Please add  available Stock');
       return false;
-    }
-    if (product.dailyConsumptionOfCommodity == '' || product.dailyConsumptionOfCommodity == undefined) {
-      let toastMessage = 'Please add  Daily Consumtion Of Commodity';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (product?.dailyConsumptionOfCommodity == '' || product?.dailyConsumptionOfCommodity == undefined) {
+      handleErrorToast('Please add  Daily Consumtion Of Commodity');
       return false;
-    }
-    if (product.stockCoverageOfCommodity == '' || product.stockCoverageOfCommodity == undefined) {
-      let toastMessage = 'Please add  stock Coverage Of Commodity';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (product?.stockCoverageOfCommodity == '' || product?.stockCoverageOfCommodity == undefined) {
+      handleErrorToast('Please add  stock Coverage Of Commodity');
       return false;
-    }
-    if (product.existingProcurementOfCommodity == '' || product.existingProcurementOfCommodity == undefined) {
-      let toastMessage = 'Please add  Existing Procurement Of Commodity';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (product?.existingProcurementOfCommodity == '' || product?.existingProcurementOfCommodity == undefined) {
+      handleErrorToast('Please add  Existing Procurement Of Commodity');
       return false;
-    }
-    if (supplierCred.supplierName == '' || supplierCred.supplierName == undefined) {
-      let toastMessage = 'Please add supplier Name';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (supplierCred?.supplierName == '' || supplierCred?.supplierName == undefined) {
+      handleErrorToast('Please add supplier Name');
       return false;
-    }
-    if (supplierCred.shipmentNumber == '' || supplierCred.shipmentNumber == undefined) {
-      let toastMessage = 'Please add number of shipment';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (supplierCred?.shipmentNumber == '' || supplierCred?.shipmentNumber == undefined) {
+      handleErrorToast('Please add number of shipment');
       return false;
-    }
-    if (supplierCred.consigneesNumber == '' || supplierCred.consigneesNumber == undefined) {
-      let toastMessage = 'Please add consignees Number';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (supplierCred?.consigneesNumber == '' || supplierCred?.consigneesNumber == undefined) {
+      handleErrorToast('Please add consignees Number');
       return false;
-    }
-    if (supplierCred.HSCodesNumber == '' || supplierCred.HSCodesNumber == undefined) {
-      let toastMessage = 'Please add HS Codes ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (supplierCred?.HSCodesNumber == '' || supplierCred?.HSCodesNumber == undefined) {
+      handleErrorToast('Please add HS Codes ');
       return false;
-    }
-    if (supplierCred.countryOfOrigin == '' || supplierCred.countryOfOrigin == undefined) {
-      let toastMessage = 'Please add country Of Origin ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (supplierCred?.countryOfOrigin == '' || supplierCred?.countryOfOrigin == undefined) {
+      handleErrorToast('Please add country Of Origin ');
       return false;
-    }
-    if (supplierCred.portOfDestination == '' || supplierCred.portOfDestination == undefined) {
-      let toastMessage = 'Please add port Of Destination ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (supplierCred?.portOfDestination == '' || supplierCred?.portOfDestination == undefined) {
+      handleErrorToast('Please add port Of Destination ');
       return false;
-    }
-    if (supplierCred.oldestShipmentDate == '' || supplierCred.oldestShipmentDate == undefined) {
-      let toastMessage = 'Please add oldest Shipment Date ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (supplierCred?.oldestShipmentDate == '' || supplierCred?.oldestShipmentDate == undefined) {
+      handleErrorToast('Please add oldest Shipment Date ');
       return false;
-    }
-    if (
-      supplierCred.latestShipmentDate == '' ||
-      supplierCred.latestShipmentDate == undefined ||
-      !supplierCred.latestShipmentDate ||
-      supplierCred.latestShipmentDate == 0
+    } else if (
+      supplierCred?.latestShipmentDate == '' ||
+      supplierCred?.latestShipmentDate == undefined ||
+      !supplierCred?.latestShipmentDate ||
+      supplierCred?.latestShipmentDate == 0
     ) {
-      let toastMessage = 'Please add latest Shipment Date ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add latest Shipment Date ');
       return false;
-    }
-    if (supplierCred.commodityOfTotalTrade == '' || supplierCred.commodityOfTotalTrade == undefined) {
-      let toastMessage = 'please add commodity Of Total Trade';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+    } else if (supplierCred?.commodityOfTotalTrade == '' || supplierCred?.commodityOfTotalTrade == undefined) {
+      handleErrorToast('please add commodity Of Total Trade');
       return false;
     }
     return true;
@@ -1064,16 +905,16 @@ function Index() {
         delete val.action && delete val.actions && delete val.addnew;
       });
       let data = { ...product };
-      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
-      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization);
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill);
-      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity);
-      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit);
-      data.availableStock = removePrefixOrSuffix(product.availableStock);
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity);
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product?.monthlyProductionCapacity);
+      data.capacityUtilization = removePrefixOrSuffix(product?.capacityUtilization);
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product?.AvgMonthlyElectricityBill);
+      data.averageStockOfCommodity = removePrefixOrSuffix(product?.averageStockOfCommodity);
+      data.averageStockInTransit = removePrefixOrSuffix(product?.averageStockInTransit);
+      data.availableStock = removePrefixOrSuffix(product?.availableStock);
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product?.dailyConsumptionOfCommodity);
 
       let supplierData = { ...supplierCred };
-      supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade);
+      supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred?.commodityOfTotalTrade);
       let tempArray = [...groupExposureData];
 
       tempArray.forEach((e) => {
@@ -1171,7 +1012,7 @@ function Index() {
       handleErrorToast('approved limit value cannot be 0');
       return false;
     }
-    if (approvedCredit.approvedOrderValue === 0) {
+    if (approvedCredit.approvedOrderValue == 0) {
       handleErrorToast('approved order value cannot be 0');
       return false;
     }
@@ -1214,7 +1055,7 @@ function Index() {
   const currentOpenLink = (e) => {
     if (e.target.attributes[4].nodeValue == 'Compliance') {
       let list = document.getElementsByClassName('nav-tabs');
-      let tab = document.getElementsByClassName('tab-content');
+      let tab = document.getElementsByClassName(tabContents);
       for (let i = 0; i < list[0].children.length; i++) {
         list[0].children[i].children[0].classList.remove('active');
 
@@ -1231,7 +1072,7 @@ function Index() {
   };
   const onNext = () => {
     let list = document.getElementsByClassName('nav-tabs');
-    let tab = document.getElementsByClassName('tab-content');
+    let tab = document.getElementsByClassName(tabContents);
     for (let i = 0; i < list[0].children.length; i++) {
       if (list[0].children[i].children[0].classList.contains('active')) {
         let tempIndex = i + 1;
@@ -1256,7 +1097,7 @@ function Index() {
 
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs');
-    let tab = document.getElementsByClassName('tab-content');
+    let tab = document.getElementsByClassName(tabContents);
     for (let i = 0; i < list[0].children.length; i++) {
       if (list[0].children[i].children[0].classList.contains('active')) {
         let tempIndex = i - 1;
@@ -2943,7 +2784,7 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {returnReadableNumber(convertValue(exp.limit, camConversionunit), 'en-In', 2, 2)}{" "}
+                                  {returnReadableNumber(convertValue(exp.limit, camConversionunit), 'en-In', 2, 2)}{' '}
                                   {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
@@ -3006,7 +2847,7 @@ function Index() {
                                     'en-In',
                                     2,
                                     2,
-                                  )}{" "}
+                                  )}{' '}
                                   {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
@@ -3025,9 +2866,7 @@ function Index() {
                                     <span
                                       style={{
                                         background: '#3687E8',
-                                      width:`${Number(
-                                      ( (exp.outstandingLimit/exp.limit)*100)
-                                      )}%`,
+                                        width: `${Number((exp.outstandingLimit / exp.limit) * 100)}%`,
                                         height: '12px',
                                         borderRadius: '2px',
                                         display: 'inline-block',
@@ -3473,7 +3312,7 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  {CreditAgency()?.rating_}
+                  {creditAgency()?.rating_}
                 </td>
               </tr>
               <tr>
@@ -3515,7 +3354,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {CreditAgency()?.ratingAgency}
+                  {creditAgency()?.ratingAgency}
                 </td>
               </tr>
               <tr>
@@ -4209,7 +4048,7 @@ function Index() {
                               >
                                 {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2
+                                  minimumFractionDigits: 2,
                                 })}
                               </td>
                               <td
@@ -6096,7 +5935,10 @@ function Index() {
                                   ),
                                   camConversionunit,
                                 ),
-                                'en-In', 2,2,)}
+                                'en-In',
+                                2,
+                                2,
+                              )}
                             </td>
                             <td
                               style={{
@@ -6115,7 +5957,10 @@ function Index() {
                                   ),
                                   camConversionunit,
                                 ),
-                                'en-In',2,2,)}
+                                'en-In',
+                                2,
+                                2,
+                              )}
                             </td>
                           </tr>
                           <tr>
@@ -6146,7 +5991,10 @@ function Index() {
                                   ),
                                   camConversionunit,
                                 ),
-                                'en-In',2,2,)}
+                                'en-In',
+                                2,
+                                2,
+                              )}
                             </td>
                             <td
                               style={{
@@ -6165,7 +6013,10 @@ function Index() {
                                   ),
                                   camConversionunit,
                                 ),
-                                'en-In', 2,2,)}
+                                'en-In',
+                                2,
+                                2,
+                              )}
                             </td>
                           </tr>
                           <tr>
@@ -6199,7 +6050,10 @@ function Index() {
                                   ),
                                   camConversionunit,
                                 ),
-                                'en-In',2, 2,)}
+                                'en-In',
+                                2,
+                                2,
+                              )}
                             </td>
                             <td
                               style={{
@@ -6578,10 +6432,10 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                       {' '}
-                      {latestYearData?.financialEndDate
-                        ? moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()
-                        : ''}
+                        {' '}
+                        {latestYearData?.financialEndDate
+                          ? moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()
+                          : ''}
                       </td>
                       <td
                         style={{
@@ -6593,10 +6447,10 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                         {' '}
-                      {previousYearData?.financialEndDate
-                        ? moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()
-                        : ''}
+                        {' '}
+                        {previousYearData?.financialEndDate
+                          ? moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()
+                          : ''}
                       </td>
                     </tr>
                     <tr>
@@ -6622,14 +6476,19 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {returnReadableNumber(convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                          '',
-                        ),
-                        camConversionunit,
-                      ),'en-In',2,2)}
+                        {returnReadableNumber(
+                          convertValue(
+                            _get(
+                              companyData,
+                              'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                              '',
+                            ),
+                            camConversionunit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td
                         style={{
@@ -6642,14 +6501,19 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {returnReadableNumber(convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                          '',
-                        ),
-                        camConversionunit,
-                      ),'en-In',2,2)}
+                        {returnReadableNumber(
+                          convertValue(
+                            _get(
+                              companyData,
+                              'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                              '',
+                            ),
+                            camConversionunit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                     </tr>
                     <tr>
@@ -6672,14 +6536,19 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                       {returnReadableNumber(convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                          '',
-                        ),
-                        camConversionunit,
-                      ),'en-In',2,2)}
+                        {returnReadableNumber(
+                          convertValue(
+                            _get(
+                              companyData,
+                              'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                              '',
+                            ),
+                            camConversionunit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td
                         style={{
@@ -6691,14 +6560,19 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {returnReadableNumber(convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                          '',
-                        ),
-                        camConversionunit,
-                      ),'en-In',2,2)}
+                        {returnReadableNumber(
+                          convertValue(
+                            _get(
+                              companyData,
+                              'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                              '',
+                            ),
+                            camConversionunit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                     </tr>
                     <tr>
@@ -6724,14 +6598,19 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {returnReadableNumber(convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                          '',
-                        ),
-                        camConversionunit,
-                      ),'en-In',2,2)}
+                        {returnReadableNumber(
+                          convertValue(
+                            _get(
+                              companyData,
+                              'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                              '',
+                            ),
+                            camConversionunit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                       <td
                         style={{
@@ -6744,14 +6623,19 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {returnReadableNumber(convertValue(
-                        _get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                          '',
-                        ),
-                        camConversionunit,
-                      ),'en-In',2,2)}
+                        {returnReadableNumber(
+                          convertValue(
+                            _get(
+                              companyData,
+                              'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                              '',
+                            ),
+                            camConversionunit,
+                          ),
+                          'en-In',
+                          2,
+                          2,
+                        )}
                       </td>
                     </tr>
                     <tr>
@@ -7509,7 +7393,7 @@ function Index() {
                     {' '}
                     {convertValue(camData?.company?.creditLimit?.totalLimit, camConversionunit)?.toLocaleString(
                       'en-In',
-                    )}{" "}
+                    )}{' '}
                     {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                   </span>
                 </td>
@@ -7665,7 +7549,7 @@ function Index() {
                       >
                         {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
                       </td>
-                       <td
+                      <td
                         align="center"
                         style={{
                           fontSize: '19px',
@@ -7674,63 +7558,75 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                       -
+                        -
                       </td>
-                       {filteredCreditRating &&
-                          filteredCreditRating?.length > 0   ? (
-                      <>
-                        {' '}
-                        {filteredCreditRating.map((val, index) => (
+                      {filteredCreditRating && filteredCreditRating?.length > 0 ? (
+                        <>
+                          {' '}
+                          {filteredCreditRating.map((val, index) => (
                             <td
-                      align="center"
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          padding: '36px 10px 24px',
-                        }}
-                            key={index}>{checkNan(convertValue(val?.derived?.value,camConversionunit)?.toLocaleString('en-In')) } {camConversionunit == 10000000 ? ' CR' : ' LAKH'} 
+                              align="center"
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                padding: '36px 10px 24px',
+                              }}
+                              key={index}
+                            >
+                              {checkNan(convertValue(val?.derived?.value, camConversionunit)?.toLocaleString('en-In'))}{' '}
+                              {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                             </td>
                           ))}
-                      </>
-                    ) : (
-                      <td  align="center"
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        padding: '36px 10px 24px',
-                      }}>-</td>
-                    )}
-                         {filteredCreditRating &&
-                          filteredCreditRating?.length > 0   ? (
-                      <>
-                        {' '}
-                        {filteredCreditRating.map((val, index) => (
+                        </>
+                      ) : (
+                        <td
+                          align="center"
+                          style={{
+                            fontSize: '19px',
+                            color: '#111111',
+                            lineHeight: '23px',
+                            padding: '36px 10px 24px',
+                          }}
+                        >
+                          -
+                        </td>
+                      )}
+                      {filteredCreditRating && filteredCreditRating?.length > 0 ? (
+                        <>
+                          {' '}
+                          {filteredCreditRating.map((val, index) => (
                             <td
-                      align="center"
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          padding: '36px 10px 24px',
-                        }}
-                            key={index}>
-                           {checkNan(convertValue(val?.suggested?.value,camConversionunit))?.toLocaleString('en-In') } 
-                           {' '} {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                              align="center"
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                padding: '36px 10px 24px',
+                              }}
+                              key={index}
+                            >
+                              {checkNan(convertValue(val?.suggested?.value, camConversionunit))?.toLocaleString(
+                                'en-In',
+                              )}{' '}
+                              {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                             </td>
                           ))}
-                      </>
-                    ) : (
-                      <td  align="center"
-                      style={{
-                        fontSize: '19px',
-                        color: '#111111',
-                        lineHeight: '23px',
-                        padding: '36px 10px 24px',
-                      }}>-</td>
-                    )}
-                      
+                        </>
+                      ) : (
+                        <td
+                          align="center"
+                          style={{
+                            fontSize: '19px',
+                            color: '#111111',
+                            lineHeight: '23px',
+                            padding: '36px 10px 24px',
+                          }}
+                        >
+                          -
+                        </td>
+                      )}
+
                       <td
                         align="center"
                         style={{
@@ -7740,12 +7636,12 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                      <input
-                        type="checkbox"
-                        checked={approvedCredit.approvedCreditValue?true:false}
-                        // onChange={() => setLimitValueChecked(!limitValueChecked)}
-                      ></input>
-                    </td>
+                        <input
+                          type="checkbox"
+                          checked={approvedCredit.approvedCreditValue ? true : false}
+                          // onChange={() => setLimitValueChecked(!limitValueChecked)}
+                        ></input>
+                      </td>
                       <td
                         align="center"
                         style={{
@@ -7755,7 +7651,7 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {convertValue(approvedCredit?.approvedCreditValue, camConversionunit)?.toLocaleString('en-In')}{" "}
+                        {convertValue(approvedCredit?.approvedCreditValue, camConversionunit)?.toLocaleString('en-In')}{' '}
                         {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                       </td>
                     </tr>
@@ -7792,7 +7688,7 @@ function Index() {
                       >
                         {convertValue(camData?.existingOrderValue, camConversionunit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
-                        })}{" "}
+                        })}{' '}
                         {camConversionunit == 10000000 ? 'CR' : 'LAKH'}
                       </td>
                       <td
@@ -7815,8 +7711,10 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                      {checkNan(convertValue(camData?.suggestedOrderValue,camConversionunit))?.toLocaleString('en-In')}{" "}
-                      {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
+                        {checkNan(convertValue(camData?.suggestedOrderValue, camConversionunit))?.toLocaleString(
+                          'en-In',
+                        )}{' '}
+                        {` ${camConversionunit == 10000000 ? 'CR' : 'LAKH'}`}
                         {/* {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
@@ -7831,12 +7729,11 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-
                         <input
-                        type="checkbox"
-                        checked={approvedCredit.approvedOrderValue?true:false}
-                        // onChange={() => setOrderValueChecked(!orderValueChecked)}
-                      ></input>
+                          type="checkbox"
+                          checked={approvedCredit.approvedOrderValue ? true : false}
+                          // onChange={() => setOrderValueChecked(!orderValueChecked)}
+                        ></input>
                       </td>
                       <td
                         align="center"
@@ -7848,8 +7745,10 @@ function Index() {
                         }}
                       >
                         {/* {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')} */}
-                        {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString('en-In')}
-                       {" "} {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                        {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString(
+                          'en-In',
+                        )}{' '}
+                        {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -9128,7 +9027,7 @@ function Index() {
                     setTop5Customers1={setTop5Customers1}
                     camConversionunit={camConversionunit}
                     totalLimitDebt={totalLimitDebt}
-                    CreditAgency={CreditAgency}
+                    creditAgency={creditAgency}
                     litigationStatus={litigationStatus}
                     debtProfileColor={debtProfileColor}
                     allBuyerList={allBuyerList}
@@ -9241,9 +9140,10 @@ const ligitations = (Supreme, District, High, Tribunal, companyData) => {
 
 const table2 = (sat, balance, complienceFilter) => {
   let length = complienceFilter == 'Banking Defaults' ? balance.length : sat.length;
-  if (complienceFilter == 'All') {
-    complienceFilter == sat.length;
-  }
+  // if (complienceFilter == 'All') {
+  //   console.log('is this runnign')
+  //   complienceFilter == sat.length;
+  // }
   const addSpace = (val, remove) => {
     let result = val;
     if (remove) {

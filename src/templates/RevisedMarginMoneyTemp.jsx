@@ -1,3 +1,6 @@
+import { addPrefixOrSuffix } from 'utils/helper';
+
+
 export default function RevisedMarginMoney(marginData) {
   return (
     <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -213,7 +216,7 @@ export default function RevisedMarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
+                        {(marginData?.order?.quantity ? marginData?.order?.quantity + 'MT': '')}
                       </p>
                     </td>
                     <td align="left">
@@ -228,7 +231,7 @@ export default function RevisedMarginMoney(marginData) {
                           marginBottom: '0',
                         }}
                       >
-                        {addPrefixOrSuffix(marginData?.order?.quantity ? marginData?.order?.quantity : 0, 'MT', '')}
+                       {(marginData?.order?.quantity ? marginData?.order?.quantity + 'MT': '')}
                       </p>
                     </td>
                   </tr>

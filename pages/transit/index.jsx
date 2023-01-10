@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import Filter from '../../src/components/Filter';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-import { GetAllTransitDetails, GetTransitDetails } from '../../src/redux/TransitDetails/action';
-import { useDispatch, useSelector } from 'react-redux';
 import _get from 'lodash/get';
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Filter from '../../src/components/Filter';
+import Pagination from '../../src/components/Pagination';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { GetAllTransitDetails, GetTransitDetails } from '../../src/redux/TransitDetails/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import styles from './index.module.scss';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
@@ -14,7 +15,7 @@ function Index() {
   const { searchedLeads } = useSelector((state) => state.order);
 
   const dispatch = useDispatch();
-  const { allTransitDetails, TransitDetails } = useSelector((state) => state.TransitDetails);
+  const { allTransitDetails } = useSelector((state) => state.TransitDetails);
 
   useEffect(() => {
     if (window) {
@@ -159,38 +160,13 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.datatable} border datatable card`}>
-          <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-            <h3 className="heading_card">Transit Details</h3>
-            <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-              <span>
-                Showing Page {currentPage + 1} out of {Math.ceil(allTransitDetails?.totalCount / 7)}
-              </span>
-              <a
-                onClick={() => {
-                  if (currentPage === 0) return 
-                  else {
-                    setCurrentPage((prevState) => prevState - 1);
-                  }
-                }}
-                href="#"
-                className={`${styles.arrow} ${styles.leftArrow} arrow`}
-              >
-                {' '}
-                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-              </a>
-              <a
-                onClick={() => {
-                  if (currentPage + 1 < Math.ceil(allTransitDetails?.totalCount / 7)) {
-                    setCurrentPage((prevState) => prevState + 1);
-                  }
-                }}
-                href="#"
-                className={`${styles.arrow} ${styles.rightArrow} arrow`}
-              >
-                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-              </a>
-            </div>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            tableName={'Transit Details'}
+            data={allTransitDetails}
+          />
+
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">

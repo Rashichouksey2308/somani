@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../commodity/index.module.scss';
-import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
-import { SearchLeads } from 'redux/buyerProfile/action';
 import Image from 'next/image';
 import Router from 'next/router';
 import { GetAllGoNoGo } from '../../src/redux/goNoGo/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
-const index = () => {
+const Index = () => {
 
   const dispatch = useDispatch();
 
@@ -182,4 +180,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

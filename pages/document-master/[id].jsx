@@ -7,13 +7,12 @@ import {useDispatch, useSelector} from 'react-redux'
 import { handleErrorToast } from '../../src/utils/helpers/global';
 import { CreateDocument, GetDocument, UpdateDocument } from '../../src/redux/documentMaster/action';
 import _get from 'lodash/get'
-import SaveBar from '../../src/components/SaveBar'
 
 function Index () {
 
   const dispatch = useDispatch()
 
-  let Id = sessionStorage.getItem('documentMasterId')
+  const Id = sessionStorage.getItem('documentMasterId')
 
   const {documentResponse} = useSelector((state)=>state.document)
 
@@ -28,7 +27,7 @@ function Index () {
   );
 
   const saveDocumentData = (name, value) => {
-    let newInput = {...documentField}
+    const newInput = {...documentField}
     newInput[name] = value
     setDocumentField(newInput)
   }

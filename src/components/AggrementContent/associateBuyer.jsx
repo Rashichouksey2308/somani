@@ -8,6 +8,7 @@ import TermSheetPopUp from '../TermsheetPopUp';
 import { useDispatch, useSelector } from 'react-redux';
 import { emailValidation } from '@/utils/helper';
 import { ShareDocument } from 'redux/shareDoc/action';
+import { handleErrorToast } from '@/utils/helpers/global';
 let associate = {
   branchName: '',
   shortName: '',
@@ -188,7 +189,7 @@ function Index(props) {
       }
     }
   }, [props.data]);
-console.log(list,"lsiuii")
+
   useEffect(() => {
     if (props?.address) {
       let a = {
@@ -255,7 +256,7 @@ console.log(list,"lsiuii")
       tempArr.order =  props.orderData._id;
       if(list.length>0){
         list?.forEach((val,index)=>{
-          console.log(val?.document?.path,"val?.document?.path")
+        
         if(val?.document?.path != undefined){
             tempArr.path = val?.document?.path
         }

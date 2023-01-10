@@ -211,12 +211,12 @@ function Index() {
       ReactDOMServer.renderToString(toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions)),
       {
         callback: function (doc) {
-          
+         
          var out = doc.output('blob');
          var reader = new FileReader();
           let blob =  reader.readAsBinaryString(out);
          reader.onload = () => {
-            // console.log(reader.result,"image.png");
+            
             
           }
          
@@ -234,18 +234,9 @@ function Index() {
   const shareEmail = async (email) => {
     let doc = exportPDF2();
  
-    // let formData = new FormData();
-    // formData.append('document1', '');
-    // formData.append('data', {
-    //   subject: 'this is subject',
-    //   text: 'this is text',
-    //   receiver: email,
-    // });
-
-    // await dispatch(sharingTermsheetEmail(formData));
-    // setOpen(false);
+   
   };
-
+ 
   return (
     <>
       <div className={`${styles.root_container}  `} ref={toPrint}>
@@ -1357,7 +1348,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            float: 'left',
                             padding: '11px 15px 11px 35px',
                             marginBottom: '0',
                           }}
@@ -1400,7 +1390,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             opacity: '0.7',
                             lineHeight: '24px',
                             fontWeight: 'normal',
-                            float: 'left',
                             float: 'left',
                             padding: '11px 15px 38px 35px',
                             marginBottom: '0',
@@ -2647,7 +2636,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2681,7 +2669,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2715,7 +2702,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2749,7 +2735,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2783,7 +2768,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2819,7 +2803,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2853,7 +2836,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2889,7 +2871,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2923,7 +2904,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2957,7 +2937,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -2991,7 +2970,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3025,7 +3003,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3059,7 +3036,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3093,7 +3069,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3129,7 +3104,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3163,7 +3137,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3198,7 +3171,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3232,7 +3204,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3266,7 +3237,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3357,7 +3327,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3391,7 +3360,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3424,7 +3392,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3493,7 +3460,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3527,7 +3493,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3561,7 +3526,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3597,7 +3561,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3631,7 +3594,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3665,7 +3627,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3729,7 +3690,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3763,7 +3723,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3797,7 +3756,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3831,7 +3789,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3865,7 +3822,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3899,7 +3855,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3963,7 +3918,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -3997,7 +3951,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -4031,7 +3984,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
@@ -4065,7 +4017,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
-                                      height: '20px',
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',

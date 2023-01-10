@@ -135,7 +135,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'front', comma = 'e
 
 export const removePrefixOrSuffix = (unitOfValue) => {
   const value = String(unitOfValue).replace(/([a-zA-Z])/g, '');
- 
+  
   return Number(value);
 };
 
@@ -147,7 +147,7 @@ export const removePrefixOrSuffix = (unitOfValue) => {
  */
 export const checkNan = (unitOfValue, type = false, number = 2) => {
   if (isNaN(unitOfValue)) return '';
-  if (type === 'no') return Number(unitOfValue)?.toFixed(2);
+  if (type == 'no') return Number(unitOfValue)?.toFixed(2);
   if (!type) {
     return Number(unitOfValue)?.toLocaleString('en-IN', {
       maximumFractionDigits: 2,

@@ -141,7 +141,7 @@ function Index(props) {
                 },
               ],
         );
-        console.log(savedData.addresses,"savedData.addresses")
+     
         setAddressList(savedData.addresses);
         setMultiList(savedData.multiPartyAddresses);
         setSupplierState(supplier);
@@ -201,7 +201,7 @@ function Index(props) {
             : []
               
         );
-        console.log(props.data.addresses,"props.data.addresses")
+      
         setAddressList(props.data.addresses);
        
         setSupplierState(supplier);
@@ -209,11 +209,7 @@ function Index(props) {
       }
     }
   }, [props.data]);
-  console.log(multiList,"multiList")
-  // useEffect(() => {
-  //   setMultiList([])
-  // },[props.data.multiParty])
-console.log(addressList,"aasdads")
+ 
   useEffect(() => {
     
     if (getPincodesMasterData.length > 0) {
@@ -233,7 +229,7 @@ console.log(addressList,"aasdads")
     
      setToView2(true)
  }
- console.log(toView,"SAdasd")
+
   const onEditRemove = (index, value) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -379,7 +375,7 @@ console.log(addressList,"aasdads")
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
   const handleData = (name, value) => {
-    console.log("thsss")
+   
     const newInput = { ...newAddress };
     newInput[name] = value.Pincode;
     newInput.country = 'India';
@@ -390,15 +386,15 @@ console.log(addressList,"aasdads")
     setToView(false);
   };
    const handleData2 = (name, value) => {
-    console.log("thsss")
+   
  
     const newInput = { ...newMultiAddress };
-    console.log(newInput,"newInput")
+ 
     newInput[name] = value.Pincode;
     newInput.country = 'India';
     newInput.city = value.City;
     newInput.state = value.State;
-    console.log(newInput,"newInput")
+  
     setNewMultiAddress(newInput);
     setToView2(false);
   };
@@ -430,7 +426,7 @@ console.log(addressList,"aasdads")
     setToView2(false);
   };
  
-  console.log(newAddress,"newAddress")
+
   const [isEdit, setIsEdit] = useState(false);
    const setAddress = (name, value) => {
     const newInput = { ...newAddress };
@@ -446,7 +442,7 @@ console.log(addressList,"aasdads")
    
     tempArr.forEach((val, i) => {
       if (i == index) {
-        console.log(val,"val")
+     
         setEditAddress({
           addressType: val.addressType,
           fullAddress: val.fullAddress,
@@ -554,7 +550,7 @@ console.log(addressList,"aasdads")
     newInput[name] = value;
     setNewMultiAddress(newInput);
   };
-  console.log(newMultiAddress,"newMultiAddress")
+ 
   const [isEditMulti, setIsEditMulti] = useState(false);
   const [toEditIndexMulti, setToEditIndexMulti] = useState(0);
   const handleEditAddressMuliInput = (index, val) => {

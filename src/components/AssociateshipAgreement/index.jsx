@@ -8,6 +8,8 @@ import _get from 'lodash/get';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
+import {Row, Col} from 'react-bootstrap'
+import GrowInput from '../GrowInput'
 
 function Index(props) {
   const [active, setActive] = useState('none');
@@ -100,7 +102,6 @@ function Index(props) {
           priceOfGoods: data?.perUnitPrice,
 
           commodityDetails: data?.commodityDetails,
-          unitPrice: data.unitPrice,
           tradeMargin: data.tradeMargin,
           deliveryTerm: data.deliveryTerm,
           totalPrice: data?.totalPrice,
@@ -189,7 +190,6 @@ function Index(props) {
           storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
           priceOfGoods: data?.order?.perUnitPrice,
           commodityDetails: data?.order?.commodity,
-          unitPrice: data.order?.perUnitPrice,
           tradeMargin: data.order?.termsheet?.commercials?.tradeMarginPercentage,
           deliveryTerm: data.deliveryTerms.deliveryTerm,
           totalPrice: data?.order?.marginMoney?.calculation?.orderValue,

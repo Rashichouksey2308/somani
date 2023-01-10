@@ -127,7 +127,6 @@
           }
         }
         .dropDown {
-          border: 1px solid #0000001f;
           border-radius: 4px;
           font-size: 20px;
           line-height: 1;
@@ -500,7 +499,6 @@
               border-top: 2px solid #f2f5f9;
               border-bottom: 2px solid #f2f5f9;
               white-space: nowrap;
-              text-transform: uppercase;
               &:first-child {
                 padding-left: 35px;
                 @include respond(md-desktop) {

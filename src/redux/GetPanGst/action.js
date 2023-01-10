@@ -2,8 +2,8 @@ import * as types from './actionType'
 import API from '../../utils/endpoints'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
-import { toast } from 'react-toastify'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { handleErrorToast } from '@/utils/helpers/global'
 
 function getPanGst () {
   return {
@@ -38,7 +38,7 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.post(
+   await Axios.post(
       `${API.userbaseUrl}${API.getPanGst}`,
       { name: payload.query },
       {
@@ -49,20 +49,14 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
         dispatch(getPanGstSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getPanGstFailed(response.data.data))
-        const toastMessage = 'FAILED TO GET COMPANY PAN'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getPanGstFailed())
+        handleErrorToast('FAILED TO GET COMPANY PAN')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getPanGstFailed())
-    const toastMessage = error.message
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast(error.message)
     dispatch(setNotLoading())
   }
 }

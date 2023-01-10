@@ -13,7 +13,6 @@ import { number } from 'prop-types';
 import 'react-datepicker/dist/react-datepicker.css';
 import { checkNan, convertValue } from '../../utils/helper';
 import moment from 'moment';
-import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { settingSidebar } from 'redux/breadcrumb/action';
 import { getInternalCompanies } from '../../../src/redux/masters/action';
@@ -91,10 +90,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       });
     });
     if (balance < 0) {
-      let toastMessage = `igm cannot be greater than order quantity`;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+     handleErrorToast(`igm cannot be greater than order quantity`)
     }
     return balance;
   };
@@ -160,15 +156,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   };
 
   const onChangeIgm = (name, text, index) => {
-    if (name === 'blQuantity') {
-      if (checkRemainingBalance() < value) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-      }
-    }
-
     let newData = { ...igmList };
     newData.igmDetails[index][name] = text;
     if (name === 'vesselName') {
@@ -408,10 +395,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         igmList.igmDetails[i].igmNumber == undefined ||
         igmList.igmDetails[i].igmNumber == null
       ) {
-        toastMessage = 'PLS ADD IGM NUMBER';
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage });
-        }
+       handleErrorToast('PLS ADD IGM NUMBER')
         return false;
       }
       if (
@@ -419,10 +403,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         igmList.igmDetails[i].igmFiling == undefined ||
         igmList.igmDetails[i].igmFiling == null
       ) {
-        toastMessage = 'PLS ADD IMG FILING DATE ';
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage });
-        }
+       handleErrorToast('PLS ADD IMG FILING DATE ')
         return false;
       }
       for (let j = 0; j < igmList.igmDetails[i].blNumber.length; j++) {
@@ -431,10 +412,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           igmList.igmDetails[i].blNumber[j].blNumber == undefined ||
           igmList.igmDetails[i].blNumber[j].blNumber == null
         ) {
-          toastMessage = 'PLS SELECT BL NUMBER ';
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
-          }
+          handleErrorToast('PLS SELECT BL NUMBER ')
           return false;
         }
         if (
@@ -442,10 +420,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           igmList.igmDetails[i].blNumber[j].blDate == undefined ||
           igmList.igmDetails[i].blNumber[j].blDate == null
         ) {
-          toastMessage = 'PLS SELECT BL NUMBER ';
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
-          }
+         handleErrorToast('PLS SELECT BL NUMBER ')
           return false;
         }
         if (
@@ -453,33 +428,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           igmList.igmDetails[i].blNumber[j].blQuantity == undefined ||
           igmList.igmDetails[i].blNumber[j].blQuantity == null
         ) {
-          toastMessage = 'PLS SELECT BL NUMBER ';
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
-          }
+        handleErrorToast('PLS SELECT BL NUMBER ')
           return false;
         }
-        // if (
-        //   igmList.igmDetails[i].blNumber[j].noOfContainers == '' ||
-        //   igmList.igmDetails[i].blNumber[j].noOfContainers == undefined ||
-        //   igmList.igmDetails[i].blNumber[j].noOfContainers == null
-        // ) {
-        //   toastMessage = 'PLS ADD NUMBER OF CONTAINERS ';
-        //   if (!toast.isActive(toastMessage)) {
-        //     toast.error(toastMessage, { toastId: toastMessage });
-        //   }
-        //   return false;
-        // }
       }
       if (
         igmList.igmDetails[i].document == '' ||
         igmList.igmDetails[i].document == undefined ||
         igmList.igmDetails[i].document == null
       ) {
-        toastMessage = 'PLS UPLOAD IGM COPY';
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage });
-        }
+      handleErrorToast('PLS UPLOAD IGM COPY')
         return false;
       }
       return true;
@@ -488,17 +446,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
   const handleSubmit = async () => {
     if (consigneeInfo.name == '' || consigneeInfo.name == undefined || consigneeInfo.name == null) {
-      let toastMessage = 'PLS ADD CONSIGNEE NAME';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+     handleErrorToast('PLS ADD CONSIGNEE NAME')
       return;
     }
     if (consigneeInfo.branch == '' || consigneeInfo.branch == undefined || consigneeInfo.branch == null) {
-      let toastMessage = 'PLS ADD CONSIGNEE BRANCH';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+      handleErrorToast('PLS ADD CONSIGNEE BRANCH')
       return;
     }
     if (validation() == false) {
@@ -549,7 +501,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         <div className={`${styles.vessel_card} border_color`}>
           <div className={`${styles.wrapper} border_color card`}>
             <div className="d-lg-flex align-items-center d-inline-block">
-              <h2 className="">Shipment Type</h2>
+              <h2>Shipment Type</h2>
               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
@@ -1151,11 +1103,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
               ]}
               orderid={orderId}
             />
-            {/* <InspectionDocument
-              module="Loading-Transit-Unloading"
-              orderId={orderId}
-              documentName="IGM Copy"
-            /> */}
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />

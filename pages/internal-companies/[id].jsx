@@ -16,9 +16,9 @@ function Index() {
 
   const { internalCompanyResponse } = useSelector((state) => state.internalCompanies);
   const internalCompanyData = _get(internalCompanyResponse, 'data[0]', {});
+  const id = sessionStorage.getItem('internalCompanyId');
 
   useEffect(() => {
-    let id = sessionStorage.getItem('internalCompanyId');
     if (!id) return;
     dispatch(GetInternalCompanies(`?internalCompanyId=${id}`));
   }, [dispatch]);
@@ -31,10 +31,9 @@ function Index() {
     CIN_No: '',
   });
 
-  let id = sessionStorage.getItem('internalCompanyId');
 
   useEffect(() => {
-    // console.log(id, 'ID')
+  
     if (id) {
       setCompanyData({
         Country: internalCompanyData?.Country,
@@ -45,7 +44,7 @@ function Index() {
       });
 
       //getting addresses
-      let addressArr = [];
+      const addressArr = [];
       internalCompanyData?.keyAddresses?.forEach((element) => {
         addressArr.push(element);
       });
@@ -53,7 +52,7 @@ function Index() {
 
       // getting authorised signatory
 
-      let authorisedArr = [];
+      const authorisedArr = [];
       internalCompanyData?.authorisedSignatoryDetails?.forEach((element) => {
         authorisedArr.push(element);
       });
@@ -61,7 +60,7 @@ function Index() {
 
       // getting bank details
 
-      let bankArr = [];
+      const bankArr = [];
       internalCompanyData?.keyBanks?.forEach((element) => {
         bankArr.push(element);
       });
@@ -70,7 +69,7 @@ function Index() {
   }, [companyData?.Country]);
 
   const saveCompanyData = (name, value) => {
-    let newInput = { ...companyData };
+    const newInput = { ...companyData };
     newInput[name] = value;
     setCompanyData(newInput);
   };
@@ -78,7 +77,7 @@ function Index() {
   const [keyAddData, setKeyAddData] = useState([]);
 
   const keyAddDataArr = (keyAddressData) => {
-    let newArr = [...keyAddData];
+    const newArr = [...keyAddData];
     newArr.push(keyAddressData);
     setKeyAddData(newArr);
   };
@@ -86,7 +85,7 @@ function Index() {
   const updateKeyAddDataArr = (newData, index) => {
     setKeyAddData((prevState) => {
       const newState = prevState.map((obj, i) => {
-        if (i == index) {
+        if (i === index) {
           return newData;
         }
 
@@ -106,14 +105,13 @@ function Index() {
       name: '',
       designation: '',
       email: '',
-      // phoneNo: '',
     },
   ]);
 
   const [bankDetails, setBankDetails] = useState([]);
 
   const bankDataArr = (bank) => {
-    let newArr = [...bankDetails];
+    const newArr = [...bankDetails];
     newArr.push(bank);
     setBankDetails(newArr);
   };
@@ -121,7 +119,7 @@ function Index() {
   const updateBankDataArr = (newData, index) => {
     setBankDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
-        if (i == index) {
+        if (i === index) {
           return newData;
         }
 
@@ -137,7 +135,7 @@ function Index() {
   };
 
   const handleSubmit = () => {
-    let data = {
+    const data = {
       Country: companyData.Country,
       Company_Name: companyData.Company_Name,
       Short_Name: companyData.Short_Name,
@@ -147,7 +145,7 @@ function Index() {
       authorisedSignatoryDetails: [...authorisedSignatoryDetails],
       keyBanks: [...bankDetails],
     };
-    let data2 = {
+    const data2 = {
       Country: companyData.Country,
       Company_Name: companyData.Company_Name,
       Short_Name: companyData.Short_Name,

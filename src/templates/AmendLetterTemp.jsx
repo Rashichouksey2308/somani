@@ -30,7 +30,7 @@ const returnValue = (value) => {
     return `(+/-) ${value.newValue}  %`;
   } else if (value.dropDownValue === '(31D) Date Of Expiry'||value.dropDownValue === '(44C) Latest Date Of Shipment') {
     return moment(value.newValue).format('DD-MM-YYYY');
-  } else if (value.dropDownValue === '(42C) Draft At' && lcData.atSight == 'Usuance') {
+  } else if (value.dropDownValue === '(42C) Draft At' && lcModuleData?.lcApplication?.atSight == 'Usuance') {
     return `Usuance - ${value.newValue} days`;
   } else {
     return value.newValue.toUpperCase()

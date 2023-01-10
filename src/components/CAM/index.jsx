@@ -60,7 +60,7 @@ function Index({
   setTop5Customers1,
   camConversionunit,
   totalLimitDebt,
-  CreditAgency,
+  creditAgency,
   litigationStatus,
   debtProfileColor,
   allBuyerList,
@@ -233,27 +233,6 @@ function Index({
     ],
   };
 
-  // const options = {
-  //   elements: {
-  //     arc: {
-  //       borderWidth: 0,
-  //     },
-  //   },
-  //   plugins: {
-  //     title: {
-  //       animation: {
-  //         animateScale: true,
-  //       },
-  //     },
-
-  //     legend: {
-  //       display: false,
-  //     },
-  //   },
-  //   responsive: true,
-  //   cutout: 130,
-  // };
-
   const options = {
     aspectRatio: 1,
     elements: {
@@ -308,10 +287,10 @@ function Index({
       },
     },
 
-    tooltip: {
-      titleFontSize: 50,
-      bodyFontSize: 50,
-    },
+    // tooltip: {
+    //   titleFontSize: 50,
+    //   bodyFontSize: 50,
+    // },
 
     responsive: true,
     cutout: 95,
@@ -328,6 +307,8 @@ function Index({
         display: false,
       },
       tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
         position: 'nearest',
         callbacks: {
           label: function (context) {
@@ -806,7 +787,7 @@ function Index({
         latestAuditorData,
         previousAuditorData,
         companyData,
-        CreditAgency,
+        creditAgency,
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options2, tempArr, camData, backgroundColor, backgroundColor1)}
@@ -1343,7 +1324,7 @@ const creditProfile = (
   latestAuditorData,
   previousAuditorData,
   companyData,
-  CreditAgency,
+  creditAgency,
 ) => {
   return (
     <>
@@ -1368,7 +1349,7 @@ const creditProfile = (
                 </Col>
                 <Col className={`  d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>External Credit rating</span>
-                  <span className={`${styles.value} value`}>{CreditAgency()?.rating_}</span>
+                  <span className={`${styles.value} value`}>{creditAgency()?.rating_}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1378,7 +1359,7 @@ const creditProfile = (
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Credit Rating Agency</span>
-                  <span className={`${styles.value} value`}>{CreditAgency()?.ratingAgency}</span>
+                  <span className={`${styles.value} value`}>{creditAgency()?.ratingAgency}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -3879,7 +3860,6 @@ const skewness = (
   );
 };
 const customerRating = (data, filteredCreditRating, rating, darkMode, rotateImage) => {
-  
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>

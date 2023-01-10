@@ -104,7 +104,7 @@ function Index(props) {
             comment.push(val.comment);
           }
         });
-      console.log(data?.CMA,"data?.CMA?")
+    
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
@@ -149,12 +149,10 @@ function Index(props) {
           cmaAddress: _get(data, 'CMA.addresses[0]', {}),
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           designatedStorageArea: data?.CMA?.designatedStorageArea,
-          supplierAddress: _get(data, 'supplier.addresses[0]', {}),
         });
       }
     }
   }, [props]);
-  console.log(data,"Aasasd")
   return (
     <>
       {/* TPA (CMA) pdf download code end */}

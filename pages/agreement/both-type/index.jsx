@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import _get from 'lodash/get';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import ReactDOMServer from 'react-dom/server';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ function Index() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId');
+    const id = sessionStorage.getItem('letterId');
     dispatch(GettingAllInsurance(`?insuranceId=${id}`));
   }, [dispatch]);
 
@@ -31,14 +31,14 @@ function Index() {
   };
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {});
+  const insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [emailAdd, setEmailAdd] = useState([{ emailID: '' }]);
   const [insuranceAdd, setinsuranceAdd] = useState([{ insurance: '' }]);
   const handleDeleteEmail = (index) => {
     setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
   };
   const addMoreRows = (val) => {
-    if (val == 'email') {
+    if (val === 'email') {
       setEmailAdd([
         ...emailAdd,
         {
@@ -104,9 +104,6 @@ function Index() {
               <div className={`${styles.details_content} mb-1`}>
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  {/* {moment(insuranceData?.createdAt?.split('T')[0]).format(
-              'DD.MM.yyyy',
-            )} */}
                   {moment(new Date()).format('DD.MM.yyyy')}
                 </span>
               </div>

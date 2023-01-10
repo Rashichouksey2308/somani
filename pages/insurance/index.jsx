@@ -13,12 +13,14 @@ import moment from 'moment';
 function Index() {
   const dispatch = useDispatch();
 
-  let d = new Date();
+  const d = new Date();
 
   const [searchTerm, setSearchTerm] = useState('');
 
   const { searchedLeads } = useSelector((state) => state.order);
 
+  const renewRoute = '/insurance-renew/id';
+  const editInsuranceRoute = '/insurance/form/both';
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
@@ -47,42 +49,32 @@ function Index() {
   };
 
   const handleEditRoute = (insured) => {
-    
     sessionStorage.setItem('quotationId', insured._id);
-    if(
-    insured.insuranceType=="marine"
-
-    ){
-  if (
-       moment(insured?.marineInsurance?.insuranceTo).isBefore(moment()) 
-    ) {
-      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
-      Router.push('/insurance-renew/id');
-    } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
-      Router.push('/insurance/form/both');
-    }
-    }else if( insured.insuranceType=="storage"){
-      if (
-
-        moment(insured?.storageInsurance?.insuranceTo).isBefore(moment())
-      ) {
-      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
-      Router.push('/insurance-renew/id');
+    if (insured.insuranceType === 'marine') {
+      if (moment(insured?.marineInsurance?.insuranceTo).isBefore(moment())) {
+        dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
+        Router.push(renewRoute);
       } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
-      Router.push('/insurance/form/both');
+        Router.push(editInsuranceRoute);
       }
-      }else{
+    } else if (insured.insuranceType === 'storage') {
+      if (moment(insured?.storageInsurance?.insuranceTo).isBefore(moment())) {
+        dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
+        Router.push(renewRoute);
+      } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
+        Router.push(editInsuranceRoute);
+      }
+    } else {
       if (
         moment(insured?.marineInsurance?.insuranceTo).isBefore(moment()) ||
         moment(insured?.storageInsurance?.insuranceTo).isBefore(moment())
       ) {
-      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
-      Router.push('/insurance-renew/id');
+        dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
+        Router.push(renewRoute);
       } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
-      Router.push('/insurance/form/both');
+        Router.push(editInsuranceRoute);
       }
-      }
-  
+    }
   };
 
   useEffect(() => {

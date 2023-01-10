@@ -17,7 +17,6 @@ function Index(props) {
   const [total, setTotal] = useState([]);
   const [sorting, setSorting] = useState(1);
 
-  const { generic } = useSelector((state) => state?.generic?.allGeneric);
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Agreement & LC Module');
@@ -34,18 +33,18 @@ function Index(props) {
   }, [currentPage, dispatch]);
 
   const getDate = async () => {
-    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`));
+    const data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`));
     setData(data?.data);
     setTotal(data?.totalCount);
   };
   const handleSort = async () => {
-    if (sorting == -1) {
-      let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
+    if (sorting === -1) {
+      const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
       setData(data?.data);
       setTotal(data?.totalCount);
       setSorting(1);
-    } else if (sorting == 1) {
-      let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
+    } else if (sorting === 1) {
+      const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
       setData(data?.data);
       setTotal(data?.totalCount);
       setSorting(-1);
@@ -58,9 +57,6 @@ function Index(props) {
     sessionStorage.setItem('genericSelected', JSON.stringify(term));
     sessionStorage.setItem('genericID', term.order.orderId);
     Router.push('/generic');
-
-    //  dispatch(setDynamicName(null))
-    // Router.push('/lc-module')
   };
 
   return (
@@ -145,23 +141,6 @@ function Index(props) {
 
                           <td>{term?.order?.commodity ?? ''}</td>
                           <td>{term?.company?.customerId ?? ''}</td>
-                          {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
-                          {/* <td>
-                        <span
-                          className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
-                            ? styles.review
-                            : term?.order?.queue === 'CreditQueue'
-                              ? styles.approved
-                              : styles.rejected
-                            }`}
-                        ></span>
-
-                        {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
-                          ? 'Review'
-                          : term?.order?.queue === 'CreditQueue'
-                            ? 'Approved'
-                            : 'Rejected'}
-                      </td> */}
                         </tr>
                       ))}
                   </tbody>

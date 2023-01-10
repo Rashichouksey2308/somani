@@ -2,9 +2,9 @@ import Cookies from 'js-cookie';
 import Axios from 'axios';
 import API from '../../utils/endpoints';
 import * as types from './actionType';
-import { toast } from 'react-toastify';
+
 import { setIsLoading, setNotLoading } from '../Loaders/action';
-import { handleSuccessToast } from '@/utils/helpers/global';
+import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
 
 const errorMessage = {
   status: 400,
@@ -144,7 +144,7 @@ function VerifyingConsolidatedGstFailed() {
 
 export const UpdateCam = (payload, message) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  console.log(payload.status, 'payload');
+
   let cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -156,32 +156,21 @@ export const UpdateCam = (payload, message) => async (dispatch, getState, api) =
     });
 
     if (response.data.code === 200) {
-      dispatch(updatingCamSuccess(response.data.data));
-
+      dispatch(updatingCamSuccess());
       sessionStorage.setItem('termsheetId', response.data.data.order._id);
       sessionStorage.setItem('termID', response.data.data.order.termsheet._id);
       sessionStorage.setItem('termOrdID', response.data.data.order._id);
-      const toastMessage = message;
-
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleSuccessToast(message);
       dispatch(setNotLoading());
       return response.data.code;
     } else {
-      dispatch(updatingCamFailed(response.data.data));
-      const toastMessage = response.data.message;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(updatingCamFailed());
+      handleErrorToast(response.data.message);
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(updatingCamFailed());
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
     dispatch(setNotLoading());
   }
 };
@@ -209,15 +198,12 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
       dispatch(gettingDocumentsSuccess(response.data.data));
       dispatch(setNotLoading());
     } else {
-      dispatch(gettingDocumentsFailed(response.data.data));
+      dispatch(gettingDocumentsFailed());
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(gettingDocumentsFailed());
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
     dispatch(setNotLoading());
   }
 };
@@ -237,27 +223,21 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     };
     dispatch(VerifyingGst());
 
-    // Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
-    Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
+    // await Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
+      const response =  await Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
       headers: headers,
     });
     if (response.data.code === 200) {
       dispatch(VerifyingGstSuccess(response.data.data));
       dispatch(setNotLoading());
     } else {
-      dispatch(VerifyingGstFailed(response.data.data));
-      const toastMessage = response.data.message;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(VerifyingGstFailed());
+      handleErrorToast(response.data.message);
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(VerifyingGstFailed());
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
     dispatch(setNotLoading());
   }
 };
@@ -277,31 +257,22 @@ export const getGstData = (payload) => async (dispatch, getState, api) => {
     };
     dispatch(VerifyingGst());
 
-    Axios.post(`${API.corebaseUrl}${API.sendGst}`, payload, {
+    await Axios.post(`${API.corebaseUrl}${API.sendGst}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(VerifyingGstSuccess(response.data.data));
         dispatch(setNotLoading());
-        let toastMessage = 'request sent successfully';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleSuccessToast('request sent successfully');
       } else {
-        dispatch(VerifyingGstFailed(response.data.data));
-        let toastMessage = response.data.message;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(VerifyingGstFailed());
+        handleErrorToast(response.data.message);
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(VerifyingGstFailed());
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
     dispatch(setNotLoading());
   }
 };
@@ -321,27 +292,21 @@ export const getConsolidatedGstData = (payload) => async (dispatch, getState, ap
     };
     dispatch(VerifyingConsolidatedGst());
 
-    Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
+    await Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(VerifyingConsolidatedGstSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(VerifyingConsolidatedGstFailed(response.data.data));
-        let toastMessage = response.data.message;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(VerifyingConsolidatedGstFailed());
+        handleErrorToast(response.data.message);
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(VerifyingConsolidatedGstFailed());
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
     dispatch(setNotLoading());
   }
 };
@@ -365,27 +330,17 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
     });
     if (response.data.code === 200) {
       dispatch(addingDocumentsSuccess(response.data.data));
-
-      const toastMessage = 'Document Successfully Added';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleSuccessToast('Document Successfully Added');
       dispatch(setNotLoading());
       return response.data.code;
     } else {
-      dispatch(addingDocumentsFailed(response.data.data));
-      const toastMessage = response.data.message;
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(addingDocumentsFailed());
+      handleErrorToast(response.data.message);
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(addingDocumentsFailed());
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
     dispatch(setNotLoading());
   }
 };
@@ -408,23 +363,17 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     if (response.data.code === 200) {
       dispatch(deleteDocumentsSuccess(response.data.data));
       handleSuccessToast('Document Successfully DELETED');
-   let orderid = sessionStorage.getItem('DocRefetchId');
-   orderid && dispatch(GetDocuments(`?order=${orderid}`));
+      let orderid = sessionStorage.getItem('DocRefetchId');
+      orderid && dispatch(GetDocuments(`?order=${orderid}`));
       dispatch(setNotLoading());
     } else {
-      dispatch(deleteDocumentsFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(deleteDocumentsFailed());
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME')
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(deleteDocumentsFailed());
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
     dispatch(setNotLoading());
   }
 };
@@ -447,19 +396,13 @@ export const changeModuleDocument = (payload) => async (dispatch, getState, api)
 
       dispatch(setNotLoading());
     } else {
-      dispatch(changeModuleDocumentsFailed(response.data.data));
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(changeModuleDocumentsFailed());
+     handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME')
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(changeModuleDocumentsFailed());
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+   handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
     dispatch(setNotLoading());
   }
 };

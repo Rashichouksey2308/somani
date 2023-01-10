@@ -5,6 +5,7 @@ import Router from 'next/router';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 function createBuyer() {
   return {
@@ -195,11 +196,11 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
+  await  Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(createBuyerSuccess(response.data.data));
+        dispatch(createBuyerSuccess());
 
         const toastMessage = 'Lead Created Successfully';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -212,20 +213,14 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
 
         dispatch(setNotLoading());
       } else {
-        dispatch(createBuyerFailed(response.data.data));
-        const toastMessage = response.data.message;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(createBuyerFailed());
+       handleErrorToast(response.data.message)
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(createBuyerFailed());
-    const toastMessage = error.message;
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+   handleErrorToast(error.message)
     dispatch(setNotLoading());
   }
 };
@@ -247,12 +242,12 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
     });
 
     if (response.data.code === 200) {
-      dispatch(updateBuyerSuccess(response.data));
+      dispatch(updateBuyerSuccess());
 
       dispatch(setNotLoading());
       return 200;
     } else {
-      dispatch(updateBuyerFailed(response.data));
+      dispatch(updateBuyerFailed());
 
       dispatch(setNotLoading());
       return 500;
@@ -292,7 +287,7 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getBuyerOrder}?company=${payload.companyId}&order=${payload.orderId}`, {
+   await Axios.get(`${API.corebaseUrl}${API.getBuyerOrder}?company=${payload.companyId}&order=${payload.orderId}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
@@ -300,11 +295,8 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
 
         dispatch(setNotLoading());
       } else {
-        dispatch(getBuyerFailed(response.data.data));
-        const toastMessage = 'Could not fetch Company Details';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(getBuyerFailed());
+     handleErrorToast('Could not fetch Company Details')
         dispatch(setNotLoading());
       }
     });
@@ -327,24 +319,20 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   };
   try {
     dispatch(getAllBuyer());
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload || ''}`, {
+    await Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload || ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllBuyerSuccess(response.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getAllBuyerFailed(response.data));
-        const toastMessage = 'Could not fetch Company Details';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(getAllBuyerFailed());
+        handleErrorToast('Could not fetch Company Details')
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(getAllBuyerFailed());
-
     dispatch(setNotLoading());
   }
 };
@@ -365,11 +353,8 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
 
       dispatch(setNotLoading());
     } else {
-      dispatch(getAllOrderFailed(response.data.data));
-      const toastMessage = 'Getting orders failed';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(getAllOrderFailed());
+     handleErrorToast('Getting orders failed')
       dispatch(setNotLoading());
     }
   } catch (error) {
@@ -391,18 +376,15 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
     };
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload || ''}`, {
+   await Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload || ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getOrderSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getOrderFailed(response.data.data));
-        const toastMessage = 'Getting Order List Failed';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(getOrderFailed());
+       handleErrorToast('Getting Order List Failed')
         dispatch(setNotLoading());
       }
     });
@@ -419,13 +401,13 @@ export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
     const response = await api.delete(`${API.createBuyer}?BuyerId=${payload.BuyerId}`);
 
     if (response.data.code === 200) {
-      dispatch(deleteBuyerSuccess(response.data.data));
+      dispatch(deleteBuyerSuccess());
 
       payload.history.go(0);
       toast.error('Buyer Deleted Succesfully');
       dispatch(setNotLoading());
     } else {
-      dispatch(deleteBuyerFailed(response.data.data));
+      dispatch(deleteBuyerFailed());
       toast.error('Buyer could not be deleted');
       dispatch(setNotLoading());
     }
@@ -448,17 +430,14 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.post(`${API.userbaseUrl}${API.getGst}`, { pan: payload }, { headers: headers }).then((response) => {
+   await Axios.post(`${API.userbaseUrl}${API.getGst}`, { pan: payload }, { headers: headers }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getGstSuccess(response.data));
 
         dispatch(setNotLoading());
       } else {
-        dispatch(getGstFailed(response.data));
-        const toastMessage = 'Could not fetch Gst at this moment';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(getGstFailed());
+        handleErrorToast('Could not fetch Gst at this moment')
         dispatch(setNotLoading());
       }
     });
@@ -481,7 +460,7 @@ export const UploadDocument = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.post(`${API.corebaseUrl}${API.uploadDocuments}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.uploadDocuments}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

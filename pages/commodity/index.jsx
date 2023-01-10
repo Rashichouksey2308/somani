@@ -10,7 +10,7 @@ import { GetAllCommodity, GetCommodity } from '../../src/redux/commodity/action'
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import ToggleSwitch from '../../src/components/ToggleSwitch'
 
-const index = () => {
+const Index = () => {
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
@@ -39,8 +39,6 @@ const index = () => {
 
   const handleFilteredData = (e) => {
     setSearchTerm('');
-    const id = `${e.target.id}`;
-    // dispatch(GetAllCommodity(`?company=${id}`));
   };
 
   const handleRoute = (commodity) => {
@@ -202,17 +200,6 @@ const index = () => {
 
                           <td>{commodity.Chapter_Code}</td>
                           <td> <ToggleSwitch/></td>
-                          {/* {commodity && commodity.Approved_Commodity == 'Yes' ? (
-                            <td>
-                              <img src="/static/active.svg" className="img-fluid" alt="active" />
-                              <span className="m-3">{'Yes'}</span>
-                            </td>
-                          ) : (
-                            <td>
-                              <img src="/static/blacklisted.svg" className="img-fluid" alt="blacklisted" />
-                              <span className="m-3">No</span>
-                            </td>
-                          )} */}
                           <td>
                             {' '}
                             <div className={`${styles.edit_image} img-fluid`} onClick={() => handleRoute(commodity)}>
@@ -236,4 +223,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

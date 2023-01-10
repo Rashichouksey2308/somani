@@ -6,7 +6,7 @@ import _get from 'lodash/get';
 import styles from './index.module.scss';
 import { useDispatch } from 'react-redux';
 
-function index({ data, Heading, val, totalData }) {
+function Index({ data, Heading, val, totalData }) {
   const dispatch = useDispatch();
   const [count, setCount] = useState({
     pending: 0,
@@ -135,4 +135,4 @@ function index({ data, Heading, val, totalData }) {
   );
 }
 
-export default index;
+export default Index;

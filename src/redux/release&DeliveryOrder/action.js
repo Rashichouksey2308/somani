@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global'
 
 function getDelivery () {
   return {
@@ -69,28 +70,21 @@ export const GetAllDelivery = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(`${API.corebaseUrl}${API.delivery}${payload || ''}`, {
+   await Axios.get(`${API.corebaseUrl}${API.delivery}${payload || ''}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllDeliverySuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getAllDeliveryFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getAllDeliveryFailed())
+       handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getAllDeliveryFailed())
-
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
@@ -103,28 +97,21 @@ export const GetDelivery = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(`${API.corebaseUrl}${API.delivery}${payload}`, {
+   await Axios.get(`${API.corebaseUrl}${API.delivery}${payload}`, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getDeliverySuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getDeliveryFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getDeliveryFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getDeliveryFailed())
-
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME')
     dispatch(setNotLoading())
   }
 }
@@ -137,7 +124,7 @@ export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.delivery}`, payload.payload, {
+   await Axios.put(`${API.corebaseUrl}${API.delivery}`, payload.payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
@@ -149,26 +136,17 @@ export const UpdateDelivery = (payload) => async (dispatch, getState, api) => {
         if (payload.task === 'submit') {
           toastMessage = 'updated successfully'
         }
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+       handleSuccessToast(toastMessage)
         dispatch(setNotLoading())
       } else {
-        dispatch(updateDeliveryFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(updateDeliveryFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(updateDeliveryFailed())
-
-    const toastMessage = 'COULD NOT SUBMIT YOUR REQUEST'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT SUBMIT YOUR REQUEST')
     dispatch(setNotLoading())
   }
 }
@@ -181,28 +159,21 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.delivery}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.delivery}`, payload, {
       headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getDeliverySuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
-        dispatch(getDeliveryFailed(response.data.data))
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+        dispatch(getDeliveryFailed())
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
         dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getDeliveryFailed())
-
-    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST AT THIS TIME')
     dispatch(setNotLoading())
   }
 }

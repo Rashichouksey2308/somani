@@ -169,11 +169,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     handlereleaseDetailChange(name, doc, index);
   };
 
-  const handleCloseO = () => {
-    setDocuments((doc) => {
-      return { ...doc, certificateOfOrigin: null };
-    });
-  };
+ 
   const onSaveHAndler = async () => {
     let payload = {
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
@@ -362,18 +358,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                                   />
                                   <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
-
-                                {/* <div className={`${styles.certificate} d-flex justify-content-between`}>
-                                  <span>
-                                    release.pdf
-                                  </span>
-                                  <img
-                                    className={`${styles.close_image}`}
-                                    src="/static/close.svg"
-                                    onClick={() => handleCloseO()}
-                                    alt="Close"
-                                  />{' '}
-                                </div>   */}
                                 {releaseDetail.length > 1 && (
                                   <img
                                     onClick={() => handleDeleteRow(index)}
@@ -392,17 +376,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                                   />
                                 )}
                               </div>
-                              {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
                             </>
                           ) : (
                             <>

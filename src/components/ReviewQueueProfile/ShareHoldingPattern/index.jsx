@@ -96,7 +96,6 @@ function Index({ shareHolding }) {
     totalPrefrenceSharePercentage += item.percentageShareHolding;
   });
 
- 
   const equitydata = {
     labels: equityShareName,
    
@@ -140,13 +139,13 @@ function Index({ shareHolding }) {
                   position: 'nearest',
                    callbacks: {
                     label: function(context) {
-                      
+                     
                         let label;
                         if (context.parsed !== null && context.parsed !== undefined) {
                              let number= context.parsed.toLocaleString("en-In")
                              label=`${context.label}, ${number} `
                         }
-                        
+                      
                         return label;
                     }
                 }

@@ -15,7 +15,7 @@ import AddressComponent from './addressComponent';
 import styles from './index.module.scss';
 import { getPincodes } from 'redux/masters/action';
 
-const index = ({
+const Index = ({
   creditDetail,
   keyAddDataArr,
   saveProductData,
@@ -142,10 +142,6 @@ const index = ({
     setDebtData([...tempArr]);
   };
 
-  const onDebtSave = () => {
-    addDebtArr(debt);
-  };
-
   const setActions = (index, val) => {
     setDebtData((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -213,11 +209,7 @@ const index = ({
   const gettingPins = (value) => {
     dispatch(getPincodes(value));
   };
-  const onKeyPersonSave = () => {
-   
-    addPersonArr(keyPersonData);
-  };
-
+ 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData };
     newInput[name] = value;
@@ -482,7 +474,6 @@ const index = ({
  const handleSupplierSearch = (e) => {
     setSupplierShow(false);
     const query = e;
-    // const query = `${e.target.value}`;
     setSupplierTerm(query);
     if (query.length >= 3) {
       dispatch(SearchSupplier(query));
@@ -493,11 +484,10 @@ const index = ({
       setSupplierShow(true)
     }
   },[searchedSupplier])
-  
+ 
   const handleSearch = (e) => {
     setRemoveInput(false);
     const query = e;
-    // const query = `${e.target.value}`;
     setSearchTerm(query);
     if (query.length >= 3) {
       dispatch(SearchSupplier(query));
@@ -808,8 +798,6 @@ const index = ({
                     searchTerm={searchTerm}
                     searchedSupplier={searchedSupplier}
                     onChange={(_emails) => {
-                      // handleSearch(_emails)
-
                       let temp = [...exSupplier];
                       temp.push(_emails[0]);
                       setexSupplier([...temp]);
@@ -1252,7 +1240,7 @@ const index = ({
                         <>
                           {!person.isEdit ? (
                             <>
-                            
+                          
                               <tr>
                                 <td>{person.name}</td>
                                 <td>{person.designation}</td>
@@ -1420,16 +1408,12 @@ const index = ({
                                       id="Code"
                                       className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
                                       value={person.contact.callingCode}
-                                      onChange={(e) => {
-                                        onChangeHandler2(e.target.name, e.target.value, index);
-                                      }}
                                     >
                                       {' '}
                                       <option value="+91">+91</option>
                                     </select>
                                     <input
                                        name="contact.number"
-                                      //value={val?.contact}
                                       type="number"
                                       onWheel={(event) => event.currentTarget.blur()}
                                       className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
@@ -1440,7 +1424,6 @@ const index = ({
                                       onKeyDown={(evt) =>
                                         ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                                       }
-                                      //readOnly={!val.action}
                                     />
                                   </div>
                                   
@@ -1476,7 +1459,6 @@ const index = ({
                                       alt="save"
                                       onClick={(e) => {
                                         setEditRow(index);
-                                        //addPersonArr(keyPersonData)
                                       }}
                                     />
                                   )}
@@ -1500,7 +1482,7 @@ const index = ({
               <div
                 className={`d-flex justify-content-end`}
                 onClick={(e) => {
-                  onKeyPersonSave(keyPersonData);
+                  addPersonArr(keyPersonData);
                 }}
               >
                 {' '}
@@ -1808,7 +1790,6 @@ const index = ({
                             <input
                               type="file"
                               name={keyAddressData.GSTIN}
-                              // name="myfile"
                               accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                               onChange={(e) => {
                                 uploadDocument(e);
@@ -1823,7 +1804,7 @@ const index = ({
                             <img
                               className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
-                              onClick={() => removeDoc(index)}
+                              onClick={() => removeDoc()}
                               alt="Close"
                             />{' '}
                           </div>
@@ -2079,7 +2060,6 @@ const index = ({
                           <input
                             type="file"
                             name={keyAddressData.GSTIN}
-                            // name="myfile"
                             accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                             onChange={(e) => {
                               uploadDocument(e);
@@ -2175,7 +2155,6 @@ const index = ({
                           <td>
                             <select
                               onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                              // value={profile?.bankName}
                               name="bankName"
                               className={`${styles.dropDown} heading input`}
                               disabled={!profile.actions}
@@ -2201,8 +2180,6 @@ const index = ({
                               value={profile?.bankName == 'addnew' ? '' : profile?.bankName}
                               name="bankName"
                               placeholder="Add new"
-                              // placeholder={'Add new'}
-                              // readOnly={val.addnew!="true"?true:false}
                               onChange={(e) => {
                                 handleDebtChange(e.target.name, e.target.value, index);
                               }}
@@ -2220,7 +2197,6 @@ const index = ({
                             onChange={(e) => {
                               handleDebtChange(e.target.name, e.target.value, index);
                             }}
-                          // placeholder={'Limit type'}
                           >
                             <option value="">Select an option</option>
                             <option value="Cash Credit">Cash Credit</option>
@@ -2258,12 +2234,9 @@ const index = ({
                                 : Number(profile?.limit)?.toLocaleString('en-In')
                             }
                             className="input"
-                            // type='number'
                             name="limit"
                             disabled={!profile.actions}
                             onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                            // value={profile?.limit}
-                            // readOnly={!saveTable}
                           />
                         </td>
 
@@ -2340,4 +2313,4 @@ const index = ({
   );
 };
 
-export default index;
+export default Index;

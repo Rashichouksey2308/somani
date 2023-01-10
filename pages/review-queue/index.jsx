@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllBuyer } from '../../src/redux/registerBuyer/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { setPageName } from '../../src/redux/userData/action';
-import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 import Filter from '../../src/components/Filter';
+import Pagination from '../../src/components/Pagination';
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { GetAllBuyer } from '../../src/redux/registerBuyer/action';
+import { setPageName } from '../../src/redux/userData/action';
+import styles from './index.module.scss';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
@@ -165,41 +166,12 @@ function Index() {
           </div>
           {/*leads table*/}
           <div className={`${styles.datatable} border card datatable`}>
-            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-              <h3 className="heading_card">Review Queue</h3>
-              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                <span>
-                  Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(allBuyerList?.data?.totalCount / 7) == 0
-                    ? 1
-                    : Math.ceil(allBuyerList?.data?.totalCount / 7)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) return 
-                    else {
-                      setCurrentPage((prevState) => prevState - 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
-                      setCurrentPage((prevState) => prevState + 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-              </div>
-            </div>
+            <Pagination
+              data={allBuyerList?.data}
+              tableName="Review Queue"
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">

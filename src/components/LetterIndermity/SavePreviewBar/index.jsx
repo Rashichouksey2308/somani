@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
 
-function index ({ isDownload, openbar, rightBtn, rightBtnClick, download }) {
+function Index ({ isDownload, openbar, rightBtn, rightBtnClick, download }) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
@@ -40,4 +40,4 @@ function index ({ isDownload, openbar, rightBtn, rightBtnClick, download }) {
   )
 }
 
-export default index
+export default Index

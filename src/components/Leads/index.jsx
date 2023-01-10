@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import styles from './index.module.scss';
 
-function index(props) {
+function Index(props) {
   const [data, setData] = useState({
     all: 0,
     approved: 0,
@@ -73,4 +73,4 @@ function index(props) {
   );
 }
 
-export default index;
+export default Index;

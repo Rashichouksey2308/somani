@@ -119,7 +119,7 @@ export const Validation = ({ list, containerExcel, containerListDocument, vessel
           break;
         }
       }
-      console.log(list[i].vesselInformation[0].IMONumber.length, 'list[i].vesselInformation[0].IMONumber.length');
+    
       if (list[i].vesselInformation[0].IMONumber.length !== 7) {
         toastMessage = `Please add valid IMO Number  of Vessel Information ${i}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {

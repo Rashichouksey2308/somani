@@ -881,7 +881,7 @@ function Index() {
       forCalculationRevised.additionalPDC === null ||
       forCalculationRevised.additionalPDC === undefined ||
       forCalculationRevised.additionalPDC === '' ||
-      forCalculationRevised.additionalPDC === NaN ||
+      isNaN(forCalculationRevised.additionalPDC) ||
       forCalculationRevised.additionalPDC === 'NaN'
     ) {
       let toastMessage = 'Please add additional Amount Per PDC';
@@ -894,7 +894,7 @@ function Index() {
       forCalculationRevised.conversionRate === null ||
       forCalculationRevised.conversionRate === undefined ||
       forCalculationRevised.conversionRate === '' ||
-      forCalculationRevised.conversionRate === NaN ||
+      isNaN(forCalculationRevised.conversionRate) ||
       forCalculationRevised.conversionRate === 'NaN'
     ) {
       let toastMessage = 'Please add conversion Rate';
@@ -1244,7 +1244,8 @@ function Index() {
                               className={`${styles.options} accordion_DropDown mr-4`}
                               name="unitOfQuantity"
                               onChange={(e) => {
-                                saveOrderData(e.target.name, e.target.value), coversionUnitHandler(e.target.value);
+                                saveOrderData(e.target.name, e.target.value);
+                                coversionUnitHandler(e.target.value);
                               }}
                             >
                               <option disabled>Select</option>

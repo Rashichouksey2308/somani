@@ -35,7 +35,6 @@ function Index(props) {
     ]);
     setIsFieldInFocus([...isFieldInFocus, { amount: false }]);
   };
- 
   const handleDeleteContact = (index) => {
     setListContact([...listContact.slice(0, index), ...listContact.slice(index + 1)]);
 
@@ -98,7 +97,7 @@ function Index(props) {
         if(props?.data?.cheque.length>0){
           let temp=[]
           props?.data?.cheque.forEach((val,index)=>{
-            
+          
               temp.push({ amount: false })
           })
           setIsFieldInFocus([...temp])

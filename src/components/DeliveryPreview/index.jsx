@@ -27,7 +27,7 @@ function Index() {
   useEffect(() => {
     getOrderData();
   }, []);
-  console.log(selectedSignatory,"signatoryList")
+
   const getOrderData = async () => {
     let id = sessionStorage.getItem('ROrderID');
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '');
@@ -40,7 +40,7 @@ function Index() {
         _get(ReleaseOrderData, 'data[0].deliveryDetail').forEach((val, index) => {
           temp = Number(temp) + Number(val.netQuantityReleased);
            if(sessionStorage.getItem('deliveryPreviewId')==val.deliveryOrderNumber){
-            console.log("asgdajsdasd")
+          
             setSelectedSignatory(val.authorisedSignatory)
           }
         });
@@ -96,7 +96,7 @@ function Index() {
   const handleSave= async ()=>{
       let newarr = [];
       _get(ReleaseOrderData, 'data[0].deliveryDetail').forEach((item) => {
-        console.log(sessionStorage.getItem('deliveryPreviewId'),item.deliveryOrderNumber,"idsss")
+     
         if(sessionStorage.getItem('deliveryPreviewId')==item.deliveryOrderNumber){
           
           newarr.push({
@@ -121,7 +121,7 @@ function Index() {
         }
        
       });
-     console.log(newarr,"newarr",selectedSignatory,)
+     
       let payload = {
         deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
         deliveryDetail: newarr,
@@ -474,10 +474,6 @@ function Index() {
                         </>
                       )
                     })}
-                    {/* <div className={`${styles.labelFloat} form-group`}>
-                          <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
-                          <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
-                        </div> */}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {

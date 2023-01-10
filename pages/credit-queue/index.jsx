@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Filter from '../../src/components/Filter';
 import Loader from '../../src/components/Loader';
+import Pagination from '../../src/components/Pagination';
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
 import { GetAllBuyer, GetAllOrders } from '../../src/redux/registerBuyer/action';
@@ -45,7 +46,6 @@ function Index() {
       sessionStorage.setItem('orderID', buyer._id);
       sessionStorage.setItem('companyID', buyer.company._id);
       await dispatch(GetAllOrders({ orderId: buyer._id }));
-      //dispatch(GetDocuments({order: buyer._id}))
       await dispatch(GetCompanyDetails({ company: buyer.company._id }));
     }
   };
@@ -67,10 +67,10 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    if (sorting == -1) {
+    if (sorting === -1) {
       dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
       setSorting(1);
-    } else if (sorting == 1) {
+    } else if (sorting === 1) {
       dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
       setSorting(-1);
     }
@@ -170,38 +170,13 @@ function Index() {
               </div>
             </div>
             <div className={`${styles.datatable} border datatable card`}>
-              <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-                <h3 className="heading_card">Credit Queue</h3>
-                <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                  <span>
-                    Showing Page {currentPage + 1} out of {Math.ceil(allBuyerList?.data?.totalCount / 7)}
-                  </span>
-                  <a
-                    onClick={() => {
-                      if (currentPage === 0) return 
-                      else {
-                        setCurrentPage((prevState) => prevState - 1);
-                      }
-                    }}
-                    href="#"
-                    className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                  >
-                    {' '}
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                  </a>
-                  <a
-                    onClick={() => {
-                      if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
-                        setCurrentPage((prevState) => prevState + 1);
-                      }
-                    }}
-                    href="#"
-                    className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                  >
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                  </a>
-                </div>
-              </div>
+              <Pagination
+                tableName="Credit Queue"
+                data={allBuyerList?.data}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
                   <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">

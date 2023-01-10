@@ -296,13 +296,6 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
         }
         isOk = false;
         break;
-      } else if (billOfEntryData[i].boeDetails.currency === '') {
-        let toastMessage = 'CURRENCY CANNOT BE EMPTY';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        isOk = false;
-        break;
       } else if (billOfEntryData[i].boeDetails.invoiceNumber === '') {
         let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY';
         if (!toast.isActive(toastMessage.toUpperCase())) {

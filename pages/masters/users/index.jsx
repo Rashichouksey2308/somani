@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Router from 'next/router';
 import ToggleSwitch from '../../../src/components/ToggleSwitch'
 
-const index = () => {
+const Index = () => {
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
   const { searchedLeads } = useSelector((state) => state.order);
@@ -23,7 +23,7 @@ const index = () => {
   const handleFilteredData = (e) => {
     setSearchTerm('');
     const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
+    // dispatch(GetLcModule(`?company=${id}`));
   };
 
   return (
@@ -168,4 +168,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

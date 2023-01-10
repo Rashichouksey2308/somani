@@ -22,7 +22,6 @@ const Index = ({
   companyDetails,
   setCompanyDetails,
 }) => {
-
   const { gstList } = useSelector((state) => state.buyer);
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan);
 
@@ -134,7 +133,7 @@ const Index = ({
       }
     }
   };
-  
+
   return (
     <>
       <div className={`${styles.main} border_color`}>
@@ -144,41 +143,41 @@ const Index = ({
             <div className="mr-n5 d-flex">
               <div className={`${styles.unit_container} d-flex align-items-center`}>
                 <h5 className={`${styles.unit_label} accordion_Text`}>Quantity :</h5>
-                <div className='d-flex align-items-center position-relative'>
-                <select
-                  className={`${styles.options} ${styles.customSelect} card_main accordion_DropDown input`}
-                  name="unitOfQuantity"
-                  onChange={(e) => saveOrderData(e.target.name, e.target.value)}
-                >
-                  <option value="">Select an option</option>
-                  <option value="MT" selected>
-                    MT
-                  </option>
-                  <option value="KG">KG</option>
-                </select>
-                <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
-             </div>
+                <div className="d-flex align-items-center position-relative">
+                  <select
+                    className={`${styles.options} ${styles.customSelect} card_main accordion_DropDown input`}
+                    name="unitOfQuantity"
+                    onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+                  >
+                    <option value="">Select an option</option>
+                    <option value="MT" selected>
+                      MT
+                    </option>
+                    <option value="KG">KG</option>
+                  </select>
+                  <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+                </div>
               </div>
               <div className={`${styles.unit_container} d-flex align-items-center`}>
                 <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-                <div className='d-flex align-items-center position-relative'>
-                <select
-                  className={`${styles.options} ${styles.customSelect} card_main accordion_DropDown input`}
-                  name="unitOfValue"
-                  onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value);
-                    dispatch(ChangeCurrency(e.target.value.toUpperCase()));
-                  }}
-                >
-                  <option value="">Select an option</option>
-                  <option value="Crores" selected>
-                    Crores
-                  </option>
-                  {/* <option value="Million">Million</option> */}
-                  {/* <option value="Lakh">Lakh</option> */}
-                </select>
-                <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
-             </div>
+                <div className="d-flex align-items-center position-relative">
+                  <select
+                    className={`${styles.options} ${styles.customSelect} card_main accordion_DropDown input`}
+                    name="unitOfValue"
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value);
+                      dispatch(ChangeCurrency(e.target.value.toUpperCase()));
+                    }}
+                  >
+                    <option value="">Select an option</option>
+                    <option value="Crores" selected>
+                      Crores
+                    </option>
+                    {/* <option value="Million">Million</option> */}
+                    {/* <option value="Lakh">Lakh</option> */}
+                  </select>
+                  <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+                </div>
               </div>
             </div>
           </div>
@@ -369,7 +368,7 @@ const Index = ({
                 type="text"
                 id="textInput"
                 onChange={(e) => {
-                    saveCompanyData(e.target.name, e.target.value);
+                  saveCompanyData(e.target.name, e.target.value);
                 }}
                 name="email"
                 className={`${styles.input_field} input form-control`}
@@ -391,10 +390,13 @@ const Index = ({
                   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   value={getvalue()}
                   onFocus={(e) => {
-                    e.target.type === 'number', setIsSliderOnFocus(true), setSliderWithCr('');
+                    e.target.type = 'number';
+                    setIsSliderOnFocus(true);
+                    setSliderWithCr('');
                   }}
                   onBlur={(e) => {
-                    e.target.type === 'text', setIsSliderOnFocus(false);
+                    e.target.type = 'text';
+                    setIsSliderOnFocus(false);
                   }}
                   // max={100}
                   name="turnOver"
@@ -477,9 +479,8 @@ const Index = ({
                       // saveCompanyData(e.target.name, e.target.value)
                       whatsappFunction(e);
                       //green tick
-                    }
-                    else{
-                      handleErrorToast('Invalid Number')
+                    } else {
+                      handleErrorToast('Invalid Number');
                     }
                   }}
                   id="textNumber"

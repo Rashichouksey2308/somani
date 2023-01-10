@@ -118,14 +118,6 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     dispatch(UpdateCustomClearance({ fd, task }));
   };
 
-  const handleDropdown = (e) => {
-    if ((e.target.value = 'Others')) {
-      setEditInput(!editInput);
-    } else {
-      setEditInput(editInput);
-    }
-  };
-
   // fuction to prevent negative values in input
   const preventMinus = (e) => {
     if (e.code === 'Minus') {

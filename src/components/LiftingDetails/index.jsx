@@ -31,7 +31,7 @@ export default function Index(props) {
     let text = d.toISOString();
     props.handleChange(name, value, index, index2);
   };
- console.log(props.liftingData,"liftingData")
+
   const uploadDoc = async (e, type, index1, index2) => {
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
@@ -218,7 +218,7 @@ export default function Index(props) {
                     data-parent={`#upload${index}`}
                   >
                     {val.detail.map((val2, index2) => {
-                     { console.log(val2,"val2")}
+                    
                       return (
                         <div className={`${styles.dashboard_form} vessel_card mt-3 card-body`}>
                           <div className={`${styles.bill_landing} border_color`}>
@@ -314,7 +314,7 @@ export default function Index(props) {
                                       Mode of Transportation
                                       <strong className="text-danger">*</strong>
                                     </div>
-                                    {console.log(val2?.modeOfTransportation,"val2?.modeOfTransportation")}
+                                   
                                  
                                       <div key={index} className={styles.radio_group}>
                                         <Form.Check

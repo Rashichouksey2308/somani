@@ -3,7 +3,7 @@ import Router from 'next/router'
 import API from '../../utils/endpoints'
 import * as types from './actionType'
 import { toast } from 'react-toastify'
-
+import { handleErrorToast } from '@/utils/helpers/global'
 import Cookies from 'js-cookie'
 import { setAuthenticationCookie } from '../../utils/authentication'
 
@@ -262,11 +262,7 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
       setAuthenticationCookie(response.data.data)
     } else {
       dispatch(loggingUserFailed(response.data))
-
-      const toastMessage = 'Please check your credentials and Try Again!'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      handleErrorToast('Please check your credentials and Try Again!')
     }
   } catch (error) {
     console.log('API FAILED')
@@ -324,19 +320,12 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
         dispatch(generateToken())
       }
       dispatch(validatingTokenFailed(response.data.data))
-
-      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
     }
   } catch (error) {
     dispatch(validatingTokenFailed())
     dispatch(generateToken())
-    const toastMessage = 'cound not Process YOur Request '
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
+    handleErrorToast('COULD NOT PROCESS YOUR REQUEST')
   }
 }
 
@@ -416,9 +405,9 @@ export function resetpassword (state) {
     try {
       const response = await api.post(API.changePassword, payload)
       if (response.data.code === 200) {
-        dispatch(resetPasswordSuccess(response.data))
+        dispatch(resetPasswordSuccess())
       } else {
-        dispatch(resetPasswordFailed(response.data))
+        dispatch(resetPasswordFailed())
       }
     } catch (error) {
       dispatch(resetPasswordFailed())
@@ -439,10 +428,10 @@ export function forgotPassword (state) {
       if (response.data.code === 200) {
         dispatch(forgotPasswordSuccess(response.data.data))
       } else {
-        dispatch(forgotPasswordFailed(response.data))
+        dispatch(forgotPasswordFailed())
       }
     } catch (error) {
-      dispatch(forgotPasswordFailed(errorMessage))
+      dispatch(forgotPasswordFailed())
     }
   }
 }
@@ -460,12 +449,12 @@ export function optVerification (state) {
       const response = await api.post(API.varifyOTP, payload)
       if (response.data.code === 200) {
         await Cookies.set('token', response.data.jwtAccessToken)
-        dispatch(otpverificationSuccess(response.data))
+        dispatch(otpverificationSuccess())
       } else {
-        dispatch(otpverificationFailed(response.data))
+        dispatch(otpverificationFailed())
       }
     } catch (error) {
-      dispatch(otpverificationFailed(errorMessage))
+      dispatch(otpverificationFailed())
     }
   }
 }
@@ -486,12 +475,12 @@ export function setNewPassword (state) {
         headers: headers
       })
       if (response.data.code === 200) {
-        dispatch(setnewPasswordSuccess(response.data))
+        dispatch(setnewPasswordSuccess())
       } else {
-        dispatch(setnewPasswordFailed(response.data))
+        dispatch(setnewPasswordFailed())
       }
     } catch (error) {
-      dispatch(setnewPasswordFailed(errorMessage))
+      dispatch(setnewPasswordFailed())
     }
   }
 }

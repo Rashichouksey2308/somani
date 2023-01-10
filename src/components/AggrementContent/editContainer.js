@@ -13,7 +13,7 @@ export const editData = (
   gstArr,
 ) => {
   let addressTypeArr = ['Registered', 'Branch', 'Corporate'];
-  console.log(pinCode, 'addressEditType');
+  
   return (
     <div className={`${styles.newAddressContainer}`}>
       <div className={styles.newAddressHead}>

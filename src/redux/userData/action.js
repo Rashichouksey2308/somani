@@ -107,6 +107,6 @@ export const setDynamicOrder = (value) => async (dispatch, getState, api) => {
   dispatch(dynamicOrder(value))
 }
 
-export const fetchReleaseDetail = () => async (dispatch, getState, api) => {
-  dispatch(fetchReleaseDetail(payload))
+export const fetchReleaseDetail = (value) => async (dispatch, getState, api) => {
+  dispatch(fetchingreleaseDetail(value))
 }

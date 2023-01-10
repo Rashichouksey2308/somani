@@ -10,7 +10,6 @@ import DownloadBar from '../../../src/components/DownloadBar';
 import QPA from '../../../src/components/QPA';
 import TPAIGI from '../../../src/components/TPAIGI';
 import TPASeller from '../../../src/components/TPASeller';
-import { sellerPrint } from '../../../src/templates/agreementTemplate';
 import AssignmentLetterPreview from '../../../src/templates/AssignmentLetterPreview';
 import AssociateshipAgreementPreview from '../../../src/templates/AssociateshipAgreementPreview';
 import TPAIGIPreview from '../../../src/templates/TPAIGIPreview';
@@ -18,9 +17,9 @@ import QuadripartiteAgreementPreview from '../../../src/templates/QuadripartiteA
 import SalesContractPreview from '../../../src/templates/SalesContractPreview';
 import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 import { returnReadableNumber } from '@/utils/helpers/global';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
-function index() {
+function Index() {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     seller: '',
@@ -54,7 +53,7 @@ function index() {
   const [preview, setPreview] = useState('');
    useEffect(() => {
   if(window){
-      let term =  JSON.parse(sessionStorage.getItem('genericSelected'));
+      const term =  JSON.parse(sessionStorage.getItem('genericSelected'));
        dispatch(setPageName('agreement'));
         dispatch(setDynamicName(term.company.companyName));
         dispatch(setDynamicOrder(term.order.orderId));
@@ -70,22 +69,22 @@ function index() {
       if (data2 === 'QPA') {
         toCheck = 'QPA';
       }
-      if (data2 == 'LETTER') {
+      if (data2 === 'LETTER') {
         toCheck = 'Assignment Letter';
       }
-      if (data2 == 'TPASELLER') {
+      if (data2 === 'TPASELLER') {
         toCheck = 'TPA (Seller)';
       }
-       if (data2 == 'TPAIGI') {
+       if (data2 === 'TPAIGI') {
         toCheck = 'TPA (CMA)';
       }
-      if (data2 == 'ASSO') {
+      if (data2 === 'ASSO') {
         toCheck = 'Associateship Agreement';
       }
-      if (data2 == 'UNDERTAKING1') {
+      if (data2 === 'UNDERTAKING1') {
         toCheck = 'Associateship Agreement';
       }
-      if (data2 == 'UNDERTAKING2') {
+      if (data2 === 'UNDERTAKING2') {
         toCheck = 'Associateship Agreement';
       }
 
@@ -93,20 +92,20 @@ function index() {
       let dat = '';
       let dateOfContract = '';
       data?.placeOfExecution?.execution?.forEach((val, index) => {
-        if (val.agreementName == toCheck) {
+        if (val.agreementName === toCheck) {
           exe = val.place;
           if (val.dateOfExecution) {
             dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
           }
         }
       });
-      let comment = [];
+      const comment = [];
       let month=""
       data?.additionalComments?.comments?.forEach((val, index) => {
-        if (val.agreementName == toCheck) {
+        if (val.agreementName === toCheck) {
           comment.push(val.comment);
          
-          if (toCheck == 'Assignment Letter') {
+          if (toCheck === 'Assignment Letter') {
             
             dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
              month= val?.monthOfLoadingCargo
@@ -130,13 +129,10 @@ function index() {
         detailsOfEndBuyer: data?.company.companyName,
         detailsOfComm: data?.order?.commodity,
         quan: data?.order?.quantity,
-        unitPrice: data.order?.perUnitPrice,
         totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
         lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
         dischargePort: data?.order?.portOfDischarge,
-
         lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-
         terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
         addComm: comment,
         spec: data?.productSpecifications?.specificationTable,
@@ -164,16 +160,13 @@ function index() {
         stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
         cma: data?.CMA?.name,
         cmaAddress: _get(data, 'CMA.addresses[0]', {}),
-
         cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
         cha: data?.CHA?.name,
         chaAddress: _get(data, 'CHA.addresses[0]', {}),
-
         chaAuthorized: _get(data, 'CHA.authorisedSignatoryDetails', []),
         vessel: data?.shippingLine?.vesselName,
         storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
         loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
-        priceOfGoods: data?.order?.perUnitPrice,
         dateOfContract: dateOfContract,
         designatedStorageArea: data?.CMA?.designatedStorageArea,
         supplier: data?.supplier?.name,
@@ -203,35 +196,35 @@ function index() {
   
     let toPrint = SalesContractPreview(data);
     let name = 'SalesAgreement';
-    if (preview == 'Sales') {
+    if (preview === 'Sales') {
       toPrint = SalesContractPreview(data);
       name = 'SalesAgreement.pdf';
     }
-    if (preview == 'QPA') {
+    if (preview === 'QPA') {
       toPrint = QuadripartiteAgreementPreview(data);
       name = 'QPA.pdf';
     }
-    if (preview == 'ASSO') {
+    if (preview === 'ASSO') {
       toPrint = AssociateshipAgreementPreview(data);
       name = 'Associateship.pdf';
     }
-    if (preview == 'UNDERTAKING1') {
+    if (preview === 'UNDERTAKING1') {
       toPrint = undertaking1Pdf(data);
       name = 'Undertaking1.pdf';
     }
-    if (preview == 'UNDERTAKING2') {
+    if (preview === 'UNDERTAKING2') {
       toPrint = undertaking2Pdf(data);
       name = 'Undertaking2.pdf';
     }
-    if (preview == 'TPASELLER') {
+    if (preview === 'TPASELLER') {
       toPrint = TPASellerPreview(data);
       name = 'TPA(Seller).pdf';
     }
-    if (preview == 'TPAIGI') {
+    if (preview === 'TPAIGI') {
       toPrint = TPAIGIPreview(data);
       name = 'TPA(CAM).pdf';
     }
-    if (preview == 'LETTER') {
+    if (preview === 'LETTER') {
       toPrint = AssignmentLetterPreview(data);
       name = 'AssignmentLetter.pdf';
     }
@@ -251,19 +244,19 @@ function index() {
       }
         doc.save(name);
       },
-      margin:[40,0,40,0],
+      margin:[40,0],
       autoPaging: 'text',
       
     });
   };
   return (
     <>
-      {preview == 'Sales' ? <Contract preview={true} /> : null}
-      {preview == 'QPA' ? <QPA preview={true} /> : null}
-      {preview == 'TPASELLER' ? <TPASeller preview={true} /> : null}
-      {preview == 'TPAIGI' ? <TPAIGI preview={true} /> : null}
-      {preview == 'LETTER' ? <AssignmentLetter preview={true} /> : null}
-      {preview == 'ASSO' || preview == 'UNDERTAKING1' || preview == 'UNDERTAKING2' ? (
+      {preview === 'Sales' ? <Contract preview={true} /> : null}
+      {preview === 'QPA' ? <QPA preview={true} /> : null}
+      {preview === 'TPASELLER' ? <TPASeller preview={true} /> : null}
+      {preview === 'TPAIGI' ? <TPAIGI preview={true} /> : null}
+      {preview === 'LETTER' ? <AssignmentLetter preview={true} /> : null}
+      {preview === 'ASSO' || preview === 'UNDERTAKING1' || preview === 'UNDERTAKING2' ? (
         <AssociateshipAgreement preview={true} type={preview} />
       ) : null}
 
@@ -272,7 +265,7 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
 
 export const undertaking1Pdf = (data) => {
   return (
@@ -583,7 +576,6 @@ export const undertaking2Pdf = (data) => {
                     <tr>
                       <td align='left'></td>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', paddingBottom:'20px'}}>
-                        {/* <strong>(Associate Buyer)</strong> */}
                         <strong>({data.associateBuyer})</strong>
                         </p></td>
                     </tr>

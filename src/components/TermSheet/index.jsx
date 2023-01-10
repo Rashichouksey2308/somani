@@ -214,6 +214,7 @@ const Index = () => {
   const onChangeTransactionDetails = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
+  
 
     setTermsheetDetails((prev) => ({
       ...prev,

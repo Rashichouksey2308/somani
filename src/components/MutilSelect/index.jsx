@@ -36,33 +36,16 @@ function Index(props) {
           return false;
         }
       }
-      if (props.id == 'Existing Supplier(s)') {
-        validEmails.push(email);
-      } else {
-        validEmails.push(email);
-      }
+      validEmails.push(email);
       return true;
     };
 
     if (value !== '') {
-      if (false) {
-        let splitData = value.split(re).filter((n) => {
-          return n !== '' && n !== undefined && n !== null;
-        });
-
-        const setArr = new Set(splitData);
-        let arr = [...setArr];
-
-        do {
-          addEmails('' + arr.shift());
-        } while (arr.length);
-      } else {
         if (isEnter) {
           addEmails(value);
         } else {
           inputValue = value;
         }
-      }
     }
 
     setState({ ...state, email: validEmails });
@@ -143,9 +126,7 @@ function Index(props) {
               <span
               // className={email.status === 'Pending' && `${styles.pending}`}
               >
-                {props.id == 'Existing Supplier(s)'
-                  ? props.getLabel(email, index, removeEmail)
-                  : props.getLabel(email, index, removeEmail)}
+                {props.getLabel(email, index, removeEmail)}
               </span>
             </>
           );
