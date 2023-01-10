@@ -16,7 +16,7 @@ import { handleErrorToast } from '@/utils/helpers/global';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { useDispatch } from 'react-redux';
 import { updateGenericData } from '../../src/redux/generic/actionsType';
-function Index() {
+const Index = () => {
   const [preview, setPreview] = useState('');
   const dispatch = useDispatch();
   const [agreementDoc, setagreementDoc] = useState({

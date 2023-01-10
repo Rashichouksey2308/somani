@@ -15,7 +15,7 @@ import { convertValue } from '../../../src/utils/helper';
 import styles from './index.module.scss';
 import Router from 'next/router';
 
-function Index() {
+const Index = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
