@@ -95,8 +95,8 @@ function Index() {
                                         >
                                             <option value="Direct Expenses">Direct Expenses</option>
                                             <option value="Interest & Finance Charges">Interest & Finance Charges</option>
-                                            <option value="Purchase Accounts"></option>
-                                            <option value="Sales Accounts"></option>
+                                            <option value="Purchase Accounts">Purchase Accounts</option>
+                                            <option value="Sales Accounts">Sales Accounts</option>
                                         </select>
                                         <label className={`${styles.label_heading} label_heading`}>
                                             Group<strong className="text-danger ml-1">*</strong>
@@ -144,7 +144,7 @@ function Index() {
                                         type="text"
                                         required
                                         name="sac_code"
-                                        value={SACMasterDetails?.gst_rate}
+                                        value={SACMasterDetails?.sac_code}
                                         onChange={handleSACDetailsChange}
                                     />
                                     <label className={`${styles.label_heading} label_heading`}>
