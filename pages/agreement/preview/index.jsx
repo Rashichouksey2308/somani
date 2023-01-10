@@ -19,7 +19,7 @@ import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 import { returnReadableNumber } from '@/utils/helpers/global';
 import { useDispatch } from 'react-redux';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
-function Index() {
+const Index = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     seller: '',

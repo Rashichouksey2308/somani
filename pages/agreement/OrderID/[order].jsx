@@ -78,7 +78,7 @@ const  Index = () => {
     const pageCountNum = 2
     const doc = new jsPDF('p', 'pt', [constants.pdfWidth, constants.pdfHeight]);
     doc.html(ReactDOMServer.renderToString(<MarineInsurance insuranceData={insuranceData} />), {
-      callback: function () {
+      callback: function (doc) {
         const totalPages = doc.internal.getNumberOfPages();
 
       for (let i = 1; i <= totalPages; i++) {
