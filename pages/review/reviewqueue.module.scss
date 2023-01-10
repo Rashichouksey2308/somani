@@ -173,8 +173,6 @@
       border-bottom: none;
       overflow-x: auto;
       width: 100%;
-      @include respond(xl-desktop) {
-      }
       @include respond(lg-desktop) {
         flex-wrap: nowrap;
       }
