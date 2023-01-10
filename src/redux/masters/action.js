@@ -299,6 +299,59 @@ function createCurrencyMasterFailed(payload = {}) {
   };
 }
 
+// ******** Master TDSSection Queue ***********///
+function getMasterTDSSectionQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterTDSSectionQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter TDSSection Queue  ***********/////
+
+function filterTDSSectionQueue() {
+  return {
+    type: types.FILTER_TDS_SECTION_QUEUE,
+  };
+}
+
+function filterTDSSectionQueueSuccess(payload) {
+  return {
+    type: types.FILTER_TDS_SECTION_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterTDSSectionQueueFailed() {
+  return {
+    type: types.FILTER_TDS_SECTION_QUEUE_FAILED,
+  };
+}
+
+// ******** TDSSection Master Add ******** //
+
+function createTDSSectionMasterSuccess(payload) {
+  return {
+    type: types.CREATE_TDS_SECTION_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createTDSSectionMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_TDS_SECTION_MASTER_FAILED,
+    payload,
+  };
+}
+
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -1178,3 +1231,112 @@ export const CreateCurrencyMaster = (payload) => async (dispatch, getState, api)
   }
 };
 // Handler for Currency-master End ---->
+
+// Handler for Currency-master Start ---->
+export const GetMasterTDSSectionQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterTDSSectionQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterTDSSectionQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterTDSSectionQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch TDS Section Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterTDSSectionQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterTDSSectionQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterTDSSectionQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterTDSSectionQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterTDSSectionQueueFailed(response.data));
+        const toastMessage = 'Search TDS Section Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterTDSSectionQueueFailed());
+    const toastMessage = 'Search TDS Section request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateTDSSectionMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createTDSSectionMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createTDSSectionMasterSuccess(response.data.data));
+      let toastMessage = 'TDS_SECTION ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createTDSSectionMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createTDSSectionMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD TDS_SECTION DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for TDSSection-master End ---->

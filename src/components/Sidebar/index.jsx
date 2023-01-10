@@ -155,6 +155,11 @@ function Index() {
           name: 'Currency',
           image: '/static/gl.svg',
           route: '/masters/currency',
+        },
+        {
+          name: 'TDS-Section',
+          image: '/static/gl.svg',
+          route: '/masters/tds-section',
         }
       ],
       image: '/static/Masters.svg',

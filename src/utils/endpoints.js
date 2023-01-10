@@ -164,6 +164,9 @@ export default {
   getMasterCurrencyQueueRecords: 'currency-master/filterCurrency',
   filterCurrencyQueue: 'currency-master/search',
   createCurrencyMaster: 'currency-master',
+  getMasterTDSSectionQueueRecords: 'tds-section/filterTDS',
+  filterTDSSectionQueue: 'tds-section/search',
+  createTDSSectionMaster: 'tds-section',
 
   //Checker
   getUserDetails: '/user-master/user',
