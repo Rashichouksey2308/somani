@@ -10,7 +10,7 @@ import { GetAllInspection } from '../../src/redux/Inspections/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import styles from './inspection.module.scss';
 
-function Index() {
+const Index = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -50,14 +50,11 @@ function Index() {
 
   const [sorting, setSorting] = useState(1);
 
+
   const handleSort = () => {
-    if (sorting === -1) {
-      dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting === 1) {
-      dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
-      setSorting(-1);
-    }
+    dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
+    if (sorting === -1) setSorting(1);
+    else setSorting(-1);
   };
 
   const { allInspection } = useSelector((state) => state.Inspection);

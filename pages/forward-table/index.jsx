@@ -9,7 +9,7 @@ import { GetAllForwardHedging } from '../../src/redux/ForwardHedging/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import styles from './inspection.module.scss';
 
-function Index() {
+const Index = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -61,13 +61,18 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    if (sorting === -1) {
-      dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting === 1) {
-      dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
-      setSorting(-1);
+    dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
+    if (sorting === -1) setSorting(1);
+    else setSorting(-1);
+  };
+ 
+  const getReadableStatus = (status) => {
+    if (status === 'ReviewQueue') {
+      return { styles: styles.review, status: 'ReviewQueue' };
     }
+    return status === 'CreditQueue'
+      ? { styles: styles.approved, status: 'Approved' }
+      : { styles: styles.rejected, status: 'Rejected' };
   };
 
   return (
@@ -144,25 +149,9 @@ function Index() {
                         <td>{list?.order?.commodity} </td>
                         <td></td>
                         <td>
-                          <span
-                            className={`${styles.status} ${
-                              list.order.queue === 'Rejected'
-                                ? styles.rejected
-                                : list.order.queue === 'ReviewQueue'
-                                ? styles.review
-                                : list.order.queue === 'CreditQueue'
-                                ? styles.approved
-                                : styles.rejected
-                            }`}
-                          ></span>
+                          <span className={`${styles.status} ${getReadableStatus(list.order.queue).styles}`}></span>
 
-                          {list.order.queue === 'Rejected'
-                            ? 'Rejected'
-                            : list.order.queue === 'ReviewQueue'
-                            ? 'Review'
-                            : list.order.queue === 'CreditQueue'
-                            ? 'Approved'
-                            : 'Rejected'}
+                          {getReadableStatus(list.order.queue).status}
                         </td>
                         <td>
                           <img
@@ -181,6 +170,6 @@ function Index() {
       </div>
     </div>
   );
-}
+};
 
 export default Index;

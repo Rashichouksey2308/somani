@@ -91,8 +91,7 @@ const IndexPage = () => {
                           BL Date{' '}
                           <img
                             className={`${darkMode ? styles.noRotate : styles.rotate} img-fluid`}
-                            src={`${darkMode ? `/static/white-arrow.svg` : `/static/keyboard_arrow_right-3.svg`}`}
-                            // src="/static/keyboard_arrow_right-3.svg"
+                            src={darkMode ? `/static/white-arrow.svg` : `/static/keyboard_arrow_right-3.svg`}
                             alt="arrow right"
                           />
                         </h3>

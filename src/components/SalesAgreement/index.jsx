@@ -41,11 +41,7 @@ function Index(props) {
   const { companyData } = useSelector((state) => state.companyDetails);
   const { orderList } = useSelector((state) => state.buyer);
 
-  useEffect(() => {
-    if (window) {
-      props.setDate(localStorage.getItem('timeGenericUpdated'));
-    }
-  });
+ 
   useEffect(() => {
     dispatch(getVendors());
 
@@ -2443,7 +2439,7 @@ let masterList = [
       return;
     }
     props.setDate(timestamp);
-    localStorage.setItem('timeGenericUpdated', timestamp);
+
     setSubmitData(false);
     let tempArr = sideBar;
     tempArr.forEach((val, index) => {
