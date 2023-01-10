@@ -3,7 +3,7 @@ import _get from 'lodash/get';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action';
-import Pagination from '../Pagination/Index';
+import Pagination from '../Pagination';
 import styles from './index.module.scss';
 
 function getPaymentStatus(isStatus) {

@@ -10,7 +10,7 @@ import styles from './index.module.scss';
 import moment from 'moment';
 import { GetCompanyDetails } from '../../redux/companyDetail/action';
 import Filter from '../Filter';
-import Pagination from '../Pagination/Index';
+import Pagination from '../Pagination';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
