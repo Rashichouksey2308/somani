@@ -18,7 +18,6 @@ import { getInternalCompanies } from '../../../../src/redux/masters/action';
 import {nameOfInsurerArray} from '../../../../src/utils/helpers/staticFiled'
 const Index = () => {
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -554,7 +553,7 @@ const Index = () => {
     fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
 
     const code = await dispatch(UpdateInsurance(fd));
-    if (code === 200) {
+    if (code == 200) {
       sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ''));
       dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'));
       Router.push(`/third-party`);
@@ -597,7 +596,6 @@ const Index = () => {
                       inline
                       label="Marine Insurance"
                       checked={insuranceData?.quotationRequest?.insuranceType === 'Marine Insurance' ? 'checked' : ''}
-                      onChange={(e) => setInsuranceType('Marine Insurance')}
                       name="group1"
                       value="Marine"
                       type={type}
@@ -610,9 +608,6 @@ const Index = () => {
                       checked={insuranceData?.quotationRequest?.insuranceType === 'Storage Insurance' ? 'checked' : ''}
                       name="group1"
                       value="Storage"
-                      onChange={(e) => {
-                        setInsuranceType('Storage Insurance');
-                      }}
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -626,9 +621,6 @@ const Index = () => {
                       }
                       name="group1"
                       type={type}
-                      onChange={(e) => {
-                        setInsuranceType('Both');
-                      }}
                       id={`inline-${type}-2`}
                     />
                   </div>

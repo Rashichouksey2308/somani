@@ -2,7 +2,7 @@ import Router from 'next/router'
 import React from 'react'
 import styles from './index.module.scss'
 
-function Index () {
+const  Index = () => {
   const handleRoute = () => {
     Router.push('/agreement')
   }
