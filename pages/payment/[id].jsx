@@ -52,7 +52,7 @@ function Index() {
     return `${string}/${orderDONumber}`;
   };
   useEffect(() => {
-    let temp = [];
+    const temp = [];
     if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
       _get(allLiftingData, 'data[0].liftingOrders', []).map((val, index) => {
         temp.push({
@@ -250,8 +250,8 @@ function Index() {
 
   const handleLiftingSubmit = () => {
     if (liftingValidation()) {
-      let tempArr = [];
-      let temp2 = [];
+      const tempArr = [];
+      const temp2 = [];
       lifting.forEach((val, index) => {
         if (val.detail.modeOfTransportation === 'RR') {
           val.detail.map((val2, index2) => {
@@ -314,7 +314,7 @@ function Index() {
   ]);
 
   useEffect(() => {
-    let tempArr = [];
+    const tempArr = [];
     if (deliveryOrderData.length > 0) {
       deliveryOrderData.forEach((val, index) => {
         tempArr.push({
@@ -330,7 +330,7 @@ function Index() {
 
       setDeliveryOrder(tempArr);
     }
-    let tempArr2 = [];
+    const tempArr2 = [];
     if (releaseOrderData.length > 0) {
       releaseOrderData.forEach((val, index) => {
         tempArr2.push({
@@ -402,15 +402,15 @@ function Index() {
   }, [filteredDOArray, deliveryOrder]);
 
   const onEdit = (index, value, type) => {
-    let tempArr = deliveryOrder;
+    const tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
-      if (i == index) {
+      if (i === index) {
         let number = 0;
         for (let i = 0; i < releaseDetail.length; i++) {
-          if (releaseDetail[i].orderNumber == val.orderNumber) {
+          if (releaseDetail[i].orderNumber === val.orderNumber) {
             number = Number(releaseDetail[i].netQuantityReleased);
           }
-          if (val.orderNumber == 'Not Available') {
+          if (val.orderNumber === 'Not Available') {
             number = balanceQuantity();
           }
         }
@@ -422,7 +422,7 @@ function Index() {
           handleErrorToast('Quantity Release Cannot Be Greater Than balance Quantity');
           return;
         }
-        if (type == 'Save') {
+        if (type === 'Save') {
           val.deliveryOrderDate = new Date();
           if (val.status !== doCancelledString) {
             val.status = 'DO Issued';
@@ -434,9 +434,9 @@ function Index() {
     setDeliveryOrder([...tempArr]);
   };
   const cancelDo = (index, value) => {
-    let tempArr = deliveryOrder;
+    const tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
-      if (i == index) {
+      if (i === index) {
         val.status = doCancelledString;
       }
     });
@@ -445,13 +445,13 @@ function Index() {
 
   const returnLiftingData = (number) => {
     let datainNeed = {};
-    let data = deliveryOrderData;
+    const data = deliveryOrderData;
     data.forEach((item) => {
       if (item.deliveryOrderNumber === number) {
         datainNeed = item;
       }
     });
-    let doQuantity = Number(datainNeed.netQuantityReleased);
+    const doQuantity = Number(datainNeed.netQuantityReleased);
     let balaceQuantity = doQuantity;
     lifting.forEach((item) => {
       if (item.deliveryOrder === number) {
@@ -459,7 +459,7 @@ function Index() {
           balaceQuantity = balaceQuantity - Number(item2.liftingQuant);
         });
         if (balaceQuantity < 0) {
-          let toastMessage = 'Lifting quantity cannot be greater than balance quantity';
+          const toastMessage = 'Lifting quantity cannot be greater than balance quantity';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           }
@@ -470,13 +470,13 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
-    let tempArr = deliveryOrder;
+    const tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
-      if (i == index) {
+      if (i === index) {
         if (name === 'Quantity') {
-          let temparr = [...deliveryOrder];
-          let filteredArray = temparr.filter((item, index2) => {
-            return item.orderNumber == deliveryOrder[index].orderNumber;
+          const temparr = [...deliveryOrder];
+          const filteredArray = temparr.filter((item, index2) => {
+            return item.orderNumber === deliveryOrder[index].orderNumber;
           });
 
           setFilteredDOArray(filteredArray);
@@ -490,31 +490,30 @@ function Index() {
               tempLimit = tempLimit - Number(item.Quantity);
             });
             let totalDONumber = 0;
-            let temparr = [...deliveryOrder];
+            const temparr = [...deliveryOrder];
             temparr.forEach((item, index2) => {
-              if (item.orderNumber == val.orderNumber) {
+              if (item.orderNumber === val.orderNumber) {
                 totalDONumber = totalDONumber + Number(item.Quantity);
               }
             });
             const filterForReleaseOrder = releaseDetail.filter((item) => {
-              return item.orderNumber == val.orderNumber;
+              return item.orderNumber === val.orderNumber;
             });
-            console.log(filterForReleaseOrder, totalDONumber, 'totlNumber');
             setDoLimit(tempLimit);
           }
         }
 
         if (name === 'orderNumber') {
-          let temparr = releaseOrderData;
+          const temparr = releaseOrderData;
 
-          let filteredArray = temparr.filter((item, index) => {
-            return item.orderNumber == value;
+          const filteredArray = temparr.filter((item, index) => {
+            return item.orderNumber === value;
           });
 
           setQuantity(filteredArray[0]?.netQuantityReleased);
           setDoLimit(filteredArray[0]?.netQuantityReleased);
 
-          let tempString = generateDoNumber(index);
+          const tempString = generateDoNumber(index);
           if (value !== 'Not Available') {
             val.Quantity = filteredArray[0]?.netQuantityReleased;
           } else {
@@ -534,7 +533,7 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= deliveryOrder.length - 1; i++) {
-      if (deliveryOrder[i]?.orderNumber == '' || deliveryOrder[i]?.orderNumber == null) {
+      if (deliveryOrder[i]?.orderNumber === '' || deliveryOrder[i]?.orderNumber == null) {
         toastMessage = `please select an release order number for DO ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -542,7 +541,7 @@ function Index() {
           break;
         }
       }
-      if (deliveryOrder[i]?.Quantity == '' || deliveryOrder[i]?.Quantity == null) {
+      if (deliveryOrder[i]?.Quantity === '' || deliveryOrder[i]?.Quantity == null) {
         toastMessage = `please provide quantity for delivery  order for DO  ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -561,10 +560,10 @@ function Index() {
     }
     let customObj = false;
     for (let i = 0; i < releaseDetail.length; i++) {
-      let orderId = releaseDetail[i].orderNumber;
-      let orderQuantity = releaseDetail[i].netQuantityReleased;
+      const orderId = releaseDetail[i].orderNumber;
+      const orderQuantity = releaseDetail[i].netQuantityReleased;
       const filterForReleaseOrder = deliveryOrder.filter((item) => {
-        return item.orderNumber == orderId;
+        return item.orderNumber === orderId;
       });
       const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
         let maxQuantity;
@@ -590,7 +589,7 @@ function Index() {
 
   const onSaveDoHAndler = async () => {
     if (doValidation()) {
-      let newarr = [];
+      const newarr = [];
       deliveryOrder.forEach((item) => {
         newarr.push({
           orderNumber: item.orderNumber,
@@ -603,12 +602,12 @@ function Index() {
         });
       });
 
-      let payload = {
+      const payload = {
         deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
         deliveryDetail: newarr,
-        lastMileDelivery: lastMileDelivery == 'true',
+        lastMileDelivery: lastMileDelivery === 'true',
       };
-      let task = 'save';
+      const task = 'save';
       await dispatch(UpdateDelivery({ payload, task }));
     }
   };
@@ -616,13 +615,13 @@ function Index() {
     const temp = [...lifting];
 
     temp.forEach((val, i) => {
-      if (i == index1) {
+      if (i === index1) {
         val.detail.forEach((val2, i2) => {
-          if (i2 == index2) {
-            if (type == 'lr') {
+          if (i2 === index2) {
+            if (type === 'lr') {
               val2.LRorRRDoc = {};
             }
-            if (type == 'eway') {
+            if (type === 'eway') {
               val2.eWayBillDoc = {};
             }
           }
@@ -641,13 +640,13 @@ function Index() {
     let release = 0;
     let delivery = 0;
     releaseDetail.forEach((item, index) => {
-      if (item.orderNumber == orderNumber) {
+      if (item.orderNumber === orderNumber) {
         release = item.netQuantityReleased;
       }
     });
     deliveryOrder.forEach((item, index) => {
-      if (item.orderNumber == orderNumber) {
-        if (item.status == doCancelledString) {
+      if (item.orderNumber === orderNumber) {
+        if (item.status === doCancelledString) {
           return false;
         }
         delivery = delivery + Number(item.Quantity);

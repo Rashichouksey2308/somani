@@ -990,8 +990,8 @@ function Index() {
 
   useEffect(() => {
     if (marginData) {
-      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
-      if (marginData?.invoiceDetail?.isConsigneeSameAsBuyer == true) {
+      setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer === false ? false : true);
+      if (marginData?.invoiceDetail?.isConsigneeSameAsBuyer === true) {
         setInvoiceData({
           buyerName: marginData?.company?.companyName || '',
           buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
@@ -1015,7 +1015,7 @@ function Index() {
           IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
           accountNo: marginData?.invoiceDetail?.accountNo || '',
         });
-        setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true);
+        setisConsigneeSameAsBuyer(marginData?.invoiceDetail?.isConsigneeSameAsBuyer === false ? false : true);
       } else {
         setInvoiceData({
           buyerName: marginData?.company?.companyName || '',
@@ -1050,9 +1050,9 @@ function Index() {
     getRevisedData();
     if (marginData) {
       setisConsigneeSameAsBuyerRevised(
-        marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true,
+        marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer === false ? false : true,
       );
-      if (marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer == true) {
+      if (marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer === true) {
         setInvoiceDataRevised({
           buyerName: marginData?.company?.companyName || '',
           buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
@@ -1080,7 +1080,7 @@ function Index() {
           accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
         });
         setisConsigneeSameAsBuyerRevised(
-          marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer == false ? false : true,
+          marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer === false ? false : true,
         );
       } else {
         setInvoiceDataRevised({
@@ -1529,7 +1529,7 @@ function Index() {
                                   Additional PDC's
                                   <strong className="text-danger">*</strong>
                                 </label>
-                                <div className={`${styles.val} heading`}>{/* {marginData?.additionalPDC} */}</div>
+                                <div className={`${styles.val} heading`}></div>
                               </div>
                             </div>
                           </div>
@@ -1557,9 +1557,6 @@ function Index() {
                                       maximumFractionDigits: 2,
                                     },
                                   )}
-                                  {/* {convertValue(finalCal?.orderValue, marginData?.order?.orderCurrency !== 'USD' ? 1000000 : 10000000)
-                                  ?.toLocaleString(marginData?.order?.orderCurrency === 'INR' ? 'en-IN' : undefined,
-                                   { maximumFractionDigits: 2 })} */}
                                 </div>
                               </div>
                             </div>
@@ -1575,11 +1572,6 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(J*C)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.orderValueInINR?.toLocaleString('en-In')} */}₹{' '}
-                                  {/* {checkNan(
-                                    Number(finalCal.orderValueInINR),
-                                    true,
-                                  )} */}
                                   {convertValue(finalCal.orderValueInINR, coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
@@ -1605,11 +1597,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  ₹ {/* {finalCal.usanceInterest} */}
-                                  {/* {checkNan(
-                                    Number(finalCal.usanceInterest),
-                                    true,
-                                  )} */}
+                                  ₹ 
                                   {convertValue(finalCal.usanceInterest, coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
@@ -1629,12 +1617,11 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(K*E)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  ₹ {/* {checkNan(Number(finalCal.tradeMargin), true)} */}
+                                  ₹ 
                                   {convertValue(finalCal.tradeMargin, coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                   })}
-                                  {/* {finalCal.tradeMargin?.toLocaleString('en-In')} */}
                                 </div>
                               </div>
                             </div>
@@ -1650,15 +1637,11 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(K+L+M)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.grossOrderValue?.toLocaleString('en-In')} */}₹{' '}
+                                  ₹{' '}
                                   {convertValue(finalCal.grossOrderValue, coversionUnit)?.toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                   })}
-                                  {/* {checkNan(
-                                    Number(finalCal.grossOrderValue),
-                                    true,
-                                  )} */}
                                 </div>
                               </div>
                             </div>
@@ -1674,15 +1657,11 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(N*F)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.toleranceValue} */}₹{' '}
+                                  ₹{' '}
                                   {convertValue(finalCal.toleranceValue, coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                   })}
-                                  {/* {checkNan(
-                                    Number(finalCal.toleranceValue),
-                                    true,
-                                  )} */}
                                 </div>
                               </div>
                             </div>
@@ -1698,15 +1677,11 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(N+O)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.totalOrderValue} */}₹{' '}
+                                  ₹{' '}
                                   {convertValue(finalCal.totalOrderValue, coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                   })}
-                                  {/* {checkNan(
-                                    Number(finalCal.totalOrderValue),
-                                    true,
-                                  )} */}
                                 </div>
                               </div>
                             </div>
@@ -1723,10 +1698,6 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
-                                  {/* {checkNan(
-                                    Number(finalCal.provisionalUnitPricePerTon),
-                                    true,
-                                  )} */}
                                   {convertValue(finalCal.provisionalUnitPricePerTon, coversionUnit).toLocaleString(
                                     'en-In',
                                     {
@@ -1734,7 +1705,6 @@ function Index() {
                                       maximumFractionDigits: 2,
                                     },
                                   )}
-                                  {/* {finalCal.provisionalUnitPricePerTon} */}
                                 </div>
                               </div>
                             </div>
@@ -1751,7 +1721,7 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(P*G)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.marginMoney} */}₹ {/* {checkNan(Number(finalCal.marginMoney), true)} */}
+                                  ₹ 
                                   {convertValue(finalCal.marginMoney, coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
@@ -1772,7 +1742,7 @@ function Index() {
                                   <span className={`${styles.blue}`}>{`(P-R)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.totalSPDC} */}₹ {/* {checkNan(Number(finalCal.totalSPDC), true)} */}
+                                  ₹ 
                                   {convertValue(finalCal.totalSPDC, coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
@@ -1794,15 +1764,10 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
-                                  {/* {checkNan(
-                                    Number(finalCal.amountPerSPDC),
-                                    true,
-                                  )} */}
                                   {convertValue(finalCal.amountPerSPDC, coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                   })}
-                                  {/* {finalCal.amountPerSPDC} */}
                                 </div>
                               </div>
                             </div>
@@ -1918,7 +1883,7 @@ function Index() {
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-1`}
-                                      checked={isConsigneeSameAsBuyer == true ? 'checked' : ''}
+                                      checked={isConsigneeSameAsBuyer === true ? 'checked' : ''}
                                     />
                                     <Form.Check
                                       className={`${styles.radio} radio`}
@@ -1928,7 +1893,7 @@ function Index() {
                                         setisConsigneeSameAsBuyer(false);
                                         setSame(false);
                                       }}
-                                      checked={isConsigneeSameAsBuyer == false ? 'checked' : ''}
+                                      checked={isConsigneeSameAsBuyer === false ? 'checked' : ''}
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-2`}
@@ -2025,11 +1990,11 @@ function Index() {
                                     changeImporterData?.branch ? changeImporterData?.branch : invoiceData?.branchOffice
                                   }
                                   onChange={(e) => {
-                                    let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                                    const filter = getInternalCompaniesMasterData.filter((val, index) => {
                                       if (val.keyAddresses.length > 0) {
                                         if (
-                                          val.keyAddresses[0].Branch == e.target.value &&
-                                          val.Company_Name?.toLowerCase() == invoiceData?.importerName?.toLowerCase()
+                                          val.keyAddresses[0].Branch === e.target.value &&
+                                          val.Company_Name?.toLowerCase() === invoiceData?.importerName?.toLowerCase()
                                         ) {
                                           return val;
                                         }
@@ -2123,38 +2088,37 @@ function Index() {
                                   onChange={(e) => {
                                     saveInvoiceData(e.target.name, e.target.value);
 
-                                    let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                                    const filter = getInternalCompaniesMasterData.filter((val, index) => {
                                       if (val.keyBanks.length > 0) {
                                         if (
-                                          val.keyBanks[0].Account_No == e.target.value &&
-                                          val.Company_Name == invoiceData?.importerName
+                                          val.keyBanks[0].Account_No === e.target.value &&
+                                          val.Company_Name === invoiceData?.importerName
                                         ) {
                                           return val;
                                         }
                                       }
                                     });
 
-                                    // saveInvoiceData(e.target.name, filter[0].keyBanks[0].Bank_Name);
-                                    if (filter.length == 0) {
+                                    if (filter.length === 0) {
                                       saveData('branchAddress', '', 'IFSCcode', '', '', '', '', '');
                                       return;
                                     }
 
                                     saveData(
                                       'branchAddress',
-                                      filter[0].keyBanks[0].Branch_Address == undefined
+                                      filter[0].keyBanks[0].Branch_Address === undefined
                                         ? ''
                                         : filter[0].keyBanks[0].Branch_Address,
                                       'IFSCcode',
-                                      filter[0].keyBanks[0].IFSC == undefined ? '' : filter[0].keyBanks[0].IFSC,
+                                      filter[0].keyBanks[0].IFSC === undefined ? '' : filter[0].keyBanks[0].IFSC,
                                       e.target.value,
-                                      filter[0].keyBanks[0].Account_No == undefined
+                                      filter[0].keyBanks[0].Account_No === undefined
                                         ? ''
                                         : filter[0].keyBanks[0].Account_No,
-                                      filter[0].keyBanks[0].branchType == undefined
+                                      filter[0].keyBanks[0].branchType === undefined
                                         ? ''
                                         : filter[0].keyBanks[0].branchType,
-                                      filter[0].keyBanks[0].Bank_Name == undefined
+                                      filter[0].keyBanks[0].Bank_Name === undefined
                                         ? ''
                                         : filter[0].keyBanks[0].Bank_Name,
                                     );
@@ -2174,10 +2138,6 @@ function Index() {
                                         </option>
                                       );
                                     })}
-                                  {/* <option value={`${invoiceData?.bankName}`}>
-                                    {invoiceData?.bankName}
-                                  </option> */}
-                                  {/* <option value="ICICI">ICICI Bank Ltd</option> */}
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`} id="textInput">
                                   Bank Name
@@ -2240,7 +2200,6 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="accountNo"
-                                // onChange={(e) => saveInvoiceData(e.target.name, e.target.value)}
                                 value={invoiceData?.accountNo}
                                 className={`${styles.input_field} input form-control`}
                                 required

@@ -9,7 +9,6 @@ import styles from './profile.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetBuyer, UpdateBuyer, GetAllBuyer } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
-import { toast } from 'react-toastify';
 import { settingSidebar } from '../../src/redux/breadcrumb/action';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
 import { handleErrorToast } from '@/utils/helpers/global';
