@@ -443,6 +443,21 @@ export default function Index({ isQuery }) {
       }
     }
 
+    if ('master-sac' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/SAC Code Master` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/SAC Code Master` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Master' + '/SAC Code Master';
+      }
+    }
 
 
     router.route.split('/').map((subRoute, index) => {
