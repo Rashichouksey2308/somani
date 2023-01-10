@@ -19,6 +19,8 @@ import TPASellerPreview from '../../../src/templates/TPASellerPreview';
 import { returnReadableNumber } from '@/utils/helpers/global';
 import { useDispatch } from 'react-redux';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
+import constants from '@/utils/constants'
+
 const Index = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
@@ -59,134 +61,131 @@ const Index = () => {
         dispatch(setDynamicOrder(term.order.orderId));
         }
   },[]);
+  
   useEffect(() => {
     if (window) {
-      const data = JSON.parse(sessionStorage.getItem('genericSelected'));
+      const data1 = JSON.parse(sessionStorage.getItem('genericSelected'));
+      const associateshipAgreement = 'Associateship Agreement'
+     
 
       const data2 = sessionStorage.getItem('agreementPreview');
       setPreview(data2);
       let toCheck = 'Sales Agreement';
       if (data2 === 'QPA') {
         toCheck = 'QPA';
-      }
-      if (data2 === 'LETTER') {
+      }else if (data2 === 'LETTER') {
         toCheck = 'Assignment Letter';
-      }
-      if (data2 === 'TPASELLER') {
+      }else if (data2 === 'TPASELLER') {
         toCheck = 'TPA (Seller)';
-      }
-       if (data2 === 'TPAIGI') {
+      }else if (data2 === 'TPAIGI') {
         toCheck = 'TPA (CMA)';
-      }
-      if (data2 === 'ASSO') {
-        toCheck = 'Associateship Agreement';
-      }
-      if (data2 === 'UNDERTAKING1') {
-        toCheck = 'Associateship Agreement';
-      }
-      if (data2 === 'UNDERTAKING2') {
-        toCheck = 'Associateship Agreement';
-      }
+      }else if (data2 === 'ASSO') {
+        toCheck = associateshipAgreement;
+      }else if (data2 === 'UNDERTAKING1') {
+        toCheck = associateshipAgreement;
+      }else if (data2 === 'UNDERTAKING2') {
+        toCheck = associateshipAgreement;
+      } else toCheck = 'Sales Agreement';
 
       let exe;
       let dat = '';
       let dateOfContract = '';
-      data?.placeOfExecution?.execution?.forEach((val, index) => {
+      data1?.placeOfExecution?.execution?.forEach((val, index) => {
         if (val.agreementName === toCheck) {
           exe = val.place;
           if (val.dateOfExecution) {
-            dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
+            dat = moment(val.dateOfExecution).format(constants.dateFormatString);
           }
         }
       });
       const comment = [];
       let month=""
-      data?.additionalComments?.comments?.forEach((val, index) => {
+      data1?.additionalComments?.comments?.forEach((val, index) => {
         if (val.agreementName === toCheck) {
           comment.push(val.comment);
          
           if (toCheck === 'Assignment Letter') {
             
-            dateOfContract = moment(val?.dateOfContract).format('DD-MM-YYYY');
+            dateOfContract = moment(val?.dateOfContract).format(constants.dateFormatString);
              month= val?.monthOfLoadingCargo
           }
         }
       });
     
       setData({
-        seller: data?.seller?.name,
-        buyer: data?.buyer?.name,
-        sellerAddress: _get(data, 'seller.addresses[0]', {}),
-        buyerAddress: _get(data, 'buyer.addresses[0]', {}),
-        shortseller: data?.seller?.shortName,
-       shortbuyer: `${data?.buyer.shortName}`,
+        seller: data1?.seller?.name,
+        buyer: data1?.buyer?.name,
+        sellerAddress: _get(data1, 'seller.addresses[0]', {}),
+        buyerAddress: _get(data1, 'buyer.addresses[0]', {}),
+        shortseller: data1?.seller?.shortName,
+       shortbuyer: `${data1?.buyer.shortName}`,
 
-        sellerSignature: data?.seller?.name,
-        buyerSignature: data?.buyer?.name,
+        sellerSignature: data1?.seller?.name,
+        buyerSignature: data1?.buyer?.name,
         dateOfExecution: dat,
         placeOfExecution: exe,
-        details: data?.supplier?.name,
-        detailsOfEndBuyer: data?.company.companyName,
-        detailsOfComm: data?.order?.commodity,
-        quan: data?.order?.quantity,
-        totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
-        lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
-        dischargePort: data?.order?.portOfDischarge,
-        lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-        terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
+        details: data1?.supplier?.name,
+        detailsOfEndBuyer: data1?.company.companyName,
+        detailsOfComm: data1?.order?.commodity,
+        quan: data1?.order?.quantity,
+        totalOrderValue: data1?.order?.marginMoney?.calculation?.orderValue ?? '',
+        lordPort: data1?.order?.termsheet?.transactionDetails?.loadPort,
+        dischargePort: data1?.order?.portOfDischarge,
+        lastDate: data1?.order?.shipmentDetail?.lastDateOfShipment,
+        terms: `${data1?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
         addComm: comment,
-        spec: data?.productSpecifications?.specificationTable,
-        specComment: data?.productSpecifications.comments,
-        unitOfGrade: data?.order?.unitOfGrade,
-        unitOfQuantity: data?.order?.unitOfQuantity,
-        unitOfValue: data?.order?.unitOfValue,
-        curr: data?.order?.orderCurrency,
-        supplierAddress: _get(data, 'supplier.addresses[0]', {}),
-        supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
-        buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
-        buyerEmail: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
-        supplierEmail: _get(data, 'supplier.authorisedSignatoryDetails', []),
-        toleranceLevel: data?.order?.tolerance,
-        incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
-        financialBank: data?.financingBank?.name,
-        financialAddress: `${data?.financingBank?.branch}, Netherlands`,
-        associateBuyer: _get(data, 'company.companyName', ''),
-        associateBuyerAddress: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
-        associateBuyerGst: data?.associateBuyer?.gstin,
-        associateBuyerPan: _get(data, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
-        associateBuyerAuthorized: _get(data, 'associateBuyer.authorisedSignatoryDetails', []),
-        stevedore: data?.stevedore?.name,
-        stevedoreAddress: _get(data, 'stevedore.addresses[0]', {}),
-        stevedoreAuthorized: _get(data, 'stevedore.authorisedSignatoryDetails', []),
-        cma: data?.CMA?.name,
-        cmaAddress: _get(data, 'CMA.addresses[0]', {}),
-        cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
-        cha: data?.CHA?.name,
-        chaAddress: _get(data, 'CHA.addresses[0]', {}),
-        chaAuthorized: _get(data, 'CHA.authorisedSignatoryDetails', []),
-        vessel: data?.shippingLine?.vesselName,
-        storagePlot: data?.order?.termsheet?.transactionDetails?.portOfDischarge,
-        loadingCargo: data?.deliveryTerms?.monthOfLoadingCargo || '',
+        spec: data1?.productSpecifications?.specificationTable,
+        specComment: data1?.productSpecifications.comments,
+        unitOfGrade: data1?.order?.unitOfGrade,
+        unitOfQuantity: data1?.order?.unitOfQuantity,
+        unitOfValue: data1?.order?.unitOfValue,
+        curr: data1?.order?.orderCurrency,
+        supplierAddress: _get(data1, 'supplier.addresses[0]', {}),
+        supplierAuthorized: _get(data1, 'supplier.authorisedSignatoryDetails', []),
+        buyerAuthorized: _get(data1, 'buyer.authorisedSignatoryDetails', []),
+        buyerEmail: _get(data1, 'associateBuyer.authorisedSignatoryDetails', []),
+        supplierEmail: _get(data1, 'supplier.authorisedSignatoryDetails', []),
+        toleranceLevel: data1?.order?.tolerance,
+        incoTerms: data1?.order?.termsheet?.transactionDetails?.incoTerms,
+        financialBank: data1?.financingBank?.name,
+        financialAddress: `${data1?.financingBank?.branch}, Netherlands`,
+        associateBuyer: _get(data1, 'company.companyName', ''),
+        associateBuyerAddress: _get(data1, 'company.detailedCompanyInfo.profile.companyDetail.registeredAddress', ''),
+        associateBuyerGst: data1?.associateBuyer?.gstin,
+        associateBuyerPan: _get(data1, 'company.detailedCompanyInfo.profile.companyDetail.pans[0]', ''),
+        associateBuyerAuthorized: _get(data1, 'associateBuyer.authorisedSignatoryDetails', []),
+        stevedore: data1?.stevedore?.name,
+        stevedoreAddress: _get(data1, 'stevedore.addresses[0]', {}),
+        stevedoreAuthorized: _get(data1, 'stevedore.authorisedSignatoryDetails', []),
+        cma: data1?.CMA?.name,
+        cmaAddress: _get(data1, 'CMA.addresses[0]', {}),
+        cmaAuthorized: _get(data1, 'CMA.authorisedSignatoryDetails', []),
+        cha: data1?.CHA?.name,
+        chaAddress: _get(data1, 'CHA.addresses[0]', {}),
+        chaAuthorized: _get(data1, 'CHA.authorisedSignatoryDetails', []),
+        vessel: data1?.shippingLine?.vesselName,
+        storagePlot: data1?.order?.termsheet?.transactionDetails?.portOfDischarge,
+        loadingCargo: data1?.deliveryTerms?.monthOfLoadingCargo || '',
         dateOfContract: dateOfContract,
-        designatedStorageArea: data?.CMA?.designatedStorageArea,
-        supplier: data?.supplier?.name,
-        endBuyer: data.company.companyName,
-        priceOfGoods: data?.order?.perUnitPrice,
-        commodityDetails: data?.order?.commodity,
-        unitPrice: data.order?.perUnitPrice,
-        tradeMargin: data.order?.termsheet?.commercials?.tradeMarginPercentage,
-        deliveryTerm: data.deliveryTerms.deliveryTerm,
-        totalPrice: data?.order?.marginMoney?.calculation?.orderValue,
-        advanceMoney: data?.order?.termsheet?.transactionDetails?.marginMoney,
-        orderValueCurrency: data?.order?.marginMoney?.calculation?.orderValueCurrency,
-        paymentTerm: data.deliveryTerms.paymentTerms,
-        cheque: data.deliveryTerms?.cheque || [],
-        cmaShort: data?.CMA?.shortName,
+        designatedStorageArea: data1?.CMA?.designatedStorageArea,
+        supplier: data1?.supplier?.name,
+        endBuyer: data1.company.companyName,
+        priceOfGoods: data1?.order?.perUnitPrice,
+        commodityDetails: data1?.order?.commodity,
+        unitPrice: data1.order?.perUnitPrice,
+        tradeMargin: data1.order?.termsheet?.commercials?.tradeMarginPercentage,
+        deliveryTerm: data1.deliveryTerms.deliveryTerm,
+        totalPrice: data1?.order?.marginMoney?.calculation?.orderValue,
+        advanceMoney: data1?.order?.termsheet?.transactionDetails?.marginMoney,
+        orderValueCurrency: data1?.order?.marginMoney?.calculation?.orderValueCurrency,
+        paymentTerm: data1.deliveryTerms.paymentTerms,
+        cheque: data1.deliveryTerms?.cheque || [],
+        cmaShort: data1?.CMA?.shortName,
         loadingCargo2: month ,
-        cin:data?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
-        orderId:data?.order?.orderId.slice(-3),
-        orderId2:data?.order?.orderId.slice(-4),
-        associateBuyerShort: _get(data, 'associateBuyer.shortName', ''),
+        cin:data1?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
+        orderId:data1?.order?.orderId.slice(-3),
+        orderId2:data1?.order?.orderId.slice(-4),
+        associateBuyerShort: _get(data1, 'associateBuyer.shortName', ''),
       });
     }
   }, []);
@@ -209,7 +208,7 @@ const Index = () => {
       name = 'Associateship.pdf';
     }
     if (preview === 'UNDERTAKING1') {
-      toPrint = undertaking1Pdf(data);
+      toPrint = undertaking1Pdf(data,constants.dateFormatString);
       name = 'Undertaking1.pdf';
     }
     if (preview === 'UNDERTAKING2') {
@@ -267,7 +266,7 @@ const Index = () => {
 
 export default Index;
 
-export const undertaking1Pdf = (data) => {
+export const undertaking1Pdf = (data,dateFormatString) => {
   return (
     <>
          
@@ -447,7 +446,7 @@ export const undertaking1Pdf = (data) => {
                       <td style={{
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
-                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {moment(val.chequeDate).format('DD-MM-YYYY')}</p>
+                        }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}> {moment(val.chequeDate).format(dateFormatString)}</p>
                       </td>
                       <td style={{
                           borderBottom: '1px solid #000000',

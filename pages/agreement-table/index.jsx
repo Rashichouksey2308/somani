@@ -51,8 +51,8 @@ const Index = (props) => {
     const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${pageDataLimit}&createdAt=${sorting}`));
     setData(data.data);
     setTotal(data.totalCount);
-    if (sorting === -1) return setSorting(1);
-    setSorting(-1);
+    if (sorting === -1)  setSorting(1);
+    else setSorting(-1);
   };
   const handleRoute = (term) => {
     sessionStorage.setItem('genericSelected', JSON.stringify(term));
@@ -76,10 +76,10 @@ const Index = (props) => {
     dispatch(getGenericData(`?company=${id}`));
   };
   const getStyles = (status) => {
-    if (status == 'Review') {
+    if (status === 'Review') {
       return styles.review;
     }
-    return status == 'Approved' ? styles.approved : styles.rejected;
+    return status === 'Approved' ? styles.approved : styles.rejected;
   };
 
   return (

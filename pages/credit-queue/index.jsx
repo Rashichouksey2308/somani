@@ -14,7 +14,7 @@ import { GetAllBuyer, GetAllOrders } from '../../src/redux/registerBuyer/action'
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import styles from './creditqueue.module.scss';
 
-function Index() {
+const Index = () => {
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
@@ -45,8 +45,8 @@ function Index() {
     if (buyer.queue === 'CreditQueue') {
       sessionStorage.setItem('orderID', buyer._id);
       sessionStorage.setItem('companyID', buyer.company._id);
-      await dispatch(GetAllOrders({ orderId: buyer._id }));
-      await dispatch(GetCompanyDetails({ company: buyer.company._id }));
+      dispatch(GetAllOrders({ orderId: buyer._id }));
+      dispatch(GetCompanyDetails({ company: buyer.company._id }));
     }
   };
 
@@ -67,13 +67,14 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    if (sorting === -1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting === 1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
-      setSorting(-1);
-    }
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
+    if (sorting === -1) setSorting(1);
+    else setSorting(-1);
+  };
+
+  const getStatus = (status) => {
+    if (status === 'ReviewQueue') return 'Review';
+    status === 'CreditQueue' ? 'Approved' : 'Rejected';
   };
 
   return (
@@ -209,7 +210,7 @@ function Index() {
                             <td>{buyer?.existingCustomer ? 'Yes' : 'No'}</td>
                             <td>
                               <span className={`${styles.status} ${styles.approved}`}></span>
-                              {buyer?.queue === 'ReviewQueue' ? 'Review' : 'CreditQueue' ? 'Approved' : 'Rejected'}
+                              {getStatus(buyer?.queue)}
                             </td>
                             <td>
                               <img
@@ -233,6 +234,6 @@ function Index() {
       )}
     </>
   );
-}
+};
 
 export default Index;

@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import AddCommodity from '../../src/components/AddCommodity';
 
-function Index() {
+const  Index = () => {
   return (
     <div className="container-fluid p-0 border-0">
       <Card className={`${styles.card}`}>

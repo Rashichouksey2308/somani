@@ -15,7 +15,7 @@ import StorageInsurance from '../../../src/templates/requestLetters/StorageInsur
 import { CovertvaluefromtoCR } from '../../../src/utils/helper';
 import styles from './index.module.scss';
 
-function Index() {
+const Index = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -83,6 +83,8 @@ function Index() {
       autoPaging: 'text',
     });
   };
+
+  const dateString = 'DD MMMM, YYYY'
   return (
     <>
       <div className="container-fluid p-0">
@@ -221,7 +223,7 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} - {moment(insuranceData?.quotationRequest?.laycanTo).format('DD MMMM, YYYY')}
+                    {moment(insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')} - {moment(insuranceData?.quotationRequest?.laycanTo).format(dateString)}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -229,7 +231,7 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM, YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format(dateString)}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -237,7 +239,7 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM, YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format(dateString)}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

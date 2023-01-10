@@ -10,10 +10,11 @@ import { GetMarginMoney } from 'redux/marginMoney/action';
 import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
 import MarginBar from '../../src/components/MarginBar';
 import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
-import { addPrefixOrSuffix, checkNan } from '../../src/utils/helper';
+import { addPrefixOrSuffix } from '../../src/utils/helper';
 import styles from './index.module.scss';
 import { returnReadableNumber } from '@/utils/helpers/global';
 import TermsheetPopUp from '../../src/components/TermsheetPopUp';
+import constants from '@/utils/constants.js'
 
 function Index() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function Index() {
  
 
   useEffect(() => {
-    let id = sessionStorage.getItem('marginId');
+    const id = sessionStorage.getItem('marginId');
     dispatch(GetMarginMoney({ orderId: id }));
 
     dispatch(setPageName('margin-money'));
@@ -36,7 +37,7 @@ function Index() {
   const [email, setEmail] = useState('');
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    const doc = new jsPDF('p', 'pt', [constants.pdfWidth, constants.pdfHeightRevisedMargin]);
     doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
       callback: function (doc) {
         const totalPages = doc.internal.getNumberOfPages();
@@ -45,7 +46,7 @@ function Index() {
           doc.setPage(i);
           doc.text(
             `Page ${i} of ${totalPages}`,
-            doc.internal.pageSize.getWidth() / 2,
+            doc.internal.pageSize.getWidth() / constants.numberTwo,
             doc.internal.pageSize.getHeight() - 1,
             {
               align: 'center',
@@ -140,16 +141,16 @@ function Index() {
                       {marginData?.order?.orderCurrency}{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice,
-                        marginData?.order?.orderCurrency == 'INR' ? 'en-In' : 'en-En',
-                        2,2
+                        marginData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En',
+                        constants.numberTwo,constants.numberTwo
                       ) ?? 0}
                     </td>
                     <td>
                       {marginData?.order?.orderCurrency}{' '}
                       {returnReadableNumber(
                         marginData?.order?.perUnitPrice,
-                        marginData?.order?.orderCurrency == 'INR' ? 'en-In' : 'en-En',
-                        2,2
+                        marginData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En',
+                        constants.numberTwo,constants.numberTwo
                       ) ?? 0}
                     </td>
                   </tr>
@@ -162,10 +163,11 @@ function Index() {
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate,
                         'en-In',
-                        2,2
+                        constants.numberTwo,constants.numberTwo
                       ) ?? 0}
                     </td>
-                    <td>{returnReadableNumber(marginData?.conversionRate, 'en-In', 2,2) ?? 0}</td>
+                    <td>{returnReadableNumber(
+                      marginData?.conversionRate, 'en-In', constants.numberTwo,constants.numberTwo) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -173,16 +175,14 @@ function Index() {
                       <span className={`ml-2`}>Usance Interest (%)</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {/* {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')} */}
                       {marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ?
-                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,'en-In',2,2) + ' %':
+                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,'en-In',constants.numberTwo,constants.numberTwo) + ' %':
                       '' } 
                     </td>
                     <td>
                     {marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ?
-                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,'en-In',2,2) + ' %':
+                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,'en-In',constants.numberTwo,constants.numberTwo) + ' %':
                       '' } 
-                      {/* {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')} */}
                     </td>
                   </tr>
                   <tr>
@@ -192,15 +192,13 @@ function Index() {
                     </td>
                     <td className={`${styles.good} `}>
                     {marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ?
-                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,'en-In',2,2) + ' %':
+                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,'en-In',constants.numberTwo,constants.numberTwo) + ' %':
                       '' } 
-                      {/* {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')} */}
                     </td>
                     <td>
                     {marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ?
-                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,'en-In',2,2) + ' %':
+                      returnReadableNumber(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,'en-In',constants.numberTwo,constants.numberTwo) + ' %':
                       '' } 
-                      {/* {addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')} */}
                     </td>
                   </tr>
                   <tr>
@@ -210,23 +208,13 @@ function Index() {
                     </td>
                     <td className={`${styles.good} `}>
                     {marginData?.order?.tolerance ?
-                      returnReadableNumber(marginData?.order?.tolerance,'en-In',2,2) + ' %':
+                      returnReadableNumber(marginData?.order?.tolerance,'en-In',constants.numberTwo,constants.numberTwo) + ' %':
                       '' } 
-                      {/* {addPrefixOrSuffix(
-                        marginData?.order?.tolerance ? Number(marginData?.order?.tolerance) : 0,
-                        '%',
-                        '',
-                      )} */}
                     </td>
                     <td>
                     {marginData?.order?.tolerance ?
-                      returnReadableNumber(marginData?.order?.tolerance,'en-In',2,2) + ' %':
+                      returnReadableNumber(marginData?.order?.tolerance,'en-In',constants.numberTwo,constants.numberTwo) + ' %':
                       '' } 
-                      {/* {addPrefixOrSuffix(
-                        marginData?.order?.tolerance ? Number(marginData?.order?.tolerance) : 0,
-                        '%',
-                        '',
-                      )} */}
                     </td>
                   </tr>
                   <tr>
@@ -236,27 +224,13 @@ function Index() {
                     </td>
                     <td className={`${styles.good} good`}>
                     { marginData?.order?.termsheet?.transactionDetails?.marginMoney ?
-                      returnReadableNumber( marginData?.order?.termsheet?.transactionDetails?.marginMoney,'en-In',2,2) + ' %':
+                      returnReadableNumber( marginData?.order?.termsheet?.transactionDetails?.marginMoney,'en-In',constants.numberTwo,constants.numberTwo) + ' %':
                       '' } 
-                      {/* {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                          ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                          : 0,
-                        '%',
-                        '',
-                      )} */}
                     </td>
                     <td>
                     { marginData?.order?.termsheet?.transactionDetails?.marginMoney ?
-                      returnReadableNumber( marginData?.order?.termsheet?.transactionDetails?.marginMoney,'en-In',2,2) + ' %':
+                      returnReadableNumber( marginData?.order?.termsheet?.transactionDetails?.marginMoney,'en-In',constants.numberTwo,constants.numberTwo) + ' %':
                       '' } 
-                      {/* {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                          ? marginData?.order?.termsheet?.transactionDetails?.marginMoney
-                          : 0,
-                        '%',
-                        '',
-                      )} */}
                     </td>
                   </tr>
                   <tr>
@@ -266,14 +240,14 @@ function Index() {
                     </td>
                     <td className={`${styles.good} good`}>
                       {marginData?.numberOfPDC?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: constants.numberTwo,
+                        maximumFractionDigits: constants.numberTwo,
                       }) ?? 0}
                     </td>
                     <td>
                       {marginData?.numberOfPDC?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: constants.numberTwo,
+                        maximumFractionDigits: constants.numberTwo,
                       }) ?? 0}
                     </td>
                   </tr>
@@ -285,15 +259,12 @@ function Index() {
                     </td>
                     <td className={`${styles.highlight} satisfactory`}>
                       {marginData?.additionalPDC?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: constants.numberTwo,
+                        maximumFractionDigits: constants.numberTwo,
                       })}
                     </td>
                     <td>
                       {' '}
-                      {/* {marginData?.additionalPDC?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })} */}
                     </td>
                   </tr>
                   <tr>
@@ -324,18 +295,18 @@ function Index() {
                       {marginData?.order?.orderCurrency}{' '}
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.orderValue,
-                        marginData?.order?.orderCurrency == 'INR' ? 'en-In' : 'en-En',
-                        2,
-                        2,
+                        marginData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En',
+                        constants.numberTwo,
+                        constants.numberTwo,
                       )}
                     </td>
                     <td className="pt-4">
                       {marginData?.order?.orderCurrency}{' '}
                       {returnReadableNumber(
                         marginData?.calculation?.orderValue,
-                        marginData?.order?.orderCurrency == 'INR' ? 'en-In' : 'en-En',
-                        2,
-                        2,
+                        marginData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En',
+                        constants.numberTwo,
+                        constants.numberTwo,
                       ) ?? 0}
                     </td>
                   </tr>
@@ -350,11 +321,11 @@ function Index() {
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR,
                         'en-In',
-                        2,
-                        2,
+                        constants.numberTwo,
+                        constants.numberTwo,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.orderValueInINR, 'en-In', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.orderValueInINR, 'en-In', constants.numberTwo, constants.numberTwo) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -367,11 +338,11 @@ function Index() {
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest,
                         'en-In',
-                        2,
-                        2,
+                        constants.numberTwo,
+                        constants.numberTwo,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.usanceInterest, 'en-In', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.usanceInterest, 'en-In', constants.numberTwo, constants.numberTwo) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -384,11 +355,11 @@ function Index() {
                       {returnReadableNumber(
                         marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin,
                         'en-In',
-                        2,
-                        2,
+                        constants.numberTwo,
+                        constants.numberTwo,
                       ) ?? 0}
                     </td>
-                    <td>₹ {returnReadableNumber(marginData?.calculation?.tradeMargin, 'en-In', 2, 2) ?? 0}</td>
+                    <td>₹ {returnReadableNumber(marginData?.calculation?.tradeMargin, 'en-In', constants.numberTwo, constants.numberTwo) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -399,15 +370,15 @@ function Index() {
                     <td>
                       ₹{' '}
                       {marginData?.revisedMarginMoney?.revisedCalculation?.grossOrderValue?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: constants.numberTwo,
+                        maximumFractionDigits: constants.numberTwo,
                       }) ?? 0}
                     </td>
                     <td>
                       ₹{' '}
                       {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: constants.numberTwo,
+                        maximumFractionDigits: constants.numberTwo,
                       }) ?? 0}
                     </td>
                   </tr>
@@ -421,8 +392,8 @@ function Index() {
                     <td>
                       ₹{' '}
                       {marginData?.revisedMarginMoney?.revisedCalculation?.toleranceValue?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: constants.numberTwo,
+                        maximumFractionDigits: constants.numberTwo,
                       }) ?? 0}
                     </td>
                     <td>

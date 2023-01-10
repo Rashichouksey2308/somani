@@ -17,7 +17,7 @@ import { handleErrorToast } from '../../src/utils/helpers/global'
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 
-function Index() {
+const Index = () => {
   const dispatch = useDispatch();
   const [componentId, setComponentId] = useState(1);
 

@@ -9,7 +9,7 @@ import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousi
 import { setDynamicName, setPageName } from '../../src/redux/userData/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
-function Index () {
+const  Index = () => {
   const [serachterm, setSearchTerm] = useState('')
 
   const { searchedLeads } = useSelector((state) => state.order)

@@ -205,7 +205,8 @@ function Index() {
         tab[0]?.children[tempIndex]?.classList?.add('show');
         tab[0]?.children[tempIndex]?.classList?.add('active');
       }
-      if (sessionStorage.getItem('showCAM') === 'false' || sessionStorage.getItem('showCAM') === undefined) {
+      console.log(sessionStorage.getItem('showCAM'),'sessionStorage.getItem(showCAM)')
+      if (sessionStorage.getItem('showCAM') === 'false' || sessionStorage.getItem('showCAM') === undefined || !sessionStorage.getItem('showCAM') ) {
         dispatch(GetAllOrders({ orderId: id1 }));
         dispatch(GetCompanyDetails({ company: id2 }));
         dispatch(GetAllBuyer(`?company=${id2}&limit=${6}`));
@@ -588,7 +589,6 @@ function Index() {
             primaryBank: val?.primaryBank,
             addnew: 'false',
           });
-          //  }
         } else {
           temp.push({
             bankName: val?.bankName,
@@ -4648,7 +4648,6 @@ function Index() {
                       alt="Arrow Green"
                     />
                   ) : null}
-                  {/* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" /> */}
                 </td>
                 <td
                   style={{
@@ -8650,7 +8649,7 @@ function Index() {
           isDropdown={true}
         />
       ) : null}
-      {selectedTab == 'CAM' ? (
+      {selectedTab === 'CAM' ? (
         <DownloadBar
           downLoadButtonName={`CAM`}
           isPrevious={true}
@@ -8719,11 +8718,7 @@ const ligitations = (Supreme, District, High, Tribunal, companyData) => {
 };
 
 const table2 = (sat, balance, complienceFilter) => {
-  let length = complienceFilter == 'Banking Defaults' ? balance.length : sat.length;
-  // if (complienceFilter == 'All') {
-  //   console.log('is this runnign')
-  //   complienceFilter == sat.length;
-  // }
+  const length = complienceFilter === 'Banking Defaults' ? balance.length : sat.length;
   const addSpace = (val, remove) => {
     let result = val;
     if (remove) {
@@ -8732,7 +8727,7 @@ const table2 = (sat, balance, complienceFilter) => {
     result = result.replace(/[A-Z]/g, ' $&').trim();
     if (remove) {
       let caps = '';
-      let myArray = result.split(' ');
+      const myArray = result.split(' ');
       if (myArray.length > 1) {
         const getText = (arr) => {
           let text = '';
@@ -8744,14 +8739,14 @@ const table2 = (sat, balance, complienceFilter) => {
 
           return text;
         };
-        if (myArray[0] == 'Gst' || myArray[0] == 'Epf' || myArray[0] == 'Tan') {
+        if (myArray[0] === 'Gst' || myArray[0] === 'Epf' || myArray[0] === 'Tan') {
           caps = myArray[0].toUpperCase();
           result = `${caps} ${getText(myArray)}`;
         }
       }
     }
 
-    if (result == 'Ibbi') {
+    if (result === 'Ibbi') {
       result = 'IBBI';
     }
     return result;
@@ -8771,29 +8766,22 @@ const table2 = (sat, balance, complienceFilter) => {
       <tbody>
         <tr>
           <td className={`${styles.firstCell} text-nowrap`} rowSpan={length + 3}>
-            {complienceFilter == 'StatutoryCompliance'
+            {complienceFilter === 'StatutoryCompliance'
               ? `Statutory Compliance`
-              : complienceFilter == 'All'
+              : complienceFilter === 'All'
               ? 'All'
               : `Banking Defaults`}
           </td>
-          {/* <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td> */}
         </tr>
-        {complienceFilter == 'StatutoryCompliance'
+        {complienceFilter === 'StatutoryCompliance'
           ? sat.length &&
             sat?.map((alert, index) => {
-              {
-              }
               return (
                 <tr key={index}>
                   <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
                   <td className="text-capitalize"> {addSpace(alert.severity)}</td>
                   <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                  <td className="text-capitalize"> {alert.idType === 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                   <td className="text-capitalize">
                     {' '}
                     {alert?.value?.length > 1 ? (
@@ -8808,7 +8796,7 @@ const table2 = (sat, balance, complienceFilter) => {
                         })}
                       </>
                     ) : (
-                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
+                      <>{alert.idType === 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
                     )}
                   </td>
                 </tr>
@@ -8821,7 +8809,7 @@ const table2 = (sat, balance, complienceFilter) => {
                   <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
                   <td className="text-capitalize"> {addSpace(alert.severity)}</td>
                   <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                  <td className="text-capitalize"> {alert.idType === 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                   <td className="text-capitalize">
                     {' '}
                     {alert?.value?.length > 1 ? (
@@ -8836,13 +8824,13 @@ const table2 = (sat, balance, complienceFilter) => {
                         })}
                       </>
                     ) : (
-                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
+                      <>{alert.idType === 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
                     )}
                   </td>
                 </tr>
               );
             })}
-        {complienceFilter == 'All' ? (
+        {complienceFilter === 'All' ? (
           <>
             {sat.length &&
               sat?.map((alert, index) => {
@@ -8851,7 +8839,7 @@ const table2 = (sat, balance, complienceFilter) => {
                     <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
                     <td className="text-capitalize"> {addSpace(alert.severity)}</td>
                     <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                    <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                    <td className="text-capitalize"> {alert.idType === 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                     <td className="text-capitalize">
                       {' '}
                       {alert?.value?.length > 1 ? (
@@ -8866,7 +8854,7 @@ const table2 = (sat, balance, complienceFilter) => {
                           })}
                         </>
                       ) : (
-                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
+                        <>{alert.idType === 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
                       )}
                     </td>
                   </tr>
@@ -8879,7 +8867,7 @@ const table2 = (sat, balance, complienceFilter) => {
                     <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
                     <td className="text-capitalize"> {addSpace(alert.severity)}</td>
                     <td className="text-capitalize">{alert.source.toUpperCase()}</td>
-                    <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
+                    <td className="text-capitalize"> {alert.idType === 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                     <td className="text-capitalize">
                       {' '}
                       {alert?.value?.length > 1 ? (
@@ -8894,7 +8882,7 @@ const table2 = (sat, balance, complienceFilter) => {
                           })}
                         </>
                       ) : (
-                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
+                        <>{alert.idType === 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
                       )}
                     </td>
                   </tr>
