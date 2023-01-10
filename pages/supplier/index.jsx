@@ -20,10 +20,13 @@ import TermsheetPopUp from '../../src/components/TermsheetPopUp';
 import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src/utils/helpers/global';
 import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
-import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action';
+import {setDynamicOrder, setPageName } from 'redux/userData/action';
 import { getZipCode, getCountries } from 'redux/masters/action';
-import { isPossiblePhoneNumber, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js';
+import {isValidPhoneNumber} from 'libphonenumber-js';
 import { countryCodes } from '@/utils/jsons/countryCodes.json';
+import { constants } from 'fs/promises';
+import constant from '@/utils/constants.js'
+
 
 function Index() {
   const dispatch = useDispatch();
@@ -64,11 +67,7 @@ function Index() {
     '*',
   ];
 
-  const gettingPins = (value) => {
-    dispatch(getZipCode(`?Zip_Code=${value}`));
-  };
-
-  let id = sessionStorage.getItem('supplier');
+  const id = sessionStorage.getItem('supplier');
 
   useEffect(() => {
     dispatch(getCountries());
@@ -79,7 +78,7 @@ function Index() {
     else dispatch(ClearSupplier());
   }, [id]);
 
-  let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
+  const supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
 
   useEffect(() => {
     setFormData(
@@ -106,7 +105,7 @@ function Index() {
     SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
   }, [supplierResponse]);
 
-  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
+  const supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
   const { getPincodesMasterData } = useSelector((state) => state.MastersData);
 
   useEffect(() => {
@@ -121,7 +120,6 @@ function Index() {
 
   useEffect(() => {
     dispatch(setPageName('Supplier'));
-    // dispatch(setDynamicName(_get(TransitDetails, 'data[0].company.companyName')));
     dispatch(setDynamicOrder(supplierName));
   }, [supplierName]);
   const [open, setOpen] = useState(false);
@@ -146,15 +144,6 @@ function Index() {
     status: '',
   });
 
-  const [address, setAddress] = useState({
-    contactPerson: '',
-    pinCode: '',
-    country: '',
-    phoneNumber: '',
-    alternatePhoneNumber: '',
-    emailId: '',
-  });
-
   const [person, setPerson] = useState([
     {
       name: '',
@@ -169,7 +158,7 @@ function Index() {
   const [isPercentageInFocus, setIsPercentageInFocus] = useState([{ value: false }]);
 
   const changeFiledFocus = (value, index) => {
-    let tempArray = [...isPercentageInFocus];
+    const tempArray = [...isPercentageInFocus];
     tempArray[index] = value;
     setIsPercentageInFocus(tempArray);
   };
@@ -184,7 +173,7 @@ function Index() {
   ]);
 
   useEffect(() => {
-    let tempArray = [false];
+    const tempArray = [false];
     supplierData?.shareHoldersDetails?.forEach((item) => {
       tempArray.push(false);
     });
@@ -239,14 +228,7 @@ function Index() {
       },
     ]);
   };
-  const [listContact, setListContact] = useState([
-    {
-      name: '',
-      designation: '',
-      contactNo: '',
-      emailID: '',
-    },
-  ]);
+ 
   const onAddPersonContact = () => {
     setPerson([
       ...person,
@@ -306,22 +288,19 @@ function Index() {
 
   const handleShareDoc = async () => {
     if (emailValidation(sharedDoc.data.receiver)) {
-      let tempArr = { ...sharedDoc };
-      let data = await dispatch(ShareDocument(tempArr));
-      if (data?.code == 200) {
+      const tempArr = { ...sharedDoc };
+      const data = await dispatch(ShareDocument(tempArr));
+      if (data?.code === constant.successCodeValue) {
         setOpen(false);
       }
     } else {
-      let toastMessage = 'please provide a valid email';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please provide a valid email');
     }
   };
 
   const saveDate = (value, name) => {
     const d = new Date(value);
-    let text = d.toISOString();
+    const text = d.toISOString();
     saveQuotationData(name, text);
   };
 
@@ -341,7 +320,7 @@ function Index() {
   };
 
   const onChangeHandler2 = (name, value, index) => {
-    let newInput = [...person];
+    const newInput = [...person];
 
     newInput[index][name] = value;
 
@@ -349,7 +328,7 @@ function Index() {
   };
 
   const onChangeHandler3 = (name, value, index) => {
-    let newInput = [...detail];
+    const newInput = [...detail];
 
     newInput[index][name] = value;
 
@@ -357,7 +336,7 @@ function Index() {
   };
 
   const onChangeHandler4 = (name, value, index) => {
-    let newInput = [...listDirector];
+    const newInput = [...listDirector];
 
     newInput[index][name] = value;
 
@@ -370,14 +349,14 @@ function Index() {
     setBusiness(value);
   };
   const addToBusinessArray = (e) => {
-    let temp = [...businessArray];
+    const temp = [...businessArray];
 
     setBusinessArray([...temp, { businessSummary: business }]);
     setBusiness('');
   };
 
   const onChangeHandler6 = (name, value, index) => {
-    let newInput = [...listCommodity];
+    const newInput = [...listCommodity];
 
     newInput[index][name] = value;
 
@@ -389,8 +368,7 @@ function Index() {
     setInfo(value);
   };
   const onChangeHandler7Array = (e) => {
-    let temp = [...infoArray];
-    // temp.push(info)
+    const temp = [...infoArray];
     setInfoArray([...temp, { remarks: info }]);
     setInfo('');
   };
@@ -401,7 +379,7 @@ function Index() {
       return false;
     }
 
-    let isOk = true;
+    const isOk = true;
     for (let i = 0; i <= person.length - 1; i++) {
       if (person[i].name === '' || person[i].name === null) {
         handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);
@@ -456,7 +434,7 @@ function Index() {
       if (
         listCommodity[i].hsnCode.trim() === '' ||
         listCommodity[i].hsnCode === null ||
-        listCommodity[i].hsnCode.length !== 8
+        listCommodity[i].hsnCode.length !== constant.numberEight
       ) {
         handleErrorToast(`please provide a valid hsnCode Commodities Traded ${i + 1}`);
         isOk = false;
@@ -514,10 +492,10 @@ function Index() {
   };
 
   const saveIconHandler = () => {
-    let tempPerson = [...person];
-    let tempShare = [...detail];
-    let tempDirector = [...listDirector];
-    let TempCommodity = [...listCommodity];
+    const tempPerson = [...person];
+    const tempShare = [...detail];
+    const tempDirector = [...listDirector];
+    const TempCommodity = [...listCommodity];
 
     saveButtonChangeHelper(tempPerson);
     saveButtonChangeHelper(tempShare);
@@ -532,21 +510,8 @@ function Index() {
 
   const handleSave = () => {
     if (supplierValidtaion()) {
-      let apiData = {
-        supplierProfile: formData,
-        keyAddress: keyAddData,
-        contactPerson: person,
-        shareHoldersDetails: detail,
-        directorsAndAuthorizedSignatory: listDirector,
-        bussinessSummary: businessArray,
-        commoditiesTraded: listCommodity,
-        additionalInformation: infoArray,
-        incumbencyCertificateDocument: incumbencyDoc,
-        thirdPartyCertificateDocument: thirdParty,
-        extraDocument: docs,
-      };
-
-      let fd = new FormData();
+     
+      const fd = new FormData();
       if (id) {
         fd.append('supplierId', supplierData?._id);
       }
@@ -573,10 +538,7 @@ function Index() {
   const handleSendForApproval = () => {
     sessionStorage.removeItem('supplier');
     dispatch(ClearSupplier());
-    let toastMessage = `request sent for approval`;
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('request sent for approval');
     Router.push('/add-supplier');
   };
 
@@ -588,11 +550,11 @@ function Index() {
   };
 
   const returnSelectedCountryCode = (code) => {
-    const filter = countryCodes.filter((item) => item.code == code);
+    const filter = countryCodes.filter((item) => item.code === code);
     if (filter.length > 0) return filter[0].iso2;
   };
   const addressValidtion = (data) => {
-    let findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) != index);
+    const findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) !== index);
 
     const emailValidate = () => {
       let isOk = true;
@@ -616,24 +578,14 @@ function Index() {
       return false;
     }
     if (data.address === null || data.address === '' || data.address === undefined) {
-      let toastMessage = 'Please add address';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add address');
 
       return false;
     } else if (data.pinCode === null || data.pinCode === '' || data.pinCode === undefined) {
-      let toastMessage = 'Please add pin code';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add pin code');
       return false;
     } else if (data.country === null || data.country === '' || data.country === undefined) {
-      let toastMessage = 'Please add country';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-
+      handleErrorToast('Please add country');
       return false;
     } else if (!emailValidate()) {
       return false;
@@ -659,8 +611,7 @@ function Index() {
       return true;
     }
   };
-  const [showAddress, setShowAddress] = useState(false);
-  const [showEditAddress, setShowEditAddress] = useState(false);
+
   const [Index, setIndex] = useState('');
   const [editData, setEditData] = useState({
     emailId: [''],
@@ -693,7 +644,7 @@ function Index() {
   const editAddress = (index) => {
     setEditingAddress(true);
     setIndex(index);
-    let tempArr = keyAddData[index];
+    const tempArr = keyAddData[index];
     setEditData({
       emailId: tempArr?.emailId?.length > 0 ? tempArr?.emailId : [''],
       country: tempArr?.country,
@@ -708,14 +659,14 @@ function Index() {
     });
   };
   const keyAddDataArr = (keyAddressData) => {
-    let newArr = [...keyAddData];
+    const newArr = [...keyAddData];
     newArr.push(keyAddressData);
     setKeyAddData(newArr);
   };
 
   const handleUpdateAdress = () => {
     if (addressValidtion(editData)) {
-      let tempArr = [...keyAddData];
+      const tempArr = [...keyAddData];
       tempArr[Index] = editData;
       setKeyAddData(tempArr);
       setEditingAddress(false);
@@ -741,7 +692,7 @@ function Index() {
   const handleAddressUpdate = (value, name, index) => {
     const newInput = { ...editData };
 
-    let namesplit = name.split('.');
+    const namesplit = name.split('.');
 
     if (name === 'emailId') {
       newInput.emailId[index] = value;
@@ -757,7 +708,7 @@ function Index() {
   const handleChange = (value, name, index) => {
     const newInput = { ...keyAddressData };
 
-    let namesplit = name.split('.');
+    const namesplit = name.split('.');
 
     if (name === 'emailId') {
       newInput.emailId[index] = value;
@@ -775,7 +726,7 @@ function Index() {
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
     try {
-      let response = await Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
+      const response = await Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
         headers: headers,
       });
       if (response.data.code === 200) {

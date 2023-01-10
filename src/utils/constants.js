@@ -1,5 +1,16 @@
 export default {
   pdfHeight: 2000,
   pdfWidth: 1500,
-  dateFormatString: 'DD-MM-YYYY'
+  pdfHeightRevisedMargin: 1850,
+  numberOne: 1,
+  numberTwo: 2,
+  numberThree: 3,
+  numberFour: 4,
+  numberFive: 5,
+  numberSix: 6,
+  numberSeven: 7,
+  numberEight: 8,
+  numberNine: 9,
+  dateFormatString: 'DD-MM-YYYY',
+  successCodeValue: 200,
 };
