@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import styles from './index.module.scss';
 
- function index({
+ function Index({
   currentPage,
   setCurrentPage,
   tableName,
@@ -42,4 +42,4 @@ import styles from './index.module.scss';
   );
 }
 
-export default index;
+export default Index;

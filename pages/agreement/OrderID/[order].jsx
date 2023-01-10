@@ -26,7 +26,6 @@ const  Index = () => {
   }, [dispatch]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
-  const sliciingIndex = 4
 
   const insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [show, setShow] = useState(false);

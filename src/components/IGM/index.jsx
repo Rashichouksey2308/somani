@@ -388,7 +388,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       handleErrorToast('igm cannot be greater than order quantity');
       return false;
     }
-    let toastMessage = '';
     for (let i = 0; i < igmList.igmDetails.length; i++) {
       if (
         igmList.igmDetails[i].igmNumber == '' ||

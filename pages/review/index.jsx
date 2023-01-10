@@ -205,7 +205,8 @@ function Index() {
         tab[0]?.children[tempIndex]?.classList?.add('show');
         tab[0]?.children[tempIndex]?.classList?.add('active');
       }
-      if (sessionStorage.getItem('showCAM') === 'false' || sessionStorage.getItem('showCAM') === undefined) {
+      console.log(sessionStorage.getItem('showCAM'),'sessionStorage.getItem(showCAM)')
+      if (sessionStorage.getItem('showCAM') === 'false' || sessionStorage.getItem('showCAM') === undefined || !sessionStorage.getItem('showCAM') ) {
         dispatch(GetAllOrders({ orderId: id1 }));
         dispatch(GetCompanyDetails({ company: id2 }));
         dispatch(GetAllBuyer(`?company=${id2}&limit=${6}`));
