@@ -52,6 +52,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import UploadOther from '../../src/components/UploadOther';
 import { returnReadableNumber } from '@/utils/helpers/global';
+import constants from '@/utils/constants.js'
 
 const alertObj = {
   isShell: 'Shell',
@@ -179,7 +180,7 @@ function Index() {
   const tabContents = 'tab-content';
   const financialRatioString0 = 'financial.ratioAnalysis[0]'
   const financialRatioString1 = 'financial.ratioAnalysis[1]'
-  const dateFormatString = 'DD-MM-YYYY'
+  
   useEffect(() => {
     if (window) {
       const id1 = sessionStorage.getItem('orderID');
@@ -1717,7 +1718,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {moment(camData?.ExpectedDateOfShipment).format(dateFormatString)}
+                  {moment(camData?.ExpectedDateOfShipment).format(constants.dateFormatString)}
                 </td>
                 <td
                   style={{
@@ -1736,7 +1737,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {moment(camData?.shipmentDetail?.ETAofDischarge?.fromDate).format(dateFormatString)}
+                  {moment(camData?.shipmentDetail?.ETAofDischarge?.fromDate).format(constants.dateFormatString)}
                 </td>
               </tr>
               <tr>
@@ -1760,7 +1761,7 @@ function Index() {
                     paddingBottom: '50px',
                   }}
                 >
-                  {moment(camData?.shipmentDetail?.loadPort?.fromDate).format(dateFormatString)}
+                  {moment(camData?.shipmentDetail?.loadPort?.fromDate).format(constants.dateFormatString)}
                 </td>
                 <td
                   style={{
@@ -1781,7 +1782,7 @@ function Index() {
                     paddingBottom: '50px',
                   }}
                 >
-                  {moment(camData?.shipmentDetail?.loadPort?.toDate).format(dateFormatString)}
+                  {moment(camData?.shipmentDetail?.loadPort?.toDate).format(constants.dateFormatString)}
                 </td>
               </tr>
             </table>
@@ -1913,7 +1914,7 @@ function Index() {
                   }}
                 >
                   {camData?.supplierCredential?.latestShipmentDate
-                    ? moment(camData?.supplierCredential?.latestShipmentDate).format(dateFormatString)
+                    ? moment(camData?.supplierCredential?.latestShipmentDate).format(constants.dateFormatString)
                     : ''}
                 </td>
               </tr>
@@ -1958,7 +1959,7 @@ function Index() {
                 >
                   {' '}
                   {camData?.supplierCredential?.oldestShipmentDate
-                    ? moment(camData?.supplierCredential?.oldestShipmentDate).format(dateFormatString)
+                    ? moment(camData?.supplierCredential?.oldestShipmentDate).format(constants.dateFormatString)
                     : ''}
                 </td>
               </tr>
@@ -3118,7 +3119,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {item?.createdAt ? moment(item?.createdAt).format(dateFormatString) : ''}
+                        {item?.createdAt ? moment(item?.createdAt).format(constants.dateFormatString) : ''}
                       </td>
                       <td
                         style={{
@@ -3450,7 +3451,6 @@ function Index() {
                 </td>
               </tr>
               {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map((director, index) => {
-                const name = director?.name;
                 const [fName, lName] = director?.name.split(' ');
                 return (
                   <tr>
@@ -3616,7 +3616,7 @@ function Index() {
                                         fontWeight: '500',
                                       }}
                                     >
-                                      <span>{top3Share.labels[index] == '' ? 'NA' : top3Share.labels[index]}</span>
+                                      <span>{top3Share.labels[index] === '' ? 'NA' : top3Share.labels[index]}</span>
                                     </td>
                                   </>
                                 );
@@ -4006,75 +4006,13 @@ function Index() {
                                 }}
                               >
                                 {charge?.dateOfCreationOfCharge
-                                  ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format(dateFormatString)
+                                  ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format(constants.dateFormatString)
                                   : ''}
                               </td>
                             </tr>
                           );
                         }
                       })}
-                    {/* <tr>
-                      <td
-                        width="5%"
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px',
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block',
-                          }}
-                        >
-                          IB
-                        </span>
-                      </td>
-                      <td
-                        width="25%"
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        ICICI Bank
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        1,900.00
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        22-02-2020
-                      </td>
-                    </tr> */}
                   </table>
                 </td>
               </tr>
@@ -4351,11 +4289,11 @@ function Index() {
                               paddingBottom: '25px',
                               textAlign: 'right',
                               color: `${
-                                debt.conduct == 'Good'
+                                debt.conduct === 'Good'
                                   ? '#43C34D'
-                                  : debt.conduct == 'Satisfactory'
+                                  : debt.conduct === 'Satisfactory'
                                   ? '#FF9D00'
-                                  : debt.conduct == 'Average'
+                                  : debt.conduct === 'Average'
                                   ? 'average'
                                   : '#EA3F3F'
                               }`,
@@ -5260,7 +5198,6 @@ function Index() {
                   Gross Margin
                 </td>
                 <td align="center" style={{ paddingBottom: '78px' }}>
-                  {/* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" /> */}
                 </td>
                 <td
                   style={{
@@ -5611,41 +5548,6 @@ function Index() {
                                 </tr>
                               );
                             })}
-                          {/* <tr>
-                            <td width="5%" align="left">
-                              <span
-                                style={{
-                                  background: '#61C555',
-                                  borderRadius: '4px',
-                                  width: '16px',
-                                  height: '16px',
-                                  display: 'inline-block',
-                                }}
-                              ></span>
-                            </td>
-                            <td
-                              width="55%"
-                              align="left"
-                              style={{
-                                fontSize: '19px',
-                                color: '#111111',
-                                lineHeight: '23px',
-                              }}
-                            >
-                              Customer 1
-                            </td>
-                            <td
-                              width="40%"
-                              align="left"
-                              style={{
-                                fontSize: '19px',
-                                color: '#111111',
-                                lineHeight: '23px',
-                              }}
-                            >
-                              83.80%
-                            </td>
-                          </tr> */}
                         </table>
                       </td>
                     </tr>
@@ -6905,7 +6807,7 @@ function Index() {
                   }}
                 >
                   {[].forEach((l, index2) => {})}
-                  {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') != ''
+                  {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') !== ''
                     ? moment(
                         _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
                         'MMyyyy',
@@ -7580,10 +7482,6 @@ function Index() {
                           'en-In',
                         )}{' '}
                         {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
-                        {/* {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })}{' '}
-                        Cr */}
                       </td>
                       <td
                         align="center"
@@ -7597,7 +7495,6 @@ function Index() {
                         <input
                           type="checkbox"
                           checked={approvedCredit.approvedOrderValue ? true : false}
-                          // onChange={() => setOrderValueChecked(!orderValueChecked)}
                         ></input>
                       </td>
                       <td
@@ -7609,7 +7506,6 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {/* {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')} */}
                         {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString(
                           'en-In',
                         )}{' '}
@@ -7653,34 +7549,7 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      {/* <td
-                        colSpan={7}
-                        style={{
-                          fontSize: '22px',
-                          color: '#111111',
-                          fontWeight: 'bold',
-                          lineHeight: '27px',
-                          paddingLeft: '35px',
-                          paddingBottom: '50px',
-                        }}
-                      >
-                        Sanction Conditions
-                        <br />
-                        <br />
-                        <span
-                          style={{
-                            fontSize: '20px',
-                            fontWeight: 'normal',
-                            lineHeight: '30px',
-                            letterSpacing: '0.19px',
-                          }}
-                        >
-                          Signed provisional / commercial invoice in 1 original
-                          and 3 copies, based on the dry weight and the
-                          manganese content shown on the certificate of typical
-                          analysis.
-                        </span>
-                      </td> */}
+                     
                     </tr>
                   </table>
                 </td>
@@ -7713,10 +7582,7 @@ function Index() {
       path = gstData?.detail?.other?.savedLinks?.excelPath;
     }
     if (path === '' || !path) {
-      let toastMessage = 'GST report not Available';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('GST report not Available');
     } else {
       dispatch(
         ViewDocument({
@@ -7758,12 +7624,6 @@ function Index() {
       caseStatus: 'Disposed',
       memberType: 'Petitioner',
     };
-    const users = companyData?.compliance?.districtCourt?.cases?.filter((item) => {
-      for (let key in filter) {
-        if (item[key] === undefined || item[key] != filter[key]) return false;
-      }
-      return true;
-    });
   }, [companyData]);
 
   useEffect(() => {
@@ -7771,23 +7631,14 @@ function Index() {
       filterLitigation();
     }
   }, [companyData, filterType, filterType.class, filterType.party]);
-  const changeClass = (val) => {
-    let filter = { ...filterType };
-    filter.class = val;
-    setFilterType({ ...filter });
-  };
-  const changeParty = (val) => {
-    let filter = { ...filterType };
-    filter.party = val;
-    setFilterType({ ...filter });
-  };
+
   const changeRisk = (val) => {
-    let filter = { ...filterType };
+    const filter = { ...filterType };
     filter.risk = val;
     setFilterType({ ...filter });
   };
   const filterLitigation = () => {
-    let count = {
+    const count = {
       pending: 0,
       disposed: 0,
       total: 0,
@@ -7798,16 +7649,16 @@ function Index() {
 
     companyData?.compliance?.districtCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1;
-      if (val.caseStatus == 'Disposed') {
+      if (val.caseStatus === 'Disposed') {
         count.disposed = count.disposed + 1;
       }
-      if (val.caseStatus == 'Pending') {
+      if (val.caseStatus === 'Pending') {
         count.pending = count.pending + 1;
       }
-      if (val.severity_ == 'HIGH' || val.severity_ == 'high') {
+      if (val.severity_ === 'HIGH' || val.severity_ === 'high') {
         count.high = count.high + 1;
       }
-      if (val.severity_ == 'medium') {
+      if (val.severity_ === 'medium') {
         count.medium = count.medium + 1;
       }
       if (val.severity_ == null) {
@@ -7816,16 +7667,16 @@ function Index() {
     });
     companyData?.compliance?.highCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1;
-      if (val.caseStatus == 'Disposed') {
+      if (val.caseStatus === 'Disposed') {
         count.disposed = count.disposed + 1;
       }
-      if (val.caseStatus == 'Pending') {
+      if (val.caseStatus === 'Pending') {
         count.pending = count.pending + 1;
       }
-      if (val.severity_ == 'HIGH' || val.severity_ == 'high') {
+      if (val.severity_ === 'HIGH' || val.severity_ === 'high') {
         count.high = count.high + 1;
       }
-      if (val.severity_ == 'medium') {
+      if (val.severity_ === 'medium') {
         count.medium = count.medium + 1;
       }
       if (val.severity_ == null) {
@@ -7834,16 +7685,16 @@ function Index() {
     });
     companyData?.compliance?.supremeCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1;
-      if (val.caseStatus == 'Disposed') {
+      if (val.caseStatus === 'Disposed') {
         count.disposed = count.disposed + 1;
       }
-      if (val.caseStatus == 'Pending') {
+      if (val.caseStatus === 'Pending') {
         count.pending = count.pending + 1;
       }
-      if (val.severity_ == 'HIGH' || val.severity_ == 'high') {
+      if (val.severity_ === 'HIGH' || val.severity_ === 'high') {
         count.high = count.high + 1;
       }
-      if (val.severity_ == 'medium') {
+      if (val.severity_ === 'medium') {
         count.medium = count.medium + 1;
       }
       if (val.severity_ == null) {
@@ -7852,16 +7703,16 @@ function Index() {
     });
     companyData?.compliance?.tribunalCourts?.cases?.forEach((val, index) => {
       count.total = count.total + 1;
-      if (val.caseStatus == 'Disposed') {
+      if (val.caseStatus === 'Disposed') {
         count.disposed = count.disposed + 1;
       }
-      if (val.caseStatus == 'Pending') {
+      if (val.caseStatus === 'Pending') {
         count.pending = count.pending + 1;
       }
-      if (val.severity_ == 'HIGH' || val.severity_ == 'high') {
+      if (val.severity_ === 'HIGH' || val.severity_ === 'high') {
         count.high = count.high + 1;
       }
-      if (val.severity_ == 'medium') {
+      if (val.severity_ === 'medium') {
         count.medium = count.medium + 1;
       }
       if (val.severity_ == null) {
@@ -7879,12 +7730,12 @@ function Index() {
     if (filterType.filterBy.pending || filterType.filterBy.disposed || filterType.filterBy.total) {
       const filter = (val) => {
         if (filterType.filterBy.pending && !filterType.filterBy.total && !filterType.filterBy.disposed) {
-          if (val.caseStatus == 'Pending') {
+          if (val.caseStatus === 'Pending') {
             return val;
           }
         }
         if (filterType.filterBy.disposed && !filterType.filterBy.total && !filterType.filterBy.pending) {
-          if (val.caseStatus == 'Disposed') {
+          if (val.caseStatus === 'Disposed') {
             return val;
           }
         }
@@ -7892,7 +7743,7 @@ function Index() {
           return val;
         }
         if (filterType.filterBy.pending && filterType.filterBy.disposed && !filterType.filterBy.total) {
-          if (val.caseStatus == 'Pending' || val.caseStatus == 'Disposed') {
+          if (val.caseStatus === 'Pending' || val.caseStatus === 'Disposed') {
             return val;
           }
         }
@@ -7923,83 +7774,21 @@ function Index() {
       });
     }
 
-    // if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
-    //   const partyFilter = (val) => {
-    //     if (filterType.party == 'Respondent') {
-    //       if (val.memberType == 'Respondent') {
-    //         return val;
-    //       }
-    //     }
-    //     if (filterType.party == 'Petitioner') {
-    //       if (val.memberType == 'Petitioner') {
-    //         return val;
-    //       }
-    //     }
-    //   };
-
-    //   supremeCourt = supremeCourt?.filter((val) => {
-    //     return partyFilter(val);
-    //   });
-    //   highCourt = highCourt?.filter((val) => {
-    //     return partyFilter(val);
-    //   });
-
-    //   tribunalCourts = tribunalCourts?.filter((val) => {
-    //     return partyFilter(val);
-    //   });
-    //   districtCourt = districtCourt?.filter((val) => {
-    //     return partyFilter(val);
-    //   });
-    // }
-
-    // //civil Crimnal
-
-    // if (filterType.class == 'Civil' || filterType.class == 'Criminal') {
-    //   const civilfilter = (val) => {
-    //     if (filterType.class == 'Criminal') {
-    //       if (val.civilCriminal == 'Criminal') {
-    //         return val;
-    //       }
-    //     }
-    //     if (filterType.class == 'Civil') {
-    //       if (val.civilCriminal == 'Civil') {
-    //         return val;
-    //       }
-    //     }
-    //   };
-
-    //   supremeCourt = supremeCourt?.filter((val) => {
-    //     return civilfilter(val);
-    //   });
-    //   highCourt = highCourt?.filter((val) => {
-    //     return civilfilter(val);
-    //   });
-
-    //   tribunalCourts = tribunalCourts?.filter((val) => {
-    //     return civilfilter(val);
-    //   });
-    //   districtCourt = districtCourt?.filter((val) => {
-    //     return civilfilter(val);
-    //   });
-    // }
-
-    //party2
-
     //risk
-    if (filterType.risk == 'relevence' || filterType.risk == 'medium' || filterType.risk == 'high') {
+    if (filterType.risk == 'relevence' || filterType.risk === 'medium' || filterType.risk === 'high') {
       const riskFilter = (val) => {
-        if (filterType.risk == 'high') {
-          if (val.severity_ == 'high') {
+        if (filterType.risk === 'high') {
+          if (val.severity_ === 'high') {
             return val;
           }
         }
-        if (filterType.risk == 'medium') {
-          if (val.severity_ == 'medium') {
+        if (filterType.risk === 'medium') {
+          if (val.severity_ === 'medium') {
             return val;
           }
         }
-        if (filterType.risk == 'relevence') {
-          if (val.severity_ == 'relevence') {
+        if (filterType.risk === 'relevence') {
+          if (val.severity_ === 'relevence') {
             return val;
           }
         }
@@ -8143,7 +7932,7 @@ function Index() {
                 {orderList?.company?.companyName ? orderList?.company?.companyName : ''}
               </h1>
             </div>
-            {selectedTab == 'CAM' ? (
+            {selectedTab === 'CAM' ? (
               <>
                 <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
                   <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
@@ -8153,7 +7942,7 @@ function Index() {
                       aria-label="Default select example"
                       onChange={(e) => {
                         setCamCoversionUnit(e.target.value);
-                        if (e.target.value == 10000000) {
+                        if (e.target.value === 10000000) {
                           setUnit('Crores');
                         } else {
                           setUnit('Lakhs');
@@ -8177,10 +7966,6 @@ function Index() {
             {uploadBtn ? (
               <div className="ml-auto text-right">{uploadButton(dispatch, orderList, companyData)} </div>
             ) : null}
-            {/* <div className="ml-auto text-right">
-                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-            </div> */}
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
@@ -8663,76 +8448,6 @@ function Index() {
                                 </div>
                               </div>
                             </Col>
-                            {/* <Col md={3}>
-                              <p className={`mb-3 text`}>Select a Party</p>
-                              <div className={`d-flex align-items-center justify-content-start`}>
-                                <div className="form-check">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="flexRadioDefault"
-                                    id="flexRadioDefault1"
-                                    checked={filterType.party == 'Respondent'}
-                                    onClick={() => {
-                                      changeParty('Respondent');
-                                    }}
-                                  />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                    Respondent
-                                  </label>
-                                </div>
-                                <div className="form-check ml-4">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="flexRadioDefault"
-                                    id="flexRadioDefault2"
-                                    checked={filterType.party == 'Petitioner'}
-                                    onClick={() => {
-                                      changeParty('Petitioner');
-                                    }}
-                                  />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                    Petitioner
-                                  </label>
-                                </div>
-                              </div>
-                            </Col>
-                            <Col md={3} className="pl-5">
-                              <p className={`mb-3 text`}>Classification</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
-                                <div className="form-check">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="flexRadio"
-                                    id="flexRadioDefault3"
-                                    checked={filterType.class == 'Civil'}
-                                    onClick={() => {
-                                      changeClass('Civil');
-                                    }}
-                                  />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault3">
-                                    Civil
-                                  </label>
-                                </div>
-                                <div className="form-check ml-3">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="flexRadio"
-                                    id="flexRadioDefault4"
-                                    checked={filterType.class == 'Criminal'}
-                                    onClick={() => {
-                                      changeClass('Criminal');
-                                    }}
-                                  />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault4">
-                                    Criminal
-                                  </label>
-                                </div>
-                              </div>
-                            </Col> */}
                           </Row>
                         </div>
                         <div
@@ -8906,10 +8621,10 @@ function Index() {
           </div>
         </div>
       </div>
-      {selectedTab == 'Financials' || 'Compliance' || 'Orders' || 'Credit' || 'DocumentsTab' ? (
+      {selectedTab === 'Financials' || 'Compliance' || 'Orders' || 'Credit' || 'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
-      {selectedTab == 'Profile' ? (
+      {selectedTab === 'Profile' ? (
         <DownloadBar
           downLoadButtonName={`MCA Report`}
           isPrevious={true}
@@ -8922,7 +8637,7 @@ function Index() {
           mcaReportAvailable={mcaReportAvailable}
         />
       ) : null}
-      {selectedTab == 'GST' ? (
+      {selectedTab === 'GST' ? (
         <DownloadBar
           handleReject={handleGSTDownload}
           downLoadButtonName={`GST Report`}
@@ -9093,7 +8808,7 @@ const table2 = (sat, balance, complienceFilter) => {
                         })}
                       </>
                     ) : (
-                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(dateFormatString) : alert.value}</>
+                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
                     )}
                   </td>
                 </tr>
@@ -9121,7 +8836,7 @@ const table2 = (sat, balance, complienceFilter) => {
                         })}
                       </>
                     ) : (
-                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(dateFormatString) : alert.value}</>
+                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
                     )}
                   </td>
                 </tr>
@@ -9151,7 +8866,7 @@ const table2 = (sat, balance, complienceFilter) => {
                           })}
                         </>
                       ) : (
-                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(dateFormatString) : alert.value}</>
+                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
                       )}
                     </td>
                   </tr>
@@ -9179,7 +8894,7 @@ const table2 = (sat, balance, complienceFilter) => {
                           })}
                         </>
                       ) : (
-                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(dateFormatString) : alert.value}</>
+                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format(constants.dateFormatString) : alert.value}</>
                       )}
                     </td>
                   </tr>
