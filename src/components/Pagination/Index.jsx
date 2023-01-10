@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import styles from './index.module.scss';
 
-export default function index({
+export default function Index({
   currentPage,
   setCurrentPage,
   tableName,
