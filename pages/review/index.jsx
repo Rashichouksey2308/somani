@@ -221,8 +221,8 @@ function Index() {
 
   useEffect(() => {
     if (companyData) {
-      let statutory = [];
-      let balance = [];
+      const statutory = [];
+      const balance = [];
       companyData.compliance?.alerts?.forEach((val, index) => {
         if (val.alert.trim() === 'isIbbi') {
           balance.push(val);
@@ -273,10 +273,10 @@ function Index() {
 
   const id = sessionStorage.getItem('orderID');
   const returnFilteredCharges = () => {
-    const data = _get(orderList, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
+    return _get(orderList, 'company.detailedCompanyInfo.financial.openCharges', []).filter((item) => {
       return !item.dateOfSatisfactionOfChargeInFull || item.dateOfSatisfactionOfChargeInFull === '';
     });
-    return data;
+    // return data;
   };
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
