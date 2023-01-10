@@ -5,16 +5,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import Filter from '../../../src/components/Filter';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getGenericData } from '../../../src/redux/generic/actionsType';
 
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 
-function Index(props) {
+const Index = (props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
   const [genData, setData] = useState([]);
-  const [total, setTotal] = useState([]);
+  const [total, setTotal] = useState(0);
   const [sorting, setSorting] = useState(1);
 
   useEffect(() => {
@@ -37,18 +37,14 @@ function Index(props) {
     setData(data?.data);
     setTotal(data?.totalCount);
   };
+
+
   const handleSort = async () => {
-    if (sorting === -1) {
-      const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
-      setData(data?.data);
-      setTotal(data?.totalCount);
-      setSorting(1);
-    } else if (sorting === 1) {
-      const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
-      setData(data?.data);
-      setTotal(data?.totalCount);
-      setSorting(-1);
-    }
+    const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
+    setData(data?.data);
+    setTotal(data?.totalCount);
+    if (sorting === -1) setSorting(1);
+    else setSorting(-1);
   };
 
   const handleRoute = (term) => {

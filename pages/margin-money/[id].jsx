@@ -99,6 +99,8 @@ function Index() {
     amountPerSPDC: '',
   });
 
+
+
   const getData = () => {
     setForCalculation({
       isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded === false ? false : true,
@@ -121,7 +123,8 @@ function Index() {
         (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 1) *
         90) /
         365,
-    ).toFixed(2); //L
+    ); //L
+    console.log(usanceInterest,'usanceInterest')
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2); //M
@@ -155,7 +158,7 @@ function Index() {
     let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculation.conversionRate)).toFixed(2); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
-        (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 0) *
+        (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 1) *
         90) /
         365,
     ).toFixed(2); //L

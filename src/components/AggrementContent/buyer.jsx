@@ -445,7 +445,7 @@ function Index(props) {
   };
   const [branchOptions, setBranchOptions] = useState([]);
   useEffect(() => {
-    
+    console.log(buyerData.name,'buyerData.name')
     if (buyerData.name || buyerData.branchName) {
       let filter;
       
@@ -476,7 +476,7 @@ function Index(props) {
           setSignatoryDetails([...tempDetail]);
         }
       }
-      if (buyerData.name == 'Emergent Industrial Solution Limited') {
+      if (buyerData.name == 'Emergent Industrial Solutions Limited') {
      
 
         filter = props?.internal?.filter((val) => {

@@ -11,10 +11,9 @@ import { GetAllOrders } from '../../src/redux/registerBuyer/action';
 import _get from 'lodash/get'
 import moment from 'moment';
 
-function Index(props) {
+const  Index = (props) => {
   const [genericData, setGenericData] = useState();
   const dispatch = useDispatch();
-  const [lastModified, setlastModified] = useState('');
   const { companyData,  } = useSelector((state) => state.companyDetails);
 
   useEffect(() => {
@@ -34,9 +33,7 @@ function Index(props) {
     }
   }, []);
 
-  const setDate = (date) => {
-    setlastModified(date);
-  };
+
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader d-flex align-items-center`}>
@@ -65,7 +62,7 @@ function Index(props) {
         <div className="row">
           <div className="col-md-12  accordion_body">
             <div className={`${styles.tabContent} tab-content`}>
-              <SalesAgreement genericData={genericData} setDate={setDate} directors={_get(companyData,"profile.directorDetail",[])} />
+              <SalesAgreement genericData={genericData}  directors={_get(companyData,"profile.directorDetail",[])} />
             </div>
           </div>
         </div>
