@@ -56,7 +56,7 @@ function Index(props) {
         if (i == index) {
           return { ...obj, actions: 'true' };
         }
-        // 👇️ otherwise return object as is
+        //  otherwise return object as is
         return obj;
       });
 

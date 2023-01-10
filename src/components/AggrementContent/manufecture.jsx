@@ -506,7 +506,7 @@ function Index(props) {
           if (i == toEditIndex) {
             return EditAddress;
           }
-          // 👇️ otherwise return object as is
+          //  otherwise return object as is
           return obj;
         });
 
@@ -597,7 +597,7 @@ function Index(props) {
         if (i == toEditIndex) {
           return MultiEditAddress;
         }
-        // 👇️ otherwise return object as is
+        //  otherwise return object as is
         return obj;
       });
 
@@ -622,7 +622,7 @@ function Index(props) {
          
           return { ...obj, actions: 'false' };
         }
-        // 👇️ otherwise return object as is
+        //  otherwise return object as is
         return obj;
       });
 

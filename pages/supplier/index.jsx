@@ -379,7 +379,7 @@ function Index() {
       return false;
     }
 
-    const isOk = true;
+    let isOk = true;
     for (let i = 0; i <= person.length - 1; i++) {
       if (person[i].name === '' || person[i].name === null) {
         handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);
