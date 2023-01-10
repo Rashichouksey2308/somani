@@ -12,9 +12,11 @@ import { setDynamicOrder, setPageName } from 'redux/userData/action';
 
 const Index = () => {
   const dispatch = useDispatch();
+  const currentPageNumber = 0
+  const supplierLimit = 10
   const [serachterm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageLimit, setPageLimit] = useState(10);
+  const [currentPage, setCurrentPage] = useState(currentPageNumber);
+  const [pageLimit, setPageLimit] = useState(supplierLimit);
 
   const { allSupplierResponse,searchedSupplier } = useSelector((state) => state.supplier);
 
@@ -126,7 +128,7 @@ const Index = () => {
                   </a>
                   <a
                     onClick={() => {
-                      if (currentPage + 1 < Math.ceil(allSupplierResponse?.totalCount / 7)) {
+                      if (currentPage + 1 < Math.ceil(allSupplierResponse?.totalCount / pageLimit)) {
                         setCurrentPage((prevState) => prevState + 1);
                       }
                     }}

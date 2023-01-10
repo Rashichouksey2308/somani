@@ -181,7 +181,7 @@ function Index(props) {
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
-        // 👇️ if id equals 2, update country property
+        //  if id equals 2, update country property
         if (i == index) {
         
           return { ...obj, actions: 'false' };

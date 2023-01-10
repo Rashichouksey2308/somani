@@ -4,7 +4,7 @@ import moment from 'moment/moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GettingAllInsurance } from 'redux/insurance/action';
-import Pagination from '../Pagination/Index';
+import Pagination from '../Pagination';
 import styles from './index.module.scss';
 
 function Index({

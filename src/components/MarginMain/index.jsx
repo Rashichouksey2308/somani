@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SearchLeads } from 'redux/buyerProfile/action';
 import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action';
 import Filter from '../Filter';
-import Pagination from '../Pagination/Index';
+import Pagination from '../Pagination';
 import styles from './index.module.scss';
 
 function Index() {
