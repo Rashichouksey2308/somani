@@ -63,7 +63,6 @@ function Index(props) {
     Router.push('/agreement');
     dispatch(setDynamicName(term.company.companyName));
     dispatch(setDynamicOrder(term.order.orderId));
-    // Router.push('/lc-module')
   };
 
   const handleSearch = (e) => {
@@ -162,23 +161,6 @@ function Index(props) {
                             {term.order.termsheet.status}
                           </td>
                           <td>{term?.company.customerId}</td>
-                          {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
-                          {/* <td>
-                        <span
-                          className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
-                            ? styles.review
-                            : term?.order?.queue === 'CreditQueue'
-                              ? styles.approved
-                              : styles.rejected
-                            }`}
-                        ></span>
-
-                        {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
-                          ? 'Review'
-                          : term?.order?.queue === 'CreditQueue'
-                            ? 'Approved'
-                            : 'Rejected'}
-                      </td> */}
                         </tr>
                       ))}
                   </tbody>
