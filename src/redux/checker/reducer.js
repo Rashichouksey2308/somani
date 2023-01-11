@@ -39,6 +39,10 @@ const initialState = {
     goNoGoLogicDetails: {},
     updatingGoNoGoLogicRemarks: false,
     goNoGoLogicRemarkDetails: {},
+    gettingInternalCompanyDetails: false,
+    internalCompanyDetails: {},
+    updatingInternalCompanyRemarks: false,
+    internalCompanyRemarkDetails: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -308,6 +312,35 @@ function CheckerReducer(state = initialState, action) {
                 ...state,
                 updatingGoNoGoLogicRemarks: false,
                 goNoGoLogicRemarkDetails: {},
+            }
+
+        case types.GET_INTERNAL_COMPANY_DETAILS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingInternalCompanyDetails: false,
+                internalCompanyDetails: action.payload,
+            };
+
+        case types.GET_INTERNAL_COMPANY_DETAILS_FAILED:
+            return {
+                ...state,
+                gettingInternalCompanyDetails: false,
+                internalCompanyDetails: {},
+            };
+
+        
+        case types.UPDATE_INTERNAL_COMPANY_REMARK_SUCCESSFULL:
+            return {
+                ...state,
+                updatingInternalCompanyRemarks: false,
+                internalCompanyRemarkDetails: action.payload,
+            };
+
+        case types.UPDATE_INTERNAL_COMPANY_REMARK_FAILED:
+            return {
+                ...state,
+                updatingInternalCompanyRemarks: false,
+                internalCompanyRemarkDetails: {},
             }
 
         default:

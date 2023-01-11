@@ -185,6 +185,8 @@ export default {
   updateCommodityRemark: '/commodity/checker-commodity-status-update',
   getGoNoGoLogicDetails: '/gng-master/get-gng',
   updateGoNoGoLogicRemark: '/gng-master/checker-gngMaster-status-update',
+  getInternalCompanyDetails: '/internal-company/get-internal-company',
+  updateInternalCompanyRemark: '/internal-company/checker-internal-company-status-update',
   
   //Masters
   getAllCommodity: 'commodity/get-commodities',
