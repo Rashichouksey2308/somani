@@ -37,7 +37,7 @@ function Index() {
             }
         }
         if (documentMasterDetails.Module == '' ||
-            documentMasterDetails.Module == undefined
+            documentMasterDetails.Module == undefined || documentMasterDetails.Module == 'Select'
         ) {
             toastMessage = 'PLEASE SELECT A MODULE';
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -63,7 +63,7 @@ function Index() {
                                 aria-controls="addPort">+</span>
                         </div>
                     </div>
-                    <div id="addPort" className="collapse" aria-labelledby="addPort">
+                    <div id="addPort" className="collapse show" aria-labelledby="addPort">
                         <div className={`${styles.dashboard_form} vessel_card card-body`}>
                             <div className="row">
                                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
@@ -86,6 +86,7 @@ function Index() {
                                             value={documentMasterDetails?.Module}
                                             onChange={handleDocumentMasterDetailsChange}
                                         >
+                                            <option value="Select">Select</option>
                                             <option value="Leads">Leads</option>
                                             <option value="Aggrement & LC Module">Aggrement & LC Module</option>
                                             <option value="Loading, Transit & Unloading">Loading, Transit & Unloading</option>

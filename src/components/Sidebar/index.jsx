@@ -142,7 +142,7 @@ function Index() {
           route: '/masters/ports',
         },
         {
-          name: 'Document-Master',
+          name: 'Document',
           image: '/static/gl.svg',
           route: '/masters/document-master',
         },
