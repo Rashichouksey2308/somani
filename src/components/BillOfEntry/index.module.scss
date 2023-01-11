@@ -994,7 +994,7 @@ input:checked + .slider:before {
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;
-  display: block;
+  display: inline-block;
   height: 38px;
   @include respond(lg-desktop) {
     height: 34px;
