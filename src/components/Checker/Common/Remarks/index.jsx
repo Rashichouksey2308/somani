@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 
 function Index({ handleRemarkSubmit }) {
     const [remark, setRemark] = useState();
+
+    const handleSpaceValidation = (event) => {
+        if (event.which === 32 && (remark?.length <= 0 || remark?.length === undefined)) {
+            event.preventDefault();
+        }
+    }
+
     return (
         <div className={`${styles.main} mt-4 mb-4 card border_color`}>
             <div className='row px-3 d-flex justify-content-center p-2'>
@@ -13,6 +20,7 @@ function Index({ handleRemarkSubmit }) {
                         value={remark}
                         name="supplierName"
                         onChange={(e) => setRemark(e.target.value)}
+                        onKeyDown={(e) => { handleSpaceValidation(e) }}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                         Remarks
