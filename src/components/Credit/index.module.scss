@@ -556,6 +556,8 @@
 
           .dropDown {
             padding: 5px;
+            margin-right: 45px;
+            padding-right: 30px;
             border-radius: 4px;
             font-size: 19px;
             line-height: 24px;
@@ -719,6 +721,17 @@
 
 .arrow {
   margin-left: -40px;
+  width: 13px;
+  pointer-events: none;
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+.select_arrow {
+  margin-left: -70px;
   width: 13px;
   pointer-events: none;
 

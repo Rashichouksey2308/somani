@@ -170,6 +170,7 @@ function Index() {
   const { companyData } = useSelector((state) => state.companyDetails);
   const { allBuyerList } = useSelector((state) => state.buyer);
   const [selectedTab, setSelectedTab] = useState('Profile');
+  console.log(unit,'unit')
   const mcaReportAvailable =
     _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
 
@@ -508,6 +509,8 @@ function Index() {
 
   const [sanctionComment, setSanctionComment] = useState([]);
   const [approveComment, setApproveComment] = useState();
+  const [limitValueChecked, setLimitValueChecked] = useState(false);
+  const [orderValueChecked, setOrderValueChecked] = useState(false);
 
   useEffect(() => {
     setApproveComment(_get(orderList, 'cam.approvalRemarks', []));
@@ -1003,15 +1006,15 @@ function Index() {
   };
 
   const sanctionTermsValidations = () => {
-    if (approvedCredit.approvedCreditValue === 0) {
+    if (limitValueChecked && approvedCredit.approvedCreditValue == 0) {
       handleErrorToast('approved limit value cannot be 0');
       return false;
-    }
-    if (approvedCredit.approvedOrderValue === 0) {
+    } else if(orderValueChecked && approvedCredit.approvedOrderValue == 0) {
       handleErrorToast('approved order value cannot be 0');
       return false;
+    } else {
+      return true;
     }
-    return true;
   };
 
   const handleCamApprove = async () => {
@@ -1019,14 +1022,14 @@ function Index() {
       if (gettingPercentageCredit && gettingPercentageOrder) {
         const obj = {
           approvalRemarks: [...approveComment],
-          approvedOrderValue: approvedCredit.approvedOrderValue,
-          approvedCreditValue: approvedCredit.approvedCreditValue,
+          approvedOrderValue: orderValueChecked ? approvedCredit.approvedOrderValue : '',
+          approvedCreditValue: limitValueChecked ? approvedCredit.approvedCreditValue : '',
           order: orderList._id,
           status: 'Approved',
         };
         const code = dispatch(UpdateCam(obj, 'CAM APPROVED'));
 
-        if (code === 200) {
+        if (code == 200) {
           dispatch(settingSidebar('Leads', 'Transaction Summary', 'Transaction Summary', '1'));
           router.push(`/termsheet/id`);
         }
@@ -7941,7 +7944,7 @@ function Index() {
                       aria-label="Default select example"
                       onChange={(e) => {
                         setCamCoversionUnit(e.target.value);
-                        if (e.target.value === 10000000) {
+                        if (e.target.value == 10000000) {
                           setUnit('Crores');
                         } else {
                           setUnit('Lakhs');
@@ -8613,6 +8616,10 @@ function Index() {
                     unit={unit}
                     chartType={chartType}
                     setChartType={setChartType}
+                    limitValueChecked={limitValueChecked}
+                    setLimitValueChecked={setLimitValueChecked}
+                    orderValueChecked={orderValueChecked}
+                    setOrderValueChecked={setOrderValueChecked}
                   />
                 </div>
               </div>

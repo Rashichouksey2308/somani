@@ -88,9 +88,10 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   };
 
   const handleDeleteRow = (index) => {
-    let tempArr = [...releaseDetail];
-    tempArr.pop(index);
-    setReleaseDetail(tempArr);
+    setReleaseDetail([...releaseDetail.slice(0, index), ...releaseDetail.slice(index + 1)]);
+    // let tempArr = [...releaseDetail];
+    // tempArr.pop(index);
+    // setReleaseDetail(tempArr);
   };
 
   const [releaseOrderButtonIndex, setReleaseOrderButtonIndex] = useState(0);

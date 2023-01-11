@@ -9,6 +9,8 @@ import Router from 'next/router';
 import { GetAllCommodity, GetCommodity } from '../../src/redux/commodity/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import ToggleSwitch from '../../src/components/ToggleSwitch'
+import constants from '@/utils/constants'
+
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const Index = () => {
   const { allCommodity } = useSelector((state) => state.commodity);
 
   useEffect(() => {
-    dispatch(GetAllCommodity(`?page=${currentPage}&limit=${10}`));
+    dispatch(GetAllCommodity(`?page=${currentPage}&limit=${constants.numberTen}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const Index = () => {
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -113,7 +115,7 @@ const Index = () => {
 
                 <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                   <span>
-                    Showing Page {currentPage + 1} out of {Math.ceil(allCommodity?.totalCount / 7)}
+                    Showing Page {currentPage + 1} out of {Math.ceil(allCommodity?.totalCount / constants.numberSeven)}
                   </span>
                   <a
                     onClick={() => {
@@ -130,7 +132,7 @@ const Index = () => {
                   </a>
                   <a
                     onClick={() => {
-                      if (currentPage + 1 < Math.ceil(allCommodity?.totalCount / 7)) {
+                      if (currentPage + 1 < Math.ceil(allCommodity?.totalCount / constants.numberSeven)) {
                         setCurrentPage((prevState) => prevState + 1);
                       }
                     }}

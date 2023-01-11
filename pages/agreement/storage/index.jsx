@@ -14,6 +14,7 @@ import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux
 import StorageInsurance from '../../../src/templates/requestLetters/StorageInsurance';
 import { CovertvaluefromtoCR } from '../../../src/utils/helper';
 import styles from './index.module.scss';
+import constants from '@/utils/constants'
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -67,14 +68,14 @@ const Index = () => {
     setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
   };
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 2000]);
+    const doc = new jsPDF('p', 'pt', [constants.pdfWidth, constants.pdfHeight]);
     doc.html(ReactDOMServer.renderToString(<StorageInsurance insuranceData={insuranceData} />), {
       callback: function (doc) {
           const totalPages = doc.internal.getNumberOfPages();
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / constants.numberTwo, doc.internal.pageSize.getHeight() - 1, {
         align: 'center',
         });;
       }
@@ -143,7 +144,7 @@ const Index = () => {
                     Year of Built
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, 4)}
+                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, constants.numberFour)}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

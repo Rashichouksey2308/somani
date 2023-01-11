@@ -13,6 +13,8 @@ import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
 import { GetAllBuyer, GetAllOrders } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import styles from './creditqueue.module.scss';
+import constants from '@/utils/constants'
+
 
 const Index = () => {
   const [serachterm, setSearchTerm] = useState('');
@@ -31,7 +33,7 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}`));
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${constants.numberSeven}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const Index = () => {
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -67,7 +69,7 @@ const Index = () => {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${constants.numberSeven}&createdAt=${sorting}`));
     if (sorting === -1) setSorting(1);
     else setSorting(-1);
   };

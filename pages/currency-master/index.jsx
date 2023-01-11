@@ -7,6 +7,7 @@ import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Router from 'next/router';
 import MasterTableQueue from '../../src/components/MasterTableQueue';
 import { GetAllCurrency, GetCurrency } from '../../src/redux/currency/action'
+import constants from '@/utils/constants'
 
 const Index = () => {
 
@@ -14,7 +15,7 @@ const Index = () => {
   
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
-  const [pageLimit, setPageLimit] = useState(10);
+  const [pageLimit, setPageLimit] = useState(constants.numberTen);
 
   const { searchedLeads } = useSelector((state) => state.order);
 
@@ -23,7 +24,7 @@ const Index = () => {
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
