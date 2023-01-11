@@ -392,9 +392,7 @@ function Index() {
   const [DOlimit, setDoLimit] = useState(0);
   const [lastMileDelivery, setLastMileDelivery] = useState(false);
 
-  const setLastMile = (val) => {
-    setLastMileDelivery(val);
-  };
+console.log(lastMileDelivery,'lastMileDelivery')
 
   const balanceQuantity = () => {
     const boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
@@ -428,7 +426,8 @@ function Index() {
       if (i === index) {
         let number = 0;
         for (let i = 0; i < releaseDetail.length; i++) {
-          if (releaseDetail[i].orderNumber === val.orderNumber) {
+          if (releaseDetail[i].orderNumber == val.orderNumber) {
+            
             number = Number(releaseDetail[i].netQuantityReleased);
           }
           if (val.orderNumber === 'Not Available') {
@@ -517,9 +516,6 @@ function Index() {
                 totalDONumber = totalDONumber + Number(item.Quantity);
               }
             });
-            const filterForReleaseOrder = releaseDetail.filter((item) => {
-              return item.orderNumber === val.orderNumber;
-            });
             setDoLimit(tempLimit);
           }
         }
@@ -584,7 +580,7 @@ function Index() {
       const orderId = releaseDetail[i].orderNumber;
       const orderQuantity = releaseDetail[i].netQuantityReleased;
       const filterForReleaseOrder = deliveryOrder.filter((item) => {
-        return item.orderNumber === orderId;
+        return item.orderNumber == orderId;
       });
       const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
         let maxQuantity;
@@ -626,7 +622,7 @@ function Index() {
       const payload = {
         deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
         deliveryDetail: newarr,
-        lastMileDelivery: lastMileDelivery === 'true',
+        lastMileDelivery: lastMileDelivery == 'true',
       };
       const task = 'save';
       await dispatch(UpdateDelivery({ payload, task }));
@@ -775,7 +771,7 @@ function Index() {
                   <div className={`${styles.card}  accordion_body`}>
                     <DeliveryOrder
                       balanceQuantity={balanceQuantity}
-                      setLastMileDelivery={setLastMile}
+                      setLastMileDelivery={setLastMileDelivery}
                       lastMileDelivery={lastMileDelivery}
                       onSaveHAndler={onSaveDoHAndler}
                       quantity={quantity}
