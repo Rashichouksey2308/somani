@@ -60,7 +60,7 @@ export const GetAllCommodity = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  const [jwtAccessToken] = decodedString.split('#');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',

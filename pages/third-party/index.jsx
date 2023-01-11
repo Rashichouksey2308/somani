@@ -14,10 +14,9 @@ import Router from 'next/router';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 import { getVendors,getPorts } from '../../src/redux/masters/action';
 
-function Index() {
+const Index = () => {
   const dispatch = useDispatch();
 
-  const [darkMode, setDarkMode] = useState(false);
   const [lastModified, setlastModified] = useState('');
   const [componentId, setComponentId] = useState(1);
   useEffect(() => {
@@ -27,7 +26,7 @@ function Index() {
   const { getVendorsMasterData } = useSelector((state) => state.MastersData);
     const { getPortsMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
-    let id = sessionStorage.getItem('inspectionId');
+    const id = sessionStorage.getItem('inspectionId');
     dispatch(GetAllInspection(`?inspectionId=${id}`));
   }, [dispatch]);
   const { allInspection, modifiedDate } = useSelector((state) => state.Inspection);
@@ -37,7 +36,7 @@ function Index() {
     }
   }, [modifiedDate]);
 
-  let inspectionData = _get(allInspection, 'data[0]', {});
+  const inspectionData = _get(allInspection, 'data[0]', {});
   useEffect(() => {
     dispatch(setPageName('inception2'));
     dispatch(setDynamicName(_get(inspectionData, 'company.companyName')));
@@ -99,7 +98,7 @@ function Index() {
                 Appointment
               </a>
             </li>
-            {inspectionData && inspectionData?.thirdPartyInspectionRequired == true ? (
+            { inspectionData?.thirdPartyInspectionRequired ? (
               <li
                 className={`${styles.navItem}  nav-item`}
                 onClick={() => {
@@ -162,7 +161,7 @@ function Index() {
                     )}
                   </div>
                 </div>
-                {inspectionData && inspectionData?.thirdPartyInspectionRequired == true ? (
+                {inspectionData?.thirdPartyInspectionRequired ? (
                   <>
                     {' '}
                     {addTPI?.map((e, index) => (
