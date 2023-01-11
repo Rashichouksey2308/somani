@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LcApplication from '../../../src/components/LcApplication';
 import PreviewBar from '../../../src/components/PreviewBar';
-import { handleErrorToast } from '../../../src/utils/helpers/global'
+import { handleErrorToast } from '../../../src/utils/helpers/global';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModule, UpdateLcModule } from '../../../src/redux/lcModule/action';
 import { removePrefixOrSuffix } from '../../../src/utils/helper';
@@ -123,7 +123,7 @@ function Index() {
   };
   const addDocArr = () => {
     if (currentComment === '') {
-      handleErrorToast('Comment cannot be empty')
+      handleErrorToast('Comment cannot be empty');
     }
     setLcDocuments([...lcDocuments, { value: currentComment, action: false }]);
     setCurrentComment('');
@@ -164,7 +164,7 @@ function Index() {
   };
   const addConditionArr = (index) => {
     if (currentComment2 === '') {
-      handleErrorToast('Comment cannot be empty')
+      handleErrorToast('Comment cannot be empty');
     }
     setLcComments([...lcComments, { value: currentComment2, action: false }]);
 
@@ -216,76 +216,54 @@ function Index() {
 
   const checkValidation = () => {
     if (lcData?.formOfDocumentaryCredit == '' || lcData?.formOfDocumentaryCredit === undefined) {
-      handleErrorToast('Please Select Form Of Documentary Credit')
-    }
-    if (lcData?.applicant === '' || lcData?.applicant === undefined) {
+      handleErrorToast('Please Select Form Of Documentary Credit');
+    } else if (lcData?.applicant === '' || lcData?.applicant === undefined) {
       handleErrorToast('Please Select Applicant');
-    }
-    if (lcData?.beneficiary === '' || lcData?.beneficiary === undefined) {
-      handleErrorToast('Please add Beneficiary')
-    }
-    if (lcData?.currecyCodeAndAmountValue === '' || lcData?.currecyCodeAndAmountValue === undefined) {
-      handleErrorToast('Please add Currency Code Amount')
-    }
-    if (lcData?.tolerancePercentage === '' || lcData?.tolerancePercentage === undefined) {
-      handleErrorToast('Please add Tolerance Percentage')
-    }
-    if (lcData?.creditAvailablewith === '' || lcData?.creditAvailablewith === undefined) {
-      handleErrorToast('Please select Credit Available With')
-    }
-    if (lcData?.creditAvailableBy === '' || lcData?.creditAvailableBy === undefined) {
-      handleErrorToast('Please select Credit Available By')
-    }
-    if (lcData?.atSight === '' || lcData?.atSight === undefined) {
-      handleErrorToast('Please select DRAFT AT')
-    }
-
-    if (lcData?.atSight === 'Usuance') {
+    } else if (lcData?.beneficiary === '' || lcData?.beneficiary === undefined) {
+      handleErrorToast('Please add Beneficiary');
+    } else if (lcData?.currecyCodeAndAmountValue === '' || lcData?.currecyCodeAndAmountValue === undefined) {
+      handleErrorToast('Please add Currency Code Amount');
+    } else if (lcData?.tolerancePercentage === '' || lcData?.tolerancePercentage === undefined) {
+      handleErrorToast('Please add Tolerance Percentage');
+    } else if (lcData?.creditAvailablewith === '' || lcData?.creditAvailablewith === undefined) {
+      handleErrorToast('Please select Credit Available With');
+    } else if (lcData?.creditAvailableBy === '' || lcData?.creditAvailableBy === undefined) {
+      handleErrorToast('Please select Credit Available By');
+    } else if (lcData?.atSight === '' || lcData?.atSight === undefined) {
+      handleErrorToast('Please select DRAFT AT');
+    } else if (lcData?.atSight === 'Usuance') {
       if (lcData?.numberOfDays === '' || lcData?.numberOfDays === undefined) {
-        handleErrorToast('Please add number of Days')
+        handleErrorToast('Please add number of Days');
       }
+    } else if (lcData?.partialShipment === '' || lcData?.partialShipment === undefined) {
+      handleErrorToast('Please select  Partial Shipment');
+    } else if (lcData?.transhipments === '' || lcData?.transhipments === undefined) {
+      handleErrorToast('Please add select  Transhipment');
+    } else if (lcData?.shipmentForm === '' || lcData?.shipmentForm === undefined) {
+      handleErrorToast('Please add place of taking charge');
+    } else if (lcData?.portOfLoading === '' || lcData?.portOfLoading === undefined) {
+      handleErrorToast('Please select  port Of Loading');
+    } else if (lcData?.portOfDischarge === '' || lcData?.portOfDischarge === undefined) {
+      handleErrorToast('Please select  port Of Discharge');
+    } else if (lcData?.latestDateOfShipment === '' || lcData?.latestDateOfShipment === undefined) {
+      handleErrorToast('Please select latest Date Of Shipment');
+    } else if (lcData?.DescriptionOfGoods === '' || lcData?.DescriptionOfGoods === undefined) {
+      handleErrorToast('Please add Description Of Goods');
+    } else if (lcDocuments?.length <= 0) {
+      handleErrorToast('Please add DOCUMENT REQUIRED');
+    } else if (lcComments?.length <= 0) {
+      handleErrorToast('Please add ADDITIONAL CONDITIONS');
+    } else if (lcData?.presentaionPeriod === '' || lcData?.presentaionPeriod === undefined) {
+      handleErrorToast('Please add presentaion Period');
+    } else if (lcData?.confirmationInstructions === '' || lcData?.confirmationInstructions === undefined) {
+      handleErrorToast('Please add confirmation Instructions');
+    }else if  (lcData?.charges === '' || lcData?.charges === undefined) {
+      handleErrorToast('Please select charges');
+    } else if (lcData?.instructionToBank === '' || lcData?.instructionToBank === undefined) {
+      handleErrorToast('Please add instruction To Bank');
+    } else {
+      return true;
     }
-    if (lcData?.partialShipment === '' || lcData?.partialShipment === undefined) {
-      handleErrorToast('Please select  Partial Shipment')
-    }
-    if (lcData?.transhipments === '' || lcData?.transhipments === undefined) {
-      handleErrorToast('Please add select  Transhipment')
-    }
-    if (lcData?.shipmentForm === '' || lcData?.shipmentForm === undefined) {
-      handleErrorToast('Please add place of taking charge')
-    }
-    if (lcData?.portOfLoading === '' || lcData?.portOfLoading === undefined) {
-      handleErrorToast('Please select  port Of Loading')
-    }
-    if (lcData?.portOfDischarge === '' || lcData?.portOfDischarge === undefined) {
-      handleErrorToast('Please select  port Of Discharge')
-    }
-    if (lcData?.latestDateOfShipment === '' || lcData?.latestDateOfShipment === undefined) {
-      handleErrorToast('Please select latest Date Of Shipment')
-    }
-
-    if (lcData?.DescriptionOfGoods === '' || lcData?.DescriptionOfGoods === undefined) {
-      handleErrorToast('Please add Description Of Goods')
-    }
-    if (lcDocuments?.length <= 0) {
-      handleErrorToast('Please add DOCUMENT REQUIRED')
-    }
-    if (lcComments?.length <= 0) {
-      handleErrorToast('Please add ADDITIONAL CONDITIONS')
-    }
-    if (lcData?.presentaionPeriod === '' || lcData?.presentaionPeriod === undefined) {
-      handleErrorToast('Please add presentaion Period')
-    }
-    if (lcData?.confirmationInstructions === '' || lcData?.confirmationInstructions === undefined) {
-      handleErrorToast('Please add confirmation Instructions')
-    }
-    if (lcData?.charges === '' || lcData?.charges === undefined) {
-      handleErrorToast('Please select charges')
-    }
-    if (lcData?.instructionToBank === '' || lcData?.instructionToBank === undefined) {
-      handleErrorToast('Please add instruction To Bank')
-    }
-    return true;
   };
   const handleLcSave = async () => {
     if (checkValidation()) {
@@ -310,7 +288,9 @@ function Index() {
         documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
       };
-
+      dispatch(UpdateLcModule({ obj: obj }));
+      dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`));
+      sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc);
     }
   };
 

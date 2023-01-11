@@ -462,10 +462,10 @@ function Index(props) {
           let gst = [];
         
 
-          filter.forEach((val, index) => {
-            if (val.authorisedSignatoryDetails[0].name !== '') {
+          filter?.forEach((val, index) => {
+            if (val?.authorisedSignatoryDetails[0]?.name !== '') {
               tempDetail.push(val.authorisedSignatoryDetails[0]);
-              tempOptions.push(val.authorisedSignatoryDetails[0].name);
+              tempOptions.push(val.authorisedSignatoryDetails[0]?.name);
             }
             if (val.keyAddresses[0].gstin !== '') {
               gst.push(val.keyAddresses[0].gstin);
@@ -533,10 +533,10 @@ function Index(props) {
             let tempDetail = [];
             let gst = [];
             setShotName(filter[0].Short_Name);
-            filter.forEach((val, index) => {
-              if (val.authorisedSignatoryDetails[0].name !== '') {
+            filter?.forEach((val, index) => {
+              if (val?.authorisedSignatoryDetails[0]?.name !== '') {
                 tempDetail.push(val.authorisedSignatoryDetails[0]);
-                tempOptions.push(val.authorisedSignatoryDetails[0].name);
+                tempOptions.push(val.authorisedSignatoryDetails[0]?.name);
               }
               if (val.keyAddresses[0].gstin !== '') {
                 gst.push(val.keyAddresses[0].gstin);
@@ -589,7 +589,7 @@ function Index(props) {
             setPan('');
           }
         }
-        if (name == 'Emergent Industrial Solution Limited') {
+        if (name == 'Emergent Industrial Solutions Limited') {
           filter = props?.internal?.filter((val) => {
             
             if (val.Company_Name == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
