@@ -24,7 +24,6 @@ import {setDynamicOrder, setPageName } from 'redux/userData/action';
 import { getZipCode, getCountries } from 'redux/masters/action';
 import {isValidPhoneNumber} from 'libphonenumber-js';
 import { countryCodes } from '@/utils/jsons/countryCodes.json';
-import { constants } from 'fs/promises';
 import constant from '@/utils/constants.js'
 
 
@@ -379,7 +378,7 @@ function Index() {
       return false;
     }
 
-    const isOk = true;
+    let isOk = true;
     for (let i = 0; i <= person.length - 1; i++) {
       if (person[i].name === '' || person[i].name === null) {
         handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);

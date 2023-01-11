@@ -74,7 +74,7 @@ const Index = () => {
 
   const getStatus = (status) => {
     if (status === 'ReviewQueue') return 'Review';
-    status === 'CreditQueue' ? 'Approved' : 'Rejected';
+    return status === 'CreditQueue' ? 'Approved' : 'Rejected';
   };
 
   return (
