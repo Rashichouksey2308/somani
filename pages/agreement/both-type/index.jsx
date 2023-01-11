@@ -14,6 +14,7 @@ import BothType from '../../../src/templates/requestLetters/BothType';
 import { convertValue } from '../../../src/utils/helper';
 import styles from './index.module.scss';
 import Router from 'next/router';
+import constants from '@/utils/constants'
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -59,14 +60,14 @@ const Index = () => {
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 2000]);
+    const doc = new jsPDF('p', 'pt', [constants.pdfWidth , constants.pdfHeight]);
     doc.html(ReactDOMServer.renderToString(<BothType insuranceData={insuranceData} />), {
       callback: function (doc) {
         const totalPages = doc.internal.getNumberOfPages();
 
       for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / constants.numberTwo, doc.internal.pageSize.getHeight() - 1, {
         align: 'center',
         });;
       }
@@ -138,7 +139,7 @@ const Index = () => {
                     Year of Built
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, 4)}
+                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, constants.numberFour)}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -375,11 +376,6 @@ const Index = () => {
                         />
                       </div>
                     ))}
-
-                    {/* <div className={`${styles.labelFloat} form-group`}>
-                          <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
-                          <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
-                        </div> */}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
