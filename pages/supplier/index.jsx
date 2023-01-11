@@ -24,7 +24,6 @@ import {setDynamicOrder, setPageName } from 'redux/userData/action';
 import { getZipCode, getCountries } from 'redux/masters/action';
 import {isValidPhoneNumber} from 'libphonenumber-js';
 import { countryCodes } from '@/utils/jsons/countryCodes.json';
-import { constants } from 'fs/promises';
 import constant from '@/utils/constants.js'
 
 
