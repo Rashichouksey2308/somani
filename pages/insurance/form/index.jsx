@@ -12,6 +12,8 @@ import { removePrefixOrSuffix } from '../../../src/utils/helper';
 import moment from 'moment';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 import { handleErrorToast } from '@/utils/helpers/global';
+import constants from '@/utils/constants'
+
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -45,7 +47,7 @@ const Index = () => {
       storagePlotAddress: '',
     },
     sumInsured: insuranceData?.quotationRequest?.sumInsured
-      ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
+      ? Number(insuranceData?.quotationRequest?.sumInsured) / constants.numberCrore
       : sumInsuredCalc,
   });
 
@@ -54,7 +56,7 @@ const Index = () => {
   const bothInsuranceString = 'Marine & Storage Insurance';
 
   const portOfDischarge = _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '');
-  const sumInsuredCalc = parseFloat(((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100);
+  const sumInsuredCalc = parseFloat(((Number(insuranceData?.order?.orderValue) / constants.numberCrore) * constants.numberHundredTen) / constants.numberHundred);
 
   const getPlaceOfStorage = () => {
     const placeofStaorage = insuranceData?.quotationRequest?.storageDetails?.placeOfStorage;
@@ -88,7 +90,7 @@ const Index = () => {
         storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
       sumInsured: insuranceData?.quotationRequest?.sumInsured
-        ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
+        ? Number(insuranceData?.quotationRequest?.sumInsured) / constants.numberCrore
         : sumInsuredCalc,
     });
   };
@@ -203,7 +205,7 @@ const Index = () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
         const insuranceObj = { ...quotationData };
-        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * 10000000;
+        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * constants.numberCrore;
         const obj = {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
@@ -367,7 +369,7 @@ const Index = () => {
                                 insuranceData,
                                 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
                                 '',
-                              )?.slice(0, 4)}
+                              )?.slice(0, constants.numberFour)}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -559,7 +561,7 @@ const Index = () => {
                                 insuranceData,
                                 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
                                 '',
-                              )?.slice(0, 4)}
+                              )?.slice(0, constants.numberFour)}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>

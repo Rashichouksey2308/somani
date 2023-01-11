@@ -22,7 +22,7 @@ import MarginMoney from '../../src/templates/MarginMoney';
 import { checkNan, convertValue, gSTINValidation } from '../../src/utils/helper';
 import styles from './index.module.scss';
 import RevisedMarginPreviewTemp from '../../src/templates/RevisedMarginPreviewTemp';
-// import _ from 'lodash'
+import constants from '@/utils/constants'
 
 function Index() {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ function Index() {
   let id = sessionStorage.getItem('marginId');
 
   const [unit, setUnit] = useState({ value: 'Crores' });
-  const [coversionUnit, setCoversionUnit] = useState(10000000);
+  const [coversionUnit, setCoversionUnit] = useState(constants.numberCrore);
   const [isConsigneeSameAsBuyer, setisConsigneeSameAsBuyer] = useState(true);
 
   const RevisedMarginMoneyTrue = _get(margin, 'data.data[0].revisedMarginMoney.isActive', false);
@@ -115,26 +115,26 @@ function Index() {
       tolerance: marginData?.order?.tolerance,
       marginMoney: marginData?.order?.termsheet?.transactionDetails?.marginMoney,
     });
-    let orderValue = parseFloat(Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice)).toFixed(2); //J
+    let orderValue = parseFloat(Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice)).toFixed(constants.numberTwo); //J
     let orderValueCurrency = marginData?.order?.orderCurrency;
-    let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculation.conversionRate)).toFixed(2); //K
+    let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculation.conversionRate)).toFixed(constants.numberTwo); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
-        (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 1) *
-        90) /
-        365,
+        (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / constants.numberHundred) : 1) *
+        constants.numberNinety) /
+        constants.daysInYear,
     ); //L
     console.log(usanceInterest,'usanceInterest')
     let tradeMargin = parseFloat(
-      Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
-    ).toFixed(2); //M
-    let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(2); //N
-    let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculation.tolerance / 100)).toFixed(2); //O
-    let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(2); //P
-    let provisionalUnitPricePerTon = parseFloat(Number(grossOrderValue) / Number(forCalculation.quantity)).toFixed(2); //Q
-    let marginMoney = parseFloat(Number(totalOrderValue) * Number(Number(forCalculation.marginMoney) / 100)).toFixed(2); //R
-    let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2); //S
-    let amountPerSPDC = parseFloat(Number(totalSPDC) / Number(forCalculation.numberOfPDC)).toFixed(2); //T
+      Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / constants.numberHundred),
+    ).toFixed(constants.numberTwo); //M
+    let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(constants.numberTwo); //N
+    let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculation.tolerance / constants.numberHundred)).toFixed(constants.numberTwo); //O
+    let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(constants.numberTwo); //P
+    let provisionalUnitPricePerTon = parseFloat(Number(grossOrderValue) / Number(forCalculation.quantity)).toFixed(constants.numberTwo); //Q
+    let marginMoney = parseFloat(Number(totalOrderValue) * Number(Number(forCalculation.marginMoney) / constants.numberHundred)).toFixed(constants.numberTwo); //R
+    let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(constants.numberTwo); //S
+    let amountPerSPDC = parseFloat(Number(totalSPDC) / Number(forCalculation.numberOfPDC)).toFixed(constants.numberTwo); //T
 
     setFinalCal({
       orderValue: orderValue,
@@ -153,25 +153,25 @@ function Index() {
   };
 
   const getData2 = () => {
-    let orderValue = parseFloat(Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice)).toFixed(2); //J
+    let orderValue = parseFloat(Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice)).toFixed(constants.numberTwo); //J
     let orderValueCurrency = 'USD';
-    let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculation.conversionRate)).toFixed(2); //K
+    let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculation.conversionRate)).toFixed(constants.numberTwo); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
-        (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / 100) : 1) *
-        90) /
-        365,
-    ).toFixed(2); //L
+        (forCalculation.isUsanceInterestIncluded ? Number(forCalculation.usanceInterestPercentage / constants.numberHundred) : 1) *
+        constants.numberNinety) /
+        constants.daysInYear,
+    ).toFixed(constants.numberTwo); //L
     let tradeMargin = parseFloat(
-      Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
-    ).toFixed(2); //M
-    let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(2); //N
-    let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculation.tolerance / 100)).toFixed(2); //O
-    let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(2); //P
-    let provisionalUnitPricePerTon = parseFloat(Number(grossOrderValue) / Number(forCalculation.quantity)).toFixed(2); //Q
-    let marginMoney = parseFloat(Number(totalOrderValue) * Number(Number(forCalculation.marginMoney) / 100)).toFixed(2); //R
-    let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2); //S
-    let amountPerSPDC = parseFloat(Number(totalSPDC) / Number(forCalculation.numberOfPDC)).toFixed(2); //T
+      Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / constants.numberHundred),
+    ).toFixed(constants.numberTwo); //M
+    let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(constants.numberTwo); //N
+    let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculation.tolerance / constants.numberHundred)).toFixed(constants.numberTwo); //O
+    let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(constants.numberTwo); //P
+    let provisionalUnitPricePerTon = parseFloat(Number(grossOrderValue) / Number(forCalculation.quantity)).toFixed(constants.numberTwo); //Q
+    let marginMoney = parseFloat(Number(totalOrderValue) * Number(Number(forCalculation.marginMoney) / constants.numberHundred)).toFixed(constants.numberTwo); //R
+    let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(constants.numberTwo); //S
+    let amountPerSPDC = parseFloat(Number(totalSPDC) / Number(forCalculation.numberOfPDC)).toFixed(constants.numberTwo); //T
 
     setFinalCal({
       orderValue: orderValue,
@@ -626,31 +626,31 @@ function Index() {
     });
     let orderValue = parseFloat(
       Number(forCalculationRevised.quantity) * Number(forCalculationRevised.perUnitPrice),
-    ).toFixed(2); //J
+    ).toFixed(constants.numberTwo); //J
     let orderValueCurrency = 'USD';
-    let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculationRevised.conversionRate)).toFixed(2); //K
+    let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculationRevised.conversionRate)).toFixed(constants.numberTwo); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculationRevised.isUsanceInterestIncluded
-          ? Number(forCalculationRevised.usanceInterestPercentage / 100)
+          ? Number(forCalculationRevised.usanceInterestPercentage / constants.numberHundred)
           : 1) *
-        90) /
-        365,
-    ).toFixed(2); //L
+          constants.numberNinety) /
+          constants.daysInYear,
+    ).toFixed(constants.numberTwo); //L
     let tradeMargin = parseFloat(
-      Number(orderValueInINR) * Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
-    ).toFixed(2); //M
-    let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(2); //N
-    let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100)).toFixed(2); //O
+      Number(orderValueInINR) * Number(Number(forCalculationRevised.tradeMarginPercentage) / constants.numberHundred),
+    ).toFixed(constants.numberTwo); //M
+    let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(constants.numberTwo); //N
+    let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculationRevised.tolerance / constants.numberHundred)).toFixed(constants.numberTwo); //O
     let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(2); //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculationRevised.quantity),
-    ).toFixed(2); //Q
+    ).toFixed(constants.numberTwo); //Q
     let marginMoney = parseFloat(
-      Number(totalOrderValue) * Number(Number(forCalculationRevised.marginMoney) / 100),
-    ).toFixed(2); //R
-    let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2); //S
-    let amountPerSPDC = parseFloat(Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC)).toFixed(2); //T
+      Number(totalOrderValue) * Number(Number(forCalculationRevised.marginMoney) / constants.numberHundred),
+    ).toFixed(constants.numberTwo); //R
+    let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(constants.numberTwo); //S
+    let amountPerSPDC = parseFloat(Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC)).toFixed(constants.numberTwo); //T
 
     setfinalCalRevised({
       orderValue: orderValue,
@@ -671,31 +671,31 @@ function Index() {
   const getDataRevised = () => {
     let orderValue = parseFloat(
       Number(forCalculationRevised.quantity) * Number(forCalculationRevised.perUnitPrice),
-    ).toFixed(2); //J
+    ).toFixed(constants.numberTwo); //J
     let orderValueCurrency = 'USD';
-    let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculationRevised.conversionRate)).toFixed(2); //K
+    let orderValueInINR = parseFloat(Number(orderValue) * Number(forCalculationRevised.conversionRate)).toFixed(constants.numberTwo); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculationRevised.isUsanceInterestIncluded
-          ? Number(forCalculationRevised.usanceInterestPercentage / 100)
+          ? Number(forCalculationRevised.usanceInterestPercentage / constants.numberHundred)
           : 0) *
-        90) /
-        365,
-    ).toFixed(2); //L
+          constants.numberNinety) /
+          constants.daysInYear,
+    ).toFixed(constants.numberTwo); //L
     let tradeMargin = parseFloat(
-      Number(orderValueInINR) * Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
-    ).toFixed(2); //M
-    let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(2); //N
-    let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100)).toFixed(2); //O
-    let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(2); //P
+      Number(orderValueInINR) * Number(Number(forCalculationRevised.tradeMarginPercentage) / constants.numberHundred),
+    ).toFixed(constants.numberTwo); //M
+    let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(constants.numberTwo); //N
+    let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculationRevised.tolerance / constants.numberHundred)).toFixed(constants.numberTwo); //O
+    let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(constants.numberTwo); //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculationRevised.quantity),
-    ).toFixed(2); //Q
+    ).toFixed(constants.numberTwo); //Q
     let marginMoney = parseFloat(
-      Number(totalOrderValue) * Number(Number(forCalculationRevised.marginMoney) / 100),
-    ).toFixed(2); //R
-    let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2); //S
-    let amountPerSPDC = parseFloat(Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC)).toFixed(2); //T
+      Number(totalOrderValue) * Number(Number(forCalculationRevised.marginMoney) / constants.numberHundred),
+    ).toFixed(constants.numberTwo); //R
+    let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(constants.numberTwo); //S
+    let amountPerSPDC = parseFloat(Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC)).toFixed(constants.numberTwo); //T
 
     setfinalCalRevised({
       orderValue: orderValue,
@@ -796,17 +796,17 @@ function Index() {
       Number(
         (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
           Number(forCalculationRevised.additionalPDC),
-      ).toFixed(2),
+      ).toFixed(constants.numberTwo),
     )
       ? 0
       : Number(
           (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
             Number(forCalculationRevised.additionalPDC),
-        ).toFixed(2);
+        ).toFixed(constants.numberTwo);
     // u calculation
     let revisedNetOrderValueNew = Number(
       Number(finalCalRevised?.totalOrderValue) - Number(marginData?.calculation?.totalOrderValue),
-    ).toFixed(2);
+    ).toFixed(constants.numberTwo);
 
     let marginMoneyRevised = marginData?.calculation?.marginMoney;
     let revisedMarginMoneyNew = Number(finalCalRevised?.marginMoney);
@@ -825,12 +825,12 @@ function Index() {
     let additionalAmountPerPDC = Number(
       (Number(finalCalRevised?.totalSPDC) - Number(marginData?.calculation?.totalSPDC)) /
         Number(forCalculationRevised.additionalPDC),
-    ).toFixed(2);
+    ).toFixed(constants.numberTwo);
 
     let revisedNetOrderValueNew = Number(
       Number(finalCalRevised?.totalOrderValue) - Number(marginData?.calculation?.totalOrderValue),
-    ).toFixed(2);
-    let marginMoneyRevised = Number(marginData?.calculation?.marginMoney).toFixed(2);
+    ).toFixed(constants.numberTwo);
+    let marginMoneyRevised = Number(marginData?.calculation?.marginMoney).toFixed(constants.numberTwo);
     let revisedMarginMoneyNew = Number(finalCalRevised?.marginMoney);
 
     setCalcRevised({
@@ -956,19 +956,19 @@ function Index() {
   const coversionUnitHandler = (val) => {
     let unit = 10000000;
     if (val === 'Lakh') {
-      unit = 100000;
+      unit = constants.numberLakh;
     }
     if (val === 'Million') {
-      unit = 1000000;
+      unit = constants.numberMillion;
     }
     if (val === 'Crores') {
-      unit = 10000000;
+      unit = constants.numberCrore;
     }
     setCoversionUnit(unit);
   };
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1500]);
+    const doc = new jsPDF('p', 'pt', [constants.pdfWidth, constants.pdfWidth]);
     doc.html(ReactDOMServer.renderToString(<MarginMoney marginData={marginData} />), {
       callback: function (doc) {
         const totalPages = doc.internal.getNumberOfPages();
@@ -977,7 +977,7 @@ function Index() {
           doc.setPage(i);
           doc.text(
             `Page ${i} of ${totalPages}`,
-            doc.internal.pageSize.getWidth() / 2,
+            doc.internal.pageSize.getWidth() / constants.numberTwo,
             doc.internal.pageSize.getHeight() - 1,
             {
               align: 'center',
@@ -1129,7 +1129,7 @@ function Index() {
   }, [forCalculationRevised]);
 
   const exportPDFRevised = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1850]);
+    const doc = new jsPDF('p', 'pt', [constants.pdfWidth, constants.pdfHeightRevisedMargin]);
     doc.html(ReactDOMServer.renderToString(<RevisedMarginPreviewTemp marginData={marginData} />), {
       callback: function (doc) {
         const totalPages = doc.internal.getNumberOfPages();
@@ -1138,7 +1138,7 @@ function Index() {
           doc.setPage(i);
           doc.text(
             `Page ${i} of ${totalPages}`,
-            doc.internal.pageSize.getWidth() / 2,
+            doc.internal.pageSize.getWidth() / constants.numberTwo,
             doc.internal.pageSize.getHeight() - 1,
             {
               align: 'center',
@@ -1165,15 +1165,6 @@ function Index() {
             <h1 className={`${styles.title} heading`}>
               <span>{_get(orderList, 'company.companyName', '')}</span>
             </h1>
-            {/* <div className="ml-auto text-right">
-              <button type="button" className={`${styles.btnPrimary} btn btn-primary`}>
-                <img src="/static/refresh.svg" alt="refresh" className="img-fluid" />
-                Update Info
-              </button>
-              <div className={`${styles.lastModified} text `}>
-                <span className="accordion_Text">Last Modified:</span> 28 Jan,11:34am
-              </div> 
-            </div>*/}
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
