@@ -286,7 +286,7 @@ function Index() {
                         <button
                             type="button"
                             className={`${styles.createBtn} btn ml-auto btn-primary`}
-                            onClick={() => Router.push('/add-new-port')}
+                            onClick={() => Router.push('/masters/ports/add-new-port')}
                         >
                             Add
                         </button>
