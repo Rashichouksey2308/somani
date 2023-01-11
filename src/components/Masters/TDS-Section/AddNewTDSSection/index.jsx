@@ -68,7 +68,7 @@ function Index() {
                             <span>+</span>
                         </div>
                     </div>
-                    <div id="addTDSSection" className="collapse" aria-labelledby="addTDSSection">
+                    <div id="addTDSSection" className="collapse show" aria-labelledby="addTDSSection">
                         <div className={`${styles.dashboard_form} vessel_card card-body`}>
                             <div className="row">
                                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>

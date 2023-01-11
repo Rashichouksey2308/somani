@@ -167,6 +167,9 @@ export default {
   getMasterTDSSectionQueueRecords: 'tds-section/filterTDS',
   filterTDSSectionQueue: 'tds-section/search',
   createTDSSectionMaster: 'tds-section',
+  getMasterSACQueueRecords: 'sac-code/filterSAC',
+  filterSACQueue: 'sac-code/search',
+  createSACMaster: 'sac-code',
 
   //Checker
   getUserDetails: '/user-master/user',
@@ -186,6 +189,8 @@ export default {
   updateUserMasterRemark: '/user-master/checker-user-status-update',
   getCommodityDetails: '/commodity/get-commodities',
   updateCommodityRemark: '/commodity/checker-commodity-status-update',
+  getGoNoGoLogicDetails: '/gng-master/get-gng',
+  updateGoNoGoLogicRemark: '/gng-master/checker-gngMaster-status-update',
   
   //Masters
   getAllCommodity: 'commodity/get-commodities',

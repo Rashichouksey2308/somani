@@ -43,6 +43,11 @@ const initialState = {
   filteringTDSSectionQueue: false,
   filteredTDSSectionQueue: [],
   creatingTDSSectionMaster: false,
+  SACQueueRecords: [],
+  gettingSACQueueRecords: false,
+  filteringSACQueue: false,
+  filteredSACQueue: [],
+  creatingSACMaster: false,
 };
 
 function MastersReducer(state = initialState, action) {
@@ -513,6 +518,51 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         creatingTDSSectionMaster: false,
+      }
+    case types.GET_MASTER_SAC_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingSACQueueRecords: false,
+        SACQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_SAC_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingSACQueueRecords: false,
+        SACQueueRecords: {},
+      };
+
+    case types.FILTER_SAC_QUEUE:
+      return {
+        ...state,
+        filteringSACQueue: true,
+      };
+
+    case types.FILTER_SAC_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringSACQueue: false,
+        filteredSACQueue: action.payload,
+      };
+
+    case types.FILTER_SAC_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringSACQueue: false,
+        filteredSACQueue: null,
+      };
+
+    case types.CREATE_SAC_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingSACMaster: false,
+      };
+
+    case types.CREATE_SAC_MASTER_FAILED:
+      return {
+        ...state,
+        creatingSACMaster: false,
       };
 
     default:

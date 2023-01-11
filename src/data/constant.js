@@ -100,3 +100,14 @@ export const MASTERS_TDS_SECTION_MASTER_QUEUE = [
         name: 'Nature of Payment'
     }
 ]
+
+export const MASTERS_SAC_MASTER_QUEUE = [
+    {
+        id: 'charges',
+        name: 'Expense Head'
+    },
+    {
+        id: 'group',
+        name: 'Group'
+    },
+]

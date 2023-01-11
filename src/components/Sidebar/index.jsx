@@ -160,6 +160,11 @@ function Index() {
           name: 'TDS-Section',
           image: '/static/gl.svg',
           route: '/masters/tds-section',
+        },
+        {
+          name: 'SAC',
+          image: '/static/gl.svg',
+          route: '/masters/SAC',
         }
       ],
       image: '/static/Masters.svg',
