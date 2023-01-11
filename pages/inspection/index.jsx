@@ -9,6 +9,8 @@ import { SearchLeads } from '../../src/redux/buyerProfile/action';
 import { GetAllInspection } from '../../src/redux/Inspections/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import styles from './inspection.module.scss';
+import constants from '@/utils/constants'
+
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -21,13 +23,13 @@ const Index = () => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
       sessionStorage.setItem('loadedSubPage', `Inspection`);
-      sessionStorage.setItem('openList', 3);
+      sessionStorage.setItem('openList', constants.numberThree);
     }
   }, []);
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -106,11 +108,6 @@ const Index = () => {
             )}
           </div>
           <Filter />
-          {/* <a href="#" className={`${styles.filterList} filterList `}>
-        Bhutani Traders
-        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-      </a>
-       */}
         </div>
 
         <div className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}>

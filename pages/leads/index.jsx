@@ -10,6 +10,7 @@ import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import styles from './index.module.scss';
+import constants from '@/utils/constants'
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
@@ -47,7 +48,7 @@ function Index() {
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -103,16 +104,7 @@ function Index() {
               )}
             </div>
             <Filter />
-            {/* <a href="#" className={`${styles.filterList} filterList`}>
-              Ramesh Shetty
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a>
-            
-            <a href="#" className={`${styles.filterList} filterList`}>
-              Raj Traders
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a> */}
-
+         
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}

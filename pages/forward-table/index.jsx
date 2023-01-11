@@ -8,6 +8,8 @@ import { SearchLeads } from '../../src/redux/buyerProfile/action';
 import { GetAllForwardHedging } from '../../src/redux/ForwardHedging/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import styles from './inspection.module.scss';
+import constants from '@/utils/constants'
+
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Index = () => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
       sessionStorage.setItem('loadedSubPage', `Forward Hedging`);
-      sessionStorage.setItem('openList', 3);
+      sessionStorage.setItem('openList', constants.numberThree);
     }
   }, []);
 
@@ -47,7 +49,7 @@ const Index = () => {
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
