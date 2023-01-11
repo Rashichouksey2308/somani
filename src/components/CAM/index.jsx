@@ -67,14 +67,17 @@ function Index({
   unit,
   chartType,
   setChartType,
+  limitValueChecked,
+  setLimitValueChecked,
+  orderValueChecked,
+  setOrderValueChecked
 }) {
   const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
   });
-  const [limitValueChecked, setLimitValueChecked] = useState(false);
-  const [orderValueChecked, setOrderValueChecked] = useState(false);
+
   //const [darkMode, setDarkMode] = useState(false)
 
   const darkMode = useSelector((state) => state.user.isDark);

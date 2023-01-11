@@ -90,7 +90,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       });
     });
     if (balance < 0) {
-     handleErrorToast(`igm cannot be greater than order quantity`)
+      handleErrorToast(`igm cannot be greater than order quantity`);
     }
     return balance;
   };
@@ -384,26 +384,36 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   };
 
   const validation = () => {
+    let isOk = true;
     if (checkRemainingBalance() < 0) {
       handleErrorToast('igm cannot be greater than order quantity');
-      return false;
+      isOk = false;
     }
     for (let i = 0; i < igmList.igmDetails.length; i++) {
       if (
+        igmList.igmDetails[i].vesselName == '' ||
+        igmList.igmDetails[i].vesselName == undefined ||
+        igmList.igmDetails[i].vesselName == null
+      ) {
+        handleErrorToast(`PLS Select an Vessel for IGM ${i+1}`);
+        isOk = false;
+        break;
+      } else if (
         igmList.igmDetails[i].igmNumber == '' ||
         igmList.igmDetails[i].igmNumber == undefined ||
         igmList.igmDetails[i].igmNumber == null
       ) {
-       handleErrorToast('PLS ADD IGM NUMBER')
-        return false;
-      }
-      if (
+        handleErrorToast(`PLS ADD IGM number for IGM ${i+1}`);
+        isOk = false;
+        break;
+      } else if (
         igmList.igmDetails[i].igmFiling == '' ||
         igmList.igmDetails[i].igmFiling == undefined ||
         igmList.igmDetails[i].igmFiling == null
       ) {
-       handleErrorToast('PLS ADD IMG FILING DATE ')
-        return false;
+        handleErrorToast(`PLS ADD IMG FILING DATE for igm ${i+1}`);
+        isOk = false;
+        break;
       }
       for (let j = 0; j < igmList.igmDetails[i].blNumber.length; j++) {
         if (
@@ -411,24 +421,25 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
           igmList.igmDetails[i].blNumber[j].blNumber == undefined ||
           igmList.igmDetails[i].blNumber[j].blNumber == null
         ) {
-          handleErrorToast('PLS SELECT BL NUMBER ')
-          return false;
-        }
-        if (
+          handleErrorToast(`PLS SELECT BL NUMBER for igm ${i+1}`);
+          isOk = false;
+          break;
+        } else if (
           igmList.igmDetails[i].blNumber[j].blDate == '' ||
           igmList.igmDetails[i].blNumber[j].blDate == undefined ||
           igmList.igmDetails[i].blNumber[j].blDate == null
         ) {
-         handleErrorToast('PLS SELECT BL NUMBER ')
-          return false;
-        }
-        if (
+          handleErrorToast(`PLS SELECT BL NUMBER for igm ${i+1}`);
+          isOk = false;
+          break;
+        } else if (
           igmList.igmDetails[i].blNumber[j].blQuantity == '' ||
           igmList.igmDetails[i].blNumber[j].blQuantity == undefined ||
           igmList.igmDetails[i].blNumber[j].blQuantity == null
         ) {
-        handleErrorToast('PLS SELECT BL NUMBER ')
-          return false;
+          handleErrorToast(`PLS SELECT BL NUMBER for igm ${i+1}`);
+          isOk = false;
+          break;
         }
       }
       if (
@@ -436,44 +447,43 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         igmList.igmDetails[i].document == undefined ||
         igmList.igmDetails[i].document == null
       ) {
-      handleErrorToast('PLS UPLOAD IGM COPY')
-        return false;
+        handleErrorToast(`PLS UPLOAD IGM COPY for igm ${i+1}`);
+        isOk = false;
+        break;
       }
-      return true;
     }
+    return isOk;
   };
 
   const handleSubmit = async () => {
     if (consigneeInfo.name == '' || consigneeInfo.name == undefined || consigneeInfo.name == null) {
-     handleErrorToast('PLS ADD CONSIGNEE NAME')
+      handleErrorToast('PLS ADD CONSIGNEE NAME');
       return;
     }
     if (consigneeInfo.branch == '' || consigneeInfo.branch == undefined || consigneeInfo.branch == null) {
-      handleErrorToast('PLS ADD CONSIGNEE BRANCH')
+      handleErrorToast('PLS ADD CONSIGNEE BRANCH');
       return;
     }
-    if (validation() == false) {
-      return;
-    }
+    if (validation()) {
+      const igmDetails = { ...igmList };
+      igmDetails.shipmentType = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '');
+      igmDetails.shipmentDetails = {
+        consigneeName: consigneeInfo.name,
+        consigneeBranch: consigneeInfo.branch,
+        consigneeAddress: consigneeInfo.address,
+      };
 
-    const igmDetails = { ...igmList };
-    igmDetails.shipmentType = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '');
-    igmDetails.shipmentDetails = {
-      consigneeName: consigneeInfo.name,
-      consigneeBranch: consigneeInfo.branch,
-      consigneeAddress: consigneeInfo.address,
-    };
+      let fd = new FormData();
+      fd.append('igm', JSON.stringify(igmDetails));
+      fd.append('transitId', transId._id);
+      let task = 'submit';
+      let code = await dispatch(UpdateTransitDetails({ fd, task }));
+      if (code == true) {
+        sessionStorage.setItem('orderID', _get(TransitDetails, 'order._id', ''));
 
-    let fd = new FormData();
-    fd.append('igm', JSON.stringify(igmDetails));
-    fd.append('transitId', transId._id);
-    let task = 'submit';
-    let code = await dispatch(UpdateTransitDetails({ fd, task }));
-    if (code == true) {
-      sessionStorage.setItem('orderID', _get(TransitDetails, 'order._id', ''));
-
-      dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Forward Hedging', 'Forward Hedging', '3'));
-      router.push(`/forward-hedging`);
+        dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Forward Hedging', 'Forward Hedging', '3'));
+        router.push(`/forward-hedging`);
+      }
     }
   };
 
