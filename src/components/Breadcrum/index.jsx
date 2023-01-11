@@ -459,6 +459,21 @@ export default function Index({ isQuery }) {
       }
     }
 
+    if ('master-tds-section' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/TDS-Section` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/TDS-Section` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+      } else {
+        router.route = '/Master' + '/TDS-Section';
+      }
+    }
+
 
     router.route.split('/').map((subRoute, index) => {
 

@@ -38,6 +38,11 @@ const initialState = {
   filteringCurrencyQueue: false,
   filteredCurrencyQueue: [],
   creatingCurrencyMaster: false,
+  TDSSectionQueueRecords: [],
+  gettingTDSSectionQueueRecords: false,
+  filteringTDSSectionQueue: false,
+  filteredTDSSectionQueue: [],
+  creatingTDSSectionMaster: false,
   SACQueueRecords: [],
   gettingSACQueueRecords: false,
   filteringSACQueue: false,
@@ -469,6 +474,51 @@ function MastersReducer(state = initialState, action) {
         creatingCurrencyMaster: false,
       };
 
+    case types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingTDSSectionQueueRecords: false,
+        TDSSectionQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingTDSSectionQueueRecords: false,
+        TDSSectionQueueRecords: {},
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE:
+      return {
+        ...state,
+        filteringTDSSectionQueue: true,
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringTDSSectionQueue: false,
+        filteredTDSSectionQueue: action.payload,
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringTDSSectionQueue: false,
+        filteredTDSSectionQueue: null,
+      };
+
+    case types.CREATE_TDS_SECTION_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingTDSSectionMaster: false,
+      };
+
+    case types.CREATE_TDS_SECTION_MASTER_FAILED:
+      return {
+        ...state,
+        creatingTDSSectionMaster: false,
+      }
     case types.GET_MASTER_SAC_QUEUE_RECORDS_SUCCESSFULL:
       return {
         ...state,

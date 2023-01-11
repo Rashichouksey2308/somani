@@ -90,6 +90,17 @@ export const MASTERS_CURRENCY_MASTER_QUEUE = [
     }
 ]
 
+export const MASTERS_TDS_SECTION_MASTER_QUEUE = [
+    {
+        id: 'section',
+        name: 'Section',
+    },
+    {
+        id: 'paymentNature',
+        name: 'Nature of Payment'
+    }
+]
+
 export const MASTERS_SAC_MASTER_QUEUE = [
     {
         id: 'charges',
