@@ -329,6 +329,18 @@ function Index() {
       });
 
       setDeliveryOrder(tempArr);
+    } else {
+      setDeliveryOrder([
+        {
+          orderNumber: '',
+          unitOfMeasure: 'MT',
+          isDelete: false,
+          Quantity: '',
+          deliveryOrderNo: '',
+          deliveryOrderDate: '',
+          status: '',
+        },
+      ]);
     }
     const tempArr2 = [];
     if (releaseOrderData.length > 0) {
@@ -341,8 +353,17 @@ function Index() {
           document: val.document,
         });
       });
-
       setReleaseDetail(tempArr2);
+    } else {
+      setReleaseDetail([
+        {
+          orderNumber: 1,
+          releaseOrderDate: '',
+          netQuantityReleased: 0,
+          unitOfMeasure: '',
+          document: null,
+        },
+      ]);
     }
 
     setLastMileDelivery(_get(ReleaseOrderData, 'data[0].lastMileDelivery', []));
@@ -389,7 +410,7 @@ function Index() {
       });
       return boeTotalQuantity;
     } else {
-      return -1;
+      return 0;
     }
   };
 
