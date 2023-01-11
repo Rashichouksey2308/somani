@@ -27,7 +27,7 @@ import { countryCodes } from '@/utils/jsons/countryCodes.json';
 import constant from '@/utils/constants.js'
 
 
-function Index() {
+const  Index = () => {
   const dispatch = useDispatch();
   const { supplierResponse } = useSelector((state) => state.supplier);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
@@ -809,11 +809,11 @@ function Index() {
             <h1 className={`${styles.title} heading`}>
               <img
                 onClick={() => Router.push('/add-supplier')}
-                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`}
+                src={darkMode ? '/static/white-arrow.svg' : '/static/arrow-right.svg'}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
-              <span>{supplierName !== '' ? supplierName : 'Add Supplier'}</span>
+              <span>{supplierName}</span>
             </h1>
           </div>
         </div>
@@ -2240,7 +2240,7 @@ function Index() {
 
                           <td>{incumbencyDoc?.originalName ? returnDocFormat(incumbencyDoc?.originalName) : null}</td>
                           <td className={styles.doc_row}>
-                            {incumbencyDoc && incumbencyDoc?.date
+                            {incumbencyDoc?.date
                               ? moment(incumbencyDoc?.date).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
@@ -2281,7 +2281,7 @@ function Index() {
 
                           <td>{thirdParty?.originalName ? returnDocFormat(thirdParty?.originalName) : null}</td>
                           <td className={styles.doc_row}>
-                            {thirdParty && thirdParty?.date
+                            {thirdParty?.date
                               ? moment(thirdParty?.date).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
@@ -2451,8 +2451,7 @@ function Index() {
                         </tr>
                       </thead>
                       <tbody>
-                        {filteredDocs &&
-                          filteredDocs?.map((document, index) => {
+                        {filteredDocs?.map((document, index) => {
                             if (document?.deleted) {
                               return null;
                             } else {
@@ -2499,7 +2498,7 @@ function Index() {
                 </div>
               </div>
             </div>
-            {open ? (
+            {open && (
               <TermsheetPopUp
                 close={() => setOpen(false)}
                 open={open}
@@ -2512,7 +2511,7 @@ function Index() {
                   })
                 }
               />
-            ) : null}
+            )}
           </div>
         </div>
         <SaveBar

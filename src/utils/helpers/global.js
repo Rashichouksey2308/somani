@@ -18,15 +18,14 @@ export const returnAuthToken = () => {
  * @returns A function that returns a JSX element.
  */
 export const returnDocFormat = (name = '') => {
+  if(name == '') return 
   if (name.toLowerCase().endsWith('.xls') || name.toLowerCase().endsWith('.xlsx')) {
     return <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />;
-  }
-
-  if (name.toLowerCase().endsWith('.doc') || name.toLowerCase().endsWith('.docx')) {
+  } else if (name.toLowerCase().endsWith('.doc') || name.toLowerCase().endsWith('.docx')) {
     return <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />;
+  } else {
+    return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />;
   }
-
-  return <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />;
 };
 
 /**

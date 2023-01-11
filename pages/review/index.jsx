@@ -640,8 +640,7 @@ function Index() {
           addnew: false,
         });
       });
-    }
-    if (companyData?.profile?.directorDetail.length > 0) {
+    } else if(companyData?.profile?.directorDetail.length > 0) {
       companyData?.profile?.directorDetail?.forEach((val, index) => {
         personArr.push({
           contact: {
@@ -657,6 +656,7 @@ function Index() {
         });
       });
     }
+
 
     setPersonData([...personArr]);
 
