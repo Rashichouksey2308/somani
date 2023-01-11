@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action'
 import { setDynamicName, setPageName } from '../../src/redux/userData/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
+import constants from '@/utils/constants'
 
 const  Index = () => {
   const [serachterm, setSearchTerm] = useState('')
@@ -18,7 +19,7 @@ const  Index = () => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Custom Clearance & WareHouse')
       sessionStorage.setItem('loadedSubPage', null)
-      sessionStorage.setItem('openList', 4)
+      sessionStorage.setItem('openList', constants.numberFour )
     }
   }, [])
 
@@ -37,7 +38,7 @@ const  Index = () => {
   const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query))
     }
   }
@@ -54,11 +55,6 @@ const  Index = () => {
         <div className={`${styles.filter_outer} d-md-flex justify-content-between align-items-center d-inline-block`}>
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
-              {/* <img
-                className={`${styles.arrow} image_arrow mr-2 img-fluid`}
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="ArrowRight"
-              /> */}
               <h1 className={styles.heading}>Bill of Entry</h1>
             </div>
             <div className={styles.search}>
@@ -86,14 +82,7 @@ const  Index = () => {
                 </div>
               )}
             </div>
-            <Filter />
-            {/* <a href="#" className={`${styles.filterList} filterList `}>
-        Bhutani Traders
-        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-      </a>
-       */}
           </div>
-          {/* <button className={`${styles.addBtn}`}>Add</button> */}
         </div>
 
         <div className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}>

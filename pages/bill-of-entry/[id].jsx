@@ -16,6 +16,8 @@ import Axios from 'axios';
 import { handleErrorToast } from '../../src/utils/helpers/global'
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+import constants from '@/utils/constants'
+
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -50,7 +52,7 @@ const Index = () => {
         headers: headers,
       });
 
-      if (response.data.code === 200) {
+      if (response.data.code === constants.successCodeValue) {
         return response.data.data;
       } else {
         handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
@@ -110,10 +112,10 @@ const Index = () => {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
+                className={`${styles.navLink} navLink nav-link ${componentId === constants.numberTwo && 'active'} `}
                 role="button"
                 onClick={() => {
-                  setComponentId(2);
+                  setComponentId(constants.numberTwo);
                   dispatch(
                     getBreadcrumbValues({
                       upperTabs: 'Discharge of Cargo',
@@ -126,10 +128,10 @@ const Index = () => {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'}`}
+                className={`${styles.navLink} navLink nav-link ${componentId === constants.numberThree && 'active'}`}
                 role="button"
                 onClick={() => {
-                  setComponentId(3);
+                  setComponentId(constants.numberThree);
                   dispatch(
                     getBreadcrumbValues({
                       upperTabs: 'Warehouse Details',
@@ -160,7 +162,7 @@ const Index = () => {
                     )}
                   </div>
                   <div className={`${styles.card}  accordion_body`}>
-                    {componentId === 2 && (
+                    {componentId === constants.numberTwo && (
                       <DischargeCargo
                         setArrivalDate={setArrivalDate}
                         uploadDoc={uploadDoc}
@@ -172,7 +174,7 @@ const Index = () => {
                     )}
                   </div>
                   <div className={`${styles.card}  accordion_body`}>
-                    {componentId === 3 && (
+                    {componentId === constants.numberThree && (
                       <Warehouse
                         arrivalDate={arrivalDate}
                         uploadDoc={uploadDoc}
