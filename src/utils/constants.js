@@ -13,6 +13,7 @@ export default {
   numberSeven: 7,
   numberEight: 8,
   numberNine: 9,
+  numberTen: 10,
   negativeNumberThree: -3,
   negativeNumberFour: -4,
   dateFormatString: 'DD-MM-YYYY',
