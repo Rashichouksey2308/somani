@@ -149,7 +149,7 @@ const  Index = () => {
                     Year of Built
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, 4)}
+                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, constants.numberFour)}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

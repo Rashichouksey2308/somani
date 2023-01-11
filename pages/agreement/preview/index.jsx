@@ -183,15 +183,15 @@ const Index = () => {
         cmaShort: data1?.CMA?.shortName,
         loadingCargo2: month ,
         cin:data1?.company?.detailedCompanyInfo.profile.companyDetail.CIN,
-        orderId:data1?.order?.orderId.slice(-3),
-        orderId2:data1?.order?.orderId.slice(-4),
+        orderId:data1?.order?.orderId.slice(constants.negativeNumberThree),
+        orderId2:data1?.order?.orderId.slice(constants.negativeNumberFour),
         associateBuyerShort: _get(data1, 'associateBuyer.shortName', ''),
       });
     }
   }, []);
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [800, 1200]);
+    const doc = new jsPDF('p', 'pt', [constants.pdfWidthAgreement, constants.pdfHeightAgreement]);
   
     let toPrint = SalesContractPreview(data);
     let name = 'SalesAgreement';
@@ -237,7 +237,7 @@ const Index = () => {
      
       doc.text(
         `Page ${i} of ${totalPages}`, 
-        doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 5, {
+        doc.internal.pageSize.getWidth() / constants.numberTwo, doc.internal.pageSize.getHeight() - constants.numberFive, {
         align: 'center',
         });;
       }
@@ -452,7 +452,7 @@ export const undertaking1Pdf = (data,dateFormatString) => {
                           borderBottom: '1px solid #000000',
                           borderRight: '1px solid #000000',
                         }}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom: '0'}}>
-                           INR  {returnReadableNumber(val.amount,"en-IN",2,2)}
+                           INR  {returnReadableNumber(val.amount,"en-IN",constants.numberTwo,constants.numberTwo)}
                          
                            </p>
                       </td>
@@ -476,7 +476,6 @@ export const undertaking1Pdf = (data,dateFormatString) => {
                       </td>
                       <td valign='top' align='left' width='30%'>
                         <p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>
-                          {/* <strong>(Associate Buyer)</strong> */}
                           <strong>({data.associateBuyer})</strong>
                               {
                                 data?.associateBuyerAuthorized?.length > 0 &&

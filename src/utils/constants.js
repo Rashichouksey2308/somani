@@ -1,7 +1,9 @@
 export default {
   pdfHeight: 2000,
-  pdfWidth: 1500,
   pdfHeightRevisedMargin: 1850,
+  pdfHeightAgreement: 1200,
+  pdfWidth: 1500,
+  pdfWidthAgreement: 800,
   numberOne: 1,
   numberTwo: 2,
   numberThree: 3,
@@ -11,6 +13,8 @@ export default {
   numberSeven: 7,
   numberEight: 8,
   numberNine: 9,
+  negativeNumberThree: -3,
+  negativeNumberFour: -4,
   dateFormatString: 'DD-MM-YYYY',
   successCodeValue: 200,
 };
