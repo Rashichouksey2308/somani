@@ -155,6 +155,11 @@ function Index() {
           name: 'Currency',
           image: '/static/gl.svg',
           route: '/masters/currency',
+        },
+        {
+          name: 'SAC',
+          image: '/static/gl.svg',
+          route: '/masters/SAC',
         }
       ],
       image: '/static/Masters.svg',

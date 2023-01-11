@@ -89,3 +89,14 @@ export const MASTERS_CURRENCY_MASTER_QUEUE = [
         name: 'Status',
     }
 ]
+
+export const MASTERS_SAC_MASTER_QUEUE = [
+    {
+        id: 'charges',
+        name: 'Expense Head'
+    },
+    {
+        id: 'group',
+        name: 'Group'
+    },
+]

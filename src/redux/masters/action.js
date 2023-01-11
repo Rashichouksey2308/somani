@@ -299,6 +299,59 @@ function createCurrencyMasterFailed(payload = {}) {
   };
 }
 
+// ******** Master SAC Queue ***********///
+function getMasterSACQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_SAC_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterSACQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_SAC_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter SAC Queue  ***********/////
+
+function filterSACQueue() {
+  return {
+    type: types.FILTER_SAC_QUEUE,
+  };
+}
+
+function filterSACQueueSuccess(payload) {
+  return {
+    type: types.FILTER_SAC_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterSACQueueFailed() {
+  return {
+    type: types.FILTER_SAC_QUEUE_FAILED,
+  };
+}
+
+// ******** SAC Master Add ******** //
+
+function createSACMasterSuccess(payload) {
+  return {
+    type: types.CREATE_SAC_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createSACMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_SAC_MASTER_FAILED,
+    payload,
+  };
+}
+
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -1178,3 +1231,112 @@ export const CreateCurrencyMaster = (payload) => async (dispatch, getState, api)
   }
 };
 // Handler for Currency-master End ---->
+
+// Handler for SAC-master Start ---->
+export const GetMasterSACQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterSACQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterSACQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterSACQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch SAC Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterSACQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterSACQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterSACQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterSACQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterSACQueueFailed(response.data));
+        const toastMessage = 'Search SAC Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterSACQueueFailed());
+    const toastMessage = 'Search SAC request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateSACMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createSACMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createSACMasterSuccess(response.data.data));
+      let toastMessage = 'SAC ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createSACMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createSACMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD SAC DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for SAC-master End ---->

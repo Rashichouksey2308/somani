@@ -164,6 +164,9 @@ export default {
   getMasterCurrencyQueueRecords: 'currency-master/filterCurrency',
   filterCurrencyQueue: 'currency-master/search',
   createCurrencyMaster: 'currency-master',
+  getMasterSACQueueRecords: 'sac-code/filterSAC',
+  filterSACQueue: 'sac-code/search',
+  createSACMaster: 'sac-code',
 
   //Checker
   getUserDetails: '/user-master/user',
