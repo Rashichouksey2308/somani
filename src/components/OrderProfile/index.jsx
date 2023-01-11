@@ -74,8 +74,9 @@ const Fields = (head, value, isButton, value2, value3, buyerList) => {
       <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
         <span className={`${styles.top} label`}>{head}</span>
         <div className="d-flex align-items-center">
-          <span className={`${styles.value} value `}>
-            {head=="Port Of Discharge"?`${value}, India`:`${value}`}
+          <span 
+            className={`${head === 'Document Type' ? styles.value_document : styles.value} value `}>
+            {head =="Port Of Discharge"?`${value}, India`:`${value}`}
             {value2 ? value2 : ''}
           </span>
           {isButton ? (

@@ -103,10 +103,13 @@
     }
 
     .value {
-      // white-space: nowrap;
-      word-break: break-word;
+       //white-space: nowrap;
+     word-break: break-word;
     }
 
+ .value_document {
+       white-space: nowrap;
+    }
     .button {
       cursor: pointer;
       color: #3687e8;
