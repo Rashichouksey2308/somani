@@ -7,6 +7,7 @@ import Router from 'next/router';
 import Filter from '../../../src/components/Filter';
 import { useDispatch } from 'react-redux';
 import { getGenericData } from '../../../src/redux/generic/actionsType';
+import constants from '@/utils/constants'
 
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 
@@ -21,7 +22,7 @@ const Index = (props) => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Agreement & LC Module');
       sessionStorage.setItem('loadedSubPage', `Generic`);
-      sessionStorage.setItem('openList', 2);
+      sessionStorage.setItem('openList', constants.numberTwo);
     }
   }, []);
   useEffect(() => {
@@ -40,7 +41,7 @@ const Index = (props) => {
 
 
   const handleSort = async () => {
-    const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
+    const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${constants.numberSeven}&createdAt=${sorting}`));
     setData(data?.data);
     setTotal(data?.totalCount);
     if (sorting === -1) setSorting(1);
@@ -83,7 +84,7 @@ const Index = (props) => {
               <h3 className="heading_card">Generic</h3>
               <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>
-                  Showing Page {currentPage + 1} out of {Math.ceil(total / 10)}
+                  Showing Page {currentPage + 1} out of {Math.ceil(total / constants.numberTen)}
                 </span>
                 <a
                   onClick={() => {
@@ -100,7 +101,7 @@ const Index = (props) => {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(total / 10)) {
+                    if (currentPage + 1 < Math.ceil(total / constants.numberTen)) {
                       setCurrentPage((prevState) => prevState + 1);
                     }
                   }}

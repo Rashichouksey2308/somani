@@ -9,6 +9,7 @@ import { GettingAllInsurance } from '../../src/redux/insurance/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import moment from 'moment';
+import constants from '@/utils/constants'
 
 function Index() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function Index() {
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -81,7 +82,7 @@ function Index() {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Agreement & LC Module');
       sessionStorage.setItem('loadedSubPage', `Insurance`);
-      sessionStorage.setItem('openList', 2);
+      sessionStorage.setItem('openList', constants.numberTwo);
     }
 
     dispatch(setPageName('insurance'));

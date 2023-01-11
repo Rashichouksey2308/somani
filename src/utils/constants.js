@@ -16,6 +16,13 @@ export default {
   numberTen: 10,
   negativeNumberThree: -3,
   negativeNumberFour: -4,
+  numberNinety: 90,
+  numberHundred: 100,
+  numberHundredTen: 110,
+  daysInYear: 365,
+  numberLakh: 100000,
+  numberMillion: 1000000,
+  numberCrore: 10000000,
   dateFormatString: 'DD-MM-YYYY',
   successCodeValue: 200,
 };

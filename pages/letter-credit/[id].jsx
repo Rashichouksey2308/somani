@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { getPorts } from '../../src/redux/masters/action';
+import constants from '@/utils/constants'
+
 
 function Index() {
   const dispatch = useDispatch();
@@ -250,7 +252,7 @@ function Index() {
     else {
       const tempClauseObj = { ...clauseObj };
       if (clauseObj.dropDownValue === draftString) {
-        tempClauseObj.existingValue = tempClauseObj.existingValue.slice(10, tempClauseObj.existingValue.length - 5);
+        tempClauseObj.existingValue = tempClauseObj.existingValue.slice(constants.numberTen, tempClauseObj.existingValue.length - constants.numberFive);
       }
       const newArr = [...clauseArr];
       if (fieldType === 'date' || fieldType === 'drop' || fieldType === 'number') {
@@ -560,7 +562,6 @@ function Index() {
                                 : ''
                               : existingValue
                           }
-                          // value={getDataFormDropDown(editInput ? editCurrent.existingValue : clauseObj?.existingValue)}
                         />
                         <label className={`${styles.label_heading} label_heading`}>Existing Value</label>
                       </Col>
@@ -572,13 +573,9 @@ function Index() {
                               required
                               type="text"
                               ref={inputRef}
-                              // defaultValue={
-                              //   editInput ? editCurrent?.newValue : ''
-                              // }
                               value={clauseObj?.newValue}
                               disabled={isDisabled}
                               onChange={(e) => {
-                                // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value);
                               }}
                             />
@@ -590,14 +587,10 @@ function Index() {
                               type="number"
                               ref={inputRef}
                               onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
-                              // defaultValue={
-                              //   editInput ? editCurrent?.newValue : ''
-                              // }
                               onWheel={(event) => event.currentTarget.blur()}
                               value={clauseObj?.newValue}
                               disabled={isDisabled}
                               onChange={(e) => {
-                                // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value);
                               }}
                             />
@@ -608,7 +601,6 @@ function Index() {
                                 name="newValue"
                                 defaultDate={clauseObj?.newValue}
                                 saveDate={saveDropDownDate}
-                                // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -624,9 +616,7 @@ function Index() {
                                 onChange={(e) => {
                                   arrChange('newValue', e.target.value);
                                 }}
-                                // value={
-
-                                // }
+                               
                                 value={clauseObj?.newValue}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
@@ -816,7 +806,6 @@ function Index() {
         </div>
       </div>
       <SaveBar
-        // handleSave={handleSubmit}
         rightBtnClick={handleRightButton}
         rightBtn={lcModuleData.isPostAmmended ? 'Submit' : 'Share'}
         buttonText="null"
