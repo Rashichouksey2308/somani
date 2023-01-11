@@ -101,7 +101,7 @@ function Index({ bankDetails, bankHistoryDetails }) {
   return (
     <BankDetails
       tableColumns={tableColumns}
-      bankDetailsData={bankDetailsData}
+      bankDetailsData={bankDetailsData || []}
       tableView
     />
   );

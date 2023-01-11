@@ -74,7 +74,7 @@ function Index({ authorisedSignatoryDetails, authorisedSignatoryHistoryDetails }
   return (
     <AuthorisedSignatoryDetails
       tableColumns={tableColumns}
-      authorisedSignatoryDetailsData={authorisedSignatoryDetailsData}
+      authorisedSignatoryDetailsData={authorisedSignatoryDetailsData || []}
     />
   );
 }

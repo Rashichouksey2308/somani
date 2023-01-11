@@ -81,7 +81,7 @@ function Index({ className, tableView, tableColumns, authorisedSignatoryDetailsD
                                                     </>
                                                 ))
                                                 : 
-                                                        <span className='h5 m-auto'>No Details Found</span>
+                                                        <span className='h5 m-auto'>No records found</span>
                                             }
                                         </div>
                                     </div>
