@@ -2153,10 +2153,11 @@ const Index = ({
                           <>
                            {profile.addnew == 'false' ? (
                           <td>
+                            <div className='d-flex'>
                             <select
                               onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
                               name="bankName"
-                              className={`${styles.dropDown} heading input`}
+                              className={`${styles.dropDown} ${styles.customSelect} heading input`}
                               disabled={!profile.actions}
                               value={profile.bankName}
                             >
@@ -2169,7 +2170,14 @@ const Index = ({
                                 </>
                               ))}
                               <option value="addnew">Add new</option>
+
                             </select>
+                            <img
+                    className={`${styles.select_arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
                           </td>
                         ) : (
                           <td>
@@ -2187,12 +2195,13 @@ const Index = ({
                           </td>
                         )}
                             <td>
+                              <div className='d-flex'>
                           <select
                             type="text"
-                            className="input"
+                            className={`${styles.dropDown} ${styles.customSelect} heading input`}
                             disabled={!profile.actions}
                             value={profile.limitType}
-
+                            
                             name="limitType"
                             onChange={(e) => {
                               handleDebtChange(e.target.name, e.target.value, index);
@@ -2208,6 +2217,12 @@ const Index = ({
                             <option value="Post Ship Credit">Post Ship Credit</option>
                             
                           </select>
+                          <img
+                    className={`${styles.select_arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
                         </td>
                         <td>
                           <input
@@ -2241,10 +2256,11 @@ const Index = ({
                         </td>
 
                         <td>
+                          <div className='d-flex'>
                           <select
                             onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
                             name="conduct"
-                            className={`${styles.dropDown} heading input`}
+                            className={`${styles.dropDown} ${styles.customSelect} heading input`}
                             value={profile?.conduct}
                             disabled={!profile.actions}
                           >
@@ -2254,6 +2270,12 @@ const Index = ({
                             <option value="Average">Average</option>
                             <option value="Poor">Poor</option>
                           </select>
+                          <img
+                    className={`${styles.select_arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
                         </td>
                           </>
                         }
