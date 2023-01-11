@@ -17,7 +17,7 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
   const [inputs, setInputs] = useState({ input1: '', input2: '', input3: '' });
   useEffect(() => {
     setDays({
-      day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate,
+      day1: termsheetDetails?.paymentDueDate?.daysFromVesselDate,
       day2: termsheetDetails?.paymentDueDate?.daysFromBlDate,
     });
     setInputs({
@@ -66,7 +66,7 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
       return text;
     } else if (
       commentType == 'Deliveries/Due Date/Payment' &&
-      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate'
+      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate'
     ) {
       let text = `${days.day1} ${dueDateTextObject.dueDateTextOne}`;
       return text;
@@ -190,7 +190,7 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
       setDueDateTextObject(tempDueDateObject);
     } else if (
       commentType === 'Deliveries/Due Date/Payment' &&
-      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate'
+      termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate'
     ) {
       let tempDueDateObject = { ...dueDateTextObject };
       tempDueDateObject.dueDateTextOne = 'days from the discharge date of vessel/container(s) at discharge port.';
@@ -288,7 +288,7 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
                           />
                         </p>
                       )}
-                      {termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate' && (
+                      {termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate' && (
                         <p>
                           {days.day1}
                           <GrowInput
