@@ -8,7 +8,7 @@ import styles from './index.module.scss';
 import Pagination from '../../src/components/Pagination';
 import { GetAllVessel } from '../../src/redux/vessel/action';
 
-function Index() {
+const Index = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (window) {
@@ -25,7 +25,7 @@ function Index() {
   useEffect(() => {
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7`));
   }, [currentPage]);
-  const { allVessel, Vessel } = useSelector((state) => state.vessel);
+  const { allVessel } = useSelector((state) => state.vessel);
 
   useEffect(() => {
     if (allVessel?.data?.length > 0) {

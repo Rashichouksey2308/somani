@@ -1870,13 +1870,15 @@ const Index = ({
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <div className="d-flex">
                         <select
+                        disabled={editData.addressType == 'Registered Office'}
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                           name="addressType"
-                          defaultValue={editData.addressType}
+                          value={editData.addressType}
                           onChange={(e) => {
                             changeData(e.target.name, e.target.value);
                           }}
-                        >
+                        > {editData.addressType == 'Registered Office' &&<option value="Registered Office">Registered Office</option>}
+                           <option value="Registered Address">Registered Address</option>
                           <option value="Factory">Factory</option>
                           <option value="Warehouse">Warehouse</option>
                           <option value="Corporate Office">Corporate Office</option>

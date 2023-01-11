@@ -9,7 +9,6 @@ import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { ClearSupplier, CreateSupplier, DeleteSupplierDoc, GetSupplier, UpdateSupplier } from 'redux/supplier/action';
 import API from 'utils/endpoints';
 import { emailValidation } from 'utils/helper';
@@ -21,7 +20,7 @@ import { handleErrorToast, handleSuccessToast, returnDocFormat } from '../../src
 import styles from './index.module.scss';
 import { ShareDocument } from 'redux/shareDoc/action';
 import {setDynamicOrder, setPageName } from 'redux/userData/action';
-import { getZipCode, getCountries } from 'redux/masters/action';
+import { getCountries } from 'redux/masters/action';
 import {isValidPhoneNumber} from 'libphonenumber-js';
 import { countryCodes } from '@/utils/jsons/countryCodes.json';
 import constant from '@/utils/constants.js'
@@ -101,7 +100,7 @@ const  Index = () => {
     setdocs(supplierData?.extraDocument ?? []);
     setFilteredDocs(supplierData?.extraDocument ?? []);
     setIncumbencyDoc(supplierData?.incumbencyCertificateDocument ?? null);
-    SetThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
+    setThirdParty(supplierData?.thirdPartyCertificateDocument ?? null);
   }, [supplierResponse]);
 
   const supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', 'ADD Supplier');
@@ -186,7 +185,7 @@ const  Index = () => {
   const [infoArray, setInfoArray] = useState([]);
 
   const [incumbencyDoc, setIncumbencyDoc] = useState(null);
-  const [thirdParty, SetThirdParty] = useState(null);
+  const [thirdParty, setThirdParty] = useState(null);
   const [newDoc, setNewDoc] = useState({
     document: null,
     name: '',
@@ -250,6 +249,8 @@ const  Index = () => {
       action: true,
     },
   ]);
+
+  console.log(listShare,'listShare')
   const onAddShare = () => {
     setIsPercentageInFocus([...isPercentageInFocus, false]);
     setDetail([
@@ -342,12 +343,12 @@ const  Index = () => {
     setListDirector([...newInput]);
   };
 
-  const onChangeHandler5 = (e) => {
-    const { name, value } = e.target;
 
-    setBusiness(value);
-  };
   const addToBusinessArray = (e) => {
+    if(business == ''){
+      handleErrorToast('cannot add an Empty Comment')
+      return
+    }
     const temp = [...businessArray];
 
     setBusinessArray([...temp, { businessSummary: business }]);
@@ -384,8 +385,7 @@ const  Index = () => {
         handleErrorToast(` name cannot be empty in Contact Person Details ${i + 1} `);
         isOk = false;
         break;
-      }
-      if (
+      }else if(
         person[i].contact === '' ||
         person[i].contact === null ||
         !isValidPhoneNumber(person[i].contact, returnSelectedCountryCode(person[i].callingCode))
@@ -393,8 +393,7 @@ const  Index = () => {
         handleErrorToast(` please provide a valid contact no in Contact Person Details ${i + 1} `);
         isOk = false;
         break;
-      }
-      if (person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
+      }else if(person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
         handleErrorToast(`please provide a valid email Id  in Contact Person Details ${i + 1} `);
         isOk = false;
         break;
@@ -414,8 +413,7 @@ const  Index = () => {
         handleErrorToast(`Name cannot be empty in Directors And Authorized Signatory ${i + 1}`);
         isOk = false;
         break;
-      }
-      if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
+      }else if(listDirector[i].nationality === '' || listDirector[i].nationality === null) {
         handleErrorToast(`nationality cannot be empty in Directors And Authorized Signatory ${i + 1}`);
         isOk = false;
         break;
@@ -438,8 +436,7 @@ const  Index = () => {
         handleErrorToast(`please provide a valid hsnCode Commodities Traded ${i + 1}`);
         isOk = false;
         break;
-      }
-      if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
+      }else if(listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
         handleErrorToast(`commodity cannot be empty in Commodities Traded ${i + 1}`);
         isOk = false;
         break;
@@ -541,7 +538,6 @@ const  Index = () => {
     Router.push('/add-supplier');
   };
 
-  const [darkMode, setDarkMode] = useState(false);
 
   const [keyAddData, setKeyAddData] = useState([]);
   const deleteComponent = (index) => {
@@ -571,12 +567,11 @@ const  Index = () => {
         }
       });
       return isOk;
-    };
+    } 
     if (findDuplicates(data.emailId).length > 0) {
       handleErrorToast('cannot add duplicate email');
       return false;
-    }
-    if (data.address === null || data.address === '' || data.address === undefined) {
+    }else if (data.address === null || data.address === '' || data.address === undefined) {
       handleErrorToast('Please add address');
 
       return false;
@@ -723,7 +718,7 @@ const  Index = () => {
     const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+    const headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
     try {
       const response = await Axios.post(`${API.corebaseUrl}${API.SupplierUploadDoc}`, payload, {
         headers: headers,
@@ -747,7 +742,7 @@ const  Index = () => {
     } else {
       let fd = new FormData();
       fd.append('document', newDoc.document);
-      let data = await docUploader(fd);
+      const data = await docUploader(fd);
       data.name = newDoc.name;
       if (data?.originalName) handleSuccessToast('document uploaded successfully');
       setdocs([...docs, data]);
@@ -764,7 +759,7 @@ const  Index = () => {
     fd.append('document', e.target.files[0]);
     let data = await docUploader(fd);
     if (doc == 'thirdPartyDoc') {
-      SetThirdParty(data);
+      setThirdParty(data);
     } else {
       setIncumbencyDoc(data);
     }
@@ -801,6 +796,43 @@ const  Index = () => {
     setKeyAddressData(tempArr);
   };
 
+
+ 
+
+
+  const docCurrentStatus = (doc,setDocState,docName) => {
+    const docNotSelected =(
+      <>
+        <div className={styles.uploadBtnWrapper}>
+          <input
+            type="file"
+            name="myfile"
+            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+            onChange={(e) => uploadDocHandler2(e, docName)}
+          />
+          <button className={`${styles.button_upload} btn`}>Upload</button>
+        </div>
+      </>
+    )
+    const docIsSelected = 
+      <div
+        className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
+      >
+        <span>{doc?.name ?doc?.name : doc?.originalName}</span>
+        <img
+          onClick={(e) => setDocState(null)}
+          className={`${styles.close_image} image_arrow mx-2`}
+          src="/static/close.svg"
+          alt="Close"
+        />{' '}
+      </div>
+    
+
+
+    if(doc)return docIsSelected
+    else return docNotSelected
+  }
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -809,7 +841,7 @@ const  Index = () => {
             <h1 className={`${styles.title} heading`}>
               <img
                 onClick={() => Router.push('/add-supplier')}
-                src={darkMode ? '/static/white-arrow.svg' : '/static/arrow-right.svg'}
+                src={'/static/arrow-right.svg'}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -1526,8 +1558,7 @@ const  Index = () => {
                       </thead>
 
                       <tbody>
-                        {person?.length > 0 &&
-                          person?.map((val, index) => (
+                        {person?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
                                 {!val.action ? (
@@ -1709,8 +1740,7 @@ const  Index = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {detail?.length > 0 &&
-                          detail?.map((val, index) => {
+                        {detail?.map((val, index) => {
                             return (
                               <tr key={index} className="table_credit">
                                 <td>
@@ -1866,8 +1896,7 @@ const  Index = () => {
                       </thead>
 
                       <tbody>
-                        {listDirector?.length > 0 &&
-                          listDirector?.map((val, index) => (
+                        {listDirector?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
                                 {!val.action ? (
@@ -1992,15 +2021,13 @@ const  Index = () => {
                     rows={3}
                     placeholder=""
                     className={`${styles.comment_field} input form-control`}
-                    onChange={onChangeHandler5}
+                    onChange={(e)=> setBusiness(e.target.value)}
                     name="businessSummary"
                     value={business}
                   />
                   <label className={`${styles.label_textarea} label_heading text`}>Business Summary</label>
                   <img
-                    onClick={(e) => {
-                      addToBusinessArray();
-                    }}
+                    onClick={() =>  addToBusinessArray()}
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
@@ -2045,8 +2072,7 @@ const  Index = () => {
                       </thead>
 
                       <tbody>
-                        {listCommodity.length > 0 &&
-                          listCommodity.map((val, index) => (
+                        {listCommodity?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
                                 {!val.action ? (
@@ -2173,8 +2199,7 @@ const  Index = () => {
                   />
                 </div>
                 <ol>
-                  {infoArray?.length > 0 &&
-                    infoArray?.map((val, index) => {
+                  {infoArray?.map((val, index) => {
                       return <li>{val?.remarks}</li>;
                     })}
                 </ol>
@@ -2238,38 +2263,14 @@ const  Index = () => {
                             <strong className="text-danger ml-0">*</strong>{' '}
                           </td>
 
-                          <td>{incumbencyDoc?.originalName ? returnDocFormat(incumbencyDoc?.originalName) : null}</td>
+                          <td>{ returnDocFormat(incumbencyDoc?.originalName) }</td>
                           <td className={styles.doc_row}>
                             {incumbencyDoc?.date
                               ? moment(incumbencyDoc?.date).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
                           <td colSpan={2}>
-                            {incumbencyDoc === null ? (
-                              <>
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    type="file"
-                                    name="myfile"
-                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => uploadDocHandler2(e, 'incumbencyDoc')}
-                                  />
-                                  <button className={`${styles.button_upload} btn`}>Upload</button>
-                                </div>
-                              </>
-                            ) : (
-                              <div
-                                className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
-                              >
-                                <span>{incumbencyDoc?.name ? incumbencyDoc?.name : incumbencyDoc?.originalName}</span>
-                                <img
-                                  onClick={(e) => setIncumbencyDoc(null)}
-                                  className={`${styles.close_image} image_arrow mx-2`}
-                                  src="/static/close.svg"
-                                  alt="Close"
-                                />{' '}
-                              </div>
-                            )}
+                            {docCurrentStatus(incumbencyDoc,setIncumbencyDoc,'incumbencyDoc')}
                           </td>
                         </tr>
 
@@ -2279,38 +2280,14 @@ const  Index = () => {
                             <strong className="text-danger ml-0">*</strong>{' '}
                           </td>
 
-                          <td>{thirdParty?.originalName ? returnDocFormat(thirdParty?.originalName) : null}</td>
+                          <td>{returnDocFormat(thirdParty?.originalName) }</td>
                           <td className={styles.doc_row}>
                             {thirdParty?.date
                               ? moment(thirdParty?.date).format('DD-MM-YYYY,HH:mm A')
                               : ''}
                           </td>
                           <td colSpan={2}>
-                            {thirdParty === null ? (
-                              <>
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    type="file"
-                                    name="myfile"
-                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => uploadDocHandler2(e, 'thirdPartyDoc')}
-                                  />
-                                  <button className={`${styles.button_upload} btn`}>Upload</button>
-                                </div>
-                              </>
-                            ) : (
-                              <div
-                                className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
-                              >
-                                <span>{thirdParty?.name ? thirdParty?.name : thirdParty?.originalName}</span>
-                                <img
-                                  onClick={(e) => SetThirdParty(null)}
-                                  className={`${styles.close_image} image_arrow mx-2`}
-                                  src="/static/close.svg"
-                                  alt="Close"
-                                />{' '}
-                              </div>
-                            )}
+                            {docCurrentStatus(thirdParty,setThirdParty,'thirdPartyDoc')}
                           </td>
                         </tr>
                       </tbody>
