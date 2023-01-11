@@ -56,41 +56,53 @@ function Index() {
                     <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                       <tbody>
                         <tr>
-                          <td align="left" style={{ padding: '38px 35px 15px' }}></td>
                           <td
-                            align="left"
-                            width="40%"
-                            style={{
-                              fontSize: '30px',
-                              color: '#111111',
-                              lineHeight: '25px',
-                              fontWeight: 'bold',
-                              padding: '38px 35px 15px',
-                            }}
+                            colSpan={2}
+                            valign="top"
                           >
-                            INDO GERMAN
-                            <br />
-                            <span
-                              style={{
-                                fontSize: '18px',
-                                color: '#111111',
-                                lineHeight: '18px',
-                                fontWeight: 'normal',
-                              }}
-                            >
-                              INTERNATIONAL (P) LTD.
-                            </span>
-                            <br />
-                            <span
-                              style={{
-                                fontSize: '12px',
-                                color: '#111111',
-                                lineHeight: '12px',
-                                fontWeight: 'normal',
-                              }}
-                            >
-                              CIN No.: U74899DL1 994PTC063676
-                            </span>
+                            <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                              <tr>
+                                <td align="left" style={{ padding: '0 35px 15px' }}></td>
+                                <td
+                                  align="left"
+                                  width="40%"
+                                  style={{ padding: '0 35px 15px' }}
+                                >
+                                  <span
+                                    style={{                                    
+                                      fontSize: '30px',
+                                      color: '#111111',
+                                      lineHeight: '25px',
+                                      fontWeight: 'bold',
+                                      display: 'block'
+                                    }}
+                                  >
+                                    INDO GERMAN</span>
+                                  <span
+                                    style={{
+                                      fontSize: '18px',
+                                      color: '#111111',
+                                      lineHeight: '18px',
+                                      fontWeight: 'normal',
+                                      display: 'block'
+                                    }}
+                                  >
+                                    INTERNATIONAL (P) LTD.
+                                  </span>
+                                  <span
+                                    style={{
+                                      fontSize: '14px',
+                                      color: '#111111',
+                                      lineHeight: '20px',
+                                      fontWeight: 'normal',
+                                      display: 'block'
+                                    }}
+                                  >
+                                    CIN No.: U74899DL1 994PTC063676
+                                  </span>
+                                </td>
+                              </tr>
+                            </table>
                           </td>
                         </tr>
                         <tr>
@@ -98,15 +110,20 @@ function Index() {
                             colSpan={2}
                             align="left"
                             style={{
-                              fontSize: '12px',
-                              color: '#111111',
-                              lineHeight: '18px',
-                              fontWeight: 'bold',
-                              padding: '30px 35px 60px',
                               textAlign: 'justify',
                             }}
                           >
-                            STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF LADING.
+                            <span                              
+                              style={{
+                                fontSize: '12px',
+                                color: '#111111',
+                                lineHeight: '18px',
+                                fontWeight: 'bold',
+                                display: 'block',
+                                padding: '20px 35px 50px'
+                              }}
+                            >
+                              STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF LADING.</span>                            
                           </td>
                         </tr>
                         <tr>
@@ -119,24 +136,32 @@ function Index() {
                               fontWeight: 'bold',
                               padding: '0 15px 30px 35px',
                               marginBottom: '0',
-                              textTransform: 'uppercase'
+                              textTransform: 'uppercase',
+                              display: 'table'
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-block',
-                                float: 'left',
+                                // display: 'inline-block',
+                                // float: 'left',
                                 height: '60px',
-                                width: '30px',
+                                // width: '30px',                                
+                                padding: '0 10px 0 35px',
                                 fontWeight: 'normal',
-                                textTransform: 'capitalize'
+                                textTransform: 'capitalize',
+                                display: 'table-cell'
                               }}
                             >
-                              To: 
+                              To : 
                             </span>
-                            {_get(transitDetails, 'data[0].order.generic.seller.name')}<br /> 
-                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')},<br />
-                            {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')}, {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')}, {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].country')}
+                            <span
+                              style={{
+                                display: 'table-cell'
+                              }}>
+                              {_get(transitDetails, 'data[0].order.generic.seller.name')}<br /> 
+                              {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].fullAddress')},<br />
+                              {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].city')}, {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].pinCode')}, {_get(transitDetails, 'data[0].order.generic.seller.addresses[0].country')}
+                            </span>
                           </td>
                           <td
                             valign="top"
@@ -158,28 +183,81 @@ function Index() {
                             colSpan={2}
                             align="left"
                             style={{
+                              padding: '30px 35px 30px'
+                            }}
+                          >
+                            <span style={{ fontSize: '12px', color: '#111111', lineHeight: '18px', fontWeight: 'normal'}}>Dear Sir,</span>
+                          </td>
+                        </tr>
+                        <br />
+                        <br />
+                        <tr>
+                          <td
+                            colSpan={2}
+                            align="left"
+                            style={{
                               fontSize: '12px',
                               color: '#111111',
                               lineHeight: '18px',
                               fontWeight: 'bold',
-                              padding: '30px 35px 30px',
+                              display: 'table'
                             }}
                           >
-                            <span style={{ fontWeight: 'normal' }}>Dear Sir,</span>
+                            <span style={{ display: 'table-cell', padding: '0 5px 0 35px', fontWeight: 'normal' }}>Ship : </span>
+                            <span style={{ display: 'table-cell', paddingRight: '35px' }}>{_get(transitDetails, 'data[0].BL.billOfLanding[0].vesselName', '').toUpperCase()}</span>
                             <br />
                             <br />
-                            <span style={{ fontWeight: 'normal' }}>Ship : </span>
-                            {_get(transitDetails, 'data[0].BL.billOfLanding[0].vesselName', '').toUpperCase()}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            colSpan={2}
+                            align="left"
+                            style={{
+                              fontSize: '12px',
+                              color: '#111111',
+                              lineHeight: '18px',
+                              fontWeight: 'bold',
+                              display: 'table'
+                            }}
+                          >
+                            <span style={{ display: 'table-cell', padding: '0 5px 0 35px', fontWeight: 'normal' }}>Voyage : </span>
+                            <span style={{ display: 'table-cell', paddingRight: '35px' }}>FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '',).toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}, INDIA</span>
                             <br />
                             <br />
-                            <span style={{ fontWeight: 'normal' }}>Voyage : </span>
-                            FROM {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.loadPort', '',).toUpperCase()} TO {_get(transitDetails, 'data[0].order.termsheet.transactionDetails.portOfDischarge', '',).toUpperCase()}, INDIA
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            colSpan={2}
+                            align="left"
+                            style={{
+                              fontSize: '12px',
+                              color: '#111111',
+                              lineHeight: '18px',
+                              fontWeight: 'bold',
+                              display: 'table'
+                            }}
+                          >
+                             <span style={{ display: 'table-cell', padding: '0 5px 0 35px', fontWeight: 'normal' }}>Cargo : </span>
+                             <span style={{ display: 'table-cell', paddingRight: '35px' }}>{_get(transitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')} {_get(transitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()} {_get(transitDetails, 'data[0].order.commodity', '').toUpperCase()}</span>
                             <br />
                             <br />
-                             <span style={{ fontWeight: 'normal' }}>Cargo: </span>
-                              {_get(transitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')} {_get(transitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()} {_get(transitDetails, 'data[0].order.commodity', '').toUpperCase()}
-                              <br></br>
-                               <br />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            colSpan={2}
+                            align="left"
+                            valign="top"
+                            style={{
+                              fontSize: '12px',
+                              color: '#111111',
+                              lineHeight: '18px',
+                              fontWeight: 'bold',
+                              padding: '0 35px 20px'
+                            }}
+                          >
                             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                               <tr>
                                 <td valign='top' align="left" width="13%">
@@ -213,7 +291,7 @@ function Index() {
                               color: '#111111',
                               lineHeight: '18px',
                               fontWeight: 'normal',
-                              padding: '20px 35px 40px',
+                              padding: '20px 35px',
                               textAlign: 'justify',
                             }}
                           >
@@ -267,6 +345,7 @@ function Index() {
                               </tr>
                               <tr>
                                 <td
+                                  valign="top"
                                   style={{
                                     fontSize: '12px',
                                     color: '#111111',
@@ -284,6 +363,7 @@ function Index() {
                                   Germany
                                 </td>
                                 <td
+                                  valign="top"
                                   style={{
                                     fontSize: '12px',
                                     color: '#111111',
@@ -292,13 +372,14 @@ function Index() {
                                     paddingTop: '10px',
                                   }}
                                 >
-                                  Phones (91)-(11)-4315-8000, 237&2022, 2338-7413
+                                  Phones : (91)-(11)-4315-8000, 237&2022, 2338-7413
                                   <br />
                                   Fax : (91) (11) 2378-2806
                                   <br />
                                   E-mail : indogerman@somanigroup.com
                                 </td>
                                 <td
+                                  valign="top"
                                   style={{
                                     fontSize: '12px',
                                     color: '#111111',
@@ -324,8 +405,6 @@ function Index() {
                   </td>
                 </tr>
               </table>
-              <br />
-              <br />
             </td>
           </tr>
           <tr>
@@ -349,46 +428,51 @@ function Index() {
                     <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                       <tbody>
                         <tr>
-                          <table width="100%" cellPadding="0" cellSpacing="0" border="0">
-                            <tr>
-                              <td align="left" style={{ padding: '38px 35px 15px' }}></td>
-                              <td
-                                align="left"
-                                width="40%"
-                                style={{
-                                  fontSize: '30px',
-                                  color: '#111111',
-                                  lineHeight: '25px',
-                                  fontWeight: 'bold',
-                                  padding: '30px 35px 15px',
-                                }}
-                              >
-                                INDO GERMAN
-                                <br />
-                                <span
-                                  style={{
-                                    fontSize: '18px',
-                                    color: '#111111',
-                                    lineHeight: '18px',
-                                    fontWeight: 'normal',
-                                  }}
+                          <td valign='top'>
+                            <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                              <tr>
+                                <td align="left" style={{ padding: '35px 35px 15px' }}></td>
+                                <td
+                                  align="left"
+                                  width="40%"
+                                  style={{ padding: '35px 35px 15px' }}
                                 >
-                                  INTERNATIONAL (P) LTD.
-                                </span>
-                                <br />
-                                <span
-                                  style={{
-                                    fontSize: '12px',
-                                    color: '#111111',
-                                    lineHeight: '12px',
-                                    fontWeight: 'normal',
-                                  }}
-                                >
-                                  CIN No.: U74899DL1 994PTC063676
-                                </span>
-                              </td>
-                            </tr>
-                          </table>
+                                  <span
+                                    style={{                                    
+                                      fontSize: '30px',
+                                      color: '#111111',
+                                      lineHeight: '25px',
+                                      fontWeight: 'bold',
+                                      display: 'block'
+                                    }}
+                                  >
+                                    INDO GERMAN</span>
+                                  <span
+                                    style={{
+                                      fontSize: '18px',
+                                      color: '#111111',
+                                      lineHeight: '18px',
+                                      fontWeight: 'normal',
+                                      display: 'block'
+                                    }}
+                                  >
+                                    INTERNATIONAL (P) LTD.
+                                  </span>
+                                  <span
+                                    style={{
+                                      fontSize: '14px',
+                                      color: '#111111',
+                                      lineHeight: '20px',
+                                      fontWeight: 'normal',
+                                      display: 'block'
+                                    }}
+                                  >
+                                    CIN No.: U74899DL1 994PTC063676
+                                  </span>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
                         </tr>
                         <tr>
                           <td
@@ -399,7 +483,7 @@ function Index() {
                               color: '#111111',
                               lineHeight: '18px',
                               fontWeight: 'normal',
-                              padding: '38px 35px 30px',
+                              padding: '30px 35px 30px',
                               textAlign: 'justify',
                             }}
                           >
@@ -489,6 +573,7 @@ function Index() {
                               </tr>
                               <tr>
                                 <td
+                                  valign="top"
                                   style={{
                                     fontSize: '12px',
                                     color: '#111111',
@@ -506,6 +591,7 @@ function Index() {
                                   Germany
                                 </td>
                                 <td
+                                  valign="top"
                                   style={{
                                     fontSize: '12px',
                                     color: '#111111',
@@ -514,13 +600,14 @@ function Index() {
                                     paddingTop: '10px',
                                   }}
                                 >
-                                  Phones (91)-(11)-4315-8000, 237&2022, 2338-7413
+                                  Phones : (91)-(11)-4315-8000, 237&2022, 2338-7413
                                   <br />
                                   Fax : (91) (11) 2378-2806
                                   <br />
                                   E-mail : indogerman@somanigroup.com
                                 </td>
                                 <td
+                                  valign="top"
                                   style={{
                                     fontSize: '12px',
                                     color: '#111111',
@@ -563,6 +650,7 @@ function Index() {
           doc.save('LetterOfIndemnity.pdf');
         },
         // margin:margins,
+        margin:[40,0,40,0],
         autoPaging: 'text',
       },
     );
@@ -703,7 +791,7 @@ function Index() {
                 Germany
               </div>
               <div>
-                Phones (91)-(11)-4315-8000, 237&2022, 2338-7413
+                Phones : (91)-(11)-4315-8000, 237&2022, 2338-7413
                 <br />
                 Fax : (91) (11) 2378-2806
                 <br />
