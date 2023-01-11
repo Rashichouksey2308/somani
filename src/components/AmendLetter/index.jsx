@@ -349,9 +349,9 @@ const getDate = (value)=>{
                         addMoreRows("email");
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '1.2rem' }} className={`mr-1`}>
                         +
-                      </span>{' '}
+                      </span>
                       add another
                     </div>
                     <div className="d-flex justify-content-between">
@@ -415,10 +415,10 @@ const getDate = (value)=>{
                         addMoreRows();
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
-                        +  add another
-                      </span>{' '}
-                     
+                      <span style={{ fontSize: '1.2rem' }} className={`mr-1`}>
+                        +
+                      </span>
+                      add another
                     </div>
                     <div className="d-flex justify-content-between">
                       <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
