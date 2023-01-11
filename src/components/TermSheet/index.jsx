@@ -27,7 +27,7 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({});
   const [additionalComments, setAdditionalComments] = useState([]);
   const [order, setOrder] = useState('');
-
+console.log(termsheetDetails,'termsheetDetails')
   let sheetData = _get(termsheet, 'data[0]', {});
   useEffect(() => {
     let Id = sessionStorage.getItem('termID');

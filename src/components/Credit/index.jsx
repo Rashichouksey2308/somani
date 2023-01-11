@@ -34,7 +34,6 @@ const Index = ({
   setEditRow,
   orderDetail,
   companyData,
-  suggestedCredit,
 }) => {
   const dispatch = useDispatch();
 
@@ -62,16 +61,16 @@ const Index = ({
   const [keyNameList, setKeyNameList] = useState([]);
 
   useEffect(() => {
-    if (personData?.length > 0) {
+    if (companyData?.profile?.directorDetail) {
       let temp = [];
-      personData.forEach((val) => {
+      companyData?.profile?.directorDetail?.forEach((val) => {
         if (val.name !== '') {
           temp.push(val.name);
         }
       });
       setKeyNameList([...temp]);
     }
-  }, [personData]);
+  }, [companyData]);
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
@@ -174,6 +173,7 @@ const Index = ({
     email: '',
     name: '',
   });
+  console.log(keyNameList,'keyPersonData',keyPersonData)
 
   useEffect(() => {
     setKeyPersonData(personData);
