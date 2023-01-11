@@ -49,6 +49,11 @@
     border-bottom: 2px solid #cad6e6;
   }
 }
+.highlighted_field {
+  background-color: yellow;
+  padding: 5px;
+  color: black;
+}
 .inner_head_container {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #0000001f;
@@ -76,6 +81,7 @@
   border-top: 0;
 }
 .registered_address {
+  width: 49% !important;
   background: #ffffff;
   border: 1px solid #0000001f;
   border-radius: 9px;

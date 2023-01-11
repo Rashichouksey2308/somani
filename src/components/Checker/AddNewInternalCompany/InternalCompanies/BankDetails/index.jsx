@@ -1,79 +1,110 @@
-import PropTypes from 'prop-types';
-import React, { Component, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './index.module.scss';
-import Table from '../../../../Table';
-import Link from 'next/link';
-import Image from 'next/image';
-import Toggle from '../../../../Toggle/index';
+import BankDetails from '../../../Common/BankDetails';
+import Tooltip from '../../../../Tooltip';
 
-function index() {
+function Index({ bankDetails, bankHistoryDetails }) {
+
+  const [bankDetailsData, setBankDetailsData] = useState([]);
+
+  useEffect(() => {
+    modifyCurrentData();
+  }, [bankDetails]);
+
+  const modifyCurrentData = () => {
+    let finalData = [];
+    let curr;
+    for (let i = 0; i < bankDetails?.length; i++) {
+
+      curr = bankDetails[i];
+
+      let history;
+
+      history = bankHistoryDetails?.find((historyBankDetail) => historyBankDetail?.Account_No === curr?.Account_No);
+
+      if (history) {
+        curr = {
+          ...curr,
+          history
+        }
+      }
+      finalData.push(curr)
+    }
+
+    setBankDetailsData(finalData);
+  };
+
   const tableColumns = useMemo(() => [
     {
       Header: 'BANK NAME',
-      accessor: 'bank_name',
-      Cell: ({ cell: { value } }) => <span>{value}</span>,
+      accessor: 'Bank_Name',
+      Cell: ({ row, value }) => {
+        return <>
+          <span className={`${row?.original?.Account_No === row?.original?.history?.Account_No && row?.original?.history?.Bank_Name && row?.original?.history?.Bank_Name !== value && styles.highlighted_field}`}>
+            {value}
+          </span>
+          {row?.original?.Account_No === row?.original?.history?.Account_No && row?.original?.history?.Bank_Name && row?.original?.history?.Bank_Name !== value && <Tooltip data={row?.original?.history?.Bank_Name || '--'} />}
+        </>
+      }
     },
     {
       Header: 'ACCOUNT NO.',
-      accessor: 'account_no',
+      accessor: 'Account_No',
       Cell: ({ cell: { value } }) => <span>{value}</span>,
+      Cell: ({ row, value }) => {
+        return <>
+          <span className={`${row?.original?.history?.Account_No && row?.original?.history?.Account_No !== value && styles.highlighted_field}`}>
+            {value}
+          </span>
+          {row?.original?.history?.Account_No && row?.original?.history?.Account_No !== value && <Tooltip data={row?.original?.history?.Account_No || '--'} />}
+        </>
+      }
     },
     {
       Header: 'IFSC',
-      accessor: 'ifsc',
-      // Cell: ({ value }) => value ? value : 'RM'
+      accessor: 'IFSC',
+      Cell: ({ row, value }) => {
+        return <>
+          <span className={`${row?.original?.Account_No === row?.original?.history?.Account_No && row?.original?.history?.IFSC && row?.original?.history?.IFSC !== value && styles.highlighted_field}`}>
+            {value}
+          </span>
+          {row?.original?.Account_No === row?.original?.history?.Account_No && row?.original?.history?.IFSC && row?.original?.history?.IFSC !== value && <Tooltip data={row?.original?.history?.IFSC || '--'} />}
+        </>
+      }
     },
     {
       Header: 'AD CODE',
-      accessor: 'ad_code',
+      accessor: 'AD_Code',
+      Cell: ({ row, value }) => {
+        return <>
+          <span className={`${row?.original?.Account_No === row?.original?.history?.Account_No && row?.original?.history?.AD_Code && row?.original?.history?.AD_Code !== value && styles.highlighted_field}`}>
+            {value}
+          </span>
+          {row?.original?.Account_No === row?.original?.history?.Account_No && row?.original?.history?.AD_Code && row?.original?.history?.AD_Code !== value && <Tooltip data={row?.original?.history?.AD_Code || '--'} />}
+        </>
+      }
     },
     {
       Header: 'BRANCH ADDRESS',
-      accessor: 'brunch_name',
+      accessor: 'Branch_Address',
+      Cell: ({ row, value }) => {
+        return <>
+          <span className={`${row?.original?.Account_No === row?.original?.history?.Account_No && row?.original?.history?.Branch_Address && row?.original?.history?.Branch_Address !== value && styles.highlighted_field}`}>
+            {value}
+          </span>
+          {row?.original?.Account_No === row?.original?.history?.Account_No && row?.original?.history?.Branch_Address && row?.original?.history?.Branch_Address !== value && <Tooltip data={row?.original?.history?.Branch_Address || '--'} />}
+        </>
+      }
     },
   ]);
 
-  const dummyData = [
-    {
-      bank_name: 'ICICI Bank',
-      account_no: '63547853487',
-      ifsc: 'ICIC0000031',
-      ad_code: '63547853487',
-      brunch_name: 'A-44, Sagar Apartments, Tilak Marg, Agra',
-    },
-    {
-      bank_name: 'Abc Bank',
-      account_no: '63547853487',
-      ifsc: 'ICIC0000031',
-      ad_code: '63547853487',
-      brunch_name: 'A-44, Sagar Apartments, Tilak Marg, Agra',
-    },
-  ];
-  const onToggle = (state) => {};
-
   return (
-    <div className={`${styles.main} mt-4 border_color card`}>
-      <Toggle onToggle={onToggle}>
-        {({ on, onToggle }) => (
-          <div onClick={onToggle}>
-            <div
-              className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
-              data-toggle="collapse"
-              data-target="#bankDetails"
-              aria-expanded="true"
-              aria-controls="bankDetails"
-            >
-              <h3 className={styles.heading}>Bank Deatils</h3>
-              <span>{on ? '+' : '-'}</span>
-            </div>
-            <div id="bankDetails" className="collapse mb-n4" aria-labelledby="bankDetails" data-parent="#bankDetails">
-              <Table columns={tableColumns} data={dummyData} />
-            </div>
-          </div>
-        )}
-      </Toggle>
-    </div>
+    <BankDetails
+      tableColumns={tableColumns}
+      bankDetailsData={bankDetailsData || []}
+      tableView
+    />
   );
 }
 
-export default index;
+export default Index;
