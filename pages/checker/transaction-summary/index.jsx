@@ -84,7 +84,11 @@ function Index() {
         disableSortBy: true,
         Cell: ({ row }) => {
           return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-            <a className="cursor-pointer">
+            <a className="cursor-pointer" 
+             onClick={() =>
+              handleRoute(row?.original)
+            }
+            >
               <Image
                 height="20px"
                 width="20px"
@@ -100,7 +104,7 @@ function Index() {
 
   const handleRoute = (transactionSummary) => {
     sessionStorage.setItem('checkerTransactionSummaryId', transactionSummary?._id);
-    sessionStorage.setItem('checkerTransactionSummaryName', transactionSummary?.order?.company);
+    sessionStorage.setItem('checkerTransactionSummaryCompanyName', transactionSummary?.company?.companyName);
     dispatch(setDynamicName(transactionSummary?.company?.companyName));
     Router.push('/checker/transaction-summary/id');
   };
