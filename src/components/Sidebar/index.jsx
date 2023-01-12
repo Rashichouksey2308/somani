@@ -165,6 +165,11 @@ function Index() {
           name: 'SAC',
           image: '/static/gl.svg',
           route: '/masters/SAC',
+        },
+        {
+          name: 'IIAG Ledger',
+          image: '/static/gl.svg',
+          route: '/masters/IIAG-ledger',
         }
       ],
       image: '/static/Masters.svg',

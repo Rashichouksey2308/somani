@@ -170,6 +170,9 @@ export default {
   getMasterSACQueueRecords: 'sac-code/filterSAC',
   filterSACQueue: 'sac-code/search',
   createSACMaster: 'sac-code',
+  getMasterIIAGLedgerQueueRecords: 'ledger/filterLedger',
+  filterIIAGLedgerQueue: 'ledger/search',
+  createIIAGLedgerMaster: 'ledger',
 
   //Checker
   getUserDetails: '/user-master/user',
