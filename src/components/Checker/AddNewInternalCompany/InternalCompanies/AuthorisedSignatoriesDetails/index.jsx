@@ -20,7 +20,7 @@ function Index({ authorisedSignatoryDetails, authorisedSignatoryHistoryDetails }
 
       let history;
 
-      history = authorisedSignatoryHistoryDetails?.find((historyAuthorisedDetail) => historyAuthorisedDetail?.email === curr?.email);
+      history = authorisedSignatoryHistoryDetails && authorisedSignatoryHistoryDetails?.find((historyAuthorisedDetail) => historyAuthorisedDetail?.email === curr?.email);
 
       if (history) {
         curr = {

@@ -24,7 +24,7 @@ function index({ internalCompanyDetails, internalCompanyHistoryDetails }) {
 
       let history;
 
-      history = internalCompanyHistoryDetails?.keyAddresses?.find((historyAddress) => historyAddress?.fullAddress === curr?.fullAddress);
+      history = internalCompanyHistoryDetails && internalCompanyHistoryDetails?.keyAddresses?.find((historyAddress) => historyAddress?.fullAddress === curr?.fullAddress);
 
       if (history) {
         curr = {
@@ -50,16 +50,10 @@ function index({ internalCompanyDetails, internalCompanyHistoryDetails }) {
         {({ on, onToggle }) => (
           <div onClick={onToggle}>
             <div
-              className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
-              data-toggle="collapse"
-              data-target="#CompanyDetails"
-              aria-expanded="true"
-              aria-controls="keyAddress"
-            >
+              className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}>
               <h3 className={`${styles.heading} mb-0`}>Internal Companies</h3>
-              <span className="ml-4">{on ? '+' : '-'}</span>
             </div>
-            <div id="CompanyDetails" className="collapse" aria-labelledby="keyAddress">
+            <div>
               <div className={`${styles.dashboard_form} vessel_card card-body m-3`}>
                 <div className="d-flex justify-space-between">
                   <div className="row w-100">
@@ -128,14 +122,13 @@ function index({ internalCompanyDetails, internalCompanyHistoryDetails }) {
             </div>
             <div className="border-bottom"></div>
 
-            <KeyAddresses 
-              id="CompanyDetails"
-              ariaLabelledby="keyAddress"
-              Header="Key Addresses"
-              KeyAddresses={companyData?.keyAddresses || []}
-              className="collapse"
-            />
-
+            <div>
+              <KeyAddresses
+                Header="Key Addresses"
+                KeyAddresses={companyData?.keyAddresses || []}
+                uniqueField="fullAddress"
+              />
+            </div>
           </div>
         )}
       </Toggle>

@@ -1,15 +1,39 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './index.module.scss';
 import Table from '../../../Table';
 import Link from 'next/link';
 import Image from 'next/image';
+import Tooltip from '../../../Tooltip';
 
-function Index() {
+function Index({ documents, documentsHistory }) {
+
+    const [lastUpdatedDate, setLastUpdatedDate] = useState();
+    const [lastUpdatedDateHistory, setLastUpdatedDateHistory] = useState();
+
+    useEffect(() => {
+        if (documents?.length >= 0) {
+            let lastUpdatedDate = documents?.reduce((prev, current) => new Date(prev.date) > new Date(current.date) ? prev : current)
+
+            setLastUpdatedDate(lastUpdatedDate?.date?.slice(0, 10) || '--');
+        } else {
+            setLastUpdatedDate();
+        }
+    }, [documents]);
+
+    useEffect(() => {
+        if (documents?.length >= 0) {
+            let lastUpdatedDateHistory = documentsHistory?.reduce((prev, current) => new Date(prev.date) > new Date(current.date) ? prev : current)
+
+            setLastUpdatedDateHistory(lastUpdatedDateHistory?.date?.slice(0, 10) || '--');
+        } else {
+            setLastUpdatedDateHistory();
+        }
+    }, [documentsHistory]);
+
     const tableColumns = useMemo(() => [
         {
             Header: "Document Name",
-            accessor: "doc_name",
-            Cell: ({ cell: { value } }) => <span className="font-weight-bold text-uppercase">{value}</span>
+            accessor: "name",
         },
         {
             Header: "Format",
@@ -18,17 +42,14 @@ function Index() {
         },
         {
             Header: "Document Date",
-            accessor: "document_date",
-            // Cell: ({ value }) => value ? value : 'RM'
+            accessor: "date",
+            Cell: ({ value }) => value?.slice(0, 10)
         },
         {
             Header: "Uploaded By",
-            accessor: "uploaded_by"
+            accessor: "uploadedBy.fName",
+            Cell: ({ row }) => <span>{row?.original?.uploadedBy.fName + ' ' + row?.original?.uploadedBy.lName}</span>
         },
-        {
-            Header: "Status",
-            accessor: "status"
-        }
     ]);
 
     const tableHooks = (hooks) => {
@@ -39,43 +60,18 @@ function Index() {
                 Header: "Action",
                 Cell: ({ row }) => {
                     return <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-                        <Link href={`/masters/order-history/`}>
-                            <Image
-                                height="30px"
-                                width="30px"
-                                src="/static/blue-eye.svg"
-                                alt="Edit"
-                            />
-                        </Link>
+                        <Image
+                            height="30px"
+                            width="30px"
+                            src="/static/blue-eye.svg"
+                            alt="Edit"
+                        />
                     </div>
                 }
             }
         ])
     };
 
-    const dummyData = [
-        {
-            'doc_name': 'Pdf',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-            'status': 'Verified',
-        },
-        {
-            'doc_name': 'Gst Certificate',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-            'status': 'Pending',
-        },
-        {
-            'doc_name': 'Board Resolution',
-            'format': 'pdf',
-            'document_date': '28-02-2022',
-            'uploaded_by': 'John Doe',
-            'status': 'Pending',
-        }
-    ];
     return (
         <div className={`${styles.main} mt-4 border_color card`}>
             <div
@@ -86,12 +82,27 @@ function Index() {
                 aria-controls="upload"
             >
                 <h3 className={styles.heading}>Documents</h3>
-                <span>+</span>
+                <div className='d-flex align-items-baseline'>
+                    {lastUpdatedDate &&
+                        <p className='font-weight-bold label_heading mr-4 d-flex align-items-baseline'>
+                            <p className='mr-2'>
+                                Last Updated Date:
+                            </p>
+                            <div>
+                                <p className={`${lastUpdatedDateHistory && lastUpdatedDateHistory !== lastUpdatedDate && styles.highlighted_field}`}>
+                                    {lastUpdatedDate}
+                                </p>
+                            </div>
+                            {lastUpdatedDateHistory && lastUpdatedDateHistory !== lastUpdatedDate && <Tooltip data={lastUpdatedDateHistory} />}
+                        </p>
+                    }
+                    <span>+</span>
+                </div>
             </div>
             <div id="upload" className="collapse mb-n4" aria-labelledby="upload" data-parent="#upload">
                 <Table
                     columns={tableColumns}
-                    data={dummyData}
+                    data={documents || []}
                     tableHooks={tableHooks}
                 />
             </div>

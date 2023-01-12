@@ -105,7 +105,7 @@ function Index() {
 
   const handleRoute = (vendor) => {
     sessionStorage.setItem('checkerVendorId', vendor?._id);
-    sessionStorage.setItem('checkerVendorName', vendor?.company?.companyName);
+    sessionStorage.setItem('checkerVendorName', vendor?.vendorDetails?.vendor);
     dispatch(setDynamicName(vendor?.company?.companyName));
     Router.push('/checker/vendor/id');
   };
