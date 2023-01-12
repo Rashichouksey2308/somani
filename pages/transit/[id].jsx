@@ -20,16 +20,12 @@ import Axios from 'axios';
 import API from '../../src/utils/endpoints';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 
-function Index() {
+const Index = () => {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [componentId, setComponentId] = useState(1);
   const [TransitDetails, setTransitDetails] = useState({});
   
   const dispatch = useDispatch();
-  const { breadCrumbData } = useSelector((state) => state.Breadcrumb);
-
-  const vesselData = _get(TransitDetails, 'data[0].order.vessel', {});
 
   const commodity = _get(TransitDetails, 'data[0].order.commodity', '').trim().toLowerCase();
 
