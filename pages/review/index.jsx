@@ -705,7 +705,7 @@ function Index() {
 
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: false ? suggestedValue : '',
+      suggestedCreditLimit: suggestedValue ? suggestedValue : '',
       suggestedOrderValue: orderList?.suggestedOrderValue ? orderList?.suggestedOrderValue : '',
     });
 
