@@ -42,7 +42,7 @@ function Index() {
             }
         }
         if (SACMasterDetails.group == '' ||
-            SACMasterDetails.group == undefined
+            SACMasterDetails.group == undefined || SACMasterDetails.group == 'Select'
         ) {
             toastMessage = 'PLEASE SELECT A GROUP';
             if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -70,7 +70,7 @@ function Index() {
                             <span>+</span>
                         </div>
                     </div>
-                    <div id="addSAC" className="collapse" aria-labelledby="addSAC">
+                    <div id="addSAC" className="collapse show" aria-labelledby="addSAC">
                         <div className={`${styles.dashboard_form} vessel_card card-body`}>
                             <div className="row">
                                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
@@ -93,6 +93,7 @@ function Index() {
                                             value={SACMasterDetails?.group}
                                             onChange={handleSACDetailsChange}
                                         >
+                                            <option value="Select">Select</option>
                                             <option value="Direct Expenses">Direct Expenses</option>
                                             <option value="Interest & Finance Charges">Interest & Finance Charges</option>
                                             <option value="Purchase Accounts">Purchase Accounts</option>
@@ -116,7 +117,7 @@ function Index() {
                                         onChange={handleSACDetailsChange}
                                     />
                                     <label className={`${styles.label_heading} label_heading`}>
-                                        GST Rate<strong className="text-danger">*</strong>
+                                        GST Rate
                                     </label>
                                 </div>
                                 <div className={`${styles.switchContainer} d-flex align-items-center flex-column col-lg-3 mt-2`}>
