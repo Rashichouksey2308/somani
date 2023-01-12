@@ -41,7 +41,7 @@ function Index() {
         setSearchTerm(query);
 
         let queryParams = '';
-        if (Object.keys(appliedFilters).length !== 0 && query.length > 3) {
+        if (Object.keys(appliedFilters).length !== 0 && query.length >= 3) {
             Object.keys(appliedFilters).forEach((item) => {
                 const isTrue = appliedFilters[item];
                 if (isTrue) {
