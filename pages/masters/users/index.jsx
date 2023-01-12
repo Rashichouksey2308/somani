@@ -231,7 +231,7 @@ const index = () => {
 
   const searchView = () => {
     return (
-      filter && openList && searchTerm?.length > 3 &&
+      filter && openList && searchTerm?.length >= 3 &&
       <div className='searchResults'>
         <ul>
           {filteredUsersQueue?.data?.userFilteredData?.length > 0 ? filteredUsersQueue?.data?.userFilteredData?.map((results, index) => (

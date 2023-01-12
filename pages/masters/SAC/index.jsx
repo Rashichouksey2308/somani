@@ -127,7 +127,7 @@ function Index() {
     };
     const searchView = () => {
         return (
-            filter && openList && searchTerm?.length > 3 &&
+            filter && openList && searchTerm?.length >= 3 &&
             <div className='searchResults'>
                 <ul>
                     {filteredSACQueue?.data?.sacFilteredData?.length > 0 ? filteredSACQueue?.data?.sacFilteredData?.map((results, index) => (

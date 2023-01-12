@@ -154,7 +154,7 @@ function Index() {
 
     const searchView = () => {
         return (
-            filter && openList && searchTerm?.length > 3 &&
+            filter && openList && searchTerm?.length >= 3 &&
             <div className='searchResults'>
                 <ul>
                     {filteredDocumentMasterQueue?.data?.documentFilteredData?.length > 0 ? filteredDocumentMasterQueue?.data?.documentFilteredData?.map((results, index) => (

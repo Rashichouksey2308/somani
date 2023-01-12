@@ -168,7 +168,7 @@ function Index() {
 
     const searchView = () => {
         return (
-            filter && openList && searchTerm?.length > 3 &&
+            filter && openList && searchTerm?.length >= 3 &&
             <div className='searchResults'>
                 <ul>
                     {filteredPortsQueue?.data?.portFilteredData?.length > 0 ? filteredPortsQueue?.data?.portFilteredData?.map((results, index) => (

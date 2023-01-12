@@ -127,7 +127,7 @@ function Index() {
     };
     const searchView = () => {
         return (
-            filter && openList && searchTerm?.length > 3 &&
+            filter && openList && searchTerm?.length >= 3 &&
             <div className='searchResults'>
                 <ul>
                     {filteredTDSSectionQueue?.data?.tdsFilteredData?.length > 0 ? filteredTDSSectionQueue?.data?.tdsFilteredData?.map((results, index) => (

@@ -127,7 +127,7 @@ function Index() {
     };
     const searchView = () => {
         return (
-            filter && openList && searchTerm?.length > 3 &&
+            filter && openList && searchTerm?.length >= 3 &&
             <div className='searchResults'>
                 <ul>
                     {filteredCountryQueue?.data?.countryMasterFilteredData?.length > 0 ? filteredCountryQueue?.data?.countryMasterFilteredData?.map((results, index) => (
