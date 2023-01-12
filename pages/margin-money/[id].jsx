@@ -124,7 +124,6 @@ function Index() {
         constants.numberNinety) /
         constants.daysInYear,
     ); //L
-    console.log(usanceInterest,'usanceInterest')
     let tradeMargin = parseFloat(
       Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / constants.numberHundred),
     ).toFixed(constants.numberTwo); //M
@@ -642,7 +641,7 @@ function Index() {
     ).toFixed(constants.numberTwo); //M
     let grossOrderValue = parseFloat(Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin)).toFixed(constants.numberTwo); //N
     let toleranceValue = parseFloat(Number(grossOrderValue) * Number(forCalculationRevised.tolerance / constants.numberHundred)).toFixed(constants.numberTwo); //O
-    let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(2); //P
+    let totalOrderValue = parseFloat(Number(grossOrderValue) + Number(toleranceValue)).toFixed(constants.numberTwo); //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculationRevised.quantity),
     ).toFixed(constants.numberTwo); //Q

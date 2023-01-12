@@ -12,6 +12,7 @@ import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { settingSidebar } from '../../src/redux/breadcrumb/action';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
 import { handleErrorToast } from '@/utils/helpers/global';
+import constants from '@/utils/constants'
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ const Index = () => {
     const orderId = sessionStorage.getItem('orderID');
     const companyId = sessionStorage.getItem('company');
     dispatch(GetBuyer({ companyId: companyId, orderId: orderId }));
-    dispatch(GetAllBuyer(`?company=${companyId}&limit=${6}`));
+    dispatch(GetAllBuyer(`?company=${companyId}&limit=${constants.numberSix}`));
   }, [dispatch]);
 
   useEffect(() => {
@@ -124,15 +125,15 @@ const Index = () => {
     if(!validation()) return
     const tempData = payloadData;
     if (tempData.turnOver) {
-      tempData.turnOver = Number(payloadData.turnOver) * 10000000;
+      tempData.turnOver = Number(payloadData.turnOver) * constants.numberCrore;
     }
     if (tempData.turnOver) {
-      tempData.orderValue = Number(payloadData.orderValue) * 10000000;
+      tempData.orderValue = Number(payloadData.orderValue) * constants.numberCrore;
     }
     const payload = { ...payloadData, orderReviewId: buyerList._id };
 
     const code = await dispatch(UpdateBuyer(payload));
-    if (code == 200) {
+    if (code == constants.successCodeValue) {
       dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'));
       await Router.push('/review');
     }

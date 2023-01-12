@@ -162,7 +162,7 @@ function Index() {
   const [complienceFilter, setComplienceFilter] = useState('All');
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([]);
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([]);
-  const [camConversionunit, setCamCoversionUnit] = useState(10000000);
+  const [camConversionunit, setCamCoversionUnit] = useState(constants.numberCrore);
   const [litigationStatus, setlitigationStatus] = useState(null);
   const [chartType, setChartType] = useState('Monthly');
   const [unit, setUnit] = useState('Crores');
@@ -170,7 +170,6 @@ function Index() {
   const { companyData } = useSelector((state) => state.companyDetails);
   const { allBuyerList } = useSelector((state) => state.buyer);
   const [selectedTab, setSelectedTab] = useState('Profile');
-  console.log(unit,'unit')
   const mcaReportAvailable =
     _get(companyData, `mcaDocs[${companyData?.mcaDocs?.length - 1}].s3Path`, '') === '' ? false : true;
 
@@ -206,11 +205,10 @@ function Index() {
         tab[0]?.children[tempIndex]?.classList?.add('show');
         tab[0]?.children[tempIndex]?.classList?.add('active');
       }
-      console.log(sessionStorage.getItem('showCAM'),'sessionStorage.getItem(showCAM)')
       if (sessionStorage.getItem('showCAM') === 'false' || sessionStorage.getItem('showCAM') === undefined || !sessionStorage.getItem('showCAM') ) {
         dispatch(GetAllOrders({ orderId: id1 }));
         dispatch(GetCompanyDetails({ company: id2 }));
-        dispatch(GetAllBuyer(`?company=${id2}&limit=${6}`));
+        dispatch(GetAllBuyer(`?company=${id2}&limit=${constants.numberSix}`));
       }
     }
   }, [dispatch, fetchingKarzaGst]);
@@ -378,14 +376,14 @@ function Index() {
 
     const orderToSend = { ...orderDetails };
     orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity);
-    orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * 10000000;
+    orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * constants.numberCrore;
     orderToSend.tolerance = removePrefixOrSuffix(orderDetails.tolerance);
     if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
       const obj = {
         ...orderToSend,
         shipmentDetail: { ...shipment },
         order: orderList?._id,
-        orderValue: removePrefixOrSuffix(orderDetails.orderValue) * 10000000,
+        orderValue: removePrefixOrSuffix(orderDetails.orderValue) * constants.numberCrore,
       };
       dispatch(UpdateOrderShipment(obj));
     } else {
@@ -795,14 +793,14 @@ function Index() {
     const array1 = [];
     let finalarray = [{}];
     companyData?.profile?.creditRating?.forEach((item) => {
-      const year = item.dateOfIssuance?.slice(0, 4);
+      const year = item.dateOfIssuance?.slice(0, constants.numberFour);
       array1.push(year);
     });
     finalarray = [...new Set(array1)];
     const tempdates = finalarray.sort((a, b) => b - a).slice(0, 1);
 
     const filteredCreditRatingNew = companyData?.profile?.creditRating?.filter(
-      (rating) => rating?.dateOfIssuance?.slice(0, 4) === tempdates[0],
+      (rating) => rating?.dateOfIssuance?.slice(0, constants.numberFour) === tempdates[0],
     );
     if (filteredCreditRatingNew?.length > 0) {
       return filteredCreditRatingNew[0];
@@ -924,13 +922,13 @@ function Index() {
       const tempArray = [...groupExposureData];
 
       tempArray.forEach((e) => {
-        if (e.limit.length >= 5) {
+        if (e.limit.length >= constants.numberFive) {
           const oldValue = e?.limit?.replace(/,/g, '');
           e.limit = Number(oldValue);
         } else {
           Number(e.limit);
         }
-        if (e.outstandingLimit.length >= 5) {
+        if (e.outstandingLimit.length >= constants.numberFive) {
           const oldValue = e?.outstandingLimit?.replace(/,/g, '');
           e.outstandingLimit = Number(oldValue);
         } else {
@@ -982,11 +980,11 @@ function Index() {
     if (!numA) {
       return 0;
     }
-    return (Math.abs(numA - numB) / numB) * 100;
+    return (Math.abs(numA - numB) / numB) * constants.numberHundred;
   }
 
   const gettingPercentageCredit = () => {
-    if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
+    if (getPercentageIncrease(suggestedValue, derivedValue) > constants.numberThirty) {
       // if diff is < 30% than error if approve vlaue not given
       if (!approvedCreditValue) {
         handleErrorToast('More than 30% diff in derived and suggested value,Approved credit value required');
@@ -996,7 +994,7 @@ function Index() {
   };
 
   const gettingPercentageOrder = () => {
-    if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
+    if (getPercentageIncrease(suggestedOrder, appliedOrder) > constants.numberThirty) {
       // if diff is < 30% than error if approve vlaue not given
       if (!approvedOrderValue) {
         handleErrorToast('More than 30% diff in applied and suggested order value,Approved order value required');
@@ -1029,7 +1027,7 @@ function Index() {
         };
         const code = dispatch(UpdateCam(obj, 'CAM APPROVED'));
 
-        if (code == 200) {
+        if (code == constants.successCodeValue) {
           dispatch(settingSidebar('Leads', 'Transaction Summary', 'Transaction Summary', '1'));
           router.push(`/termsheet/id`);
         }
@@ -1045,7 +1043,7 @@ function Index() {
   };
 
   const currentOpenLink = (e) => {
-    if (e.target.attributes[4].nodeValue === 'Compliance') {
+    if (e.target.attributes[constants.numberFour].nodeValue === 'Compliance') {
       let list = document.getElementsByClassName('nav-tabs');
       let tab = document.getElementsByClassName(tabContents);
       for (let i = 0; i < list[0].children.length; i++) {
@@ -1055,12 +1053,12 @@ function Index() {
         tab[0].children[i].classList.remove('active');
       }
 
-      list[0].children[3].children[0].classList.add('active');
+      list[0].children[constants.numberThree].children[0].classList.add('active');
 
-      tab[0].children[3].classList.add('show');
-      tab[0].children[3].classList.add('active');
+      tab[0].children[constants.numberThree].classList.add('show');
+      tab[0].children[constants.numberThree].classList.add('active');
     }
-    setSelectedTab(e.target.attributes[4].nodeValue);
+    setSelectedTab(e.target.attributes[constants.numberFour].nodeValue);
   };
   const onNext = () => {
     const list = document.getElementsByClassName('nav-tabs');
@@ -1177,7 +1175,7 @@ function Index() {
       if (n1 === 0) {
         return 0;
       }
-      return ((n2 - n1) / n1) * 100;
+      return ((n2 - n1) / n1) * constants.numberHundred;
     }
     const neddle1 =
       'data:image/png;base64,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';
@@ -1225,42 +1223,42 @@ function Index() {
         rotateImageUrl.width = '185px';
         rotateImageUrl.height = '170px';
       }
-      if (r === 2) {
+      if (r === constants.numberTwo) {
         rotateImageUrl.neddle = neddle2;
         rotateImageUrl.top = '16.5%';
         rotateImageUrl.left = '2%';
         rotateImageUrl.width = '250px';
         rotateImageUrl.height = '254px';
       }
-      if (r === 3) {
+      if (r === constants.numberThree) {
         rotateImageUrl.neddle = neddle3;
         rotateImageUrl.top = '14.5%';
         rotateImageUrl.left = '18%';
         rotateImageUrl.width = '170px';
         rotateImageUrl.height = '185px';
       }
-      if (r === 4) {
+      if (r === constants.numberFour) {
         rotateImageUrl.neddle = neddle4;
         rotateImageUrl.top = '3%';
         rotateImageUrl.left = '15%';
         rotateImageUrl.width = '235px';
         rotateImageUrl.height = '245px';
       }
-      if (r === 5) {
+      if (r === constants.numberFive) {
         rotateImageUrl.neddle = neddle5;
         rotateImageUrl.top = '2%';
         rotateImageUrl.left = '18%';
         rotateImageUrl.width = '253px';
         rotateImageUrl.height = '252px';
       }
-      if (r === 6) {
+      if (r === constants.numberSix) {
         rotateImageUrl.neddle = neddle6;
         rotateImageUrl.top = '7.5%';
         rotateImageUrl.left = '26.5%';
         rotateImageUrl.width = '235px';
         rotateImageUrl.height = '225px';
       }
-      if (r === 7) {
+      if (r === constants.numberSeven) {
         rotateImageUrl.neddle = neddle8;
         rotateImageUrl.top = '17%';
         rotateImageUrl.left = '31.5%';
@@ -1268,21 +1266,21 @@ function Index() {
         rotateImageUrl.height = '255px';
       }
 
-      if (r === 8) {
+      if (r === constants.numberEight) {
         rotateImageUrl.neddle = neddle9;
         rotateImageUrl.top = '22.5%';
         rotateImageUrl.left = '31.5%';
         rotateImageUrl.width = '242px';
         rotateImageUrl.height = '253px';
       }
-      if (r === 9) {
+      if (r === constants.numberNine) {
         rotateImageUrl.neddle = neddle7;
         rotateImageUrl.top = '38%';
         rotateImageUrl.left = '37%';
         rotateImageUrl.width = '168px';
         rotateImageUrl.height = '185px';
       }
-      if (r === 10) {
+      if (r === constants.numberTen) {
         rotateImageUrl.neddle = neddle10;
         rotateImageUrl.top = '38%';
         rotateImageUrl.left = '37%';
@@ -1529,7 +1527,7 @@ function Index() {
                   {convertValue(camData?.existingOrderValue, camConversionunit)?.toLocaleString('en-In', {
                     maximumFractionDigits: 2,
                   })}{' '}
-                  {camConversionunit === 10000000 ? 'CR' : 'LAKH'}
+                  {camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}
                 </td>
                 <td
                   style={{
@@ -2116,7 +2114,6 @@ function Index() {
                         <span
                           style={{
                             fontSize: '30px',
-                            //color: '#008015',
                             lineHeight: '37px',
                             fontWeight: 'bold',
                             position: 'absolute',
@@ -2130,40 +2127,40 @@ function Index() {
                                 Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                 false,
                                 1,
-                              ) <= 3
+                              ) <= constants.numberThree
                                 ? '#FF4230'
                                 : checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
-                                  ) === 4 ||
+                                  ) === constants.numberFour ||
                                   checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
-                                  ) <= 6
+                                  ) <= constants.numberSix
                                 ? '#ffb700'
                                 : checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
-                                  ) === 7 ||
+                                  ) === constants.numberSeven ||
                                   checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
-                                  ) === 8
+                                  ) === constants.numberEight
                                 ? '#8ac41c'
                                 : checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
-                                  ) === 9 ||
+                                  ) === constants.numberNine ||
                                   checkNan(
                                     Math.floor(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
-                                  ) == 10
+                                  ) == constants.numberTen
                                 ? '#008015'
                                 : 'black'
                             }`,
@@ -2456,7 +2453,7 @@ function Index() {
                                 filteredCreditRating?.length > 0
                                   ? (filteredCreditRating[0].businessProfile.total.overallValue /
                                       filteredCreditRating[0].totalRating) *
-                                    100
+                                      constants.numberHundred
                                   : '0'
                               }%`,
                               height: '12px',
@@ -2483,8 +2480,8 @@ function Index() {
                                 Number(
                                   filteredCreditRating[0].businessProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
-                                ) * 100
-                              ).toFixed(2)} %`
+                                ) * constants.numberHundred
+                              ).toFixed(constants.numberTwo)} %`
                             : '0'}
                         </span>
                       </td>
@@ -2532,7 +2529,7 @@ function Index() {
                                 filteredCreditRating?.length > 0
                                   ? (filteredCreditRating[0].revenueProfile.total.overallValue /
                                       filteredCreditRating[0].totalRating) *
-                                    100
+                                      constants.numberHundred
                                   : '0'
                               }%`,
                               height: '12px',
@@ -2559,8 +2556,8 @@ function Index() {
                                 Number(
                                   filteredCreditRating[0].revenueProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
-                                ) * 100
-                              ).toFixed(2)} %`
+                                ) * constants.numberHundred
+                              ).toFixed(constants.numberTwo)} %`
                             : '0'}{' '}
                         </span>
                       </td>
@@ -2605,7 +2602,7 @@ function Index() {
                                 filteredCreditRating?.length > 0
                                   ? (filteredCreditRating[0].financialProfile.total.overallValue /
                                       filteredCreditRating[0].totalRating) *
-                                    100
+                                      constants.numberHundred
                                   : '0'
                               }%`,
                               height: '12px',
@@ -2632,8 +2629,8 @@ function Index() {
                                 Number(
                                   filteredCreditRating[0].financialProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
-                                ) * 100
-                              ).toFixed(2)} %`
+                                ) * constants.numberHundred
+                              ).toFixed(constants.numberTwo)} %`
                             : '0'}{' '}
                         </span>
                       </td>
@@ -2718,7 +2715,7 @@ function Index() {
                                   >
                                     {Array.isArray(name) &&
                                       name?.map((item, index) => {
-                                        if (index < 2) {
+                                        if (index < constants.numberTwo) {
                                           return item?.charAt(0).toUpperCase();
                                         }
                                       })}
@@ -2765,8 +2762,8 @@ function Index() {
                                     padding: '19px 22px 19px 0',
                                   }}
                                 >
-                                  {returnReadableNumber(convertValue(exp.limit, camConversionunit), 'en-In', 2, 2)}{' '}
-                                  {camConversionunit === 10000000 ? 'CR' : 'LAKH'}
+                                  {returnReadableNumber(convertValue(exp.limit, camConversionunit), 'en-In', constants.numberTwo, constants.numberTwo)}{' '}
+                                  {camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
                               <tr>
@@ -2826,10 +2823,10 @@ function Index() {
                                   {returnReadableNumber(
                                     convertValue(exp.outstandingLimit, camConversionunit),
                                     'en-In',
-                                    2,
-                                    2,
+                                    constants.numberTwo,
+                                    constants.numberTwo,
                                   )}{' '}
-                                  {camConversionunit === 10000000 ? 'CR' : 'LAKH'}
+                                  {camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}
                                 </td>
                               </tr>
                               <tr>
@@ -2847,7 +2844,7 @@ function Index() {
                                     <span
                                       style={{
                                         background: '#3687E8',
-                                        width: `${Number((exp.outstandingLimit / exp.limit) * 100)}%`,
+                                        width: `${Number((exp.outstandingLimit / exp.limit) * constants.numberHundred)}%`,
                                         height: '12px',
                                         borderRadius: '2px',
                                         display: 'inline-block',
@@ -3080,7 +3077,6 @@ function Index() {
                             height: '60px',
                             textAlign: 'center',
                             display: 'inline-block',
-                            // marginBottom: '15px'
                           }}
                         >
                           {fName?.charAt(0)}
@@ -3134,8 +3130,8 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', 2, 2)}{' '}
-                        {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                        {returnReadableNumber(convertValue(item?.orderValue, camConversionunit), 'en-In', constants.numberTwo, constants.numberTwo)}{' '}
+                        {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                       </td>
                       <td
                         style={{
@@ -3542,7 +3538,7 @@ function Index() {
                       }}
                     >
                       {director.percentageShareHolding || director.percentageShareHolding === 0
-                        ? returnReadableNumber(director.percentageShareHolding, undefined, 2, 2) + ' %'
+                        ? returnReadableNumber(director.percentageShareHolding, undefined, constants.numberTwo, constants.numberTwo) + ' %'
                         : ''}
                     </td>
                   </tr>
@@ -3716,10 +3712,10 @@ function Index() {
                               <span
                                 style={{
                                   fontSize: '28px',
-                                  color: `${index < 4 ? backgroundColor[index] : randColor.primary}`,
+                                  color: `${index < constants.numberFour ? backgroundColor[index] : randColor.primary}`,
                                   lineHeight: '34px',
                                   fontWeight: 'bold',
-                                  background: `${index < 4 ? backgroundColor1[index] : randColor.secondary}`,
+                                  background: `${index < constants.numberFour ? backgroundColor1[index] : randColor.secondary}`,
                                   borderRadius: '8px',
                                   padding: '13px 0',
                                   width: '60px',
@@ -3952,10 +3948,10 @@ function Index() {
                                 <span
                                   style={{
                                     fontSize: '28px',
-                                    color: `${index < 4 ? backgroundColor[index] : randColor.primary}`,
+                                    color: `${index < constants.numberFour ? backgroundColor[index] : randColor.primary}`,
                                     lineHeight: '34px',
                                     fontWeight: 'bold',
-                                    background: `${index < 4 ? backgroundColor1[index] : randColor.secondary}`,
+                                    background: `${index < constants.numberFour ? backgroundColor1[index] : randColor.secondary}`,
                                     borderRadius: '8px',
                                     padding: '13px 0',
                                     width: '60px',
@@ -4158,7 +4154,7 @@ function Index() {
                                     width: `${
                                       (Number(debt.limit) / totalLimitDebt() > 1
                                         ? 1
-                                        : Number(debt.limit) / totalLimitDebt()) * 100
+                                        : Number(debt.limit) / totalLimitDebt()) * constants.numberHundred
                                     }%`,
                                     height: '10px',
                                     borderRadius: '2px',
@@ -4668,7 +4664,7 @@ function Index() {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4687,7 +4683,7 @@ function Index() {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4749,7 +4745,7 @@ function Index() {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4766,7 +4762,7 @@ function Index() {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4782,8 +4778,8 @@ function Index() {
                       RevenueDetails?.relatedPartySales?.current?.value,
                     ),
                     'en-In',
-                    2,
-                    2,
+                    constants.numberTwo,
+                    constants.numberTwo,
                   ) + '%'}
                 </td>
               </tr>
@@ -4826,10 +4822,10 @@ function Index() {
                     RevenueDetails?.intraOrgSalesPercent?.current?.value,
                     camConversionunit,
                   )?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2,
+                    maximumFractionDigits: constants.numberTwo,
+                    minimumFractionDigits: constants.numberTwo,
                   })}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4843,10 +4839,10 @@ function Index() {
                     RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                     camConversionunit,
                   )?.toLocaleString('en-In', {
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2,
+                    maximumFractionDigits: constants.numberTwo,
+                    minimumFractionDigits: constants.numberTwo,
                   })}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4863,8 +4859,8 @@ function Index() {
                       RevenueDetails?.intraOrgSalesPercent?.current?.value,
                     ),
                     'en-In',
-                    2,
-                    2,
+                    constants.numberTwo,
+                    constants.numberTwo,
                   ) + '%'}
                 </td>
               </tr>
@@ -4903,7 +4899,7 @@ function Index() {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4917,7 +4913,7 @@ function Index() {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4968,7 +4964,7 @@ function Index() {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -4982,7 +4978,7 @@ function Index() {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5039,7 +5035,7 @@ function Index() {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5056,7 +5052,7 @@ function Index() {
                       minimumFractionDigits: 2,
                     },
                   )}{' '}
-                  {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                  {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                 </td>
                 <td
                   style={{
@@ -5308,7 +5304,7 @@ function Index() {
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                    {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
                 <td
@@ -5333,7 +5329,7 @@ function Index() {
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                    {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
               </tr>
@@ -5472,7 +5468,7 @@ function Index() {
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                    {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
                 <td
@@ -5497,7 +5493,7 @@ function Index() {
                       maximumFractionDigits: 2,
                       minimumFractionDigits: 2,
                     })}{' '}
-                    {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                    {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                   </span>
                 </td>
               </tr>
@@ -5545,7 +5541,7 @@ function Index() {
                                       lineHeight: '23px',
                                     }}
                                   >
-                                    {((val / totalCustomer) * 100)?.toFixed(2)}%
+                                    {((val / totalCustomer) * constants.numberHundred)?.toFixed(constants.numberTwo)}%
                                   </td>
                                 </tr>
                               );
@@ -5598,7 +5594,7 @@ function Index() {
                                       lineHeight: '23px',
                                     }}
                                   >
-                                    {((val / totalSupplier) * 100)?.toFixed(2)}%
+                                    {((val / totalSupplier) * constants.numberHundred)?.toFixed(constants.numberTwo)}%
                                   </td>
                                 </tr>
                               );
@@ -5724,8 +5720,8 @@ function Index() {
                                   camConversionunit,
                                 ),
                                 'en-In',
-                                2,
-                                2,
+                                constants.numberTwo,
+                                constants.numberTwo,
                               )}
                             </td>
                             <td
@@ -5744,8 +5740,8 @@ function Index() {
                                   camConversionunit,
                                 ),
                                 'en-In',
-                                2,
-                                2,
+                                constants.numberTwo,
+                                constants.numberTwo,
                               )}
                             </td>
                           </tr>
@@ -5778,8 +5774,8 @@ function Index() {
                                   camConversionunit,
                                 ),
                                 'en-In',
-                                2,
-                                2,
+                                constants.numberTwo,
+                                constants.numberTwo,
                               )}
                             </td>
                             <td
@@ -5800,8 +5796,8 @@ function Index() {
                                   camConversionunit,
                                 ),
                                 'en-In',
-                                2,
-                                2,
+                                constants.numberTwo,
+                                constants.numberTwo,
                               )}
                             </td>
                           </tr>
@@ -5834,8 +5830,8 @@ function Index() {
                                   camConversionunit,
                                 ),
                                 'en-In',
-                                2,
-                                2,
+                                constants.numberTwo,
+                                constants.numberTwo,
                               )}
                             </td>
                             <td
@@ -5856,8 +5852,8 @@ function Index() {
                                   camConversionunit,
                                 ),
                                 'en-In',
-                                2,
-                                2,
+                                constants.numberTwo,
+                                constants.numberTwo,
                               )}
                             </td>
                           </tr>
@@ -5893,8 +5889,8 @@ function Index() {
                                   camConversionunit,
                                 ),
                                 'en-In',
-                                2,
-                                2,
+                                constants.numberTwo,
+                                constants.numberTwo,
                               )}
                             </td>
                             <td
@@ -5917,8 +5913,8 @@ function Index() {
                                   camConversionunit,
                                 ),
                                 'en-In',
-                                2,
-                                2,
+                                constants.numberTwo,
+                                constants.numberTwo,
                               )}
                             </td>
                           </tr>
@@ -5973,7 +5969,7 @@ function Index() {
                                 textAlign: 'right',
                               }}
                             >
-                              {_get(companyData, financialRatioString0, {})?.workingCapitalTurnover?.toFixed(2)}
+                              {_get(companyData, financialRatioString0, {})?.workingCapitalTurnover?.toFixed(constants.numberTwo)}
                             </td>
                             <td
                               style={{
@@ -5986,7 +5982,7 @@ function Index() {
                               }}
                             >
                               {_get(companyData, financialRatioString1, {})
-                                ?.workingCapitalTurnover?.toFixed(2)
+                                ?.workingCapitalTurnover?.toFixed(constants.numberTwo)
                                 ?.toLocaleString()}
                             </td>
                           </tr>
@@ -6011,7 +6007,7 @@ function Index() {
                               }}
                             >
                               {_get(companyData, financialRatioString0, {})
-                                ?.daysOfSalesOutstanding?.toFixed(2)
+                                ?.daysOfSalesOutstanding?.toFixed(constants.numberTwo)
                                 ?.toLocaleString()}
                             </td>
                             <td
@@ -6024,7 +6020,7 @@ function Index() {
                               }}
                             >
                               {_get(companyData, financialRatioString1, {})
-                                ?.daysOfSalesOutstanding?.toFixed(2)
+                                ?.daysOfSalesOutstanding?.toFixed(constants.numberTwo)
                                 ?.toLocaleString()}
                             </td>
                           </tr>
@@ -6049,7 +6045,7 @@ function Index() {
                               }}
                             >
                               {_get(companyData, financialRatioString0, {})?.daysOfPayablesOutstanding?.toFixed(
-                                2,
+                                constants.numberTwo,
                               )}
                             </td>
                             <td
@@ -6062,7 +6058,7 @@ function Index() {
                               }}
                             >
                               {_get(companyData, financialRatioString1, {})?.daysOfPayablesOutstanding?.toFixed(
-                                2,
+                                constants.numberTwo,
                               )}
                             </td>
                           </tr>
@@ -6087,7 +6083,7 @@ function Index() {
                               }}
                             >
                               {_get(companyData, financialRatioString0, {})
-                                .daysOfInventoryOutstanding?.toFixed(2)
+                                .daysOfInventoryOutstanding?.toFixed(constants.numberTwo)
                                 ?.toLocaleString()}
                             </td>
                             <td
@@ -6100,7 +6096,7 @@ function Index() {
                               }}
                             >
                               {_get(companyData, financialRatioString1, {})
-                                .daysOfInventoryOutstanding?.toFixed(2)
+                                .daysOfInventoryOutstanding?.toFixed(constants.numberTwo)
                                 ?.toLocaleString()}
                             </td>
                           </tr>
@@ -6155,7 +6151,7 @@ function Index() {
                                 textAlign: 'right',
                               }}
                             >
-                              {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
+                              {latestYearData?.interestCoverage?.toFixed(constants.numberTwo)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -6167,7 +6163,7 @@ function Index() {
                                 textAlign: 'right',
                               }}
                             >
-                              {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
+                              {previousYearData?.interestCoverage?.toFixed(constants.numberTwo)?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -6192,7 +6188,7 @@ function Index() {
                                 textAlign: 'right',
                               }}
                             >
-                              {latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
+                              {latestYearData?.currentRatio?.toFixed(constants.numberTwo)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -6204,7 +6200,7 @@ function Index() {
                                 textAlign: 'right',
                               }}
                             >
-                              {previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
+                              {previousYearData?.currentRatio?.toFixed(constants.numberTwo)?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -6229,7 +6225,7 @@ function Index() {
                                 textAlign: 'right',
                               }}
                             >
-                              {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
+                              {latestYearData?.debtEquity?.toFixed(constants.numberTwo)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -6241,7 +6237,7 @@ function Index() {
                                 textAlign: 'right',
                               }}
                             >
-                              {previousYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
+                              {previousYearData?.debtEquity?.toFixed(constants.numberTwo)?.toLocaleString()}
                             </td>
                           </tr>
                         </table>
@@ -6328,8 +6324,8 @@ function Index() {
                             camConversionunit,
                           ),
                           'en-In',
-                          2,
-                          2,
+                          constants.numberTwo,
+                          constants.numberTwo,
                         )}
                       </td>
                       <td
@@ -6353,8 +6349,8 @@ function Index() {
                             camConversionunit,
                           ),
                           'en-In',
-                          2,
-                          2,
+                          constants.numberTwo,
+                          constants.numberTwo,
                         )}
                       </td>
                     </tr>
@@ -6388,8 +6384,8 @@ function Index() {
                             camConversionunit,
                           ),
                           'en-In',
-                          2,
-                          2,
+                          constants.numberTwo,
+                          constants.numberTwo,
                         )}
                       </td>
                       <td
@@ -6412,8 +6408,8 @@ function Index() {
                             camConversionunit,
                           ),
                           'en-In',
-                          2,
-                          2,
+                          constants.numberTwo,
+                          constants.numberTwo,
                         )}
                       </td>
                     </tr>
@@ -6450,8 +6446,8 @@ function Index() {
                             camConversionunit,
                           ),
                           'en-In',
-                          2,
-                          2,
+                          constants.numberTwo,
+                          constants.numberTwo,
                         )}
                       </td>
                       <td
@@ -6475,8 +6471,8 @@ function Index() {
                             camConversionunit,
                           ),
                           'en-In',
-                          2,
-                          2,
+                          constants.numberTwo,
+                          constants.numberTwo,
                         )}
                       </td>
                     </tr>
@@ -6501,7 +6497,7 @@ function Index() {
                         }}
                       >
                         {_get(companyData, financialRatioString0, {})
-                          .workingCapitalTurnover?.toFixed(2)
+                          .workingCapitalTurnover?.toFixed(constants.numberTwo)
                           ?.toLocaleString()}
                       </td>
                       <td
@@ -6514,7 +6510,7 @@ function Index() {
                         }}
                       >
                         {_get(companyData, financialRatioString1, {})
-                          .workingCapitalTurnover?.toFixed(2)
+                          .workingCapitalTurnover?.toFixed(constants.numberTwo)
                           ?.toLocaleString()}
                       </td>
                     </tr>
@@ -6539,7 +6535,7 @@ function Index() {
                         }}
                       >
                         {_get(companyData, financialRatioString0, {})
-                          .daysOfSalesOutstanding?.toFixed(2)
+                          .daysOfSalesOutstanding?.toFixed(constants.numberTwo)
                           ?.toLocaleString()}
                       </td>
                       <td
@@ -6552,7 +6548,7 @@ function Index() {
                         }}
                       >
                         {_get(companyData, financialRatioString1, {})
-                          .daysOfSalesOutstanding?.toFixed(2)
+                          .daysOfSalesOutstanding?.toFixed(constants.numberTwo)
                           ?.toLocaleString()}
                       </td>
                     </tr>
@@ -6577,7 +6573,7 @@ function Index() {
                         }}
                       >
                         {_get(companyData, financialRatioString0, {})
-                          .daysOfPayablesOutstanding?.toFixed(2)
+                          .daysOfPayablesOutstanding?.toFixed(constants.numberTwo)
                           ?.toLocaleString()}
                       </td>
                       <td
@@ -6590,7 +6586,7 @@ function Index() {
                         }}
                       >
                         {_get(companyData, financialRatioString1, {})
-                          .daysOfPayablesOutstanding?.toFixed(2)
+                          .daysOfPayablesOutstanding?.toFixed(constants.numberTwo)
                           ?.toLocaleString()}
                       </td>
                     </tr>
@@ -6617,7 +6613,7 @@ function Index() {
                         }}
                       >
                         {_get(companyData, financialRatioString0, {})
-                          .daysOfInventoryOutstanding?.toFixed(2)
+                          .daysOfInventoryOutstanding?.toFixed(constants.numberTwo)
                           ?.toLocaleString()}
                       </td>
                       <td
@@ -6631,7 +6627,7 @@ function Index() {
                         }}
                       >
                         {_get(companyData, financialRatioString1, {})
-                          .daysOfInventoryOutstanding?.toFixed(2)
+                          .daysOfInventoryOutstanding?.toFixed(constants.numberTwo)
                           ?.toLocaleString()}
                       </td>
                     </tr>
@@ -6646,16 +6642,6 @@ function Index() {
                       >
                         Interest Coverage
                       </td>
-                      {/* <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '24px',
-                          paddingLeft: '35px',
-                        }}
-                      >
-                        Interest Coverage
-                      </td> */}
                       <td
                         style={{
                           fontSize: '20px',
@@ -6665,7 +6651,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
+                        {latestYearData?.interestCoverage?.toFixed(constants.numberTwo)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -6676,7 +6662,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
+                        {previousYearData?.interestCoverage?.toFixed(constants.numberTwo)?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
@@ -6699,7 +6685,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {_get(companyData, financialRatioString0, {}).currentRatio?.toFixed(2)?.toLocaleString()}
+                        {_get(companyData, financialRatioString0, {}).currentRatio?.toFixed(constants.numberTwo)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -6710,7 +6696,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {_get(companyData, financialRatioString1, {}).currentRatio?.toFixed(2)?.toLocaleString()}
+                        {_get(companyData, financialRatioString1, {}).currentRatio?.toFixed(constants.numberTwo)?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
@@ -6733,7 +6719,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {_get(companyData, financialRatioString0, {}).debtEquity?.toFixed(2)?.toLocaleString()}
+                        {_get(companyData, financialRatioString0, {}).debtEquity?.toFixed(constants.numberTwo)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -6744,7 +6730,7 @@ function Index() {
                           textAlign: 'right',
                         }}
                       >
-                        {_get(companyData, financialRatioString1, {}).debtEquity?.toFixed(2)?.toLocaleString()}
+                        {_get(companyData, financialRatioString1, {}).debtEquity?.toFixed(constants.numberTwo)?.toLocaleString()}
                       </td>
                     </tr>
                   </table>
@@ -7163,7 +7149,7 @@ function Index() {
                     {convertValue(camData?.company?.creditLimit?.totalLimit, camConversionunit)?.toLocaleString(
                       'en-In',
                     )}{' '}
-                    {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                    {camConversionunit == constants.numberCrore ? ' CR' : ' LAKH'}
                   </span>
                 </td>
                 <td
@@ -7344,7 +7330,7 @@ function Index() {
                               key={index}
                             >
                               {checkNan(convertValue(val?.derived?.value, camConversionunit)?.toLocaleString('en-In'))}{' '}
-                              {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                              {camConversionunit == constants.numberCrore ? ' CR' : ' LAKH'}
                             </td>
                           ))}
                         </>
@@ -7378,7 +7364,7 @@ function Index() {
                               {checkNan(convertValue(val?.suggested?.value, camConversionunit))?.toLocaleString(
                                 'en-In',
                               )}{' '}
-                              {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                              {camConversionunit == constants.numberCrore ? ' CR' : ' LAKH'}
                             </td>
                           ))}
                         </>
@@ -7408,7 +7394,6 @@ function Index() {
                         <input
                           type="checkbox"
                           checked={approvedCredit.approvedCreditValue ? true : false}
-                          // onChange={() => setLimitValueChecked(!limitValueChecked)}
                         ></input>
                       </td>
                       <td
@@ -7421,7 +7406,7 @@ function Index() {
                         }}
                       >
                         {convertValue(approvedCredit?.approvedCreditValue, camConversionunit)?.toLocaleString('en-In')}{' '}
-                        {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                        {camConversionunit == constants.numberCrore ? ' CR' : ' LAKH'}
                       </td>
                     </tr>
                     <tr>
@@ -7458,7 +7443,7 @@ function Index() {
                         {convertValue(camData?.existingOrderValue, camConversionunit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
-                        {camConversionunit === 10000000 ? 'CR' : 'LAKH'}
+                        {camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}
                       </td>
                       <td
                         align="center"
@@ -7483,7 +7468,7 @@ function Index() {
                         {checkNan(convertValue(camData?.suggestedOrderValue, camConversionunit))?.toLocaleString(
                           'en-In',
                         )}{' '}
-                        {` ${camConversionunit === 10000000 ? 'CR' : 'LAKH'}`}
+                        {` ${camConversionunit === constants.numberCrore ? 'CR' : 'LAKH'}`}
                       </td>
                       <td
                         align="center"
@@ -7511,7 +7496,7 @@ function Index() {
                         {convertValue(approvedCredit?.approvedOrderValue, camConversionunit)?.toLocaleString(
                           'en-In',
                         )}{' '}
-                        {camConversionunit == 10000000 ? ' CR' : ' LAKH'}
+                        {camConversionunit == constants.numberCrore ? ' CR' : ' LAKH'}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -7572,7 +7557,7 @@ function Index() {
   const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', '']);
   const returnDataPeriodAndColour = (period, index) => {
     if (period) return { date: moment(period).format('MMM-YY').toUpperCase(), colour: '#3687e8' };
-    return { date: 'MAR-' + yearArray[index]?.slice(5, 7), colour: 'red' };
+    return { date: 'MAR-' + yearArray[index]?.slice(constants.numberFive, constants.numberSeven), colour: 'red' };
   };
 
   const handleGSTDownload = (value) => {
@@ -7882,7 +7867,7 @@ function Index() {
             doc.setPage(i);
             doc.text(
               `Page ${i} of ${totalPages}`,
-              doc.internal.pageSize.getWidth() / 2,
+              doc.internal.pageSize.getWidth() / constants.numberTwo,
               doc.internal.pageSize.getHeight() - 1,
               {
                 align: 'center',
@@ -7944,14 +7929,14 @@ function Index() {
                       aria-label="Default select example"
                       onChange={(e) => {
                         setCamCoversionUnit(e.target.value);
-                        if (e.target.value == 10000000) {
+                        if (e.target.value == constants.numberCrore) {
                           setUnit('Crores');
                         } else {
                           setUnit('Lakhs');
                         }
                       }}
                     >
-                      <option selected value={10000000}>
+                      <option selected value={constants.numberCrore}>
                         Crores
                       </option>
                       <option value={100000}>Lakhs</option>

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setDynamicName, setPageName } from '../../src/redux/userData/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
 import { GetAllDelivery } from '../../src/redux/release&DeliveryOrder/action'
+import constants from '@/utils/constants'
 
 function Index () {
   const dispatch = useDispatch()
@@ -24,14 +25,14 @@ function Index () {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Payments, Invoicing & Delivery')
       sessionStorage.setItem('loadedSubPage', null)
-      sessionStorage.setItem('openList', 5)
+      sessionStorage.setItem('openList',  constants.numberFive)
     }
   }, [])
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)
-    if (query.length >= 3) {
+    if (query.length >=  constants.numberThree) {
       dispatch(SearchLeads(query))
     }
   }
