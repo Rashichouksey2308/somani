@@ -42,7 +42,7 @@ function Index() {
     dispatch(GetOrders(`?company=${buyer.company._id}`));
     setTimeout(() => {
       Router.push('/order-list');
-    }, 500);
+    }, constants.numberTimeOut);
   };
 
   const handleSearch = (e) => {

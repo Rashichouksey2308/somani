@@ -10,6 +10,7 @@ import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import _get from 'lodash/get';
 import { GetCompanyDetails, GetCreditLimit } from '../../src/redux/companyDetail/action';
 import moment from 'moment';
+import constants from '@/utils/constants'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -20,7 +21,7 @@ function Index() {
   useEffect(() => {
     const companyIDnewOrder = sessionStorage.getItem('companyID');
 
-    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}`));
+    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${constants.numberSeven}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ function Index() {
     dispatch(GetCreditLimit({ companyId: compId }));
     setTimeout(() => {
       Router.push('/new-order');
-    }, 1000);
+    }, constants.numberTimeOut1);
   };
 
   const handleRoute = (buyer) => {
@@ -59,10 +60,10 @@ function Index() {
   const handleSort = () => {
     const companyIDnewOrder = sessionStorage.getItem('companyID');
     if (sorting === -1) {
-      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
+      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${constants.numberSeven}&createdAt=${sorting}`));
       setSorting(1);
     } else if (sorting === 1) {
-      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`));
+      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${constants.numberSeven}&createdAt=${sorting}`));
       setSorting(-1);
     }
   };
@@ -158,7 +159,7 @@ function Index() {
               <h3 className="heading_card">All Orders</h3>
               <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>
-                  Showing Page {currentPage + 1} out of {Math.ceil(singleOrder?.totalCount / 7)}
+                  Showing Page {currentPage + 1} out of {Math.ceil(singleOrder?.totalCount / constants.numberSeven)}
                 </span>
                 <a
                   onClick={() => {
@@ -175,7 +176,7 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / 7)) {
+                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / constants.numberSeven)) {
                       setCurrentPage((prevState) => prevState + 1);
                     }
                   }}

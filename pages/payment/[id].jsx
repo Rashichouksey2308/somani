@@ -12,6 +12,7 @@ import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrd
 import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
 import styles from './payment.module.scss';
 import { handleErrorToast } from '@/utils/helpers/global';
+import constants from '@/utils/constants'
 
 function Index() {
   const dispatch = useDispatch();
@@ -47,8 +48,8 @@ function Index() {
   const doCancelledString = 'DO cancelled';
 
   const generateDoNumber = (index) => {
-    const orderDONumber = index < 10 ? `0${index + 1}` : index + 1;
-    const string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`;
+    const orderDONumber = index <  constants.numberTen ? `0${index + 1}` : index + 1;
+    const string = `${orderId.slice(0,  constants.numberSeven)}-${orderId.slice( constants.numberSeven)}`;
     return `${string}/${orderDONumber}`;
   };
   useEffect(() => {
@@ -689,7 +690,7 @@ console.log(lastMileDelivery,'lastMileDelivery')
             />
             <h1 className={`${styles.title} heading`}>
               {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-              <span>{` ${orderId?.toUpperCase()?.slice(0, 8)}-${orderId?.slice(8)}`}</span>
+              <span>{` ${orderId?.toUpperCase()?.slice(0,  constants.numberEight)}-${orderId?.slice( constants.numberEight)}`}</span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>

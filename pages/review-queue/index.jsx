@@ -11,6 +11,7 @@ import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { GetAllBuyer } from '../../src/redux/registerBuyer/action';
 import { setPageName } from '../../src/redux/userData/action';
 import styles from './index.module.scss';
+import constants from '@/utils/constants'
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
@@ -32,7 +33,7 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}`));
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${constants.numberSeven}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ function Index() {
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -65,10 +66,10 @@ function Index() {
 
   const handleSort = () => {
     if (sorting === -1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}&createdAt=${sorting}`));
+      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${constants.numberSeven}&createdAt=${sorting}`));
       setSorting(1);
     } else if (sorting === 1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}&createdAt=${sorting}`));
+      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${constants.numberSeven}&createdAt=${sorting}`));
       setSorting(-1);
     }
   };
@@ -106,15 +107,6 @@ function Index() {
               )}
             </div>
             <Filter />
-            {/* <a href="#" className={`${styles.filterList} filterList`}>
-              Ramesh Shetty
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a>
-            
-            <a href="#" className={`${styles.filterList} filterList`}>
-              Raj Traders
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a> */}
           </div>
 
           {/*status Box*/}
