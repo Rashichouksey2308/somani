@@ -2119,8 +2119,8 @@ function Index() {
                                 >
                                   <option value="">Select an option</option>
                                   {branchOptions
-                                    .filter((val, index) => {
-                                      if (val.keyBanks[0].Bank_Name) {
+                                    ?.filter((val, index) => {
+                                      if (val.keyBanks[0]?.Bank_Name) {
                                         return val;
                                       }
                                     })
