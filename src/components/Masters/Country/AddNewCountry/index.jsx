@@ -1,57 +1,32 @@
 import React, { useState } from 'react';
 import styles from '../../../styles/Custom/form.module.scss';
 import { useDispatch } from 'react-redux';
-import { CreateCurrencyMaster } from 'redux/masters/action';
+import { CreateCountryMaster } from 'redux/masters/action';
 import { toast } from 'react-toastify';
-
 function Index() {
     const dispatch = useDispatch();
-    const [currencyMasterDetails, setCurrencyMasterDetails] = useState({
-        Currency: '',
-        Currency_Name: '',
-        Symbol: '',
+    const [countryMasterDetails, setCountryMasterDetails] = useState({
+        Country: '',
         Status: false,
     });
-
-    const handleCurrencyDetailsChange = (e) => {
-        setCurrencyMasterDetails({
-            ...currencyMasterDetails,
+    const handleCountryDetailsChange = (e) => {
+        setCountryMasterDetails({
+            ...countryMasterDetails,
             [e.target.name]: e.target.value,
         })
     }
-
     const handleSubmit = async () => {
         if (!validate()) return;
-        let _currencyMasterDetails = { ...currencyMasterDetails };
-        _currencyMasterDetails?.Status ? _currencyMasterDetails.Status = 'Active' : _currencyMasterDetails.Status = 'Inactive';
-
-        dispatch(CreateCurrencyMaster(_currencyMasterDetails));
+        let _countryMasterDetails = {...countryMasterDetails};
+        _countryMasterDetails?.Status ? _countryMasterDetails.Status = 'Not Approved' : _countryMasterDetails.Status = 'Approved';
+        dispatch(CreateCountryMaster(_countryMasterDetails));
     }
-
     const validate = () => {
         let toastMessage = '';
-        if (currencyMasterDetails.Currency == '' ||
-            currencyMasterDetails.Currency == undefined
+        if (countryMasterDetails.Country == '' ||
+            countryMasterDetails.Country == undefined
         ) {
-            toastMessage = 'PLEASE ADD A CURRENCY';
-            if (!toast.isActive(toastMessage.toUpperCase())) {
-                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-                return false;
-            }
-        }
-        if (currencyMasterDetails.Currency_Name == '' ||
-            currencyMasterDetails.Currency_Name == undefined
-        ) {
-            toastMessage = 'PLEASE ADD A CURRENCY NAME';
-            if (!toast.isActive(toastMessage.toUpperCase())) {
-                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-                return false;
-            }
-        }
-        if (currencyMasterDetails.Symbol == '' ||
-            currencyMasterDetails.Symbol == undefined
-        ) {
-            toastMessage = 'PLEASE ADD A SYMBOL';
+            toastMessage = 'PLEASE ADD A COUNTRY NAME';
             if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
                 return false;
@@ -59,7 +34,6 @@ function Index() {
         }
         return true;
     }
-
     return (
         <div className={`${styles.backgroundMain}`}>
             <div className={`${styles.vessel_card} border_color`}>
@@ -67,17 +41,17 @@ function Index() {
                     <div
                         className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
                         data-toggle="collapse"
-                        data-target="#addCurrency"
+                        data-target="#addCountry"
                         aria-expanded="true"
-                        aria-controls="addCurrency"
+                        aria-controls="addCountry"
                     >
-                        <h3 className={`${styles.heading} mb-0`}>Currency</h3>
+                        <h3 className={`${styles.heading} mb-0`}>Country</h3>
                         <div className='d-flex'
                         >
                             <span>+</span>
                         </div>
                     </div>
-                    <div id="addCurrency" className="collapse" aria-labelledby="addCurrency">
+                    <div id="addCountry" className="collapse show" aria-labelledby="addCountry">
                         <div className={`${styles.dashboard_form} vessel_card card-body`}>
                             <div className="row">
                                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
@@ -85,38 +59,12 @@ function Index() {
                                         className={`${styles.input_field} border_color input form-control`}
                                         type="text"
                                         required
-                                        name="Currency"
-                                        value={currencyMasterDetails?.Currency}
-                                        onChange={handleCurrencyDetailsChange}
+                                        name="Country"
+                                        value={countryMasterDetails?.Country}
+                                        onChange={handleCountryDetailsChange}
                                     />
                                     <label className={`${styles.label_heading} label_heading`}>
-                                        Currency<strong className="text-danger">*</strong>
-                                    </label>
-                                </div>
-                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                                    <input
-                                        className={`${styles.input_field} border_color input form-control`}
-                                        type="text"
-                                        required
-                                        name="Currency_Name"
-                                        value={currencyMasterDetails?.Currency_Name}
-                                        onChange={handleCurrencyDetailsChange}
-                                    />
-                                    <label className={`${styles.label_heading} label_heading`}>
-                                        Currency Name<strong className="text-danger">*</strong>
-                                    </label>
-                                </div>
-                                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
-                                    <input
-                                        className={`${styles.input_field} border_color input form-control`}
-                                        type="text"
-                                        required
-                                        name="Symbol"
-                                        value={currencyMasterDetails?.Symbol}
-                                        onChange={handleCurrencyDetailsChange}
-                                    />
-                                    <label className={`${styles.label_heading} label_heading`}>
-                                        Symbol<strong className="text-danger">*</strong>
+                                        Country<strong className="text-danger">*</strong>
                                     </label>
                                 </div>
                                 <div className={`${styles.switchContainer} d-flex align-items-center flex-column col-lg-3 mt-2`}>
@@ -125,18 +73,18 @@ function Index() {
                                         <strong className="text-danger ml-1">*</strong>
                                     </div>
                                     <div>
-                                        <span className={` ${styles.yes} text-color`}>Active</span>
+                                        <span className={` ${styles.yes} text-color`}>Approved</span>
                                         <label className={styles.switch}>
                                             <input
                                                 type="checkbox"
-                                                checked={currencyMasterDetails.Status ? 'checked' : ''}
+                                                checked={countryMasterDetails.Status ? 'checked' : ''}
                                                 onChange={(e) => {
-                                                    setCurrencyMasterDetails((prevState) => ({ ...prevState, Status: !prevState.Status }));
+                                                    setCountryMasterDetails((prevState) => ({ ...prevState, Status: !prevState.Status }));
                                                 }}
                                             ></input>
                                             <span className={`${styles.slider} ${styles.round}`}></span>
                                         </label>
-                                        <span className={`${styles.no} text-color`}>Inactive</span>
+                                        <span className={`${styles.no} text-color`}>Not Approved</span>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +92,6 @@ function Index() {
                     </div>
                     <div className={`${styles.main} vessel_card mt-4 card border_color`}>
                         <div className={`${styles.dashboard_form} d-flex justify-content-end card-body`}>
-
                             <button className={`${styles.approve} ml-3`} onClick={handleSubmit}>
                                 Submit
                             </button>
@@ -155,5 +102,4 @@ function Index() {
         </div >
     );
 }
-
 export default Index;

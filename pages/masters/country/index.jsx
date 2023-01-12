@@ -167,7 +167,7 @@ function Index() {
         {
             Header: 'Approved Date',
             accessor: 'Approval_Date',
-            Cell: ({ value }) => value.slice(0, 10)
+            Cell: ({ value }) => value?.slice(0, 10)
         },
     ]);
     const tableHooks = (hooks) => {
