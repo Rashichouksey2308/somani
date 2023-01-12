@@ -233,7 +233,7 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails, ot
                       onChange={(e) => {
                         setCommentType(e.target.value);
                         setDays({
-                          day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate,
+                          day1: termsheetDetails?.paymentDueDate?.daysFromVesselDate,
                           day2: termsheetDetails?.paymentDueDate?.daysFromBlDate,
                         });
                         setInputs({
