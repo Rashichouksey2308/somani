@@ -827,6 +827,47 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
   }
 };
 
+export const getAllStates = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  dispatch({
+    type: types.GET_STATES_MASTERS,
+  });
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getAllStates}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.status === 200) {
+        dispatch(setNotLoading());
+        dispatch({
+          type: types.GET_STATES_MASTERS_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: types.GET_STATES_MASTERS_SUCCESS,
+          payload: [],
+        });
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: types.GET_STATES_MASTERS_SUCCESS,
+      payload: [],
+    });
+    dispatch(setNotLoading());
+  }
+};
+
 export const GetMasterUsersQueueRecords = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
 

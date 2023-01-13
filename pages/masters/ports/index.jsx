@@ -41,7 +41,7 @@ function Index() {
         setSearchTerm(query);
 
         let queryParams = '';
-        if (Object.keys(appliedFilters).length !== 0 && query.length > 3) {
+        if (Object.keys(appliedFilters).length !== 0 && query.length >= 3) {
             Object.keys(appliedFilters).forEach((item) => {
                 const isTrue = appliedFilters[item];
                 if (isTrue) {
@@ -168,7 +168,7 @@ function Index() {
 
     const searchView = () => {
         return (
-            filter && openList && searchTerm?.length > 3 &&
+            filter && openList && searchTerm?.length >= 3 &&
             <div className='searchResults'>
                 <ul>
                     {filteredPortsQueue?.data?.portFilteredData?.length > 0 ? filteredPortsQueue?.data?.portFilteredData?.map((results, index) => (
@@ -286,7 +286,7 @@ function Index() {
                         <button
                             type="button"
                             className={`${styles.createBtn} btn ml-auto btn-primary`}
-                            onClick={() => Router.push('/add-new-port')}
+                            onClick={() => Router.push('/masters/ports/add-new-port')}
                         >
                             Add
                         </button>

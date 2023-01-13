@@ -3,7 +3,7 @@ import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountries, CreatePortMaster } from 'redux/masters/action';
+import { getCountries, CreatePortMaster, getAllStates } from 'redux/masters/action';
 import { toast } from 'react-toastify';
 
 function Index() {
@@ -38,7 +38,7 @@ function Index() {
         let toastMessage = '';
         if (portDetails.portType === 'domestic') {
             if (portDetails.Country == '' ||
-                portDetails.Country == undefined
+                portDetails.Country == undefined || portDetails.Country == 'Select'
             ) {
                 toastMessage = 'PLEASE SELECT A COUNTRY';
                 if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -56,7 +56,7 @@ function Index() {
                 }
             }
             if (portDetails.State == '' ||
-                portDetails.State == undefined
+                portDetails.State == undefined || portDetails.State == 'Select'
             ) {
                 toastMessage = 'PLEASE SELECT A STATE';
                 if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -68,7 +68,7 @@ function Index() {
         }
         if (portDetails.portType === 'international') {
             if (portDetails.Country == '' ||
-                portDetails.Country == undefined
+                portDetails.Country == undefined || portDetails.Country == 'Select'
             ) {
                 toastMessage = 'PLEASE SELECT A COUNTRY';
                 if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -91,9 +91,10 @@ function Index() {
 
     useEffect(() => {
         dispatch(getCountries());
+        dispatch(getAllStates());
     }, []);
 
-    const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+    const { getCountriesMasterData, getStatesMasterData } = useSelector((state) => state.MastersData);
 
 
     return (
@@ -136,7 +137,7 @@ function Index() {
                                 aria-controls="addPort">+</span>
                         </div>
                     </div>
-                    <div id="addPort" className="collapse" aria-labelledby="addPort">
+                    <div id="addPort" className="collapse show" aria-labelledby="addPort">
                         <div className={`${styles.dashboard_form} vessel_card card-body`}>
                             <div className="row row d-flex justify-content-between">
                                 <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
@@ -145,6 +146,7 @@ function Index() {
                                             name="Country"
                                             onChange={handlePortDetailsChange}
                                         >
+                                            <option value="Select">Select</option>
                                             {getCountriesMasterData.map((val, index) => {
                                                 return <option value={`${val.Country}`}>{val.Country}</option>;
                                             })}
@@ -175,11 +177,12 @@ function Index() {
                                         <div className="d-flex">
                                             <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                                                 name="State"
-                                                value={portDetails?.State}
                                                 onChange={handlePortDetailsChange}
                                             >
-                                                <option value="india">Delhi</option>
-                                                <option value="australia">Maharashtra</option>
+                                                <option value="Select">Select</option>
+                                                {getStatesMasterData?.data?.map((val, index) => {
+                                                    return <option value={val?.state}>{val?.state}</option>
+                                                })}
                                             </select>
                                             <label className={`${styles.label_heading} label_heading`}>
                                                 State<strong className="text-danger ml-1">*</strong>

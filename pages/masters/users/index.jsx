@@ -41,7 +41,7 @@ const index = () => {
     setSearchTerm(query);
 
     let queryParams = '';
-    if (Object.keys(appliedFilters).length !== 0 && query.length > 3) {
+    if (Object.keys(appliedFilters).length !== 0 && query.length >= 3) {
       Object.keys(appliedFilters).forEach((item) => {
         const isTrue = appliedFilters[item];
         if (isTrue) {
@@ -231,7 +231,7 @@ const index = () => {
 
   const searchView = () => {
     return (
-      filter && openList && searchTerm?.length > 3 &&
+      filter && openList && searchTerm?.length >= 3 &&
       <div className='searchResults'>
         <ul>
           {filteredUsersQueue?.data?.userFilteredData?.length > 0 ? filteredUsersQueue?.data?.userFilteredData?.map((results, index) => (

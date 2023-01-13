@@ -35,7 +35,7 @@ function Index() {
         setOpenList(true);
         setSearchTerm(query);
         let queryParams = '';
-        if (Object.keys(appliedFilters).length !== 0 && query.length > 3) {
+        if (Object.keys(appliedFilters).length !== 0 && query.length >= 3) {
             Object.keys(appliedFilters).forEach((item) => {
                 const isTrue = appliedFilters[item];
                 if (isTrue) {
@@ -127,7 +127,7 @@ function Index() {
     };
     const searchView = () => {
         return (
-            filter && openList && searchTerm?.length > 3 &&
+            filter && openList && searchTerm?.length >= 3 &&
             <div className='searchResults'>
                 <ul>
                     {filteredCountryQueue?.data?.countryMasterFilteredData?.length > 0 ? filteredCountryQueue?.data?.countryMasterFilteredData?.map((results, index) => (
@@ -167,7 +167,7 @@ function Index() {
         {
             Header: 'Approved Date',
             accessor: 'Approval_Date',
-            Cell: ({ value }) => value.slice(0, 10)
+            Cell: ({ value }) => value?.slice(0, 10)
         },
     ]);
     const tableHooks = (hooks) => {
