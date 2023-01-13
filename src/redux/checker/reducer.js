@@ -43,6 +43,10 @@ const initialState = {
     internalCompanyDetails: {},
     updatingInternalCompanyRemarks: false,
     internalCompanyRemarkDetails: {},
+    gettingVendorDetails: false,
+    vendorDetails: {},
+    updatingVendorRemarks: false,
+    vendorRemarkDetails: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -343,6 +347,33 @@ function CheckerReducer(state = initialState, action) {
                 internalCompanyRemarkDetails: {},
             }
 
+        case types.GET_VENDOR_DETAILS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingVendorDetails: false,
+                vendorDetails: action.payload,
+            };
+
+        case types.GET_VENDOR_DETAILS_FAILED:
+            return {
+                ...state,
+                gettingVendorDetails: false,
+                vendorDetails: {},
+            };
+            
+        case types.UPDATE_VENDOR_REMARK_SUCCESSFULL:
+            return {
+                ...state,
+                updatingVendorRemarks: false,
+                vendorRemarkDetails: action.payload,
+            };
+
+        case types.UPDATE_VENDOR_REMARK_FAILED:
+            return {
+                ...state,
+                updatingVendorRemarks: false,
+                vendorRemarkDetails: {},
+            }
         default:
             return state;
     }

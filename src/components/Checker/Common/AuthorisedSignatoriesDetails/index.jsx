@@ -22,7 +22,7 @@ function Index({ className, tableView, tableColumns, authorisedSignatoryDetailsD
                             <h3 className={`${styles.heading} mb-0`}>Authorised Signatory Details</h3>
                             <span>{on ? '+' : '-'}</span>
                         </div>
-                        <div id="AuthorisedSignatoriesDetails" className={`collapse ${tableView && 'mb-n4'}`}>
+                        <div id="AuthorisedSignatoriesDetails" className={`collapse ${tableView ? 'mb-n4' : 'mb-3'}`}>
                             {!tableView ?
 
                                 <div className={`${styles.dashboard_form} vessel_card card-body ml-3 mr-3 mt-2`}>

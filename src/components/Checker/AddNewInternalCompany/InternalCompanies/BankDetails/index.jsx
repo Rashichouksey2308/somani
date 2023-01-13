@@ -20,7 +20,7 @@ function Index({ bankDetails, bankHistoryDetails }) {
 
       let history;
 
-      history = bankHistoryDetails?.find((historyBankDetail) => historyBankDetail?.Account_No === curr?.Account_No);
+      history = bankHistoryDetails && bankHistoryDetails?.find((historyBankDetail) => historyBankDetail?.Account_No === curr?.Account_No);
 
       if (history) {
         curr = {
