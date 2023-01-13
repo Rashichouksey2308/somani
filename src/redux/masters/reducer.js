@@ -54,6 +54,11 @@ const initialState = {
   filteringIIAGLedgerQueue: false,
   filteredIIAGLedgerQueue: [],
   creatingIIAGLedgerMaster: false,
+  GoNoGoQueueRecords: [],
+  gettingGoNoGoQueueRecords: false,
+  GoNoGoSingleRecord: [],
+  gettingGoNoGoSingleRecord: false,
+  creatingGoNoGoMaster: false,
 };
 
 function MastersReducer(state = initialState, action) {
@@ -631,6 +636,46 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         creatingIIAGLedgerMaster: false,
+      };
+
+    case types.GET_MASTER_GONOGO_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingGoNoGoQueueRecords: false,
+        GoNoGoQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_GONOGO_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingGoNoGoQueueRecords: false,
+        GoNoGoQueueRecords: {},
+      };
+
+    case types.GET_MASTER_GONOGO_SINGLE_RECORD_SUCCESSFULL:
+      return {
+        ...state,
+        gettingGoNoGoSingleRecord: false,
+        GoNoGoSingleRecord: action.payload,
+      };
+
+    case types.GET_MASTER_GONOGO_SINGLE_RECORD_FAILED:
+      return {
+        ...state,
+        gettingGoNoGoSingleRecord: false,
+        GoNoGoSingleRecord: {},
+      };
+
+    case types.CREATE_GONOGO_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingGoNoGoMaster: false,
+      };
+
+    case types.CREATE_GONOGO_MASTER_FAILED:
+      return {
+        ...state,
+        creatingGoNoGoMaster: false,
       };
 
     default:

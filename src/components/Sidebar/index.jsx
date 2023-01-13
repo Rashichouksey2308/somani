@@ -129,7 +129,11 @@ function Index() {
           route: '',
         },
         { name: 'Commodity', image: '/static/commodity.svg', route: '' },
-        { name: 'GL', image: '/static/gl.svg', route: '' },
+        {
+          name: 'Go no go Logic',
+          image: '/static/gl.svg',
+          route: '/masters/go-no-go',
+        },
         { name: 'Others', image: '/static/others.svg', route: '' },
         {
           name: 'Third-Party Inspection',
@@ -170,7 +174,7 @@ function Index() {
           name: 'IIAG Ledger',
           image: '/static/gl.svg',
           route: '/masters/IIAG-ledger',
-        }
+        },
       ],
       image: '/static/Masters.svg',
       route: '',

@@ -489,6 +489,21 @@ export default function Index({ isQuery }) {
       }
     }
 
+    if ('master-go-no-go' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/Go No Go Logic` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/Go No Go Logic` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+      } else {
+        router.route = '/Master' + '/Go No Go Logic';
+      }
+    }
+
 
     router.route.split('/').map((subRoute, index) => {
 
