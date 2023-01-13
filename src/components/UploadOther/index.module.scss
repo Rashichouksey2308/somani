@@ -1,5 +1,4 @@
 @import '../styles/Core/config';
-
 .upload_main {
   border-radius: 6px;
   margin-bottom: 26px;
@@ -7,16 +6,14 @@
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
-
   .head_container {
     min-height: 80px;
     cursor: pointer;
-    padding: 0 35px !important;
+    padding: 0 35px;
     border-bottom: 2px solid #cad6e6;
     @include respond(lg-desktop) {
       min-height: 60px;
     }
-
     .heading {
       font-size: 22px;
       font-weight: bold;
@@ -36,7 +33,6 @@
         margin: 13px 0;
       }
     }
-
     span {
       font-size: 45px;
       color: #3687e8;
@@ -54,26 +50,22 @@
       }
     }
   }
-
   .dashboard_form {
     padding: 40px 35px 40px 35px;
     @include respond(phone) {
       padding: 25px 20px 20px;
     }
-
     .drop_container {
       background-color: #c3c3c31f;
       border: 1px dashed #00000045;
       border-radius: 4px;
       height: 284px;
       line-height: 1;
-
       .upload_image {
         width: 83px;
         height: 83px;
         line-height: 83px;
       }
-
       .drop_para {
         font-size: 19px;
         line-height: 24px;
@@ -86,7 +78,6 @@
         @include respond(phone) {
           font-size: 12px;
         }
-
         a {
           text-decoration: underline;
           font-size: 19px;
@@ -101,8 +92,34 @@
           }
         }
       }
+      .certificate {
+        max-width: 100%;
+        font-size: 20px;
+        letter-spacing: 0.19px;
+        background-color: #c3c3c31f;
+        border-radius: 4px;
+        padding: 8px;
+        margin: 7px 0;
+        @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
+        }
+        span {
+          max-width: 95%;
+          overflow: hidden;
+          white-space: nowrap;
+          display: inline-block;
+          text-overflow: ellipsis;
+        }
+        img {
+          width: auto ;
+          height: auto ;
+          @include respond(lg-desktop) {
+            width: 11px !important;
+          }
+        }
+      }
     }
-
     .upload_button {
       border: 3px solid #3687e8;
       border-radius: 5px;
@@ -128,12 +145,10 @@
         width: 100%;
       }
     }
-
     .form_group {
       position: relative;
       margin-bottom: 40px;
       margin-top: 21px;
-
       .label {
         font-size: 16px;
         line-height: 17px;
@@ -147,7 +162,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
         &::before {
           top: 51%;
           left: 0;
@@ -158,19 +172,26 @@
           position: absolute;
           transform: translateY(-50%);
         }
-
         @include respond(lg-desktop) {
           top: -7px;
           font-size: 14px;
           line-height: 15px;
         }
       }
-
+      .arrow {
+        margin-left: -40px;
+        width: 13px;
+        pointer-events: none;
+        input[type='date']::-webkit-inner-spin-button,
+        input[type='date']::-webkit-calendar-picker-indicator {
+          display: none;
+          -webkit-appearance: none;
+        }
+      }
       .value {
         font-size: 20px;
         letter-spacing: 0.19px;
         text-transform: capitalize;
-       
         border-radius: 4px;
         height: 60px;
         box-shadow: none;
@@ -185,12 +206,10 @@
         }
       }
     }
-
     .uploadBtnWrapper {
       overflow: hidden;
       position: relative;
       display: inline-block;
-
       input {
         top: 0;
         left: 0;
@@ -200,21 +219,16 @@
         cursor: pointer;
         position: absolute;
       }
-
       @include respond(phone) {
         width: 100%;
       }
     }
   }
-
   .search_container {
-   
     height: 62px;
     padding-right: 1.5rem !important;
     background: #f0f0f0;
-
     .dropDown {
-    
       border-radius: 4px;
       color: #3687e8;
       font-size: 16px;
@@ -225,15 +239,12 @@
       height: 40px;
       box-shadow: none;
     }
-
     .searchBarContainer {
       position: relative;
-
       .searchBar {
         width: 337px;
         height: 40px;
         padding-left: 3.5rem;
-      
         border: 2px solid #d2d7e5;
         border-radius: 1.1rem;
         box-shadow: none;
@@ -241,7 +252,6 @@
           padding-left: 2.5rem;
         }
       }
-
       .searchImage {
         position: absolute;
         margin-left: 30px;
@@ -252,22 +262,33 @@
       }
     }
   }
-
+  img {
+    &.arrow2 {
+      width: 13px;
+      margin-left: -25px;
+      pointer-events: none;
+      filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+      input[type='date']::-webkit-inner-spin-button,
+      input[type='date']::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+      }
+      @include respond(lg-desktop) {
+        width: 10px;        
+      }
+    }
+  }
   .table_container {
     background-color: #fafafb;
-
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
-
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
-
         .table {
           margin-bottom: 0px;
-
           th {
             font-size: 15px;
             color: #8492a6;
@@ -280,14 +301,12 @@
             border-top: 2px solid #f2f5f9;
             border-bottom: 2px solid #f2f5f9;
             white-space: nowrap;
-
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
                 padding-left: 15px;
               }
             }
-
             img {
               &.sort_image {
                 width: 14px;
@@ -297,7 +316,6 @@
                   height: 12px;
                 }
               }
-
               &.searchImg {
                 width: 48px;
                 height: 48px;
@@ -311,7 +329,6 @@
                 }
               }
             }
-
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -325,12 +342,10 @@
               font-size: 12px;
             }
           }
-
           tr {
             &:last-child {
               border-bottom: none;
             }
-
             td {
               font-size: 19px;
               font-weight: 500;
@@ -338,16 +353,13 @@
               padding: 24px 15px;
               border-top: none;
               vertical-align: middle;
-              
               white-space: nowrap;
-
               &:first-child {
                 padding-left: 35px;
                 @include respond(md-desktop) {
                   padding-left: 15px;
                 }
               }
-
               @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
@@ -357,7 +369,6 @@
                 font-size: 14px;
                 padding: 10px;
               }
-
               .actionContainer {
                 @include respond(phone) {
                   display: flex;
@@ -367,8 +378,69 @@
                 }
               }
             }
+            .pdfImage {
+              width: 57px;
+              height: 25px;
+              @include respond(sm-desktop) {
+                width: 50px;
+                height: 22px;
+              }
+              @include respond(phone) {
+                width: 35px;
+                height: 15px;
+              }
+            }
+            .edit_image {
+              background: #c3c3c31f;
+              border: 1px solid #0000001f;
+              border-radius: 4px;
+              padding: 10px 9px 10px 9px;
+              @include respond(lg-desktop) {
+                width: 30px;
+                height: 30px;
+                padding: 7px;
+                min-width: 30px;
+              }
+              @include respond(sm-desktop) {
+                padding: 6px;
+              }
+              @include respond(phone) {
+                height: 25px;
+                padding: 5px;
+              }
+            }
+            .delete_image {
+              background: #c3c3c31f;
+              border: 1px solid #0000001f;
+              border-radius: 4px;
+              padding: 6px 8px;
+              @include respond(lg-desktop) {
+                width: 30px;
+                height: 30px;
+                min-width: 30px;
+              }
+              @include respond(sm-desktop) {
+                padding: 6px;
+              }
+              @include respond(phone) {
+                height: 25px;
+              }
+            }
+            .drive_image {
+              @include respond(md-desktop) {
+                width: 30px;
+                height: 30px;
+                padding: 7px;
+                min-width: 30px;
+              }
+              @include respond(sm-desktop) {
+                height: 28px;
+              }
+              @include respond(phone) {
+                height: 25px;
+              }
+            }
           }
-
           .module {
             background: #8492a6;
             font-size: 15px;
@@ -389,7 +461,6 @@
               font-size: 11px;
             }
           }
-
           .doc_name {
             font-weight: bold;
             line-height: 25px;
@@ -404,11 +475,9 @@
               font-size: 14px;
             }
           }
-
           .doc_row {
             font-size: 19px;
             line-height: 24px;
-      
             font-weight: 500;
             @include respond(lg-desktop) {
               font-size: 15px;
@@ -418,7 +487,6 @@
               font-size: 12px;
             }
           }
-
           .status {
             width: 15px;
             height: 15px;
@@ -426,7 +494,7 @@
             border-radius: 50%;
             display: inline-block;
             vertical-align: middle;
-            @include respond(sm-desktop) {
+            @include respond(lg-desktop) {
               width: 12px;
               height: 12px;
             }
@@ -435,11 +503,9 @@
               height: 10px;
             }
           }
-
           .approved {
             background: #26dd73;
           }
-
           .rejected {
             background: #ff9d00;
           }
@@ -448,134 +514,6 @@
     }
   }
 }
-
-.pdfImage {
-  width: 57px;
-  height: 25px;
-  @include respond(sm-desktop) {
-    width: 50px;
-    height: 22px;
-  }
-  @include respond(phone) {
-    width: 35px;
-    height: 15px;
-  }
-}
-
-.edit_image {
-  background: #c3c3c31f;
-  border: 1px solid #0000001f;
-  border-radius: 4px;
-  padding: 10px 9px 10px 9px;
-  @include respond(lg-desktop) {
-    width: 30px;
-    height: 30px;
-    padding: 7px;
-    min-width: 30px;
-  }
-  @include respond(sm-desktop) {
-    padding: 6px;
-  }
-  @include respond(phone) {
-    height: 25px;
-    padding: 5px;
-  }
-}
-
-.delete_image {
-  background: #c3c3c31f;
-  border: 1px solid #0000001f;
-  border-radius: 4px;
-  padding: 6px 8px;
-  @include respond(lg-desktop) {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-  }
-  @include respond(sm-desktop) {
-    padding: 6px;
-  }
-  @include respond(phone) {
-    height: 25px;
-  }
-}
-
-.drive_image {
-  @include respond(md-desktop) {
-    width: 30px;
-    height: 30px;
-    padding: 7px;
-    min-width: 30px;
-  }
-  @include respond(sm-desktop) {
-    height: 28px;
-  }
-  @include respond(phone) {
-    height: 25px;
-  }
-}
-
-.arrow {
-  margin-left: -40px;
-  width: 13px;
-  pointer-events: none;
-
-  input[type='date']::-webkit-inner-spin-button,
-  input[type='date']::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-  }
-}
-
-img {
-  &.arrow2 {
-    width: 13px !important;
-    margin-left: -25px;
- 
-    pointer-events: none;
-    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
-
-    input[type='date']::-webkit-inner-spin-button,
-    input[type='date']::-webkit-calendar-picker-indicator {
-      display: none;
-      -webkit-appearance: none;
-    }
-  }
-}
-
-.certificate {
-  max-width: 100%;
-  font-size: 20px;
-  letter-spacing: 0.19px;
-
-  background-color: #c3c3c31f;
-  border-radius: 4px;
-  padding: 8px;
-
-  margin: 7px 0;
-  @include respond(lg-desktop) {
-    font-size: 15px;
-    line-height: 1.3;
-  }
-
-  span {
-    max-width: 95%;
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
-    text-overflow: ellipsis;
-  }
-
-  img {
-    width: auto !important;
-    height: auto !important;
-    @include respond(lg-desktop) {
-      width: 11px !important;
-    }
-  }
-}
-
 .customSelect {
   appearance: none;
-
 }

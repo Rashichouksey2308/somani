@@ -3,10 +3,9 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllUpdatedBuyer, GetOrderLeads, GetOrders } from '../../src/redux/registerBuyer/action';
+import { GetAllUpdatedBuyer, GetOrderLeads, GetOrders,GetAllBuyer } from '../../src/redux/registerBuyer/action';
 import { FilterLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import SearchAndFilter from '../../src/components/SearchAndFilter';
@@ -15,8 +14,13 @@ import Table from '../../src/components/Table';
 import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import slugify from 'slugify';
 import { LEADS_QUEUE_FILTER_ITEMS } from '../../src/data/constant';
+import Filter from '../../src/components/Filter';
+import Pagination from '../../src/components/Pagination';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import styles from './index.module.scss';
+import constants from '@/utils/constants'
 
-function Index() {
+export default function Index() {
   const dispatch = useDispatch();
 
   const { updatedBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
@@ -121,7 +125,7 @@ function Index() {
     dispatch(GetOrders(`?company=${buyer.company._id}`));
     setTimeout(() => {
       Router.push('/order-list');
-    }, 500);
+    }, constants.numberTimeOut);
   };
 
   const delayedQuery = useCallback(
@@ -143,6 +147,8 @@ function Index() {
         }
       });
       delayedQuery(queryParams);
+    if (query.length >= constants.numberThree) {
+      dispatch(SearchLeads(query));
     }
   };
 
@@ -285,7 +291,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
-              <span style={{ fontSize: '28px' }}>+</span>
+              <span className={styles.plus_sign}>+</span>
               <span className={`ml-1 mr-2`}>New Customer</span>
             </button>
           </div>

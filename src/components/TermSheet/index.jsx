@@ -27,7 +27,7 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({});
   const [additionalComments, setAdditionalComments] = useState([]);
   const [order, setOrder] = useState('');
-
+console.log(termsheetDetails,'termsheetDetails')
   let sheetData = _get(termsheet, 'data[0]', {});
   useEffect(() => {
     let Id = sessionStorage.getItem('termID');
@@ -65,17 +65,16 @@ const Index = () => {
               orderCurrency: sheet?.order?.orderCurrency || 'USD',
               quantity: sheet?.order?.quantity,
               perUnitPrice:
-                sheet?.order?.perUnitPrice || Number(sheet?.order?.orderValue / sheet?.order.quantity).toFixed(2) || '',
+                sheet?.order?.perUnitPrice  || '',
               commodity: sheet?.order?.commodity,
               tolerance: sheet?.order?.tolerance ?? '',
             },
             transactionDetails: {
-           
               typeOfPort: sheet?.transactionDetails?.typeOfPort ?? '',
               lcValue: newLcVal ? newLcVal : sheet?.transactionDetails?.lcValue,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney ? sheet?.transactionDetails?.marginMoney : 10,
-              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || 'First Class European Bank',
+              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || '',
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
@@ -91,12 +90,14 @@ const Index = () => {
                 : sheet?.order?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
-              storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+              storageOfGoods: sheet?.transactionDetails?.storageOfGoods
+                ? sheet?.transactionDetails?.storageOfGoods
+                : sheet?.order?.portOfDischarge,
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
               daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+              daysFromVesselDate: sheet?.paymentDueDate?.daysFromVesselDate,
             },
             commercials: {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage || 2.25,
@@ -213,6 +214,7 @@ const Index = () => {
   const onChangeTransactionDetails = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
+  
 
     setTermsheetDetails((prev) => ({
       ...prev,
@@ -287,32 +289,31 @@ const Index = () => {
     }));
   };
 
-  const changePayment = () => {};
+  const changePayment = () => { };
 
   const handleSave = async () => {
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.tradeMarginPercentage,
-    );
-    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
-      termsheetDetails.commercials.overDueInterestPerMonth,
-    );
-    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesPercentage,
-    );
-    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
-      termsheetDetails.commercials.usanceInterestPercetage,
-    );
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
-    tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesUnit,
-    ).toString();
-   
+    // tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
+    // tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
+    // tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
+    // tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.tradeMarginPercentage,
+    // );
+    // tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.overDueInterestPerMonth,
+    // );
+    // tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.lcOpeningChargesPercentage,
+    // );
+    // tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.usanceInterestPercetage,
+    // );
+    // tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
+    // tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.lcOpeningChargesUnit,
+    // ).toString();
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -368,10 +369,9 @@ const Index = () => {
       return;
     }
 
- 
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue) ||
+      Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       let toastMessage = 'Please add lc Value ';
@@ -523,12 +523,12 @@ const Index = () => {
       }
     }
 
-    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate') {
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
-        let toastMessage = 'Please add days From vessel discharge date Date ';
+        let toastMessage = 'Please add days From vessel Date ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -548,10 +548,10 @@ const Index = () => {
         return;
       }
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
-        let toastMessage = 'Please add days From vessel discharge date Date ';
+        let toastMessage = 'Please add days From vessel Date ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -570,7 +570,7 @@ const Index = () => {
       }
       return;
     }
-  
+
     if (
       termsheetDetails.commercials.lcOpeningChargesUnit == '' ||
       termsheetDetails.commercials.lcOpeningChargesUnit == undefined
@@ -667,30 +667,11 @@ const Index = () => {
 
   const handlePreview = () => {
     let toastMessage = 'PLEASE SAVE TERMSHEET FIRST';
-    
+
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.tradeMarginPercentage,
-    );
-    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
-      termsheetDetails.commercials.overDueInterestPerMonth,
-    );
-    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesPercentage,
-    );
-    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
-      termsheetDetails.commercials.usanceInterestPercetage,
-    );
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
-    tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesUnit,
-    ).toString();
- 
+
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -740,7 +721,7 @@ const Index = () => {
     }
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue) ||
+      Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -876,10 +857,10 @@ const Index = () => {
       }
     }
 
-    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate') {
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -899,8 +880,8 @@ const Index = () => {
         return;
       }
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1066,8 +1047,8 @@ const Index = () => {
                           <p className={`${styles.value} accordion_Text`}>
                             {sheet?.order?.cam?.approvedAt
                               ? moment(sheet?.order?.cam?.approvedAt?.slice(0, 10), 'YYYY-MM-DD', true).format(
-                                  'DD-MM-YYYY',
-                                )
+                                'DD-MM-YYYY',
+                              )
                               : ''}
                           </p>
                         </div>
@@ -1114,7 +1095,7 @@ const Index = () => {
                   termsheet={termsheet}
                   termsheetDetails={termsheetDetails}
                 />
-                <UploadOther module="LeadOnboarding&OrderApproval" orderid={OrdID} />
+                <UploadOther module={["Leads","Margin Money"]} orderid={OrdID} />
               </div>
             </div>
           </div>

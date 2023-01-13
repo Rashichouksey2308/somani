@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import DownloadBar from '../DownloadBar';
-import { addPrefixOrSuffix, convertValue } from 'utils/helper';
+import { addPrefixOrSuffix, checkNan, convertValue } from 'utils/helper';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 
@@ -11,6 +11,8 @@ const Index = ({
   finalCalRevised,
   marginData,
   saveInvoiceDataRevisedRevised,
+  setisConsigneeSameAsBuyerRevised,
+  isConsigneeSameAsBuyerRevised,
   setSameRevised,
   invoiceDataRevised,
   setInvoiceDataRevised,
@@ -23,7 +25,10 @@ const Index = ({
   getBranchesMasterData,
   getBanksMasterData,
   savedataRevised,
+  orderList,
 }) => {
+
+  console.log(invoiceDataRevised,'invoiceDataRevised')
   const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
@@ -31,29 +36,25 @@ const Index = ({
     conversionRate: false,
   });
 
-
-
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
     state: '',
     address: '',
   });
   const [conversionRateUnit, setConversionRateUnit] = useState();
-  
+
   const [branchOptions, setBranchOptions] = useState([]);
-  
+
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-     
       const newInput = { ...invoiceDataRevised };
       newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
-    
+
       setInvoiceDataRevised({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-  
       const newInput = { ...invoiceDataRevised };
       newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
-    
+
       setInvoiceDataRevised({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
@@ -63,9 +64,21 @@ const Index = ({
     });
     setBranchOptions(filter);
   };
- useEffect(() => {
-    dropDownChange("name",invoiceDataRevised.importerName )
-  },[invoiceDataRevised])
+
+  useEffect(() => {
+    dropDownChange(
+      'name',
+      marginData?.invoiceDetail?.invoiceDetail?.importerName
+        ? marginData?.invoiceDetail?.invoiceDetail?.importerName
+        : marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') || '',
+    );
+  }, [
+    marginData?.revisedMarginMoney?.invoiceDetail?.importerName,
+    marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank,
+    getInternalCompaniesMasterData,
+  ]);
   const routeChange = () => {
     Router.push('/revised-margin-preview');
   };
@@ -144,12 +157,7 @@ const Index = ({
             </span>
           </div>
         </div>
-        <div
-          id="commodityAccordion"
-         
-          aria-labelledby="commodityAccordion"
-          data-parent="#commodityAccordion"
-        >
+        <div id="commodityAccordion" aria-labelledby="commodityAccordion" data-parent="#commodityAccordion">
           <div className={`${styles.cardBody} card-body `}>
             <div className={`${styles.content} border_color`}>
               <div className={`${styles.input_container} row`}>
@@ -169,7 +177,7 @@ const Index = ({
                     value={
                       isFieldInFocus.quantity
                         ? forCalculationRevised?.quantity
-                        : Number(forCalculationRevised?.quantity).toLocaleString('en-In') +
+                        : checkNan(Number(forCalculationRevised?.quantity)).toLocaleString('en-In') +
                           ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`
                     }
                     onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
@@ -246,6 +254,7 @@ const Index = ({
                   </div>
                   <input
                     onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                    onWheel={(event) => event.currentTarget.blur()}
                     name="conversionRate"
                     id="conversionRate"
                     onFocus={(e) => {
@@ -430,7 +439,11 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       {marginData?.order?.orderCurrency + ' '}
-                      {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0}
+                      {/* {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0} */}
+                      {Number(finalCalRevised.orderValue).toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                 </div>
@@ -782,7 +795,7 @@ const Index = ({
                     type="text"
                     id="textInput"
                     name="buyerName"
-                    defaultValue={marginData?.company?.companyName}
+                    defaultValue={invoiceDataRevised?.buyerName}
                     className={`${styles.input_field} input form-control`}
                     required
                     onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
@@ -806,7 +819,12 @@ const Index = ({
                                     {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
                       <option selected>Select an option</option>
-                      <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                      {orderList?.company?.gstList?.map((gstin, index) => (
+                        <option key={index} value={gstin}>
+                          {gstin}
+                        </option>
+                      ))}
+                      {/* <option value="GTSDT789652JKH">GTSDT789652JKH</option> */}
                     </select>
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Buyer GSTIN
@@ -835,14 +853,14 @@ const Index = ({
                     Is Consignee same as Buyer
                     <strong className="text-danger">*</strong>
                   </div>
-                  <Form>
+                  {/* <Form>
                     {['radio'].map((type) => (
                       <div key={`inline-${type}`} className={styles.radio_group}>
                         <Form.Check
                           className={`${styles.radio} radio`}
                           inline
                           label="Yes"
-                          defaultChecked={invoiceDataRevised?.isConsigneeSameAsBuyer == true}
+                          checked={invoiceDataRevised?.isConsigneeSameAsBuyer == true ? 'checked' : ''}
                           onChange={() => {
                             saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', true);
                             setSameRevised(true);
@@ -855,11 +873,46 @@ const Index = ({
                           className={`${styles.radio} radio`}
                           inline
                           label="No"
-                          defaultChecked={invoiceDataRevised?.isConsigneeSameAsBuyer == false}
+                          checked={invoiceDataRevised?.isConsigneeSameAsBuyer == false ? 'checked' : ''}
                           onChange={() => {
                             saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', false);
                             setSameRevised(false);
                           }}
+                          name="group1"
+                          type={type}
+                          id={`inline-${type}-2`}
+                        />
+                      </div>
+                    ))}
+                  </Form> */}
+                  <Form>
+                    {['radio'].map((type) => (
+                      <div key={`inline-${type}`} className={styles.radio_group}>
+                        <Form.Check
+                          className={`${styles.radio} radio`}
+                          inline
+                          label="Yes"
+                          onChange={(e) => {
+                            saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', true);
+                            setSameRevised(true);
+                            setisConsigneeSameAsBuyerRevised(true)
+                            
+                          }}
+                          name="group1"
+                          type={type}
+                          id={`inline-${type}-1`}
+                          checked={isConsigneeSameAsBuyerRevised == true ? 'checked' : ''}
+                        />
+                        <Form.Check
+                          className={`${styles.radio} radio`}
+                          inline
+                          label="No"
+                          onChange={(e) => {
+                            saveInvoiceDataRevisedRevised('isConsigneeSameAsBuyer', false);
+                            setisConsigneeSameAsBuyerRevised(false)
+                            setSameRevised(false);
+                          }}
+                          checked={isConsigneeSameAsBuyerRevised == false ? 'checked' : ''}
                           name="group1"
                           type={type}
                           id={`inline-${type}-2`}
@@ -991,29 +1044,25 @@ const Index = ({
                           : marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice
                       }
                       onChange={(e) => {
-                     
                         let filter = getInternalCompaniesMasterData.filter((val, index) => {
-                          if (
-                            val.Branch == e.target.value &&
-                            val.Company_Name?.toLowerCase() == invoiceDataRevised?.importerName?.toLowerCase()
-                          ) {
-                            return val;
+                          if (val.keyAddresses.length > 0) {
+                            if (
+                              val.keyAddresses[0].Branch == e.target.value &&
+                              val.Company_Name?.toLowerCase() == invoiceDataRevised?.importerName?.toLowerCase()
+                            ) {
+                              return val;
+                            }
                           }
                         });
 
                         if (filter.length > 0) {
                           if (filter.length > 0) {
                             const newInput = { ...invoiceDataRevised };
-                            changeImporterData.address = filter[0].Address;
-                            newInput['companyAddress'] = filter[0].Address;
+                            changeImporterData.address = filter[0].keyAddresses[0].fullAddress;
+                            newInput['companyAddress'] = filter[0].keyAddresses[0].fullAddress;
 
-                            changeImporterData.GSTIN = filter[0].GSTIN;
-                            newInput['importerGSTIN'] = filter[0].GSTIN;
-
-                            
-
-                           
-                          
+                            changeImporterData.GSTIN = filter[0].keyAddresses[0].gstin;
+                            newInput['importerGSTIN'] = filter[0].keyAddresses[0].gstin;
 
                             newInput['branchOffice'] = e.target.value;
                             changeImporterData.branch = e.target.value;
@@ -1026,9 +1075,15 @@ const Index = ({
                       }}
                     >
                       <option selected>Select an option</option>
-                      {branchOptions.map((val, index) => {
-                        return <option value={val.Branch}>{val.Branch}</option>;
-                      })}
+                      {[...new Set(branchOptions.map((item) => item.keyAddresses[0].Branch))]
+                        .filter((val, index) => {
+                          if (val !== undefined) {
+                            return val;
+                          }
+                        })
+                        .map((val, index) => {
+                          return <option value={`${val}`}>{val}</option>;
+                        })}
                     </select>
                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                       Branch Office
@@ -1086,32 +1141,49 @@ const Index = ({
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
                       value={
-                       
-                        invoiceDataRevised?.bankName
+                        invoiceDataRevised?.accountNo ? invoiceDataRevised?.accountNo : invoiceDataRevised?.Bank_Name
                       }
-                      onChange={(e) =>
-                       {
-                        saveInvoiceDataRevisedRevised(
-                          e.target.name,
+                      onChange={(e) => {
+                        saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
+
+                        let filter = getInternalCompaniesMasterData.filter((val, index) => {
+                          if (val.keyBanks.length > 0) {
+                            if (
+                              val.keyBanks[0].Account_No == e.target.value &&
+                              val.Company_Name == invoiceDataRevised?.importerName
+                            ) {
+                              return val;
+                            }
+                          }
+                        });
+
+                        if (filter.length == 0) {
+                          savedataRevised('branchAddress', '', 'IFSCcode', '', '', '', '', '');
+                          return;
+                        }
+                        savedataRevised(
+                          'branchAddress',
+                          filter[0].keyBanks[0].Branch_Address == undefined ? '' : filter[0].keyBanks[0].Branch_Address,
+                          'IFSCcode',
+                          filter[0].keyBanks[0].IFSC == undefined ? '' : filter[0].keyBanks[0].IFSC,
                           e.target.value,
-                        )
-                        let filter = getBanksMasterData.filter(
-                                  (val, index) => {
-                                    if (val.name == e.target.value) {
-                                      return val;
-                                    }
-                                  },
-                                );
-                        
-                       }
-                       
-                      }
+                          filter[0].keyBanks[0].Account_No == undefined ? '' : filter[0].keyBanks[0].Account_No,
+                          filter[0].keyBanks[0].branchType == undefined ? '' : filter[0].keyBanks[0].branchType,
+                          filter[0].keyBanks[0].Bank_Name == undefined ? '' : filter[0].keyBanks[0].Bank_Name,
+                        );
+                      }}
                     >
                       <option>Select an option</option>
-                        {getBanksMasterData.map((val, index) => {
+                      {branchOptions
+                        .filter((val, index) => {
+                          if (val.keyBanks[0].Bank_Name) {
+                            return val;
+                          }
+                        })
+                        .map((val, index) => {
                           return (
-                            <option value={`${val.name}`}>
-                              {val.name}
+                            <option key={index} value={`${val.keyBanks[0].Account_No}`}>
+                              {val.keyBanks[0].Bank_Name}
                             </option>
                           );
                         })}
@@ -1121,48 +1193,23 @@ const Index = ({
                       Bank Name
                       <strong className="text-danger">*</strong>
                     </label>
-                    <img
-                      className={`img-fluid  image_arrow ${styles.arrow}`}
-                      src="/static/inputDropDown.svg"
-                    ></img>
+                    <img className={`img-fluid  image_arrow ${styles.arrow}`} src="/static/inputDropDown.svg"></img>
                   </div>
                 </div>
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                  <div className="d-flex">
-                    <select
-                      type="text"
-                      id="Code"
-                      name="branch"
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      required
-                      value={invoiceDataRevised?.branch}
-                      onChange={(e) => {
-                        saveInvoiceDataRevisedRevised(e.target.name, e.target.value);
-                        let filter=getBranchesMasterData.filter((val,index)=>{
-                              if(val.BRANCH==e.target.value){
-                                return val
-                              }
-                            })
-
-                           savedataRevised("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC,e.target.value)
-                      }}
-                    >
-                      <option selected >
-                        Select an option
-                      </option>
-                     {getBranchesMasterData.map((val,index)=>{
-                          return  <option value={`${val.BRANCH}`}>{val.BRANCH}</option>
-                      })}
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                      Branch
-                      <strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`img-fluid image_arrow ${styles.arrow}`}
-                      src="/static/inputDropDown.svg"
-                    ></img>
-                  </div>
+                  <input
+                    type="text"
+                    id="textInput"
+                    name="branch"
+                    onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
+                    value={invoiceDataRevised?.branch}
+                    className={`${styles.input_field} input form-control`}
+                    required
+                  />
+                  <label className={`${styles.label_heading} label_heading`} id="textInput">
+                    Branch
+                    <strong className="text-danger">*</strong>
+                  </label>
                 </div>
 
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
@@ -1200,7 +1247,7 @@ const Index = ({
                     type="text"
                     id="textInput"
                     name="accountNo"
-                    onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
+                    // onChange={(e) => saveInvoiceDataRevisedRevised(e.target.name, e.target.value)}
                     value={invoiceDataRevised.accountNo}
                     className={`${styles.input_field} input form-control`}
                     required

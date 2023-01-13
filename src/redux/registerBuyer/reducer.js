@@ -1,4 +1,4 @@
-import * as types from './actionType';
+import * as types from './actionType'
 
 const initialState = {
   gettingBuyerList: false,
@@ -26,48 +26,48 @@ const initialState = {
   getOrderLeads: [],
 };
 
-function BuyerReducer(state = initialState, action) {
+function BuyerReducer (state = initialState, action) {
   switch (action.type) {
     case types.GET_BUYER:
       return {
         ...state,
         gettingBuyerList: true,
-        buyerList: [],
-      };
+        buyerList: []
+      }
 
     case types.GET_BUYER_SUCCESSFULL:
       return {
         ...state,
         gettingBuyerList: false,
-        buyerList: action.payload,
-      };
+        buyerList: action.payload
+      }
 
     case types.GET_BUYER_FAILED:
       return {
         ...state,
         gettingBuyerList: false,
-        buyerList: [],
-      };
+        buyerList: []
+      }
     case types.GET_ALL_BUYER:
       return {
         ...state,
         gettingAllBuyerList: true,
-        allBuyerList: [],
-      };
+        allBuyerList: []
+      }
 
     case types.GET_ALL_BUYER_SUCCESSFULL:
       return {
         ...state,
         gettingAllBuyerList: false,
-        allBuyerList: action.payload,
-      };
+        allBuyerList: action.payload
+      }
 
     case types.GET_ALL_BUYER_FAILED:
       return {
         ...state,
         gettingAllBuyerList: false,
-        allBuyerList: [],
-      };
+        allBuyerList: []
+      }
 
     case types.GET_ALL_UPDATED_BUYER:
       return {
@@ -112,161 +112,161 @@ function BuyerReducer(state = initialState, action) {
       return {
         ...state,
         gettingOrderList: true,
-        orderList: null,
-      };
+        orderList: null
+      }
 
     case types.GET_ALL_ORDER_SUCCESSFULL:
       return {
         ...state,
         gettingOrderList: false,
-        orderList: action.payload,
-      };
+        orderList: action.payload
+      }
 
     case types.GET_ALL_ORDER_FAILED:
       return {
         ...state,
         gettingOrderList: false,
-        orderList: null,
-      };
+        orderList: null
+      }
 
     case types.GET_ORDER:
       return {
         ...state,
         gettingSingleOrder: true,
-        singleOrder: [],
-      };
+        singleOrder: []
+      }
 
     case types.GET_ORDER_SUCCESSFULL:
       return {
         ...state,
         gettingSingleOrder: false,
-        singleOrder: action.payload,
-      };
+        singleOrder: action.payload
+      }
 
     case types.GET_ORDER_FAILED:
       return {
         ...state,
         gettingSingleOrder: false,
-        singleOrder: [],
-      };
+        singleOrder: []
+      }
 
     case types.REGISTER_BUYER:
       return {
         ...state,
         creatingBuyer: true,
-        createdBuyerResponse: null,
-      };
+        createdBuyerResponse: null
+      }
 
     case types.REGISTER_BUYER_SUCCESS:
       return {
         ...state,
         creatingBuyer: false,
-        createdBuyerResponse: action.payload,
-      };
+        createdBuyerResponse: action.payload
+      }
 
     case types.REGISTER_BUYER_FAILED:
       return {
         ...state,
         creatingBuyer: false,
-        createdBuyerResponse: null,
-      };
+        createdBuyerResponse: null
+      }
 
     case types.REGISTER_BUYER_ROUTED:
       return {
         ...state,
         creatingBuyer: false,
-        createdBuyerResponse: null,
-      };
+        createdBuyerResponse: null
+      }
 
     case types.UPDATE_BUYER:
       return {
         ...state,
         updatingBuyer: true,
-        updatedBuyerResponse: null,
-      };
+        updatedBuyerResponse: null
+      }
     case types.UPDATE_BUYER_SUCCESSFULL:
       return {
         ...state,
         updatingBuyer: false,
-        updatedBuyerResponse: action.payload,
-      };
+        updatedBuyerResponse: action.payload
+      }
     case types.UPDATE_BUYER_FAILED:
       return {
         ...state,
         updatingBuyer: false,
-        updatedBuyerResponse: null,
-      };
+        updatedBuyerResponse: null
+      }
     case types.DELETE_BUYER:
       return {
         ...state,
         deletingBuyer: true,
-        deletedBuyerResponse: null,
-      };
+        deletedBuyerResponse: null
+      }
     case types.DELETE_BUYER_SUCCESSFULL:
       return {
         ...state,
         deletingBuyer: false,
-        deletedBuyerResponse: action.payload,
-      };
+        deletedBuyerResponse: action.payload
+      }
     case types.DELETE_BUYER_FAILED:
       return {
         ...state,
         deletingBuyer: false,
-        deletedBuyerResponse: null,
-      };
+        deletedBuyerResponse: null
+      }
 
     case types.SET_BUYER:
       return {
         ...state,
-        selectedBuyer: action.payload,
-      };
+        selectedBuyer: action.payload
+      }
 
     case types.SET_DOCUMENT:
       return {
         ...state,
-        document: action.payload,
-      };
+        document: action.payload
+      }
 
     case types.UPLOADDOCUMENT:
       return {
         ...state,
-        gstDocument: {},
-      };
+        gstDocument: {}
+      }
     case types.UPLOADDOCUMENT_SUCCESS:
       return {
         ...state,
-        gstDocument: action.payload,
-      };
+        gstDocument: action.payload
+      }
     case types.UPLOADDOCUMENT_FAILED:
       return {
         ...state,
-        gstDocument: {},
-      };
+        gstDocument: {}
+      }
 
     case types.GET_GST:
       return {
         ...state,
         gettingGstList: true,
-        gstList: null,
-      };
+        gstList: null
+      }
 
     case types.GET_GST_SUCCESS:
       return {
         ...state,
         gettingGstList: false,
-        gstList: action.payload,
-      };
+        gstList: action.payload
+      }
 
     case types.GET_GST_FAILED:
       return {
         ...state,
         gettingGstList: false,
-        gstList: null,
-      };
+        gstList: null
+      }
 
     default:
-      return state;
+      return state
   }
 }
 
-export default BuyerReducer;
+export default BuyerReducer

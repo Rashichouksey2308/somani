@@ -4,6 +4,8 @@ const initialState = {
   getCountriesMasterData: [],
   getCommodityMasterData: [],
   getGonogoMasterData: [],
+  gettingState: false,
+  getStateMasterData: [],
   getPortsMasterData: [],
   getCommoditiesMasterData: [],
   getDocumentsMasterData: [],
@@ -54,6 +56,7 @@ const initialState = {
   filteringIIAGLedgerQueue: false,
   filteredIIAGLedgerQueue: [],
   creatingIIAGLedgerMaster: false,
+  zipCode: [],
 };
 
 function MastersReducer(state = initialState, action) {
@@ -103,6 +106,23 @@ function MastersReducer(state = initialState, action) {
         ...state,
         getGonogoMasterData: [],
       };
+    case types.GET_STATE_MASTERS:
+      return {
+        ...state,
+        gettingState: true,
+        getStateMasterData: [],
+      };
+    case types.GET_STATE_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getStateMasterData: action.payload,
+      };
+    case types.GET_STATE_MASTERS_FAILURE:
+      return {
+        ...state,
+        getStateMasterData: [],
+      };
+
     case types.GET_PORTS_MASTERS:
       return {
         ...state,
@@ -540,7 +560,7 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         creatingTDSSectionMaster: false,
-      }
+      };
     case types.GET_MASTER_SAC_QUEUE_RECORDS_SUCCESSFULL:
       return {
         ...state,
@@ -631,6 +651,21 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         creatingIIAGLedgerMaster: false,
+      };
+    case types.GET_ZIPCODES_MASTERS:
+      return {
+        ...state,
+        zipCode: [],
+      };
+    case types.GET_ZIPCODES_MASTERS_SUCCESS:
+      return {
+        ...state,
+        zipCode: action.payload,
+      };
+    case types.GET_ZIPCODES_MASTERS_FAILURE:
+      return {
+        ...state,
+        zipCode: [],
       };
 
     default:

@@ -80,7 +80,6 @@
 
     .options {
       font-size: 18px;
-      margin-right: 10px;
       border-radius: 14px;
       border: none;
       line-height: 23px;
@@ -283,6 +282,9 @@ img {
     position: absolute;
     right: 40px;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+    @include respond(lg-desktop) {
+      width: 10px !important;
+    }
   }
 }
 
@@ -363,7 +365,6 @@ img {
       justify-content: space-between;
       border-bottom: 2px solid #d2d7e5;
 
-     
       @include respond(md-desktop) {
         font-size: 16px;
       }

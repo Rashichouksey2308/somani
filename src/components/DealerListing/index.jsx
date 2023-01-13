@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { Card, CardBody, Col, Collapse, Form, FormGroup, Input, Row } from 'reactstrap';
-import history from '../../history';
-import InputText from '../InputText';
-import CustomButton from '../CustomButton';
-import CartTitle from '../CartTitle';
-import Loader from '../Loader';
-import MaterialTable from 'material-table';
+import React, { Component } from 'react'
+import { Card, CardBody, Col, Collapse, Form, FormGroup, Input, Row } from 'reactstrap'
+import history from '../../history'
+import InputText from '../InputText'
+import CustomButton from '../CustomButton'
+import CartTitle from '../CartTitle'
+import Loader from '../Loader'
+import MaterialTable from 'material-table'
 
-import '../../assets/scss/components/MeterialTable/index.scss';
-import get from 'lodash/get';
+import '../../assets/scss/components/MeterialTable/index.scss'
+import get from 'lodash/get'
 
-const _ = { get };
+const _ = { get }
 
 export default class DealerListing extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       toggleActive: false,
       country: '',
@@ -27,12 +27,12 @@ export default class DealerListing extends Component {
       dealerId: '',
       dealerEmail: '',
       dealerPhone: '',
-      pageSize: 10,
-    };
+      pageSize: 10
+    }
   }
 
-  componentDidMount() {
-    const state = this.state;
+  componentDidMount () {
+    const state = this.state
     const data = {
       page: state.page,
       country: state.countryCode,
@@ -41,42 +41,42 @@ export default class DealerListing extends Component {
       emailId: state.dealerId,
       phone: state.dealerEmail,
       dealerId: state.dealerPhone,
-      limit: state.count,
-    };
-    this.props.handleFetchDealer(data);
+      limit: state.count
+    }
+    this.props.handleFetchDealer(data)
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     if (prevProps.dealers.length !== this.props.dealers.length) {
-      const state = this.state;
+      const state = this.state
 
-      state.page = Math.ceil(this.props.dealers.length / this.state.count);
-      this.setState({ ...state });
+      state.page = Math.ceil(this.props.dealers.length / this.state.count)
+      this.setState({ ...state })
     }
   }
 
   handleOnChangePageSize = (count) => {
-    const state = this.state;
-    state.pageSize = count;
-    this.setState({ ...state });
+    const state = this.state
+    state.pageSize = count
+    this.setState({ ...state })
   };
 
   handleToggle = (e) => {
-    const state = this.state;
-    state.toggleActive = !state.toggleActive;
-    this.setState({ ...state });
+    const state = this.state
+    state.toggleActive = !state.toggleActive
+    this.setState({ ...state })
   };
 
   handleOnPageChange = (e, page) => {
-    const totalPages = this.props.dealers.length / this.state.pageSize;
+    const totalPages = this.props.dealers.length / this.state.pageSize
     const fetchNextData =
       e >= totalPages - 2 &&
       this.props.dealers.length !== 0 &&
       this.props.dealerStatus === false &&
-      this.props.dealers.length < this.props.dealerCount;
+      this.props.dealers.length < this.props.dealerCount
 
     if (fetchNextData === true) {
-      const state = this.state;
+      const state = this.state
       const data = {
         page: state.page,
         country: state.countryCode,
@@ -85,64 +85,64 @@ export default class DealerListing extends Component {
         emailId: state.dealerId,
         phone: state.dealerEmail,
         dealerId: state.dealerPhone,
-        limit: state.count,
-      };
-      this.props.handleFetchDealer(data);
+        limit: state.count
+      }
+      this.props.handleFetchDealer(data)
     }
   };
 
   handleFilterChange = (e) => {
-    const state = this.state;
-    state[e.target.name] = e.target.value;
-    this.setState({ ...state });
+    const state = this.state
+    state[e.target.name] = e.target.value
+    this.setState({ ...state })
   };
 
   handleCountryChange = (e) => {
-    const state = this.state;
-    const parsedValue = JSON.parse(e.target.value);
+    const state = this.state
+    const parsedValue = JSON.parse(e.target.value)
     if (e.target.value !== 'Select Country') {
-      state.countryCode = parsedValue.locality.country;
-      state.country = parsedValue.country;
-      state.state = '';
-      state.city = '';
+      state.countryCode = parsedValue.locality.country
+      state.country = parsedValue.country
+      state.state = ''
+      state.city = ''
     }
-    this.setState({ ...state });
-    this.props.handleFetchState(state.countryCode);
+    this.setState({ ...state })
+    this.props.handleFetchState(state.countryCode)
   };
 
   handleStateChange = (e) => {
-    const state = this.state;
-    const parsedValue = JSON.parse(e.target.value);
+    const state = this.state
+    const parsedValue = JSON.parse(e.target.value)
     if (e.target.value !== 'Select Country') {
-      state.state = parsedValue;
-      state.city = '';
+      state.state = parsedValue
+      state.city = ''
     }
-    this.setState({ ...state });
+    this.setState({ ...state })
     const data = {
       countryCode: state.countryCode,
-      state: state.state,
-    };
-    this.props.handleFetchCity(data);
+      state: state.state
+    }
+    this.props.handleFetchCity(data)
   };
 
   handleCityChange = (e) => {
-    const state = this.state;
-    const parsedValue = JSON.parse(e.target.value);
+    const state = this.state
+    const parsedValue = JSON.parse(e.target.value)
     if (e.target.value !== 'Select Country') {
-      state.city = parsedValue.cityName;
+      state.city = parsedValue.cityName
     }
-    this.setState({ ...state });
+    this.setState({ ...state })
   };
 
   handleRowData = (rowData) => {
-    history.push(`/dealer/detail?dealerId=${rowData._id}&tab=detail`);
-    this.props.handleSelectedRowData(rowData);
+    history.push(`/dealer/detail?dealerId=${rowData._id}&tab=detail`)
+    this.props.handleSelectedRowData(rowData)
   };
 
   handleSubmitFilter = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const state = this.state;
+    const state = this.state
 
     const data = {
       page: 0,
@@ -152,8 +152,8 @@ export default class DealerListing extends Component {
       emailId: state.dealerEmail.toLowerCase().trim(),
       phone: state.dealerPhone.trim(),
       dealerId: state.dealerId.trim(),
-      limit: state.count,
-    };
+      limit: state.count
+    }
 
     if (
       state.countryCode !== '' ||
@@ -163,23 +163,23 @@ export default class DealerListing extends Component {
       state.dealerPhone !== '' ||
       state.dealerId !== ''
     ) {
-      this.props.handleFetchDealer(data);
-      this.props.handleClearPreviousReducersForDealer();
+      this.props.handleFetchDealer(data)
+      this.props.handleClearPreviousReducersForDealer()
     }
   };
 
   handleClearFilter = () => {
-    const state = this.state;
-    state.page = 0;
-    state.country = '';
-    state.countryCode = '';
-    state.state = '';
-    state.city = '';
-    state.dealerEmail = '';
-    state.dealerPhone = '';
-    state.dealerId = '';
-    state.count = 100;
-    this.setState({ ...state });
+    const state = this.state
+    state.page = 0
+    state.country = ''
+    state.countryCode = ''
+    state.state = ''
+    state.city = ''
+    state.dealerEmail = ''
+    state.dealerPhone = ''
+    state.dealerId = ''
+    state.count = 100
+    this.setState({ ...state })
     const data = {
       page: 0,
       country: '',
@@ -188,16 +188,16 @@ export default class DealerListing extends Component {
       emailId: '',
       phone: '',
       dealerId: '',
-      limit: 100,
-    };
-    this.props.handleFetchDealer(data);
-    this.props.handleClearPreviousReducersForDealer();
+      limit: 100
+    }
+    this.props.handleFetchDealer(data)
+    this.props.handleClearPreviousReducersForDealer()
   };
 
-  render() {
-    const { elements } = this.props;
+  render () {
+    const { elements } = this.props
     return (
-      <div className="hideSearch">
+      <div className='hideSearch'>
         {this.props.dealerStatus !== false ? <Loader /> : null}
 
         <Form onSubmit={this.handleSubmitFilter}>
@@ -214,15 +214,15 @@ export default class DealerListing extends Component {
             </Col>
             <Col sm={12}>
               <Collapse isOpen={this.state.toggleActive}>
-                <Card className="mb-3">
+                <Card className='mb-3'>
                   <CardBody>
                     <Row>
                       <Col xl={4} lg={4} md={6} sm={6}>
-                        <FormGroup className=" confirmRiderSelect select_options">
+                        <FormGroup className=' confirmRiderSelect select_options'>
                           <Input
-                            type="select"
-                            name="City"
-                            className="w-100 customeSelectBtn"
+                            type='select'
+                            name='City'
+                            className='w-100 customeSelectBtn'
                             onChange={this.handleCountryChange}
                             value={this.state.country}
                           >
@@ -238,11 +238,11 @@ export default class DealerListing extends Component {
                         </FormGroup>
                       </Col>
                       <Col xl={4} lg={4} md={6} sm={6}>
-                        <FormGroup className=" confirmRiderSelect select_options">
+                        <FormGroup className=' confirmRiderSelect select_options'>
                           <Input
-                            type="select"
-                            name="branchType"
-                            className="w-100 customeSelectBtn"
+                            type='select'
+                            name='branchType'
+                            className='w-100 customeSelectBtn'
                             onChange={this.handleStateChange}
                             value={this.state.state}
                           >
@@ -258,11 +258,11 @@ export default class DealerListing extends Component {
                         </FormGroup>
                       </Col>
                       <Col xl={4} lg={4} md={6} sm={6}>
-                        <FormGroup className=" confirmRiderSelect select_options">
+                        <FormGroup className=' confirmRiderSelect select_options'>
                           <Input
-                            type="select"
-                            name="branchType"
-                            className="w-100 customeSelectBtn"
+                            type='select'
+                            name='branchType'
+                            className='w-100 customeSelectBtn'
                             onChange={this.handleCityChange}
                             value={this.state.city}
                           >
@@ -289,7 +289,7 @@ export default class DealerListing extends Component {
                           inputPlaceholder={_.get(
                             elements,
                             'dealersListingFilterElements.dealerIdPlaceholder',
-                            'Dealer Id',
+                            'Dealer Id'
                           )}
                           customOnChange={(e) => this.handleFilterChange(e)}
                         />
@@ -305,7 +305,7 @@ export default class DealerListing extends Component {
                           customOnChange={(e) => this.handleFilterChange(e)}
                         />
                       </Col>
-                      <Col xl={4} lg={4} md={6} sm={6} className="mb-3 mb-lg-0">
+                      <Col xl={4} lg={4} md={6} sm={6} className='mb-3 mb-lg-0'>
                         <InputText
                           labelName={_.get(elements, 'dealersListingFilterElements.mobileLabel', 'Phone')}
                           inputType={'number'}
@@ -317,7 +317,7 @@ export default class DealerListing extends Component {
                         />
                       </Col>
                     </Row>
-                    <div className="d-flex justify-content-center justify-content-lg-end position-relative ">
+                    <div className='d-flex justify-content-center justify-content-lg-end position-relative '>
                       <CustomButton
                         customType={'submit'}
                         name={_.get(elements, 'dealersListingFilterElements.searchButtonElement', 'Search')}
@@ -358,47 +358,47 @@ export default class DealerListing extends Component {
         </Form>
 
         <Row>
-          <Col sm="12">
-            <div className="custom-m-table">
+          <Col sm='12'>
+            <div className='custom-m-table'>
               <MaterialTable
-                title=""
+                title=''
                 columns={[
                   {
                     title: _.get(elements, 'dealerListTableElement.dealerIdElement', 'Dealer Id'),
-                    field: 'dealerId',
+                    field: 'dealerId'
                   },
                   {
                     title: _.get(elements, 'dealerListTableElement.nameElement', 'Name'),
-                    field: 'dealerName',
+                    field: 'dealerName'
                   },
                   {
                     title: _.get(elements, 'dealerListTableElement.emailElement', 'Email'),
-                    field: 'emailId',
+                    field: 'emailId'
                   },
                   {
                     title: _.get(elements, 'dealerListTableElement.phoneElement', 'Phone'),
-                    field: 'phone',
+                    field: 'phone'
                   },
                   {
                     title: _.get(
                       elements,
                       'dealerListTableElement.clubCoordinatorNameElement',
-                      "Club Coordinator's Name",
+                      "Club Coordinator's Name"
                     ),
-                    field: 'storeManagerName',
+                    field: 'storeManagerName'
                   },
                   {
                     title: _.get(elements, 'dealerListTableElement.countryElement', 'Country'),
-                    field: 'country',
+                    field: 'country'
                   },
                   {
                     title: _.get(elements, 'dealerListTableElement.stateElement', 'State'),
-                    field: 'state',
+                    field: 'state'
                   },
                   {
                     title: _.get(elements, 'dealerListTableElement.cityElement', 'City'),
-                    field: 'city',
-                  },
+                    field: 'city'
+                  }
                 ]}
                 data={this.props.dealers}
                 options={{
@@ -409,14 +409,14 @@ export default class DealerListing extends Component {
                   pageSize: this.state.pageSize,
                   paginationType: 'stepped',
                   initialPage: 1,
-                  showFirstLastPageButtons: false,
+                  showFirstLastPageButtons: false
                 }}
                 actions={[
                   {
                     icon: 'assignment_ind',
                     tooltip: 'Detail Page',
-                    onClick: (event, rowData) => this.handleRowData(rowData),
-                  },
+                    onClick: (event, rowData) => this.handleRowData(rowData)
+                  }
                 ]}
                 onChangeRowsPerPage={(e) => this.handleOnChangePageSize(e)}
                 onChangePage={(e, page) => this.handleOnPageChange(e, page)}
@@ -426,17 +426,17 @@ export default class DealerListing extends Component {
                       <h6>
                         {_.get(elements, 'dealerListTableElement.noRecordsFoundElement', 'No records to display')}
                       </h6>
-                    ),
+                    )
                   },
                   header: {
-                    actions: _.get(elements, 'dealerListTableElement.actionsElement', 'Actions'),
-                  },
+                    actions: _.get(elements, 'dealerListTableElement.actionsElement', 'Actions')
+                  }
                 }}
               />
             </div>
           </Col>
         </Row>
       </div>
-    );
+    )
   }
 }

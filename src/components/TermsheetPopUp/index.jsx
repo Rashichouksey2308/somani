@@ -3,7 +3,6 @@ import { Col, Form, FormControl, Modal, Row } from 'react-bootstrap';
 import styles from './index.module.scss';
 
 function Index(props) {
-  const [email, setEmail] = useState('');
   return (
     <Modal
       show={props.open}
@@ -14,10 +13,14 @@ function Index(props) {
       backdropClassName={styles.backdrop}
     >
       <Modal.Header className={styles.head}>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Share {props.istermsheet ? '' : 'termsheet'} with buyer
-        </Modal.Title>
-        <img onClick={() => props.close()} src="/static/close-2.svg" />
+        {props.isMargin ? (
+          <Modal.Title id="contained-modal-title-vcenter">Share Margin Money with buyer</Modal.Title>
+        ) : (
+          <Modal.Title id="contained-modal-title-vcenter">
+            Share {props.istermsheet ? '' : 'transaction summary'} with buyer
+          </Modal.Title>
+        )}
+        <img onClick={() => props.close()} src="/static/close-2.svg" alt='close' style={{cursor:'pointer'}}/>
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`}>
         <Row>
@@ -58,9 +61,6 @@ function Index(props) {
             </div>
           </Col>
         </Row>
-        {/* <div className={`${styles.left} col-md-6` }></div>
-       <div className={`${styles.right} col-md-6` }></div>
-      </div> */}
       </Modal.Body>
     </Modal>
   );

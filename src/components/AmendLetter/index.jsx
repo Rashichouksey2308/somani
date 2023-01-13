@@ -1,43 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Card, Col, Row } from 'react-bootstrap';
-import LCAmendBar from '../LCAmendBar';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import _get from 'lodash/get';
+import AmendLetterTemp from '@/templates/AmendLetterTemp';
 import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
-import { GetLcModule } from 'redux/lcModule/action';
+import _get from 'lodash/get';
 import moment from 'moment';
+import Router from 'next/router';
+import { useEffect, useState } from 'react';
+import { Card, Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
+import ReactDOMServer from 'react-dom/server';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetLcModule } from 'redux/lcModule/action';
+import LCAmendBar from '../LCAmendBar';
+import styles from './index.module.scss';
 
 function Index() {
   const dispatch = useDispatch();
 
-  let d = new Date();
-
   useEffect(() => {
-    let id = sessionStorage.getItem('lcPreviewId');
+    let id = sessionStorage.getItem('lcAmmend');
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
 
   const { lcModule } = useSelector((state) => state.lc);
 
   let lcModuleData = _get(lcModule, 'data[0]', {});
-  const [emailAdd, setEmailAdd] = useState([
-    {
-      emailID: '',
-    },
-  ]);
-  const addMoreRows = () => {
-    setEmailAdd([
-      ...emailAdd,
-      {
-        emailID: '',
-      },
-    ]);
+   const [emailAdd, setEmailAdd] = useState([{ emailID: '' }]);
+  const [insuranceAdd, setinsuranceAdd] = useState([{ insurance: '' }]);
+const addMoreRows = (val) => {
+    if (val == 'email') {
+      setEmailAdd([
+        ...emailAdd,
+        {
+          emailID: '',
+        },
+      ]);
+    } else {
+      setinsuranceAdd([
+        ...insuranceAdd,
+        {
+          insurance: '',
+        },
+      ]);
+    }
   };
-
+const deleteArr=(val,index)=>{
+  if(val=="email"){
+    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
+  }else{
+    setinsuranceAdd([...insuranceAdd.slice(0, index), ...insuranceAdd.slice(index + 1)]);
+  }
+}
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
@@ -49,448 +60,69 @@ function Index() {
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
 
-  const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1500]);
-    doc.html(
-      ReactDOMServer.renderToString(
-        <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
-          <tr>
-            <td valign="top" style={{ paddingBottom: '20px' }}>
-              <table
-                width="100%"
-                bgColor="#D8EAFF"
-                style={{
-                  fontFamily: 'Arial, Helvetica, sans-serif',
-                  marginBottom: '26px',
-                  border: '1px solid #D2D7E5',
-                  borderRadius: '6px',
-                  height: '126px',
-                }}
-                cellPadding="10"
-                cellSpacing="0"
-                border="0"
-              >
-                <tr>
-                  <td valign="bottom" align="left" width="33%">
-                    <span
-                      style={{
-                        fontSize: '20px',
-                        color: '#111111',
-                        lineHeight: '25px',
-                        fontWeight: '500',
-                        padding: '10px 0 0 25px',
-                      }}
-                    >
-                      Order ID:{' '}
-                      <span
-                        style={{
-                          lineHeight: '24px',
-                          fontWeight: 'normal',
-                          opacity: '0.7',
-                        }}
-                      >
-                        {lcModuleData?.order?.orderId}
-                      </span>
-                    </span>
-                    <br />
-                    <span
-                      style={{
-                        fontSize: '20px',
-                        color: '#111111',
-                        lineHeight: '25px',
-                        fontWeight: '500',
-                      }}
-                    >
-                      <span
-                        style={{
-                          display: 'inline-block',
-                          paddingLeft: '25px',
-                          width: '90px',
-                          float: 'left',
-                          height: '50px',
-                        }}
-                      >
-                        Buyer:{' '}
-                      </span>
-                      <span
-                        style={{
-                          lineHeight: '24px',
-                          fontWeight: 'normal',
-                          opacity: '0.7',
-                        }}
-                      >
-                        {lcModuleData?.company?.companyName}
-                      </span>
-                    </span>
-                  </td>
-                  <td valign="top" align="center" width="34%">
-                    <h2
-                      style={{
-                        fontSize: '34px',
-                        color: '#3687E8',
-                        lineHeight: '41px',
-                        fontWeight: 'bold',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      AMENDED LETTER OF CREDIT
-                    </h2>
-                  </td>
-                  <td valign="bottom" align="right" width="33%">
-                    <span
-                      style={{
-                        fontSize: '20px',
-                        color: '#111111',
-                        lineHeight: '25px',
-                        fontWeight: '500',
-                        padding: '10px 25px 0 0',
-                      }}
-                    >
-                      Documentary Credit Number:{' '}
-                      <span
-                        style={{
-                          lineHeight: '24px',
-                          fontWeight: 'normal',
-                          opacity: '0.7',
-                        }}
-                      >
-                        {lcModuleData?.lcApplication?.documentaryCreditNumber}
-                      </span>
-                    </span>
-                    <br />
-                    <span
-                      style={{
-                        fontSize: '20px',
-                        color: '#111111',
-                        lineHeight: '25px',
-                        paddingRight: '25px',
-                        fontWeight: '500',
-                      }}
-                    >
-                      <span
-                        style={{
-                          display: 'inline-block',
-                          width: '90px',
-                          height: '50px',
-                        }}
-                      >
-                        Date:{' '}
-                      </span>
-                      <span
-                        style={{
-                          lineHeight: '24px',
-                          fontWeight: 'normal',
-                          opacity: '0.7',
-                        }}
-                      >
-                        {moment(d).format('DD.MM.yyyy')}
-                      </span>
-                    </span>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td valign="top" align="left">
-              <table
-                width="100%"
-                bgColor="#FFFFFF"
-                style={{
-                  fontFamily: 'Arial, Helvetica, sans-serif',
-                  borderRadius: '6px',
-                  boxShadow: '0 3px 6px #CAD0E2',
-                  marginBottom: '26px',
-                  border: '2px solid rgba(202, 214, 230, 0.3)',
-                }}
-                cellPadding="0"
-                cellSpacing="0"
-                border="0"
-              >
-                <tr>
-                  <td valign="top" align="left">
-                    <table width="100%" cellPadding="0" cellSpacing="0" border="0">
-                      <tbody>
-                        <tr>
-                          <td
-                            width="40%"
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                40A
-                              </span>
-                              FORM OF DOCUMENTARY CREDIT
-                            </p>
-                          </td>
-                          <td
-                            width="60%"
-                            align="left"
-                            style={{
-                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                40E
-                              </span>
-                              APPLICABLE RULES
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                31D
-                              </span>
-                              DATE OF EXPIRY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY')}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                31D
-                              </span>
-                              PLACE OF EXPIRY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                51D
-                              </span>
-                              LC ISSUING BANK
-                            </p>
-                          </td>
-                          <td align="left">
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>,
-      ),
-      {
-        callback: function (doc) {
-          doc.save('sample.pdf');
-        },
-        // margin:margins,
-        autoPaging: 'text',
-      },
-    );
+
+  const returnValue = (value) => {
+    if (value.dropDownValue === '(32B) Currency Code & Amount') {
+      return `${lcModuleData?.order?.orderCurrency}  ${Number(
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      )?.toLocaleString(lcModuleData?.order?.orderCurrency === 'INR' ? 'en-In' : 'en-En', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    } else if (value.dropDownValue === '(43T) Transhipments') {
+      return lcModuleData?.lcApplication?.transhipments == undefined
+        ? ''
+        : lcModuleData?.lcApplication?.transhipments == 'Yes'
+        ? 'Allowed'
+        : 'Not Allowed';
+    } else if (value.dropDownValue === '(39A) Tolerance (+/-) Percentage') {
+      return `(+/-) ${value.newValue}  %`;
+    } else if (value.dropDownValue === '(31D) Date Of Expiry'||value.dropDownValue === '(44C) Latest Date Of Shipment') {
+      return moment(value.newValue).format('DD-MM-YYYY');
+    } else if (value.dropDownValue === '(42C) Draft At' && lcModuleData?.lcApplication?.atSight == 'Usuance') {
+      return `Usuance - ${value.newValue} days`;
+    } else {
+      return value.newValue.toUpperCase()
+    }
   };
 
+
+  const exportPDF = () => {
+    const doc = new jsPDF('p', 'pt', [1500, 1500]);
+    doc.html(ReactDOMServer.renderToString(<AmendLetterTemp lcModuleData={lcModuleData}  />), {
+      callback: function (doc) {
+      const totalPages = doc.internal.getNumberOfPages();
+
+      for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(`Page ${i} of ${totalPages}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 1, {
+        align: 'center',
+        });;
+      }
+        doc.save('AmendLetter.pdf');
+      },
+      // margin:margins,
+      autoPaging: 'text',
+    });
+  };
+const getNumber=(number)=>{
+
+let regex = /\(([^\)]*)\)/;
+let data = number.match(regex)[1];
+return data
+}
+const getString=(string)=>{
+let regex = /\([^\)]*\)/;
+let data = string.replace(regex, "");;
+return data
+}
+const getDate = (value)=>{
+  let data = moment(value).format('DD-MM-YYYY')
+  return data
+  }
+
+
+  
   return (
     <>
       <div className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}>
@@ -505,10 +137,10 @@ function Index() {
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
         </div>
-        <div className={`${styles.term_container} previewCard border_color container-fluid`}>
+        <div className={`${styles.term_container} download-pdf-bg border_color container-fluid`}>
           <Row className={`h-50`}>
             <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
-              <h3>AMENDED LETTER OF CREDIT</h3>
+              <h3 className='download-pdf-title'>AMENDED LETTER OF CREDIT</h3>
             </Col>
           </Row>
 
@@ -537,14 +169,20 @@ function Index() {
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} mb-0 table`} cellPadding="0" cellSpacing="0" border="0">
-                  <tbody>
+                 {lcModuleData?.lcNewApplication?.map((val, index) => ( <tbody key={index}>
                     <tr className="table_row">
                       <td width="40%">
-                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
+                        <b>{getNumber(val.dropDownValue.toUpperCase())}</b>
+                        <span>{getString(val.dropDownValue.toUpperCase())}</span>
+                        {}
                       </td>
-                      <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td>
+                      {/* <td width="40%">
+                        40A &nbsp; &nbsp; <span>FORM OF DOCUMENTARY CREDIT</span>
+                      </td> */}
+                      <td>{returnValue(val)}</td>
+                      {/* <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td> */}
                     </tr>
-                    <tr className="table_row">
+                    {/* <tr className="table_row">
                       <td width="40%">
                         40E &nbsp; &nbsp; <span>APPLICABLE RULES</span>
                       </td>
@@ -567,8 +205,8 @@ function Index() {
                         51D &nbsp; &nbsp; <span>LC ISSUING BANK</span>
                       </td>
                       <td>{lcModuleData?.lcApplication?.lcIssuingBank}</td>
-                    </tr>
-                  </tbody>
+                    </tr> */}
+                  </tbody>))}
                 </table>
               </div>
             </div>
@@ -678,97 +316,115 @@ function Index() {
                     aria-labelledby="email-address"
                   >
                     {emailAdd.map((val, index) => (
-                      <div key={index} className={`${styles.each_input} form-group`}>
-                        <div className="d-flex">
-                          <select
-                            id="email"
-                            name="email"
-                            className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                            selected
-                          >
-                            <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
-                          </select>
-                          <label
-                            className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                            htmlFor="email"
-                          >
-                            Email
-                          </label>
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                      <div className={`d-flex align-items-center form-group`}>
+                        <div key={index} className={`${styles.each_input} flex-grow-1`}>
+                            <input
+                              id="email"
+                              name="email"
+                              className={`${styles.formControl} input form-control`}
+                              
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                              htmlFor="email"
+                            >
+                              Email
+                            </label>
+                           
                         </div>
+                        <img
+                            src="/static/delete 2.svg"
+                            alt="delete"
+                            role="button"
+                            className="ml-3"
+                            onClick={()=>{
+                              deleteArr('email',index)
+                            }}
+                        />
                       </div>
                     ))}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows();
+                        addMoreRows("email");
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '1.2rem' }} className={`mr-1`}>
                         +
-                      </span>{' '}
-                      Add more rows
+                      </span>
+                      add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
                   </div>
                   <div className="tab-pane fade" id="whatsApp" role="tabpanel" aria-labelledby="whatsapp">
-                    <div className={`${styles.each_input} ${styles.phone} form-group`}>
-                      <div className={styles.phone_card}>
-                        <select
-                          name="callingCode"
-                          id="Code"
-                          className={`${styles.code_phone} input border-right-0 bg-transparent`}
-                        >
-                          <option>+91</option>
-                          <option>+1</option>
-                          <option>+92</option>
-                          <option>+95</option>
-                          <option>+24</option>
-                        </select>
-                        <input
-                          type="tel"
-                          id="textNumber"
-                          name="primary"
-                          className={`${styles.formControl} input form-control border-left-0`}
-                          required
-                        />
-                        <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                          Phone Number
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                    </div>
-                    {/* <div className={`${styles.labelFloat} form-group`}>
-                          <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
-                          <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
-                        </div> */}
+                     {insuranceAdd.map((val, index) => {
+                      return (
+                        <>
+                        <div className={`d-flex align-items-center form-group`}>
+                          <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
+                            <div className={styles.phone_card}>
+                              <select
+                                name="callingCode"
+                                id="Code"
+                                className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                              >
+                                <option>+91</option>
+                                <option>+1</option>
+                                <option>+92</option>
+                                <option>+95</option>
+                                <option>+24</option>
+                              </select>
+                              <input
+                                type="tel"
+                                id="textNumber"
+                                name="primary"
+                                className={`${styles.formControl} input form-control border-left-0`}
+                                required
+                              />
+                              <label className={`${styles.label_heading} label_heading`} id="textNumber">
+                                Phone Number
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                          </div>
+                          <img
+                            onClick={()=>{
+                                  deleteArr('rest',index)
+                                }}
+                              src="/static/delete 2.svg"
+                              alt="delete"
+                              role="button"
+                              className="ml-3"
+                          />
+                        </div>
+                        </>
+                      );
+                    })}
+                   
+                   
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
                         addMoreRows();
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '1.2rem' }} className={`mr-1`}>
                         +
-                      </span>{' '}
-                      Add more rows
+                      </span>
+                      add another
                     </div>
                     <div className="d-flex justify-content-between">
-                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                         Close
                       </button>
-                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                      <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                         Share
                       </button>
                     </div>
@@ -794,10 +450,10 @@ function Index() {
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.close} ${styles.btn} btn mr-2 w-50`}>
                     Close
                   </button>
-                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn w-50`}>
+                  <button onClick={handleClose} type="button" className={`${styles.submit} ${styles.btn} btn ml-2 w-50`}>
                     Download
                   </button>
                 </div>
