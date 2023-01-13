@@ -94,7 +94,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       });
     });
 
-    if (balance <= maxBalance) return false;
+    if(balance === maxBalance) return false;
+    if (balance < maxBalance) return true;
     else {
       let toastMessage = `igm cannot be greater than order quantity`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
