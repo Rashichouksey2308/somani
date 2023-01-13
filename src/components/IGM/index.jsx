@@ -84,25 +84,39 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   }, []);
 
   const checkRemainingBalance = () => {
-    let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
+    let balance = 0;
+    const tolerance = _get(TransitDetails, 'data[0].order.tolerance', 0);
+    const quantity = _get(TransitDetails, 'data[0].order.quantity', 0);
+    const maxBalance = quantity + (quantity * tolerance) / 100;
     igmList.igmDetails.forEach((item) => {
       item.blNumber.forEach((item2) => {
-        balance = Number(balance) - Number(item2.blQuantity == undefined ? 0 : item2.blQuantity);
+        balance = Number(balance) + Number(item2.blQuantity == undefined ? 0 : item2.blQuantity);
       });
     });
-    if (balance < 0) {
+
+    if (balance <= maxBalance) return false;
+    else {
       let toastMessage = `igm cannot be greater than order quantity`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      return true;
     }
-    return balance;
   };
 
   let blQty;
 
+  const totalQuantityWithTolerance = () => {
+    let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
+    const tolerance = _get(TransitDetails, 'data[0].order.tolerance', 0);
+    const maxBalance = balance + (balance * tolerance) / 100;
+    return maxBalance
+  }
+
   const remainingQuantity = (index, item) => {
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
+    const tolerance = _get(TransitDetails, 'data[0].order.tolerance', 0);
+    const maxBalance = balance + (balance * tolerance) / 100;
 
     let numOr0 = (n) => (isNaN(n) ? 0 : n);
 
@@ -112,7 +126,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     );
 
     if (index == 0) {
-      balance = Number(balance) - Number(blNumberNew == undefined ? 0 : blNumberNew);
+      balance = Number(maxBalance) - Number(blNumberNew == undefined ? 0 : blNumberNew);
     } else {
       balance = Number(blQty) - Number(blNumberNew == undefined ? 0 : blNumberNew);
     }
@@ -161,7 +175,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
   const onChangeIgm = (name, text, index) => {
     if (name === 'blQuantity') {
-      if (checkRemainingBalance() < value) {
+      if (checkRemainingBalance()) {
         let toastMessage = `BL quantity cannot be greater than total order quantity`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -349,7 +363,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value;
-    let [value, index, index2] = text?.split('-');
+    let [value, index, index2] = text?.split('@$#');
     if (value) {
       const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
         return item.blNumber === value;
@@ -397,7 +411,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   };
 
   const validation = () => {
-    if (checkRemainingBalance() < 0) {
+    if (checkRemainingBalance()) {
       handleErrorToast('igm cannot be greater than order quantity');
       return false;
     }
@@ -598,7 +612,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}
+                    {totalQuantityWithTolerance()?.toLocaleString('en-IN')}
                     {'  '}
                     {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase('en-IN')}{' '}
                   </span>
@@ -767,7 +781,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       {checkNan(remainingQuantity(index, item))}{' '}
                       {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
                     </div>
-                    {checkRemainingBalance() !== 0 ? (
+                    {checkRemainingBalance() ? (
                       <>
                         <button
                           onClick={() => onigmAdd(index)}
@@ -917,7 +931,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                     }
                                   }}
                                   className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                                  value={`${blEntry.blNumber}-${index}-${index2}`}
+                                  value={`${blEntry.blNumber}@$#${index}@$#${index2}`}
                                 >
                                   <option value="select an option">Select an option</option>
                                   {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => {
@@ -926,7 +940,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                                         <option
                                           key={index3}
                                           disabled={isBlSelected(index, bl.blNumber)}
-                                          value={`${bl.blNumber}-${index}-${index2}`}
+                                          value={`${bl.blNumber}@$#${index}@$#${index2}`}
                                         >
                                           {bl.blNumber}
                                         </option>
