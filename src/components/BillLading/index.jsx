@@ -423,7 +423,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
       return isOk;
     } else if (_get(TransitDetails, 'data[0].order.vessel.vessels[0].shipmentType', '') === 'Bulk') {
       if (checkRemainingBalance()) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`;
+        let toastMessage = `BL quantity is beyond defined tolerance level`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
