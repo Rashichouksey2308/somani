@@ -396,6 +396,59 @@ function createTDSSectionMasterFailed(payload = {}) {
   };
 }
 
+// ******** Master IIAGLedger Queue ***********///
+function getMasterIIAGLedgerQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterIIAGLedgerQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter IIAGLedger Queue  ***********/////
+
+function filterIIAGLedgerQueue() {
+  return {
+    type: types.FILTER_IIAG_LEDGER_QUEUE,
+  };
+}
+
+function filterIIAGLedgerQueueSuccess(payload) {
+  return {
+    type: types.FILTER_IIAG_LEDGER_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterIIAGLedgerQueueFailed() {
+  return {
+    type: types.FILTER_IIAG_LEDGER_QUEUE_FAILED,
+  };
+}
+
+// ******** IIAGLedger Master Add ******** //
+
+function createIIAGLedgerMasterSuccess(payload) {
+  return {
+    type: types.CREATE_IIAG_LEDGER_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createIIAGLedgerMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_IIAG_LEDGER_MASTER_FAILED,
+    payload,
+  };
+}
+
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -1484,3 +1537,113 @@ export const CreateTDSSectionMaster = (payload) => async (dispatch, getState, ap
   }
 };
 // Handler for TDS-Section-master End ---->
+
+
+// Handler for IIAGLedger-master Start ---->
+export const GetMasterIIAGLedgerQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterIIAGLedgerQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterIIAGLedgerQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterIIAGLedgerQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch IIAGLedger Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterIIAGLedgerQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterIIAGLedgerQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterIIAGLedgerQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterIIAGLedgerQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterIIAGLedgerQueueFailed(response.data));
+        const toastMessage = 'Search IIAGLedger Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterIIAGLedgerQueueFailed());
+    const toastMessage = 'Search IIAGLedger request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateIIAGLedgerMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createIIAGLedgerMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createIIAGLedgerMasterSuccess(response.data.data));
+      let toastMessage = 'IIAG_LEDGER ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createIIAGLedgerMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createIIAGLedgerMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD IIAG_LEDGER DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for IIAGLedger-master End ---->

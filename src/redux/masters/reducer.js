@@ -48,6 +48,11 @@ const initialState = {
   filteringSACQueue: false,
   filteredSACQueue: [],
   creatingSACMaster: false,
+  IIAGLedgerQueueRecords: [],
+  gettingIIAGLedgerQueueRecords: false,
+  filteringIIAGLedgerQueue: false,
+  filteredIIAGLedgerQueue: [],
+  creatingIIAGLedgerMaster: false,
 };
 
 function MastersReducer(state = initialState, action) {
@@ -563,6 +568,52 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         creatingSACMaster: false,
+      };
+
+    case types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingIIAGLedgerQueueRecords: false,
+        IIAGLedgerQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingIIAGLedgerQueueRecords: false,
+        IIAGLedgerQueueRecords: {},
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: true,
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: false,
+        filteredIIAGLedgerQueue: action.payload,
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: false,
+        filteredIIAGLedgerQueue: null,
+      };
+
+    case types.CREATE_IIAG_LEDGER_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingIIAGLedgerMaster: false,
+      };
+
+    case types.CREATE_IIAG_LEDGER_MASTER_FAILED:
+      return {
+        ...state,
+        creatingIIAGLedgerMaster: false,
       };
 
     default:

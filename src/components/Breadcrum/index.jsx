@@ -474,6 +474,21 @@ export default function Index({ isQuery }) {
       }
     }
 
+    if ('master-iiag-ledger' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/IIAG-Ledger` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/IIAG-Ledger` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+      } else {
+        router.route = '/Master' + '/IIAG-Ledger';
+      }
+    }
+
 
     router.route.split('/').map((subRoute, index) => {
 

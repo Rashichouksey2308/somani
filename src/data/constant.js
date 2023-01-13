@@ -111,3 +111,14 @@ export const MASTERS_SAC_MASTER_QUEUE = [
         name: 'Group'
     },
 ]
+
+export const MASTERS_IIAG_LEDGER_MASTER_QUEUE = [
+    {
+        id: 'gl_list',
+        name: 'List of GL',
+    },
+    {
+        id: 'group',
+        name: 'Group'
+    }
+]
