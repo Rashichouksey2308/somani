@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Router from 'next/router';
 import styles from './index.module.scss';
 import TransactionSummaryDetails from '../../../src/components/Checker/TransactionSummary';
+import { GetTransactionSummaryrDetails } from '../../../src/redux/checker/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Index() {
+
+    const dispatch = useDispatch();
+
+    const transactionSummaryId = sessionStorage.getItem('checkerTransactionSummaryId');
     const companyName = sessionStorage.getItem('checkerTransactionSummaryCompanyName');
+
+    const { transactionSummaryDetails } = useSelector((state) => state.checker);
+
+    useEffect(() => {
+        if (transactionSummaryId) {
+            fetchInitialData();
+        }
+    }, [transactionSummaryId]);
+
+    const fetchInitialData = () => {
+        dispatch(GetTransactionSummaryrDetails(`?termsheetId=${transactionSummaryId}`));
+    };
 
     return (
         <>
@@ -23,7 +41,10 @@ function Index() {
                     </div>
                 </div>
             </div>
-            <TransactionSummaryDetails />
+            <TransactionSummaryDetails
+                transactionSummaryDetails={transactionSummaryDetails}
+                transactionSummaryHistoryDetails={transactionSummaryDetails?.history?.length > 0 && transactionSummaryDetails?.history[0]}
+            />
         </>
     );
 }

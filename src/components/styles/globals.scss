@@ -1451,3 +1451,32 @@ body.dark-mode .react_multi_email [data-tag] {
     }
   }
 }
+
+body.dark-mode .termsheet_label span {
+  color: #fafafa !important;
+}
+
+body.dark-mode .termsheet_value span {
+  color: #fafafa !important;
+}
+
+body.dark-mode .termsheet_main {
+  background: #293141;
+}
+
+body.light-mode .termsheet_main .termsheet_card {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0px 3px 12px #e5e7ed;
+  border: 0.1px solid #d2d7e5 !important;
+}
+
+body.dark-mode .termsheet_main .termsheet_card {
+  background: #171e27;
+  border-radius: 5px !important;
+}
+
+body.dark-mode .sub_header {
+  background-color: #232936 !important;
+  border-color: #434e61 !important;
+}

@@ -199,6 +199,8 @@ export default {
   updateInternalCompanyRemark: 'internal-company/checker-internal-company-status-update',
   getVendorDetails: 'vendor/get-vendor',
   updateVendorRemark: 'vendor/checker-vendor-status-update',
+  getTransactionSummaryDetails: 'termsheet/get-termsheet',
+  updateTransactionSummaryRemark: 'termsheet/checker-termsheet-status-update',
   
   //Masters
   getAllCommodity: 'commodity/get-commodities',
