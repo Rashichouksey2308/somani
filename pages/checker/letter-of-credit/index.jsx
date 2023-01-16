@@ -76,7 +76,11 @@ function Index() {
         Cell: ({ row }) => {
           return (
             <div className={`${styles.edit_image} img-fluid badge badge-outline`}>
-              <a className="cursor-pointer">
+              <a className="cursor-pointer"
+              onClick={() =>
+                handleRoute(row?.original)
+              }
+              >
                 <Image height="20px" width="20px" src="/static/mode_edit.svg" alt="Edit" />
               </a>
             </div>
@@ -88,6 +92,7 @@ function Index() {
 
   const handleRoute = (lcModule) => {
     sessionStorage.setItem('checkerletterOfCreditId', lcModule?._id);
+    sessionStorage.setItem('checkerletterOfCreditCompanyName', lcModule?.company?.companyName);
     dispatch(setDynamicName(lcModule?.company?.companyName));
     Router.push('/checker/letter-of-credit/id');
   };
