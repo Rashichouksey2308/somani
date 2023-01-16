@@ -94,7 +94,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       });
     });
 
-    if(balance === maxBalance) return false;
+    if (balance === maxBalance) return false;
     if (balance < maxBalance) return true;
     else {
       let toastMessage = `igm cannot be greater than order quantity`;
@@ -108,11 +108,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   let blQty;
 
   const totalQuantityWithTolerance = () => {
-    let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
-    const tolerance = _get(TransitDetails, 'data[0].order.tolerance', 0);
-    const maxBalance = balance + (balance * tolerance) / 100;
-    return maxBalance
-  }
+    let bl = 0;
+    for (const item of igmList?.igmDetails) {
+      bl += parseFloat(item.blNumber[0].blQuantity);
+    }
+    return bl;
+  };
 
   const remainingQuantity = (index, item) => {
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
@@ -132,6 +133,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
       balance = Number(blQty) - Number(blNumberNew == undefined ? 0 : blNumberNew);
     }
     blQty = balance;
+    // totalQuantityWithTolerance();
     return balance;
   };
 
