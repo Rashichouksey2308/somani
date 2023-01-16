@@ -147,7 +147,7 @@ function Index() {
                                             onChange={handlePortDetailsChange}
                                         >
                                             <option value="Select">Select</option>
-                                            {getCountriesMasterData.map((val, index) => {
+                                            {getCountriesMasterData?.map((val, index) => {
                                                 return <option value={`${val.Country}`}>{val.Country}</option>;
                                             })}
                                         </select>

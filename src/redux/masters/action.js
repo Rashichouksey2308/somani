@@ -455,27 +455,20 @@ export const getCountries = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
 
-  const headers = {
-    authorization: jwtAccessToken,
-    Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  };
   dispatch({
     type: types.GET_COUNTRIES_MASTERS,
   });
   try {
-    await Axios.get(`${API.corebaseUrl}${API.countriesMaster}`, {
-      headers: headers,
-    }).then((response) => {
+    Axios.get(`${API.masterBaseUrl}${API.countriesMaster}`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_COUNTRIES_MASTERS_SUCCESS,
-          payload: response.data.data.data,
+          payload: response.data,
         });
       } else {
         dispatch({
           type: types.GET_COUNTRIES_MASTERS_FAILURE,
-          payload: response.data.data.data,
+          payload: response.data,
         });
       }
     });
@@ -914,3 +907,865 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
     });
   }
 };
+
+export const getAllStates = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  dispatch({
+    type: types.GET_STATES_MASTERS,
+  });
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getAllStates}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.status === 200) {
+        dispatch(setNotLoading());
+        dispatch({
+          type: types.GET_STATES_MASTERS_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: types.GET_STATES_MASTERS_SUCCESS,
+          payload: [],
+        });
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: types.GET_STATES_MASTERS_SUCCESS,
+      payload: [],
+    });
+    dispatch(setNotLoading());
+  }
+};
+
+export const GetMasterUsersQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterUsersQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterUsersQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterUsersQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Inspection Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterUsersQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterUsersQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterUsersQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterUsersQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterUsersQueueFailed(response.data));
+        const toastMessage = 'Search Users Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterUsersQueueFailed());
+    const toastMessage = 'Search Leads request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const GetMasterPortsQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterPortsQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterPortsQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterPortsQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Port Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterPortsQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterPortsQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterPortsQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterPortsQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterPortsQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterPortsQueueFailed(response.data));
+        const toastMessage = 'Search Ports Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterPortsQueueFailed());
+    const toastMessage = 'Search Ports request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreatePortMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createPortMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createPortMasterSuccess(response.data.data));
+      let toastMessage = 'PORT ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createPortMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createPortMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD PORT DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const GetDocumentMasterQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getDocumentMasterQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getDocumentMasterQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getDocumentMasterQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Document Master Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getDocumentMasterQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterDocumentMasterQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterDocumentMasterQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterDocumentMasterQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterDocumentMasterQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterDocumentMasterQueueFailed(response.data));
+        const toastMessage = 'Search Document Master Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterDocumentMasterQueueFailed());
+    const toastMessage = 'Search Document Master request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateDocumentMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createDocumentMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createDocumentMasterSuccess(response.data.data));
+      let toastMessage = 'DOCUMENT CREATED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createDocumentMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createDocumentMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD DOCUMENT MASTER';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+
+// Handler for Country-master Start ---->
+export const GetMasterCountryQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterCountryQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterCountryQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterCountryQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Country Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterCountryQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterCountryQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterCountryQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterCountryQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterCountryQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterCountryQueueFailed(response.data));
+        const toastMessage = 'Search Country Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterCountryQueueFailed());
+    const toastMessage = 'Search Country request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateCountryMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createCountryMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createCountryMasterSuccess(response.data.data));
+      let toastMessage = 'COUNTRY ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createCountryMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createCountryMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD COUNTRY DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for Country-master End ---->
+
+// Handler for Currency-master Start ---->
+export const GetMasterCurrencyQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterCurrencyQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterCurrencyQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterCurrencyQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Currency Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterCurrencyQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterCurrencyQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterCurrencyQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterCurrencyQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterCurrencyQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterCurrencyQueueFailed(response.data));
+        const toastMessage = 'Search Currency Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterCurrencyQueueFailed());
+    const toastMessage = 'Search Currency request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateCurrencyMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createCurrencyMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createCurrencyMasterSuccess(response.data.data));
+      let toastMessage = 'CURRENCY ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createCurrencyMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createCurrencyMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD CURRENCY DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for Currency-master End ---->
+
+// Handler for SAC-master Start ---->
+export const GetMasterSACQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterSACQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterSACQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterSACQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch SAC Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterSACQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterSACQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterSACQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterSACQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterSACQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterSACQueueFailed(response.data));
+        const toastMessage = 'Search SAC Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterSACQueueFailed());
+    const toastMessage = 'Search SAC request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateSACMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createSACMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createSACMasterSuccess(response.data.data));
+      let toastMessage = 'SAC ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createSACMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createSACMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD SAC DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for SAC-master End ---->
+
+// Handler for TDS-Section-master Start ---->
+export const GetMasterTDSSectionQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterTDSSectionQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterTDSSectionQueueRecordsSuccess(response?.data?.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterTDSSectionQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch TDS Section Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterTDSSectionQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+export const FilterTDSSectionQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterTDSSectionQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterTDSSectionQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterTDSSectionQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterTDSSectionQueueFailed(response.data));
+        const toastMessage = 'Search TDS Section Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterTDSSectionQueueFailed());
+    const toastMessage = 'Search TDS Section request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+export const CreateTDSSectionMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+    let response = await Axios.post(`${API.corebaseUrl}${API.createTDSSectionMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createTDSSectionMasterSuccess(response.data.data));
+      let toastMessage = 'TDS_SECTION ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createTDSSectionMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createTDSSectionMasterFailed());
+    let toastMessage = 'COULD NOT ADD TDS_SECTION DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for TDS-Section-master End ---->
+
+
+// Handler for IIAGLedger-master Start ---->
+export const GetMasterIIAGLedgerQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterIIAGLedgerQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterIIAGLedgerQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterIIAGLedgerQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch IIAGLedger Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterIIAGLedgerQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterIIAGLedgerQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterIIAGLedgerQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterIIAGLedgerQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterIIAGLedgerQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterIIAGLedgerQueueFailed(response.data));
+        const toastMessage = 'Search IIAGLedger Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterIIAGLedgerQueueFailed());
+    const toastMessage = 'Search IIAGLedger request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateIIAGLedgerMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createIIAGLedgerMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createIIAGLedgerMasterSuccess(response.data.data));
+      let toastMessage = 'IIAG_LEDGER ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createIIAGLedgerMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createIIAGLedgerMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD IIAG_LEDGER DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for IIAGLedger-master End ---->
