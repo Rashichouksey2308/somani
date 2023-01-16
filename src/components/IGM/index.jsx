@@ -109,12 +109,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
 
   const totalQuantityWithTolerance = () => {
     let bl = 0;
-    for (const item of igmList?.igmDetails) {
-      bl += parseFloat(item.blNumber[0].blQuantity);
+    const bol = _get(TransitDetails, 'data[0].BL.billOfLanding', []);
+    for (const item of bol) {
+      bl += parseFloat(item.blQuantity);
     }
     return bl;
   };
-
+  
   const remainingQuantity = (index, item) => {
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
     const tolerance = _get(TransitDetails, 'data[0].order.tolerance', 0);
