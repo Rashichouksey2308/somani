@@ -115,11 +115,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     }
     return bl;
   };
-  
+
   const remainingQuantity = (index, item) => {
-    let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
-    const tolerance = _get(TransitDetails, 'data[0].order.tolerance', 0);
-    const maxBalance = balance + (balance * tolerance) / 100;
+    let balance = 0;
+    const bol = _get(TransitDetails, 'data[0].BL.billOfLanding', []);
+    for (const item of bol) {
+      balance += parseFloat(item.blQuantity);
+    }
 
     let numOr0 = (n) => (isNaN(n) ? 0 : n);
 
@@ -129,12 +131,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     );
 
     if (index == 0) {
-      balance = Number(maxBalance) - Number(blNumberNew == undefined ? 0 : blNumberNew);
+      balance = Number(balance) - Number(blNumberNew == undefined ? 0 : blNumberNew);
     } else {
       balance = Number(blQty) - Number(blNumberNew == undefined ? 0 : blNumberNew);
     }
     blQty = balance;
-    // totalQuantityWithTolerance();
     return balance;
   };
 
