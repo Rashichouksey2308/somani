@@ -83,7 +83,7 @@ function Index({ Header, KeyAddresses, uniqueField }) {
                             </div>
                         ))
                         :
-                        <h5 className='m-auto'>No Address address? found</h5>
+                        <h5 className='m-auto'>No Records found</h5>
                     }
                 </div>
             </div>
