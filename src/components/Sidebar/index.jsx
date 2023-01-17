@@ -124,20 +124,75 @@ function Index() {
         { name: 'User Roles', image: '/static/user-roles.svg', route: '' },
         { name: 'Vendors', image: '/static/vendors.svg', route: '/vendors' },
         { name: 'Internal Companies', image: '/static/vendors.svg', route: '/internal-companies' },
-        { name: 'Ports', image: '/static/vendors.svg', route: '/ports' },
-        { name: 'Document Master', image: '/static/vendors.svg', route: '/document-master' },
-        { name: 'Currency Master', image: '/static/vendors.svg', route: '/currency-master' },
-        { name: 'Go No Go Logic', image: '/static/vendors.svg', route: '/go-no-go-logic' },
-
-
         {
           name: 'Insurance Company',
           image: '/static/insurance-company.svg',
           route: '',
         },
         { name: 'Commodity', image: '/static/commodity.svg', route: '/commodity' },
-        { name: 'GL', image: '/static/gl.svg', route: '' },
         { name: 'Others', image: '/static/others.svg', route: '' },
+        {
+          name: 'Third-Party Inspection',
+          image: '/static/Review Queue.svg',
+          route: '',
+        },
+        {
+          name: 'Ports',
+          image: '/static/gl.svg',
+          route: '/masters/ports',
+        },
+        {
+          name: 'Document',
+          image: '/static/gl.svg',
+          route: '/masters/document-master',
+        },
+        {
+          name: 'Country',
+          image: '/static/gl.svg',
+          route: '/masters/country',
+        },
+        {
+          name: 'Currency',
+          image: '/static/gl.svg',
+          route: '/masters/currency',
+        },
+        {
+          name: 'TDS-Section',
+          image: '/static/gl.svg',
+          route: '/masters/tds-section',
+        },
+        {
+          name: 'SAC',
+          image: '/static/gl.svg',
+          route: '/masters/SAC',
+        },
+        {
+          name: 'IIAG Ledger',
+          image: '/static/gl.svg',
+          route: '/masters/IIAG-ledger',
+        }
+      ],
+      image: '/static/Masters.svg',
+      route: '',
+    },
+    {
+      main: 'Checker',
+      Other: [
+        {
+          name: 'Users',
+          image: '/static/credit-queue.svg',
+          route: '/checker/users',
+        },
+        { name: 'Vendors', image: '/static/review-queue.svg', route: '/checker/vendor' },
+        { name: 'Commodity', image: '/static/review-queue.svg', route: '/checker/commodity' },
+        { name: 'Internal Companies', image: '/static/review-queue.svg', route: '/checker/internal-companies' },
+        { name: 'Rejected Records', image: '/static/review-queue.svg', route: '' },
+        { name: 'Inspection', image: '/static/inspection.svg', route: '/checker/inspection' },
+        { name: 'Credit CAM', image: '/static/inspection.svg', route: '/checker/credit-cam' },
+        { name: 'Transaction Summary', image: '/static/term-sheets.svg', route: '/checker/transaction-summary' },
+        { name: 'Generic', image: '/static/inspection.svg', route: '/checker/generic' },
+        { name: 'Lc Module', image: '/static/lc-module.svg', route: '/checker/letter-of-credit' },
+        { name: 'Go No Go Logic', image: '/static/lc-module.svg', route: '/checker/go-no-go-logic' },
       ],
       image: '/static/Masters.svg',
       route: '',
@@ -255,36 +310,34 @@ function Index() {
                   <div className={`${styles.sub_wrapper} ${index12 == index ? className : null}`}>
                     {val?.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-                          const className12 =
-                            index12 == index || subCategory == other.main
-                              ? `${styles.openlist} sidebar-selected`
-                              : null;
-                          return (
-                            <>
-                              <div
-                                index={index2}
-                                className={`${styles.sub_header} ${
-                                  subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
+                        const className12 =
+                          index12 == index || subCategory == other.main
+                            ? `${styles.openlist} sidebar-selected`
+                            : null;
+                        return (
+                          <>
+                            <div
+                              index={index2}
+                              className={`${styles.sub_header} ${subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                 }`}
-                                onClick={() => {
-                                  handleOpen(other.name, index2, '');
-                                  Router.push(other.route);
-                                }}
-                              >
-                                <div>
-                                  <img src={`${other.image}`}></img>
-                                  <span
-                                    className={`${
-                                      subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
+                              onClick={() => {
+                                handleOpen(other.name, index2, '');
+                                Router.push(other.route);
+                              }}
+                            >
+                              <div>
+                                <img src={`${other.image}`}></img>
+                                <span
+                                  className={`${subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                     }`}
-                                  >
-                                    {other.name}
-                                  </span>
-                                </div>
+                                >
+                                  {other.name}
+                                </span>
                               </div>
-                            </>
-                          );
-                        })
+                            </div>
+                          </>
+                        );
+                      })
                       : null}
                   </div>
                 </div>
@@ -338,34 +391,32 @@ function Index() {
                   <div className={`${styles.sub_wrapper} ${index12 == index ? className : null}`}>
                     {val.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-                          const className12 = index12 == index ? `${styles.openlist} sidebar-selected` : null;
+                        const className12 = index12 == index ? `${styles.openlist} sidebar-selected` : null;
 
-                          return (
-                            <>
-                              <div
-                                index={index2}
-                                className={`${styles.sub_header} ${
-                                  subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
+                        return (
+                          <>
+                            <div
+                              index={index2}
+                              className={`${styles.sub_header} ${subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                 }`}
-                                onClick={() => {
-                                  handleOpen(other.name, index2, '');
-                                  Router.push(other.route);
-                                }}
-                              >
-                                <div>
-                                  <img src={`${other.image}`}></img>
-                                  <span
-                                    className={`${
-                                      subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
+                              onClick={() => {
+                                handleOpen(other.name, index2, '');
+                                Router.push(other.route);
+                              }}
+                            >
+                              <div>
+                                <img src={`${other.image}`}></img>
+                                <span
+                                  className={`${subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                     }`}
-                                  >
-                                    {other.name}
-                                  </span>
-                                </div>
+                                >
+                                  {other.name}
+                                </span>
                               </div>
-                            </>
-                          );
-                        })
+                            </div>
+                          </>
+                        );
+                      })
                       : null}
                   </div>
                 </div>

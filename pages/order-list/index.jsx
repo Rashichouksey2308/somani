@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
@@ -9,14 +9,31 @@ import { GetBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import _get from 'lodash/get';
 import { GetCompanyDetails, GetCreditLimit } from '../../src/redux/companyDetail/action';
+import Table from '../../src/components/Table';
+import QueueStats from '../../src/components/QueueStats';
+import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import moment from 'moment';
+import slugify from 'slugify';
 import constants from '@/utils/constants'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
+  const [pageLimit, setPageLimit] = useState(10);
+  const [sortByState, setSortByState] = useState({
+    column: '',
+    order: null,
+  });
   const dispatch = useDispatch();
 
   const { singleOrder } = useSelector((state) => state.buyer);
+
+  const statData = {
+    'all': singleOrder?.totalCount,
+    'approved': singleOrder?.approved,
+    'pending': singleOrder?.pending,
+    'rejected': singleOrder?.rejected,
+    'closed': 10
+  }
 
   useEffect(() => {
     const companyIDnewOrder = sessionStorage.getItem('companyID');
@@ -29,7 +46,11 @@ function Index() {
     dispatch(setDynamicName(_get(singleOrder, 'data[0].company.companyName', ' ')));
   }, [dispatch, singleOrder]);
 
-  const compId = _get(singleOrder, 'data[0].company._id', '');
+  useEffect(() => {
+    dispatch(GetOrders(`?page=${currentPage}&limit=${pageLimit}`));
+  }, [dispatch, currentPage, pageLimit]);
+
+  let compId = _get(singleOrder, 'data[0].company._id', '');
 
   const handleRouteNewOrder = () => {
     sessionStorage.setItem('companyID', _get(singleOrder, 'data[0].company._id', ''));
@@ -55,6 +76,43 @@ function Index() {
     }
   };
 
+  const tableColumns = useMemo(() => [
+    {
+      Header: 'Order Id',
+      accessor: 'orderId',
+      Cell: ({ cell: { value }, row: { original } }) => (
+        <span
+          onClick={() => {
+            handleRoute(original);
+          }}
+          className="font-weight-bold text-primary"
+        >
+          {value}
+        </span>
+      ),
+    },
+    {
+      Header: 'Commodity',
+      accessor: 'commodity',
+    },
+    {
+      Header: 'Order Value',
+      accessor: 'orderValue',
+    },
+    {
+      Header: 'Creation Date',
+      accessor: 'createdAt',
+      Cell: ({ value }) => {
+        return moment(value?.split('T')[0]).format('DD-MM-YYYY');
+      },
+    },
+    {
+      Header: 'Status',
+      accessor: 'queue',
+      disableSortBy: true,
+      Cell: ({ value }) => <QueueStatusSymbol status={value} />,
+    },
+  ]);
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
@@ -96,160 +154,24 @@ function Index() {
           </div>
 
           {/*status Box*/}
-          <div className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}>
-            <div className={`${styles.all} ${styles.boxInner} all border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/leads-icon.svg" className="img-fluid" alt="All Leads" />
-                </div>
-                <h3>
-                  <span> All </span>
-                  3,200
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/check.svg" className="img-fluid" alt="Check" />
-                </div>
-                <h3>
-                  <span>APPROVED</span>
-                  780
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.review} ${styles.boxInner} review border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
-                </div>
-                <h3>
-                  <span>REVIEW</span>
-                  800
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-                </div>
-                <h3>
-                  <span>REJECTED</span>
-                  89
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/bookmark.svg" className="img-fluid" alt="Bookmark" />
-                </div>
-                <h3>
-                  <span>SAVED</span>
-                  60
-                </h3>
-              </div>
-            </div>
-          </div>
+          <QueueStats data={statData} />
           {/*leads table*/}
-          <div className={`${styles.datatable} border datatable card`}>
-            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-              <h3 className="heading_card">All Orders</h3>
-              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                <span>
-                  Showing Page {currentPage + 1} out of {Math.ceil(singleOrder?.totalCount / constants.numberSeven)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) return 
-                    else {
-                      setCurrentPage((prevState) => prevState - 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / constants.numberSeven)) {
-                      setCurrentPage((prevState) => prevState + 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-              </div>
-            </div>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                  <thead>
-                    <tr className="table_row">
-                      <th>
-                        ORDER ID{' '}
-                        <img className={`mb-1`} src="/static/icons8-sort-24.svg" onClick={() => handleSort()} />
-                      </th>
-                      <th>COMMODITY</th>
-                      <th>CREATED BY</th>
-                      <th>CREATED ON</th>
-                      <th>STATUS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {singleOrder &&
-                      singleOrder?.data?.map((buyer, index) => (
-                        <tr key={index} className={`${styles.table_row} table_row`}>
-                          <td>{buyer?.orderId ? buyer?.orderId : buyer?.applicationId}</td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => {
-                              handleRoute(buyer);
-                            }}
-                          >
-                            {buyer?.commodity}
-                          </td>
-                          <td>{buyer?.createdBy?.fName}</td>
-
-                          <td>{moment(buyer?.createdAt?.split('T')[0]).format('DD-MM-YYYY')}</td>
-                          <td>
-                            <span
-                              className={`${styles.status} ${
-                                buyer.queue === 'Rejected'
-                                  ? styles.rejected
-                                  : buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
-                            ></span>
-
-                            {buyer.queue === 'Rejected'
-                              ? 'Rejected'
-                              : buyer.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          {singleOrder?.data && (
+            <Table
+              tableHeading="All Orders"
+              currentPage={currentPage}
+              totalCount={singleOrder?.totalCount}
+              setCurrentPage={setCurrentPage}
+              columns={tableColumns}
+              data={singleOrder?.data}
+              pageLimit={pageLimit}
+              setPageLimit={setPageLimit}
+              serverSortEnabled={true}
+            />
+          )}
         </div>
       </div>
     </>
   );
 }
-
 export default Index;

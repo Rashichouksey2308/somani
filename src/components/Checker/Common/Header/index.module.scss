@@ -1,0 +1,40 @@
+@import '../../../../components/styles/Core/config';
+
+.head_container {
+    height: 48px;
+    display: flex;
+    border: none;
+    background: none;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .head_header {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+
+        .arrow {
+            width: 13px;
+            height: 21px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .heading {
+            font-size: 34px;
+            font-weight: bold;
+            line-height: 41px;
+            margin: 0;
+            padding-left: 18px;
+            text-transform: lowercase;
+
+            &:first-letter {
+                text-transform: uppercase;
+            }
+
+            &:first-line {
+                text-transform: capitalize;
+            }
+        }
+    }
+}

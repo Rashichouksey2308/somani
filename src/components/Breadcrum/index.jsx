@@ -232,8 +232,10 @@ export default function Index({ isQuery }) {
     if ('termsheet' == pageName) {
       if (order != null) {
         router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()}` + `/${order}`;
+
       } else if (id !== null) {
         router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()} `;
+
       } else {
         router.route = '/Leads' + '/Transaction Summary';
       }
@@ -262,8 +264,10 @@ export default function Index({ isQuery }) {
     if ('Lc' == pageName) {
       if (order != null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}` + `/${order}`;
+
       } else if (id !== null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}`;
+
       } else {
         router.route = '/Agreements & LC' + '/LC';
       }
@@ -308,7 +312,12 @@ export default function Index({ isQuery }) {
         router.route =
           '/Loading, Transit & Unloading' + `/Inspection` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
       } else if (id !== null) {
-        router.route = '/Loading, Transit & Unloading' + `Inspection` + `/${upperTabs}` + `/${id?.toLowerCase()}`;
+        router.route =
+          '/Loading, Transit & Unloading' +
+          `Inspection` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Inspection';
       }
@@ -328,8 +337,10 @@ export default function Index({ isQuery }) {
     if ('forward' == pageName) {
       if (order != null) {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()}` + `/${order}`;
+
       } else if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()} `;
+
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging';
       }
@@ -339,8 +350,10 @@ export default function Index({ isQuery }) {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
         // `/${id}` +
         // `/${order}`
+
       } else if (id !== null) {
-        router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCaidse()} `;
+        router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `;
+
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
       }
@@ -361,7 +374,136 @@ export default function Index({ isQuery }) {
       }
     }
 
-    router.route.split('/').forEach((subRoute, index) => {
+    if ('checker-inspection' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Checker' + `/Inspection` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Checker' +
+          `/Inspection` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Checker' + '/Inspection';
+      }
+    }
+
+    if ('master-ports' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/Ports` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/Ports` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Master' + '/Ports';
+      }
+    }
+
+    if ('document-master' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/Document-Master` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/Document-Master` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Master' + '/Document-Master';
+      }
+    }
+
+    if ('master-country' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/Country` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/Country` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Master' + '/Country';
+      }
+    }
+
+    if ('master-currency' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/Currency` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/Currency` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Master' + '/Currency';
+      }
+    }
+
+    if ('master-sac' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/SAC Code Master` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/SAC Code Master` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+
+      } else {
+        router.route = '/Master' + '/SAC Code Master';
+      }
+    }
+
+    if ('master-tds-section' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/TDS-Section` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/TDS-Section` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+      } else {
+        router.route = '/Master' + '/TDS-Section';
+      }
+    }
+
+    if ('master-iiag-ledger' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/IIAG-Ledger` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/IIAG-Ledger` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+      } else {
+        router.route = '/Master' + '/IIAG-Ledger';
+      }
+    }
+
+
+    router.route.split('/').map((subRoute, index) => {
+
+
       if (subRoute !== '') {
         url.push(subRoute);
       } else {
@@ -380,19 +522,18 @@ export default function Index({ isQuery }) {
       <div className="col-md-7">
         <img src="/static/home.svg"></img>
         {pageName == 'generic' ||
-        pageName == 'vessel' ||
-        pageName == 'custom' ||
-        pageName == 'termsheet' ||
-        pageName == 'credit-queue' ||
-        pageName == 'payment' ? (
+          pageName == 'vessel' ||
+          pageName == 'custom' ||
+          pageName == 'termsheet' ||
+          pageName == 'credit-queue' ||
+          pageName == 'payment' ? (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
               return (
                 <span
                   key={index}
-                  className={`${styles.breadcrumcontainer} ${
-                    myUrlLength == index + 1 ? `${styles.highlight} highlight` : null
-                  }`}
+                  className={`${styles.breadcrumcontainer} ${myUrlLength == index + 1 ? `${styles.highlight} highlight` : null
+                    }`}
                 >
                   <span className="breadcrum_mode">/</span>
                   <span className={`${styles.value} breadcrum_mode`}>{val}</span>
@@ -406,17 +547,16 @@ export default function Index({ isQuery }) {
               return (
                 <span
                   key={index}
-                  className={`${styles.breadcrumcontainer} ${
-                    myUrlLength == 4
-                      ? myUrlLength - 2 == index
-                        ? `${styles.highlight} highlight`
-                        : myUrlLength - 1 == index
+                  className={`${styles.breadcrumcontainer} ${myUrlLength == 4
+                    ? myUrlLength - 2 == index
+                      ? `${styles.highlight} highlight`
+                      : myUrlLength - 1 == index
                         ? `${styles.highlight} highlight`
                         : null
-                      : myUrlLength - 1 == index
+                    : myUrlLength - 1 == index
                       ? `${styles.highlight} highlight`
                       : null
-                  }`}
+                    }`}
                 >
                   <span className="breadcrum_mode">/</span>
                   <span className={`${styles.value} breadcrum_mode`}>{val}</span>

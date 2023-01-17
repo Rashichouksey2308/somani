@@ -79,6 +79,22 @@ function getBuyerFailed() {
     type: types.GET_BUYER_FAILED,
   };
 }
+function getOrderLeads() {
+  return {
+    type: types.GET_ORDER_LEADS,
+  };
+}
+function getOrderLeadsSuccess(payload) {
+  return {
+    type: types.GET_ORDER_LEADS_SUCCESSFULL,
+    payload,
+  };
+}
+function getOrderLeadsFailed() {
+  return {
+    type: types.GET_ORDER_LEADS_FAILED,
+  };
+}
 
 function getAllBuyer() {
   return {
@@ -96,6 +112,25 @@ function getAllBuyerSuccess(payload) {
 function getAllBuyerFailed() {
   return {
     type: types.GET_ALL_BUYER_FAILED,
+  };
+}
+
+function getAllUpdatedBuyer() {
+  return {
+    type: types.GET_ALL_UPDATED_BUYER,
+  };
+}
+
+function getAllUpdatedBuyerSuccess(payload) {
+  return {
+    type: types.GET_ALL_UPDATED_BUYER_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getAllUpdatedBuyerFailed() {
+  return {
+    type: types.GET_ALL_UPDATED_BUYER_FAILED,
   };
 }
 
@@ -305,6 +340,39 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
     dispatch(setNotLoading());
   }
 };
+export const GetOrderLeads = () => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getOrderLeads}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getOrderLeadsSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getOrderLeadsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Order Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getOrderLeadsFailed());
+    dispatch(setNotLoading());
+  }
+};
 
 export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
@@ -317,6 +385,7 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
     Cache: 'no-cache',
     'Access-Control-Allow-Origin': '*',
   };
+
   try {
     dispatch(getAllBuyer());
     await Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload || ''}`, {
@@ -337,6 +406,42 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   }
 };
 
+export const GetAllUpdatedBuyer = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  try {
+    dispatch(getAllUpdatedBuyer());
+    Axios.get(`${API.corebaseUrl}${API.getUpdatedBuyers}${payload || ''}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllUpdatedBuyerSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getAllUpdatedBuyerFailed(response.data));
+        const toastMessage = 'Could not fetch Company Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getAllUpdatedBuyerFailed());
+
+    dispatch(setNotLoading());
+  }
+};
+
 export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading());
@@ -348,6 +453,7 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
     const response = await Axios.get(`${API.corebaseUrl}${API.orderDetail}?order=${payload.orderId}`, {
       headers: headers,
     });
+
     if (response.data.code === 200) {
       dispatch(getAllOrderSuccess(response.data.data));
 

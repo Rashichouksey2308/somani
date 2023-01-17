@@ -2,6 +2,8 @@ import * as types from './actionType';
 
 const initialState = {
   getCountriesMasterData: [],
+  getCommodityMasterData: [],
+  getGonogoMasterData: [],
   gettingState: false,
   getStateMasterData: [],
   getPortsMasterData: [],
@@ -13,6 +15,47 @@ const initialState = {
   getBanksMasterData: [],
   getBranchesMasterData: [],
   getPincodesMasterData: [],
+  getStatesMasterData: [],
+  usersQueueRecords: [],
+  gettingUsersQueueRecords: false,
+  filteringUsersQueue: false,
+  filteredUsersQueue: [],
+  portsQueueRecords: [],
+  gettingPortsQueueRecords: false,
+  filteringPortsQueue: false,
+  filteredPortsQueue: [],
+  creatingPortMaster: false,
+  addNewCommodityData: [],
+  documentMasterQueueRecords: [],
+  gettingDocumentMasterQueueRecords: false,
+  filteringDocumentMasterQueue: false,
+  filteredDocumentMasterQueue: [],
+  creatingDocumentMaster: false,
+  countryQueueRecords: [],
+  gettingCountryQueueRecords: false,
+  filteringCountryQueue: false,
+  filteredCountryQueue: [],
+  creatingCountryMaster: false,
+  currencyQueueRecords: [],
+  gettingCurrencyQueueRecords: false,
+  filteringCurrencyQueue: false,
+  filteredCurrencyQueue: [],
+  creatingCurrencyMaster: false,
+  TDSSectionQueueRecords: [],
+  gettingTDSSectionQueueRecords: false,
+  filteringTDSSectionQueue: false,
+  filteredTDSSectionQueue: [],
+  creatingTDSSectionMaster: false,
+  SACQueueRecords: [],
+  gettingSACQueueRecords: false,
+  filteringSACQueue: false,
+  filteredSACQueue: [],
+  creatingSACMaster: false,
+  IIAGLedgerQueueRecords: [],
+  gettingIIAGLedgerQueueRecords: false,
+  filteringIIAGLedgerQueue: false,
+  filteredIIAGLedgerQueue: [],
+  creatingIIAGLedgerMaster: false,
   zipCode: [],
 };
 
@@ -32,6 +75,36 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getCountriesMasterData: [],
+      };
+    case types.GET_COMMODITY_MASTERS:
+      return {
+        ...state,
+        getCommodityMasterData: [],
+      };
+    case types.GET_COMMODITY_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getCommodityMasterData: action.payload,
+      };
+    case types.GET_COMMODITY_MASTERS_FAILURE:
+      return {
+        ...state,
+        getCommodityMasterData: [],
+      };
+    case types.GET_GONOGO_MASTERS:
+      return {
+        ...state,
+        getGonogoMasterData: [],
+      };
+    case types.GET_GONOGO_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getGonogoMasterData: action.payload,
+      };
+    case types.GET_GONOGO_MASTERS_FAILURE:
+      return {
+        ...state,
+        getGonogoMasterData: [],
       };
     case types.GET_STATE_MASTERS:
       return {
@@ -194,6 +267,391 @@ function MastersReducer(state = initialState, action) {
         getPincodesMasterData: [],
       };
 
+    case types.GET_STATES_MASTERS:
+      return {
+        ...state,
+        getStatesMasterData: [],
+      };
+    case types.GET_STATES_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getStatesMasterData: action.payload,
+      };
+    case types.GET_STATES_MASTERS_FAILURE:
+      return {
+        ...state,
+        getStatesMasterData: [],
+      };
+
+    case types.GET_MASTER_USERS_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingUsersQueueRecords: false,
+        usersQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_USERS_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingUsersQueueRecords: false,
+        usersQueueRecords: {},
+      };
+
+    case types.FILTER_USERS_QUEUE:
+      return {
+        ...state,
+        filteringUsersQueue: true,
+      };
+
+    case types.FILTER_USERS_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringUsersQueue: false,
+        filteredUsersQueue: action.payload,
+      };
+
+    case types.FILTER_USERS_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringUsersQueue: false,
+        filteredUsersQueue: null,
+      };
+
+    case types.GET_MASTER_PORTS_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingPortsQueueRecords: false,
+        portsQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_PORTS_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingPortsQueueRecords: false,
+        portsQueueRecords: {},
+      };
+
+    case types.FILTER_PORTS_QUEUE:
+      return {
+        ...state,
+        filteringPortsQueue: true,
+      };
+
+    case types.FILTER_PORTS_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringPortsQueue: false,
+        filteredPortsQueue: action.payload,
+      };
+
+    case types.FILTER_PORTS_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringPortsQueue: false,
+        filteredPortsQueue: null,
+      };
+
+    case types.CREATE_PORT_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingPortMaster: false,
+      };
+
+    case types.CREATE_PORT_MASTER_FAILED:
+      return {
+        ...state,
+        creatingPortMaster: false,
+      };
+
+    case types.ADD_NEW_COMMODITY_MASTERS:
+      return {
+        ...state,
+        getPincodesMasterData: [],
+      };
+    case types.ADD_NEW_COMMODITY_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getPincodesMasterData: action.payload,
+      };
+    case types.ADD_NEW_COMMODITY_MASTERS_FAILURE:
+      return {
+        ...state,
+        getPincodesMasterData: [],
+      };
+    case types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingDocumentMasterQueueRecords: false,
+        documentMasterQueueRecords: action.payload,
+      };
+
+    case types.GET_DOCUMENT_MASTER_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingDocumentMasterQueueRecords: false,
+        documentMasterQueueRecords: {},
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: true,
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: false,
+        filteredDocumentMasterQueue: action.payload,
+      };
+
+    case types.FILTER_DOCUMENT_MASTER_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringDocumentMasterQueue: false,
+        filteredDocumentMasterQueue: null,
+      };
+
+    case types.CREATE_DOCUMENT_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingDocumentMaster: false,
+      };
+
+    case types.CREATE_DOCUMENT_MASTER_FAILED:
+      return {
+        ...state,
+        creatingDocumentMaster: false,
+      };
+
+    case types.GET_MASTER_COUNTRY_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingCountryQueueRecords: false,
+        countryQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_COUNTRY_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingCountryQueueRecords: false,
+        countryQueueRecords: {},
+      };
+
+    case types.FILTER_COUNTRY_QUEUE:
+      return {
+        ...state,
+        filteringCountryQueue: true,
+      };
+
+    case types.FILTER_COUNTRY_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringCountryQueue: false,
+        filteredCountryQueue: action.payload,
+      };
+
+    case types.FILTER_COUNTRY_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringCountryQueue: false,
+        filteredCountryQueue: null,
+      };
+
+    case types.CREATE_COUNTRY_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingCountryMaster: false,
+      };
+
+    case types.CREATE_COUNTRY_MASTER_FAILED:
+      return {
+        ...state,
+        creatingCountryMaster: false,
+      };
+
+    case types.GET_MASTER_CURRENCY_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingCurrencyQueueRecords: false,
+        currencyQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_CURRENCY_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingCurrencyQueueRecords: false,
+        currencyQueueRecords: {},
+      };
+
+    case types.FILTER_CURRENCY_QUEUE:
+      return {
+        ...state,
+        filteringCurrencyQueue: true,
+      };
+
+    case types.FILTER_CURRENCY_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringCurrencyQueue: false,
+        filteredCurrencyQueue: action.payload,
+      };
+
+    case types.FILTER_CURRENCY_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringCurrencyQueue: false,
+        filteredCurrencyQueue: null,
+      };
+
+    case types.CREATE_CURRENCY_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingCurrencyMaster: false,
+      };
+
+    case types.CREATE_CURRENCY_MASTER_FAILED:
+      return {
+        ...state,
+        creatingCurrencyMaster: false,
+      };
+
+    case types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingTDSSectionQueueRecords: false,
+        TDSSectionQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingTDSSectionQueueRecords: false,
+        TDSSectionQueueRecords: {},
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE:
+      return {
+        ...state,
+        filteringTDSSectionQueue: true,
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringTDSSectionQueue: false,
+        filteredTDSSectionQueue: action.payload,
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringTDSSectionQueue: false,
+        filteredTDSSectionQueue: null,
+      };
+
+    case types.CREATE_TDS_SECTION_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingTDSSectionMaster: false,
+      };
+
+    case types.CREATE_TDS_SECTION_MASTER_FAILED:
+      return {
+        ...state,
+        creatingTDSSectionMaster: false,
+      };
+    case types.GET_MASTER_SAC_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingSACQueueRecords: false,
+        SACQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_SAC_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingSACQueueRecords: false,
+        SACQueueRecords: {},
+      };
+
+    case types.FILTER_SAC_QUEUE:
+      return {
+        ...state,
+        filteringSACQueue: true,
+      };
+
+    case types.FILTER_SAC_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringSACQueue: false,
+        filteredSACQueue: action.payload,
+      };
+
+    case types.FILTER_SAC_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringSACQueue: false,
+        filteredSACQueue: null,
+      };
+
+    case types.CREATE_SAC_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingSACMaster: false,
+      };
+
+    case types.CREATE_SAC_MASTER_FAILED:
+      return {
+        ...state,
+        creatingSACMaster: false,
+      };
+
+    case types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingIIAGLedgerQueueRecords: false,
+        IIAGLedgerQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingIIAGLedgerQueueRecords: false,
+        IIAGLedgerQueueRecords: {},
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: true,
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: false,
+        filteredIIAGLedgerQueue: action.payload,
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: false,
+        filteredIIAGLedgerQueue: null,
+      };
+
+    case types.CREATE_IIAG_LEDGER_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingIIAGLedgerMaster: false,
+      };
+
+    case types.CREATE_IIAG_LEDGER_MASTER_FAILED:
+      return {
+        ...state,
+        creatingIIAGLedgerMaster: false,
+      };
     case types.GET_ZIPCODES_MASTERS:
       return {
         ...state,

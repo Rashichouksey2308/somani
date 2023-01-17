@@ -85,6 +85,27 @@ function searchLeadsFailed () {
   }
 }
 
+// ******** Filter leads  ***********/////
+
+function filterLeads() {
+  return {
+    type: types.FILTER_LEADS,
+  };
+}
+
+function filterLeadsSuccess(payload) {
+  return {
+    type: types.FILTER_LEADS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterLeadsFailed() {
+  return {
+    type: types.FILTER_LEADS_FAILED,
+  };
+}
+
 // ******** get Termsheet ***********/////
 
 function gettermsheet () {
@@ -195,10 +216,37 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
   }
 }
 
+export const FilterLeads = (payload) => async (dispatch, getState, api) => {
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterLeads());
+    Axios.get(`${API.corebaseUrl}${API.filter}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterLeadsSuccess(response.data));
+      } else {
+        dispatch(filterLeadsFailed(response.data));
+      }
+    });
+  } catch (error) {
+    dispatch(filterLeadsFailed());
+    const toastMessage = 'Filter Leads request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+  }
+};
+
 export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading())
-  const cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   const headers = {

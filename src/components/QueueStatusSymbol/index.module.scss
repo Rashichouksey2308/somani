@@ -1,0 +1,24 @@
+.status {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.approved {
+  background: #26dd73;
+}
+
+.pending {
+  background: #879CB1;
+}
+
+.rejected {
+  background: #ed714c;
+}
+
+.review {
+  background: #ffce00;
+}

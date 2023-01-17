@@ -5,6 +5,8 @@ const initialState = {
   buyerList: null,
   gettingAllBuyerList: false,
   allBuyerList: [],
+  gettingUpdatedBuyerList: false,
+  updatedBuyerList: [],
   creatingBuyer: false,
   createdBuyerResponse: null,
   updatingBuyer: false,
@@ -19,8 +21,10 @@ const initialState = {
   gettingOrderList: false,
   orderList: null,
   gettingSingleOrder: false,
-  singleOrder: []
-}
+  singleOrder: [],
+  gettingOrderLeads: false,
+  getOrderLeads: [],
+};
 
 function BuyerReducer (state = initialState, action) {
   switch (action.type) {
@@ -65,6 +69,45 @@ function BuyerReducer (state = initialState, action) {
         allBuyerList: []
       }
 
+    case types.GET_ALL_UPDATED_BUYER:
+      return {
+        ...state,
+        gettingUpdatedBuyerList: true,
+        updatedBuyerList: [],
+      };
+
+    case types.GET_ALL_UPDATED_BUYER_SUCCESSFULL:
+      return {
+        ...state,
+        gettingUpdatedBuyerList: false,
+        updatedBuyerList: action.payload,
+      };
+
+    case types.GET_ALL_UPDATED_BUYER_FAILED:
+      return {
+        ...state,
+        gettingUpdatedBuyerList: false,
+        updatedBuyerList: [],
+      };
+
+    case types.GET_ORDER_LEADS:
+      return {
+        ...state,
+        gettingOrderLeads: true,
+        getOrderLeads: [],
+      };
+    case types.GET_ORDER_LEADS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingOrderLeads: true,
+        getOrderLeads: action.payload,
+      };
+    case types.GET_ORDER_LEADS_FAILED:
+      return {
+        ...state,
+        gettingOrderLeads: true,
+        getOrderLeads: [],
+      };
     case types.GET_ALL_ORDER:
       return {
         ...state,

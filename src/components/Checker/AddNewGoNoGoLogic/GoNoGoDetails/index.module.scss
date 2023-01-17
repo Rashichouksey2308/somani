@@ -1,0 +1,33 @@
+@import '../../../styles/Core/config';
+
+.main {
+    margin-bottom: 26px;
+    border-radius: 6px !important;
+
+    .head_container {
+        border-bottom: 2px solid #cad6e6;
+        padding: 25px 35px !important;
+        height: 80px;
+        cursor: pointer;
+
+        .heading {
+            color: #3687e8;
+            font-weight: bold;
+            font-size: 22px;
+            text-transform: capitalize;
+            line-height: 27px;
+        }
+    }
+}
+
+.highlighted_field{
+    background-color: yellow;
+    padding: 5px;
+    color: black;
+}
+
+.highlighted_field_pd_10 {
+    background-color: yellow;
+    padding: 10px;
+    color: black;
+}

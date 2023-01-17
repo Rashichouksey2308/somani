@@ -1,18 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import PaymentTableMain from '../../src/components/PaymentTableMain'
-import Filter from '../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { setDynamicName, setPageName } from '../../src/redux/userData/action'
-import { SearchLeads } from '../../src/redux/buyerProfile/action'
-import { GetAllDelivery } from '../../src/redux/release&DeliveryOrder/action'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import PaymentTableMain from '../../src/components/PaymentTableMain';
+import Filter from '../../src/components/Filter';
+import FilterBadge from '../../src/components/FilterBadge';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDynamicName, setPageName } from '../../src/redux/userData/action';
+import { SearchLeads } from '../../src/redux/buyerProfile/action';
+import { GetAllDelivery } from '../../src/redux/release&DeliveryOrder/action';
 import constants from '@/utils/constants'
 
 function Index () {
   const dispatch = useDispatch()
 
-  const [serachterm, setSearchTerm] = useState('')
+  const [serachterm, setSearchTerm] = useState('');
+  const [open, setOpen] = useState(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const { searchedLeads } = useSelector((state) => state.order)
 
@@ -73,6 +78,12 @@ function Index () {
             )}
           </div>
           <Filter />
+          <div className="d-flex flex-wrap">
+            {open && <FilterBadge label="Bhutani Traders" onClose={handleClose} />}
+            <FilterBadge label="Aluminium" />
+            <FilterBadge label="Approved" />
+            <FilterBadge label="15437556" />
+          </div>
           {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />

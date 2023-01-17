@@ -1,0 +1,23 @@
+@import '../styles/Core/config';
+
+.filterd_card {
+    background: #FFFFFF;
+    box-shadow: 0px 3px 12px #E5E7ED;
+    border: 1px solid #D2D7E5;
+    border-radius: 8px;
+    padding: 11px 12px;
+    margin-right: 20px;
+
+    .label {
+        letter-spacing: 0.17px;
+        color: #111111;
+        font-size: 18px;
+        line-height: 25px;
+        margin: 0 auto;
+    }
+
+    .close_img {
+        width: 10px;
+        height: 10px;
+    }
+}

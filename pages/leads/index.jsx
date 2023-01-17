@@ -1,28 +1,47 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.css';
 import Router from 'next/router';
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { GetAllUpdatedBuyer, GetOrderLeads, GetOrders, GetAllBuyer } from '../../src/redux/registerBuyer/action';
+import { FilterLeads } from '../../src/redux/buyerProfile/action.js';
+import { setDynamicName, setPageName } from '../../src/redux/userData/action';
+import SearchAndFilter from '../../src/components/SearchAndFilter';
+import QueueStats from '../../src/components/QueueStats';
+import Table from '../../src/components/Table';
+import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
+import slugify from 'slugify';
+import { LEADS_QUEUE_FILTER_ITEMS } from '../../src/data/constant';
 import Filter from '../../src/components/Filter';
 import Pagination from '../../src/components/Pagination';
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { GetAllBuyer, GetOrders } from '../../src/redux/registerBuyer/action';
-import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import styles from './index.module.scss';
-import constants from '@/utils/constants'
+import constants from '@/utils/constants';
 
 function Index() {
-  const [serachterm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
 
-  const { allBuyerList } = useSelector((state) => state.buyer);
-  const { searchedLeads } = useSelector((state) => state.order);
+  const { updatedBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
+  const { filteredLeads } = useSelector((state) => state.order);
+  const [searchterm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState(filteredLeads);
+  const [filterItem, setFilterItem] = useState({ company_name: true });
+  const [appliedFilters, setAppliedFilters] = useState({ company_name: true });
+  const [showBadges, setShowBadges] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageLimit, setPageLimit] = useState(10);
+  const [sortByState, setSortByState] = useState({
+    column: '',
+    order: null,
+  });
+  const [openList, setOpenList] = useState(true);
+  const [filterQuery, setFilterQuery] = useState('');
 
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}`));
-  }, [dispatch, currentPage]);
+    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${filterQuery}`));
+  }, [dispatch, currentPage, pageLimit]);
 
   useEffect(() => {
     dispatch(setPageName('leads'));
@@ -36,6 +55,68 @@ function Index() {
     }
   }, []);
 
+  useEffect(() => {
+    dispatch(GetOrderLeads());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!isFilterApply()) {
+      setSearchTerm('');
+      setShowBadges([]);
+      dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${filterQuery}`));
+      dispatch(FilterLeads('status=" "'));
+    }
+  }, [JSON.stringify(filterItem)]);
+
+  useEffect(() => {
+    if (filteredLeads) setFilter(filteredLeads);
+  }, [filteredLeads]);
+
+  const handleClose = (index) => {
+    showBadges.splice(index, 1);
+
+    let query = '';
+
+    showBadges.map((item) => {
+      query = query + `&${item?.key}=${slugify(item?.displayVal, { lower: false })}`;
+    });
+
+    setFilterQuery(query);
+
+    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${query}`));
+
+    setShowBadges([...showBadges]);
+  };
+
+  const handleListClose = (result) => {
+    const badgesItems = [];
+    const filterItemData = Object.keys(appliedFilters);
+
+    let query = '';
+
+    filterItemData.map((val) => {
+      if (appliedFilters[val]) {
+        if (val === 'status') {
+          result?.status && badgesItems.push({ key: val, displayVal: result?.status });
+          query = query + `&${val}=${result?.status}`;
+        } else if (val === 'company_name') {
+          result?.buyerName && badgesItems.push({ key: val, displayVal: result?.buyerName });
+          query = query + `&${val}=${slugify(result?.buyerName, { lower: false })}`;
+        } else if (val === 'commodity') {
+          result?.commodity && badgesItems.push({ key: val, displayVal: result?.commodity });
+          query = query + `&${val}=${slugify(result?.commodity, { lower: false })}`;
+        }
+      }
+    });
+
+    setFilterQuery(query);
+
+    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${query}`));
+
+    setOpenList(false);
+    setShowBadges(badgesItems);
+  };
+
   const handleRoute = (buyer) => {
     sessionStorage.setItem('orderId', buyer._id);
     sessionStorage.setItem('companyID', buyer.company._id);
@@ -45,30 +126,154 @@ function Index() {
     }, constants.numberTimeOut);
   };
 
+  const delayedQuery = useCallback(
+    _.debounce((q) => dispatch(FilterLeads(`${q}`)), 1000),
+    [],
+  );
+
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
+    setOpenList(true);
     setSearchTerm(query);
-    if (query.length >= constants.numberThree) {
-      dispatch(SearchLeads(query));
+
+    let queryParams = '';
+    if (Object.keys(appliedFilters).length !== 0 && query.length >= 3) {
+      Object.keys(appliedFilters).forEach((item) => {
+        const isTrue = appliedFilters[item];
+        if (isTrue) {
+          queryParams += `${item}=${query}&`;
+        }
+      });
+      delayedQuery(queryParams);
+      if (query.length >= constants.numberThree) {
+        dispatch(SearchLeads(query));
+      }
     }
   };
-
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetAllBuyer(`?company=${id}`));
+  const handleApplyFilter = () => {
+    setAppliedFilters(filterItem);
   };
 
-  const [sorting, setSorting] = useState(1);
+  const handleBoolean = (value) => {
+    if (value.toLowerCase() === 'true') return true;
+    if (value.toLowerCase() === 'false') return false;
+    return value;
+  };
 
-  const handleSort = () => {
-    if (sorting === -1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting === 1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`));
-      setSorting(-1);
+  const handleFilterChange = (e) => {
+    const { name, checked } = e.target;
+
+    setFilterItem((prevState) => ({
+      ...prevState,
+      [name]: handleBoolean(checked.toString()),
+    }));
+  };
+
+  const isFilterApply = () => {
+    return Object.values(filterItem).some((val) => {
+      return val;
+    });
+  };
+
+  const handleSort = (column) => {
+    let columnName = slugify(column.Header, { lower: true });
+    if (columnName === 'commodity') {
+      columnName = 'commodity-sort';
     }
+    let sortOrder = '';
+    if (column.id === sortByState.column) {
+      setSortByState((state) => {
+        let updatedOrder = !state.order;
+        sortOrder = updatedOrder ? '-1' : '1';
+        return { ...state, order: updatedOrder };
+      });
+    } else {
+      let data = { column: column.id, order: column.isSortedDesc };
+      sortOrder = data.order ? '-1' : '1';
+      setSortByState(data);
+    }
+    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&column=${columnName}&order=${sortOrder}${filterQuery}`));
+  };
+
+  const statLeadsData = {
+    all: getOrderLeads?.totalCount,
+    approved: getOrderLeads?.approved,
+    review: getOrderLeads?.reviewed,
+    rejected: getOrderLeads?.rejected,
+    pending: getOrderLeads?.pending,
+  };
+
+  const tableColumns = useMemo(() => [
+    {
+      Header: 'Buyer Name',
+      accessor: 'company.companyName',
+      Cell: ({ cell: { value }, row: { original } }) => (
+        <span
+          onClick={() => {
+            handleRoute(original);
+          }}
+          className="font-weight-bold text-primary"
+        >
+          {value}
+        </span>
+      ),
+    },
+    {
+      Header: 'Commodity',
+      accessor: 'commodity',
+    },
+    {
+      Header: 'Order Value',
+      accessor: 'orderValue',
+      Cell: ({ value }) => `${value.toLocaleString('en-US')} USD`,
+    },
+    {
+      Header: 'Creation Date',
+      accessor: 'createdAt',
+      Cell: ({ value }) => value.slice(0, 10),
+    },
+    {
+      Header: 'Existing Customer',
+      accessor: 'existingCustomer',
+      Cell: ({ value }) => {
+        return value ? 'Yes' : 'No';
+      },
+    },
+    {
+      Header: 'Status',
+      accessor: 'cam.status',
+      disableSortBy: true,
+      Cell: ({ value }) => <QueueStatusSymbol status={value} />,
+    },
+  ]);
+
+  const searchView = () => {
+    return (
+      filter &&
+      openList &&
+      searchterm.length > 3 && (
+        <div className={styles.searchResults}>
+          <ul>
+            {filteredLeads?.data?.data?.length > 0 ? (
+              filteredLeads?.data?.data?.map((results, index) => (
+                <li onClick={() => handleListClose(results)} id={results._id} key={index} className="cursor-pointer">
+                  {appliedFilters?.company_name === true && results?.buyerName}
+                  <span>
+                    &nbsp;{' '}
+                    {appliedFilters?.commodity === true && <span className="text-right">{results?.commodity}</span>}
+                    &nbsp; {appliedFilters?.status === true && <span className="text-right">{results?.status}</span>}
+                  </span>
+                </li>
+              ))
+            ) : (
+              <li>
+                <span>No result found</span>
+              </li>
+            )}
+          </ul>
+        </div>
+      )
+    );
   };
 
   return (
@@ -78,33 +283,17 @@ function Index() {
         <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.search}>
-              <div className="input-group">
-                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
-                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
-                </div>
-                <input
-                  value={serachterm}
-                  onChange={handleSearch}
-                  type="text"
-                  className={`${styles.formControl} border text_area form-control formControl `}
-                  placeholder="Search"
-                />
-              </div>
-              {searchedLeads && serachterm && (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {searchedLeads.data.data.map((results, index) => (
-                      <li onClick={handleFilteredData} id={results._id} key={index}>
-                        {results.companyName} <span>{results.customerId}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-            <Filter />
-         
+            <SearchAndFilter
+              searchterm={searchterm}
+              handleSearch={handleSearch}
+              filterItem={filterItem}
+              handleFilterChange={handleFilterChange}
+              handleApplyFilter={handleApplyFilter}
+              filterItems={LEADS_QUEUE_FILTER_ITEMS}
+              showBadges={showBadges}
+              handleClose={handleClose}
+              searchView={searchView}
+            />
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
@@ -116,137 +305,25 @@ function Index() {
           </div>
 
           {/*status Box*/}
-          <div className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}>
-            <div className={`${styles.all} ${styles.boxInner} all border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/leads-icon.svg" className="img-fluid" alt="All Leads" />
-                </div>
-                <h3>
-                  <span> All </span>
-                  3,200
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/check.svg" className="img-fluid" alt="Check" />
-                </div>
-                <h3>
-                  <span>APPROVED</span>
-                  780
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.review} ${styles.boxInner} review border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
-                </div>
-                <h3>
-                  <span>REVIEW</span>
-                  800
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-                </div>
-                <h3>
-                  <span>REJECTED</span>
-                  89
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={`${styles.iconBox} iconBox`}>
-                  <img src="/static/bookmark.svg" className="img-fluid" alt="Bookmark" />
-                </div>
-                <h3>
-                  <span>SAVED</span>
-                  60
-                </h3>
-              </div>
-            </div>
-          </div>
+          <QueueStats data={statLeadsData} />
+
           {/*leads table*/}
-          <div className={`${styles.datatable} border datatable card`}>
-            <Pagination
-              tableName="Leads"
-              data={allBuyerList?.data}
-              totalNumber={10}
+          {updatedBuyerList?.data?.data && (
+            <Table
+              tableHeading="Leads"
               currentPage={currentPage}
+              totalCount={updatedBuyerList?.data?.total}
               setCurrentPage={setCurrentPage}
+              columns={tableColumns}
+              data={updatedBuyerList?.data?.data}
+              pageLimit={pageLimit}
+              setPageLimit={setPageLimit}
+              handleSort={handleSort}
+              sortByState={sortByState}
+              serverSortEnabled={true}
+              totalCountEnable={false}
             />
-
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                  <thead>
-                    <tr className="table_row">
-                      <th>
-                        CUSTOMER ID{' '}
-                        <img className={`mb-1`} src="/static/icons8-sort-24.svg" onClick={() => handleSort()} />
-                      </th>
-                      <th>BUYER NAME</th>
-                      <th>CREATED BY</th>
-                      <th>USERNAME</th>
-                      <th>EXISTING CUSTOMER</th>
-                      <th>STATUS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {allBuyerList &&
-                      allBuyerList.data?.data?.map((buyer, index) => (
-                        <tr key={index} className={`${styles.table_row} table_row`}>
-                          <td>
-                            {buyer?.company?.customerId
-                              ? buyer?.company?.customerId
-                              : buyer?.company?.temporaryCustomerId}
-                          </td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => {
-                              handleRoute(buyer);
-                            }}
-                          >
-                            {buyer.company.companyName}
-                          </td>
-                          <td>{buyer?.createdBy?.userRole  ? buyer.createdBy.userRole : 'RM'}</td>
-                          <td>{buyer?.createdBy?.fName}</td>
-                          <td>{buyer?.existingCustomer ? 'Yes' : 'No'}</td>
-                          <td>
-                            <span
-                              className={`${styles.status} ${
-                                buyer?.queue === 'Rejected'
-                                  ? styles.rejected
-                                  : buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
-                            ></span>
-
-                            {buyer.queue === 'Rejected'
-                              ? 'Rejected'
-                              : buyer.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </>

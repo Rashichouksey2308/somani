@@ -7,7 +7,7 @@ import OrderProfile from '../../src/components/OrderProfile';
 import Router from 'next/router';
 import styles from './profile.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetBuyer, UpdateBuyer, GetAllBuyer } from '../../src/redux/registerBuyer/action';
+import { GetBuyer, UpdateBuyer, GetOrderLeads } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { settingSidebar } from '../../src/redux/breadcrumb/action';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
