@@ -31,9 +31,8 @@
       height: 48px;
       display: flex;
       align-items: center;
-      margin: 0 0 0 10px;
       @include respond(lg-desktop) {
-        height: 40px;
+        min-height: 40px;
       }
 
       .arrow {
@@ -52,7 +51,7 @@
         font-weight: bold;
         line-height: 41px;
         margin: 0;
-        padding-left: 18px;
+        padding: 0 10px;
         text-transform: lowercase;
 
         &:first-letter {
@@ -319,7 +318,7 @@
   .datatable {
     border: 1px solid #d2d7e5;
     border-radius: 6px;
-   
+
     .tableFilter {
       min-height: 80px;
       padding: 0 15px 0 35px;
@@ -486,6 +485,10 @@
             border-radius: 50%;
             display: inline-block;
             vertical-align: middle;
+            @include respond(lg-desktop) {
+              width: 12px;
+              height: 12px;
+            }
           }
 
           .approved {

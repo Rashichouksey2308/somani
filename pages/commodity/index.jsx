@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,23 +6,47 @@ import { SearchLeads } from 'redux/buyerProfile/action';
 import DownloadMasterBar from '../../src/components/DownloadMasterBar';
 import Image from 'next/image';
 import Router from 'next/router';
+import { GetAllCommodity, GetCommodity } from '../../src/redux/commodity/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import ToggleSwitch from '../../src/components/ToggleSwitch'
+import constants from '@/utils/constants'
 
-const index = () => {
+
+const Index = () => {
   const dispatch = useDispatch();
   const [serachterm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+
   const { searchedLeads } = useSelector((state) => state.order);
+
+  const { allCommodity } = useSelector((state) => state.commodity);
+
+  useEffect(() => {
+    dispatch(GetAllCommodity(`?page=${currentPage}&limit=${constants.numberTen}`));
+  }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    dispatch(setPageName('commodity'));
+    dispatch(setDynamicName(null));
+    dispatch(setDynamicOrder(null));
+  });
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
+
   const handleFilteredData = (e) => {
     setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
+  };
+
+  const handleRoute = (commodity) => {
+    sessionStorage.setItem('commodityId', commodity._id);
+    dispatch(GetCommodity(`?commodityId=${commodity._id}`));
+    Router.push('/update-commodity');
   };
 
   return (
@@ -69,7 +93,7 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
-              onClick={() => Router.push('/vendors/add-new-vendor')}
+              onClick={() => Router.push('/commodity/id')}
             >
               Add
             </button>
@@ -90,11 +114,31 @@ const index = () => {
                 </div>
 
                 <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                  <span>Showing Page 1 out of 10</span>
-                  <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow left" className="img-fluid" />
+                  <span>
+                    Showing Page {currentPage + 1} out of {Math.ceil(allCommodity?.totalCount / constants.numberSeven)}
+                  </span>
+                  <a
+                    onClick={() => {
+                      if (currentPage === 0) return
+                       else {
+                        setCurrentPage((prevState) => prevState - 1);
+                      }
+                    }}
+                    href="#"
+                    className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                  >
+                    {' '}
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
-                  <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+                  <a
+                    onClick={() => {
+                      if (currentPage + 1 < Math.ceil(allCommodity?.totalCount / constants.numberSeven)) {
+                        setCurrentPage((prevState) => prevState + 1);
+                      }
+                    }}
+                    href="#"
+                    className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                  >
                     <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                 </div>
@@ -150,125 +194,35 @@ const index = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
+                    {allCommodity &&
+                      allCommodity?.data?.map((commodity, index) => (
+                        <tr key={index} className={`${styles.table_row} table_row17`}>
+                          <td className={styles.buyerName}>{commodity.Commodity}</td>
+                          <td>{commodity.Chapter_Name}</td>
 
-                      <td>72</td>
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <img src="/static/active.svg" className="img-fluid" alt="active" />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys</td>
-                      <td>Iron & Steel</td>
-
-                      <td>72</td>
-                      <td>
-                        <img src="/static/blacklisted.svg" className="img-fluid" alt="blacklisted" />
-                        <span className="m-3">No</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
-                        </div>
-                      </td>
-                    </tr>
+                          <td>{commodity.Chapter_Code}</td>
+                          <td> <ToggleSwitch/></td>
+                          <td>
+                            {' '}
+                            <div className={`${styles.edit_image} img-fluid`} onClick={() => handleRoute(commodity)}>
+                              <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
           <div className={`${styles.total_count}`}>
-            Total Count: <span>280</span>
+            Total Count: <span>{allCommodity?.totalCount}</span>
           </div>
         </div>
-        {/* <div className="d-flex justify-content-end mt-5 mb-4">
-        <div className={styles.btn_file}>
-          <span>Download</span>
-          <img
-            src="/static/file_download.svg"
-            className="img-fluid"
-            alt="FileDownload"
-          />
-        </div>
-      </div> */}
       </div>
-      <DownloadMasterBar btnName="Download" />
+      <DownloadMasterBar btnName="Download as Excel" />
     </>
   );
 };
 
-export default index;
+export default Index;

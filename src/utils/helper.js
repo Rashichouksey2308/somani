@@ -28,7 +28,7 @@ export const emailValidation = (email) => {
  * @returns A boolean value.
  */
 export const phoneValidation = (phone) => {
-  let regex = /^\d{10}$/;
+  let regex = /^[0-9]*$/;
   return !!phone.match(regex);
 };
 
@@ -61,6 +61,7 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
  */
 export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
   let newValue = Number(value / coversionRate);
+  if (value === 0) return 0;
   if (!newValue) return '';
   return newValue;
 };
@@ -72,6 +73,11 @@ export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
  */
 export const predictiveSearch = (text) => {
   let regex = /[a-zA-Z0-9]{4}/;
+  return regex.test(text);
+};
+
+export const checkForPlusSign = (text) => {
+  let regex = /[^a-zA-Z0-9 ]/g;
   return regex.test(text);
 };
 
@@ -115,10 +121,10 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
  * @param [where=front] - front or back
  * @returns A function that takes in 3 parameters and returns a string.
  */
-export const addPrefixOrSuffix = (unitOfValue, type, where = 'front') => {
+export const addPrefixOrSuffix = (unitOfValue, type, where = 'front', comma = 'en-IN') => {
   if (where === 'front')
-    return `${addPrefixSymbol(type)} ${Number(removePrefixOrSuffix(unitOfValue)).toLocaleString('en-IN')}`;
-  return `${Number(removePrefixOrSuffix(unitOfValue)).toLocaleString('en-IN')} ${type}`;
+    return `${addPrefixSymbol(type)} ${Number(removePrefixOrSuffix(unitOfValue)).toLocaleString(comma)}`;
+  return `${Number(removePrefixOrSuffix(unitOfValue)).toLocaleString(comma)} ${type}`;
 };
 
 /**
@@ -128,7 +134,9 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'front') => {
  */
 
 export const removePrefixOrSuffix = (unitOfValue) => {
-  return Number(unitOfValue?.toString().replace(/\D+/g, ''));
+  const value = String(unitOfValue).replace(/([a-zA-Z])/g, '');
+  
+  return Number(value);
 };
 
 /**
@@ -139,7 +147,7 @@ export const removePrefixOrSuffix = (unitOfValue) => {
  */
 export const checkNan = (unitOfValue, type = false, number = 2) => {
   if (isNaN(unitOfValue)) return '';
-  if (type === 'no') return Number(unitOfValue)?.toFixed(2);
+  if (type == 'no') return Number(unitOfValue)?.toFixed(2);
   if (!type) {
     return Number(unitOfValue)?.toLocaleString('en-IN', {
       maximumFractionDigits: 2,
@@ -155,7 +163,16 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
  * @param [symbol] - The currency symbol you want to add a prefix to.
  */
 export const addPrefixSymbol = (symbol = '') => {
-  if (symbol === 'INR' || 'RUPEE') return 'INR';
+  if (symbol === 'RUPEE') return 'INR';
   if (symbol === 'BRITISHPOUND') return 'POUND';
   return symbol;
+};
+
+export const crConverter = (amount = 0) =>
+  ` ₹ ${Number(amount / 10000000).toLocaleString('en-IN', {
+    maximumFractionDigits: 2,
+  })} Cr`;
+export const specialCharCheck = (val) => {
+  let reg = /^[a-zA-Z0-9]{4,10}$/;
+  return reg.test(val);
 };

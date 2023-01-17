@@ -1,15 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './inspection.module.scss';
-import Router from 'next/router';
-import Filter from '../../src/components/Filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-import { GetAllInspection } from '../../src/redux/Inspections/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action';
 import _get from 'lodash/get';
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Filter from '../../src/components/Filter';
+import Pagination from '../../src/components/Pagination';
+import { SearchLeads } from '../../src/redux/buyerProfile/action';
+import { GetAllInspection } from '../../src/redux/Inspections/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import styles from './inspection.module.scss';
+import constants from '@/utils/constants'
 
-function Index() {
+
+const Index = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -20,13 +23,13 @@ function Index() {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
       sessionStorage.setItem('loadedSubPage', `Inspection`);
-      sessionStorage.setItem('openList', 3);
+      sessionStorage.setItem('openList', constants.numberThree);
     }
   }, []);
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -49,14 +52,11 @@ function Index() {
 
   const [sorting, setSorting] = useState(1);
 
+
   const handleSort = () => {
-    if (sorting == -1) {
-      dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting == 1) {
-      dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
-      setSorting(-1);
-    }
+    dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
+    if (sorting === -1) setSorting(1);
+    else setSorting(-1);
   };
 
   const { allInspection } = useSelector((state) => state.Inspection);
@@ -108,11 +108,6 @@ function Index() {
             )}
           </div>
           <Filter />
-          {/* <a href="#" className={`${styles.filterList} filterList `}>
-        Bhutani Traders
-        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-      </a>
-       */}
         </div>
 
         <div className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}>
@@ -162,39 +157,12 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.datatable} border datatable card`}>
-          <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-            <h3 className="heading_card">Inspection Details</h3>
-            <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-              <span>
-                Showing Page {currentPage + 1} out of {Math.ceil(allInspection?.totalCount / 7)}
-              </span>
-              <a
-                onClick={() => {
-                  if (currentPage === 0) {
-                    return;
-                  } else {
-                    setCurrentPage((prevState) => prevState - 1);
-                  }
-                }}
-                href="#"
-                className={`${styles.arrow} ${styles.leftArrow} arrow`}
-              >
-                {' '}
-                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-              </a>
-              <a
-                onClick={() => {
-                  if (currentPage + 1 < Math.ceil(allInspection?.totalCount / 7)) {
-                    setCurrentPage((prevState) => prevState + 1);
-                  }
-                }}
-                href="#"
-                className={`${styles.arrow} ${styles.rightArrow} arrow`}
-              >
-                <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-              </a>
-            </div>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            tableName="Inspection Details"
+            data={allInspection}
+          />
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">

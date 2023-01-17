@@ -1,13 +1,13 @@
 import React from 'react';
-import styles from './index.module.scss';
+import styles from './user.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
 import AddNewInternal from '../../src/components/AddNewInternal';
 
 function Index() {
   return (
-    <Card className={`${styles.card} container-fluid`}>
-      <div className="m-2">
+    <div className="container-fluid p-0 border-0">
+      <Card className={`${styles.card}`}>
         <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
           <div className={`${styles.head_header} align-items-center`}>
             <div onClick={() => Router.push('/masters/users')} style={{ cursor: 'pointer' }}>
@@ -30,8 +30,8 @@ function Index() {
           </div>
         </Card.Header>
         <AddNewInternal />
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 }
 

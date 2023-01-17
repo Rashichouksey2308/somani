@@ -1,7 +1,6 @@
 @import '../styles/Core/config';
 
 .sub_card {
-  // border-bottom: 2px solid #D2D7E5;
   border-radius: 6px;
 
   .header {
@@ -50,11 +49,9 @@
 }
 
 .filed_container {
-  // min-width: 270px;
   padding: 5px 15px;
   margin-bottom: 1.5rem;
   box-sizing: border-box;
-  // padding: 0px !important;
   max-width: 20%;
   flex: 0 0 20%;
   @include respond(lg-desktop) {
@@ -76,7 +73,6 @@
     color: #00000080;
     line-height: 17px;
     font-weight: 500;
-    letter-spacing: 0.53px;
     letter-spacing: 0.53px;
     @include respond(lg-desktop) {
       font-size: 14px;
@@ -104,7 +100,6 @@
     }
 
     .value {
-      // white-space: nowrap;
       word-break: break-word;
     }
 

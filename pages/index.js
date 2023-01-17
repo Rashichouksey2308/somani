@@ -86,13 +86,12 @@ const IndexPage = () => {
                 <div className={`${styles.dashboardPadding} col-sm-12`}>
                   <div className={`${styles.leads} border card`}>
                     <div className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}>
-                      <div className={`  d-flex justify-content-between  align-items-center`}>
-                        <h3 className={`heading`}>
+                      <div className={`d-flex justify-content-between align-items-center`}>
+                        <h3 className={`${styles.title} heading`}>
                           BL Date{' '}
                           <img
                             className={`${darkMode ? styles.noRotate : styles.rotate} img-fluid`}
-                            src={`${darkMode ? `/static/white-arrow.svg` : `/static/keyboard_arrow_right-3.svg`}`}
-                            // src="/static/keyboard_arrow_right-3.svg"
+                            src={darkMode ? `/static/white-arrow.svg` : `/static/keyboard_arrow_right-3.svg`}
                             alt="arrow right"
                           />
                         </h3>

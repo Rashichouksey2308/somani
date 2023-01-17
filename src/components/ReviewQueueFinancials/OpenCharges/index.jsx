@@ -101,8 +101,8 @@ function Index({ chargesData }) {
                   <thead>
                     <tr>
                       <th width="15%">CHARGE ID</th>
-                      <th width="25%">CHARGE HOLDER</th>
-                      <th className="text-center" width="12%">
+                      <th className='text-left' width="25%">CHARGE HOLDER</th>
+                      <th  width="12%">
                         AMOUNT
                       </th>
                       <th className="text-center" width="12%">
@@ -124,8 +124,8 @@ function Index({ chargesData }) {
                       chargesDatas?.map((charges, index) => (
                         <tr key={index}>
                           <td>{charges.chargeId}</td>
-                          <td>{charges.nameOfChargeHolder}</td>
-                          <td className="text-center">
+                          <td className='text-left'>{charges.nameOfChargeHolder}</td>
+                          <td >
                             {/* {charges.finalAmountSecured} */}
                             {convertValue(charges.finalAmountSecured, unit)?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
@@ -156,36 +156,6 @@ function Index({ chargesData }) {
                           <td className="text-center">{charges.dateOfSatisfactionOfChargeInFull}</td>
                         </tr>
                       ))}
-                    {/* <tr>
-                      <td>100310953</td>
-                      <td>Divine Infracon Private Limited</td>
-                      <td className="text-center">96.17</td>
-                      <td className="text-center">08-12-2019</td>
-                      <td className="text-center">
-                        <img
-                          src="/static/eye.svg"
-                          alt="Eye"
-                          className="img-fluid"
-                        />
-                      </td>
-                      <td className="text-center">08-12-2019</td>
-                      <td className="text-center">08-12-2019</td>
-                    </tr>
-                    <tr>
-                      <td>100310953</td>
-                      <td>Gujarat Jhm Hotels Limited</td>
-                      <td className="text-center">96.17</td>
-                      <td className="text-center">08-12-2019</td>
-                      <td className="text-center">
-                        <img
-                          src="/static/eye.svg"
-                          alt="Eye"
-                          className="img-fluid"
-                        />
-                      </td>
-                      <td className="text-center">08-12-2019</td>
-                      <td className="text-center">08-12-2019</td>
-                    </tr> */}
                   </tbody>
                 </table>
               </div>

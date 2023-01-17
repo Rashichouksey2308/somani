@@ -10,7 +10,6 @@ import OrderReducer from 'redux/buyerProfile/reducer';
 import MarginMoneyReducer from 'redux/marginMoney/reducer';
 import CompanyReducer from 'redux/companyDetail/reducer';
 import CreditReducer from 'redux/creditQueueUpdate/reducer';
-
 import GenericReducer from './redux/generic/reducer';
 import NewOrderReducer from 'redux/newOrder/reducer';
 import LcModuleReducer from 'redux/lcModule/reducer';
@@ -32,6 +31,14 @@ import MastersReducer from 'redux/masters/reducer';
 import McaReportReducer from 'redux/mcaReport/reducer';
 import SupplierReducer from 'redux/supplier/reducer';
 import CheckerReducer from 'redux/checker/reducer';
+import CommodityReducer from 'redux/commodity/reducer';
+import InternalCompaniesReducer from 'redux/internalCompanies/reducer';
+import PortsReducer from 'redux/ports/reducer';
+import CountryReducer from 'redux/country/reducer';
+import DocumentReducer from '../src/redux/documentMaster/reducer';
+import GoNoGoReducer from 'redux/goNoGo/reducer';
+import VendorReducer from 'redux/vendor/reducer';
+import CurrencyReducer from 'redux/currency/reducer';
 
 export const createStore = (preloadedState) => {
   const middlewares = [];
@@ -76,6 +83,14 @@ export const createStore = (preloadedState) => {
       mcaReport: McaReportReducer,
       supplier: SupplierReducer,
       checker: CheckerReducer,
+      commodity: CommodityReducer,
+      internalCompanies: InternalCompaniesReducer,
+      ports: PortsReducer,
+      country: CountryReducer,
+      document: DocumentReducer,
+      Gng: GoNoGoReducer,
+      Vendor: VendorReducer,
+      Currency: CurrencyReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),

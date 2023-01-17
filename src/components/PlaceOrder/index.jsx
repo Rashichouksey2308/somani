@@ -15,6 +15,7 @@ import { checkNan, CovertvaluefromtoCR } from '../../utils/helper';
 import moment from 'moment';
 import Router from 'next/router';
 import { getCommodities, getCountries, getDocuments, getPorts } from '../../redux/masters/action';
+import { handleErrorToast } from '@/utils/helpers/global'
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -23,12 +24,9 @@ const Index = () => {
   const { creditData } = useSelector((state) => state.companyDetails);
   const { newOrder } = useSelector((state) => state.placeOrder);
 
-
-
   useEffect(() => {
     if (newOrder) {
       Router.push('/order-list');
-   
     }
   }, [newOrder]);
   useEffect(() => {
@@ -45,9 +43,9 @@ const Index = () => {
   const [orderData, setOrderData] = useState({
     transactionType: 'Import',
     commodity: '',
-    quantity: null,
+    quantity: '',
     unitOfQuantity: 'MT',
-    orderValue: 0,
+    orderValue: '',
     orderCurrency: '',
     unitOfValue: 'Crores',
     supplierName: '',
@@ -59,6 +57,7 @@ const Index = () => {
     tolerance: '',
     transactionPeriodDays: '',
     manufacturerName: '',
+    existingOrderValue:""
   });
 
   const [shipment, setShipment] = useState({
@@ -87,7 +86,6 @@ const Index = () => {
     setOrderData(newInput);
   };
 
-
   const handleCurr = () => {
     const newInput = { ...orderData };
     let currVal = handleCurrencyOrder(orderData.unitOfValue, orderData.orderValue);
@@ -96,7 +94,6 @@ const Index = () => {
   };
 
   const saveShipmentData = (name, value) => {
-
     const newInput = { ...shipment };
     const namesplit = name.split('.');
     namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
@@ -104,145 +101,55 @@ const Index = () => {
   };
 
   const onOrderSave = () => {
-  
-
-   
     if (orderData?.transactionType?.trim() === '') {
-      let toastMessage = 'Invalid Transaction Type';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Invalid Transaction Type');
     } else if (orderData?.commodity?.trim() === '') {
-      let toastMessage = 'Commodity can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
-    } else if (orderData?.quantity === '') {
-      let toastMessage = 'Quantity can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Commodity can not be Empty');
+    } else if (orderData?.quantity === '' || !Number(orderData?.quantity)) {
+      handleErrorToast('Quantity can not be Empty');
     } else if (orderData?.unitOfQuantity?.trim() === '') {
-      let toastMessage = 'Please Provide unit Of Quantity';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
-    } else if (orderData?.orderValue === '') {
-      let toastMessage = 'Please check the Order value  ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
-    }
-    
-    else if (orderData?.unitOfValue?.trim() === '') {
-      let toastMessage = 'Please set the unit of value';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Please Provide unit Of Quantity');
+    } else if (orderData?.orderValue === ''|| !Number(orderData?.orderValue) ) {
+      handleErrorToast('Please check the Order value');
+    } else if (orderData?.unitOfValue?.trim() === '' ) {
+      handleErrorToast('Please set the unit of value');
     } else if (orderData?.supplierName?.trim() === '') {
-      let toastMessage = 'Supplier Name cannot be empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Supplier Name cannot be empty');
     } else if (orderData.countryOfOrigin.trim() === '') {
-      let toastMessage = 'Country Of Origin can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Country Of Origin can not be Empty');
     } else if (orderData?.portOfDischarge?.trim() === '') {
-      let toastMessage = 'Port Of Discharge can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Port Of Discharge can not be Empty');
     } else if (orderData?.ExpectedDateOfShipment?.trim() === '') {
-      let toastMessage = 'Expected Date Of Shipment can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Expected Date Of Shipment can not be Empty');
     } else if (orderData?.incoTerm?.trim() === '') {
-      let toastMessage = 'the incoTerm can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('the incoTerm can not be Empty');
     } else if (orderData?.grade?.trim() === '') {
-      let toastMessage = 'Grade can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
-    } else if (orderData?.tolerance === '') {
-      let toastMessage = 'Tolerance can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Grade can not be Empty');
+    } else if (orderData?.tolerance === '' ) {
+      handleErrorToast('Tolerance can not be Empty');
     } else if (orderData?.transactionPeriodDays === '') {
-      let toastMessage = 'Transaction Period Days can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
-    } 
-    
-    else if (shipment?.shipmentType?.trim() === '') {
-      let toastMessage = 'SHIPMENT TYPE  can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Transaction Period Days can not be Empty');
+    } else if (shipment?.shipmentType?.trim() === '') {
+      handleErrorToast('SHIPMENT TYPE  can not be Empty');
     } else if (shipment?.loadPort?.fromDate === '') {
-      let toastMessage = 'laycan load port from can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('laycan load port from can not be Empty');
     } else if (shipment?.loadPort?.toDate?.trim() === '') {
-      let toastMessage = 'laycan load port to can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('laycan load port to can not be Empty');
     } else if (shipment?.lastDateOfShipment?.trim() === '') {
-      let toastMessage = 'last date of shipment can not be Empty ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('last date of shipment can not be Empty');
     } else if (shipment?.ETAofDischarge?.fromDate?.trim() === '') {
-      let toastMessage = 'Eta at Dischare Port from   can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Eta at Dischare Port from   can not be Empty');
     } else if (shipment?.ETAofDischarge?.toDate === '') {
-      let toastMessage = 'Eta at Dischare Port to   can not be Empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Eta at Dischare Port to   can not be Empty');
     } else if (shipment?.portOfLoading?.trim() === '') {
-      let toastMessage = 'Please Provide a port of loading';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return;
+      handleErrorToast('Please Provide a port of loading');
     } else {
       handleCurr();
       let orderDataNew = { ...orderData };
       orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity);
       orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue) * 10000000;
       orderDataNew.tolerance = removePrefixOrSuffix(orderData.tolerance);
+      orderDataNew.existingOrderValue=removePrefixOrSuffix(orderData.orderValue) * 10000000
 
       const obj = {
         orderDetails: { ...orderDataNew, shipmentDetail: { ...shipment } },
@@ -268,7 +175,7 @@ const Index = () => {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Place a New Order</h1>
+            <h1 className={styles.heading}> Place a New Order </h1>
           </div>
           <div>
             <button onClick={() => clearData()} className={`${styles.clear_btn} clear_btn`}>
@@ -308,7 +215,7 @@ const Index = () => {
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
                 <span className={styles.value}>
                   {creditData?.data?.limitExpiry
-                    ? moment(creditData?.data?.limitExpiry?.split('T')[0]).format('DD-MM-YYYY')
+                    ? moment(creditData?.data?.limitExpiry).format('DD-MM-YYYY')
                     : ''}
                 </span>
               </div>
@@ -334,9 +241,7 @@ const Index = () => {
           expectedShipment={orderData?.ExpectedDateOfShipment}
           port={getPortsMasterData}
         />
-        <div className="mt-4">
-          <CommonSave onSave={onOrderSave} />
-        </div>
+        <CommonSave onSave={onOrderSave} />
       </div>
     </div>
   );

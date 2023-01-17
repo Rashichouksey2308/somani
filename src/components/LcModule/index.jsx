@@ -9,6 +9,7 @@ import Filter from '../Filter';
 import _get from 'lodash/get';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -18,8 +19,6 @@ function Index() {
   const dispatch = useDispatch();
 
   const { lcModule } = useSelector((state) => state.lc);
-
-
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcCompanyId');
@@ -37,17 +36,23 @@ function Index() {
   }, [lcModule]);
 
   const handleRoute = (lc) => {
- 
-    if (!lc.firstTimeUpdate) {
+    if (lc.firstTimeUpdate) {
+      sessionStorage.setItem('lcPreviewId', lc.order.lc);
+      Router.push('/letter-table/letter-amend/id');
+    } else {
       dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
       sessionStorage.setItem('lcOrder', lc.order.lc);
       Router.push('/letter-credit/lc-create');
-    } else {
-      sessionStorage.setItem('lcPreviewId', lc.order.lc);
-      Router.push('/letter-table/letter-amend/id');
     }
   };
   const handleLcAmmendRoute = (lc) => {
+    if (lc.ifFormFilled == false) {
+      let toastMessage = 'PLS FILL LC FIRST';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        return;
+      }
+    }
     dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
     sessionStorage.setItem('lcAmmend', lc.order.lc);
     Router.push('/lc-module/lc-application');
@@ -69,6 +74,18 @@ function Index() {
     } else if (sorting == 1) {
       dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}&createdAt=${sorting}`));
       setSorting(-1);
+    }
+  };
+  /// firstimeUpdate False -- update
+  /// firstimeUpdate False && isPostAmmend FAlse -- amend
+  /// firstimeUpdate False && isPostAmmed true -- update
+  /// isAmmend disable -- amend
+
+  const defineAction = (lc, index) => {
+    if (!lc.firstTimeUpdate || !lc.route || lc.route === 'postUpdated' ) {
+      return true;
+    } else if (lc.route === 'amend') {
+      return false;
     }
   };
 
@@ -104,7 +121,7 @@ function Index() {
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
           </a>  */}
 
-          <button
+          {/* <button
             className={styles.createBtn}
             onClick={() => {
               Router.push('/lc-module/lc-application');
@@ -112,7 +129,7 @@ function Index() {
             style={{ position: 'absolute', right: 25 }}
           >
             Create
-          </button>
+          </button> */}
         </div>
 
         <div className={`${styles.datatable} border card datatable`}>
@@ -125,13 +142,12 @@ function Index() {
             </h3>
             <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
               <span>
-                Showing Page {currentPage + 1} out of {Math.ceil(lcModule?.totalCount / 10)}
+                Showing Page {currentPage + 1} out of {Math.ceil(lcModule?.totalCount / 7)}
               </span>
               <a
                 onClick={() => {
-                  if (currentPage === 0) {
-                    return;
-                  } else {
+                  if (currentPage === 0) return;
+                  else {
                     setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
@@ -143,7 +159,7 @@ function Index() {
               </a>
               <a
                 onClick={() => {
-                  if (currentPage + 1 < Math.ceil(lcModule?.totalCount / 10)) {
+                  if (currentPage + 1 < Math.ceil(lcModule?.totalCount / 7)) {
                     setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
@@ -194,24 +210,27 @@ function Index() {
                           <span className={`${styles.status} ${styles.review}`}></span>
                           Pending
                         </td>
-                        {!lc.firstTimeUpdate ? (
-                          <td colSpan={2}>
-                            {' '}
-                            <button className={styles.updateBtn} onClick={() => handleLcAmmendRoute(lc)}>
-                              Update
-                            </button>
-                          </td>
-                        ) : (
+                        
+                        {lc.route === 'amend' || lc.route === 'PostUpdated'  ? (
                           <>
                             <td>Updated on: {moment(lc?.updatedAt).format('DD-MM-YYYY')}</td>
                             <td>
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                onClick={() => handleAmmendRoute(lc)}
-                              />
+                              {lc.route !== 'PostUpdated' && (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={() =>  handleAmmendRoute(lc)  }
+                                />
+                              )}
                             </td>
                           </>
+                        ) : (
+                          <td colSpan={2}>
+                            {' '}
+                            <button className={styles.updateBtn} onClick={() => lc.route == 'update' ?   handleAmmendRoute(lc) :  handleLcAmmendRoute(lc) }>
+                              Update
+                            </button>
+                          </td>
                         )}
                       </tr>
                     ))}

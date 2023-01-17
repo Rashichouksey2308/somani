@@ -9,20 +9,23 @@ import { GettingAllInsurance } from '../../src/redux/insurance/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import moment from 'moment';
+import constants from '@/utils/constants'
 
 function Index() {
   const dispatch = useDispatch();
 
-  let d = new Date();
+  const d = new Date();
 
   const [searchTerm, setSearchTerm] = useState('');
 
   const { searchedLeads } = useSelector((state) => state.order);
 
+  const renewRoute = '/insurance-renew/id';
+  const editInsuranceRoute = '/insurance/form/both';
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -39,8 +42,7 @@ function Index() {
       moment(insured?.marineInsurance?.insuranceTo).toDate() <= d ||
       moment(insured?.storageInsurance?.insuranceTo).toDate() <= d
     ) {
-      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
-      Router.push('/insurance-renew/id');
+      return;
     } else {
       dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
       Router.push('/insurance/form');
@@ -49,9 +51,30 @@ function Index() {
 
   const handleEditRoute = (insured) => {
     sessionStorage.setItem('quotationId', insured._id);
-
-    if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
-      Router.push('/insurance/form/both');
+    if (insured.insuranceType === 'marine') {
+      if (moment(insured?.marineInsurance?.insuranceTo).isBefore(moment())) {
+        dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
+        Router.push(renewRoute);
+      } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
+        Router.push(editInsuranceRoute);
+      }
+    } else if (insured.insuranceType === 'storage') {
+      if (moment(insured?.storageInsurance?.insuranceTo).isBefore(moment())) {
+        dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
+        Router.push(renewRoute);
+      } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
+        Router.push(editInsuranceRoute);
+      }
+    } else {
+      if (
+        moment(insured?.marineInsurance?.insuranceTo).isBefore(moment()) ||
+        moment(insured?.storageInsurance?.insuranceTo).isBefore(moment())
+      ) {
+        dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
+        Router.push(renewRoute);
+      } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
+        Router.push(editInsuranceRoute);
+      }
     }
   };
 
@@ -59,7 +82,7 @@ function Index() {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Agreement & LC Module');
       sessionStorage.setItem('loadedSubPage', `Insurance`);
-      sessionStorage.setItem('openList', 2);
+      sessionStorage.setItem('openList', constants.numberTwo);
     }
 
     dispatch(setPageName('insurance'));

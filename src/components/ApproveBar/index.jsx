@@ -1,11 +1,11 @@
 // import  Router  from 'next/router'
-import React from 'react';
-import styles from './index.module.scss';
-import { useSelector } from 'react-redux';
+import React from 'react'
+import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
-function index({ handleApprove, handleReject, button, button2 }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
-  const isMobile = useSelector((state) => state.sidebar.isMobile);
+function Index ({ handleApprove, handleReject, button, button2 }) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
     <div
       className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
@@ -14,7 +14,7 @@ function index({ handleApprove, handleReject, button, button2 }) {
       <div
         className={`${styles.reject} ml-3`}
         onClick={() => {
-          handleReject();
+          handleReject()
         }}
       >
         <span>{button}</span>
@@ -22,13 +22,13 @@ function index({ handleApprove, handleReject, button, button2 }) {
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
-          handleApprove();
+          handleApprove()
         }}
       >
         <span>{button2}</span>
       </div>
     </div>
-  );
+  )
 }
 
-export default index;
+export default Index

@@ -7,10 +7,7 @@ import { ViewDocument } from 'redux/ViewDoc/action';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
-  
-
   const { buyerList } = useSelector((state) => state.buyer);
-
 
   return (
     <div className={`${styles.wrapper} card`}>
@@ -30,11 +27,10 @@ function Index() {
         id="orderDetail"
         className={`collapse ${styles.body} value_card card-body row`}
         aria-labelledby="orderDetail"
-       
       >
-        {fields('Commodity', buyerList?.order?.commodity)}
-        {fields('Quantity (in MT)', buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity.toUpperCase())}
-        {fields(
+        {Fields('Commodity', buyerList?.order?.commodity)}
+        {Fields('Quantity (in MT)', buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity.toUpperCase())}
+        {Fields(
           'Order value (in INR)',
           CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString(),
           false,
@@ -44,20 +40,20 @@ function Index() {
             ? 'Mn'
             : buyerList?.order?.unitOfValue,
         )}
-        {fields('Supplier Name', buyerList?.order?.supplierName, false)}
-        {fields('Country Of Origin', buyerList?.order?.countryOfOrigin, false)}
-        {fields('INCO Terms', buyerList?.order?.incoTerm, false)}
-        {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
-        {fields('Port Of Discharge', buyerList?.order?.portOfDischarge, false)}
-        {fields(
+        {Fields('Supplier Name', buyerList?.order?.supplierName, false)}
+        {Fields('Country Of Origin', buyerList?.order?.countryOfOrigin, false)}
+        {Fields('INCO Terms', buyerList?.order?.incoTerm, false)}
+        {/* {Fields("Transaction Type",buyerList?.order?.transactionType)} */}
+        {Fields('Port Of Discharge', buyerList?.order?.portOfDischarge, false)}
+        {Fields(
           'Expected Date Of Shipment',
           moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'),
           false,
         )}
-        {fields('Document Name', 'Insurance Certificate', true)}
+        {Fields('Document Name', 'Insurance Certificate', true)}
 
         {buyerList?.company?.documents?.map((val, index) => {
-          return <>{fields('Document Type', val?.typeOfDocument, true, null, val?.path)}</>;
+          return <>{Fields('Document Type', val?.typeOfDocument, true, null, val?.path)}</>;
         })}
       </div>
     </div>
@@ -65,7 +61,7 @@ function Index() {
 }
 
 export default Index;
-const fields = (head, value, isButton, value2, value3) => {
+const Fields = (head, value, isButton, value2, value3) => {
   const dispatch = useDispatch();
 
   return (

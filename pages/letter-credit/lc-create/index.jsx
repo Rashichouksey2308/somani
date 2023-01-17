@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import LcApplication from '../../../src/components/LcApplication';
 import PreviewBar from '../../../src/components/PreviewBar';
-import { useRouter } from 'next/router';
+import { handleErrorToast } from '../../../src/utils/helpers/global';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModule, UpdateLcModule } from '../../../src/redux/lcModule/action';
 import { removePrefixOrSuffix } from '../../../src/utils/helper';
-import { settingSidebar } from 'redux/breadcrumb/action';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
@@ -13,25 +12,21 @@ import { getPorts } from '../../../src/redux/masters/action';
 
 function Index() {
   const dispatch = useDispatch();
-  const router = useRouter();
-
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
 
   const [excelFile, setExcelFile] = useState(null);
   useEffect(() => {
-    let id = sessionStorage.getItem('lcOrder');
+    const id = sessionStorage.getItem('lcOrder');
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
   useEffect(() => {
-    // dispatch(getCountries())
     dispatch(getPorts());
-    // dispatch(getCommodities())
-    // dispatch(getDocuments())
   }, []);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const [lcData, setLcData] = useState();
+
   useEffect(() => {
     dispatch(setPageName('Lc'));
 
@@ -53,7 +48,8 @@ function Index() {
         ? lcModuleData?.lcApplication?.beneficiary
         : lcModuleData?.order?.supplierName,
       currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue ?? '',
-      currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit ?? '',
+      currecyCodeAndAmountUnit:
+        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit || lcModuleData?.order?.orderCurrency,
       tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage
         ? lcModuleData?.lcApplication?.tolerancePercentage
         : lcModuleData?.order?.tolerance,
@@ -72,8 +68,12 @@ function Index() {
         ? lcModuleData?.lcApplication?.portOfLoading
         : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort,
       portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge
-        ? lcModuleData?.lcApplication?.portOfDischarge
-        : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge,
+        ? lcModuleData?.lcApplication?.portOfDischarge.includes('India')
+          ? lcModuleData?.lcApplication?.portOfDischarge
+          : `${lcModuleData?.lcApplication?.portOfDischarge}, India`
+        : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge.includes('India')
+        ? lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge
+        : `${lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge}, India`,
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment
         ? lcModuleData?.lcApplication?.latestDateOfShipment
         : lcModuleData?.order?.supplierCredential?.latestShipmentDate,
@@ -106,7 +106,7 @@ function Index() {
   const saveLcData = (name, value) => {
     const newInput = { ...lcData };
     newInput[name] = value;
-    if (name == 'atSight' && value == 'AT SIGHT') {
+    if (name === 'atSight' && value === 'AT SIGHT') {
       newInput.numberOfDays = '';
     }
 
@@ -117,25 +117,13 @@ function Index() {
   const [lcDocuments, setLcDocuments] = useState(lcModuleData?.documentRequired);
   const [lcComments, setLcComments] = useState(lcModuleData?.additionalConditions);
   const [lcCondition, setLcCondition] = useState(lcModuleData?.additionalConditions);
-
   const [currentComment2, setCurrentComment2] = useState('');
-
-  const addCommentArr = (lcComment) => {
-    let newArr = [...lcComments];
-    newArr.push(lcComment);
-    setLcComments(newArr);
-  };
-
   const addComment = (val) => {
     setCurrentComment(val);
   };
   const addDocArr = () => {
-    if (currentComment == '') {
-      let toastMessage = 'Comment cannot be empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return;
-      }
+    if (currentComment === '') {
+      handleErrorToast('Comment cannot be empty');
     }
     setLcDocuments([...lcDocuments, { value: currentComment, action: false }]);
     setCurrentComment('');
@@ -160,7 +148,7 @@ function Index() {
   const editLcDocComments = (val, index) => {
     setLcDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
-        if (i == index) {
+        if (i === index) {
           return { ...obj, action: val };
         }
 
@@ -175,26 +163,11 @@ function Index() {
     setCurrentComment2(val);
   };
   const addConditionArr = (index) => {
-    if (currentComment2 == '') {
-      let toastMessage = 'Comment cannot be empty';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return;
-      }
+    if (currentComment2 === '') {
+      handleErrorToast('Comment cannot be empty');
     }
     setLcComments([...lcComments, { value: currentComment2, action: false }]);
-    //   setLcComments(prevState => {
-    //   const newState = prevState.map((obj ,i)=> {
 
-    //     if (i == index) {
-    //       return {...obj, value: currentComment2,action:false};
-    //     }
-
-    //     return obj;
-    //   });
-
-    //   return newState;
-    // });
     setCurrentComment2('');
   };
   const deleteLcCondition = (index) => {
@@ -203,7 +176,7 @@ function Index() {
   const lcConditionEdit = (val, index) => {
     setLcComments((prevState) => {
       const newState = prevState.map((obj, i) => {
-        if (i == index) {
+        if (i === index) {
           return { ...obj, value: val };
         }
 
@@ -216,7 +189,7 @@ function Index() {
   const editLcComments = (val, index) => {
     setLcComments((prevState) => {
       const newState = prevState.map((obj, i) => {
-        if (i == index) {
+        if (i === index) {
           return { ...obj, action: val };
         }
 
@@ -228,13 +201,13 @@ function Index() {
   };
 
   useEffect(() => {
-    let commentLcArr = [];
+    const commentLcArr = [];
     lcModuleData?.additionalConditions?.forEach((element) => {
       commentLcArr.push({ value: element, action: false });
     });
     setLcComments(commentLcArr);
 
-    let docLcArr = [];
+    const docLcArr = [];
     lcModuleData?.documentRequired?.forEach((element) => {
       docLcArr.push({ value: element, action: false });
     });
@@ -242,265 +215,104 @@ function Index() {
   }, [lcModuleData]);
 
   const checkValidation = () => {
-    let toastMessage;
-    if (lcData.formOfDocumentaryCredit == '' || lcData.formOfDocumentaryCredit == undefined) {
-      toastMessage = 'Please Select Form Of Documentary Credit';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+    if (lcData?.formOfDocumentaryCredit == '' || lcData?.formOfDocumentaryCredit === undefined) {
+      handleErrorToast('Please Select Form Of Documentary Credit');
+    } else if (lcData?.applicant === '' || lcData?.applicant === undefined) {
+      handleErrorToast('Please Select Applicant');
+    } else if (lcData?.beneficiary === '' || lcData?.beneficiary === undefined) {
+      handleErrorToast('Please add Beneficiary');
+    } else if (lcData?.currecyCodeAndAmountValue === '' || lcData?.currecyCodeAndAmountValue === undefined) {
+      handleErrorToast('Please add Currency Code Amount');
+    } else if (lcData?.tolerancePercentage === '' || lcData?.tolerancePercentage === undefined) {
+      handleErrorToast('Please add Tolerance Percentage');
+    } else if (lcData?.creditAvailablewith === '' || lcData?.creditAvailablewith === undefined) {
+      handleErrorToast('Please select Credit Available With');
+    } else if (lcData?.creditAvailableBy === '' || lcData?.creditAvailableBy === undefined) {
+      handleErrorToast('Please select Credit Available By');
+    } else if (lcData?.atSight === '' || lcData?.atSight === undefined) {
+      handleErrorToast('Please select DRAFT AT');
+    } else if (lcData?.atSight === 'Usuance') {
+      if (lcData?.numberOfDays === '' || lcData?.numberOfDays === undefined) {
+        handleErrorToast('Please add number of Days');
       }
+    } else if (lcData?.partialShipment === '' || lcData?.partialShipment === undefined) {
+      handleErrorToast('Please select  Partial Shipment');
+    } else if (lcData?.transhipments === '' || lcData?.transhipments === undefined) {
+      handleErrorToast('Please add select  Transhipment');
+    } else if (lcData?.shipmentForm === '' || lcData?.shipmentForm === undefined) {
+      handleErrorToast('Please add place of taking charge');
+    } else if (lcData?.portOfLoading === '' || lcData?.portOfLoading === undefined) {
+      handleErrorToast('Please select  port Of Loading');
+    } else if (lcData?.portOfDischarge === '' || lcData?.portOfDischarge === undefined) {
+      handleErrorToast('Please select  port Of Discharge');
+    } else if (lcData?.latestDateOfShipment === '' || lcData?.latestDateOfShipment === undefined) {
+      handleErrorToast('Please select latest Date Of Shipment');
+    } else if (lcData?.DescriptionOfGoods === '' || lcData?.DescriptionOfGoods === undefined) {
+      handleErrorToast('Please add Description Of Goods');
+    } else if (lcDocuments?.length <= 0) {
+      handleErrorToast('Please add DOCUMENT REQUIRED');
+    } else if (lcComments?.length <= 0) {
+      handleErrorToast('Please add ADDITIONAL CONDITIONS');
+    } else if (lcData?.presentaionPeriod === '' || lcData?.presentaionPeriod === undefined) {
+      handleErrorToast('Please add presentaion Period');
+    } else if (lcData?.confirmationInstructions === '' || lcData?.confirmationInstructions === undefined) {
+      handleErrorToast('Please add confirmation Instructions');
+    }else if  (lcData?.charges === '' || lcData?.charges === undefined) {
+      handleErrorToast('Please select charges');
+    } else if (lcData?.instructionToBank === '' || lcData?.instructionToBank === undefined) {
+      handleErrorToast('Please add instruction To Bank');
+    } else {
+      return true;
     }
-    // if (lcData.applicableRules === '' || lcData.applicableRules == undefined) {
-    //   toastMessage = 'Please add Applicable Rules'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     return false
-    //   }
-    // }
-
-    if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
-      toastMessage = 'Please add  Date Of Expiry';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.placeOfExpiry === '' || lcData.placeOfExpiry == undefined) {
-      toastMessage = 'Please add Place Of Expiry';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.applicant === '' || lcData.applicant == undefined) {
-      toastMessage = 'Please Select Applicant';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.beneficiary === '' || lcData.beneficiary == undefined) {
-      toastMessage = 'Please add Beneficiary';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.currecyCodeAndAmountValue === '' || lcData.currecyCodeAndAmountValue == undefined) {
-      toastMessage = 'Please add Currency Code Amount';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.tolerancePercentage === '' || lcData.tolerancePercentage == undefined) {
-      toastMessage = 'Please add Tolerance Percentage';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.creditAvailablewith === '' || lcData.creditAvailablewith == undefined) {
-      toastMessage = 'Please select Credit Available With';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.creditAvailableBy === '' || lcData.creditAvailableBy == undefined) {
-      toastMessage = 'Please select Credit Available By';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.atSight === '' || lcData.atSight == undefined) {
-      toastMessage = 'Please select DRAFT AT';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.atSight == 'SPECIFY') {
-      if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
-        toastMessage = 'Please add number of Days';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
-    }
-    if (lcData.partialShipment === '' || lcData.partialShipment == undefined) {
-      toastMessage = 'Please select  Partial Shipment';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.transhipments === '' || lcData.transhipments == undefined) {
-      toastMessage = 'Please select  Transhipment';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.shipmentForm === '' || lcData.shipmentForm == undefined) {
-      toastMessage = 'Please select  shipment Form';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.portOfLoading === '' || lcData.portOfLoading == undefined) {
-      toastMessage = 'Please select  port Of Loading';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.portOfDischarge === '' || lcData.portOfDischarge == undefined) {
-      toastMessage = 'Please select  port Of Discharge';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.latestDateOfShipment === '' || lcData.latestDateOfShipment == undefined) {
-      toastMessage = 'Please select latest Date Of Shipment';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-
-    if (lcData.DescriptionOfGoods === '' || lcData.DescriptionOfGoods == undefined) {
-      toastMessage = 'Please add Description Of Goods';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcDocuments.length <= 0) {
-      toastMessage = 'Please add DOCUMENT REQUIRED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcComments.length <= 0) {
-      toastMessage = 'Please add ADDITIONAL CONDITIONS';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.presentaionPeriod === '' || lcData.presentaionPeriod == undefined) {
-      toastMessage = 'Please add presentaion Period';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.confirmationInstructions === '' || lcData.confirmationInstructions == undefined) {
-      toastMessage = 'Please add confirmation Instructions';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    // if (lcData.reimbursingBank === '' || lcData.reimbursingBank == undefined) {
-    //   toastMessage = 'Please select  reimbursing Bank'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     return false
-    //   }
-    // }
-    if (lcData.adviceThroughBank === '' || lcData.adviceThroughBank == undefined) {
-      toastMessage = 'Please select  advice Through Bank';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    // if (
-    //   lcData.requestedConfirmationParty === '' ||
-    //   lcData.requestedConfirmationParty == undefined
-    // ) {
-    //   toastMessage = 'Please select requested Confirmation Party'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     return false
-    //   }
-    // }
-    if (lcData.charges === '' || lcData.charges == undefined) {
-      toastMessage = 'Please select charges';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (lcData.instructionToBank === '' || lcData.instructionToBank == undefined) {
-      toastMessage = 'Please add instruction To Bank';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    return true;
   };
   const handleLcSave = async () => {
     if (checkValidation()) {
-      let comment = [];
+      const comment = [];
       if (lcComments.length > 0) {
         lcComments.forEach((val, index) => {
           comment.push(val.value);
         });
       }
-      let doc = [];
+      const doc = [];
       if (lcDocuments.length > 0) {
         lcDocuments.forEach((val, index) => {
           doc.push(val.value);
         });
       }
-      let lcObj = { ...lcData };
-      lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue);
-      lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage);
-      let obj = {
+      const lcObj = { ...lcData };
+      lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue).toString();
+      lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage).toString();
+      const obj = {
         lcApplication: { ...lcObj },
         additionalConditions: [...comment],
         documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
       };
-
-      let code = await dispatch(UpdateLcModule({ obj: obj }));
-      if (code == 200) {
-        sessionStorage.setItem('VesselCompany', _get(lcModule, 'data[0].company._id', ''));
-        sessionStorage.setItem('VesselId', _get(lcModule, 'data[0].order.vessel', ''));
-        dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'));
-        router.push(`/vessel`);
-      }
+      dispatch(UpdateLcModule({ obj: obj }));
+      dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`));
+      sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc);
     }
   };
 
   const changeRoute = () => {
     if (checkValidation()) {
-      let comment = [];
+      const comment = [];
       if (lcComments.length > 0) {
         lcComments.forEach((val, index) => {
           comment.push(val.value);
         });
       }
-      let doc = [];
+      const doc = [];
       if (lcDocuments.length > 0) {
         lcDocuments.forEach((val, index) => {
           doc.push(val.value);
         });
       }
-      let task = 'preview';
-      let lcObj = { ...lcData };
+      const task = 'preview';
+      const lcObj = { ...lcData };
       lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue);
       lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage);
-      let obj = {
+      const obj = {
         lcApplication: { ...lcObj },
         additionalConditions: [...comment],
         documentRequired: [...doc],
@@ -509,7 +321,6 @@ function Index() {
       dispatch(UpdateLcModule({ obj: obj, task: task }));
       dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`));
       sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc);
-      // Router.push('/letter-table/letter-amend/id')
     }
   };
   return (
