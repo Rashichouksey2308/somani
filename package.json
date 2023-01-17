@@ -53,6 +53,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@babel/eslint-parser": "^7.5.4",
+    "@next/eslint-plugin-next": "^13.1.2",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.1",
     "babel-core": "7.0.0-bridge.0",
