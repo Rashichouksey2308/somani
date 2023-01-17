@@ -1827,7 +1827,7 @@ export const CreateGoNoGoMaster = (payload) => async (dispatch, getState, api) =
     });
     if (response.data.code === 200) {
       dispatch(createGoNoGoMasterSuccess(response.data.data));
-      let toastMessage = 'IIAG_LEDGER ADDED SUCCESSFULLY';
+      let toastMessage = 'GONOGO UPDATED SUCCESSFULLY';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -1843,7 +1843,7 @@ export const CreateGoNoGoMaster = (payload) => async (dispatch, getState, api) =
   } catch (error) {
     dispatch(createGoNoGoMasterFailed());
 
-    let toastMessage = 'COULD NOT ADD IIAG_LEDGER DETAILS';
+    let toastMessage = 'COULD NOT ADD UPDATE GONOGO DETAILS';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }

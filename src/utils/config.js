@@ -21,18 +21,18 @@
 
 // Https
 
-// export default {
-//   baseUrl: 'https://api-uat.simport.global',
-//   authServerUrl: 'https://api-uat.simport.global/auth',
-//   userServerUrl: 'https://api-uat.simport.global/user',
-//   coreServerUrl: 'https://api-uat.simport.global/core',
+export default {
+  baseUrl: 'https://api-uat.simport.global',
+  authServerUrl: 'https://api-uat.simport.global/auth',
+  userServerUrl: 'https://api-uat.simport.global/user',
+  coreServerUrl: 'https://api-uat.simport.global/core',
 
-// };
+};
 
 // local
 
-export default {
-  authServerUrl: 'http://localhost:3001/node/api/auth/',
-  userServerUrl: 'http://localhost:3002/node/api/user/',
-  coreServerUrl: 'http://localhost:3003/node/api/core/',
-}
+// export default {
+//   authServerUrl: 'http://localhost:3001/node/api/auth/',
+//   userServerUrl: 'http://localhost:3002/node/api/user/',
+//   coreServerUrl: 'http://localhost:3003/node/api/core/',
+// }

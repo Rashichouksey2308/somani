@@ -67,7 +67,7 @@ function Index() {
     {
       Header: 'Version Approval Date',
       accessor: 'versionApprovalDate',
-      Cell: ({ value }) => (<span>{value?.slice(0, 10)}</span>)
+      Cell: ({ value }) => (<span>{value ? value?.slice(0, 10) : '-'}</span>)
     },
     {
       Header: 'Status',
