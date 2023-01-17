@@ -24,6 +24,17 @@ const initialState = {
   singleOrder: [],
   gettingOrderLeads: false,
   getOrderLeads: [],
+  // leads search Filters
+
+  // gettingCommodityFilters: false,
+  gettingCommodityFilters: false,
+  getCommodityFilters: [],
+
+  gettingCompanyFilters: false,
+  getCompanyFilters: [],
+
+  gettingStatusFilters: false,
+  getStatusFilters: [],
 };
 
 function BuyerReducer(state = initialState, action) {
@@ -262,6 +273,66 @@ function BuyerReducer(state = initialState, action) {
         ...state,
         gettingGstList: false,
         gstList: null,
+      };
+
+    // leads search Filters
+
+    case types.GET_COMMODITY_FILTERS:
+      return {
+        ...state,
+        gettingCommodityFilters: true,
+        getCommodityFilters: [],
+      };
+
+    case types.GET_COMMODITY_FILTERS_SUCCESS:
+      return {
+        ...state,
+        gettingCommodityFilters: true,
+        getCommodityFilters: action.payload,
+      };
+    case types.GET_COMMODITY_FILTERS_FAILED:
+      return {
+        ...state,
+        gettingCommodityFilters: true,
+        getCommodityFilters: [],
+      };
+
+    case types.GET_COMPANY_FILTERS:
+      return {
+        ...state,
+        gettingCompanyFilters: true,
+        getCompanyFilters: [],
+      };
+    case types.GET_COMPANY_FILTERS_SUCCESS:
+      return {
+        ...state,
+        gettingCompanyFilters: true,
+        getCompanyFilters: action.payload,
+      };
+    case types.GET_COMPANT_FILTERS_FAILED:
+      return {
+        ...state,
+        gettingCompanyFilters: true,
+        getCompanyFilters: [],
+      };
+
+    case types.GET_STATUS_FILTERS:
+      return {
+        ...state,
+        gettingStatusFilters: true,
+        getStatusFilters: [],
+      };
+    case types.GET_STATUS_FILTERS_SUCCESS:
+      return {
+        ...state,
+        gettingStatusFilters: true,
+        getStatusFilters: action.payload,
+      };
+    case types.GET_STATUS_FILTERS_FAILED:
+      return {
+        ...state,
+        gettingStatusFilters: true,
+        getStatusFilters: [],
       };
 
     default:

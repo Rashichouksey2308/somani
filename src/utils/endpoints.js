@@ -26,6 +26,10 @@ export default {
   getPanGst: '/get-company',
   getOrderLeads: '/lead/getleads',
   getUpdatedBuyers: '/lead/getleadsForFilter',
+  // leads search Filter
+  getCommodityFilters: '/lead/commodity-filters',
+  getCompanyFilters: '/lead/company-filters',
+  getStatusFilters: '/lead/status-filters',
 
   // orders
   getBuyerOrder: '/lead/order-review',
@@ -135,10 +139,10 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
-  //preview
+  // preview
   preview: '/document/access/preview',
 
-  //ALL MASTER URL's
+  // ALL MASTER URL's
   masterBaseUrl: 'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
   countriesMaster: 'country.json',
   portsMaster: 'ports.json',
@@ -165,7 +169,7 @@ export default {
   filterCurrencyQueue: 'currency-master/search',
   createCurrencyMaster: 'currency-master',
 
-  //Checker
+  // Checker
   getUserDetails: '/user-master/user',
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
@@ -185,8 +189,8 @@ export default {
   updateCommodityRemark: '/commodity/checker-commodity-status-update',
   getGoNoGoLogicDetails: '/gng-master/get-gng',
   updateGoNoGoLogicRemark: '/gng-master/checker-gngMaster-status-update',
-  
-  //Masters
+
+  // Masters
   getAllCommodity: 'commodity/get-commodities',
   getAllGonogo: '/gng-master',
   addNewCommodity: '/commodity',

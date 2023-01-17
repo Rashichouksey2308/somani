@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import _ from 'lodash';
@@ -13,25 +12,36 @@ import SearchAndFilter from '../../src/components/SearchAndFilter';
 import QueueStats from '../../src/components/QueueStats';
 import Table from '../../src/components/Table';
 import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
+import Buyername from '../../src/components/VTwo/BuyerName';
+import CommodityDropdown from '../../src/components/VTwo/CommodityDropdown';
+import StatusDropDown from '../../src/components/VTwo/StatusDropDown';
+
 import slugify from 'slugify';
 import { LEADS_QUEUE_FILTER_ITEMS } from '../../src/data/constant';
+import Select from 'react-select';
 
 function Index() {
   const dispatch = useDispatch();
 
   const { updatedBuyerList, getOrderLeads } = useSelector((state) => state.buyer);
+  const initialSelectOptionsState = {
+    companyName: '',
+    commodity: '',
+    status: '',
+  };
   const { filteredLeads } = useSelector((state) => state.order);
   const [searchterm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState(filteredLeads);
-  const [filterItem, setFilterItem] = useState({ company_name: true });
+  const [filterItem, setFilterItem] = useState();
   const [appliedFilters, setAppliedFilters] = useState({ company_name: true });
-  const [showBadges, setShowBadges] = useState([]);
+  const [selectOptions, setSelectOptions] = useState(initialSelectOptionsState);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   const [sortByState, setSortByState] = useState({
     column: '',
     order: null,
   });
+
   const [openList, setOpenList] = useState(true);
   const [filterQuery, setFilterQuery] = useState('');
 
@@ -53,67 +63,27 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetOrderLeads());
-  }, [dispatch]);
+  }, [dispatch, selectOptions]);
 
   useEffect(() => {
-    if (!isFilterApply()) {
-      setSearchTerm('');
-      setShowBadges([]);
-      dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${filterQuery}`));
-      dispatch(FilterLeads('status=" "'));
-    }
-  }, [JSON.stringify(filterItem)]);
-
-  useEffect(() => {
+    SearchAndFilter;
     if (filteredLeads) setFilter(filteredLeads);
   }, [filteredLeads]);
 
-  const handleClose = (index) => {
-    showBadges.splice(index, 1);
-
+  useEffect(() => {
     let query = '';
-
-    showBadges.map((item) => {
-      query = query + `&${item?.key}=${slugify(item?.displayVal, { lower: false })}`;
-    })
-
+    if (selectOptions?.companyName?.value) {
+      query = query + `&company_name=${selectOptions?.companyName?.value}`;
+    }
+    if (selectOptions.commodity) {
+      query = query + `&commodity=${selectOptions?.commodity?.value}`;
+    }
+    if (selectOptions.status) {
+      query = query + `&status=${selectOptions?.status?.value}`;
+    }
     setFilterQuery(query);
-
     dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${query}`));
-
-    setShowBadges([...showBadges]);
-  };
-
-  const handleListClose = (result) => {
-    const badgesItems = [];
-    const filterItemData = Object.keys(appliedFilters);
-
-    let query = '';
-
-    filterItemData.map((val) => {
-      if (appliedFilters[val]) {
-        if (val === 'status') {
-          result?.status && badgesItems.push({ key: val, displayVal: result?.status });
-          query = query + `&${val}=${result?.status}`;
-        }
-        else if (val === 'company_name') {
-          result?.buyerName && badgesItems.push({ key: val, displayVal: result?.buyerName });
-          query = query + `&${val}=${slugify(result?.buyerName, { lower: false })}`;
-        }
-        else if (val === 'commodity') {
-          result?.commodity && badgesItems.push({ key: val, displayVal: result?.commodity });
-          query = query + `&${val}=${slugify(result?.commodity, { lower: false })}`;
-        }
-      }
-    });
-
-    setFilterQuery(query);
-
-    dispatch(GetAllUpdatedBuyer(`?page=${currentPage}&limit=${pageLimit}${query}`));
-
-    setOpenList(false);
-    setShowBadges(badgesItems);
-  };
+  }, [selectOptions, filterQuery, currentPage, pageLimit]);
 
   const handleRoute = (buyer) => {
     sessionStorage.setItem('orderId', buyer._id);
@@ -147,7 +117,7 @@ function Index() {
   };
 
   const handleApplyFilter = () => {
-    setAppliedFilters(filterItem);
+    setAppliedFilters(filterSearchAndFilterItem);
   };
 
   const handleBoolean = (value) => {
@@ -158,17 +128,10 @@ function Index() {
 
   const handleFilterChange = (e) => {
     const { name, checked } = e.target;
-
     setFilterItem((prevState) => ({
       ...prevState,
       [name]: handleBoolean(checked.toString()),
     }));
-  };
-
-  const isFilterApply = () => {
-    return Object.values(filterItem).some((val) => {
-      return val;
-    });
   };
 
   const handleSort = (column) => {
@@ -221,12 +184,12 @@ function Index() {
     {
       Header: 'Order Value',
       accessor: 'orderValue',
-      Cell: ({ value }) => `${(value.toLocaleString('en-US'))} USD`
+      Cell: ({ value }) => `${value.toLocaleString('en-US')} USD`,
     },
     {
       Header: 'Creation Date',
       accessor: 'createdAt',
-      Cell: ({ value }) => value.slice(0, 10)
+      Cell: ({ value }) => value.slice(0, 10),
     },
     {
       Header: 'Existing Customer',
@@ -242,74 +205,106 @@ function Index() {
       Cell: ({ value }) => <QueueStatusSymbol status={value} />,
     },
   ]);
-
-  const searchView = () => {
-    return (
-      filter && openList && searchterm.length > 3 &&
-      <div className={styles.searchResults}>
-        <ul>
-          {filteredLeads?.data?.data?.length > 0 ? filteredLeads?.data?.data?.map((results, index) => (
-            <li onClick={() => handleListClose(results)} id={results._id} key={index} className="cursor-pointer">
-              {appliedFilters?.company_name === true && results?.buyerName}
-              <span>
-                &nbsp; {appliedFilters?.commodity === true && <span className='text-right'>{results?.commodity}</span>}
-                &nbsp; {appliedFilters?.status === true && <span className='text-right'>{results?.status}</span>}
-              </span>
-            </li>
-          )) : <li><span>No result found</span></li>}
-        </ul>
-      </div>
-    )
-  }
-
   return (
     <>
       {' '}
       <div className="container-fluid p-0 border-0">
         <div className={styles.container_inner}>
-          {/*filter*/}
-          <div className={`${styles.filter} d-flex align-items-center`}>
-            <SearchAndFilter
-              searchterm={searchterm}
-              handleSearch={handleSearch}
-              filterItem={filterItem}
-              handleFilterChange={handleFilterChange}
-              handleApplyFilter={handleApplyFilter}
-              filterItems={LEADS_QUEUE_FILTER_ITEMS}
-              showBadges={showBadges}
-              handleClose={handleClose}
-              searchView={searchView}
-            />
-            <button
-              type="button"
-              className={`${styles.btnPrimary} btn ml-auto btn-primary`}
-              onClick={() => Router.push('/leads/12')}
-            >
-              <span style={{ fontSize: '28px' }}>+</span>
-              <span className={`ml-1 mr-2`}>New Customer</span>
-            </button>
-          </div>
+          <div className="">
+            {/*filter*/}
+            <div className={`${styles.filter} d-flex align-items-center`}>
+              <SearchAndFilter
+                searchterm={searchterm}
+                handleSearch={handleSearch}
+                filterItem={filterItem}
+                handleFilterChange={handleFilterChange}
+                handleApplyFilter={handleApplyFilter}
+                filterItems={LEADS_QUEUE_FILTER_ITEMS}
+              />
 
+              {/* selectOptions */}
+              <div className={`${styles.searchDropdown} d-flex flex-wrap`}>
+                <Buyername SelectOptions={setSelectOptions} value={selectOptions} />
+                <CommodityDropdown SelectOptions={setSelectOptions} value={selectOptions} />
+                <StatusDropDown SelectOptions={setSelectOptions} value={selectOptions} />
+              </div>
+
+              <button
+                type="button"
+                className={`${styles.btnPrimary} btn ml-auto btn-primary`}
+                onClick={() => Router.push('/leads/12')}
+              >
+                <span style={{ fontSize: '28px' }}>+</span>
+                <span className={`ml-1 mr-2`}>New Customer</span>
+              </button>
+            </div>
+          </div>
           {/*status Box*/}
           <QueueStats data={statLeadsData} />
+          <div className={`${styles.datatable} border datatable card mt-4`}>
+            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+              <h3 className="heading_card">Commodity</h3>
+              <div className="d-flex align-items-center">
+                <div className={`${styles.show_record}`}>Show Records:</div>
+                <div className="d-flex align-items-center position-relative ml-2">
+                  <select className={`${styles.select} ${styles.customSelect} text1 accordion_body form-select`}>
+                    <option>10</option>
+                    <option>20</option>
+                  </select>
+                  <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+                </div>
+                <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
+                  <span>
+                    Showing Page {currentPage + 1} out of {Math.ceil(updatedBuyerList?.data?.totalData / 10)}
+                  </span>
+                  <a
+                    onClick={() => {
+                      if (currentPage === 0) {
+                        return;
+                      } else {
+                        setCurrentPage((prevState) => prevState - 1);
+                      }
+                    }}
+                    href="#"
+                    className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                  >
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow left" className="img-fluid" />
+                  </a>
+                  <a
+                    onClick={() => {
+                      if (currentPage + 1 < Math.ceil(updatedBuyerList?.data?.totalData / 10)) {
+                        setCurrentPage((prevState) => prevState + 1);
+                      }
+                    }}
+                    href="#"
+                    className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                  >
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="generic-table">
+              {updatedBuyerList?.data?.data && (
+                <Table
+                  tableHeading="Leads"
+                  currentPage={currentPage}
+                  totalCount={updatedBuyerList?.data?.total}
+                  setCurrentPage={setCurrentPage}
+                  columns={tableColumns}
+                  data={updatedBuyerList?.data?.data}
+                  pageLimit={pageLimit}
+                  setPageLimit={setPageLimit}
+                  handleSort={handleSort}
+                  sortByState={sortByState}
+                  serverSortEnabled={true}
+                  totalCountEnable={false}
+                />
+              )}
+            </div>
+          </div>
 
           {/*leads table*/}
-          {updatedBuyerList?.data?.data && (
-            <Table
-              tableHeading="Leads"
-              currentPage={currentPage}
-              totalCount={updatedBuyerList?.data?.total}
-              setCurrentPage={setCurrentPage}
-              columns={tableColumns}
-              data={updatedBuyerList?.data?.data}
-              pageLimit={pageLimit}
-              setPageLimit={setPageLimit}
-              handleSort={handleSort}
-              sortByState={sortByState}
-              serverSortEnabled={true}
-              totalCountEnable={false}
-            />
-          )}
         </div>
       </div>
     </>

@@ -604,3 +604,161 @@ export const UploadDocument = (payload) => async (dispatch, getState, api) => {
     dispatch(setNotLoading());
   }
 };
+
+// leads search filter controller
+
+function getCommodityFilter() {
+  return {
+    type: types.GET_COMMODITY_FILTERS,
+  };
+}
+
+function getCommodityFilterSuccess(payload) {
+  return {
+    type: types.GET_COMMODITY_FILTERS_SUCCESS,
+    payload,
+  };
+}
+
+function getCommodityFilterFailed() {
+  return {
+    type: types.GET_COMMODITY_FILTERS_FAILED,
+  };
+}
+export const GetCommodityFilters = () => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getCommodityFilters}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getCommodityFilterSuccess(response?.data?.data.commodities));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getCommodityFilterFailed(response?.data?.data.commodities));
+        const toastMessage = 'Could not fetch Order Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getCommodityFilterFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+function getCompanyFilter() {
+  return {
+    type: types.GET_COMPANY_FILTERS,
+  };
+}
+
+function getCompanyFilterSuccess(payload) {
+  return {
+    type: types.GET_COMPANY_FILTERS_SUCCESS,
+    payload,
+  };
+}
+
+function getCompanyFilterFailed() {
+  return {
+    type: types.GET_COMPANY_FILTERS_FAILED,
+  };
+}
+export const GetCompanyFilters = () => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getCompanyFilters}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getCompanyFilterSuccess(response.data.data.companies));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getCompanyFilterFailed(response.data.data.companies));
+        const toastMessage = 'Could not fetch Order Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getCompanyFilterFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+function getStatusFilter() {
+  return {
+    type: types.GET_STATUS_FILTERS,
+  };
+}
+
+function getStatusFilterSuccess(payload) {
+  return {
+    type: types.GET_STATUS_FILTERS_SUCCESS,
+    payload,
+  };
+}
+
+function getStatusFilterFailed() {
+  return {
+    type: types.GET_STATUS_FILTERS_FAILED,
+  };
+}
+export const GetStatusFilters = () => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getStatusFilters}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getStatusFilterSuccess(response.data.data.status));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getStatusFilterFailed(response.data.data.status));
+        const toastMessage = 'Could not fetch Order Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getStatusFilterFailed());
+    dispatch(setNotLoading());
+  }
+};
