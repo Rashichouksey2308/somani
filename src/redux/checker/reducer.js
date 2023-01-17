@@ -47,6 +47,10 @@ const initialState = {
     vendorDetails: {},
     updatingVendorRemarks: false,
     vendorRemarkDetails: {},
+    gettingLcModuleDetails: false,
+    lcModuleDetails: {},
+    updatingLcModuleRemarks: false,
+    lcModuleRemarkDetails: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -374,6 +378,35 @@ function CheckerReducer(state = initialState, action) {
                 updatingVendorRemarks: false,
                 vendorRemarkDetails: {},
             }
+
+        case types.GET_LC_MODULE_DETAILS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingLcModuleDetails: false,
+                lcModuleDetails: action.payload,
+            };
+
+        case types.GET_LC_MODULE_DETAILS_FAILED:
+            return {
+                ...state,
+                gettingLcModuleDetails: false,
+                lcModuleDetails: {},
+            };
+
+        case types.UPDATE_LC_MODULE_REMARK_SUCCESSFULL:
+            return {
+                ...state,
+                updatingLcModuleRemarks: false,
+                lcModuleRemarkDetails: action.payload,
+            };
+
+        case types.UPDATE_LC_MODULE_REMARK_FAILED:
+            return {
+                ...state,
+                updatingLcModuleRemarks: false,
+                lcModuleRemarkDetails: {},
+            }
+                
         default:
             return state;
     }

@@ -199,7 +199,9 @@ export default {
   updateInternalCompanyRemark: 'internal-company/checker-internal-company-status-update',
   getVendorDetails: 'vendor/get-vendor',
   updateVendorRemark: 'vendor/checker-vendor-status-update',
-
+  getLcModuleDetails: 'lc-module/get-lc',
+  updateLcModuleRemark: 'lc-module/checker-lc-module-status-update',
+  
   //Masters
   getAllCommodity: 'commodity/get-commodities',
   getAllGonogo: '/gng-master',

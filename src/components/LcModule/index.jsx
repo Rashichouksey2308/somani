@@ -21,8 +21,11 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   useEffect(() => {
-    let id = sessionStorage.getItem('lcCompanyId');
-    dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}`));
+    let comingFromChecker = sessionStorage.getItem('comingFromChecker');
+    if (!comingFromChecker) {
+      let id = sessionStorage.getItem('lcCompanyId');
+      dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}`));
+    }
   }, [dispatch, currentPage]);
 
   useEffect(() => {
