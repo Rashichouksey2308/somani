@@ -64,7 +64,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
       _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') === 'Bulk' ? true : false,
     );
   }, [TransitDetails]);
-  let shipmentType = _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '')
+  let shipmentType = _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '');
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, []);
 
@@ -154,7 +154,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
         }
       });
     }
-  
+
     let newArray = [...bolList];
     newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '');
     newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '');
@@ -176,11 +176,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     setBolList(newArray);
   };
   const checkRemainingBalance = () => {
-    let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
+    const tolerance = _get(TransitDetails, 'data[0].order.tolerance', 0);
+    const quantity = _get(TransitDetails, 'data[0].order.quantity', 0);
+    const minBalance = quantity - (quantity * tolerance) / 100;
+    const maxBalance = quantity + (quantity * tolerance) / 100;
+    let balance = 0;
     bolList.forEach((item) => {
-      balance = balance - item.blQuantity;
+      balance = balance + Number(item.blQuantity);
     });
-    return balance;
+
+    if (balance <= maxBalance && balance >= minBalance) return false;
+    else return true;
   };
 
   const onChangeBol = (e, index) => {
@@ -268,16 +274,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     let isOk = true;
     let toastMessage = '';
     if (partShipmentAllowed == 'No') {
-      if (checkRemainingBalance() !== 0) {
-        handleErrorToast('Bl Quantity must be equal to Order Quantity');
+      if (checkRemainingBalance()) {
+        handleErrorToast('BL quantity is beyond defined tolerance level');
         isOk = false;
-        return isOk
+        return isOk;
       }
     }
 
     if (_get(TransitDetails, 'data[0].order.vessel.vessels[0].shipmentType', '') === 'Liner') {
-      if (checkRemainingBalance() < 0) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`;
+      if (checkRemainingBalance()) {
+        let toastMessage = `BL quantity is beyond defined tolerance level`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -317,7 +323,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.etaAtDischargePortFrom == '' || bolList[i]?.etaAtDischargePortFrom == undefined || !bolList[i]?.etaAtDischargePortFrom) {
+        if (
+          bolList[i]?.etaAtDischargePortFrom == '' ||
+          bolList[i]?.etaAtDischargePortFrom == undefined ||
+          !bolList[i]?.etaAtDischargePortFrom
+        ) {
           toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -325,7 +335,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.etaAtDischargePortTo == '' || bolList[i]?.etaAtDischargePortTo == undefined || !bolList[i]?.etaAtDischargePortTo) {
+        if (
+          bolList[i]?.etaAtDischargePortTo == '' ||
+          bolList[i]?.etaAtDischargePortTo == undefined ||
+          !bolList[i]?.etaAtDischargePortTo
+        ) {
           toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -375,7 +389,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-         if (bolList[i]?.blSurrenderDate  && (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined)) {
+        if (
+          bolList[i]?.blSurrenderDate &&
+          (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined)
+        ) {
           toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -403,8 +420,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
 
       return isOk;
     } else if (_get(TransitDetails, 'data[0].order.vessel.vessels[0].shipmentType', '') === 'Bulk') {
-      if (checkRemainingBalance() < 0) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`;
+      if (checkRemainingBalance()) {
+        let toastMessage = `BL quantity is beyond defined tolerance level`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -444,7 +461,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.etaAtDischargePortFrom == '' || bolList[i]?.etaAtDischargePortFrom == undefined || !bolList[i]?.etaAtDischargePortFrom ) {
+        if (
+          bolList[i]?.etaAtDischargePortFrom == '' ||
+          bolList[i]?.etaAtDischargePortFrom == undefined ||
+          !bolList[i]?.etaAtDischargePortFrom
+        ) {
           toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -452,7 +473,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.etaAtDischargePortTo == '' || bolList[i]?.etaAtDischargePortTo == undefined || !bolList[i]?.etaAtDischargePortTo) {
+        if (
+          bolList[i]?.etaAtDischargePortTo == '' ||
+          bolList[i]?.etaAtDischargePortTo == undefined ||
+          !bolList[i]?.etaAtDischargePortTo
+        ) {
           toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -468,7 +493,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
             break;
           }
         }
-        if (bolList[i]?.blSurrenderDate  && (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined)) {
+        if (
+          bolList[i]?.blSurrenderDate &&
+          (bolList[i]?.blSurrenderDoc == null || bolList[i]?.blSurrenderDoc == undefined)
+        ) {
           toastMessage = `BL Acknowledgment Copy IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -493,7 +521,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
       });
     }
     let bol = { billOfLanding: tempArray };
-   
 
     bol.billOfLanding[0].blQuantity = removePrefixOrSuffix(bolList[0].blQuantity);
     let fd = new FormData();
@@ -645,16 +672,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading} flex-grow-1`}>Bill of Lading {index + 1}</h3>
-                  
-                    <button
-                      onClick={() => {
-                        onBolAdd();
-                      }}
-                      className={`${styles.add_btn} mr-0`}
-                    >
-                      <span className={styles.add_sign}>+</span>Add
-                    </button>
-                  
+
+                  <button
+                    onClick={() => {
+                      onBolAdd();
+                    }}
+                    className={`${styles.add_btn} mr-0`}
+                  >
+                    <span className={styles.add_sign}>+</span>Add
+                  </button>
+
                   {index > 0 && !bol?.isSubmitted ? (
                     <button
                       onClick={() => onDeleteClick(index)}
@@ -703,9 +730,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <p className={`${styles.imo_number} label_heading`}>
                             IMO Number
                             {shipmentTypeBulk ? <strong className="text-danger">*</strong> : ''}
@@ -714,7 +739,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         </div>
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <input
-                          disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
+                            disabled={!shipmentTypeBulk ? bol?.isSubmitted : false}
                             value={bol?.blNumber}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blNumber"
@@ -916,7 +941,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                           ) {
                                             onChangeContainerDetailsDocHandler(e, index);
                                           } else {
-                                            handleErrorToast('only XLS files are allowed')
+                                            handleErrorToast('only XLS files are allowed');
                                           }
                                         }}
                                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
@@ -1056,7 +1081,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                               ) {
                                                 uploadDoc(e, index);
                                               } else {
-                                                handleErrorToast('only XLS files are allowed')
+                                                handleErrorToast('only XLS files are allowed');
                                               }
                                             }}
                                           />
@@ -1192,7 +1217,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             <tr className="table_row">
                               <td className={styles.doc_name}>
                                 BL Acknowledgment Copy
-                               {bol?.blSurrenderDate !== null && <strong className="text-danger ml-0">*</strong>}
+                                {bol?.blSurrenderDate !== null && <strong className="text-danger ml-0">*</strong>}
                               </td>
                               <td>
                                 {bolList[index]?.blSurrenderDoc
@@ -1223,7 +1248,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
-                                      onClick={(e) =>  handleCloseDoc('blSurrenderDoc', index)}
+                                      onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
