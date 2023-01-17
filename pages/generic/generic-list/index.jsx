@@ -5,24 +5,24 @@ import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import Filter from '../../../src/components/Filter';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getGenericData } from '../../../src/redux/generic/actionsType';
+import constants from '@/utils/constants'
 
 import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 
-function Index(props) {
+const Index = (props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
   const [genData, setData] = useState([]);
-  const [total, setTotal] = useState([]);
+  const [total, setTotal] = useState(0);
   const [sorting, setSorting] = useState(1);
 
-  const { generic } = useSelector((state) => state?.generic?.allGeneric);
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Agreement & LC Module');
       sessionStorage.setItem('loadedSubPage', `Generic`);
-      sessionStorage.setItem('openList', 2);
+      sessionStorage.setItem('openList', constants.numberTwo);
     }
   }, []);
   useEffect(() => {
@@ -34,31 +34,26 @@ function Index(props) {
   }, [currentPage, dispatch]);
 
   const getDate = async () => {
-    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`));
+    const data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`));
     setData(data?.data);
     setTotal(data?.totalCount);
   };
+
+
   const handleSort = async () => {
-    if (sorting == -1) {
-      let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
-      setData(data?.data);
-      setTotal(data?.totalCount);
-      setSorting(1);
-    } else if (sorting == 1) {
-      let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
-      setData(data?.data);
-      setTotal(data?.totalCount);
-      setSorting(-1);
-    }
+    const data = await dispatch(getGenericData(`?page=${currentPage}&limit=${constants.numberSeven}&createdAt=${sorting}`));
+    setData(data?.data);
+    setTotal(data?.totalCount);
+    if (sorting === -1) setSorting(1);
+    else setSorting(-1);
   };
 
   const handleRoute = (term) => {
+    sessionStorage.removeItem('setgenActive');
+    sessionStorage.removeItem('genericSide');
     sessionStorage.setItem('genericSelected', JSON.stringify(term));
     sessionStorage.setItem('genericID', term.order.orderId);
     Router.push('/generic');
-
-    //  dispatch(setDynamicName(null))
-    // Router.push('/lc-module')
   };
 
   return (
@@ -89,13 +84,12 @@ function Index(props) {
               <h3 className="heading_card">Generic</h3>
               <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>
-                  Showing Page {currentPage + 1} out of {Math.ceil(total / 10)}
+                  Showing Page {currentPage + 1} out of {Math.ceil(total / constants.numberTen)}
                 </span>
                 <a
                   onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
+                    if (currentPage === 0) return 
+                    else {
                       setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
@@ -107,7 +101,7 @@ function Index(props) {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(total / 10)) {
+                    if (currentPage + 1 < Math.ceil(total / constants.numberTen)) {
                       setCurrentPage((prevState) => prevState + 1);
                     }
                   }}
@@ -144,23 +138,6 @@ function Index(props) {
 
                           <td>{term?.order?.commodity ?? ''}</td>
                           <td>{term?.company?.customerId ?? ''}</td>
-                          {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
-                          {/* <td>
-                        <span
-                          className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
-                            ? styles.review
-                            : term?.order?.queue === 'CreditQueue'
-                              ? styles.approved
-                              : styles.rejected
-                            }`}
-                        ></span>
-
-                        {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
-                          ? 'Review'
-                          : term?.order?.queue === 'CreditQueue'
-                            ? 'Approved'
-                            : 'Rejected'}
-                      </td> */}
                         </tr>
                       ))}
                   </tbody>

@@ -2,9 +2,9 @@
 @import '../../src/components/styles/Core/config';
 
 .dashboardTab {
-  margin-bottom: 105px;
+  margin-bottom: 152px;
   @include respond(phone) {
-    margin-bottom: 105px;
+    margin-bottom: 144px;
   }
 
   .tabHeader {
@@ -95,6 +95,7 @@
     @include respond(phone) {
       margin: 15px;
     }
+
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -115,32 +116,36 @@
     .main {
       border-radius: 6px;
       margin-bottom: 26px;
+
       &:first-child {
         margin-top: 26px;
       }
+
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
     }
+
     .dashboard_form {
       padding: 20px 35px 25px 40px;
 
       .bill_landing {
-       
         border: 2px solid #cad6e6;
         border-radius: 9px;
+
         .vessel_card {
           padding: 0px 35px 0px 35px;
+
           .main {
             margin-bottom: 26px;
             border-radius: 6px !important;
 
             .head_container {
-              border-bottom: 2px solid #cad6e6;
               cursor: pointer;
               border-bottom: none;
               height: 80px;
               padding: 25px 35px !important;
+
               .heading {
                 color: #3687e8;
                 font-weight: bold;
@@ -216,7 +221,6 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              margin-left: 1rem;
               margin: 10px 35px !important;
             }
           }
@@ -224,9 +228,9 @@
       }
 
       .form_group {
-        margin-top: 40px;
+        margin-bottom: 40px;
+        margin-top: 21px;
         position: relative;
-        margin-bottom: 10px;
 
         .search_image {
           margin-left: -40px;
@@ -252,6 +256,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
           &::before {
             top: 51%;
             left: 0;
@@ -262,6 +267,7 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
           @include respond(lg-desktop) {
             top: 15px;
             font-size: 14px;
@@ -269,26 +275,28 @@
             transform: translateY(-22px);
           }
         }
+
         .phone_card {
           display: flex;
           flex-wrap: nowrap;
+
           .code_phone {
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
+            max-width: 21%;
             font-size: 19px;
             letter-spacing: 0.18px;
-            color: #3687e8 !important;
-            text-transform: capitalize;
+            color: #3687e8;
             outline: none;
             border-radius: 4px 0 0 4px;
-            padding-left: 10px;
+            padding-left: 7px;
+            -webkit-text-fill-color: #3687e8;
             @include respond(lg-desktop) {
+              max-width: 28%;
               font-size: 15px;
               line-height: 1.3;
             }
-            
           }
         }
+
         .line {
           border: 3px solid #d9dde8;
         }
@@ -304,11 +312,12 @@
           box-sizing: border-box;
           white-space: nowrap;
           letter-spacing: 0.19px;
-          padding: 13px 30px 13px 17px;
-          border: 1px solid #0000001f;
+          padding-right: 40px;
+
           &:invalid + label {
             transform: translateY(0);
           }
+
           &:focus {
             & + label {
               transform: translateY(-30px);
@@ -317,6 +326,7 @@
               }
             }
           }
+
           @include respond(lg-desktop) {
             height: 45px;
             font-size: 15px;
@@ -333,9 +343,11 @@
             transform: translate(-61px, -22px);
           }
         }
+
         .input_field {
           border-top-left-radius: 0px;
           border-bottom-left-radius: 0px;
+
           &:focus {
             & + label {
               transform: translate(-61px, -30px);
@@ -344,6 +356,11 @@
               }
             }
           }
+        }
+      }
+      .email_id {
+        .label_heading {
+          left: 15px;
         }
       }
     }
@@ -395,7 +412,6 @@
 
   .customSelect {
     appearance: none;
-
   }
 
   .pdfImage {
@@ -502,7 +518,7 @@
       line-height: 25px;
       font-weight: bold;
       font-size: 20px;
-     
+
       text-transform: capitalize;
     }
 
@@ -510,14 +526,14 @@
       letter-spacing: 0.19px;
       font-size: 20px;
       line-height: 32px;
-  
+
       text-transform: capitalize;
 
       span {
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
-       
+
         text-transform: capitalize;
       }
     }
@@ -539,7 +555,18 @@
   padding: 6px;
   width: 40px;
   height: 40px;
-  @include respond(md-desktop) {
+  @include respond(lg-desktop) {
+    height: 30px;
+  }
+  @include respond(sm-desktop) {
+    height: 28px;
+  }
+  @include respond(phone) {
+    height: 25px;
+  }
+}
+.upload_image {
+  @include respond(lg-desktop) {
     height: 30px;
   }
   @include respond(sm-desktop) {
@@ -565,6 +592,7 @@
       overflow-x: auto;
 
       .table {
+        margin-bottom: 0px;
         th {
           font-size: 15px;
           color: #8492a6;
@@ -598,7 +626,6 @@
 
         tr {
           &:last-child {
-            border-bottom: none;
           }
 
           td {
@@ -607,7 +634,7 @@
             line-height: 24px;
             padding: 24px 15px;
             border: none;
-            opacity: 0.7;
+            // opacity: 0.7;
             white-space: nowrap;
             vertical-align: middle;
 
@@ -665,13 +692,19 @@
   font-weight: bold;
   color: #3687e8;
   cursor: pointer;
+
   span {
+    margin-top: -7px;
+    font-size: 30px;
     margin-right: 15px;
     @include respond(lg-desktop) {
+      margin-top: -4px;
       margin-right: 10px;
-      line-height: 1.2;
+      font-size: 24px;
+      //line-height: 1.2;
     }
   }
+
   @include respond(lg-desktop) {
     font-size: 15px;
     line-height: 1.3;
@@ -679,7 +712,6 @@
 }
 
 .head_container {
-
   padding: 0 35px !important;
   min-height: 80px;
   border-bottom: none;
@@ -687,6 +719,7 @@
   @include respond(lg-desktop) {
     min-height: 60px;
   }
+
   .dropDown {
     border: 1px solid #0000001f;
     border-radius: 4px;
@@ -725,11 +758,10 @@
     color: #3687e8;
     font-weight: bold;
     font-size: 22px;
-    text-transform: capitalize;
     line-height: 27px;
     margin: 0;
     @include respond(lg-desktop) {
-      font-size: 18px;
+      font-size: 20px;
       line-height: 1.3;
     }
   }
@@ -758,6 +790,9 @@ img {
       display: none;
       -webkit-appearance: none;
     }
+    @include respond(lg-desktop) {
+      height: 32px;
+    }
   }
 }
 
@@ -775,7 +810,6 @@ img {
 
 .customSelect {
   appearance: none;
-
 }
 
 .edit_image {
@@ -806,8 +840,6 @@ img {
   margin: 0 !important;
   padding: 25px 35px !important;
   border-top: 2px solid red;
-
- 
 
   .form_group {
     position: relative;
@@ -858,14 +890,11 @@ img {
       }
       @include respond(phone) {
         font-size: 14px;
-      
       }
     }
 
     .input_field {
       height: 60px;
-    
-      border: 1px solid #0000001f;
       border-radius: 4px;
       font-size: 20px;
       font-weight: 500;
@@ -900,18 +929,29 @@ img {
     }
   }
 }
-
+.btn_block {
+  top: 12px;
+  right: 12px;
+  position: absolute;
+  @include respond(lg-desktop) {
+    top: 8px;
+  }
+}
 .plus_add {
-  margin-top: 12px;
-  z-index: 1;
-  margin-left: -60px;
   width: 36px;
   height: 36px;
   @include respond(lg-desktop) {
     width: 30px;
     height: 30px;
-    margin-top: 8px;
-    margin-left: -40px;
+  }
+}
+.delete {
+  width: 36px;
+  height: 36px;
+  margin-left: 12px;
+  @include respond(lg-desktop) {
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -923,7 +963,7 @@ img {
 
   .comment {
     letter-spacing: 0.19px;
-  
+
     font-size: 20px;
     line-height: 25px;
   }
@@ -963,7 +1003,7 @@ img {
 
     .comment {
       letter-spacing: 0.19px;
- 
+
       font-size: 20px;
       line-height: 25px;
     }
@@ -1054,6 +1094,7 @@ img {
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
+
   .cardHeader {
     cursor: pointer;
     min-height: 80px;
@@ -1062,6 +1103,7 @@ img {
     @include respond(lg-desktop) {
       min-height: 60px;
     }
+
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -1080,6 +1122,7 @@ img {
         margin: 13px 0;
       }
     }
+
     span {
       font-size: 45px;
       color: #3687e8;
@@ -1096,15 +1139,18 @@ img {
       }
     }
   }
+
   .cardBody {
     padding: 0px;
     border-top: 2px solid red !important;
+
     .content {
       .header {
         padding: 25px 35px !important;
         font-weight: bold;
         line-height: 27px;
       }
+
       h5 {
         font-size: 22px;
         font-weight: bold;
@@ -1119,8 +1165,10 @@ img {
         }
       }
     }
+
     .body {
       padding: 25px 35px !important;
+
       .label_heading {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -1138,6 +1186,7 @@ img {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -1148,6 +1197,7 @@ img {
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           top: 15px;
           font-size: 14px;
@@ -1158,6 +1208,7 @@ img {
           font-size: 12px;
         }
       }
+
       .input_field {
         height: 60px;
         background-color: #c3c3c31f;
@@ -1169,10 +1220,11 @@ img {
         box-shadow: none;
         position: relative;
         box-sizing: border-box;
+
         &:invalid + label {
-       
           transform: translateY(0);
         }
+
         &:focus {
           & + label {
             transform: translateY(-30px);
@@ -1181,6 +1233,7 @@ img {
             }
           }
         }
+
         @include respond(lg-desktop) {
           height: 45px;
           font-size: 15px;
@@ -1190,13 +1243,16 @@ img {
           font-size: 14px;
         }
       }
+
       .search_image {
         margin-left: -40px;
       }
     }
+
     .dashboard_form {
       padding: 10px 20px 0px 20px;
       margin: 15px;
+
       .sub_heading {
         margin-top: 20px;
         font-size: 20px;
@@ -1208,6 +1264,7 @@ img {
           line-height: 1.3;
         }
       }
+
       .number {
         letter-spacing: 0.19px;
         color: #111111;
@@ -1219,6 +1276,7 @@ img {
           line-height: 1.3;
         }
       }
+
       h5 {
         letter-spacing: 0.19px;
         color: #111111;
@@ -1227,12 +1285,14 @@ img {
         line-height: 25px;
         padding-left: 30px;
       }
+
       .paragraph {
         line-height: 25px;
         letter-spacing: 0.19px;
         font-size: 20px;
         width: 85%;
       }
+
       .label_heading {
         font-size: 16px;
         font-weight: 500;
@@ -1249,6 +1309,7 @@ img {
           line-height: 17px;
         }
       }
+
       .comment_field {
         height: 106px;
         background-color: #c3c3c31f;
@@ -1265,21 +1326,26 @@ img {
         }
       }
     }
+
     .datatable {
       width: 879px;
       margin: 0 12px;
       box-shadow: none !important;
       border: none !important;
+
       .table_scroll_outer {
         width: 100%;
         display: table;
         table-layout: fixed;
+
         .table_scroll_inner {
           display: table-cell;
           overflow-x: auto;
+
           .table {
             border: 1px solid #cad6e6;
             margin-bottom: 0px;
+
             th {
               font-size: 15px;
               line-height: 18px;
@@ -1289,12 +1355,14 @@ img {
               background: transparent !important;
               white-space: nowrap;
               vertical-align: middle;
+
               &:first-child {
                 padding-left: 35px;
                 @include respond(sm-desktop) {
                   padding-left: 15px;
                 }
               }
+
               .sort_image {
                 width: 14px;
                 height: 14px;
@@ -1303,6 +1371,7 @@ img {
                   height: 12px;
                 }
               }
+
               @include respond(lg-desktop) {
                 height: 50px;
                 font-size: 14px;
@@ -1315,10 +1384,12 @@ img {
                 font-size: 12px;
               }
             }
+
             tr {
               &:last-child {
                 border-bottom: none;
               }
+
               td {
                 font-size: 19px;
                 font-weight: 500;
@@ -1326,12 +1397,14 @@ img {
                 padding: 24px 15px;
                 border: 1px solid #cad6e6;
                 white-space: nowrap;
+
                 &:first-child {
                   padding-left: 35px;
                   @include respond(sm-desktop) {
                     padding-left: 15px;
                   }
                 }
+
                 @include respond(lg-desktop) {
                   font-size: 15px;
                   line-height: 1.3;
@@ -1343,11 +1416,13 @@ img {
                 }
               }
             }
+
             .buyerName {
               color: #3687e8;
               font-weight: bold;
               text-transform: capitalize;
             }
+
             .status {
               width: 15px;
               height: 15px;
@@ -1355,13 +1430,20 @@ img {
               border-radius: 50%;
               display: inline-block;
               vertical-align: middle;
+              @include respond(lg-desktop) {
+                width: 12px;
+                height: 12px;
+              }
             }
+
             .approved {
               background: #26dd73;
             }
+
             .rejected {
               background: #ed714c;
             }
+
             .review {
               background: #ffce00;
             }
@@ -1369,17 +1451,20 @@ img {
         }
       }
     }
+
     .line {
       border: 2px solid #cad6e6;
     }
   }
 }
+
 .upload_main {
   border-radius: 6px;
   margin-bottom: 26px;
   @include respond(lg-desktop) {
     margin-bottom: 20px;
   }
+
   .head_container {
     cursor: pointer;
     min-height: 80px;
@@ -1387,6 +1472,7 @@ img {
     @include respond(lg-desktop) {
       min-height: 60px;
     }
+
     .heading {
       font-size: 22px;
       font-weight: bold;
@@ -1405,6 +1491,7 @@ img {
         margin: 13px 0;
       }
     }
+
     span {
       font-size: 45px;
       color: #3687e8;
@@ -1421,22 +1508,26 @@ img {
       }
     }
   }
+
   .dashboard_form {
     padding: 40px 35px 40px 35px;
     @include respond(phone) {
       padding: 25px 20px 20px;
     }
+
     .drop_container {
       background-color: #c3c3c31f;
       border: 1px dashed #00000045;
       border-radius: 4px;
       height: 284px;
       line-height: 1;
+
       .upload_image {
         width: 83px;
         height: 83px;
         line-height: 83px;
       }
+
       .drop_para {
         font-size: 19px;
         line-height: 24px;
@@ -1449,6 +1540,7 @@ img {
         @include respond(phone) {
           font-size: 12px;
         }
+
         a {
           text-decoration: underline;
           font-size: 19px;
@@ -1464,6 +1556,7 @@ img {
         }
       }
     }
+
     .upload_button {
       border: 3px solid #3687e8;
       border-radius: 5px;
@@ -1475,7 +1568,7 @@ img {
       text-transform: capitalize;
       width: 220px;
       height: 46px;
-    
+
       @include respond(lg-desktop) {
         width: 180px;
         height: 38px;
@@ -1494,10 +1587,12 @@ img {
         height: 35px;
       }
     }
+
     .form_group {
       position: relative;
       margin-bottom: 40px;
       margin-top: 20px;
+
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -1510,6 +1605,7 @@ img {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
         &::before {
           top: 51%;
           left: 0;
@@ -1520,16 +1616,18 @@ img {
           position: absolute;
           transform: translateY(-50%);
         }
+
         @include respond(lg-desktop) {
           font-size: 14px;
           line-height: 15px;
         }
       }
+
       .value {
         font-size: 20px;
         letter-spacing: 0.19px;
         text-transform: capitalize;
-      
+
         border-radius: 4px;
         height: 60px;
         box-shadow: none;
@@ -1544,13 +1642,13 @@ img {
       }
     }
   }
+
   .search_container {
- 
     height: 62px;
     padding-right: 1.5rem !important;
     background: #f0f0f0;
+
     .dropDown {
-   
       border-radius: 4px;
       color: #3687e8;
       text-transform: capitalize;
@@ -1562,19 +1660,22 @@ img {
       height: 40px;
       box-shadow: none;
     }
+
     .searchBarContainer {
       position: relative;
+
       .searchBar {
         width: 337px;
         height: 40px;
         padding-left: 3.5rem;
-       
+
         border-radius: 1.1rem;
         box-shadow: none;
         @include respond(lg-desktop) {
           padding-left: 2.5rem;
         }
       }
+
       .searchImage {
         position: absolute;
         margin-left: 30px;
@@ -1585,24 +1686,28 @@ img {
       }
     }
   }
+
   .table_container {
     background-color: #fafafb;
+
     .table_scroll_outer {
       width: 100%;
       display: table;
       table-layout: fixed;
+
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
+
         .table {
           margin-bottom: 0px;
+
           th {
             font-size: 15px;
             color: #8492a6;
             font-weight: bold;
             line-height: 18px;
             padding: 20px 15px;
-            vertical-align: middle;
             background: #fafafb;
             text-transform: uppercase;
             border-top: 2px solid #f2f5f9;
@@ -1615,6 +1720,7 @@ img {
                 padding-left: 15px;
               }
             }
+
             img {
               &.sort_image {
                 width: 14px;
@@ -1624,6 +1730,7 @@ img {
                   height: 12px;
                 }
               }
+
               &.searchImg {
                 width: 48px;
                 height: 48px;
@@ -1637,6 +1744,7 @@ img {
                 }
               }
             }
+
             @include respond(lg-desktop) {
               height: 50px;
               font-size: 14px;
@@ -1650,10 +1758,12 @@ img {
               font-size: 12px;
             }
           }
+
           tr {
             &:last-child {
               border-bottom: none;
             }
+
             td {
               font-size: 19px;
               font-weight: 500;
@@ -1671,6 +1781,7 @@ img {
               @include respond(phone) {
                 font-size: 12px;
               }
+
               .actionContainer {
                 @include respond(phone) {
                   display: flex;
@@ -1679,6 +1790,7 @@ img {
                   display: flex;
                 }
               }
+
               .uploadDoc {
                 text-align: center;
                 color: #3687e8;
@@ -1705,6 +1817,7 @@ img {
               }
             }
           }
+
           .updateBtn {
             text-align: center;
             color: #3687e8;
@@ -1728,6 +1841,7 @@ img {
               padding: 0px 15px 0 15px;
             }
           }
+
           .doc_name {
             font-weight: bold;
             line-height: 25px;
@@ -1742,6 +1856,7 @@ img {
               font-size: 14px;
             }
           }
+
           .doc_row {
             font-size: 19px;
             line-height: 24px;
@@ -1760,9 +1875,11 @@ img {
     }
   }
 }
+
 .table_clause {
   margin-top: 40px;
   border: none !important;
+
   .table_header {
     letter-spacing: 0.53px;
     color: #00000080;
@@ -1786,8 +1903,10 @@ img {
       font-size: 12px;
     }
   }
+
   tr {
     border-bottom: none !important;
+
     td {
       color: #111111;
       font-size: 20px;
@@ -1806,6 +1925,7 @@ img {
       }
     }
   }
+
   .updateBtn {
     text-align: center;
     color: #3687e8;
@@ -1819,6 +1939,7 @@ img {
     padding: 8px 30px 8px 30px;
   }
 }
+
 .module {
   background: #8492a6;
   font-size: 15px;
@@ -1839,6 +1960,7 @@ img {
     font-size: 11px;
   }
 }
+
 .doc_name {
   font-weight: bold;
   line-height: 25px;
@@ -1855,6 +1977,7 @@ img {
     font-size: 14px;
   }
 }
+
 .doc_row {
   font-size: 19px;
   line-height: 24px;
@@ -1870,6 +1993,7 @@ img {
     font-size: 12px;
   }
 }
+
 .status {
   width: 15px;
   height: 15px;
@@ -1877,7 +2001,7 @@ img {
   border-radius: 50%;
   display: inline-block;
   vertical-align: middle;
-  @include respond(sm-desktop) {
+  @include respond(lg-desktop) {
     width: 12px;
     height: 12px;
   }
@@ -1886,12 +2010,15 @@ img {
     height: 10px;
   }
 }
+
 .approved {
   background: #26dd73;
 }
+
 .rejected {
   background: #ff9d00;
 }
+
 .pdfImage {
   width: 57px;
   height: 25px;
@@ -1904,6 +2031,7 @@ img {
     height: 15px;
   }
 }
+
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -1925,6 +2053,7 @@ img {
     padding: 5px;
   }
 }
+
 .delete_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -1945,24 +2074,102 @@ img {
     height: 25px;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
+
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
 }
+.searchResults {
+  width: 93%;
+
+  top: 75px;
+
+  z-index: 3;
+  position: absolute;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 2px solid #d2d7e5;
+
+  @include respond(md-desktop) {
+  }
+
+  @include respond(sm-desktop) {
+  }
+
+  &::after {
+    top: -15px;
+    left: 40px;
+    content: '';
+    position: absolute;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 15px solid #d2d7e5;
+  }
+
+  ul {
+    margin: 15px 0;
+    padding: 0;
+    list-style: none;
+    max-height: 300px;
+    overflow: auto;
+
+    li {
+      font-size: 18px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 1.5;
+      padding: 7px 0;
+      display: flex;
+      margin: 0 15px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #d2d7e5;
+
+      @include respond(md-desktop) {
+        font-size: 16px;
+      }
+
+      @include respond(sm-desktop) {
+        font-size: 14px;
+      }
+
+      span {
+        font-size: 15px;
+        font-weight: 500;
+        color: #8492a6;
+        margin-left: 10px;
+      }
+
+      @include respond(md-desktop) {
+        font-size: 14px;
+      }
+
+      @include respond(sm-desktop) {
+        font-size: 12px;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
 img {
   &.arrow2 {
     width: 13px !important;
     margin-left: -25px;
-  
+
     pointer-events: none;
-    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
-      brightness(103%) contrast(82%);
+    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+
     input[type='date']::-webkit-inner-spin-button,
     input[type='date']::-webkit-calendar-picker-indicator {
       display: none;
@@ -1970,10 +2177,11 @@ img {
     }
   }
 }
+
 .customSelect {
   appearance: none;
-
 }
+
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
@@ -1986,6 +2194,7 @@ img {
     font-size: 15px;
     line-height: 1.3;
   }
+
   span {
     max-width: 95%;
     overflow: hidden;
@@ -1993,6 +2202,7 @@ img {
     display: inline-block;
     text-overflow: ellipsis;
   }
+
   img {
     width: auto !important;
     height: auto !important;
@@ -2001,6 +2211,7 @@ img {
     }
   }
 }
+
 .certificate2 {
   display: flex;
   justify-content: space-around;
@@ -2013,6 +2224,7 @@ img {
   padding: 8px;
   margin: 7px 0;
 }
+
 .uploadBtnWrapper {
   overflow: hidden;
   position: relative;
@@ -2028,7 +2240,6 @@ img {
     position: absolute;
   }
 }
-
 .button_upload {
   width: 106px;
   height: 38px;
@@ -2045,5 +2256,39 @@ img {
     height: 34px;
     font-size: 15px;
     line-height: 1;
+  }
+}
+.phone_card {
+  display: flex;
+  flex-wrap: nowrap;
+  .code_phone2 {
+    max-width: 31%;
+    font-size: 19px;
+    line-height: 24px;
+    letter-spacing: 0.18px;
+    color: #3687e8 !important;
+    outline: none;
+    height: 36px;
+    border-radius: 4px 0 0 4px;
+    padding-left: 5px;
+    -webkit-text-fill-color: #3687e8 !important;
+    @include respond(lg-desktop) {
+      font-size: 15px;
+      line-height: 1.3;
+      height: 32px;
+    }
+  }
+  .input_field2 {
+    height: 36px;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius:  0 !important;
+    box-shadow: none;
+    @include respond(lg-desktop) {
+      font-size: 15px;
+      line-height: 1.3;
+      width: 110px;
+      height: 32px;
+      padding-left: 5px !important;
+    }
   }
 }

@@ -1,31 +1,104 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import Contract from '../../src/components/A2S_Sales_Contract';
+import AssignmentLetter from '../../src/components/AssignmentLetter';
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement';
-import TPASeller from '../../src/components/TPASeller';
-import TPAIGI from '../../src/components/TPAIGI';
 import InspectionDocument from '../../src/components/InspectionDocument';
 import QPA from '../../src/components/QPA';
+import TPAIGI from '../../src/components/TPAIGI';
+import TPASeller from '../../src/components/TPASeller';
+import styles from './index.module.scss';
+import VesselSaveBar from '../../src/components/VesselSaveBar';
+import { handleErrorToast } from '@/utils/helpers/global';
 
-import AssignmentLetter from '../../src/components/AssignmentLetter';
-
-function Index() {
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import { useDispatch } from 'react-redux';
+import { updateGenericData } from '../../src/redux/generic/actionsType';
+const Index = () => {
   const [preview, setPreview] = useState('');
-
+  const dispatch = useDispatch();
+  const [agreementDoc, setagreementDoc] = useState({
+    lcDraftDoc: null,
+  });
   const setPreviewValue = (val) => {
     sessionStorage.setItem('agreementPreview', val);
     setPreview(val);
   };
   const [name, setName] = useState('');
+  const [orderId, setOrderID] = useState('');
+  useEffect(() => {
+    if (window) {
+      const term = JSON.parse(sessionStorage.getItem('genericSelected'));
+      dispatch(setPageName('agreement'));
+      dispatch(setDynamicName(term.company.companyName));
+      dispatch(setDynamicOrder(term.order.orderId));
+    }
+  }, []);
+
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
+
+      setOrderID(data.order._id);
       setName(data.company.companyName);
     }
   });
+  useEffect(() => {
+    if (window) {
+      const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
+      if (doc) {
+        const newInput = { ...agreementDoc };
+        newInput.lcDraftDoc = { name: doc.name, lastModifiedDate: doc.lastModifiedDate };
+        setagreementDoc(newInput);
+      } else {
+        const doc = JSON.parse(sessionStorage.getItem('genericSelected'));
+
+        const newInput = { ...agreementDoc };
+        newInput.lcDraftDoc = { name: doc?.document?.name || null, lastModifiedDate: doc?.document?.date };
+        setagreementDoc(newInput);
+      }
+    }
+  }, []);
+
+  const uploadDocument1 = async (e) => {
+    const newInput = { ...agreementDoc };
+    newInput.lcDraftDoc = e.target.files[0];
+
+    sessionStorage.setItem(
+      'agreementDoc',
+      JSON.stringify({
+        name: e.target.files[0].name,
+        lastModifiedDate: e.target.files[0].lastModifiedDate,
+      }),
+    );
+    setagreementDoc(newInput);
+  };
+  const saveDoc = async () => {
+    const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
+
+    const dataToSend = {
+      genericId: JSON.parse(sessionStorage.getItem('genericSelected'))._id,
+      agreementDocument: doc,
+    };
+    await dispatch(updateGenericData(dataToSend, 'Save'));
+  };
+  const submitDoc = async () => {
+    const doc = JSON.parse(sessionStorage.getItem('agreementDoc'));
+
+    if (!doc) {
+      handleErrorToast('please upload Sales Agreement ');
+      return;
+    }
+    const dataToSend = {
+      genericId: JSON.parse(sessionStorage.getItem('genericSelected'))._id,
+      document: doc,
+    };
+    await dispatch(updateGenericData(dataToSend, 'Submitted'));
+  };
+  const [show, setShow] = useState(false);
+
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
@@ -44,14 +117,10 @@ function Index() {
                 Print
               </button>
             </div>
-            {/* <div className="ml-auto text-right">
-              <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-              <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-            </div> */}
           </div>
         </div>
         <ul className={`${styles.navTabs} nav nav-tabs`}>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`} onClick={() => setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link active`}
               data-toggle="tab"
@@ -63,7 +132,7 @@ function Index() {
               Sales Agreement
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`} onClick={() => setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -75,7 +144,7 @@ function Index() {
               Associateship Agreement
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`} onClick={() => setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -87,7 +156,7 @@ function Index() {
               TPA (Seller)
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`} onClick={() => setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -99,7 +168,7 @@ function Index() {
               TPA (CMA)
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`} onClick={() => setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -112,7 +181,7 @@ function Index() {
             </a>
           </li>
 
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`} onClick={() => setShow(false)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -124,7 +193,7 @@ function Index() {
               QPA
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
+          <li className={`${styles.navItem} nav-item`} onClick={() => setShow(true)}>
             <a
               className={`${styles.navLink} navLink nav-link`}
               data-toggle="tab"
@@ -175,7 +244,15 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Document" role="tabpanel">
                   <div className="accordion shadow-none" id="inspectionDocument">
-                    <InspectionDocument documentName="Sales Agreement" isOpen="false" setLcDoc />
+                    <InspectionDocument
+                      orderId={orderId}
+                      module={['Generic', 'Agreements', 'LC', 'LC Ammendment', 'Vessel Nomination', 'Insurance']}
+                      documentName="Sales Agreement"
+                      isOpen="false"
+                      setLcDoc={setagreementDoc}
+                      lcDoc={agreementDoc}
+                      uploadDocument1={uploadDocument1}
+                    />
                   </div>
                 </div>
               </div>
@@ -183,6 +260,7 @@ function Index() {
           </div>
         </div>
       </div>
+      {show && <VesselSaveBar handleSave={saveDoc} rightBtn="Submit" rightBtnClick={submitDoc} />}
     </div>
   );
 }

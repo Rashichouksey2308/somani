@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import { addPrefixOrSuffix, addPrefixSymbol } from '../../utils/helper';
+import { returnReadableNumber } from '@/utils/helpers/global';
 
 const Index = ({
   termsheet,
@@ -49,16 +50,17 @@ const Index = ({
     if (value === 'DaysfromBLDate') {
       setIsBlSelected('DaysfromBLDate');
       changePayment('DaysfromBLDate');
-    
-    } else if (value === 'DaysfromVesselDischargeDate') {
-      setIsBlSelected('DaysfromVesselDischargeDate');
-      changePayment('DaysfromVesselDischargeDate');
-     
+    } else if (value === 'DaysfromVesselDate') {
+      setIsBlSelected('DaysfromVesselDate');
+      changePayment('DaysfromVesselDate');
     } else {
       setIsBlSelected(value);
       changePayment('val');
     }
   };
+  useEffect(() => {
+    payementchangeFunc(termsheetDetails?.paymentDueDate?.computationOfDueDate);
+  }, [termsheetDetails]);
 
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
@@ -92,12 +94,7 @@ const Index = ({
         <h3 className={styles.heading}>Transaction Summary</h3>
         <span>+</span>
       </div>
-      <div
-        id="termDetails"
-
-        aria-labelledby="termDetails"
-        data-parent="#termDetails"
-      >
+      <div id="termDetails" aria-labelledby="termDetails" data-parent="#termDetails">
         <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={`${styles.sub_heading}`}>Commodity details</h3>
 
@@ -151,17 +148,11 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                  <option
-                    value={
-                      termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
-                        ? 'MT'
-                        : termsheetDetails?.commodityDetails?.unitOfQuantity
-                    }
-                  >
-                    {termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
-                      ? 'MT'
-                      : termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
-                  </option>
+
+                  <option value={'MT'}>MT</option>
+                  <option value={'L'}>L</option>
+                  <option value={'KG'}>KG</option>
+                  <option value={'M'}>M</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Units of Measurement (UOM)
@@ -183,7 +174,11 @@ const Index = ({
                     Select
                   </option>
                   {currency.map((val, index) => {
-                    return <option value={`${val.Currency}`}>{val.Currency}</option>;
+                    return (
+                      <option key={index} value={`${val.Currency}`}>
+                        {val.Currency}
+                      </option>
+                    );
                   })}
                   {/* <option value="USD">USD</option>
                   <option value="INR">INR</option>
@@ -205,7 +200,6 @@ const Index = ({
                 id="quantity"
                 className={`${styles.value} input form-control`}
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-               
                 onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
@@ -216,10 +210,9 @@ const Index = ({
                 value={
                   isFieldInFocus.quantity
                     ? termsheetDetails?.commodityDetails?.quantity
-                    : Number(termsheetDetails?.commodityDetails?.quantity).toLocaleString('en-In') +
+                    : returnReadableNumber(termsheetDetails?.commodityDetails?.quantity, 'en-In', 2) +
                       ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
                 }
-                
                 onChange={(e) => {
                   onChangeCommodityDetails(e);
                 }}
@@ -249,12 +242,13 @@ const Index = ({
                   isFieldInFocus.unitPrice
                     ? termsheetDetails?.commodityDetails?.perUnitPrice
                     : ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` +
-                      Number(termsheetDetails?.commodityDetails?.perUnitPrice)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      })
+                      returnReadableNumber(
+                        termsheetDetails?.commodityDetails?.perUnitPrice,
+                        termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase() === 'INR' ? 'en-In' : 'en-EN',
+                        2,
+                        2,
+                      )
                 }
-               
                 onChange={onChangeCommodityDetails}
                 type="text"
                 required
@@ -265,10 +259,7 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div
-                className={`${styles.suffixWrapper} d-flex text-muted`}
-              
-              >
+              <div className={`${styles.suffixWrapper} d-flex text-muted`}>
                 <input
                   id="tolerance"
                   onWheel={(event) => event.currentTarget.blur()}
@@ -281,25 +272,18 @@ const Index = ({
                   value={
                     isFieldInFocus.tolerance
                       ? termsheetDetails?.commodityDetails?.tolerance
-                      : '±' +
-                        Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }) +
-                        ` %`
+                      : '±' + returnReadableNumber(termsheetDetails?.commodityDetails?.tolerance, 'en-In', 2, 2) + ` %`
                   }
-                 
                   onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
                 />
-                
+
                 <label className={`${styles.label} label_heading`}>
                   Tolerance (+/-) Percentage
                   <strong className="text-danger">*</strong>
                 </label>
-                
               </div>
             </div>
           </div>
@@ -316,14 +300,14 @@ const Index = ({
                   newLcVal ? newLcVal : 0,
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
+                  termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase() == 'INR' ? 'en-IN' : 'en-En',
                 )}
-              
-
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
+                disabled
               />
-             
+
               <label className={`${styles.label} label_heading`}>
                 LC Value<strong className="text-danger">*</strong>
               </label>
@@ -345,18 +329,28 @@ const Index = ({
                     ? termsheetDetails?.transactionDetails?.marginMoney
                     : Number(termsheetDetails?.transactionDetails?.marginMoney).toLocaleString() + ` %`
                 }
-              
                 onChange={onChangeTransactionDetails}
                 required
               />
-             
 
               <label className={`${styles.label} label_heading`}>
                 Margin Money (%)<strong className="text-danger">*</strong>
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className="d-flex">
+              <input
+                id="lcOpeningBank"
+                className={`${styles.value} ${styles.marginPercent} input form-control`}
+                type="text"
+                value={termsheetDetails?.transactionDetails?.lcOpeningBank}
+                onChange={onChangeTransactionDetails}
+                required
+              />
+
+              <label className={`${styles.label} label_heading`}>
+                LC Opening Bank<strong className="text-danger">*</strong>
+              </label>
+              {/* <div className="d-flex">
                 <select
                   id="lcOpeningBank"
                   className={`${styles.value} ${styles.customSelect} 
@@ -368,7 +362,7 @@ const Index = ({
                   <option disabled selected>
                     Select an option
                   </option>
-                  <option value='First Class European Bank'>First Class European Bank</option>
+                  <option value="First Class European Bank">First Class European Bank</option>
                   <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
                   <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                 </select>
@@ -376,7 +370,7 @@ const Index = ({
                   LC Opening Bank<strong className="text-danger">*</strong>
                 </label>
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
-              </div>
+              </div> */}
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
@@ -422,8 +416,8 @@ const Index = ({
                     })
                     .map((val, index) => {
                       return (
-                        <option value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
+                        <option key={index} value={`${val.Port_Name}, ${val.Country}`}>
+                          {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -445,7 +439,11 @@ const Index = ({
                 >
                   <option selected>Select an option</option>
                   {country.map((val, index) => {
-                    return <option value={`${val.Country}`}>{val.Country}</option>;
+                    return (
+                      <option key={index} value={`${val.Country}`}>
+                        {val.Country}
+                      </option>
+                    );
                   })}
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -491,11 +489,13 @@ const Index = ({
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed === 'Yes' ? (
                     <>
                       {' '}
-                      <option value="Yes">Yes</option> <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </>
                   ) : (
                     <>
-                      <option value="No">No</option> <option value="Yes">Yes</option>{' '}
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>{' '}
                     </>
                   )}
                 </select>
@@ -516,17 +516,19 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option selected>Select an option</option>
+                  <option disabled selected>
+                    Select an option
+                  </option>
                   {port
                     .filter((val, index) => {
-                      if (val.Country.toLowerCase() == 'india') {
+                      if (val.Country.toLowerCase() == 'india' && val.Approved == 'YES') {
                         return val;
                       }
                     })
                     .map((val, index) => {
                       return (
-                        <option value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
+                        <option key={index} value={`${val.Port_Name}`}>
+                          {val.Port_Name}, {val.Country}
                         </option>
                       );
                     })}
@@ -641,12 +643,20 @@ const Index = ({
                   value={termsheetDetails?.transactionDetails?.storageOfGoods}
                   required
                 >
-                  <option disabled selected>
-                    Select an option
-                  </option>
-                  <option value="Vishakapatnam, India">Visakhapatnam, India</option>
-                  <option value="Mumbai, India">Mumbai, India</option>
-                  <option value="Gujrat, India">Gujrat, India</option>
+                  <option disabled>Select an option</option>
+                  {port
+                    .filter((val, index) => {
+                      if (val.Country.toLowerCase() == 'india' && val.Approved == 'YES') {
+                        return val;
+                      }
+                    })
+                    .map((val, index) => {
+                      return (
+                        <option key={index} value={`${val.Port_Name}`}>
+                          {val.Port_Name}, {val.Country}
+                        </option>
+                      );
+                    })}
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
@@ -667,9 +677,8 @@ const Index = ({
                   id="computationOfDueDate"
                   value={termsheetDetails?.paymentDueDate?.computationOfDueDate}
                   onChange={(e) => {
-                    {
-                      payementchangeFunc(e.target.value), onChangePaymentDueDate(e);
-                    }
+                    payementchangeFunc(e.target.value);
+                    onChangePaymentDueDate(e);
                   }}
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   required
@@ -678,7 +687,7 @@ const Index = ({
                     Select an option
                   </option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
-                  <option value="DaysfromVesselDischargeDate"> Days from Vessel Discharge Date </option>
+                  <option value="DaysfromVesselDate">Days from Vessel Discharge Date</option>
                   <option value="Whicheverisearlier">Whichever is earlier</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -708,19 +717,15 @@ const Index = ({
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
-                id="daysFromVesselDischargeDate"
+                id="daysFromVesselDate"
                 className={`${styles.value} input form-control`}
                 type="number"
                 onWheel={(event) => event.currentTarget.blur()}
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                value={termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate}
+                value={termsheetDetails?.paymentDueDate?.daysFromVesselDate}
                 onChange={onChangePaymentDueDate}
                 disabled={
-                  IsBlSelected == 'DaysfromVesselDischargeDate'
-                    ? false
-                    : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                  IsBlSelected == 'DaysfromVesselDate' ? false : IsBlSelected == 'Whicheverisearlier' ? false : true
                 }
                 required
               />
@@ -761,19 +766,19 @@ const Index = ({
                     ? termsheetDetails.commercials?.tradeMarginPercentage
                     : Number(termsheetDetails.commercials?.tradeMarginPercentage).toLocaleString() + ` %`
                 }
-              
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-               
                 onChange={onChangeCommercialTerms}
                 required
               />
-              
+
               <label className={`${styles.label} label_heading`}>
                 Trade Margin(%)<strong className="text-danger">*</strong>
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6 d-flex`}>
-              <div className={`${styles.value} input form-control w-25 disable border-right-0 rounded-left pt-3`}>
+              <div
+                className={`${styles.value} input form-control w-25 disable d-flex align-items-center border-right-0 rounded-left`}
+              >
                 {addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase())}
               </div>
               <input
@@ -781,7 +786,6 @@ const Index = ({
                 className={`${styles.value} input form-control border-left-0`}
                 type="text"
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-              
                 onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({
@@ -797,11 +801,13 @@ const Index = ({
                   }),
                     (e.target.type = 'text');
                 }}
-            
                 value={
                   isFieldInFocus.lcOpeningCharges
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
-                    : Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In')
+                    : returnReadableNumber(
+                        termsheetDetails?.commercials?.lcOpeningChargesUnit,
+                        termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase() === 'INR' ? 'en-In' : 'en-EN',
+                      )
                 }
                 onChange={onChangeCommercialTerms}
                 required
@@ -836,15 +842,14 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage
                     ? termsheetDetails?.commercials?.lcOpeningChargesPercentage
-                    : Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage).toLocaleString('en-In') + ` %`
+                    : `${Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage)?.toLocaleString('en-IN')}` +
+                      ` %`
                 }
-              
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-               
                 onChange={onChangeCommercialTerms}
                 required
               />
-             
+
               <label className={`${styles.label} label_heading`}>
                 LC Opening Charges (%)<strong className="text-danger">*</strong>
               </label>
@@ -876,7 +881,6 @@ const Index = ({
                     ? termsheetDetails?.commercials?.usanceInterestPercetage
                     : Number(termsheetDetails?.commercials?.usanceInterestPercetage).toLocaleString() + ` %`
                 }
-              
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                 onChange={onChangeCommercialTerms}
                 required
@@ -914,9 +918,7 @@ const Index = ({
                     ? termsheetDetails?.commercials?.overDueInterestPerMonth
                     : Number(termsheetDetails?.commercials?.overDueInterestPerMonth).toLocaleString() + ` %`
                 }
-            
                 onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-              
                 onChange={onChangeCommercialTerms}
                 required
               />

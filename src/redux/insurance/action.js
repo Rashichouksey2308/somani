@@ -1,10 +1,10 @@
 import * as types from './actionType';
 import Axios from 'axios';
-import { toast } from 'react-toastify';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
-
+import Router from 'next/router';
+import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
 function getAllInsurance() {
   return {
     type: types.GET_ALL_INSURANCE,
@@ -112,28 +112,21 @@ export const GettingAllInsurance = (payload) => async (dispatch, getState, api) 
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
     };
-    Axios.get(`${API.corebaseUrl}${API.getInsurance}${payload || ''}`, {
+    await Axios.get(`${API.corebaseUrl}${API.getInsurance}${payload || ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllInsuranceSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getAllInsuranceFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(getAllInsuranceFailed());
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(getAllInsuranceFailed());
-
-    const toastMessage = 'GET INSURANCE API FAILED';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('GET INSURANCE API FAILED');
     dispatch(setNotLoading());
   }
 };
@@ -150,32 +143,22 @@ export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getInsurance}`, payload, {
+    await Axios.get(`${API.corebaseUrl}${API.getInsurance}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(createInsuranceSuccess(response.data.data));
-        const toastMessage = 'INSURANC CREATED';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleSuccessToast('INSURANCE CREATED');
         dispatch(setNotLoading());
       } else {
-        dispatch(createInsuranceFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(createInsuranceFailed());
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(createInsuranceFailed());
-
-    const toastMessage = 'COULD NOT CREATE INSURANCE AT THIS TIME';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('COULD NOT CREATE INSURANCE AT THIS TIME');
     dispatch(setNotLoading());
   }
 };
@@ -193,26 +176,17 @@ export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
     });
     if (response.data.code === 200) {
       dispatch(updateInsuranceSuccess(response.data));
-      const toastMessage = 'SAVED SUCCESSFULLY';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleSuccessToast('SAVED SUCCESSFULLY')
       dispatch(setNotLoading());
       return response.data.code;
     } else {
-      dispatch(updateInsuranceFailed(response.data));
-      const toastMessage = 'UPDATE REQUEST FAILED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(updateInsuranceFailed());
+      handleErrorToast('UPDATE REQUEST FAILED')
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(updateInsuranceFailed());
-    const toastMessage = 'UPDATE INSURANCE REQUEST FAILED';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+  handleErrorToast('UPDATE INSURANCE REQUEST FAILED')
     dispatch(setNotLoading());
   }
 };
@@ -225,31 +199,23 @@ export const RenewInsurance = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
   try {
-    Axios.put(`${API.corebaseUrl}${API.renewInsurance}`, payload, {
+  await Axios.put(`${API.corebaseUrl}${API.renewInsurance}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(renewInsuranceSuccess(response.data.data));
-        const toastMessage = 'REQUEST SENT SUCCESSFULLY';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        handleSuccessToast('REQUEST SENT SUCCESSFULLY')
         dispatch(setNotLoading());
+        Router.push('/insurance');
       } else {
-        dispatch(renewInsuranceFailed(response.data.data));
-        const toastMessage = 'RENEW REQUEST FAILED';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
+        dispatch(renewInsuranceFailed());
+       handleErrorToast('RENEW REQUEST FAILED')
         dispatch(setNotLoading());
       }
     });
   } catch (error) {
     dispatch(renewInsuranceFailed());
-    const toastMessage = 'RENEW INSURANCE REQUEST FAILED';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('RENEW INSURANCE REQUEST FAILED')
     dispatch(setNotLoading());
   }
 };
@@ -266,26 +232,17 @@ export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
     });
     if (response.data.code === 200) {
       dispatch(updateQuotationSuccess(response.data));
-      const toastMessage = 'SAVED SUCCESSFULLY';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleSuccessToast('SAVED SUCCESSFULLY')
       dispatch(setNotLoading());
       return response.data.code;
     } else {
-      dispatch(updateQuotationFailed(response.data));
-      const toastMessage = 'UPDATE REQUEST FAILED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      dispatch(updateQuotationFailed());
+     handleErrorToast('UPDATE REQUEST FAILED')
       dispatch(setNotLoading());
     }
   } catch (error) {
     dispatch(updateQuotationFailed());
-    const toastMessage = 'UPDATE QUOTATION REQUEST FAILED';
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    }
+    handleErrorToast('UPDATE QUOTATION REQUEST FAILED')
     dispatch(setNotLoading());
   }
 };

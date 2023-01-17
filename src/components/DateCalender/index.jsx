@@ -21,7 +21,6 @@ const Index = ({
   ref,
   noDate,
 }) => {
-
   const [startDate, setStartDate] = useState(null);
   const [lastDate, setlastDate] = useState(null);
   const [maxDate1, setMaxDate] = useState(null);
@@ -33,7 +32,6 @@ const Index = ({
       setlastDate(null);
     } else {
       if (startFrom) {
-
         setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate());
       } else {
         setlastDate(new Date());
@@ -45,16 +43,13 @@ const Index = ({
       setMaxDate(moment(maxDate, 'DD-MM-YYYY').toDate());
     }
   }, [maxDate]);
- 
 
   useEffect(() => {
     if (reset) {
       setStartDate(null);
     }
   }, [reset]);
-
-
-  
+ 
   return (
     <>
       <div className="vessel_card w-100">

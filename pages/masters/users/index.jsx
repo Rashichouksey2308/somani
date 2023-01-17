@@ -13,7 +13,7 @@ import ToggleSwitch from '../../../src/components/ToggleSwitch';
 import SearchAndFilter from '../../../src/components/SearchAndFilter';
 import { CHECKER_USERS_QUEUE } from '../../../src/data/constant';
 
-const index = () => {
+const Index = () => {
   const dispatch = useDispatch();
   const { usersQueueRecords, filteredUsersQueue } = useSelector((state) => state.MastersData);
   const [currentPage, setCurrentPage] = useState(0);
@@ -157,6 +157,10 @@ const index = () => {
     if (value.toLowerCase() === 'true') return true;
     if (value.toLowerCase() === 'false') return false;
     return value;
+  }
+  const handleFilteredData = (e) => {
+    setSearchTerm('');
+    const id = `${e.target.id}`;
   };
 
   const handleFilterChange = (e) => {
@@ -295,9 +299,9 @@ const index = () => {
         </div>
       </div>
 
-      <DownloadMasterBar btnName="Download" />
+      <DownloadMasterBar btnName="Download as Excel" isUser={true} />
     </>
   );
 };
 
-export default index;
+export default Index;

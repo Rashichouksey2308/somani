@@ -4,6 +4,7 @@ import styles from './index.module.scss';
 import TransactionSummaryDetails from '../../../src/components/Checker/TransactionSummary';
 import { GetTransactionSummaryrDetails } from '../../../src/redux/checker/action';
 import { useDispatch, useSelector } from 'react-redux';
+import { GetTermsheet } from '../../../src/redux/buyerProfile/action';
 
 function Index() {
 
@@ -24,6 +25,17 @@ function Index() {
         dispatch(GetTransactionSummaryrDetails(`?termsheetId=${transactionSummaryId}`));
     };
 
+    const handleRoute = async () => {
+        sessionStorage.setItem('comingFromCheckerTermsheet', 1);
+        await dispatch(GetTermsheet(`?termsheetId=${transactionSummaryId}`));
+        sessionStorage.setItem('termID', transactionSummaryId);
+        sessionStorage.setItem('termOrdID', transactionSummaryDetails?.order._id);
+        Router.push({
+            pathname: '/termsheet/[id]',
+            query: { id: 'id' },
+        });
+    };
+
     return (
         <>
             <div className={`${styles.dashboardTab} w-100`}>
@@ -38,6 +50,14 @@ function Index() {
                                 style={{ cursor: 'pointer' }} />
                             <h1 className={`${styles.title} heading`}>{companyName}</h1>
                         </div>
+                        <button
+                            className={styles.editBtn}
+                            onClick={() => {
+                                handleRoute();
+                            }}
+                        >
+                            Edit
+                        </button>
                     </div>
                 </div>
             </div>

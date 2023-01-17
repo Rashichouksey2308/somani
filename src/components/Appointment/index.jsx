@@ -5,12 +5,14 @@ import { Form } from 'react-bootstrap';
 import SaveBar from '../SaveBar';
 import DateCalender from '../DateCalender';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
+
 import { UpdateInspection } from 'redux/Inspections/action';
 import moment from 'moment';
 import { toast } from 'react-toastify';
-
-export default function Index({ inspectionData, setDate, vendor }) {
+import { handleErrorToast } from '@/utils/helpers/global';
+import { useDispatch, useSelector } from 'react-redux';
+import {getPincodes } from '../../redux/masters/action';
+export default function Index({ inspectionData, setDate, vendor,required ,setComponentId,componentId}) {
   const dispatch = useDispatch();
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -19,47 +21,64 @@ export default function Index({ inspectionData, setDate, vendor }) {
   const [isEdit, setIsEdit] = useState(false);
 
   const [appointmentData, setAppointmentData] = useState();
- 
+
   useEffect(() => {
     let add = [];
-    let pincode = [];
+   
     let newAddress = [];
+    let name = '';
+    let address = '';
+    let city = '';
+    let state = '';
+    let country = '';
+    let gstin = '';
+    let addressType = '';
+    let pinCode=''
+    
+  
     if (vendor) {
-      // add = vendor?.field23.split(",")
-      //    newAddress=[]
-      //   add.forEach((val,index)=>{
-      //     if(index<add.length-1){
-      //       newAddress.push(val)
-      //     }
-      //   })
-      // pincode =   add[add.length-1].split("-")
-     
+    vendor?.forEach((item)=> {
+      if(item?.vendorDetails?.vendor == 'Third Party Inspection'){
+        name = item.vendorDetails?.companyName
+        address = item?.keyAddresses[0]?.address,
+        pinCode = item?.keyAddresses[0]?.pinCode,
+        city= item?.keyAddresses[0]?.city,
+        state= item?.keyAddresses[0]?.state,
+        country= item?.keyAddresses[0]?.country,
+        gstin= item?.keyAddresses[0]?.gstin
+        addressType= item?.keyAddresses[0]?.addressType
+
+      }
+    })
     }
 
     setAppointmentData({
-      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      name: inspectionData?.thirdPartyAppointment?.name || name,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
-        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
-        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
-        country: inspectionData?.thirdPartyAppointment?.address?.country,
+        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
+        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType ||addressType ,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || pinCode,
+        country: inspectionData?.thirdPartyAppointment?.address?.country|| country || "India",
+        state: inspectionData?.thirdPartyAppointment?.address?.state || state,
+        gstin: inspectionData?.thirdPartyAppointment?.address?.gstin || gstin,
+        city: inspectionData?.thirdPartyAppointment?.address?.city || city,
       },
     });
     setAddressData({
-      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      name: inspectionData?.thirdPartyAppointment?.name || name,
       dateOfAppointment: inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
-        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
-        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
-        country: inspectionData?.thirdPartyAppointment?.address?.country,
+        fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress || address,
+        addressType: inspectionData?.thirdPartyAppointment?.address?.addressType || addressType ,
+         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || pinCode,
+        country: inspectionData?.thirdPartyAppointment?.address?.country || country || "India",
+        state: inspectionData?.thirdPartyAppointment?.address?.state || state,
+        gstin: inspectionData?.thirdPartyAppointment?.address?.gstin || gstin,
+        city: inspectionData?.thirdPartyAppointment?.address?.city || city,
       },
     });
   }, [inspectionData, vendor]);
-
-
- 
 
   const [addressData, setAddressData] = useState({
     name: '',
@@ -97,7 +116,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
     const newInput = { ...addressData };
     const namesplit = name.split('.');
     namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
-   
+
     setAddressData({ ...newInput });
   };
 
@@ -110,33 +129,20 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const handleOnAdd = () => {
-
     if (addressData.address.addressType === '' || addressData.address.addressType == undefined) {
-      let toastMessage = 'Please add address Type';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add address Type');
       return false;
     }
     if (addressData.address.fullAddress === '' || addressData.address.fullAddress == undefined) {
-      let toastMessage = 'Please add address';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add address');
       return false;
     }
     if (addressData.address.pinCode === '' || addressData.address.pinCode == undefined) {
-      let toastMessage = 'Please add pin Code';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add pin code');
       return false;
     }
     if (addressData.address.country === '' || addressData.address.country == undefined) {
-      let toastMessage = 'Please add country';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('Please add country');
       return false;
     }
     setAppointmentData(addressData);
@@ -144,19 +150,17 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const validation = () => {
-    let toastMessage = '';
-    if (appointmentData.name == '' || appointmentData.name == undefined) {
-      toastMessage = 'NAME IS MANDATORY';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+    if (appointmentData?.name == '' || appointmentData?.name == undefined) {
+      handleErrorToast('name is mandatory');
+      return false;
+    } else if (appointmentData?.dateOfAppointment == '' || !appointmentData?.dateOfAppointment) {
+      handleErrorToast('date is mandatory');
       return false;
     }
     return true;
   };
 
   const handleSave = () => {
-
     const fd = new FormData();
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
     fd.append('inspectionId', inspectionData?._id);
@@ -166,14 +170,22 @@ export default function Index({ inspectionData, setDate, vendor }) {
   };
 
   const handleSubmit = () => {
-    if (!validation()) <return></return>;
-  
+    if (!validation()) return;
+
     const fd = new FormData();
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
     fd.append('inspectionId', inspectionData?._id);
 
     let task = 'submit';
     dispatch(UpdateInspection({ fd, task }));
+     
+    if(required){
+     
+       setComponentId(componentId + 1);
+    }else{
+      
+       setComponentId(componentId + 2);
+    }
   };
   const emptyData = () => {
     const temp = { ...appointmentData };
@@ -182,8 +194,43 @@ export default function Index({ inspectionData, setDate, vendor }) {
     temp.address.pinCode = '';
     temp.address.country = '';
     setAppointmentData({ ...temp });
+   
   };
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
+   const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
+  useEffect(() => {
 
+  if (getPincodesMasterData.length > 0) {
+    setToShow(getPincodesMasterData);
+
+  } else {
+
+  setToShow([]);
+  // setToView(false);
+  }
+  }, [getPincodesMasterData]);
+
+  const gettingPins=(value)=>{
+  dispatch(getPincodes(value));
+  }
+ const viewSet=()=>{
+    
+     setToView(true)
+ }
+  const handleData = (name, value) => {
+   
+    const newInput = { ...addressData };
+    const namesplit = name.split('.');
+    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value.Pincode) : (newInput[name] = value.Pincode);
+    // newInput[name] = value.Pincode;
+    newInput.address.country = 'India';
+    // newInput.city = value.City;
+    // newInput.state = value.State;
+    
+    setAddressData({ ...newInput });
+    setToView(false);
+  };
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>
@@ -210,45 +257,16 @@ export default function Index({ inspectionData, setDate, vendor }) {
                     <label className={`${styles.label_heading} label_heading`}>
                       Name<strong className="text-danger">*</strong>
                     </label>
-                    {/* <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    /> */}
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-lg-6 col-md-6 `}>
                   <div className="d-flex">
-                    {/* <DateCalender labelName='ETA at Discharge Port'/>
-                      <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                      /> */}
-                    {/* <DatePicker
-                      name="dateOfAppointment"
-                      selected={
-                        moment(appointmentData?.dateOfAppointment).toDate()
-                          ? moment(appointmentData?.dateOfAppointment).toDate()
-                          : startDate
-                      }
-                      defaultDate={moment(inspectionData?.dateOfAppointment)}
-                      //min={moment().format('YYYY-MM-DD')}
-                      dateFormat="dd-MM-yyyy"
-                      className={`${styles.input_field} ${styles.cursor_none} input form-control`}
-                      onChange={(startDate) => {
-                        setStartDate(startDate)
-                        saveDate(startDate, 'dateOfAppointment')
-                      }}
-                      minDate={lastDate}
-                    /> */}
                     <DateCalender
                       name="dateOfAppointment"
                       defaultDate={
                         appointmentData?.dateOfAppointment ? moment(appointmentData?.dateOfAppointment).toDate() : null
                       }
                       dateFormat="dd-MM-yyyy"
-                      // startFrom={dateStartFrom.eta}
                       saveDate={saveDate}
                       labelName="Date of Appointment"
                     />
@@ -257,22 +275,26 @@ export default function Index({ inspectionData, setDate, vendor }) {
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
-                    {/* <label className={`${styles.label_heading} label_heading`}>
-                      Date of Appointment
-                    </label> */}
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-12 `}>
                   <label className={`${styles.comment_heading} `}>Address</label>
 
                   <div
-                    className={`${styles.comment_field} border_color bg-transparent input w-100 d-flex justify-content-between mt-2 form-control`}
+                    className={`${styles.comment_field} border_color bg-transparent  w-100 d-flex justify-content-between mt-2 form-control`}
                   >
                     <div className="m-3">
-                      <div className={`${styles.address_type}`}>{appointmentData?.address?.addressType}</div>
+                      <div className={`${styles.address_type}`}
+                     
+                      >{appointmentData?.address?.addressType} Office</div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        {appointmentData?.address?.fullAddress} {appointmentData?.address?.pinCode}{' '}
-                        {appointmentData?.address?.country}
+                        {appointmentData?.address?.fullAddress} 
+                        {appointmentData?.address?.city},{" "}
+                        {appointmentData?.address?.state},{" "}    
+                        {appointmentData?.address?.pinCode},{' '}
+                        {appointmentData?.address?.country}.
+                        <br></br>
+                        GSTIN NO- {appointmentData?.address?.gstin}
                       </div>
                     </div>
                     <div>
@@ -297,7 +319,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
                 </div>
               </div>
 
-              {isEdit && editData(handleEditCancel, handleEditInput, handleOnAdd, appointmentData, addressData)}
+              {isEdit && editData(handleEditCancel, handleEditInput, handleOnAdd, appointmentData, addressData,gettingPins,viewSet,handleData,toShow,toView)}
             </div>
           </div>
         </div>
@@ -307,7 +329,7 @@ export default function Index({ inspectionData, setDate, vendor }) {
   );
 }
 
-const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentData, addressData) => {
+const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentData, addressData,gettingPins,viewSet,handleData,toShow,toView) => {
   return (
     <div className={`${styles.newAddressContainer} border_color mt-3`}>
       <div className={`${styles.newAddressHead} border_color`}>
@@ -321,14 +343,13 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentDat
               name="address.addressType"
               value={addressData?.address?.addressType}
               onChange={(e) => {
-                // setAddressType(e.target.value)
                 handleEditInput(e.target.name, e.target.value);
               }}
             >
               <option>Select an option</option>
-              <option value="Registered Office">Registered Office</option>
-              <option value="Branch">Branch</option>
-              <option value="Supplier Address">Supplier Address</option>
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch Office</option>
+              <option value="Corporate">Corporate Office</option>
             </select>
             <Form.Label className={`${styles.label_heading} ${styles.select}  label_heading`}>
               Address Type<strong className="text-danger">*</strong>
@@ -357,11 +378,31 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentDat
             required
             type="text"
             name="address.pinCode"
-            defaultValue={addressData?.address?.pinCode}
+            value={addressData?.address?.pinCode}
             onChange={(e) => {
+              gettingPins(e.target.value);
+              viewSet();
               handleEditInput(e.target.name, e.target.value);
             }}
           />
+             { toShow.length > 0 && toView && (
+                  <div className={styles.searchResults}>
+                    <ul>
+                      {toShow
+                        ? toShow?.map((results, index) => (
+                            <li
+                              onClick={() => handleData('address.pinCode', results)}
+                              id={results._id}
+                              key={index}
+                              value={results.Pincode}
+                            >
+                              {results.Pincode}{' '}
+                            </li>
+                          ))
+                        : ''}
+                    </ul>
+                  </div>
+                )}
           <Form.Label className={`${styles.label_heading} label_heading`}>
             Pin Code<strong className="text-danger">*</strong>
           </Form.Label>

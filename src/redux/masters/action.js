@@ -2,6 +2,7 @@ import * as types from './actionType';
 import Axios from 'axios';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
+import { handleErrorToast } from '@/utils/helpers/global';
 import { toast } from 'react-toastify';
 import router from 'next/router';
 import { settingSidebar } from '../breadcrumb/action';
@@ -475,6 +476,45 @@ export const getCountries = (payload) => async (dispatch, getState, api) => {
     console.log(error);
   }
 };
+
+export const getState = (payload) => async (dispatch, getState, api) => {
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  dispatch({
+    type: types.GET_STATE_MASTERS,
+  });
+  try {
+    await Axios.get(`${API.corebaseUrl}${API.getState}${payload || ''}`, {
+      headers: headers,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch({
+            type: types.GET_STATE_MASTERS_SUCCESS,
+            payload: response.data,
+          });
+        } else {
+          dispatch({
+            type: types.GET_STATE_MASTERS_FAILURE,
+            payload: response.data,
+          });
+        }
+      })
+      .catch((error) => {
+        handleErrorToast('COULD NOT GET A RESPONSE');
+      });
+  } catch (error) {
+    handleErrorToast('COULD NOT GET STATE');
+  }
+};
 export const GetMastersCommodity = () => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading());
@@ -586,20 +626,28 @@ export const getPorts = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
 
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
   dispatch({
     type: types.GET_PORTS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.portsMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.portsMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_PORTS_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_PORTS_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -612,21 +660,27 @@ export const getCommodities = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
   dispatch({
     type: types.GET_COMMODITIES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.commoditiesMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.commoditiesMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_COMMODITIES_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_COMMODITIES_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -640,20 +694,27 @@ export const getDocuments = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
 
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
   dispatch({
     type: types.GET_DOCUMENTS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.documentsMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.documentsMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_DOCUMENTS_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_DOCUMENTS_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -666,21 +727,28 @@ export const getCurrency = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
 
   dispatch({
     type: types.GET_CURRENCY_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.currencyMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.currencyMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_CURRENCY_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_CURRENCY_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -693,21 +761,28 @@ export const getInternalCompanies = (payload) => async (dispatch, getState, api)
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
 
   dispatch({
     type: types.GET_INTERNAL_COMPANIES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.internalCompaniesMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.internalCompaniesMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_INTERNAL_COMPANIES_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_INTERNAL_COMPANIES_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -720,21 +795,27 @@ export const getVendors = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
   dispatch({
     type: types.GET_VENDORS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.vendorsMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.vendorsMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_VENDORS_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_VENDORS_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -752,7 +833,7 @@ export const getBanks = (payload) => async (dispatch, getState, api) => {
     type: types.GET_BANKS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.banksMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.banksMaster}`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_BANKS_MASTERS_SUCCESS,
@@ -779,7 +860,7 @@ export const getBranches = (payload) => async (dispatch, getState, api) => {
     type: types.GET_BANK_BRANCHES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.bankBranchesMaster}${payload}.json`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.bankBranchesMaster}${payload}.json`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_BANK_BRANCHES_MASTERS_SUCCESS,
@@ -806,7 +887,7 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
     type: types.GET_PINCODES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
+    await Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_PINCODES_MASTERS_SUCCESS,
@@ -967,7 +1048,7 @@ export const GetMasterPortsQueueRecords = (payload) => async (dispatch, getState
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterPortsQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -1183,7 +1264,7 @@ export const GetMasterCountryQueueRecords = (payload) => async (dispatch, getSta
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterCountryQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -1292,7 +1373,7 @@ export const GetMasterCurrencyQueueRecords = (payload) => async (dispatch, getSt
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterCurrencyQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -1401,7 +1482,7 @@ export const GetMasterSACQueueRecords = (payload) => async (dispatch, getState, 
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterSACQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -1507,7 +1588,7 @@ export const GetMasterTDSSectionQueueRecords = (payload) => async (dispatch, get
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterTDSSectionQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -1611,7 +1692,7 @@ export const GetMasterIIAGLedgerQueueRecords = (payload) => async (dispatch, get
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterIIAGLedgerQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };

@@ -1,24 +1,23 @@
+@import '../styles/Core/config';
 .wrapper {
   color: #3687e8;
   width: 100%;
-
   .head {
     justify-content: center !important;
     position: relative;
-
+    align-items: center;
     img {
-      position: absolute;
-      top: 20%;
-      position: absolute;
       right: 25px;
-      transform: translate(50%, 50%);
+      position: absolute;
+      transform: translateX(50%);
+      @include respond(lg-desktop) {
+        width: 17px;
+      }
     }
   }
-
   .body {
     div {
       width: 100%;
-
       .left {
         padding: 60px;
         width: 100%;
@@ -27,7 +26,6 @@
         align-items: center;
         display: flex;
         flex-direction: column;
-
         button {
           border-color: #ced4da;
           border-top-right-radius: 0px;
@@ -35,14 +33,13 @@
           color: #3687e8;
           border-right: none;
         }
-
         input {
           border-left: none;
           border-radius: 0rem !important;
-          border-top-right-radius: 0.25rem;
-          border-bottom-right-radius: 0.25rem;
+          border-top-right-radius: 0.25rem !important;
+          border-bottom-right-radius: 0.25rem !important;
+          box-shadow: none;
         }
-
         .button {
           height: 46px;
           font-size: 20px;
@@ -51,7 +48,7 @@
           color: #3687e8;
           border: 3px solid #3687e8;
           border-radius: 5px;
-
+          cursor: pointer;
           span {
             display: flex;
             justify-content: center;
@@ -59,7 +56,6 @@
           }
         }
       }
-
       .right {
         width: 100%;
         padding: 60px;
@@ -67,7 +63,9 @@
         align-items: center;
         display: flex;
         flex-direction: column;
-
+        input {
+          box-shadow: none;
+        }
         .button {
           height: 46px;
           font-size: 20px;
@@ -76,7 +74,7 @@
           color: #3687e8;
           border: 3px solid #3687e8;
           border-radius: 5px;
-
+          cursor: pointer;
           span {
             display: flex;
             justify-content: center;
@@ -87,18 +85,17 @@
     }
   }
 }
-
 .backdrop {
   backdrop-filter: blur(33px);
   opacity: 0.95 !important;
   background-color: #9d9d9d !important;
 }
-
 .dropDown {
-  color: #495057;
-  color: #495057;
+  color: #3687e8;
   border: 1px solid #ced4da;
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
   border-right: none;
+  outline: none;
+  padding: 0 10px;
 }

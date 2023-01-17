@@ -7,19 +7,19 @@ const initialState = {
 
 function McaReportReducer(state = initialState, action) {
   switch (action.type) {
-    case types.PLACE_ORDER:
+    case types.GET_MCA_REPORT:
       return {
         ...state,
         Fetchingmcareport: true,
         mcaReport: null,
       };
-    case types.PLACE_ORDER_SUCCESSFULL:
+    case types.GET_MCA_REPORT_SUCCESS:
       return {
         ...state,
         Fetchingmcareport: false,
         mcaReport: action.payload,
       };
-    case types.PLACE_ORDER_FAILED:
+    case types.GET_MCA_REPORT_FAILURE:
       return {
         ...state,
         Fetchingmcareport: false,

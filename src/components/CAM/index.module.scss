@@ -73,7 +73,6 @@
       font-size: 20px;
       line-height: 24px;
       margin-right: 2%;
-      // opacity: 0.7;
       @include respond(lg-desktop) {
         font-size: 15px;
         line-height: 1.3;
@@ -85,7 +84,6 @@
       font-size: 20px;
       line-height: 24px;
       font-weight: 500;
-      // white-space: nowrap;
       opacity: 1;
       @include respond(lg-desktop) {
         font-size: 15px;
@@ -130,12 +128,11 @@
   border-top: 2px solid red !important;
 
   .exposureCard {
-    padding: 25px 35px !important;
     height: fit-content;
-    //background: #ffffff;
     border: 1px solid #d2d7e5;
     border-radius: 6px;
-    padding: 1rem;
+    padding: 25px 35px !important;
+    margin-top: 25px;
     @include respond(lg-desktop) {
       padding: 17px 20px !important;
     }
@@ -174,7 +171,6 @@
       font-size: 22px;
       line-height: 27px;
       font-weight: bold;
-      //color: #111111;
       align-items: center;
       justify-content: center;
       display: flex;
@@ -196,12 +192,11 @@
 
       .label {
         .limit_box {
-          padding: 1rem;
+          padding: 6px 12px;
           width: fit-content;
           height: 33px;
           background: #bababa3c;
           border-radius: 5px;
-          // opacity: 0.15;
 
           .limit_label {
             display: flex;
@@ -290,7 +285,6 @@
     }
 
     .button {
-      // margin-bottom: 2rem;
       width: 190px;
       height: 48px;
       border: 3px solid #3687e8;
@@ -327,9 +321,6 @@
 
   .doc_container {
     height: 108px;
-
-    // background: var(--unnamed-color-ffffff);
-    // background: #ffffff;
     border: 1px solid #d2d7e5;
     border-radius: 6px;
 
@@ -339,14 +330,11 @@
       align-items: flex-start;
       flex-direction: column;
 
-      span {
-        // color: black !important;
-      }
-
       .highlight {
         font-size: 16px;
         font-weight: bold;
         letter-spacing: 0px;
+        cursor: pointer;
         color: #8492a6 !important;
       }
     }
@@ -463,12 +451,6 @@
         background: #3687e8;
         border-radius: 2px;
       }
-
-      span {
-        position: absolute;
-        top: 1rem;
-        right: 0;
-      }
     }
 
     .small_bar {
@@ -537,21 +519,31 @@
         line-height: 19px;
         font-weight: bold;
         color: #8492a6;
+        text-align: right;
+        white-space: nowrap;
         background: #fafafb;
         @include respond(lg-desktop) {
           font-size: 14px;
           line-height: 1.2;
         }
+        &:first-child {
+          text-align: left;
+        }
+      
       }
 
       td {
         border-top: none;
         vertical-align: baseline;
+        text-align: right;
+        &:first-child {
+          text-align: left;
+        }
         @include respond(lg-desktop) {
           font-size: 14px;
           line-height: 1.2;
         }
-
+      
         .dashedLine {
           border-bottom: 1px dashed black;
         }
@@ -605,12 +597,37 @@
         select {
           width: 11rem;
         }
+        .trend {
+          @include respond(lg-desktop) {
+            width: 15px;
+          }
+        }
       }
 
       :first-child {
         padding-left: 35px;
       }
     }
+  }
+  &.debt_profile {
+    .box {
+      position: relative;
+      margin-bottom: 40px;
+      .conduct {
+        right: 0;
+        bottom: -25px;
+        position: absolute;
+      }
+    }
+    .label {
+      font-size: 15px;
+      line-height: 18px;
+      margin-bottom: 10px;
+    }
+    .bar {
+      margin-bottom: 5px;
+    }
+    
   }
 }
 
@@ -621,7 +638,6 @@
     padding: 0px;
 
     padding-left: 15px;
-    // border-top: 2px solid red !important;
     border-right: 2px solid red !important;
 
     .chart {
@@ -648,8 +664,6 @@
         font-size: 16px;
         font-weight: bold;
         line-height: 19px;
-        font-family: Helvetica;
-        letter-spacing: 0px;
         top: 0px;
         left: 0px;
 
@@ -659,7 +673,9 @@
 
       .highlight {
         color: #61c554;
-        font: normal normal bold 17px/21px Helvetica;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 21px;
       }
     }
 
@@ -737,8 +753,13 @@
         font-size: 15px;
         line-height: 19px;
         font-weight: bold;
+        text-align: right;
         color: #8492a6;
         background: #fafafb;
+
+        &:first-child {
+          text-align: left;
+        }
         @include respond(lg-desktop) {
           font-size: 14px;
           line-height: 1.2;
@@ -758,6 +779,10 @@
       td {
         border-top: none !important;
         vertical-align: baseline;
+        text-align: right;
+        &:first-child {
+          text-align: left;
+        }
         @include respond(lg-desktop) {
           font-size: 14px;
           line-height: 1.2;
@@ -839,7 +864,6 @@
         font-size: 22px;
         font-weight: 500;
         line-height: 27px;
-        //color: #111111;
         @include respond(lg-desktop) {
           font-size: 18px;
           line-height: 1.3;
@@ -853,7 +877,6 @@
 
     .chart2 {
       padding-left: 35px !important;
-
       height: 177px;
       display: flex;
       justify-content: center;
@@ -861,6 +884,10 @@
       position: relative;
       margin-top: 3rem;
       margin-bottom: 3rem;
+
+      @include respond(lg-desktop) {
+        padding-left: 0 !important;
+      }
 
       canvas {
         height: 211px !important;
@@ -879,8 +906,6 @@
         font-size: 16px;
         font-weight: bold;
         line-height: 19px;
-        font-family: Helvetica;
-        letter-spacing: 0px;
         top: 0px;
         left: 0px;
 
@@ -900,6 +925,7 @@
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
+      margin-top: 15px;
 
       .name_wrapper {
         width: 100%;
@@ -939,7 +965,6 @@
 
   .rightCol {
     border-top: 2px solid red !important;
-    // border-right: 2px solid red !important;
     .head_wrapper {
       padding: 25px 35px !important;
       height: 67px;
@@ -960,7 +985,6 @@
 
       .child {
         font-size: 22px;
-        //color: #111111;
         font-weight: 500;
         line-height: 27px;
         @include respond(lg-desktop) {
@@ -976,7 +1000,6 @@
 
     .chart2 {
       padding-left: 35px !important;
-
       height: 177px;
       display: flex;
       justify-content: center;
@@ -984,6 +1007,9 @@
       position: relative;
       margin-top: 3rem;
       margin-bottom: 3rem;
+      @include respond(lg-desktop) {
+        padding-left: 0 !important;
+      }
 
       canvas {
         height: 211px !important;
@@ -1002,8 +1028,6 @@
         font-size: 16px;
         font-weight: bold;
         line-height: 19px;
-        font-family: Helvetica;
-        letter-spacing: 0px;
         top: 0px;
         left: 0px;
 
@@ -1020,12 +1044,11 @@
     }
 
     .name {
-      // height: 60px;
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
       align-items: center;
-
+      margin-top: 15px;
       .name_wrapper {
         width: 100%;
         height: 100%;
@@ -1065,7 +1088,6 @@
 
 .unit_label {
   font-size: 18px !important;
-  // color: #2837566A;
   text-transform: capitalize;
   font-weight: bold;
 
@@ -1121,7 +1143,6 @@
     overflow-x: auto;
 
     .sectionTable {
-      //    border-top: 2px solid red !important;
       border: none;
 
       tr {
@@ -1132,7 +1153,7 @@
         }
 
         th {
-          text-align: center;
+          text-align: right;
           vertical-align: middle;
           font-size: 15px;
           line-height: 19px;
@@ -1155,7 +1176,7 @@
 
         td {
           vertical-align: baseline;
-          text-align: center;
+          text-align: right;
           border: none !important;
           @include respond(lg-desktop) {
             font-size: 14px;
@@ -1234,22 +1255,21 @@
     .gauge {
       width: 50%;
       height: 100%;
-
+      padding:0.5rem;
       .container {
         width: 100%;
         height: 100%;
         position: relative;
 
-        .donut {
-          transform: rotate(180deg);
-        }
+       
 
         .donut2 {
-          top: 11%;
-          left: 11%;
-          position: absolute;
-          transform: rotate(180deg);
+          width:100%;
+          height: 100%;
+         
+          
         }
+       
       }
 
       .score {
@@ -1260,9 +1280,13 @@
         font-weight: bold;
         line-height: 37px;
         width: 23%;
-        top: 46%;
-        left: 47%;
+        top: 50%;
+        left: 50%;
         transform: translate(-50%, -50%);
+        @include respond(lg-desktop) {
+          top: 51%;
+          left: 51%;
+        }
 
         &::before {
           top: 50%;
@@ -1277,31 +1301,57 @@
         }
 
         @include respond(lg-desktop) {
-          top: 46%;
-          left: 46.5%;
           width: 25%;
           font-size: 20px;
           line-height: 1.3;
         }
       }
-
-      .arrow {
-        transform-origin: 30% 29%;
+      .hideBackground {
         position: absolute;
-        z-index: 1;
-        top: 32%;
-        left: 32%;
-        width: 45%;
-        height: 49%;
+        top: 50%;
+        transform: translate(-50%, 0%);
+        left: 50%;
+        background: white;
+        width: 100px;
+        height: 65px;
         @include respond(lg-desktop) {
-          top: 35%;
-          left: 33%;
-          width: 44%;
-          height: 38%;
+          width: 70px;
+          height: 45px;
         }
       }
-    }
 
+      .arrow {
+        transform-origin:  30% 29%;
+        position: absolute;
+        // transform-origin: 50% 50%;
+        z-index: 1;
+        top: 36%;
+        left: 35%;
+        transform: translate(-50%,-50%);
+        width: 50%;
+        height: 50%;
+        @include respond(lg-desktop) {
+        top: 39%;
+        left: 35%;
+        width: 49%;
+        height: 39%;
+        }
+        // @media screen and (max-width: "1670px") {
+        // top: 37%;
+        // left: 37%;
+        // }
+        // @media screen and (min-width: $small) and (max-width: $medium) {
+        //   //css code
+        // }
+        @include respond(md-desktop) {
+        top: 39%;
+        left: 36%;
+        width: 47%;
+        height: 41%;
+        }
+      }     
+    }
+   
     .score {
       width: 50%;
       height: 100%;
@@ -1340,12 +1390,10 @@
         width: 100%;
         max-width: 287px;
         height: 107px;
-        //background: #ffffff;
         border: 1px solid #d2d7e5;
         border-radius: 6px;
         padding: 22px;
         display: flex;
-        // justify-content: space-evenly;
         align-items: center;
         @include respond(lg-desktop) {
           height: 80px;
@@ -1419,15 +1467,13 @@
 
   .rightCol {
     border-top: 2px solid red !important;
-    // border-right: 2px solid red !important;
     padding: 25px 35px !important;
 
     .fillWrapper {
-      //background: #ffffff;
       border: 1px solid #d2d7e5;
       border-radius: 6px;
       height: 106px;
-      padding: 1rem;
+      padding: 1rem 2rem;
       margin-bottom: 1rem;
       @include respond(lg-desktop) {
         height: 80px;
@@ -1500,10 +1546,13 @@ img {
     position: absolute;
     right: 60px;
     filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+    @include respond(lg-desktop) {
+      width: 10px !important;
+    }
   }
 }
 
 .customSelect {
   appearance: none;
-  // position: relative;
 }
+

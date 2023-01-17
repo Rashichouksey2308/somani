@@ -3,20 +3,23 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
-
-const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
+import { checkNan } from '@/utils/helper';
+import moment from 'moment';
+const Index = ({ orderDetail, saveOrderData, country, port, commodity,orderList,shipment }) => {
+ 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
     tolerance: false,
     hsnCode: false,
   });
-
+  
   const saveDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
     saveOrderData(name, text);
   };
+
   const [toShow, setToShow] = useState([]);
   const [toView, setToView] = useState(false);
   const filterCommodity = (value) => {
@@ -28,7 +31,6 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
     let filterData = commodity.filter((o) => {
       return o.Commodity.toLowerCase().includes(value.toLowerCase());
     });
-
 
     setToShow(filterData);
     setToView(true);
@@ -51,11 +53,13 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
               <select
                 className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
                 name="unitOfQuantity"
+                value={orderDetail?.unitOfQuantity?.toUpperCase()}
                 onChange={(e) => {
                   saveOrderData(e.target.name, e.target.value);
                 }}
               >
-                <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
+                <option disabled>Select</option>
+                <option value={orderDetail?.unitOfQuantity?.toUpperCase()}>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
                 {/* <option selected>MT</option> */}
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
@@ -68,13 +72,15 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
               <select
                 className={`${styles.options} ${styles.customSelect} accordion_DropDown `}
                 name="unitOfValue"
+                value={orderDetail.unitOfValue}
                 onChange={(e) => saveOrderData(e.target.name, e.target.value)}
               >
+                <option disabled>Select</option>
                 <option value="Crores">Crores</option>
 
                 {/* <option selected>Crores</option> */}
-                <option value="Million">Million</option>
-                <option value="Lakh">Lakh</option>
+                {/* <option value="Million">Million</option> */}
+                {/* <option value="Lakh">Lakh</option> */}
               </select>
               <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
@@ -84,11 +90,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
           </div>
         </div>
       </div>
-      <div
-        id="orderSummary"
-       
-        aria-labelledby="orderSummary"
-      >
+      <div id="orderSummary" aria-labelledby="orderSummary">
         <div className={`${styles.dashboard_form} card-body border_color`}>
           <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
@@ -167,6 +169,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="quantity"
+                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key)  && evt.preventDefault()}
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
                   }}
@@ -181,6 +185,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                         }) + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   onChange={(e) => {
+                   
                     saveOrderData(e.target.name, e.target.value);
                   }}
                 />
@@ -195,6 +200,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="orderValue"
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
                   }}
@@ -203,14 +209,14 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   }}
                   value={
                     isFieldInFocus.orderValue
-                      ? orderDetail?.orderValue
-                      : Number(orderDetail?.orderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
+                      ? orderDetail?.existingOrderValue
+                      : Number(orderDetail?.existingOrderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
                         ` ${orderDetail?.unitOfValue == 'Crores' ? 'Cr' : orderDetail?.unitOfValue}`
                   }
-                
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
+                  disabled
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Order Value<strong className="text-danger">*</strong>
@@ -245,7 +251,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     required
                   >
                     <option disabled>Select an option</option>
-                    {country.map((val, index) => {
+                    {country?.map((val, index) => {
                       return <option value={`${val.Country}`}>{val.Country}</option>;
                     })}
                   </select>
@@ -266,6 +272,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   required
                   type="text"
                   name="tolerance"
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }), (e.target.type = 'number');
                   }}
@@ -275,11 +282,11 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   value={
                     isFieldInFocus.tolerance
                       ? orderDetail?.tolerance
-                      : Number(orderDetail?.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        }) + ' %'
+                      : 
+                      
+                      checkNan(orderDetail?.tolerance)
+                      + ' %'
                   }
-                 
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value);
                   }}
@@ -345,16 +352,15 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     required
                   >
                     <option>Select an option</option>
-                    {port
-                      .filter((val, index) => {
-                        if (val.Country.toLowerCase() == 'india') {
+                    {port?.filter((val, index) => {
+                        if (val.Country.toLowerCase() == 'india' && val.Approved.toLowerCase()=="yes") {
                           return val;
                         }
                       })
                       .map((val, index) => {
                         return (
-                          <option value={`${val.Port_Name},${val.Country}`}>
-                            {val.Port_Name},{val.Country}
+                          <option value={`${val.Port_Name}`}>
+                           {val.Port_Name}, {val.Country}
                           </option>
                         );
                       })}
@@ -396,7 +402,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   />
                 </div>
               </Form.Group>
-              {/* defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} */}
+       
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
@@ -404,6 +410,8 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     defaultDate={orderDetail?.ExpectedDateOfShipment ?? ''}
                     saveDate={saveDate}
                     labelName="Expected Date Of Shipment"
+                    // startFrom={moment(shipment?.lastDateOfShipment ?? new Date()).format("DD-MM-YYYY")}
+                    maxDate={shipment?.lastDateOfShipment ? moment(shipment?.lastDateOfShipment).format("DD-MM-YYYY") : ''}
                   />
                   <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                 </div>
@@ -416,17 +424,14 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   type="text"
                   name="hsnCode"
                   maxLength="10"
-                 
-                
-                  defaultValue={orderDetail?.hsnCode}
-                  onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+                  value={orderDetail?.hsnCode==undefined?"":orderDetail?.hsnCode}
+                  onChange={(e) => { saveOrderData(e.target.name, e.target.value)}}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   HSN code
                   <strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
-         
             </div>
           </Form>
         </div>

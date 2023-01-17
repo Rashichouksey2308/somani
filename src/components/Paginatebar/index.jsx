@@ -1,10 +1,9 @@
-import React from 'react';
-import styles from './index.module.scss';
 import { useSelector } from 'react-redux';
+import styles from '../LCAmendBar/index.module.scss';
 
-function index({ openbar, leftButtonTitle, rightButtonTitle, download, exportPDF }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
-  const isMobile = useSelector((state) => state.sidebar.isMobile);
+function index ({ openbar, leftButtonTitle, rightButtonTitle, download, exportPDF,pagesDetails }) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
     <div
       className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
@@ -15,7 +14,7 @@ function index({ openbar, leftButtonTitle, rightButtonTitle, download, exportPDF
         <img src="/static/file_download.svg" className="img-fluid" alt="FileDownload" />
       </div>
       <div className={styles.navigate}>
-        <span>2</span> / 10
+        <span>{pagesDetails ? pagesDetails.current : '2' }</span> / {pagesDetails ? pagesDetails.total : '2' }
         <div style={{ color: '#66708559' }}> | </div>
         <div className={styles.button} />
         <span className={styles.zoom}>80%</span>

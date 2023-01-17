@@ -144,7 +144,6 @@
     }
 
     .navTabs {
-     
       border-bottom: none;
       @include respond(phone) {
         display: flex;
@@ -197,7 +196,7 @@
 
     .card {
       margin-bottom: 26px;
-    
+
       @include respond(lg-desktop) {
         margin-bottom: 20px;
       }
@@ -320,9 +319,7 @@
         .unit_container {
           .unit_label {
             font-size: 18px;
-            text-transform: capitalize;
             font-weight: bold;
-            margin-top: 10px;
             line-height: 23px;
             margin: 0 50px 0 0;
             @include respond(lg-desktop) {
@@ -435,12 +432,10 @@
         }
 
         .input_container {
-         
           margin-bottom: 10px;
           padding-bottom: 14px;
 
           .radio_heading {
-            letter-spacing: 0.53px;
             color: #00000080;
             font-size: 16px;
             line-height: 17px;
@@ -462,7 +457,6 @@
               color: #3687e8;
             }
 
-         
             .label_heading {
               top: 22px;
               left: 30px;
@@ -751,7 +745,7 @@
         .card {
           margin-bottom: 26px;
           border-radius: 6px !important;
-         
+
           .cardHeader {
             height: 80px;
             cursor: pointer;
@@ -854,7 +848,6 @@
 
         .cardBody {
           padding: 17px 25px;
-        
         }
       }
     }
@@ -883,13 +876,11 @@
           }
         }
       }
-
-      
     }
 
     .cardBody_litigations {
       padding-left: 35px;
-      
+
       .risk_Container {
         .risk {
           width: 25%;
@@ -1128,7 +1119,7 @@
     tr {
       th {
         background: #fafafb;
-      
+
         font-weight: bold;
         font-size: 15px;
         color: #3687e8;
@@ -1215,19 +1206,9 @@
 .container {
   min-height: 85.2vh;
   margin-bottom: 120px;
-  @include respond(lg-desktop) {
- 
-  }
-  @include respond(md-desktop) {
-  
-  }
-  @include respond(sm-desktop) {
-   
-  }
   @include respond(phone) {
     min-height: auto;
     margin-bottom: 140px;
-    
   }
 }
 
@@ -1249,11 +1230,6 @@
     line-height: 15px !important;
   }
 }
-
-.lastComponent {
- 
-}
-
 .search_image {
   margin-left: -40px;
 }
@@ -1269,7 +1245,6 @@
 
 .customSelect {
   appearance: none;
-
 }
 
 .arrow {
@@ -1306,7 +1281,7 @@
     white-space: nowrap;
     background: #d2d7e5;
     transition: opacity 0.3s;
- 
+
     &::after {
       content: '';
       position: absolute;

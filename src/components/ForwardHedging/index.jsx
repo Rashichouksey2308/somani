@@ -16,6 +16,7 @@ import Axios from 'axios';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../redux/userData/action';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { returnDocFormat } from '@/utils/helpers/global';
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ export default function Index() {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     bookedRate: false,
     bookedAmount: false,
+    closingRate : false
   });
   const onDeleteClick = (index) => {
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
@@ -70,8 +72,8 @@ export default function Index() {
         bookedAmount: hedgingDataDetail?.bookedAmount ?? '',
         validityFrom: hedgingDataDetail?.validityFrom,
         validityTo: hedgingDataDetail?.validityTo,
-        closingDate: '',
-        closingRate: '',
+        closingDate: hedgingDataDetail?.closingDate || '',
+        closingRate: hedgingDataDetail?.closingRate|| '',
         remarks: hedgingDataDetail?.remarks,
         balanceAmount: hedgingDataDetail?.balanceAmount,
         forwardSalesContract: hedgingDataDetail?.forwardSalesContract,
@@ -123,10 +125,8 @@ export default function Index() {
   };
 
   const uploadDocument = async (e) => {
-   
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-   
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -141,21 +141,15 @@ export default function Index() {
       let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
       });
-     
-      if (response.data.code === 200) {
-      
 
+      if (response.data.code === 200) {
         return response.data.data;
       } else {
-        
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   const uploadDocument1 = async (e, index) => {
-   
     const doc = await uploadDocument(e);
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -169,7 +163,6 @@ export default function Index() {
       });
       return newState;
     });
-    
   };
 
   const [cancel, setCancel] = useState(false);
@@ -182,7 +175,6 @@ export default function Index() {
     let tempArr = [...list];
     tempArr[index].forwardSalesContract = null;
     setList(tempArr);
-  
   };
 
   const [editInput, setEditInput] = useState(true);
@@ -200,7 +192,6 @@ export default function Index() {
 
     hedgingObj.balanceAmount = list.bookedAmount;
 
-  
     let obj = {
       forwardHedgingId: hedgingData?._id,
       detail: hedgingObj,
@@ -268,6 +259,32 @@ export default function Index() {
         isOk = false;
         break;
       }
+      if (cancel){
+        if (
+          list[i].closingRate === null ||
+          list[i].closingRate === undefined ||
+          list[i].closingRate === ''
+        ) {
+          let toastMessage = `Please add Closing RAte  ${i}`;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+          isOk = false;
+          break;
+        }
+        if (
+          list[i].closingDate === null ||
+          list[i].closingDate === undefined ||
+          list[i].closingDate === ''
+        ) {
+          let toastMessage = `Please add Closing Date  ${i}`;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+          isOk = false;
+          break;
+        }
+      }
       if (
         list[i].forwardSalesContract === null ||
         list[i].forwardSalesContract === undefined ||
@@ -287,8 +304,6 @@ export default function Index() {
     if (validation()) {
       let hedgingObj = [...list];
 
-  
-
       let obj = {
         forwardHedgingId: hedgingData?._id,
         detail: hedgingObj,
@@ -304,13 +319,13 @@ export default function Index() {
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={styles.main_page}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/forward-table')} style={{ cursor: 'pointer' }}>
-              <img
-                className={`${styles.arrow} image_arrow mr-2 img-fluid`}
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="ArrowRight"
-              />
-            </div>
+            <img
+              onClick={() => Router.push('/forward-table')}
+              className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="ArrowRight"
+            />
+
             <h1 className={`${styles.heading}`}>{hedgingData?.company?.companyName} </h1>
           </div>
           <div className={`${styles.vessel_card} vessel_card border_color`}>
@@ -346,25 +361,19 @@ export default function Index() {
                       <div className="row">
                         <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
-                            <select
+                            <input
                               name="bankName"
                               onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                               value={item.bankName}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option selected>Select an option</option>
-                              <option value="Indo German">Indo German</option>
-                              <option value="Emergent Solutions">Emergent Solutions</option>
-                            </select>
+                            
+                            </input>
                             <label className={`${styles.label_heading} label_heading`}>
                               Bank Name
                               <strong className="text-danger">*</strong>
                             </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                           
                           </div>
                         </div>
                         <div className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}>
@@ -447,7 +456,6 @@ export default function Index() {
                                 (e.target.type = 'text');
                             }}
                             name="bookedAmount"
-                          
                             value={
                               isFieldInFocus.bookedAmount
                                 ? item.bookedAmount
@@ -484,7 +492,6 @@ export default function Index() {
                               name="validityTo"
                               startFrom={item?.validityFrom != '' && moment(item.validityFrom).format('DD-MM-YYYY')}
                               defaultDate={item?.validityTo ?? ''}
-                              // defaultDate={list?.validityTo}
                               saveDate={saveDate}
                               labelName="Validity to"
                             />
@@ -510,16 +517,35 @@ export default function Index() {
                           </span>
                         </div>
                       </div>
-                      {cancel ? (
+                      {cancel || item?.closingDate  ? (
                         <Row>
                           <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                             <input
                               className={`${styles.input_field} input form-control`}
-                              type="number"
+                              type="text"
                               onWheel={(event) => event.currentTarget.blur()}
                               required
+                              onFocus={(e) => {
+                                setIsFieldInFocus({
+                                  ...isFieldInFocus,
+                                  closingRate: true,
+                                }),
+                                  (e.target.type = 'number');
+                              }}
+                              onBlur={(e) => {
+                                setIsFieldInFocus({
+                                  ...isFieldInFocus,
+                                  closingRate: false,
+                                }),
+                                  (e.target.type = 'text');
+                              }}
+                              value={
+                                isFieldInFocus.closingRate
+                                  ? item?.closingRate
+                                  : Number(item?.closingRate)?.toLocaleString(item.currency == 'INR' ? 'en-IN' : 'en-US')
+                              }
                               name="closingRate"
-                              value={item?.closingRate}
+                              // value={item?.closingRate}
                               onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               onChange={(e) => saveHedgingData(e.target.name, e.target.value, index)}
                             />
@@ -530,7 +556,7 @@ export default function Index() {
                           </div>
                           <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                             <div className="d-flex">
-                              <DateCalender name="closingDate" saveDate={saveDate} labelName="Closing Date" />
+                              <DateCalender defaultDate={item?.closingDate}  name="closingDate" saveDate={saveDate} labelName="Closing Date" />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
@@ -600,17 +626,7 @@ export default function Index() {
                                   <strong className="text-danger ml-1">*</strong>
                                 </td>
                                 <td>
-                                  {item?.forwardSalesContract ? (
-                                    item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xls') ||
-                                    item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                                      <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                                    ) : item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.doc') ||
-                                      item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.docx') ? (
-                                      <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                                    ) : (
-                                      <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                                    )
-                                  ) : null}
+                                {item?.forwardSalesContract?.originalName ? returnDocFormat(item?.forwardSalesContract?.originalName) : null}
                                 </td>
                                 <td className={styles.doc_row}>
                                   {item?.forwardSalesContract == null
@@ -618,16 +634,6 @@ export default function Index() {
                                     : moment(item?.forwardSalesContract.date).format('DD-MM-YYYY , h:mm a ')}
                                 </td>
                                 <td>
-                                  {/* <div className={styles.uploadBtnWrapper}>
-                                <button className={`${styles.uploadDoc} btn`}>
-                                  Upload
-                                </button>
-                                <input
-                                  type="file"
-                                  onChange={(e) => uploadDocument1(e)}
-                                  name="myfile"
-                                />
-                              </div> */}
                                   {item && item?.forwardSalesContract == null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
@@ -639,17 +645,6 @@ export default function Index() {
                                         />
                                         <button className={`${styles.button_upload} btn`}>Upload</button>
                                       </div>
-                                      {/* <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  type="file"
-                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                                  onChange={(e) => uploadDocument1(e)}
-                                  name="myfile"
-                                />
-                                <button  className={`${styles.uploadDoc} btn`}>
-                                  Upload
-                                </button>
-                                </div> */}
                                     </>
                                   ) : (
                                     <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
@@ -675,7 +670,7 @@ export default function Index() {
             </div>
 
             <div className="mt-4">
-              <UploadOther module="Loading-Transit-Unloading" orderid={hedgingData?.order?._id} />
+              <UploadOther module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } orderid={hedgingData?.order?._id} />
             </div>
           </div>
         </div>

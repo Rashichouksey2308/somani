@@ -91,10 +91,8 @@ export default {
   // getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
+  sendGst: '/karza/send-gst-link',
   getConsolidatedGst: '/lead/consolidate-gst',
-
-  // mcaReport
-  getMcaReport: '/karza/request-mca-document',
 
   // getGstKarza: 'karza/send-gst-link',
 
@@ -135,7 +133,9 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
-  //preview
+  //mcaReport
+  getMcaReport: '/karza/request-mca-document',
+  // preview
   preview: '/document/access/preview',
 
   //ALL MASTER URL's
@@ -206,4 +206,33 @@ export default {
   getAllCommodity: 'commodity/get-commodities',
   getAllGonogo: '/gng-master',
   addNewCommodity: '/commodity',
+  // Commodity
+  getCommodity: '/commodity',
+
+  // Internal Companies
+  getInternalCompanies: '/internal-company',
+
+  // PORTS
+  getPorts: '/port',
+
+  // City State
+  getState: '/city-master',
+
+  // COUNTRY
+  getCountry: '/country-master',
+
+  // DOCUMENT MASTER
+  getDocument: '/document-master',
+
+  // GO NO GO
+  getGoNoGo: '/gng-master',
+
+  // CURRENCY
+  getCurrency: '/currency-master',
+
+  // ALL MASTER URL's
+  zipCodeMaster: '/world-master/',
+
+  //VENDOR API ROoutes
+  getVendor: '/vendor',
 };
