@@ -65,7 +65,6 @@
       font-size: 18px;
       color: #3687e8;
       text-transform: capitalize;
-      margin-right: 10px;
       background: #f3f4f7;
       border-radius: 14px;
       border: none;
@@ -161,7 +160,6 @@
         letter-spacing: 0.19px;
 
         &:invalid + label {
-        
           transform: translateY(0);
         }
 
@@ -185,11 +183,9 @@
       }
 
       .marginPercent {
-      
       }
 
       .suffixWrapper {
-      
         display: inline-block;
       }
 
@@ -237,7 +233,6 @@
 .customSelect {
   appearance: none;
   padding-right: 40px !important;
- 
 }
 
 .searchResults {

@@ -1,5 +1,5 @@
 .label{
-    width: 29.5%;
+    width: 27%;
     display: block;
     overflow: hidden;
 
@@ -18,4 +18,10 @@
         font-size: 20px;
         color: #111111;
     } 
+}
+
+.highlighted_field {
+    background-color: yellow;
+    padding: 5px;
+    color: black;
 }

@@ -5,10 +5,9 @@ import { useDispatch } from 'react-redux';
 import { UpdateCompanyDetails } from '../../../redux/companyDetail/action';
 import { checkNan, CovertvaluefromtoCR } from '../../../utils/helper';
 import _get from 'lodash/get';
+import { handleErrorToast } from '@/utils/helpers/global';
 
 function Index({ order, companyDetail }) {
-
-
   const [updateCompany, setUpdateCompany] = useState({
     referalName: '',
     referedBy: '',
@@ -22,8 +21,6 @@ function Index({ order, companyDetail }) {
       sourceChanel: order?.sourceChanel ?? '',
     };
     setUpdateCompany(newCompanyData);
-
-   
   }, [order]);
 
   const dispatch = useDispatch();
@@ -31,19 +28,21 @@ function Index({ order, companyDetail }) {
   const onChangeHandler = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-  
+
     setUpdateCompany((prev) => ({ ...prev, [Key]: value }));
   };
 
   const saveHandler = () => {
-    const payload = {
-      ...updateCompany,
-      _id: companyDetail?.company,
-    };
-    
-    dispatch(UpdateCompanyDetails(payload));
-  };
+    if (updateCompany.sourceChanel === '') handleErrorToast('please select a source channel');
+    else {
+      const payload = {
+        ...updateCompany,
+        _id: companyDetail?.company,
+      };
 
+      dispatch(UpdateCompanyDetails(payload));
+    }
+  };
 
   return (
     <>
@@ -58,12 +57,7 @@ function Index({ order, companyDetail }) {
           <h2 className="mb-0">Company Details</h2>
           <span>+</span>
         </div>
-        <div
-          id="companyDetails"
-       
-          aria-labelledby="companyDetails"
-          data-parent="#profileAccordion"
-        >
+        <div id="companyDetails" aria-labelledby="companyDetails" data-parent="#profileAccordion">
           <div className={`${styles.cardBody} card-body border_color`}>
             <div className="row">
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -96,7 +90,7 @@ function Index({ order, companyDetail }) {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Type of Business</div>
-                <div className={`${styles.value} accordion_Text`}>
+                <div className={`${styles.value} ${styles.multilinetext} accordion_Text`}>
                   {_get(companyDetail, 'profile.companyDetail.typeOfBusiness', [])?.join(', ')}
                 </div>
               </div>
@@ -122,14 +116,14 @@ function Index({ order, companyDetail }) {
                 <div className={`${styles.label} label_heading`}>Active Compliant</div>
                 <div
                   className={`${`${styles.value} accordion_Text`} ${
-                    companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
+                    companyDetail?.profile?.companyDetail.activeCompliance?.toLowerCase()?.trim()?.replace(' ','') == 'activecompliant'
                       ? styles.success
                       : styles.warning
                   }`}
                 >
-                  {companyDetail?.activeCompliance == null
+                  {!companyDetail?.profile?.companyDetail?.activeCompliance
                     ? ''
-                    : companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
+                    : companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim()?.replace(' ','') == 'activecompliant'
                     ? 'Yes'
                     : 'No'}
                 </div>
@@ -152,7 +146,10 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Number of Shareholders</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.numberOfShareholders}
+                  {Array.isArray(companyDetail?.profile?.shareholdingPattern) &&
+                  companyDetail?.profile?.shareholdingPattern.length > 0
+                    ? companyDetail?.profile?.shareholdingPattern.length
+                    :  companyDetail?.profile?.companyDetail?.numberOfShareholders}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -164,7 +161,7 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Paid-Up Capital (Cr)</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {checkNan(CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital))}
+                  {checkNan(CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital),"no")}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -180,9 +177,9 @@ function Index({ order, companyDetail }) {
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>Employee Count</div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.financial?.other?.employeeCount
+                  { companyDetail?.financial?.other?.employeeCount
                     ? companyDetail?.financial?.other?.employeeCount
-                    : companyDetail?.profile.companyDetail.employeeCount}
+                    : companyDetail?.profile?.companyDetail?.employeeCount}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -203,18 +200,6 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.registeredAddress}
                 </div>
               </div>
-              {/* <div className="col-lg-3 col-md-6 col-sm-6">
-                <div className={`${styles.label} label_heading`}>
-                  Corporate Address
-                </div>
-                <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.registeredAddress}
-                </div>
-              </div> */}
-              {/* <div className="col-md-3">
-                                <div className={`${styles.label} label_heading`}>Referral Code</div>
-                                <div className={`${styles.value} accordion_Text`}>U55101UR19</div>
-                            </div> */}
             </div>
             <div className="row mt-3">
               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
@@ -226,11 +211,13 @@ function Index({ order, companyDetail }) {
                     name="Sourcing"
                     value={updateCompany?.sourceChanel}
                   >
-                    <option value="">Select</option>
-
+                    <option value="" defaultChecked disabled>
+                      Select
+                    </option>
                     <option value="Sales Assocaite">Sales Associate</option>
                     <option value="Website">Website</option>
-                    <option value="Customs Associate"> Customs Associate </option>
+                    <option value="Customs Associate"> Customs Associate</option>
+                    <option value="Internal Associate"> Internal Associate</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Sourcing Channel
@@ -246,31 +233,19 @@ function Index({ order, companyDetail }) {
               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <select
+                    disabled
                     id="referedBy"
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
                     value={updateCompany?.referedBy}
                   >
-                    {updateCompany?.sourceChanel === 'Customs Associate' ? (
+                  
                       <>
                         <option value="">Select</option>
-                        <option value="CHA">{'CHA'}</option>
-                        <option value="CMA">CMA</option>
-                        <option value="Stevedore">{'Stevedore'}</option>{' '}
-                      </>
-                    ) : updateCompany?.sourceChanel === 'Sales Assocaite' ? (
-                      <>
-                        <option value="">Select</option>
-                        <option value="userName1">{'userName1'}</option>
-                        <option value="userName2">userName2</option>
-                        <option value="USerName3">{'USerName3'}</option>
-                      </>
-                    ) : (
-                      <>
                         <option value="Website">Website</option>
                       </>
-                    )}
+                   
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Referred By
@@ -286,13 +261,16 @@ function Index({ order, companyDetail }) {
               <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <select
+                    disabled
                     id="referalName"
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
                     value={updateCompany?.referalName}
                   >
-                    <option value="">Select</option>
+                    <option value="" defaultChecked disabled>
+                      Select
+                    </option>
                     <option value="Bhutani Traders">Bhutani Traders</option>
                     <option value="userName1">{'userName1'}</option>
                     <option value="userName2">userName2</option>

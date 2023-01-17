@@ -9,6 +9,7 @@ function Index(props) {
   const [addressList, setAddressList] = useState([]);
   const [value, setValue] = useState('');
   const [isAssignment, setIsAssignment] = useState('');
+  const additionalCommentsOptions = [];
 
   const changeEdit = (index) => {
     setAddressList((prevState) => {
@@ -54,7 +55,7 @@ function Index(props) {
         setAddressList(temp);
       }
     }
-  }, [props]);
+  }, [props.data]);
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Additional Comments') {
@@ -81,19 +82,19 @@ function Index(props) {
     setAddressList([
       ...addressList,
       {
-        name: 'Sales Agreement',
+        name: '',
         comment: '',
         dateOfExecution: null,
         dateOfContract: null,
         monthOfLoadingCargo: '',
-
-        actions: 'false',
+        actions: 'true',
       },
     ]);
   };
   const handleRemove = (index) => {
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
+
   const handleChangeInput = (name, value, index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -111,9 +112,8 @@ function Index(props) {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' };
+          return { ...obj, actions: 'false' };
         }
-
         return obj;
       });
 
@@ -124,9 +124,9 @@ function Index(props) {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'false' };
+          return { ...obj, actions: 'true' };
         }
-        // 👇️ otherwise return object as is
+        //  otherwise return object as is
         return obj;
       });
 
@@ -188,9 +188,10 @@ function Index(props) {
                   <tbody>
                     {addressList?.length > 0 &&
                       addressList?.map((val, index) => {
+                        additionalCommentsOptions.push(val.name);
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions !== 'true' ? (
                               <tr key={index}>
                                 <td>{val?.name}</td>
                                 <td>{val?.comment}</td>
@@ -217,17 +218,49 @@ function Index(props) {
                                     className={`${styles.customSelect} input`}
                                     name="name"
                                     onChange={(e) => {
-                                      handleChangeInput(e.target.name, e.target.value, index),
-                                        setIsAssignment(e.target.value);
+                                      handleChangeInput(e.target.name, e.target.value, index);
+                                      setIsAssignment(e.target.value);
                                     }}
                                   >
-                                    <option>Select an option</option>
-                                    <option value={'Sales Agreement'}>{'Sales Agreement'}</option>
-                                    <option value={'Associateship Agreement'}>{'Associateship Agreement'}</option>
-                                    <option value={'TPA (Seller)'}>{'TPA (Seller)'}</option>
-                                    <option value={'Assignment Letter'}>{'Assignment Letter'}</option>
-                                    <option value={'QPA'}>{'QPA'}</option>
-                                    <option value={'TPA (CMA)'}>{'TPA (CMA)'}</option>
+                                    <option value="">Select an option</option>
+                                    <option
+                                      value={'Sales Agreement'}
+                                      disabled={additionalCommentsOptions.includes('Sales Agreement') ? true : false}
+                                    >
+                                      {'Sales Agreement'}
+                                    </option>
+                                    <option
+                                      value={'Associateship Agreement'}
+                                      disabled={
+                                        additionalCommentsOptions.includes('Associateship Agreement') ? true : false
+                                      }
+                                    >
+                                      {'Associateship Agreement'}
+                                    </option>
+                                    <option
+                                      value={'TPA (Seller)'}
+                                      disabled={additionalCommentsOptions.includes('TPA (Seller)') ? true : false}
+                                    >
+                                      {'TPA (Seller)'}
+                                    </option>
+                                    <option
+                                      value={'Assignment Letter'}
+                                      disabled={additionalCommentsOptions.includes('Assignment Letter') ? true : false}
+                                    >
+                                      {'Assignment Letter'}
+                                    </option>
+                                    <option
+                                      value={'QPA'}
+                                      disabled={additionalCommentsOptions.includes('QPA') ? true : false}
+                                    >
+                                      {'QPA'}
+                                    </option>
+                                    <option
+                                      value={'TPA (CMA)'}
+                                      disabled={additionalCommentsOptions.includes('TPA (CMA)') ? true : false}
+                                    >
+                                      {'TPA (CMA)'}
+                                    </option>
                                   </select>
                                   <img
                                     className={`${styles.arrow2} image_arrow img-fluid`}
@@ -318,7 +351,7 @@ function Index(props) {
                                           index={index}
                                         />
                                         <img
-                                          className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                          className={`${styles.calanderIcon} border-0 mt-0 p-0 image_arrow`}
                                           src="/static/caldericon.svg"
                                           alt="Search"
                                         />

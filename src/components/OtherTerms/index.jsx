@@ -16,8 +16,7 @@ const Index = ({
   onChangeLcOpening,
   onChangeCha,
 }) => {
-
-
+ 
   return (
     <div className={`${styles.main} main`}>
       <div
@@ -34,7 +33,7 @@ const Index = ({
         <div className={`${styles.dashboard_form} card-body`}>
           <Form>
             <div className={`${styles.terms_para}`}>
-              Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.
+              Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.&nbsp;
               <select
                 onChange={(e) => onChangeDropDown(e)}
                 className={`${styles.igpl_para} input`}
@@ -47,8 +46,7 @@ const Index = ({
                   {' '}
                   Emergent Industrial Solutions Limited (EISL)
                 </option>
-              </select>
-              will provide proof of all expenses to the Buyer.
+              </select>&nbsp;will provide proof of all expenses to the Buyer.
             </div>
             <div className="row">
               <div className={`${styles.form_group} mt-5  col-md-6`}>
@@ -247,7 +245,7 @@ const Index = ({
                   </div>
                   {/* <div className='pt-4 d-flex align-items-center'>
                                         <input id="insuranceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges} onChange={onChangeCha} />
-                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges (While transferring the material to customs bonded ware house)</label>
                                     </div> */}
                   <div className="pt-4 d-flex align-items-center">
                     <input
@@ -282,7 +280,7 @@ const Index = ({
                         onChange={onChangeInsurance}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        Marine Insurance ( if applicable)
+                        Marine Insurance (if applicable)
                       </label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
@@ -306,7 +304,7 @@ const Index = ({
                         onChange={onChangeCha}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        Insurance Charges ( While transferring the material to customs bonded ware house )
+                        Insurance Charges (While transferring the material to customs bonded ware house)
                       </label>
                     </div>
                   </div>
@@ -325,19 +323,12 @@ const Index = ({
                         onChange={onChangeLcOpening}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        LC Opening Charges ( on LC value subject to minimum of{' '}
-                        <input
+                        LC Opening Charges (on LC value subject to minimum of <input
                           disabled
                           type="text"
-                          style={{ padding: '0px', width: 'auto' }}
+                          style={{padding:'0', width:'auto'}}
                           className={`${styles.igpl_para} ${styles.input} input`}
-                          placeholder={`${addPrefixSymbol(
-                            termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase(),
-                          )} ${_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500').toLocaleString(
-                            'en-In',
-                          )}`}
-                        />
-                        )
+                          placeholder={`${addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase(),)} ${Number(_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500')).toLocaleString(_get(termsheetDetails,"commodityDetails.orderCurrency","")=="INR"?"en-In":"en-En",)}`}/>)
                       </label>
                     </div>
                     <div className="pt-4 d-flex align-items-center">
@@ -525,7 +516,7 @@ const Index = ({
                         onChange={onChangeDutyAndTaxes}
                       />
                       <label className={`${styles.checkbox_label} termsheet_Text`}>
-                        Tax Collected at Source ( if applicable )
+                        Tax Collected at Source (if applicable)
                       </label>
                     </div>
                   </div>
@@ -534,13 +525,12 @@ const Index = ({
 
               <div className={`${styles.terms_para} pt-3 text-center w-100`}>
                 All necessary documents to be filed with Customs department for discharge of goods &amp; Customs
-                clearance can be filed by
+                clearance can be filed by&nbsp;
                 <span className={styles.igpl_para}>
                   {otherTermConditions?.buyer?.bank == 'Indo German International Private Limited (IGPL)'
                     ? 'IGPL'
                     : 'EISL'}{' '}
-                </span>
-                or its nominated person.
+                </span>&nbsp;or its nominated person.
               </div>
             </div>
             <div className={`${styles.terms_para} pt-3 text-center`}>

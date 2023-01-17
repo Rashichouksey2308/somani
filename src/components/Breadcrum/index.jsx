@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import _get from 'lodash/get';
-import { setDynamicName } from '../../../src/redux/userData/action';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { settingCurrency, settingUnit } from '../../../src/redux/breadcrumb/action';
+import { setDynamicName } from '../../../src/redux/userData/action';
+import styles from './index.module.scss';
 
 export default function Index({ isQuery }) {
   const dispatch = useDispatch();
@@ -26,11 +26,9 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('Cha');
     sessionStorage.removeItem('Stevedore');
     sessionStorage.removeItem('Delivery');
-    sessionStorage.removeItem('genericSide');
-    sessionStorage.removeItem('setgenActive');
+    // sessionStorage.removeItem('setgenActive');
   };
   const router = useRouter();
-
 
   useEffect(() => {
     if (
@@ -42,6 +40,7 @@ export default function Index({ isQuery }) {
       router.pathname == '/insurance'
     ) {
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
     }
     if (
       isQuery?.match('/leads') ||
@@ -58,8 +57,10 @@ export default function Index({ isQuery }) {
       isQuery == '/track-shipment' ||
       isQuery?.match('/forward-hedging') ||
       router.pathname?.match('/leads') ||
+      router.pathname?.match('/insurance') ||
       router.pathname?.match('/order-list') ||
       router.pathname?.match('/new-order') ||
+      router.pathname?.match('/go-no-go-logic') ||
       router.pathname?.match('/termsheet-preview') ||
       router.pathname?.match('/letter-table/letter-amend/id') ||
       router.pathname == '/agreement/preview' ||
@@ -74,17 +75,17 @@ export default function Index({ isQuery }) {
       router.pathname?.match('/letter-table') ||
       router.pathname?.match('/lc-module') ||
       router.pathname?.match('/letter-credit/lc-create') ||
-      router.pathname?.match('/add-supplier') ||
       router.pathname?.match('/supplier')
     ) {
       show.units = false;
       show.currency = false;
       removeStorage();
+
       setShow({ ...show });
     } else if (isQuery?.match('/generic')) {
       show.units = false;
       show.currency = false;
-
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     } else if (isQuery?.match('/letter-credit/id')) {
       show.units = false;
@@ -99,17 +100,21 @@ export default function Index({ isQuery }) {
       isQuery?.match('/vessel') ||
       isQuery?.match('/third-party') ||
       isQuery?.match('/transit/id') ||
+      isQuery?.match('/bill-of-entry/id') ||
       router.pathname?.match('/credit-queue') ||
       router.pathname?.match('/termsheet') ||
       router.pathname?.match('/margin-money') ||
       router.pathname?.match('/review') ||
+      router.pathname?.match('/add-supplier') ||
       router.pathname?.match('/vessel') ||
       router.pathname?.match('/third-party') ||
-      router.pathname?.match('/transit/id')
+      router.pathname?.match('/transit/id') ||
+      router.pathname?.match('/loi-preview')
     ) {
       show.units = false;
       show.currency = true;
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
     } else if (
       isQuery?.match('/termsheet/') ||
@@ -120,7 +125,11 @@ export default function Index({ isQuery }) {
       show.units = true;
       show.currency = true;
       removeStorage();
+      sessionStorage.removeItem('agreementDoc');
       setShow({ ...show });
+    }
+    if (router.pathname?.match('/agreement-table')) {
+      sessionStorage.removeItem('agreementDoc');
     } else {
       show.units = true;
       show.currency = true;
@@ -138,7 +147,6 @@ export default function Index({ isQuery }) {
 
   const { upperTabs, companyId } = useSelector((state) => state.Breadcrumb.breadCrumbData);
 
-
   let customData = _get(allCustomClearance, 'data[0]', {});
   let OrderId = _get(customData, 'order.orderId', {});
   let companyName = _get(customData, 'company.companyName');
@@ -151,7 +159,6 @@ export default function Index({ isQuery }) {
   const { pageTabName } = useSelector((state) => state?.user);
   const id = useSelector((state) => state?.user.id);
   const order = useSelector((state) => state?.user.order);
-
 
   const [unit, setUnit] = useState({ value: 'crores' });
   const [curency, setCurency] = useState({ value: 'inr' });
@@ -186,6 +193,14 @@ export default function Index({ isQuery }) {
         router.route = '/Leads';
       }
     }
+
+    if ('Supplier' == pageName) {
+      if (order != null) {
+        router.route = '/Supplier  Onboarding' + `/${order}`;
+      } else {
+        router.route = '/Supplier  Onboarding';
+      }
+    }
     if ('leads/' == pageName) {
       router.route = '/Leads' + '/Register Your Company';
     }
@@ -209,7 +224,6 @@ export default function Index({ isQuery }) {
     if ('margin-money' == pageName) {
       if (id !== null) {
         router.route = '/Leads' + '/Margin Money' + `/${id?.toLowerCase()}` + `/${order}`;
-
       } else {
         router.route = '/Leads' + '/Margin Money';
       }
@@ -229,7 +243,6 @@ export default function Index({ isQuery }) {
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
         router.route = '/Leads' + '/Termsheet-Preview' + `/${id?.toLowerCase()}` + `/${order}`;
-
       } else {
         router.route = '/Leads' + '/Termsheet';
       }
@@ -237,7 +250,6 @@ export default function Index({ isQuery }) {
     if ('generic' == pageName) {
       if (id !== null) {
         router.route = '/Agreements & LC' + '/Generic' + `/${id?.toLowerCase()}` + `/${order}`;
-
       } else {
         router.route = '/Agreements & LC' + '/Generic';
       }
@@ -245,7 +257,6 @@ export default function Index({ isQuery }) {
     if ('agreement' == pageName) {
       if (id !== null) {
         router.route = '/Agreements & LC' + '/Agreement' + `/${id?.toLowerCase()}` + `/${order}`;
-
       } else {
         router.route = '/Agreements & LC' + '/Agreement';
       }
@@ -281,14 +292,16 @@ export default function Index({ isQuery }) {
       router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
     if ('insurance Request Letter' == pageName) {
-
       router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
+    }
+
+    if ('insurance renewal' == pageName) {
+      router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Renewal' + `/${order}`;
     }
 
     if ('loading' == pageName) {
       if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}` + '/Order ID';
-
       } else {
         router.route = '/Loading, Transit & Unloading';
       }
@@ -317,7 +330,6 @@ export default function Index({ isQuery }) {
           `/${id?.toLowerCase()}` +
           `/${upperTabs}` +
           `/${order}`;
-
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Transit Details';
       }
@@ -349,7 +361,6 @@ export default function Index({ isQuery }) {
     if ('custom' == pageName) {
       if (id !== null) {
         router.route = '/Custom Clearance & Warehouse' + `/${companyName}` + `/${upperTabs}` + `/${OrderId}`;
-
       } else {
         router.route = '/Custom Clearance & Warehouse';
       }
@@ -494,14 +505,7 @@ export default function Index({ isQuery }) {
 
 
       if (subRoute !== '') {
-        if (subRoute == '[id]') {
-          // setUrl([...url, router.query.id])
-          // url.push(router.query.id);
-          url.push(subRoute);
-        } else {
-          // setUrl([...url, subRoute])
-          url.push(subRoute);
-        }
+        url.push(subRoute);
       } else {
         // setUrl([...url, "Home"])
         // url.push("");
@@ -525,7 +529,6 @@ export default function Index({ isQuery }) {
           pageName == 'payment' ? (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
-
               return (
                 <span
                   key={index}
@@ -541,7 +544,6 @@ export default function Index({ isQuery }) {
         ) : (
           <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
-
               return (
                 <span
                   key={index}

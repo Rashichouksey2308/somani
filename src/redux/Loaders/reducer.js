@@ -1,25 +1,25 @@
-import * as types from './actionType';
+import * as types from './actionType'
 
 const initialState = {
-  isOpen: false,
-};
+  isOpen: false
+}
 
-function LoadReducer(state = initialState, action) {
+function LoadReducer (state = initialState, action) {
   switch (action.type) {
     case types.IS_LOADING:
       return {
         ...state,
-        isOpen: action.payload,
-      };
+        isOpen: action.payload
+      }
     case types.NOT_LOADING:
       return {
         ...state,
-        isOpen: action.payload,
-      };
+        isOpen: action.payload
+      }
 
     default:
-      return state;
+      return state
   }
 }
 
-export default LoadReducer;
+export default LoadReducer

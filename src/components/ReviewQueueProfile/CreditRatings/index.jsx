@@ -19,7 +19,6 @@ function Index({ creditRating }) {
     setDates(tempdates);
   }, [creditRating]);
 
-
   useEffect(() => {
     const filteredArray = [];
     creditRating?.forEach((element) => {
@@ -30,14 +29,11 @@ function Index({ creditRating }) {
       ) {
         filteredArray.push(element);
       }
-    
     });
-
 
     setFilteredCredit(filteredArray);
   }, [dates]);
 
-  
   return (
     <>
       <div className={`${styles.card} card mb-6 border_color border-bottom`}>

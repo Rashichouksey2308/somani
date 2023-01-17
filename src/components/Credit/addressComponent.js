@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ViewDocument } from 'redux/ViewDoc/action';
+import { previewDocument } from 'redux/ViewDoc/action';
 import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 
@@ -19,8 +19,10 @@ function AddressComponent({
   orderDetail,
   path,
   communicationModeYes,
+  city,
+  state,
+  pinCode,
 }) {
-
   const dispatch = useDispatch();
 
   return (
@@ -41,22 +43,19 @@ function AddressComponent({
 
               <h5 className={`mb-0`}>{Title}</h5>
             </div>
-            <div>
-             
-                <img
-                  className={`${styles.edit_image} ml-2 mr-3`}
-                  src="/static/mode_edit.svg"
-                  alt="edit"
-                  onClick={() => {
-                  
-                    editAddress(index);
-                  }}
-                />
-          
+            <div className="pb-3">
+              <img
+                className={`${styles.edit_image} ml-2 mr-3`}
+                src="/static/mode_edit.svg"
+                alt="edit"
+                onClick={() => {
+                  editAddress(index);
+                }}
+              />
+
               {index !== 0 && (
                 <img
                   onClick={() => {
-                  
                     deleteComponent(index);
                   }}
                   src="/static/delete 2.svg"
@@ -67,7 +66,9 @@ function AddressComponent({
             </div>
           </div>
           <div className={`${styles.address_values}`}>
-            <p className="pt-3">{address}</p>
+            <p className="pt-3">
+              {address},{city},{state},{pinCode}
+            </p>
             <p className="pt-3">
               <span>Email: </span>
               {email}
@@ -88,7 +89,7 @@ function AddressComponent({
               </p>
               {path ? (
                 <span
-                  onClick={() => dispatch(ViewDocument({ order: orderDetail?._id, path: path }))}
+                  onClick={() => dispatch(previewDocument({ order: orderDetail?._id, path: path }))}
                   className={styles.view_btn}
                   style={{ cursor: 'pointer' }}
                 >

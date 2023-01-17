@@ -4,14 +4,37 @@ import styles from './index.module.scss';
 import SaveBar from '../SaveBar';
 import _get from 'lodash/get';
 import Router from 'next/router';
-
+import { toast } from 'react-toastify';
+import moment from 'moment';
 export default function Index(props) {
   const [show, setShow] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  const handleRoute = (val) => {
+  const handleRoute = (val,index) => {
+   
+    if(val.Quantity==""){
+       let toastMessage = 'PLS SELECT ADD QUANTITY RELEASED';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+                
+        }
+        return
+    }
+    let toRemove=0
+    props.releaseOrderData.forEach((release,i)=>{
+      if(i<=index){
+        if(release.status !== "DO cancelled"){
+            toRemove=toRemove+Number(release.Quantity)
+        }
+       
+      }
+    })
+    const finalValue=Number(boeTotalQuantity)-Number(toRemove)
+  
+    sessionStorage.setItem('deliveryPreviewId',val.deliveryOrderNo);
     sessionStorage.setItem('dono', val.deliveryOrderNo);
-
+    sessionStorage.setItem('toRemove', finalValue);
+    
     sessionStorage.setItem('balanceQuantity', Number(val.Quantity));
     Router.push('/delivery-preview');
   };
@@ -35,20 +58,11 @@ export default function Index(props) {
             >
               <h3 className={`${styles.heading}`}>Delivery Order</h3>
               <div className="d-flex">
-                {/* <div className="d-flex mr-5">
-                  <div className={`${styles.label_heading} mr-3 label_heading`}>
-                    Shipment Type
-                  </div>
-                  <div className={`${styles.shipment_type} heading mr-4`}>
-                    Bulk
-                  </div>
-                </div> */}
                 <span>+</span>
               </div>
             </div>
             <div
               id="lcApplication"
-              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -59,7 +73,7 @@ export default function Index(props) {
                     <span className={styles.value}>{_get(props, 'ReleaseOrder.data[0].order.commodity', '')}</span>
                   </div>
                   <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
-                    <div className={`${styles.label} text`}>Invoice Quantity </div>
+                    <div className={`${styles.label} text`}>Invoice Quantity</div>
                     <span className={styles.value}>
                       {Number(boeTotalQuantity)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
@@ -71,27 +85,12 @@ export default function Index(props) {
                   <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                     <div className={`${styles.label} text`}>Balance Quantity</div>
                     <span className={styles.value}>
-                      {props.BalanceQuantity()?.toLocaleString('en-In', {
+                      {props.balanceQuantity()?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })}{' '}
                       {_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '').toUpperCase()}
                     </span>
                   </div>
-                  {/* <div
-                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                  >
-                    <div className={`${styles.label} text`}>
-                      Finance Approved Quantity
-                    </div>
-                    <span className={styles.value}>
-                      {props.BalanceQuantity().toLocaleString()}{' '}
-                      {_get(
-                        props,
-                        'ReleaseOrder.data[0].order.unitOfQuantity',
-                        '',
-                      ).toUpperCase()}
-                    </span>
-                  </div> */}
                 </div>
               </div>
               <div
@@ -105,8 +104,17 @@ export default function Index(props) {
                       {props.releaseOrderData.map((val, index) => {
                         return (
                           <>
-                            <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} style={{ top: '5px' }}>
-                              <div className="d-flex">
+                            <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
+                              {val.status=="DO cancelled"?
+                              <>
+                                  <div className={`${styles.label} text`}>Release Order No.</div>
+                                  <span className={styles.value}>
+                                   {props.releaseOrderData[index].orderNumber}
+                                  </span>
+                                </>
+                              :
+                              <>
+                                <div className="d-flex">
                                 <select
                                   value={props.releaseOrderData[index].orderNumber}
                                   name="orderNumber"
@@ -114,8 +122,13 @@ export default function Index(props) {
                                   disabled={!val.isDelete}
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                 >
+                                  <option disabled  value="">Select an option</option>
+                                  
                                   {_get(props, 'ReleaseOrder.data[0].releaseDetail', []).map((option, index) => (
-                                    <option value={option.orderNumber} key={index}>
+                                    <option value={option.orderNumber} key={index}
+                                    disabled=
+                                    {props.isDisabled(option.orderNumber)}
+                                    >
                                       {option.orderNumber}
                                     </option>
                                   ))}
@@ -128,8 +141,23 @@ export default function Index(props) {
                                   alt="Search"
                                 />
                               </div>
+                              </>
+                              }
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
+                              {val.status=="DO cancelled"
+                              ? <>
+                                  <div className={`${styles.label} text`}>Quantity Released</div>
+                                  <span className={styles.value}>
+                                    {val.Quantity
+                                      ? Number(val.Quantity)?.toLocaleString('en-In') +
+                                        ' ' +
+                                        _get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')
+                                      : ''}
+                                  </span>
+                                </>
+                              :
+                              <>
                               {val.isDelete ? (
                                 <div className="d-flex">
                                   <input
@@ -141,12 +169,11 @@ export default function Index(props) {
                                       setIsFieldInFocus(false), (e.target.type = 'text');
                                     }}
                                     type="text"
-                                    // value={val.Quantity}
                                     value={
                                       isFieldInFocus
                                         ? val.Quantity
                                         : Number(val.Quantity)?.toLocaleString('en-IN') +
-                                        ` ${_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')}`
+                                          ` ${_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')}`
                                     }
                                     name="Quantity"
                                     onChange={(e) => {
@@ -161,45 +188,60 @@ export default function Index(props) {
                                 <>
                                   <div className={`${styles.label} text`}>Quantity Released</div>
                                   <span className={styles.value}>
-                                    {val.Quantity ? Number(val.Quantity)?.toLocaleString('en-In') + ' ' + _get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '') : ''}
+                                    {val.Quantity
+                                      ? Number(val.Quantity)?.toLocaleString('en-In') +
+                                        ' ' +
+                                        _get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')
+                                      : ''}
                                   </span>
                                 </>
                               )}
+                              </>
+                              }
+                              
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order No.</div>
-                              <span className={styles.value}>{val.deliveryOrderNo}</span>
+                              <span className={`${styles.value} text-nowrap`}>{val.deliveryOrderNo}</span>
                             </div>
                             <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}>
                               <div className={`${styles.label} text`}>Delivery Order Date</div>
-                              <span className={styles.value}>{val.deliveryOrderDate}</span>
+                              <span className={styles.value}>{
+                                val.deliveryOrderDate?
+                                  moment(val.deliveryOrderDate).format("DD-MM-YYYY")
+                                :""
+                            
+                             }</span>
                             </div>
                             <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                               <div className="row" style={{ marginTop: '-40px' }}>
                                 <div className={`${styles.form_group} col-lg-5 col-md-5`}>
                                   <div className={`${styles.label} text`}>Status</div>
-                                  <span className={styles.value}></span>
+                                  <span className={styles.value}>{val.status}</span>
                                 </div>
 
                                 {val.isDelete ? (
-                                  <div className={`${styles.form_group} col-lg-6`} style={{ marginLeft: '-48px' }}>
+                                  <div className={`${styles.form_group} col-md-7`}>
                                     <img
                                       src="/static/save-3.svg"
-                                      className={`${styles.shareImg} ml-3`}
+                                      className={`${styles.shareImg}`}
                                       alt="Save"
                                       onClick={(e) => {
-                                        props.onEdit(index, false);
+                                        props.onEdit(index, false,"Save");
                                       }}
                                     />
                                     <img
                                       src="/static/cancel-3.svg"
-                                      className={`${styles.shareImg} ml-3`}
+                                      className={`${styles.shareImg} ml-2`}
+                                      onClick={(e) => {
+                                        props.cancelDo(index, false);
+                                      }}
                                       alt="Cancel"
                                     />
 
                                     {props.releaseOrderData.length > 1 && (
                                       <img
-                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2`}
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {
@@ -223,7 +265,7 @@ export default function Index(props) {
                                       src="/static/share.svg"
                                       className={`${styles.shareImg} ml-2`}
                                       alt="Share"
-                                      onClick={() => handleRoute(val)}
+                                      onClick={() => handleRoute(val,index)}
                                     />
 
                                     {props.releaseOrderData.length > 1 && (
@@ -236,7 +278,7 @@ export default function Index(props) {
                                         }}
                                       />
                                     )}
-                                    {props.releaseOrderData.length - 1 === index && props.BalanceQuantity() > 0 && (
+                                    {props.releaseOrderData.length - 1 === index && props.balanceQuantity() > 0 && (
                                       <img
                                         onClick={(e) => {
                                           props.addNewDelivery();
@@ -291,278 +333,8 @@ export default function Index(props) {
         <SaveBar
           handleSave={props.onSaveHAndler}
           rightBtn="null"
-        // rightBtnClick={() => setShow(true)}
-        // handleRoute={handleRoute}
         />
       </div>
-
-      {/*  <Modal
-        show={show}
-        onHide={handleClose}
-        className={`${styles.root}`}
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header className="modal-header p-0 bg-transparent border-0 d-flex justify-content-between">
-          <div className={`${styles.head}`}>
-            <p className={`${styles.heading}`}>
-              INDO GERMAN INTERNATIONAL PVT. LTD.
-            </p>
-            <div className={`${styles.heading_addresses}`}>
-              <p>7A, SAGAR APARTMENTS, 6-TILAK MARG, NEW DELHI-110001 </p>
-              <p>
-                TEL: +91 – 11 – 23782022, 23387413, 23382592, 23384968, FAX: +91
-                – 11 – 23782806{' '}
-              </p>
-              <p>CIN NO-U74899DL1994PTC063676</p>
-            </div>
-            <div onClick={() => (setShow(false))} className={`${styles.type}`}>
-              <p>DELIVERY ORDER </p>
-              <p>(ORIGINAL) </p>
-            </div>
-          </div>
-        </Modal.Header>
-        <Modal.Body className="p-0">
-          <div className={`${styles.body}`}>
-            <div
-              className={`${styles.body_header} d-flex justify-content-between align-item-center`}
-            >
-              <div className={`${styles.date} `}>
-                <p>
-                  DO.NO:{' '}
-                  <span className={`${styles.bold}`}>RamaI001-000001/01</span>
-                </p>
-                <p>
-                  DATE: <span className={`${styles.bold}`}>01.07.2021</span>
-                </p>
-              </div>
-              <div className={`${styles.validity}`}>
-                <p>
-                  VALIDITY: <span className={`${styles.bold}`}>10 Days</span>
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.content}`}>
-              <p>To:</p>
-              <p className={`${styles.bold} ${styles.width} w-50`}>
-                M/S BOTHRA SHIPPING SERVICES PVT. LTD. 28-2-47,Ist Floor,
-                Daspalla Centre, Suryabagh, Visakhapatnam 530020, (Andhra
-                Pradesh)
-              </p>
-
-              <div>
-                CC:{' '}
-                <span className={`${styles.bold} ${styles.width2} `}>
-                  Dr. Shivadeo Upadhyay, M/S Jayaswal Neco Industries Limited,
-                  Raipur, Chhatisgarh.
-                </span>
-              </div>
-              <div>
-                CC:{' '}
-                <span className={`${styles.bold} ${styles.width2} `}>
-                  Dr. Amin Controllersr, Yizag.
-                </span>
-              </div>
-              <p>
-                Kind Attn.{' '}
-                <span className={`${styles.bold} w-50`}>
-                  Mr. N.A. Khan / Mr. Nabin Chand Boyed.
-                </span>
-              </p>
-              <div className={`${styles.letter_content}`}>
-                <p>Dear Sir,</p>
-                <p>
-                  We hereby authorize you to deliver the quantity to{' '}
-                  <span className={`${styles.bold}`}>
-                    MS Jayaswal Neco Industries Limited,
-                  </span>{' '}
-                  Vide <span className={`${styles.bold}`}>BL No. 1</span> dated{' '}
-                  <span className={`${styles.bold}`}>18/03/2021</span> as per
-                  the detail given below:
-                </p>
-                <div className={`${styles.material}`}>
-                  <div
-                    className={`d-flex justify-content-start align-items-start`}
-                  >
-                    <span className={styles.head}>l) Material :</span>{' '}
-                    <span className={`${styles.bold} `}>
-                      Lake Vermont Premium Hard Coking Coal (MV CRIMSON ARK)
-                      Bothra, S-4 & L-6 Yard, Port Area, Visakhapatnam Port
-                      Trust, Visakhapatnam.
-                    </span>
-                  </div>
-                  <div
-                    className={`d-flex justify-content-start align-items-start`}
-                  >
-                    <span className={styles.head}>2) Quantity : </span>{' '}
-                    <span className={`${styles.bold} `}>
-                      6350.000 MTs. Vermont Premium Hard Coking Coal
-                    </span>
-                  </div>
-                  <div
-                    className={`d-flex justify-content-start align-items-start`}
-                  >
-                    <span className={styles.head}>3) Balance Qty :</span>{' '}
-                    <span className={`${styles.bold} `}>
-                      After delivery of material against this DO the balance
-                      Qty. will be as under :
-                      <p>a) Vermont Premium PH C Coal NIL MTs</p>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={`${styles.footer}`}>
-              <p>
-                For{' '}
-                <span className={`${styles.bold}`}>
-                  Indo German International Private Limited
-                </span>
-              </p>
-              <div>
-                <p className={`${styles.bold}`}>Authorised Signatory</p>
-                <select>
-                  <option>Vipin Rajput</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div className={`${styles.cc}`}>
-            <p>
-              CC : Indo German International Private Limited, VIZAG : Delivery
-              order file
-            </p>
-            <p className={`${styles.bold} ${styles.extra_margin}`}>
-              : Delivery order file
-            </p>
-          </div>
-        </Modal.Body>
-      </Modal> */}
     </>
   );
-}
-
-{
-  /* <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    style={{ top: '5px' }}
-                  >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option>01</option>
-                        <option>02</option>
-                        <option>03</option>
-                        <option>N/A</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Released Order Number
-                      </label>
-                      <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className={`${styles.label} text`}>
-                      Quantity Released
-                    </div>
-                    <span className={styles.value}>5,000 MT</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className={`${styles.label} text`}>
-                      Delivery Order No.
-                    </div>
-                    <span className={styles.value}>Ramal001-00002/01</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className="row" style={{ marginTop: '-42px' }}>
-                      <div className={`${styles.form_group} col-lg-8`}>
-                        <div className={`${styles.label} text`}>
-                          Delivery Order Date
-                        </div>
-                        <span>-</span>
-                      </div>
-                      <div className={`${styles.form_group} col-lg-4`}>
-                        <img
-                          src="/static/share.svg"
-                          className={`${styles.shareImg} img-fluid`}
-                          alt="Share"
-                        />
-                      </div>
-                    </div>
-                  </div> */
-}
-
-{
-  /* <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    style={{ top: '5px' }}
-                  >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option>01</option>
-                        <option>02</option>
-                        <option>03</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Released Order Number
-                      </label>
-                      <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className={`${styles.label} text`}>
-                      Quantity Released
-                    </div>
-                    <span className={styles.value}>5,000 MT</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className={`${styles.label} text`}>
-                      Delivery Order No.
-                    </div>
-                    <span className={styles.value}>Ramal001-00002/01</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className="row" style={{ marginTop: '-42px' }}>
-                      <div className={`${styles.form_group} col-lg-8`}>
-                        <div className={`${styles.label} text`}>
-                          Delivery Order Date
-                        </div>
-                        <span>-</span>
-                      </div>
-                      <div className={`${styles.form_group} col-lg-4`}>
-                        <img
-                          src="/static/mode_edit.svg"
-                          className={`${styles.shareImg} img-fluid`}
-                          alt="Edit"
-                        />
-                      </div>
-                    </div>
-                  </div> */
 }
