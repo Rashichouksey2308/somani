@@ -1,0 +1,22 @@
+.label{
+    width: 27.5%;
+
+    span{
+        font-size: 20px;
+        color: #111111;
+        opacity: 0.7;
+    }
+}
+
+.labelValue{
+
+    span {
+        font-size: 20px;
+        color: #111111;
+    } 
+}
+.highlighted_field {
+    background-color: yellow;
+    padding: 5px;
+    color: black !important;
+}

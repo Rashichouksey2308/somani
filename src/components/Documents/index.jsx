@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import styles from './index.module.scss';
 // import { settingDocument } from 'redux/registerBuyer/action'
-
 const Index = ({
   saveDocument,
   uploadDocument1,
@@ -18,16 +17,11 @@ const Index = ({
   documentApi,
 }) => {
   const [list, setList] = useState([{ typeDocument: 'Certificate', attachDoc: 'false' }]);
-
   const [name, setName] = useState(null);
-
-
-
   const [secondDocName, setSecondDocName] = useState(null);
-
   return (
     <div className={`${styles.main} border_color`}>
-      <div className={`${styles.heading} heading_card_switch_blue`}>Documents</div>
+      <h3 className={`${styles.heading} heading_card_switch_blue`}>Documents</h3>
       <form id="documents">
         <div className={`${styles.input_container} row align-items-center`}>
           {documents &&
@@ -52,7 +46,17 @@ const Index = ({
                             }
                           })
                           ?.map((val, index) => {
-                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                            if (
+                              val.Document_Name === 'Business Registration Certificate' ||
+                              val.Document_Name === 'KYC form Buyer' ||
+                              val.Document_Name === 'KYC form Vendor' ||
+                              val.Document_Name === 'Bank Reference Letter' ||
+                              val.Document_Name === 'Undertaking from Associate Buyer'
+                            ) {
+                              return null;
+                            } else {
+                              return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                            }
                           })}
                       </select>
                       <img
@@ -62,7 +66,6 @@ const Index = ({
                       />
                     </div>
                   </div>
-
                   <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}>
                     <div className={`${styles.label_heading} label_heading`}>Attach Document</div>
                     {val.attachDoc == '' ? (
@@ -72,11 +75,9 @@ const Index = ({
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={(e) => {
-                            
                             addDoc(e.target.files[0], index);
                             // uploadDocument2(e)
                           }}
-                          style={{ width: '106px', height: '55px' }}
                         />
                         <button className={`${styles.button_upload} btn`}>Upload</button>
                       </div>
@@ -92,7 +93,6 @@ const Index = ({
                       </div>
                     )}
                   </div>
-
                   <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}>
                     <div className={`${styles.label_heading} label_heading`}>Action</div>
                     <div onClick={() => setSecondDocName(null)} className={styles.image_card}>
@@ -110,7 +110,6 @@ const Index = ({
                 </>
               );
             })}
-
           {/* {list &&
             list.map((val, index) => (
               <>
@@ -140,7 +139,6 @@ const Index = ({
                     />
                   </div>
                 </div>
-
                 <div
                   className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}
                 >
@@ -173,7 +171,6 @@ const Index = ({
                     </div>
                   )}
                 </div>
-
                 <div
                   className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}
                 >
@@ -212,9 +209,7 @@ const Index = ({
             alt="Search"
           />
           </div>
-
         </div>
-
         <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}>
           {!secondDocName ? (
             <div className={styles.uploadBtnWrapper}>
@@ -243,7 +238,6 @@ const Index = ({
             </div>
           )}
         </div>
-
         <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}>
           <div onClick={() => setSecondDocName(null)} className={styles.image_card}>
             <img
@@ -254,7 +248,6 @@ const Index = ({
           </div>
         </div>
         <hr className={styles.hr_line}></hr> */}
-
           <div className={`${styles.add_document} col-md-12`}>
             <p
               className={`${styles.add_para} d-flex align-items-center`}
@@ -271,5 +264,4 @@ const Index = ({
     </div>
   );
 };
-
 export default Index;

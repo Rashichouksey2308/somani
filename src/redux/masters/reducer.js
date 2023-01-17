@@ -4,6 +4,8 @@ const initialState = {
   getCountriesMasterData: [],
   getCommodityMasterData: [],
   getGonogoMasterData: [],
+  gettingState: false,
+  getStateMasterData: [],
   getPortsMasterData: [],
   getCommoditiesMasterData: [],
   getDocumentsMasterData: [],
@@ -13,6 +15,7 @@ const initialState = {
   getBanksMasterData: [],
   getBranchesMasterData: [],
   getPincodesMasterData: [],
+  getStatesMasterData: [],
   usersQueueRecords: [],
   gettingUsersQueueRecords: false,
   filteringUsersQueue: false,
@@ -38,6 +41,22 @@ const initialState = {
   filteringCurrencyQueue: false,
   filteredCurrencyQueue: [],
   creatingCurrencyMaster: false,
+  TDSSectionQueueRecords: [],
+  gettingTDSSectionQueueRecords: false,
+  filteringTDSSectionQueue: false,
+  filteredTDSSectionQueue: [],
+  creatingTDSSectionMaster: false,
+  SACQueueRecords: [],
+  gettingSACQueueRecords: false,
+  filteringSACQueue: false,
+  filteredSACQueue: [],
+  creatingSACMaster: false,
+  IIAGLedgerQueueRecords: [],
+  gettingIIAGLedgerQueueRecords: false,
+  filteringIIAGLedgerQueue: false,
+  filteredIIAGLedgerQueue: [],
+  creatingIIAGLedgerMaster: false,
+  zipCode: [],
 };
 
 function MastersReducer(state = initialState, action) {
@@ -87,6 +106,23 @@ function MastersReducer(state = initialState, action) {
         ...state,
         getGonogoMasterData: [],
       };
+    case types.GET_STATE_MASTERS:
+      return {
+        ...state,
+        gettingState: true,
+        getStateMasterData: [],
+      };
+    case types.GET_STATE_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getStateMasterData: action.payload,
+      };
+    case types.GET_STATE_MASTERS_FAILURE:
+      return {
+        ...state,
+        getStateMasterData: [],
+      };
+
     case types.GET_PORTS_MASTERS:
       return {
         ...state,
@@ -229,6 +265,22 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getPincodesMasterData: [],
+      };
+
+    case types.GET_STATES_MASTERS:
+      return {
+        ...state,
+        getStatesMasterData: [],
+      };
+    case types.GET_STATES_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getStatesMasterData: action.payload,
+      };
+    case types.GET_STATES_MASTERS_FAILURE:
+      return {
+        ...state,
+        getStatesMasterData: [],
       };
 
     case types.GET_MASTER_USERS_QUEUE_RECORDS_SUCCESSFULL:
@@ -464,6 +516,157 @@ function MastersReducer(state = initialState, action) {
         creatingCurrencyMaster: false,
       };
 
+    case types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingTDSSectionQueueRecords: false,
+        TDSSectionQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingTDSSectionQueueRecords: false,
+        TDSSectionQueueRecords: {},
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE:
+      return {
+        ...state,
+        filteringTDSSectionQueue: true,
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringTDSSectionQueue: false,
+        filteredTDSSectionQueue: action.payload,
+      };
+
+    case types.FILTER_TDS_SECTION_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringTDSSectionQueue: false,
+        filteredTDSSectionQueue: null,
+      };
+
+    case types.CREATE_TDS_SECTION_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingTDSSectionMaster: false,
+      };
+
+    case types.CREATE_TDS_SECTION_MASTER_FAILED:
+      return {
+        ...state,
+        creatingTDSSectionMaster: false,
+      };
+    case types.GET_MASTER_SAC_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingSACQueueRecords: false,
+        SACQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_SAC_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingSACQueueRecords: false,
+        SACQueueRecords: {},
+      };
+
+    case types.FILTER_SAC_QUEUE:
+      return {
+        ...state,
+        filteringSACQueue: true,
+      };
+
+    case types.FILTER_SAC_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringSACQueue: false,
+        filteredSACQueue: action.payload,
+      };
+
+    case types.FILTER_SAC_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringSACQueue: false,
+        filteredSACQueue: null,
+      };
+
+    case types.CREATE_SAC_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingSACMaster: false,
+      };
+
+    case types.CREATE_SAC_MASTER_FAILED:
+      return {
+        ...state,
+        creatingSACMaster: false,
+      };
+
+    case types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingIIAGLedgerQueueRecords: false,
+        IIAGLedgerQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingIIAGLedgerQueueRecords: false,
+        IIAGLedgerQueueRecords: {},
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: true,
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: false,
+        filteredIIAGLedgerQueue: action.payload,
+      };
+
+    case types.FILTER_IIAG_LEDGER_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringIIAGLedgerQueue: false,
+        filteredIIAGLedgerQueue: null,
+      };
+
+    case types.CREATE_IIAG_LEDGER_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingIIAGLedgerMaster: false,
+      };
+
+    case types.CREATE_IIAG_LEDGER_MASTER_FAILED:
+      return {
+        ...state,
+        creatingIIAGLedgerMaster: false,
+      };
+    case types.GET_ZIPCODES_MASTERS:
+      return {
+        ...state,
+        zipCode: [],
+      };
+    case types.GET_ZIPCODES_MASTERS_SUCCESS:
+      return {
+        ...state,
+        zipCode: action.payload,
+      };
+    case types.GET_ZIPCODES_MASTERS_FAILURE:
+      return {
+        ...state,
+        zipCode: [],
+      };
 
     default:
       return state;

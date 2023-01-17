@@ -271,6 +271,89 @@ function updateGoNoGoLogicRemarkFailed(payload = {}) {
   };
 }
 
+function getInternalCompanyDetailsSuccess(payload) {
+  return {
+    type: types.GET_INTERNAL_COMPANY_DETAILS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getInternalCompanyDetailsFailed(payload = {}) {
+  return {
+    type: types.GET_INTERNAL_COMPANY_DETAILS_FAILED,
+    payload,
+  };
+}
+
+function updateInternalCompanyRemarkSuccess(payload) {
+  return {
+    type: types.UPDATE_INTERNAL_COMPANY_REMARK_SUCCESSFULL,
+    payload,
+  };
+}
+
+function updateInternalCompanyRemarkFailed(payload = {}) {
+  return {
+    type: types.UPDATE_INTERNAL_COMPANY_REMARK_FAILED,
+    payload,
+  };
+}
+
+function getVendorDetailsSuccess(payload) {
+  return {
+    type: types.GET_VENDOR_DETAILS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getVendorDetailsFailed(payload = {}) {
+  return {
+    type: types.GET_VENDOR_DETAILS_FAILED,
+    payload,
+  };
+}
+
+function updateVendorRemarkSuccess(payload) {
+  return {
+    type: types.UPDATE_VENDOR_REMARK_SUCCESSFULL,
+    payload,
+  };
+}
+
+function updateVendorRemarkFailed(payload = {}) {
+  return {
+    type: types.UPDATE_VENDOR_REMARK_FAILED,
+    payload,
+  };
+}
+
+function getTransactionSummaryDetailsSuccess(payload) {
+  return {
+    type: types.GET_TRANSACTION_SUMMARY_DETAILS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getTransactionSummaryDetailsFailed(payload = {}) {
+  return {
+    type: types.GET_TRANSACTION_SUMMARY_DETAILS_FAILED,
+    payload,
+  };
+}
+
+function updateTransactionSummaryRemarkSuccess(payload) {
+  return {
+    type: types.UPDATE_TRANSACTION_SUMMARY_REMARK_SUCCESSFULL,
+    payload,
+  };
+}
+
+function updateTransactionSummaryRemarkFailed(payload = {}) {
+  return {
+    type: types.UPDATE_TRANSACTION_SUMMARY_REMARK_FAILED,
+    payload,
+  };
+}
 
 export const GetCommodityDetails = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
@@ -938,6 +1021,217 @@ export const UpdateGoNoGoLogicRemark = (payload) => async (dispatch, getState, a
     }
   } catch (error) {
     dispatch(updateGoNoGoLogicRemarkFailed());
+    dispatch(setNotLoading());
+    return 500;
+  }
+};
+
+export const GetInternalCompanyDetails = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getInternalCompanyDetails}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getInternalCompanyDetailsSuccess(response?.data?.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getInternalCompanyDetailsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Internal Company Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getInternalCompanyDetailsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateInternalCompanyRemark = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateInternalCompanyRemark}`, payload, {
+      headers: headers,
+    });
+
+    if (response.data.code === 200) {
+      dispatch(updateInternalCompanyRemarkSuccess(response.data));
+      dispatch(setNotLoading());
+      return 200;
+    } else {
+      dispatch(updateInternalCompanyRemarkFailed(response.data));
+      const toastMessage = 'Cannot add remark, something went wrong';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+      return 500;
+    }
+  } catch (error) {
+    dispatch(updateInternalCompanyRemarkFailed());
+    dispatch(setNotLoading());
+    return 500;
+  }
+};
+
+export const GetVendorDetails = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getVendorDetails}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getVendorDetailsSuccess(response?.data?.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getVendorDetailsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Vendor Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getVendorDetailsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateVendorRemark = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateVendorRemark}`, payload, {
+      headers: headers,
+    });
+
+    if (response.data.code === 200) {
+      dispatch(updateVendorRemarkSuccess(response.data));
+      dispatch(setNotLoading());
+      return 200;
+    } else {
+      dispatch(updateVendorRemarkFailed(response.data));
+      const toastMessage = 'Cannot add remark, something went wrong';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+      return 500;
+    }
+  } catch (error) {
+    dispatch(updateVendorRemarkFailed());
+    dispatch(setNotLoading());
+    return 500;
+  }
+};
+
+export const GetTransactionSummaryrDetails = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getTransactionSummaryDetails}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+
+      if (response.data.code === 200) {
+        dispatch(getTransactionSummaryDetailsSuccess(response?.data?.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getTransactionSummaryDetailsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Transaction Summary Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getTransactionSummaryDetailsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateTransactionSummaryRemark = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateTransactionSummaryRemark}`, payload, {
+      headers: headers,
+    });
+
+    if (response.data.code === 200) {
+      dispatch(updateTransactionSummaryRemarkSuccess(response.data));
+      dispatch(setNotLoading());
+      return 200;
+    } else {
+      dispatch(updateTransactionSummaryRemarkFailed(response.data));
+      const toastMessage = 'Cannot add remark, something went wrong';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+      return 500;
+    }
+  } catch (error) {
+    dispatch(updateTransactionSummaryRemarkFailed());
     dispatch(setNotLoading());
     return 500;
   }

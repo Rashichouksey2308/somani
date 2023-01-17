@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-
 import Filter from '../../src/components/Filter';
+import Pagination from '../../src/components/Pagination';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
-
+import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action';
+import styles from './index.module.scss';
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
 
@@ -113,7 +112,14 @@ function Index() {
         </div>
 
         <div className={`${styles.datatable} border card datatable`}>
-          <div
+          <Pagination
+            data={allVessel}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            tableName="Vessel Nomination"
+            color={true}
+          />
+          {/* <div
             className={`${styles.tableFilter} shadow-none align-items-center d-flex justify-content-between border-0 d-flex`}
           >
             <h3 className="heading_card">Vessel Nomination</h3>
@@ -123,9 +129,8 @@ function Index() {
               </span>
               <a
                 onClick={() => {
-                  if (currentPage === 0) {
-                    return;
-                  } else {
+                  if (currentPage === 0) return 
+                  else {
                     setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
@@ -147,7 +152,7 @@ function Index() {
                 <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
               </a>
             </div>
-          </div>
+          </div> */}
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">

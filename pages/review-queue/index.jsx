@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllBuyer } from '../../src/redux/registerBuyer/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { setPageName } from '../../src/redux/userData/action';
-import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 import Filter from '../../src/components/Filter';
+import Pagination from '../../src/components/Pagination';
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { GetAllBuyer } from '../../src/redux/registerBuyer/action';
+import { setPageName } from '../../src/redux/userData/action';
+import styles from './index.module.scss';
+import constants from '@/utils/constants'
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
@@ -31,7 +33,7 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}`));
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${constants.numberSeven}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
@@ -42,14 +44,14 @@ function Index() {
     sessionStorage.setItem('orderID', buyer._id);
     sessionStorage.setItem('company', buyer.company._id);
     sessionStorage.setItem('companyID', buyer.company._id);
-  
+
     Router.push('/review/id');
   };
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -63,11 +65,11 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    if (sorting == -1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}&createdAt=${sorting}`));
+    if (sorting === -1) {
+      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${constants.numberSeven}&createdAt=${sorting}`));
       setSorting(1);
-    } else if (sorting == 1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}&createdAt=${sorting}`));
+    } else if (sorting === 1) {
+      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${constants.numberSeven}&createdAt=${sorting}`));
       setSorting(-1);
     }
   };
@@ -105,15 +107,6 @@ function Index() {
               )}
             </div>
             <Filter />
-            {/* <a href="#" className={`${styles.filterList} filterList`}>
-              Ramesh Shetty
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a>
-            
-            <a href="#" className={`${styles.filterList} filterList`}>
-              Raj Traders
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a> */}
           </div>
 
           {/*status Box*/}
@@ -165,42 +158,12 @@ function Index() {
           </div>
           {/*leads table*/}
           <div className={`${styles.datatable} border card datatable`}>
-            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-              <h3 className="heading_card">Review Queue</h3>
-              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                <span>
-                  Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(allBuyerList?.data?.totalCount / 7) == 0
-                    ? 1
-                    : Math.ceil(allBuyerList?.data?.totalCount / 7)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) {
-                      return;
-                    } else {
-                      setCurrentPage((prevState) => prevState - 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
-                      setCurrentPage((prevState) => prevState + 1);
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
-                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                </a>
-              </div>
-            </div>
+            <Pagination
+              data={allBuyerList?.data}
+              tableName="Review Queue"
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
@@ -242,9 +205,9 @@ function Index() {
                               >
                                 {buyer.company.companyName}
                               </td>
-                              <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : 'RM'}</td>
-                              <td>{buyer.createdBy.fName}</td>
-                              <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                              <td>{buyer?.createdBy?.userRole  ? buyer.createdBy.userRole : 'RM'}</td>
+                              <td>{buyer?.createdBy?.fName}</td>
+                              <td>{buyer?.existingCustomer ? 'Yes' : 'No'}</td>
                               <td>
                                 <span className={`${styles.status} ${styles.review}`}></span>
 

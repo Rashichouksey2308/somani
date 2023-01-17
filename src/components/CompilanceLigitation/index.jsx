@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './index.module.scss';
+import React from 'react'
+import styles from './index.module.scss'
 
-function index(props) {
+function index (props) {
   return (
     <div className={`${styles.risk}  d-flex align-items-center`} style={{ backgroundColor: `${props.backColor}` }}>
       <div
@@ -15,7 +15,7 @@ function index(props) {
         <span>{props.content}</span>
       </div>
     </div>
-  );
+  )
 }
 
-export default index;
+export default index

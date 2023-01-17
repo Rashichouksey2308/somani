@@ -56,7 +56,9 @@
         &:first-line {
           text-transform: capitalize;
         }
-
+        span {
+          text-transform: capitalize;
+        }
         @include respond(lg-desktop) {
           font-size: 24px;
           line-height: 1.4;
@@ -127,9 +129,6 @@
             margin: 0 10px;
             padding-left: 0px;
           }
-
-          &.active {
-          }
         }
       }
     }
@@ -154,7 +153,6 @@
     .card {
       margin-bottom: 1rem;
 
-     
       .cardHeader {
         height: 80px;
         cursor: pointer;
@@ -658,7 +656,6 @@
           margin-bottom: 1rem;
           border-radius: 6px !important;
 
-        
           .cardHeader {
             height: 80px;
             cursor: pointer;
@@ -762,7 +759,6 @@
 
         .cardBody {
           padding: 17px 25px;
-         
         }
       }
     }
@@ -791,14 +787,11 @@
           }
         }
       }
-
-    
     }
 
     .cardBody_litigations {
       padding-left: 35px;
 
-     
       .risk_Container {
         .risk {
           width: 25%;

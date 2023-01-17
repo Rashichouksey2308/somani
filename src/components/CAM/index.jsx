@@ -25,6 +25,8 @@ import _get from 'lodash/get';
 
 import { addPrefixOrSuffix, checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 import { isArray } from 'lodash';
+import { returnReadableNumber } from '@/utils/helpers/global';
+import { cssNumber } from 'jquery';
 
 import Toggle from '../Toggle/index';
 
@@ -37,7 +39,7 @@ Chart.register(
   Title,
   CategoryScale,
   Filler,
-  Tooltip,
+  // Tooltip,
   Legend,
 );
 
@@ -60,14 +62,21 @@ function Index({
   setTop5Customers1,
   camConversionunit,
   totalLimitDebt,
-  CreditAgency,
+  creditAgency,
   litigationStatus,
   debtProfileColor,
   History,
   history,
+  allBuyerList,
+  unit,
+  chartType,
+  setChartType,
+  limitValueChecked,
+  setLimitValueChecked,
+  orderValueChecked,
+  setOrderValueChecked
 }) {
   const dispatch = useDispatch();
-
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
@@ -82,8 +91,9 @@ function Index({
 
   const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
     return camData?._id === rating.order;
+  
   });
-
+ 
   const { documentsFetched } = useSelector((state) => state.review);
 
   const onApprove = (name, value) => {
@@ -97,6 +107,14 @@ function Index({
     // }
   };
 
+  useEffect(() => {
+    if (approvedCredit.approvedCreditValue) {
+      setLimitValueChecked(true);
+    }
+    if (approvedCredit.approvedOrderValue) {
+      setOrderValueChecked(true);
+    }
+  }, [filteredCreditRating]);
   const [sanctionComments, setSanctionComments] = useState('');
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {});
@@ -167,7 +185,7 @@ function Index({
   useEffect(() => {
     let data;
     if (camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern) {
-      data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+      data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.forEach((element, index) => {
         if (element.fullName === '') {
         } else {
           if (index < 2) {
@@ -213,26 +231,127 @@ function Index({
   };
 
   const options = {
+    aspectRatio: 1,
+    elements: {
+      arc: {
+        borderWidth: 0,
+      },
+    },
+    tooltip: {
+      position: 'nearest',
+      callbacks: {
+          label: function (context) {
+            let label;
+            if (context.parsed !== null && context.parsed !== undefined) {
+              
+              let number = Number(context.raw).toLocaleString('en-In');
+              label = `${context.label}:`+ "/n" + `${number}`;
+            }
+
+            return '';
+          },
+          afterBody: function(data) {
+             
+              let label=[`${data[0].label}:`]
+            
+          // do some stuff
+           label.push(Number(data[0].raw).toLocaleString('en-In'));
+
+          return label;
+      }
+        },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
+
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+
+        animation: {
+          animateScale: false,
+        },
+      },
+    },
+
+    // tooltip: {
+    //   titleFontSize: 50,
+    //   bodyFontSize: 50,
+    // },
+
+    responsive: true,
+    cutout: 95,
+  };
+  const options2 = {
+    aspectRatio: 1,
     elements: {
       arc: {
         borderWidth: 0,
       },
     },
     plugins: {
-      title: {
-        animation: {
-          animateScale: true,
-        },
-      },
-
       legend: {
         display: false,
       },
-    },
-    responsive: true,
-    cutout: 130,
-  };
+      tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+        position: 'nearest',
+        callbacks: {
+          label: function (context) {
+            let label;
+            if (context.parsed !== null && context.parsed !== undefined) {
+              
+              let number = Number(context.raw).toLocaleString('en-In');
+              label = `${context.label}:`+ "/n" + `${number}`;
+            }
 
+            return '';
+          },
+          afterBody: function(data) {
+             
+              let label=[`${data[0].label}:`]
+            
+          // do some stuff
+           label.push(Number(data[0].raw).toLocaleString('en-In'));
+
+          return label;
+      }
+        },
+      },
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
+
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+      },
+    },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50,
+    },
+
+    responsive: true,
+    cutout: 95,
+  };
   const covertMonths = (months) => {
     const CovertedMonts = [];
     months?.map((month) => {
@@ -270,6 +389,19 @@ function Index({
       tooltip: {
         enabled: true,
         position: 'nearest',
+         callbacks: {
+        label: function (context) {
+          let label;
+          if (context.raw !== null && context.raw !== undefined) {
+          
+            let number = Number(context.raw).toLocaleString('en-In');
+            
+            label = `${number} `;
+          }
+
+          return label;
+        },
+      },
         // external: externalTooltipHandler
       },
       legend: {
@@ -277,6 +409,7 @@ function Index({
       },
     },
   };
+  
   function createGradient(ctx, area, color, color2) {
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
@@ -294,18 +427,10 @@ function Index({
     datasets: [],
   });
 
-  // let data = {
-  //   labels: ['Sail', 'Jindal Grou', 'SR Steel'],
-  //   datasets: [
-  //     {
-  //       label: '',
-  //       data: [25, 20, 55],
 
-  //       backgroundColor: ['#4CAF50', '#FF9D00', '#2884DE'],
-  //     },
-  //   ],
-  // }
   let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
+  let backgroundColor1 = ['#f0faef', '#f3f0f7', '#e9f2fc', '#fdf0ef', '#e9f2fc'];
+
   const [top5Customers, setTop5Customers] = useState({
     labels: [],
     datasets: [],
@@ -396,7 +521,7 @@ function Index({
         temp.push({ name: val.fullName, value: val.numberOfShares });
       });
       let sortedval = temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-      let length = 3;
+      let length = data.length < 3 ? data.length : 3;
       let lable = [];
       let dataSet = [];
       let total = 0;
@@ -412,7 +537,6 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 4,
           },
         ],
       };
@@ -431,7 +555,7 @@ function Index({
           val.dateOfSatisfactionOfChargeInFull === ''
         ) {
           temp.push({
-            name: val.nameOfChargeHolder1,
+            name: val.nameOfChargeHolder1 || val.nameOfChargeHolder,
             value: val.finalAmountSecured,
           });
         }
@@ -441,6 +565,7 @@ function Index({
       let lable = [];
       let dataSet = [];
       let total = 0;
+
       for (let i = 0; i < length; i++) {
         lable.push(sortedval[i]?.name);
         dataSet.push(sortedval[i]?.value || 0);
@@ -452,7 +577,6 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
-            hoverOffset: 20,
           },
         ],
       };
@@ -469,20 +593,48 @@ function Index({
     findTop3Share(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern);
     findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges);
   }, [GstData, camData]);
+
   useEffect(() => {
     const chart = chartRef.current;
     const chart2 = chartRef2.current;
 
+    const filteredData = (data) => {
+      let arr = [];
+      if (!data || !data?.length) return arr;
+      for (let i = 2; i <= data.length - 1; i = i + 3) {
+        arr.push(data[i]);
+      }
+      return arr;
+    };
+
+    const filteredData1 = (data) => {
+      let arr = [];
+      if (!data || !data?.length) return arr;
+      for (let i = 2; i <= data.length - 1; i = i + 3) {
+        let b = 0;
+
+        b = data[i] + data[i - 1] + data[i - 2];
+        arr.push((Number(b) / 1000).toFixed(2));
+      }
+
+      return arr;
+    };
     if (!chart) {
       return;
     }
 
     const data = {
-      labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
+      labels:
+        chartType == 'Monthly'
+          ? covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month)
+          : covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossRevenue?.month)),
       datasets: [
         {
           label: 'First dataset',
-          data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
+          data:
+            chartType == 'Monthly'
+              ? gstData?.detail?.summaryCharts?.grossRevenue?.values
+              : filteredData1(gstData?.detail?.summaryCharts?.grossRevenue?.values),
           fill: true,
           backgroundColor: createGradient(chart.ctx, chart.chartArea, 'rgb(71, 145, 255,0.1)', 'rgb(71, 145, 255,0.2)'),
           borderColor: '#2979F2',
@@ -494,11 +646,17 @@ function Index({
     }
 
     const data2 = {
-      labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
+      labels:
+        chartType == 'Monthly'
+          ? covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month)
+          : covertMonths(filteredData(gstData?.detail?.summaryCharts?.grossPurchases?.month)),
       datasets: [
         {
           label: 'First dataset',
-          data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+          data:
+            chartType == 'Monthly'
+              ? gstData?.detail?.summaryCharts?.grossPurchases?.values
+              : filteredData1(gstData?.detail?.summaryCharts?.grossPurchases?.values),
           fill: true,
           backgroundColor: createGradient(chart2.ctx, chart2.chartArea, 'rgb(250, 95, 28,0.1)', 'rgb(250, 95, 28,0.2)'),
           borderColor: '#FA5F1C',
@@ -508,9 +666,14 @@ function Index({
 
     setChartData(data);
     setChartData2(data2);
-  }, [chartRef.current, chartRef2.current]);
+  }, [chartRef.current, chartRef2.current, gstData, chartType]);
 
   const [rating, setRating] = useState(`rotate(0deg)`);
+  const [rotateImage, setRotateImage] = useState({
+   top: '40%',
+    left: '36%',
+  });
+  
   useEffect(() => {
     if (filteredCreditRating) {
       getRotate(filteredCreditRating[0]?.totalRating);
@@ -518,51 +681,106 @@ function Index({
     }
   }, [filteredCreditRating]);
 
+ 
   const getRotate = (rat = 1) => {
-    let r = Math.round(rat);
-    // let r = 10;
+    let r = Math.floor(rat);
+    
     if (r == 0) {
       setRating(`rotate(90deg)`);
+      setRotateImage({
+        top : '40%',
+        left : '35%'
+      })
+     
     }
     if (r == 1) {
       setRating(`rotate(90deg)`);
+       setRotateImage({
+        top : '40%',
+        left : '35.5%'
+      })
+      
     }
     if (r == 2) {
       setRating(`rotate(130deg)`);
+       setRotateImage({
+        top : '39.5%',
+        left : '36%'
+      })
+      
     }
     if (r == 3) {
       setRating(`rotate(180deg)`);
+       setRotateImage({
+        top :'39.5%',
+        left : '36.5%'
+      })
+     
     }
     if (r == 4) {
       setRating(`rotate(200deg)`);
+       setRotateImage({
+        top : '39%',
+        left : '37%'
+      })
+    
     }
     if (r == 5) {
       setRating(`rotate(225deg)`);
+       setRotateImage({
+        top :'39.5%',
+        left : '37%'
+      })
+    
     }
     if (r == 6) {
       setRating(`rotate(250deg)`);
+       setRotateImage({
+        top : '39.5%',
+        left : '37.5%'
+      })
+    
     }
     if (r == 7) {
-      setRating(`rotate(270deg)`);
+      setRating(`rotate(276deg)`);
+       setRotateImage({
+        top : '40%',
+        left : '37.5%'
+      })
+     
     }
-
     if (r == 8) {
       setRating(`rotate(310deg)`);
+       setRotateImage({
+        top :'40.5%',
+        left : '37.5%' 
+      })
+      
     }
     if (r == 9) {
-      setRating(`rotate(330deg)`);
+      setRating(`rotate(340deg)`);
+       setRotateImage({
+        top : '40.5%',
+        left : '36.5%'
+      })
+    
     }
     if (r == 10) {
-      setRating(`rotate(2deg)`);
+      setRating(`rotate(10deg)`);
+       setRotateImage({
+        top :'40.5%',
+        left : '36.5%'
+      })
+      
     }
   };
   return (
     <>
-      {basicInfo(camData, orderDetails, camConversionunit)}
+      {basicInfo(camData, orderDetails, camConversionunit, unit)}
       {supplierInfo(camData)}
-      {customerRating(camData, filteredCreditRating, rating, darkMode)}
+      {customerRating(camData, filteredCreditRating, rating, darkMode, rotateImage)}
       {groupExposure(camData, camConversionunit)}
-      {orderSummary(camData, camConversionunit)}
+      {orderSummary(camData, camConversionunit, allBuyerList)}
       {creditProfile(
         camData,
         openChargesLength,
@@ -570,18 +788,28 @@ function Index({
         latestAuditorData,
         previousAuditorData,
         companyData,
-        CreditAgency,
+        creditAgency,
       )}
       {directorDetails(camData)}
-      {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
-      {chargeDetails(top3Open, options, tempArr, camData, backgroundColor, camConversionunit)}
+      {shareHolding(top3Share, options2, tempArr, camData, backgroundColor, backgroundColor1)}
+      {chargeDetails(top3Open, options2, tempArr, camData, backgroundColor, backgroundColor1, camConversionunit, unit)}
       {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit, debtProfileColor)}
       {operationalDetails(camData, History)}
       {revenuDetails(gstData, camConversionunit)}
-      {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit)}
+      {trends(
+        chartData,
+        chartRef,
+        chartRef2,
+        chartData2,
+        lineOption,
+        gstData,
+        camConversionunit,
+        setChartType,
+        chartType,
+      )}
       {skewness(
         top5Customers,
-        options,
+        options2,
         tempArr,
         gstData,
         top5Suppliers,
@@ -616,6 +844,12 @@ function Index({
         approvedCredit,
         isFieldInFocus,
         setIsFieldInFocus,
+        unit,
+        camConversionunit,
+        limitValueChecked,
+        orderValueChecked,
+        setLimitValueChecked,
+        setOrderValueChecked,
       )}
       {Documents(documentsFetched)}
     </>
@@ -2631,6 +2865,9 @@ export const financeDetails = (
   previousYearData,
   camConversionunit,
 ) => {
+  let dataLatestYear = _get(companyData, 'financial.balanceSheet[0]', {});
+  let dataPreviousYear = _get(companyData, 'financial.balanceSheet[1]', {});
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3804,6 +4041,8 @@ export const trends = (
   gstData,
   camConversionunit,
   companyData,
+  setChartType,
+  chartType,
 ) => {
   return (
     <>

@@ -89,3 +89,36 @@ export const MASTERS_CURRENCY_MASTER_QUEUE = [
         name: 'Status',
     }
 ]
+
+export const MASTERS_TDS_SECTION_MASTER_QUEUE = [
+    {
+        id: 'section',
+        name: 'Section',
+    },
+    {
+        id: 'paymentNature',
+        name: 'Nature of Payment'
+    }
+]
+
+export const MASTERS_SAC_MASTER_QUEUE = [
+    {
+        id: 'charges',
+        name: 'Expense Head'
+    },
+    {
+        id: 'group',
+        name: 'Group'
+    },
+]
+
+export const MASTERS_IIAG_LEDGER_MASTER_QUEUE = [
+    {
+        id: 'gl_list',
+        name: 'List of GL',
+    },
+    {
+        id: 'group',
+        name: 'Group'
+    }
+]

@@ -20,7 +20,6 @@
   .head_header {
     min-height: 48px;
     display: flex;
-    min-height: 48px;
     margin: 0 0 27px 10px;
     @include respond(lg-desktop) {
       min-height: 40px;
@@ -99,7 +98,7 @@
 
       .value {
         font-size: 20px;
-       
+
         line-height: 25px;
         font-weight: 500;
         @include respond(lg-desktop) {
@@ -116,6 +115,10 @@
         display: inline-block;
         vertical-align: middle;
         background: #26dd73;
+        @include respond(lg-desktop) {
+          width: 12px;
+          height: 12px;
+        }
       }
     }
   }
@@ -136,7 +139,6 @@
       line-height: 17px;
       margin-bottom: 10px;
       letter-spacing: 0.53px;
-      line-height: 17px;
     }
 
     .value {
@@ -153,6 +155,10 @@
       display: inline-block;
       vertical-align: middle;
       background: #26dd73;
+      @include respond(lg-desktop) {
+        width: 12px;
+        height: 12px;
+      }
     }
   }
 }

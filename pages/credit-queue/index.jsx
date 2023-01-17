@@ -1,19 +1,22 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './creditqueue.module.scss';
 import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllBuyer, GetAllOrders } from '../../src/redux/registerBuyer/action';
-import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
 import Loader from '../../src/components/Loader';
+import Pagination from '../../src/components/Pagination';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
+import { GetAllBuyer, GetAllOrders } from '../../src/redux/registerBuyer/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
+import styles from './creditqueue.module.scss';
+import constants from '@/utils/constants'
 
-function Index() {
+
+const Index = () => {
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
@@ -30,7 +33,7 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}`));
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${constants.numberSeven}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
@@ -44,16 +47,15 @@ function Index() {
     if (buyer.queue === 'CreditQueue') {
       sessionStorage.setItem('orderID', buyer._id);
       sessionStorage.setItem('companyID', buyer.company._id);
-      await dispatch(GetAllOrders({ orderId: buyer._id }));
-      //dispatch(GetDocuments({order: buyer._id}))
-      await dispatch(GetCompanyDetails({ company: buyer.company._id }));
+      dispatch(GetAllOrders({ orderId: buyer._id }));
+      dispatch(GetCompanyDetails({ company: buyer.company._id }));
     }
   };
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
     setSearchTerm(query);
-    if (query.length >= 3) {
+    if (query.length >= constants.numberThree) {
       dispatch(SearchLeads(query));
     }
   };
@@ -67,13 +69,14 @@ function Index() {
   const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    if (sorting == -1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
-      setSorting(1);
-    } else if (sorting == 1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`));
-      setSorting(-1);
-    }
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${constants.numberSeven}&createdAt=${sorting}`));
+    if (sorting === -1) setSorting(1);
+    else setSorting(-1);
+  };
+
+  const getStatus = (status) => {
+    if (status === 'ReviewQueue') return 'Review';
+    return status === 'CreditQueue' ? 'Approved' : 'Rejected';
   };
 
   return (
@@ -110,17 +113,7 @@ function Index() {
                 )}
               </div>
               <Filter />
-              {/* <a href="#" className={`${styles.filterList} filterList `}>
-            Ramesh Shetty
-            <img src="/static/close.svg" className="img-fluid" alt="Close" />
-          </a>
-          <a href="#" className={`${styles.filterList} filterList `}>
-            Raj Traders
-            <img src="/static/close.svg" className="img-fluid" alt="Close" />
-          </a> */}
             </div>
-
-            {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
 
             <div className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}>
               <div className={`${styles.all} ${styles.boxInner} all border_color`}>
@@ -180,39 +173,13 @@ function Index() {
               </div>
             </div>
             <div className={`${styles.datatable} border datatable card`}>
-              <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
-                <h3 className="heading_card">Credit Queue</h3>
-                <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
-                  <span>
-                    Showing Page {currentPage + 1} out of {Math.ceil(allBuyerList?.data?.totalCount / 7)}
-                  </span>
-                  <a
-                    onClick={() => {
-                      if (currentPage === 0) {
-                        return;
-                      } else {
-                        setCurrentPage((prevState) => prevState - 1);
-                      }
-                    }}
-                    href="#"
-                    className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                  >
-                    {' '}
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                  </a>
-                  <a
-                    onClick={() => {
-                      if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
-                        setCurrentPage((prevState) => prevState + 1);
-                      }
-                    }}
-                    href="#"
-                    className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                  >
-                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
-                  </a>
-                </div>
-              </div>
+              <Pagination
+                tableName="Credit Queue"
+                data={allBuyerList?.data}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
                   <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
@@ -240,12 +207,12 @@ function Index() {
                             <td className={styles.buyerName} onClick={() => handleRoute(buyer)}>
                               {buyer.company.companyName}
                             </td>
-                            <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : 'RM'}</td>
-                            <td>{buyer.createdBy.fName}</td>
-                            <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                            <td>{buyer?.createdBy?.userRole ? buyer.createdBy.userRole : 'RM'}</td>
+                            <td>{buyer?.createdBy?.fName}</td>
+                            <td>{buyer?.existingCustomer ? 'Yes' : 'No'}</td>
                             <td>
                               <span className={`${styles.status} ${styles.approved}`}></span>
-                              {buyer.queue === 'ReviewQueue' ? 'Review' : 'CreditQueue' ? 'Approved' : 'Rejected'}
+                              {getStatus(buyer?.queue)}
                             </td>
                             <td>
                               <img
@@ -269,6 +236,6 @@ function Index() {
       )}
     </>
   );
-}
+};
 
 export default Index;

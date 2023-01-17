@@ -14,6 +14,7 @@ import QueueStats from '../../src/components/QueueStats';
 import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import moment from 'moment';
 import slugify from 'slugify';
+import constants from '@/utils/constants'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -35,9 +36,9 @@ function Index() {
   }
 
   useEffect(() => {
-    let companyIDnewOrder = sessionStorage.getItem('companyID');
+    const companyIDnewOrder = sessionStorage.getItem('companyID');
 
-    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${10}`));
+    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${constants.numberSeven}`));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ function Index() {
     dispatch(GetCreditLimit({ companyId: compId }));
     setTimeout(() => {
       Router.push('/new-order');
-    }, 1000);
+    }, constants.numberTimeOut1);
   };
 
   const handleRoute = (buyer) => {
@@ -112,6 +113,18 @@ function Index() {
       Cell: ({ value }) => <QueueStatusSymbol status={value} />,
     },
   ]);
+  const [sorting, setSorting] = useState(1);
+
+  const handleSort = () => {
+    const companyIDnewOrder = sessionStorage.getItem('companyID');
+    if (sorting === -1) {
+      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${constants.numberSeven}&createdAt=${sorting}`));
+      setSorting(1);
+    } else if (sorting === 1) {
+      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${constants.numberSeven}&createdAt=${sorting}`));
+      setSorting(-1);
+    }
+  };
 
   return (
     <>
@@ -132,13 +145,11 @@ function Index() {
 
             <button
               type="button"
-              className={`${styles.btnPrimary} btn ml-auto btn-primary d-flex align-items-center`}
+              className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => handleRouteNewOrder()}
             >
-              <span className={`ml-2 mb-1 p-1`} style={{ fontSize: '30px' }}>
-                +
-              </span>
-              <span className={`mr-3 ml-1 `}>New Order</span>
+              <span className={styles.plus_sign}>+</span>
+              <span className={`ml-1 mr-2`}>New Order</span>
             </button>
           </div>
 

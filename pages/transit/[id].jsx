@@ -20,23 +20,17 @@ import Axios from 'axios';
 import API from '../../src/utils/endpoints';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 
-function Index() {
+const Index = () => {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [componentId, setComponentId] = useState(1);
   const [TransitDetails, setTransitDetails] = useState({});
-
+  
   const dispatch = useDispatch();
-  const { breadCrumbData } = useSelector((state) => state.Breadcrumb);
-
-  const vesselData = _get(TransitDetails, 'data[0].order.vessel', {});
 
   const commodity = _get(TransitDetails, 'data[0].order.commodity', '').trim().toLowerCase();
 
   let objID = sessionStorage.getItem('ObjId');
   let transID = sessionStorage.getItem('transId');
-
-
 
   useEffect(() => {
     dispatch(GetTransitDetails(`?transitId=${transID}`));
@@ -53,8 +47,6 @@ function Index() {
     }
   }, [transID]);
 
-
-
   const fetchInitialData = async () => {
     const data = await dispatch(GetTransitDetails(`?transitId=${transID}`));
     setTransitDetails(data);
@@ -66,7 +58,6 @@ function Index() {
   const uploadDoc = async (e) => {
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
-  
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -83,16 +74,10 @@ function Index() {
       });
 
       if (response.data.code === 200) {
-     
-
         return response.data.data;
-      
       } else {
-       
       }
-    } catch (error) {
-     
-    }
+    } catch (error) {}
   };
   // for setting default breadcrumb tab value //
   useEffect(() => {
@@ -108,6 +93,27 @@ function Index() {
       }
     }
   }, [Router]);
+  const getUnqueBl = () => {
+    const data = JSON.parse(JSON.stringify(_get(TransitDetails, 'data[0].BL.billOfLanding', [])));
+    const set = new Set(data.map((obj) => obj.vesselName));
+    return [...set];
+  };
+
+  const isBlNotSurrendered = () => {
+    let blNotSurrendered = true;
+    let data = _get(TransitDetails, 'data[0].BL.billOfLanding', []);
+    for (let i = 0; i <= data.length - 1; i++) {
+     
+      if (!data[i].blSurrenderDate) {
+        blNotSurrendered = true;
+        break;
+      } else {
+        blNotSurrendered = false;
+      }
+    }
+    return blNotSurrendered;
+  };
+
   return (
     <>
       <div className={`${styles.dashboardTab} bg-transparent w-100`}>
@@ -128,7 +134,6 @@ function Index() {
             <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
-              
                 role="button"
                 onClick={() => {
                   setComponentId(1);
@@ -138,24 +143,24 @@ function Index() {
                 Bill of Lading
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
-              <a
-                className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
-                
-                role="button"
-                onClick={() => {
-                  setComponentId(2);
-                  handleBreadcrumbClick('LOI');
-                }}
-              >
-                LOI
-              </a>
-            </li>
+            {isBlNotSurrendered() && (
+              <li className={`${styles.navItem} nav-item`}>
+                <a
+                  className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
+                  role="button"
+                  onClick={() => {
+                    setComponentId(2);
+                    handleBreadcrumbClick('LOI');
+                  }}
+                >
+                  LOI
+                </a>
+              </li>
+            )}
             {commodity?.toLowerCase().includes('coal') && (
               <li className={`${styles.navItem} nav-item`}>
                 <a
                   className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'} `}
-                 
                   role="button"
                   onClick={() => {
                     setComponentId(3);
@@ -169,7 +174,6 @@ function Index() {
             <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link ${componentId === 4 && 'active'} `}
-              
                 role="button"
                 onClick={() => {
                   setComponentId(4);
@@ -202,26 +206,26 @@ function Index() {
                     />
                   )}
                 </div>
-               
+
                 <div className={`${styles.card}  accordion_body`}>
-                  {componentId === 2 && <LetterIndermity TransitDetails={TransitDetails} />}
+                  {isBlNotSurrendered() && componentId === 2 && <LetterIndermity TransitDetails={TransitDetails} />}
                 </div>
                 {/* </div> */}
                 {commodity?.toLowerCase().includes('coal') && (
-              
                   <div className={`${styles.card}  accordion_body`}>
-                    {componentId === 3 && (
+                    {commodity?.toLowerCase().includes('coal') && componentId === 3 && (
                       <CIMS
                         orderid={objID}
                         docUploadFunction={uploadDoc}
                         TransitDetails={TransitDetails}
                         isShipmentTypeBULK={isShipmentTypeBULK}
+                        getUnqueBl={getUnqueBl}
+                        fetchInitialData={fetchInitialData}
                       />
                     )}
                   </div>
-                
                 )}
-             
+
                 <div className={`${styles.card}  accordion_body`}>
                   {componentId === 4 && (
                     <IGM
@@ -229,6 +233,7 @@ function Index() {
                       TransitDetails={TransitDetails}
                       isShipmentTypeBULK={isShipmentTypeBULK}
                       orderId={objID}
+                      getUnqueBl={getUnqueBl}
                     />
                   )}
                 </div>

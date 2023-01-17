@@ -122,7 +122,6 @@
                 border-radius: 6px !important;
 
                 .head_container {
-                  border-bottom: 2px solid #cad6e6;
                   cursor: pointer;
                   border-bottom: none;
                   height: 80px;
@@ -132,7 +131,6 @@
                     color: #3687e8;
                     font-weight: bold;
                     font-size: 22px;
-                    text-transform: capitalize;
                     @include respond(md-desktop) {
                       font-size: 20px;
                     }
@@ -184,7 +182,6 @@
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  margin-left: 1rem;
                   margin: 10px 35px !important;
                 }
               }
@@ -242,12 +239,9 @@
               flex-wrap: nowrap;
 
               .code_phone {
-                border-top-right-radius: 0px;
-                border-bottom-right-radius: 0px;
                 font-size: 19px;
                 letter-spacing: 0.18px;
                 color: #3687e8;
-                text-transform: capitalize;
                 outline: none;
                 border-radius: 4px 0 0 4px;
                 @include respond(lg-desktop) {
@@ -324,24 +318,6 @@
     }
   }
 
-  .btn_container {
-    overflow: hidden;
-    position: relative;
-    display: inline-block;
-
-    input {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      cursor: pointer;
-      position: absolute;
-    }
-
-    margin-top: 10px;
-  }
-
   .arrow {
     margin-left: -40px;
     width: 13px;
@@ -371,33 +347,6 @@
       width: 35px;
       height: 15px;
     }
-  }
- 
-  .button {
-    padding: 25px 35px !important;
-    cursor: pointer;
-    width: 260px;
-    height: 48px;
-    background: #3687e8;
-    border-radius: 5px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 1rem;
-  }
-
-  .button2 {
-    padding: 25px 35px !important;
-    cursor: pointer;
-    width: 260px;
-    height: 48px;
-    background: #3687e8;
-    border-radius: 5px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .remark_field {
@@ -478,19 +427,6 @@
       height: 26px;
       text-align: center;
       border-radius: 3px;
-    }
-  }
-
-  .sign_head {
-    text-align: right;
-    letter-spacing: 0.19px;
-    color: #111111;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 25px;
-
-    span {
-      font-weight: normal;
     }
   }
 
@@ -657,57 +593,12 @@
   height: 80px;
   cursor: pointer;
 
-  .dropDown {
-    border: 1px solid #0000001f;
-    border-radius: 4px;
-    font-size: 18px;
-    line-height: 25px;
-    padding: 5px 20px 5px 10px;
-    outline: none;
-    letter-spacing: 0.17px;
-    min-width: 80px;
-    @include respond(md-desktop) {
-      font-size: 18px;
-    }
-    @include respond(sm-desktop) {
-      font-size: 16px;
-    }
-    @include respond(phone) {
-      font-size: 10px;
-      line-height: 18px;
-    }
-  }
-
-  .dropDown_label {
-    letter-spacing: 0.53px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 17px;
-    padding-right: 10px;
-    margin-bottom: 0;
-    @include respond(lg-desktop) {
-      font-size: 14px;
-      line-height: 15px;
-    }
-    @include respond(phone) {
-      font-size: 10px;
-    }
-  }
-
   .heading {
     color: #3687e8;
     font-weight: bold;
     font-size: 22px;
     text-transform: capitalize;
     line-height: 27px;
-  }
-
-  .min_heading {
-    letter-spacing: 0.53px;
-    color: #00000080;
-    font-size: 16px;
-    line-height: 17px;
-    font-weight: 500;
   }
 
   span {
@@ -751,7 +642,6 @@ img {
 
 .customSelect {
   appearance: none;
-
 }
 
 .edit_image {
@@ -819,8 +709,6 @@ img {
       margin-left: -40px;
     }
 
-   
-
     .phone {
       .label_heading {
         left: 90px;
@@ -850,12 +738,9 @@ img {
       flex-wrap: nowrap;
 
       .code_phone {
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
         font-size: 19px;
         letter-spacing: 0.18px;
         color: #3687e8;
-        text-transform: capitalize;
         outline: none;
         border-radius: 4px 0 0 4px;
         @include respond(lg-desktop) {
@@ -983,12 +868,6 @@ img {
   }
 }
 
-.plus_add {
-  margin-top: 10px;
-  margin-left: -60px;
-  width: 36px;
-  height: 36px;
-}
 
 .comment_para {
   border: 1px solid #0000001f;
@@ -1003,6 +882,7 @@ img {
     line-height: 25px;
   }
 }
+
 .approve {
   cursor: pointer;
   width: 260px;
@@ -1026,10 +906,9 @@ img {
     font-size: 12px;
   }
 }
+
 .plus_add {
-  margin-top: 12px;
   z-index: 1;
-  margin-left: -60px;
   width: 36px;
   height: 36px;
   @include respond(lg-desktop) {
@@ -1039,6 +918,7 @@ img {
     margin-left: -40px;
   }
 }
+
 .dashboard_form {
   padding: 10px 10px 0px 20px;
   //margin: 15px;
@@ -1169,21 +1049,9 @@ img {
           width: 13px;
           height: 13px;
         }
-        // @include respond(sm-desktop) {
-        //     font-size: 14px;
-        //     padding-right: 0px;
-        // }
-        // @include respond(phone) {
-        //     font-size: 12px;
-        // }
       }
 
-      // @include respond(xl-desktop) {
-      //     padding-right: 0px;
-
-      // }
       @include respond(lg-desktop) {
-        // padding-right: 0px;
         font-size: $font_size_mobile_input_label;
       }
       @include respond(md-desktop) {
@@ -1244,6 +1112,7 @@ img {
     height: 15px;
   }
 }
+
 .table_container {
   .table_scroll_outer {
     width: 100%;
@@ -1273,7 +1142,7 @@ img {
               padding-left: 15px;
             }
           }
-          
+
           img {
             width: 14px;
             height: 14px;
@@ -1389,6 +1258,7 @@ img {
     }
   }
 }
+
 .image_arrow {
   transform: translateX(80%);
   margin-top: 17px;
@@ -1486,11 +1356,12 @@ img {
     opacity: 0.6;
   }
 }
+
 .col_header {
   font-weight: 500;
   font-size: 16px;
   line-height: 17px;
- 
+
   letter-spacing: 0.53px;
   @include respond(lg-desktop) {
     font-size: 14px;

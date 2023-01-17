@@ -2,6 +2,7 @@ import * as types from './actionType';
 import Axios from 'axios';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
+import { handleErrorToast } from '@/utils/helpers/global';
 import { toast } from 'react-toastify';
 import router from 'next/router';
 import { settingSidebar } from '../breadcrumb/action';
@@ -299,6 +300,156 @@ function createCurrencyMasterFailed(payload = {}) {
   };
 }
 
+// ******** Master SAC Queue ***********///
+function getMasterSACQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_SAC_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterSACQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_SAC_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter SAC Queue  ***********/////
+
+function filterSACQueue() {
+  return {
+    type: types.FILTER_SAC_QUEUE,
+  };
+}
+
+function filterSACQueueSuccess(payload) {
+  return {
+    type: types.FILTER_SAC_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterSACQueueFailed() {
+  return {
+    type: types.FILTER_SAC_QUEUE_FAILED,
+  };
+}
+
+// ******** SAC Master Add ******** //
+
+function createSACMasterSuccess(payload) {
+  return {
+    type: types.CREATE_SAC_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createSACMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_SAC_MASTER_FAILED,
+    payload,
+  };
+}
+
+// ******** Master TDSSection Queue ***********///
+function getMasterTDSSectionQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+function getMasterTDSSectionQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_TDS_SECTION_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+// ******** Search & Filter TDSSection Queue  ***********/////
+function filterTDSSectionQueue() {
+  return {
+    type: types.FILTER_TDS_SECTION_QUEUE,
+  };
+}
+function filterTDSSectionQueueSuccess(payload) {
+  return {
+    type: types.FILTER_TDS_SECTION_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+function filterTDSSectionQueueFailed() {
+  return {
+    type: types.FILTER_TDS_SECTION_QUEUE_FAILED,
+  };
+}
+// ******** TDSSection Master Add ******** //
+function createTDSSectionMasterSuccess(payload) {
+  return {
+    type: types.CREATE_TDS_SECTION_MASTER_SUCCESS,
+    payload,
+  };
+}
+function createTDSSectionMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_TDS_SECTION_MASTER_FAILED,
+    payload,
+  };
+}
+
+// ******** Master IIAGLedger Queue ***********///
+function getMasterIIAGLedgerQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterIIAGLedgerQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_IIAG_LEDGER_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter IIAGLedger Queue  ***********/////
+
+function filterIIAGLedgerQueue() {
+  return {
+    type: types.FILTER_IIAG_LEDGER_QUEUE,
+  };
+}
+
+function filterIIAGLedgerQueueSuccess(payload) {
+  return {
+    type: types.FILTER_IIAG_LEDGER_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterIIAGLedgerQueueFailed() {
+  return {
+    type: types.FILTER_IIAG_LEDGER_QUEUE_FAILED,
+  };
+}
+
+// ******** IIAGLedger Master Add ******** //
+
+function createIIAGLedgerMasterSuccess(payload) {
+  return {
+    type: types.CREATE_IIAG_LEDGER_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createIIAGLedgerMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_IIAG_LEDGER_MASTER_FAILED,
+    payload,
+  };
+}
+
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -323,6 +474,45 @@ export const getCountries = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getState = (payload) => async (dispatch, getState, api) => {
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  dispatch({
+    type: types.GET_STATE_MASTERS,
+  });
+  try {
+    await Axios.get(`${API.corebaseUrl}${API.getState}${payload || ''}`, {
+      headers: headers,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch({
+            type: types.GET_STATE_MASTERS_SUCCESS,
+            payload: response.data,
+          });
+        } else {
+          dispatch({
+            type: types.GET_STATE_MASTERS_FAILURE,
+            payload: response.data,
+          });
+        }
+      })
+      .catch((error) => {
+        handleErrorToast('COULD NOT GET A RESPONSE');
+      });
+  } catch (error) {
+    handleErrorToast('COULD NOT GET STATE');
   }
 };
 export const GetMastersCommodity = () => async (dispatch, getState, api) => {
@@ -436,20 +626,28 @@ export const getPorts = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
 
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
   dispatch({
     type: types.GET_PORTS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.portsMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.portsMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_PORTS_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_PORTS_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -462,21 +660,27 @@ export const getCommodities = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
   dispatch({
     type: types.GET_COMMODITIES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.commoditiesMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.commoditiesMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_COMMODITIES_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_COMMODITIES_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -490,20 +694,27 @@ export const getDocuments = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
 
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
   dispatch({
     type: types.GET_DOCUMENTS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.documentsMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.documentsMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_DOCUMENTS_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_DOCUMENTS_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -516,21 +727,28 @@ export const getCurrency = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
 
   dispatch({
     type: types.GET_CURRENCY_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.currencyMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.currencyMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_CURRENCY_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_CURRENCY_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -543,21 +761,28 @@ export const getInternalCompanies = (payload) => async (dispatch, getState, api)
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
 
   dispatch({
     type: types.GET_INTERNAL_COMPANIES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.internalCompaniesMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.internalCompaniesMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_INTERNAL_COMPANIES_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_INTERNAL_COMPANIES_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -570,21 +795,27 @@ export const getVendors = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
   dispatch({
     type: types.GET_VENDORS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.vendorsMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.vendorsMaster}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_VENDORS_MASTERS_SUCCESS,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       } else {
         dispatch({
           type: types.GET_VENDORS_MASTERS_FAILURE,
-          payload: response.data,
+          payload: response.data.data.data,
         });
       }
     });
@@ -602,7 +833,7 @@ export const getBanks = (payload) => async (dispatch, getState, api) => {
     type: types.GET_BANKS_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.banksMaster}`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.banksMaster}`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_BANKS_MASTERS_SUCCESS,
@@ -629,7 +860,7 @@ export const getBranches = (payload) => async (dispatch, getState, api) => {
     type: types.GET_BANK_BRANCHES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.bankBranchesMaster}${payload}.json`).then((response) => {
+    await Axios.get(`${API.corebaseUrl}${API.bankBranchesMaster}${payload}.json`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_BANK_BRANCHES_MASTERS_SUCCESS,
@@ -656,7 +887,7 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
     type: types.GET_PINCODES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
+    await Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_PINCODES_MASTERS_SUCCESS,
@@ -674,6 +905,47 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
       type: types.GET_PINCODES_MASTERS_SUCCESS,
       payload: [],
     });
+  }
+};
+
+export const getAllStates = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  dispatch({
+    type: types.GET_STATES_MASTERS,
+  });
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getAllStates}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.status === 200) {
+        dispatch(setNotLoading());
+        dispatch({
+          type: types.GET_STATES_MASTERS_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: types.GET_STATES_MASTERS_SUCCESS,
+          payload: [],
+        });
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: types.GET_STATES_MASTERS_SUCCESS,
+      payload: [],
+    });
+    dispatch(setNotLoading());
   }
 };
 
@@ -776,7 +1048,7 @@ export const GetMasterPortsQueueRecords = (payload) => async (dispatch, getState
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterPortsQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -992,7 +1264,7 @@ export const GetMasterCountryQueueRecords = (payload) => async (dispatch, getSta
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterCountryQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -1101,7 +1373,7 @@ export const GetMasterCurrencyQueueRecords = (payload) => async (dispatch, getSt
       }
     });
   } catch (error) {
-    dispatch(getMasterUsersQueueRecordsFailed());
+    dispatch(getMasterCurrencyQueueRecordsFailed());
     dispatch(setNotLoading());
   }
 };
@@ -1178,3 +1450,322 @@ export const CreateCurrencyMaster = (payload) => async (dispatch, getState, api)
   }
 };
 // Handler for Currency-master End ---->
+
+// Handler for SAC-master Start ---->
+export const GetMasterSACQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterSACQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterSACQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterSACQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch SAC Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterSACQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterSACQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterSACQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterSACQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterSACQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterSACQueueFailed(response.data));
+        const toastMessage = 'Search SAC Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterSACQueueFailed());
+    const toastMessage = 'Search SAC request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateSACMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createSACMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createSACMasterSuccess(response.data.data));
+      let toastMessage = 'SAC ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createSACMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createSACMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD SAC DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for SAC-master End ---->
+
+// Handler for TDS-Section-master Start ---->
+export const GetMasterTDSSectionQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterTDSSectionQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterTDSSectionQueueRecordsSuccess(response?.data?.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterTDSSectionQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch TDS Section Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterTDSSectionQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+export const FilterTDSSectionQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterTDSSectionQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterTDSSectionQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterTDSSectionQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterTDSSectionQueueFailed(response.data));
+        const toastMessage = 'Search TDS Section Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterTDSSectionQueueFailed());
+    const toastMessage = 'Search TDS Section request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+export const CreateTDSSectionMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+    let response = await Axios.post(`${API.corebaseUrl}${API.createTDSSectionMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createTDSSectionMasterSuccess(response.data.data));
+      let toastMessage = 'TDS_SECTION ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createTDSSectionMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createTDSSectionMasterFailed());
+    let toastMessage = 'COULD NOT ADD TDS_SECTION DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for TDS-Section-master End ---->
+
+
+// Handler for IIAGLedger-master Start ---->
+export const GetMasterIIAGLedgerQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterIIAGLedgerQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterIIAGLedgerQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterIIAGLedgerQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch IIAGLedger Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterIIAGLedgerQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterIIAGLedgerQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterIIAGLedgerQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterIIAGLedgerQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterIIAGLedgerQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterIIAGLedgerQueueFailed(response.data));
+        const toastMessage = 'Search IIAGLedger Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterIIAGLedgerQueueFailed());
+    const toastMessage = 'Search IIAGLedger request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateIIAGLedgerMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createIIAGLedgerMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createIIAGLedgerMasterSuccess(response.data.data));
+      let toastMessage = 'IIAG_LEDGER ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createIIAGLedgerMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createIIAGLedgerMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD IIAG_LEDGER DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for IIAGLedger-master End ---->

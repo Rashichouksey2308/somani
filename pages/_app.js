@@ -20,10 +20,6 @@ export default function MyApp(props) {
     import('bootstrap/dist/js/bootstrap.js');
   }, []);
 
-  //  useEffect(() => {
-  //  toast.dark("Wow so easy!");
-  //  })
-
   const { Component, pageProps } = props;
   const store = useStore(pageProps.state);
   const title = 'Somani';

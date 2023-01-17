@@ -1,0 +1,22 @@
+@import '../../../../src/components/styles/Core/config';
+
+.main_header{
+    font-size: 34px;
+    color: #3687e8;
+}
+
+.mainLabelValue{
+    opacity: 0.7;
+}
+
+.note{
+    font-size: 20px;
+}
+.markImportant {
+    color: red;
+}
+.highlighted_field {
+    background-color: yellow;
+    padding: 5px;
+    color: black;
+}

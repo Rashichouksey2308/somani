@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import AddNewCountry from '../../../../src/components/Masters/Country/AddNewCountry';
+import AddNewCurrency from '../../../../src/components/Masters/Currency/AddNewCurrency';
 
 function Index() {
     return (
@@ -20,7 +20,7 @@ function Index() {
                         <h1 className={styles.heading}>Add New Currency</h1>
                     </div>
                 </Card.Header>
-                <AddNewCountry />
+                <AddNewCurrency />
             </div>
         </Card>
     );

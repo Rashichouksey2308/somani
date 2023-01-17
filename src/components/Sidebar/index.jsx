@@ -122,14 +122,14 @@ function Index() {
           route: '/masters/users',
         },
         { name: 'User Roles', image: '/static/user-roles.svg', route: '' },
-        { name: 'Vendors', image: '/static/vendors.svg', route: '' },
+        { name: 'Vendors', image: '/static/vendors.svg', route: '/vendors' },
+        { name: 'Internal Companies', image: '/static/vendors.svg', route: '/internal-companies' },
         {
           name: 'Insurance Company',
           image: '/static/insurance-company.svg',
           route: '',
         },
-        { name: 'Commodity', image: '/static/commodity.svg', route: '' },
-        { name: 'GL', image: '/static/gl.svg', route: '' },
+        { name: 'Commodity', image: '/static/commodity.svg', route: '/commodity' },
         { name: 'Others', image: '/static/others.svg', route: '' },
         {
           name: 'Third-Party Inspection',
@@ -142,7 +142,7 @@ function Index() {
           route: '/masters/ports',
         },
         {
-          name: 'Document-Master',
+          name: 'Document',
           image: '/static/gl.svg',
           route: '/masters/document-master',
         },
@@ -155,6 +155,21 @@ function Index() {
           name: 'Currency',
           image: '/static/gl.svg',
           route: '/masters/currency',
+        },
+        {
+          name: 'TDS-Section',
+          image: '/static/gl.svg',
+          route: '/masters/tds-section',
+        },
+        {
+          name: 'SAC',
+          image: '/static/gl.svg',
+          route: '/masters/SAC',
+        },
+        {
+          name: 'IIAG Ledger',
+          image: '/static/gl.svg',
+          route: '/masters/IIAG-ledger',
         }
       ],
       image: '/static/Masters.svg',

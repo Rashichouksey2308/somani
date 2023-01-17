@@ -1,0 +1,27 @@
+.label{
+    width: 27%;
+    display: block;
+    overflow: hidden;
+
+    span{
+        font-size: 20px;
+        color: #111111;
+        opacity: 0.7;
+    }
+}
+
+.labelValue{
+    float: right;
+    width: 60%;
+    
+    span {
+        font-size: 20px;
+        color: #111111;
+    } 
+}
+
+.highlighted_field {
+    background-color: yellow;
+    padding: 5px;
+    color: black;
+}

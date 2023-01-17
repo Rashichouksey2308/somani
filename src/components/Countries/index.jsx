@@ -1,77 +1,46 @@
-import React from 'react';
-import styles from './index.module.scss';
+import React from 'react'
+import styles from './index.module.scss'
 
-const Index = (props) => {
-  let backgroundColor = ['#2884DE', '#876EB1', '#4CAF50'];
-  const getPercentage = (value) => {
-    return Number(((Number(value) / Number(props.total)) * 100).toFixed(2));
-  };
-  const getClass = (index) => {
-    if (index == 0) {
-      return styles.barCompleted0;
-    }
-    if (index == 1) {
-      return styles.barCompleted1;
-    }
-    if (index == 2) {
-      return styles.barCompleted2;
-    }
-    if (index == 3) {
-      return styles.barCompleted3;
-    }
-    if (index == 4) {
-      return styles.barCompleted4;
-    }
-  };
+import { crConverter } from '@/utils/helper'
 
-  return (
-    <div className={`${styles.main} border card`}>
-      <div className={`${styles.top_container} border_color d-flex align-items-center justify-content-between`}>
-        <h1 className={styles.heading}>Top 5 Countries Of Origin </h1>
+const Index = ({ data = [] }) => {
+  const totalValue = data.map(val => val.total).reduce((a, b) => a + b, 0)
+
+  const companyValue = (value) => Number((value / totalValue) * 100).toFixed(2)
+
+  const countriesListing = () => {
+    return data.map((val, index) => {
+      const percentageValue = companyValue(val.total)
+      return <div key={index} className={styles.each_progress}>
+        <h4 className={styles.country}>{val._id.toUpperCase() || ''}</h4>
+        <div className={styles.bar_container}>
+          <div className={styles.progress_bar}>
+            <div className={`${styles.bar}`}>
+              <div
+                className={styles[`barCompleted${index}`]}
+                style={{ width: `${percentageValue}%` }}
+              />
+            </div>
+          </div>
+          <div className={styles.number_container}>
+            <h5 className={styles.percent}>{percentageValue}%</h5>
+            <h5 className={`${styles.amount} text1`}>
+              {crConverter(val.total)}
+            </h5>
+          </div>
+        </div>
       </div>
+    })
+  }
 
-      <div className={`${styles.country_container} card-body`}>
-        {props.data.length > 0 &&
-          props.data.map((val, index) => {
-            return (
-              <div key={index} className={styles.each_progress}>
-                <h1 className={styles.country}>{val?._id?.toUpperCase() ?? ''}</h1>
-
-                <div className={styles.bar_container}>
-                  <div className={styles.progress_bar}>
-                    <div className={`${styles.bar}`}>
-                      <div
-                        className={getClass(index)}
-                        style={{
-                          width: `${Number(getPercentage(val?.total).toFixed(0))}%`,
-                        }}
-                      ></div>
-                    </div>
-                    {/* <ProgressBar
-                      completed={Number(getPercentage(val?.total).toFixed(0))}
-                      barContainerClassName={styles.container}
-                      completedClassName={getClass(index)}
-                      isLabelVisible={false}
-                    /> */}
-                  </div>
-                  <div className={styles.number_container}>
-                    <h3 className={styles.percent}>{getPercentage(val?.total)?.toFixed(2)}%</h3>
-                    <h3 className={`${styles.amount} text1`}>
-                      {' '}
-                      ₹{' '}
-                      {Number(val?.total / 10000000).toLocaleString('en-IN', {
-                        maximumFractionDigits: 2,
-                      })}{' '}
-                      Cr
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-      </div>
+  return (<div className={`${styles.main} border card`}>
+    <div className={`${styles.top_container} border_color d-flex align-items-center justify-content-between`}>
+      <h3 className={styles.title}>Top 5 Countries Of Origin </h3>
     </div>
-  );
-};
+    <div className={`${styles.country_container} card-body`}>
+      {countriesListing()}
+    </div>
+  </div>)
+}
 
-export default Index;
+export default Index

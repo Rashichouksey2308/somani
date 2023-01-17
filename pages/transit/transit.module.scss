@@ -152,7 +152,7 @@
 
       .card {
         margin-bottom: 1rem;
-       
+
         .cardHeader {
           height: 80px;
           cursor: pointer;
@@ -199,7 +199,7 @@
 
             .status {
               height: 31px;
-              background: #ea3f3f42 0% 0% no-repeat padding-box;
+              background: #ea3f3f42;
               letter-spacing: 0px;
 
               span {
@@ -650,7 +650,6 @@
             margin-bottom: 1rem;
             border-radius: 6px !important;
 
-           
             .cardHeader {
               height: 80px;
               cursor: pointer;
@@ -697,7 +696,7 @@
 
                 .status {
                   height: 31px;
-                  background: #ea3f3f42 0% 0% no-repeat padding-box;
+                  background: #ea3f3f42;
                   letter-spacing: 0px;
 
                   span {
@@ -754,7 +753,6 @@
 
           .cardBody {
             padding: 17px 25px;
-           
           }
         }
       }
@@ -783,14 +781,11 @@
             }
           }
         }
-
-       
       }
 
       .cardBody_litigations {
         padding-left: 35px;
 
-       
         .risk_Container {
           .risk {
             width: 25%;

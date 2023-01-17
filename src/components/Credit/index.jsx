@@ -1,19 +1,21 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
+import _get from 'lodash/get';
+import { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { UploadDocument } from 'redux/registerBuyer/action';
-import { checkNan, phoneValidation } from 'utils/helper';
-import styles from './index.module.scss';
-import DateCalender from '../DateCalender';
-import { Form } from 'react-bootstrap';
-import AddressComponent from './addressComponent';
-import _get from 'lodash/get';
-import MultiSelect from '../MutilSelect';
 import { SearchSupplier } from 'redux/supplier/action';
-const index = ({
+import { checkNan, phoneValidation } from 'utils/helper';
+import DateCalender from '../DateCalender';
+import MultiSelect from '../MutilSelect';
+import AddressComponent from './addressComponent';
+import styles from './index.module.scss';
+import { getPincodes } from 'redux/masters/action';
+
+const Index = ({
   creditDetail,
   keyAddDataArr,
   saveProductData,
@@ -32,9 +34,7 @@ const index = ({
   setEditRow,
   orderDetail,
   companyData,
-  suggestedCredit,
 }) => {
- 
   const dispatch = useDispatch();
 
   const [saveTable, setSaveTable] = useState(false);
@@ -42,7 +42,8 @@ const index = ({
   const [saveContactTable, setContactTable] = useState(false);
 
   const { gstDocument } = useSelector((state) => state.buyer);
-
+  const [toShow, setToShow] = useState([]);
+  const [toView, setToView] = useState(false);
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     monthlyCapacity: false,
     capacityUtilization: false,
@@ -56,20 +57,20 @@ const index = ({
   });
 
   const { updatingCreditCalculate } = useSelector((state) => state.review);
-
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [keyNameList, setKeyNameList] = useState([]);
 
   useEffect(() => {
-    if (personData?.length > 0) {
+    if (companyData?.profile?.directorDetail) {
       let temp = [];
-      personData.forEach((val) => {
+      companyData?.profile?.directorDetail?.forEach((val) => {
         if (val.name !== '') {
           temp.push(val.name);
         }
       });
       setKeyNameList([...temp]);
     }
-  }, [personData]);
+  }, [companyData]);
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
@@ -99,7 +100,7 @@ const index = ({
     newInput.GSTIN_document.date = gstDocument.date;
     setKeyAddressData(newInput);
   }, [gstDocument]);
- 
+
   const removeDoc = () => {
     const newInput = { ...keyAddressData };
     newInput.GSTIN_document.name = undefined;
@@ -107,7 +108,6 @@ const index = ({
     newInput.GSTIN_document.date = undefined;
     setKeyAddressData(newInput);
   };
-
 
   const addMoreDebtRows = () => {
     setDebtData([
@@ -118,30 +118,27 @@ const index = ({
         conduct: '',
         limit: null,
         action: false,
+        addnew: 'false',
       },
     ]);
   };
-
-
 
   const handleDebtChange = (name, value, index) => {
     let tempArr = [...debtData];
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
+        if (value == 'addnew') {
+          val.addnew = 'true';
+        }
       } else {
         if (name == 'primaryBank') {
           val[name] = false;
         }
       }
     });
- 
-    setDebtData([...tempArr]);
-  };
- 
 
-  const onDebtSave = () => {
-    addDebtArr(debt);
+    setDebtData([...tempArr]);
   };
 
   const setActions = (index, val) => {
@@ -160,16 +157,15 @@ const index = ({
 
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', []);
-    const unique = [
-      ...new Set(filtered.map((item) => item.nameOfChargeHolder)),
-    ];
+    const openCharges = filtered?.filter((item) => !item.dateOfSatisfactionOfChargeInFull);
+    const unique = [...new Set(openCharges?.map((item) => item.nameOfChargeHolder))];
 
     return unique;
   };
 
   const [keyPersonData, setKeyPersonData] = useState({
     contact: {
-      callingCode: '',
+      callingCode: '+91',
       number: '',
     },
     department: '',
@@ -177,23 +173,20 @@ const index = ({
     email: '',
     name: '',
   });
-
+  console.log(keyNameList,'keyPersonData',keyPersonData)
 
   useEffect(() => {
     setKeyPersonData(personData);
   }, [personData]);
 
-  
-
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData];
 
     if (e.target.value == 'addnew') {
-     
       newInput[key].addnew = true;
       newInput[key].name = '';
       newInput[key].email = '';
-     
+
       setKeyPersonData([...newInput]);
       return;
     }
@@ -204,21 +197,33 @@ const index = ({
     }
     setKeyPersonData([...newInput]);
   };
- 
-  const onKeyPersonSave = () => {
-    
-    addPersonArr(keyPersonData);
-    
+  useEffect(() => {
+    if (getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData);
+      setToView(true);
+    } else {
+      setToShow([]);
+      setToView(false);
+    }
+  }, [getPincodesMasterData]);
+  const gettingPins = (value) => {
+    dispatch(getPincodes(value));
   };
-
+ 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData };
     newInput[name] = value;
 
-    
     setKeyAddressData(newInput);
   };
-
+  const handleChange2 = (name, value) => {
+    const newInput = { ...keyAddressData };
+    newInput.pinCode = value.Pincode;
+    newInput.state = value.State;
+    newInput.city = value.City;
+    newInput.country = 'India';
+    setKeyAddressData({ ...newInput });
+  };
   const mobileFunction = (e) => {
     const newObj = { ...keyAddressData };
     newObj.contact.number = e.target.value;
@@ -238,12 +243,7 @@ const index = ({
   };
 
   const addressValidtion = (data) => {
-  
-    if (
-      data.addressType === null ||
-      data.addressType === '' ||
-      data.addressType === undefined
-    ) {
+    if (data.addressType === null || data.addressType === '' || data.addressType === undefined) {
       let toastMessage = 'Please Select addresss Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -308,7 +308,7 @@ const index = ({
 
       return false;
     }
-  
+
     if (data.contact.number.length < 10 || data.contact.number.length > 10) {
       let toastMessage = 'Please add valid number';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -393,7 +393,7 @@ const index = ({
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-  
+
     let tempArr = keyAddData;
     setEditData({
       GSTIN: tempArr[index].GSTIN,
@@ -416,33 +416,42 @@ const index = ({
   const changeData = (name, value) => {
     const newInput = { ...editData };
     newInput[name] = value;
-   
+
+    setEditData(newInput);
+  };
+  const changeData2 = (name, value) => {
+    const newInput = { ...editData };
+    newInput[name] = value.Pincode;
+    newInput.state = value.State;
+    newInput.city = value.City;
+    newInput.country = 'India';
+
     setEditData(newInput);
   };
 
   const [infoCircle, setInfoCircle] = useState(false);
   const handleInfo = (e) => {
     setInfoCircle(!infoCircle);
- 
   };
   const [emails, setemails] = useState([]);
   useEffect(() => {
     if (creditDetail?.existingCHA.length > 0) {
       setemails(creditDetail?.existingCHA);
+    }else {
+      setemails([])
     }
   }, [creditDetail?.existingCHA]);
 
   const [exSupplier, setexSupplier] = useState([]);
 
-
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
       setexSupplier(JSON.parse(JSON.stringify(creditDetail?.existingSuppliers)));
-      
+    } else {
+      setexSupplier([])
     }
   }, [creditDetail?.existingSuppliers]);
 
- 
   const removeEmailParent = (index) => {
     let temp = [...emails];
     temp.splice(index, 1);
@@ -452,34 +461,46 @@ const index = ({
   const removeExSupplierParent = (index) => {
     let temp = [...exSupplier];
     temp.splice(index, 1);
-    
+
     setexSupplier([...temp]);
   };
 
-  const {searchedSupplier} = useSelector((state)=>state.supplier)
- 
+  const { searchedSupplier } = useSelector((state) => state.supplier);
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [removeInput, setRemoveInput] = useState(false) 
-  
-  const handleSearch = (e) => {
-    setRemoveInput(false)
+  const [removeInput, setRemoveInput] = useState(false);
+  const [supplierShow, setSupplierShow] = useState(false);
+    const [supplierTerm, setSupplierTerm] = useState('');
+ const handleSupplierSearch = (e) => {
+    setSupplierShow(false);
     const query = e;
-    // const query = `${e.target.value}`;
+    setSupplierTerm(query);
+    if (query.length >= 3) {
+      dispatch(SearchSupplier(query));
+    }
+  };
+  useEffect(() => {
+    if(searchedSupplier?.data?.length > 0){
+      setSupplierShow(true)
+    }
+  },[searchedSupplier])
+ 
+  const handleSearch = (e) => {
+    setRemoveInput(false);
+    const query = e;
     setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchSupplier( query ));
+      dispatch(SearchSupplier(query));
     }
   };
 
   const handleFilteredData = (results) => {
-   
-      let temp = [...exSupplier];
-      temp.push(results?.supplierProfile?.supplierName);
-      setexSupplier([...temp]);
-      setSearchTerm('')
-    
+    let temp = [...exSupplier];
+    temp.push(results?.supplierProfile?.supplierName);
+    setexSupplier([...temp]);
+    setSearchTerm('');
   };
- 
+
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -493,12 +514,7 @@ const index = ({
           <h3 className={`${styles.heading} mb-0`}>Product Summary</h3>
           <span>+</span>
         </div>
-        <div
-          id="productSummary"
-
-          aria-labelledby="productSummary"
-          data-parent="#profileAccordion"
-        >
+        <div id="productSummary" aria-labelledby="productSummary" data-parent="#profileAccordion">
           <div className={`${styles.dashboard_form} card-body border_color`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -528,7 +544,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.monthlyProductionCapacity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                  
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -566,8 +581,6 @@ const index = ({
                       ? creditDetail?.capacityUtilization
                       : checkNan(Number(creditDetail?.capacityUtilization), 'no') + ' %'
                   }
-
-                  
                   name="capacityUtilization"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -605,7 +618,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.averageStockOfCommodity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-              
                   name="averageStockOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -644,7 +656,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.averageStockInTransit))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-               
                   name="averageStockInTransit"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -683,7 +694,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.availableStock))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -720,7 +730,6 @@ const index = ({
                       : checkNan(Number(creditDetail?.dailyConsumptionOfCommodity))?.toLocaleString() +
                         ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
-                
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -745,7 +754,6 @@ const index = ({
                     alt="Search"
                   />
                 </div>
-                
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -759,9 +767,12 @@ const index = ({
                       saveProductData(e.target.name, e.target.value);
                     }}
                   >
-                    <option selected>Select an option</option>
+                    <option selected value="" disabled>
+                      Select an option
+                    </option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
+                    <option value="Both">Both</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing Procurement of Commodity
@@ -775,11 +786,11 @@ const index = ({
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex position-relative">
                   <MultiSelect
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
-                    id='Existing Supplier(s)'
+                    id="Existing Supplier(s)"
                     handleSearch={handleSearch}
                     handleFilteredData={handleFilteredData}
                     removeInput={removeInput}
@@ -787,8 +798,6 @@ const index = ({
                     searchTerm={searchTerm}
                     searchedSupplier={searchedSupplier}
                     onChange={(_emails) => {
-                    
-                  
                       let temp = [...exSupplier];
                       temp.push(_emails[0]);
                       setexSupplier([...temp]);
@@ -843,11 +852,7 @@ const index = ({
                   />
                 </div>
                 <div className={`${styles.tooltip} `}>
-                  <img
-                  
-                    className={`${styles.info_circle} img-fluid`}
-                    src="/static/info-circle.svg"
-                  />
+                  <img className={`${styles.info_circle} img-fluid`} src="/static/info-circle.svg" />
 
                   <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
                 </div>
@@ -879,7 +884,6 @@ const index = ({
                       ? creditDetail?.AvgMonthlyElectricityBill
                       : 'INR ' + checkNan(Number(creditDetail?.AvgMonthlyElectricityBill))?.toLocaleString()
                   }
-                 
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value);
@@ -891,13 +895,12 @@ const index = ({
                 </label>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex position-relative">
                   <MultiSelect
                     placeholder="Existing CHA(s)"
                     emails={emails}
-                    id='Existing CHA(s)'
+                    id="Existing CHA(s)"
                     onChange={(_emails) => {
-                     
                       let temp = [...emails];
                       temp.push(_emails[0]);
                       setemails([...temp]);
@@ -919,7 +922,6 @@ const index = ({
                       );
                     }}
                   ></MultiSelect>
-                  
                 </div>
               </div>
             </div>
@@ -962,14 +964,36 @@ const index = ({
                     type="text"
                     value={supplierCred?.supplierName}
                     onChange={(e) => {
+                      handleSupplierSearch(e.target.value)
                       saveSupplierData(e.target.name, e.target.value);
                     }}
                   ></input>
-                
+                {searchedSupplier && searchedSupplier?.data?.length > 0 && supplierShow && supplierTerm && (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {searchedSupplier
+                              ? searchedSupplier?.data?.map((results, index) => (
+                                  <li
+                                    onClick={() => {
+                                      saveSupplierData("supplierName",results?.supplierProfile?.supplierName)
+                                      setSupplierShow(false)
+                                      
+                                    }}
+                                    id={results._id}
+                                    key={index}
+                                    value={results}
+                                  >
+                                    {results?.supplierProfile?.supplierName}
+                                  </li>
+                                ))
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                   <label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </label>
-                 
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -978,7 +1002,7 @@ const index = ({
                   required
                   type="number"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   value={supplierCred?.shipmentNumber}
                   name="shipmentNumber"
                   onChange={(e) => {
@@ -998,7 +1022,7 @@ const index = ({
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value);
                   }}
@@ -1014,7 +1038,7 @@ const index = ({
                   required
                   type="number"
                   onWheel={(event) => event.currentTarget.blur()}
-                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
@@ -1033,7 +1057,7 @@ const index = ({
                     required
                     type="number"
                     onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                     value={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
@@ -1051,7 +1075,7 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                    onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                     type="number"
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
@@ -1073,6 +1097,7 @@ const index = ({
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
                     startFrom={'noLimit'}
+                    maxDate={new Date()}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -1080,7 +1105,6 @@ const index = ({
                     alt="Search"
                   />
                 </div>
-               
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
@@ -1088,6 +1112,7 @@ const index = ({
                     name="latestShipmentDate"
                     defaultDate={supplierCred?.latestShipmentDate ?? ''}
                     saveDate={saveSupplierDate}
+                    startFrom={'noLimit'}
                     labelName="Latest Shipment Date"
                   />
                   <img
@@ -1137,7 +1162,6 @@ const index = ({
                       ? supplierCred?.commodityOfTotalTrade
                       : checkNan(Number(supplierCred?.commodityOfTotalTrade), 'no') + ' %'
                   }
-                 
                   name="commodityOfTotalTrade"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value);
@@ -1148,18 +1172,13 @@ const index = ({
                   <strong className="text-danger">*</strong>
                 </label>
                 <div className={`${styles.tooltip} `}>
-                  <img
-                 
-                    className={`${styles.info_circle} img-fluid`}
-                    src="/static/info-circle.svg"
-                  />
+                  <img className={`${styles.info_circle} img-fluid`} src="/static/info-circle.svg" />
 
                   <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
                 </div>
               </div>
               <div className={`${styles.form_group} col-12 mt-4`}>
                 <textarea
-                  as="textarea"
                   rows={3}
                   required
                   className={`${styles.remark_field} ${styles.input_field} input form-control`}
@@ -1221,11 +1240,12 @@ const index = ({
                         <>
                           {!person.isEdit ? (
                             <>
+                          
                               <tr>
                                 <td>{person.name}</td>
                                 <td>{person.designation}</td>
                                 <td>{person.department}</td>
-                                <td>{person.contact.number}</td>
+                                <td>{person.contact.callingCode} {" "} {person.contact.number}</td>
                                 <td>{person.email}</td>
                                 <td>
                                   <div className="d-flex">
@@ -1265,7 +1285,6 @@ const index = ({
                                     </>
                                   ) : (
                                     <>
-                                      
                                       <select
                                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                         name="name"
@@ -1364,32 +1383,53 @@ const index = ({
                             /> */}
                                 </div>
                               </td>
+
                               <td>
-                                <input
-                                  className="input"
-                                  defaultValue={person.contact.number}
-                                  placeholder={'Contact number'}
-                                  name="contact.number"
-                                  style={{ maxWidth: '170px' }}
-                                  onChange={(e) => {
-                                    handlePersonChange(e, index);
-                                  }}
-                                  onBlur={(e) => {
-                                    if (phoneValidation(e.target.value)) {
-                                      handlePersonChange(e, index);
-                                    } else {
-                                      let toastMessage = 'Enter a valid Phone Number';
-                                      if (!toast.isActive(toastMessage.toUpperCase())) {
-                                        toast.error(toastMessage, {
-                                          toastId: toastMessage,
-                                        });
+                                <div className="d-inline-flex align-items-center position-relative">
+                                  {person.addnew ? (
+                                    <>
+                                      <input
+                                        className="input"
+                                        value={person.contact.number}
+                                        placeholder={'Contact number'}
+                                        name="contact.number"
+                                        style={{ maxWidth: '170px' }}
+                                        onChange={(e) => {
+                                          handlePersonChange(e, index);
+                                        }}
+                                        type="text"
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                       <div className={`${styles.phone_card}`}>
+                                    <select
+                                      name="callingCode"
+                                      id="Code"
+                                      className={`${styles.code_phone} ${styles.code_phone2} input border-right-0`}
+                                      value={person.contact.callingCode}
+                                    >
+                                      {' '}
+                                      <option value="+91">+91</option>
+                                    </select>
+                                    <input
+                                       name="contact.number"
+                                      type="number"
+                                      onWheel={(event) => event.currentTarget.blur()}
+                                      className={`${styles.input_field} ${styles.input_field2} input form-control border-left-0`}
+                                      onChange={(e) => {
+                                        handlePersonChange(e,index);
+                                      }}
+                                      value={person.contact.number}
+                                      onKeyDown={(evt) =>
+                                        ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                                       }
-                                    }
-                                  }}
-                                  type="number"
-                                  onWheel={(event) => event.currentTarget.blur()}
-                                  disabled={!person.isEdit}
-                                />
+                                    />
+                                  </div>
+                                  
+                                    </>
+                                  )}
+                                </div>
                               </td>
                               <td>
                                 <input
@@ -1419,7 +1459,6 @@ const index = ({
                                       alt="save"
                                       onClick={(e) => {
                                         setEditRow(index);
-                                        //addPersonArr(keyPersonData)
                                       }}
                                     />
                                   )}
@@ -1443,7 +1482,7 @@ const index = ({
               <div
                 className={`d-flex justify-content-end`}
                 onClick={(e) => {
-                  onKeyPersonSave(keyPersonData);
+                  addPersonArr(keyPersonData);
                 }}
               >
                 {' '}
@@ -1486,6 +1525,10 @@ const index = ({
                       orderDetail={orderDetail}
                       path={address?.GSTIN_document?.path}
                       communicationModeYes={address?.communication}
+                      state={address.state}
+                      city={address.city}
+                      pinCode={address.pinCode}
+
                     />
                   </>
                 );
@@ -1578,9 +1621,32 @@ const index = ({
                           onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.pinCode == null ? '' : keyAddressData.pinCode}
                           onChange={(e) => {
+                            gettingPins(e.target.value);
                             handleChange(e.target.name, e.target.value);
                           }}
                         />
+                        {toShow.length > 0 && toView && (
+                          <div className={styles.searchResults}>
+                            <ul>
+                              {toShow
+                                ? toShow?.map((results, index) => (
+                                    <li
+                                      onClick={() => {
+                                        handleChange2('pinCode', results);
+                                        setToShow([]);
+                                        setToView(false);
+                                      }}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ))
+                                : ''}
+                            </ul>
+                          </div>
+                        )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code<strong className="text-danger">*</strong>
                         </label>
@@ -1660,17 +1726,16 @@ const index = ({
                           onWheel={(event) => event.currentTarget.blur()}
                           name="contact.number"
                           maxLength="10"
-                          onKeyDown={(evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault()}
+                          onKeyDown={(evt) => ['e', 'E', '+', '-', '.',"ArrowDown","ArrowUp"].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.contact.number == null ? '' : keyAddressData.contact.number}
                           onChange={(e) => {
                             mobileFunction(e);
                           }}
-                       
                         />
                         <label className={`${styles.label_heading} label_heading`}>
                           Phone Number<strong className="text-danger">*</strong>
                         </label>
-                        <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" />
+                        {/* <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" /> */}
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -1725,7 +1790,6 @@ const index = ({
                             <input
                               type="file"
                               name={keyAddressData.GSTIN}
-                              // name="myfile"
                               accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                               onChange={(e) => {
                                 uploadDocument(e);
@@ -1740,7 +1804,7 @@ const index = ({
                             <img
                               className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
-                              onClick={() => removeDoc(index)}
+                              onClick={() => removeDoc()}
                               alt="Close"
                             />{' '}
                           </div>
@@ -1806,13 +1870,15 @@ const index = ({
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <div className="d-flex">
                         <select
+                        disabled={editData.addressType == 'Registered Office'}
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                           name="addressType"
-                          defaultValue={editData.addressType}
+                          value={editData.addressType}
                           onChange={(e) => {
                             changeData(e.target.name, e.target.value);
                           }}
-                        >
+                        > {editData.addressType == 'Registered Office' &&<option value="Registered Office">Registered Office</option>}
+                           <option value="Registered Address">Registered Address</option>
                           <option value="Factory">Factory</option>
                           <option value="Warehouse">Warehouse</option>
                           <option value="Corporate Office">Corporate Office</option>
@@ -1834,11 +1900,34 @@ const index = ({
                           required
                           type="text"
                           name="pinCode"
-                          defaultValue={editData.pinCode}
+                          value={editData.pinCode}
                           onChange={(e) => {
+                            gettingPins(e.target.value);
                             changeData(e.target.name, e.target.value);
                           }}
                         />
+                        {toShow.length > 0 && toView && (
+                          <div className={styles.searchResults}>
+                            <ul>
+                              {toShow
+                                ? toShow?.map((results, index) => (
+                                    <li
+                                      onClick={() => {
+                                        changeData2('pinCode', results);
+                                        setToShow([]);
+                                        setToView(false);
+                                      }}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ))
+                                : ''}
+                            </ul>
+                          </div>
+                        )}
                         <label className={`${styles.label_heading} label_heading`}>
                           Pin Code<strong className="text-danger">*</strong>
                         </label>
@@ -1856,7 +1945,7 @@ const index = ({
                         required
                         type="text"
                         name="state"
-                        defaultValue={editData.state}
+                        value={editData.state}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
@@ -1872,7 +1961,7 @@ const index = ({
                         required
                         type="text"
                         name="city"
-                        defaultValue={editData.city}
+                        value={editData.city}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
@@ -1888,7 +1977,7 @@ const index = ({
                         required
                         type="text"
                         name="email"
-                        defaultValue={editData.email}
+                        value={editData.email}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value);
                         }}
@@ -1920,7 +2009,7 @@ const index = ({
                         <label className={`${styles.label_heading} label_heading`}>
                           Phone Number<strong className="text-danger">*</strong>
                         </label>
-                        <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" />
+                        {/* <img className={`${styles.search_image} img-fluid`} src="/static/add.svg" alt="add" /> */}
                       </div>
                     </div>
                     <div className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -1949,9 +2038,7 @@ const index = ({
                           changeData(e.target.name, e.target.value);
                         }}
                       />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        Branch<strong className="text-danger">*</strong>
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>Branch</label>
                     </div>
                     <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <input
@@ -1964,9 +2051,7 @@ const index = ({
                           changeData(e.target.name, e.target.value);
                         }}
                       />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        GSTIN<strong className="text-danger">*</strong>
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>GSTIN</label>
                     </div>
                     <div
                       className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
@@ -1977,7 +2062,6 @@ const index = ({
                           <input
                             type="file"
                             name={keyAddressData.GSTIN}
-                            // name="myfile"
                             accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                             onChange={(e) => {
                               uploadDocument(e);
@@ -2001,14 +2085,16 @@ const index = ({
                 </div>
               </div>
             ) : null}
-            <div
-              className={`${styles.add_row} pr-3 d-flex justify-content-end`}
-              onClick={() => {
-                setShowAddress(true);
-              }}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
+            <div className="d-flex justify-content-end">
+              <div
+                className={`${styles.add_row} pr-3 row`}
+                onClick={() => {
+                  setShowAddress(true);
+                }}
+              >
+                <span>+</span>
+                <div>Add More Rows</div>
+              </div>
             </div>
             {/* ))} */}
           </div>
@@ -2054,48 +2140,92 @@ const index = ({
                             type="checkbox"
                             checked={profile?.primaryBank ? true : false}
                             disabled={!profile.actions}
-                            style={{ marginTop: '12px' }}
                           />
                         </td>
-                        <td>
-                          <select
-                            onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                            // value={profile?.bankName}
-                            name="bankName"
-                            className={`${styles.dropDown} heading input`}
-                            disabled={!profile.actions}
-                            value={profile.bankName}
-                          >
-                            <option selected>Select</option>
-                            {FilterUniqueBank().map((item) => (
-                              <>
-                                <option value={item}>{item}</option>
-                              </>
-                            ))}
-                          </select>
-                         
-                        </td>
-                        <td>
-                          <select
-                            onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                            value={profile?.limitType}
-                            name="limitType"
-                            className={`${styles.dropDown} heading input`}
-                            disabled={!profile.actions}
-                          >
-                            <option selected disabled>
-                              Select
-                            </option>
-                            <option value="Cash Credit">Cash Credit</option>
-                            <option value="Bank Guarantee">Bank Guarantee</option>
-                            <option value="Post Ship Credit">Post Ship Credit</option>
-                            <option value="LC Limits">LC Limits</option>
-                            <option value="Buyers Credit">Buyers Credit</option>
-                            <option value="Term Loan">Term Loan</option>
-                            <option value="Packing Credit">Packing Credit</option>
-                          </select>
-                        </td>
+                       
+                        {
+                          !profile.actions?
+                          <>
+                           <td>{profile.bankName}</td>
+                          <td>{profile.limitType}</td>
+                          <td>{ Number(profile?.limit)?.toLocaleString('en-In')}</td>
+                          <td>{profile?.conduct}</td>
+                          </>
+                          :
+                          <>
+                           {profile.addnew == 'false' ? (
+                          <td>
+                            <div className='d-flex'>
+                            <select
+                              onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
+                              name="bankName"
+                              className={`${styles.dropDown} ${styles.customSelect} heading input`}
+                              disabled={!profile.actions}
+                              value={profile.bankName}
+                            >
+                              <option value="" selected>
+                                Select
+                              </option>
+                              {FilterUniqueBank().map((item) => (
+                                <>
+                                  <option value={item}>{item}</option>
+                                </>
+                              ))}
+                              <option value="addnew">Add new</option>
 
+                            </select>
+                            <img
+                    className={`${styles.select_arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+                          </td>
+                        ) : (
+                          <td>
+                            <input
+                              type="text"
+                              className="input"
+                              disabled={!profile.actions}
+                              value={profile?.bankName == 'addnew' ? '' : profile?.bankName}
+                              name="bankName"
+                              placeholder="Add new"
+                              onChange={(e) => {
+                                handleDebtChange(e.target.name, e.target.value, index);
+                              }}
+                            />
+                          </td>
+                        )}
+                            <td>
+                              <div className='d-flex'>
+                          <select
+                            type="text"
+                            className={`${styles.dropDown} ${styles.customSelect} heading input`}
+                            disabled={!profile.actions}
+                            value={profile.limitType}
+                            
+                            name="limitType"
+                            onChange={(e) => {
+                              handleDebtChange(e.target.name, e.target.value, index);
+                            }}
+                          >
+                            <option value="">Select an option</option>
+                            <option value="Cash Credit">Cash Credit</option>
+                            <option value="LC Limits">LC Limits</option>
+                            <option value="Term Loan">Term Loan</option>
+                            <option value="Bank Guarantee">Bank Guarantee</option>
+                            <option value="Buyers Credit">Buyers Credit</option>
+                            <option value="Packing Credit">Packing Credit</option>
+                            <option value="Post Ship Credit">Post Ship Credit</option>
+                            
+                          </select>
+                          <img
+                    className={`${styles.select_arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+                        </td>
                         <td>
                           <input
                             onFocus={(e) => {
@@ -2112,6 +2242,7 @@ const index = ({
                               }),
                                 (e.target.type = 'text');
                             }}
+                               onWheel={(event) => event.currentTarget.blur()}
                             value={
                               profile?.actions
                                 ? isFieldInFocus.limit
@@ -2120,20 +2251,18 @@ const index = ({
                                 : Number(profile?.limit)?.toLocaleString('en-In')
                             }
                             className="input"
-                            // type='number'
                             name="limit"
                             disabled={!profile.actions}
                             onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
-                            // value={profile?.limit}
-                            // readOnly={!saveTable}
                           />
                         </td>
 
                         <td>
+                          <div className='d-flex'>
                           <select
                             onChange={(e) => handleDebtChange(e.target.name, e.target.value, index)}
                             name="conduct"
-                            className={`${styles.dropDown} heading input`}
+                            className={`${styles.dropDown} ${styles.customSelect} heading input`}
                             value={profile?.conduct}
                             disabled={!profile.actions}
                           >
@@ -2143,7 +2272,16 @@ const index = ({
                             <option value="Average">Average</option>
                             <option value="Poor">Poor</option>
                           </select>
+                          <img
+                    className={`${styles.select_arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
                         </td>
+                          </>
+                        }
+                      
                         <td>
                           <div>
                             {!profile.actions ? (
@@ -2180,14 +2318,17 @@ const index = ({
                 </table>
               </div>
             </div>
-            <div
-              className={`${styles.add_row} d-flex justify-content-end`}
-              onClick={(e) => {
-                addMoreDebtRows();
-              }}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
+            <div className={`${styles.add_row} d-flex justify-content-end`}>
+              <div
+                className={`d-flex justify-content-end`}
+                onClick={(e) => {
+                  addMoreDebtRows();
+                }}
+              >
+                {' '}
+                <span>+</span>
+                <div>Add More Rows</div>
+              </div>
             </div>
           </div>
         </div>
@@ -2196,4 +2337,4 @@ const index = ({
   );
 };
 
-export default index;
+export default Index;

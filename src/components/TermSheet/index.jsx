@@ -27,7 +27,6 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({});
   const [additionalComments, setAdditionalComments] = useState([]);
   const [order, setOrder] = useState('');
-
   let sheetData = _get(termsheet, 'data[0]', {});
   useEffect(() => {
     let Id = sessionStorage.getItem('termID');
@@ -65,17 +64,16 @@ const Index = () => {
               orderCurrency: sheet?.order?.orderCurrency || 'USD',
               quantity: sheet?.order?.quantity,
               perUnitPrice:
-                sheet?.order?.perUnitPrice || Number(sheet?.order?.orderValue / sheet?.order.quantity).toFixed(2) || '',
+                sheet?.order?.perUnitPrice || '',
               commodity: sheet?.order?.commodity,
               tolerance: sheet?.order?.tolerance ?? '',
             },
             transactionDetails: {
-           
               typeOfPort: sheet?.transactionDetails?.typeOfPort ?? '',
               lcValue: newLcVal ? newLcVal : sheet?.transactionDetails?.lcValue,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney ? sheet?.transactionDetails?.marginMoney : 10,
-              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || 'First Class European Bank',
+              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank || '',
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
@@ -91,12 +89,14 @@ const Index = () => {
                 : sheet?.order?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
-              storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+              storageOfGoods: sheet?.transactionDetails?.storageOfGoods
+                ? sheet?.transactionDetails?.storageOfGoods
+                : sheet?.order?.portOfDischarge,
             },
             paymentDueDate: {
               computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
               daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-              daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+              daysFromVesselDate: sheet?.paymentDueDate?.daysFromVesselDate,
             },
             commercials: {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage || 2.25,
@@ -214,6 +214,7 @@ const Index = () => {
     const Key = e.target.id;
     const value = e.target.value;
 
+
     setTermsheetDetails((prev) => ({
       ...prev,
       transactionDetails: { ...prev.transactionDetails, [Key]: value },
@@ -287,32 +288,31 @@ const Index = () => {
     }));
   };
 
-  const changePayment = () => {};
+  const changePayment = () => { };
 
   const handleSave = async () => {
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.tradeMarginPercentage,
-    );
-    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
-      termsheetDetails.commercials.overDueInterestPerMonth,
-    );
-    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesPercentage,
-    );
-    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
-      termsheetDetails.commercials.usanceInterestPercetage,
-    );
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
-    tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesUnit,
-    ).toString();
-   
+    // tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
+    // tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
+    // tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
+    // tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.tradeMarginPercentage,
+    // );
+    // tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.overDueInterestPerMonth,
+    // );
+    // tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.lcOpeningChargesPercentage,
+    // );
+    // tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.usanceInterestPercetage,
+    // );
+    // tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
+    // tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
+    //   termsheetDetails.commercials.lcOpeningChargesUnit,
+    // ).toString();
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -368,10 +368,9 @@ const Index = () => {
       return;
     }
 
- 
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue) ||
+      Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       let toastMessage = 'Please add lc Value ';
@@ -523,12 +522,12 @@ const Index = () => {
       }
     }
 
-    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate') {
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
-        let toastMessage = 'Please add days From vessel discharge date Date ';
+        let toastMessage = 'Please add days From vessel Date ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -548,10 +547,10 @@ const Index = () => {
         return;
       }
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
-        let toastMessage = 'Please add days From vessel discharge date Date ';
+        let toastMessage = 'Please add days From vessel Date ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
@@ -570,7 +569,7 @@ const Index = () => {
       }
       return;
     }
-  
+
     if (
       termsheetDetails.commercials.lcOpeningChargesUnit == '' ||
       termsheetDetails.commercials.lcOpeningChargesUnit == undefined
@@ -667,30 +666,11 @@ const Index = () => {
 
   const handlePreview = () => {
     let toastMessage = 'PLEASE SAVE TERMSHEET FIRST';
-    
+
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice);
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity);
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney);
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.tradeMarginPercentage,
-    );
-    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
-      termsheetDetails.commercials.overDueInterestPerMonth,
-    );
-    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesPercentage,
-    );
-    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
-      termsheetDetails.commercials.usanceInterestPercetage,
-    );
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance);
-    tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
-      termsheetDetails.commercials.lcOpeningChargesUnit,
-    ).toString();
- 
+
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -740,7 +720,7 @@ const Index = () => {
     }
     if (
       termsheetDetails.transactionDetails.lcValue == '' ||
-      isNaN(termsheetDetails.transactionDetails.lcValue) ||
+      Number.isNaN(termsheetDetails.transactionDetails.lcValue) ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -876,10 +856,10 @@ const Index = () => {
       }
     }
 
-    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDate') {
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -899,8 +879,8 @@ const Index = () => {
         return;
       }
       if (
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
-        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+        termsheetDetails.paymentDueDate.daysFromVesselDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDate == undefined
       ) {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1016,113 +996,122 @@ const Index = () => {
     }));
   };
 
-  return (
-    <>
-      {gettingTermsheet ? (
-        <Loader />
-      ) : (
-        <>
-          {' '}
-          <div className="container-fluid px-0">
-            <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
-              <div className={`${styles.head_header} align-items-center`}>
-                <img
-                  className={`${styles.arrow} img-fluid image_arrow mr-2`}
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow"
-                  onClick={() => Router.push('/termsheet/order-list')}
-                />
-                <h1 className={`${styles.heading} heading`}>{_get(termsheet, 'data[0].company.companyName', '')}</h1>
-              </div>
-              <div className="">
-                {termsheet &&
-                  termsheet?.data?.map((sheet, index) => (
-                    <div key={index} className={`${styles.card_body} border_color border card-body container-fluid`}>
-                      <div className="row">
-                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                          <h3 className={`${styles.label} label_heading`}>Customer ID</h3>
-                          <p className={`${styles.value} accordion_Text`}>
-                            {sheet?.company?.customerId ? sheet.company.customerId : sheet.company.temporaryCustomerId}
-                          </p>
-                        </div>
-                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                          <h3 className={`${styles.label} label_heading`}>Buyer Name</h3>
-                          <p className={`${styles.value} accordion_Text`}>{sheet?.company?.companyName}</p>
-                        </div>
-                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                          <h3 className={`${styles.label} label_heading`}>Created On</h3>
-                          <p className={`${styles.value} accordion_Text`}>
-                            {moment((sheet?.company?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
-                          </p>
-                        </div>
-                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                          <h3 className={`${styles.label} label_heading`}>Last Modified</h3>
-                          <p className={`${styles.value} accordion_Text`}>
-                            {moment((sheet?.company?.updatedAt).slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
-                          </p>
-                        </div>
-                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                          <h3 className={`${styles.label} label_heading`}>Approved Date</h3>
-                          <p className={`${styles.value} accordion_Text`}>
-                            {sheet?.order?.cam?.approvedAt
-                              ? moment(sheet?.order?.cam?.approvedAt?.slice(0, 10), 'YYYY-MM-DD', true).format(
-                                  'DD-MM-YYYY',
-                                )
-                              : ''}
-                          </p>
-                        </div>
-                        <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                          <h3 className={`${styles.label} label_heading`}>Status </h3>
-                          <p className={`${styles.value} accordion_Text`}>
-                            <span className={`${styles.status}`}></span>
-                            {sheet?.order?.cam?.status}
-                          </p>
-                        </div>
+  const handleBackButtonFunctionality = () => {
+    const comingFromCheckerTermsheet = sessionStorage.getItem('comingFromCheckerTermsheet');
+    console.log('value in termsheet for checkers route: ', comingFromCheckerTermsheet);
+    if (comingFromCheckerTermsheet === "1") {
+      Router.push('/checker/transaction-summary/id');
+    } else {
+      Router.push('/termsheet/order-list')
+    }
+  }
+
+return (
+  <>
+    {gettingTermsheet ? (
+      <Loader />
+    ) : (
+      <>
+        {' '}
+        <div className="container-fluid px-0">
+          <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
+            <div className={`${styles.head_header} align-items-center`}>
+              <img
+                className={`${styles.arrow} img-fluid image_arrow mr-2`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+                onClick={() => handleBackButtonFunctionality()} />
+              <h1 className={`${styles.heading} heading`}>{_get(termsheet, 'data[0].company.companyName', '')}</h1>
+            </div>
+            <div className="">
+              {termsheet &&
+                termsheet?.data?.map((sheet, index) => (
+                  <div key={index} className={`${styles.card_body} border_color border card-body container-fluid`}>
+                    <div className="row">
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>Customer ID</h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {sheet?.company?.customerId ? sheet.company.customerId : sheet.company.temporaryCustomerId}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>Buyer Name</h3>
+                        <p className={`${styles.value} accordion_Text`}>{sheet?.company?.companyName}</p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>Created On</h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {moment((sheet?.company?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>Last Modified</h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {moment((sheet?.company?.updatedAt).slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>Approved Date</h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {sheet?.order?.cam?.approvedAt
+                            ? moment(sheet?.order?.cam?.approvedAt?.slice(0, 10), 'YYYY-MM-DD', true).format(
+                              'DD-MM-YYYY',
+                            )
+                            : ''}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>Status </h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          <span className={`${styles.status}`}></span>
+                          {sheet?.order?.cam?.status}
+                        </p>
                       </div>
                     </div>
-                  ))}
-                <TermDetails
-                  onChangeTransactionDetails={onChangeTransactionDetails}
-                  onChangeCommodityDetails={onChangeCommodityDetails}
-                  onChangeCommercialTerms={onChangeCommercialTerms}
-                  onChangePaymentDueDate={onChangePaymentDueDate}
-                  onChangeCommodityDetails2={onChangeCommodityDetails2}
-                  termsheetDetails={termsheetDetails}
-                  handleSave={handleSave}
-                  termsheet={termsheet}
-                  newLcVal={newLcVal}
-                  changePayment={changePayment}
-                  commodity={getCommoditiesMasterData}
-                  port={getPortsMasterData}
-                  country={getCountriesMasterData}
-                  currency={getCurrencyMasterData}
-                />
-                <AdditionalComment
-                  setAdditionalComments={setAdditionalComments}
-                  additionalComments={additionalComments}
-                  termsheetDetails={termsheetDetails}
-                  otherTermConditions={otherTermsAndConditions}
-                />
-                <OtherTerms
-                  onChangeDropDown={onChangeDropDown}
-                  otherTermConditions={otherTermsAndConditions}
-                  onChangeInsurance={onChangeInsurance}
-                  onChangeDutyAndTaxes={onChangeDutyAndTaxes}
-                  onChangeOther={onChangeOther}
-                  onChangeLcOpening={onChangeLcOpening}
-                  onChangeCha={onChangeCha}
-                  termsheet={termsheet}
-                  termsheetDetails={termsheetDetails}
-                />
-                <UploadOther module="LeadOnboarding&OrderApproval" orderid={OrdID} />
-              </div>
+                  </div>
+                ))}
+              <TermDetails
+                onChangeTransactionDetails={onChangeTransactionDetails}
+                onChangeCommodityDetails={onChangeCommodityDetails}
+                onChangeCommercialTerms={onChangeCommercialTerms}
+                onChangePaymentDueDate={onChangePaymentDueDate}
+                onChangeCommodityDetails2={onChangeCommodityDetails2}
+                termsheetDetails={termsheetDetails}
+                handleSave={handleSave}
+                termsheet={termsheet}
+                newLcVal={newLcVal}
+                changePayment={changePayment}
+                commodity={getCommoditiesMasterData}
+                port={getPortsMasterData}
+                country={getCountriesMasterData}
+                currency={getCurrencyMasterData}
+              />
+              <AdditionalComment
+                setAdditionalComments={setAdditionalComments}
+                additionalComments={additionalComments}
+                termsheetDetails={termsheetDetails}
+                otherTermConditions={otherTermsAndConditions}
+              />
+              <OtherTerms
+                onChangeDropDown={onChangeDropDown}
+                otherTermConditions={otherTermsAndConditions}
+                onChangeInsurance={onChangeInsurance}
+                onChangeDutyAndTaxes={onChangeDutyAndTaxes}
+                onChangeOther={onChangeOther}
+                onChangeLcOpening={onChangeLcOpening}
+                onChangeCha={onChangeCha}
+                termsheet={termsheet}
+                termsheetDetails={termsheetDetails}
+              />
+              <UploadOther module={["Leads", "Margin Money"]} orderid={OrdID} />
             </div>
           </div>
-          <ApproveBar handleReject={handleSave} handleApprove={handlePreview} button={'Save'} button2={'Preview'} />
-        </>
-      )}
-    </>
-  );
+        </div>
+        <ApproveBar handleReject={handleSave} handleApprove={handlePreview} button={'Save'} button2={'Preview'} />
+      </>
+    )}
+  </>
+);
 };
 
 export default Index;

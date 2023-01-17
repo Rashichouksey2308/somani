@@ -95,10 +95,8 @@ export default {
   // getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
+  sendGst: '/karza/send-gst-link',
   getConsolidatedGst: '/lead/consolidate-gst',
-
-  // mcaReport
-  getMcaReport: '/karza/request-mca-document',
 
   // getGstKarza: 'karza/send-gst-link',
 
@@ -139,6 +137,8 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
+  //mcaReport
+  getMcaReport: '/karza/request-mca-document',
   // preview
   preview: '/document/access/preview',
 
@@ -154,6 +154,7 @@ export default {
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
+  getAllStates: 'lead/getState',
   getMasterUsersQueueRecords: 'user-master/filterUser',
   filterUsersQueue: 'user-master/searchUser',
   getMasterPortsQueueRecords: 'port/filterPorts',
@@ -168,6 +169,15 @@ export default {
   getMasterCurrencyQueueRecords: 'currency-master/filterCurrency',
   filterCurrencyQueue: 'currency-master/search',
   createCurrencyMaster: 'currency-master',
+  getMasterTDSSectionQueueRecords: 'tds-section/filterTDS',
+  filterTDSSectionQueue: 'tds-section/search',
+  createTDSSectionMaster: 'tds-section',
+  getMasterSACQueueRecords: 'sac-code/filterSAC',
+  filterSACQueue: 'sac-code/search',
+  createSACMaster: 'sac-code',
+  getMasterIIAGLedgerQueueRecords: 'ledger/filterLedger',
+  filterIIAGLedgerQueue: 'ledger/search',
+  createIIAGLedgerMaster: 'ledger',
 
   // Checker
   getUserDetails: '/user-master/user',
@@ -191,7 +201,50 @@ export default {
   updateGoNoGoLogicRemark: '/gng-master/checker-gngMaster-status-update',
 
   // Masters
+  getUserMasterDetails: 'user-master/get-user-masters',
+  updateUserMasterRemark: 'user-master/checker-user-status-update',
+  getCommodityDetails: 'commodity/get-commodities',
+  updateCommodityRemark: 'commodity/checker-commodity-status-update',
+  getGoNoGoLogicDetails: 'gng-master/get-gng',
+  updateGoNoGoLogicRemark: 'gng-master/checker-gngMaster-status-update',
+  getInternalCompanyDetails: 'internal-company/get-internal-company',
+  updateInternalCompanyRemark: 'internal-company/checker-internal-company-status-update',
+  getVendorDetails: 'vendor/get-vendor',
+  updateVendorRemark: 'vendor/checker-vendor-status-update',
+  getTransactionSummaryDetails: 'termsheet/get-termsheet',
+  updateTransactionSummaryRemark: 'termsheet/checker-termsheet-status-update',
+  
+  //Masters
   getAllCommodity: 'commodity/get-commodities',
   getAllGonogo: '/gng-master',
   addNewCommodity: '/commodity',
+  // Commodity
+  getCommodity: '/commodity',
+
+  // Internal Companies
+  getInternalCompanies: '/internal-company',
+
+  // PORTS
+  getPorts: '/port',
+
+  // City State
+  getState: '/city-master',
+
+  // COUNTRY
+  getCountry: '/country-master',
+
+  // DOCUMENT MASTER
+  getDocument: '/document-master',
+
+  // GO NO GO
+  getGoNoGo: '/gng-master',
+
+  // CURRENCY
+  getCurrency: '/currency-master',
+
+  // ALL MASTER URL's
+  zipCodeMaster: '/world-master/',
+
+  //VENDOR API ROoutes
+  getVendor: '/vendor',
 };

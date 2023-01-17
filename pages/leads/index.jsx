@@ -1,11 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllUpdatedBuyer, GetOrderLeads, GetOrders } from '../../src/redux/registerBuyer/action';
+import { GetAllUpdatedBuyer, GetOrderLeads, GetOrders, GetAllBuyer } from '../../src/redux/registerBuyer/action';
 import { FilterLeads } from '../../src/redux/buyerProfile/action.js';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import SearchAndFilter from '../../src/components/SearchAndFilter';
@@ -15,7 +13,7 @@ import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import Buyername from '../../src/components/VTwo/BuyerName';
 import CommodityDropdown from '../../src/components/VTwo/CommodityDropdown';
 import StatusDropDown from '../../src/components/VTwo/StatusDropDown';
-
+import styles from './index.module.scss';
 import slugify from 'slugify';
 import { LEADS_QUEUE_FILTER_ITEMS } from '../../src/data/constant';
 import Select from 'react-select';
@@ -91,7 +89,7 @@ function Index() {
     dispatch(GetOrders(`?company=${buyer.company._id}`));
     setTimeout(() => {
       Router.push('/order-list');
-    }, 500);
+    }, constants.numberTimeOut);
   };
 
   const delayedQuery = useCallback(
@@ -105,7 +103,7 @@ function Index() {
     setSearchTerm(query);
 
     let queryParams = '';
-    if (Object.keys(appliedFilters).length !== 0 && query.length > 3) {
+    if (Object.keys(appliedFilters).length !== 0 && query.length >= 3) {
       Object.keys(appliedFilters).forEach((item) => {
         const isTrue = appliedFilters[item];
         if (isTrue) {
@@ -113,9 +111,11 @@ function Index() {
         }
       });
       delayedQuery(queryParams);
+      if (query.length >= constants.numberThree) {
+        dispatch(SearchLeads(query));
+      }
     }
   };
-
   const handleApplyFilter = () => {
     setAppliedFilters(filterSearchAndFilterItem);
   };

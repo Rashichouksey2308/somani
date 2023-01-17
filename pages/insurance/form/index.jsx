@@ -3,37 +3,40 @@ import React, { useEffect, useState } from 'react';
 import styles from './insurance.module.scss';
 import { Col, Form, Row } from 'react-bootstrap';
 import SaveBar from '../../../src/components/SaveBar';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import DateCalender from '../../../src/components/DateCalender';
 import { useDispatch, useSelector } from 'react-redux';
 import { GettingAllInsurance, UpdateQuotation } from '../../../src/redux/insurance/action';
 import _get from 'lodash/get';
 import { removePrefixOrSuffix } from '../../../src/utils/helper';
-import { toast } from 'react-toastify';
 import moment from 'moment';
 import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
+import { handleErrorToast } from '@/utils/helpers/global';
+import constants from '@/utils/constants'
+
 
 const Index = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('quotationId');
+    const id = sessionStorage.getItem('quotationId');
     dispatch(GettingAllInsurance(`?insuranceId=${id}`));
   }, [dispatch, sumInsuredCalc]);
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
+
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
-  let insuranceData = _get(insuranceResponse, 'data[0]', {});
+  const insuranceData = _get(insuranceResponse, 'data[0]', {});
 
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
   });
+
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
-    expectedTimeOfArrival: '',
-    expectedTimeOfDispatch: '',
+    expectedTimeOfArrival: _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '') ?? '',
+    expectedTimeOfDispatch: _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '') ?? '',
     insuranceType: '',
     laycanFrom: '',
     laycanTo: '',
@@ -44,22 +47,34 @@ const Index = () => {
       storagePlotAddress: '',
     },
     sumInsured: insuranceData?.quotationRequest?.sumInsured
-      ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
+      ? Number(insuranceData?.quotationRequest?.sumInsured) / constants.numberCrore
       : sumInsuredCalc,
   });
 
-  let sumInsuredCalc = parseFloat(((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100);
+  const marineInsuranceString = 'Marine Insurance';
+  const storageInsuranceString = 'Storage Insurance';
+  const bothInsuranceString = 'Marine & Storage Insurance';
 
-  useEffect(() => {
-    dispatch(setPageName('insurance'));
-    dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')));
-    dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
+  const portOfDischarge = _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '');
+  const sumInsuredCalc = parseFloat(((Number(insuranceData?.order?.orderValue) / constants.numberCrore) * constants.numberHundredTen) / constants.numberHundred);
 
+  const getPlaceOfStorage = () => {
+    const placeofStaorage = insuranceData?.quotationRequest?.storageDetails?.placeOfStorage;
+    if (placeofStaorage) {
+      return placeofStaorage;
+    }
+    return portOfDischarge.includes(', India') ? portOfDischarge : `${portOfDischarge}, India`;
+  };
+  const setQuotationRequest = () => {
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
-      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival || undefined,
-      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
-      insuranceType: insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
+      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival
+        ? insuranceData?.quotationRequest?.expectedTimeOfArrival
+        : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort || undefined,
+      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch
+        ? insuranceData?.quotationRequest?.expectedTimeOfDispatch
+        : insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort || undefined,
+      insuranceType: insuranceData?.quotationRequest?.insuranceType || marineInsuranceString,
       laycanFrom: insuranceData?.quotationRequest?.laycanFrom
         ? insuranceData?.quotationRequest?.laycanFrom
         : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate,
@@ -68,43 +83,51 @@ const Index = () => {
         : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
       lossPayee: insuranceData?.quotationRequest?.lossPayee
         ? insuranceData?.quotationRequest?.lossPayee
-        : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
+        : _get(insuranceData, 'order.lc.lcApplication.lcIssuingBank', ''),
       storageDetails: {
-        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || '',
+        placeOfStorage: getPlaceOfStorage(),
         periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || '',
         storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || '',
       },
       sumInsured: insuranceData?.quotationRequest?.sumInsured
-        ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
+        ? Number(insuranceData?.quotationRequest?.sumInsured) / constants.numberCrore
         : sumInsuredCalc,
     });
+  };
+
+  useEffect(() => {
+    dispatch(setPageName('insurance'));
+    dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')));
+    dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
+    setQuotationRequest();
   }, [insuranceData]);
 
   const saveQuotationData = (name, value) => {
     const newInput = { ...quotationData };
     const namesplit = name.split('.');
-    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
+    if (namesplit.length > 1) newInput[namesplit[0]][namesplit[1]] = value;
+    else newInput[name] = value;
     setQuotationData(newInput);
   };
 
   const saveDate = (value, name) => {
     const d = new Date(value);
-    let text = d.toISOString();
+    const text = d.toISOString();
     saveQuotationData(name, text);
     setStartDate(value, name);
   };
   const setStartDate = (val, name) => {
-    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
-    if (name == 'laycanFrom') {
-      setDateStartFrom({ ...dateStartFrom, laycan: new_date });
+    const newDate = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
+    if (name === 'laycanFrom') {
+      setDateStartFrom({ ...dateStartFrom, laycan: newDate });
     } else {
-      setDateStartFrom({ ...dateStartFrom, eta: new_date });
+      setDateStartFrom({ ...dateStartFrom, eta: newDate });
     }
   };
 
   const [reset, setReset] = useState(false);
+
   const clearAll = () => {
-    // document.getElementById('FormInsurance').value = ''
     setQuotationData({
       additionalInfo: '',
       expectedTimeOfArrival: undefined,
@@ -129,123 +152,84 @@ const Index = () => {
   };
 
   const validation = () => {
-    let toastMessage = '';
-    // if (
-    //   quotationData.lossPayee == '' ||
-    //   quotationData.lossPayee == 'Select an option' ||
-    //   quotationData.lossPayee == undefined
-    // ) {
-    //   toastMessage = 'Please Select loss Payee';
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    //     return false;
-    //   }
-    // }
-    if (quotationData.laycanFrom == '' || quotationData.laycanFrom == undefined) {
-      toastMessage = 'Please add laycan From';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (quotationData.laycanTo == '' || quotationData.laycanTo == undefined) {
-      toastMessage = 'Please add laycan to';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (quotationData.expectedTimeOfDispatch == '' || quotationData.expectedTimeOfDispatch == undefined) {
-      toastMessage = 'Please add expected Time Of Dispatch ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (quotationData.expectedTimeOfArrival == '' || quotationData.expectedTimeOfArrival == undefined) {
-      toastMessage = 'Please add expected Time Of Arrival ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (quotationData.sumInsured == '' || quotationData.sumInsured == undefined || quotationData.sumInsured == null) {
-      toastMessage = 'Please add sum Insured ';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
-    if (quotationData?.insuranceType == 'Storage Insurance') {
+    if (quotationData.laycanFrom === '' || quotationData.laycanFrom === undefined) {
+      handleErrorToast('Please add laycan From');
+      return false;
+    } else if (quotationData.laycanTo === '' || quotationData.laycanTo === undefined) {
+      handleErrorToast('Please add laycan to');
+      return false;
+    } else if (quotationData.expectedTimeOfDispatch === '' || quotationData.expectedTimeOfDispatch === undefined) {
+      handleErrorToast('Please add expected Time Of Dispatch ');
+      return false;
+    } else if (quotationData.expectedTimeOfArrival === '' || quotationData.expectedTimeOfArrival === undefined) {
+      handleErrorToast('Please add expected Time Of Arrival ');
+      return false;
+    } else if (
+      quotationData.sumInsured == '' ||
+      quotationData.sumInsured === undefined ||
+      quotationData.sumInsured == null
+    ) {
+      handleErrorToast('Please add sum Insured ');
+      return false;
+    } else if (
+      quotationData?.insuranceType === storageInsuranceString ||
+      quotationData?.insuranceType === bothInsuranceString
+    ) {
       if (
-        quotationData.storageDetails.placeOfStorage == '' ||
-        quotationData.storageDetails.placeOfStorage == undefined ||
+        quotationData.storageDetails.placeOfStorage === '' ||
+        quotationData.storageDetails.placeOfStorage === undefined ||
         quotationData.storageDetails.placeOfStorage == null
       ) {
-        toastMessage = 'Please select place Of Storage ';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
-      if (
-        quotationData.storageDetails.periodOfInsurance == '' ||
-        quotationData.storageDetails.periodOfInsurance == undefined ||
+        handleErrorToast('Please select place Of Storage ');
+        return false;
+      } else if (
+        quotationData.storageDetails.periodOfInsurance === '' ||
+        quotationData.storageDetails.periodOfInsurance === undefined ||
         quotationData.storageDetails.periodOfInsurance == null
       ) {
-        toastMessage = 'Please add period Of Insurance   ';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
-      }
-      if (
-        quotationData.storageDetails.storagePlotAddress == '' ||
-        quotationData.storageDetails.storagePlotAddress == undefined ||
+        handleErrorToast('Please add period Of Insurance   ');
+        return false;
+      } else if (
+        quotationData.storageDetails.storagePlotAddress === '' ||
+        quotationData.storageDetails.storagePlotAddress === undefined ||
         quotationData.storageDetails.storagePlotAddress == null
       ) {
-        toastMessage = 'Please add storage Plot Address  ';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
-        }
+        handleErrorToast('Please add storage Plot Address  ');
+        return false;
       }
     }
     return true;
   };
-  const handleSave = async () => {
+
+  const handleSave = () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
-        let insuranceObj = { ...quotationData };
-        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * 10000000;
-        let obj = {
+        const insuranceObj = { ...quotationData };
+        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * constants.numberCrore;
+        const obj = {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
         };
-        let code = await dispatch(UpdateQuotation(obj));
+        dispatch(UpdateQuotation(obj));
       }
     } else {
-      let toastMessage = 'Insurance type is mandatory';
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
-      }
+      handleErrorToast('Insurance type is mandatory');
+      return false;
     }
   };
 
   const changeRoute = () => {
     if (validation()) {
       sessionStorage.setItem('letterId', insuranceData?._id);
-      if (quotationData.insuranceType == 'Marine Insurance') {
+      if (quotationData.insuranceType === marineInsuranceString) {
         Router.push('/agreement/OrderID/id');
-      } else if (quotationData.insuranceType == 'Storage Insurance') {
+      } else if (quotationData.insuranceType === storageInsuranceString) {
         Router.push('/agreement/storage');
       } else {
         Router.push('/agreement/both-type');
       }
     }
   };
-
-  const [insuranceType, setInsuranceType] = useState('Marine Insurance');
 
   return (
     <>
@@ -284,13 +268,12 @@ const Index = () => {
                         className={styles.radio}
                         inline
                         label="Marine Insurance"
-                        checked={quotationData.insuranceType == 'Marine Insurance' ? 'checked' : ''}
+                        checked={quotationData.insuranceType === marineInsuranceString ? 'checked' : ''}
                         name="group1"
                         type={type}
                         value="Marine Insurance"
                         onChange={(e) => {
-                          saveQuotationData('insuranceType', 'Marine Insurance');
-                          setInsuranceType('Marine Insurance');
+                          saveQuotationData('insuranceType', marineInsuranceString);
                         }}
                         id={`inline-${type}-1`}
                       />
@@ -298,13 +281,12 @@ const Index = () => {
                         className={styles.radio}
                         inline
                         label="Storage Insurance"
-                        checked={quotationData.insuranceType == 'Storage Insurance' ? 'checked' : ''}
+                        checked={quotationData.insuranceType === storageInsuranceString ? 'checked' : ''}
                         name="group1"
                         type={type}
                         value="Storage Insurance"
                         onChange={(e) => {
-                          saveQuotationData('insuranceType', 'Storage Insurance');
-                          setInsuranceType('Storage Insurance');
+                          saveQuotationData('insuranceType', storageInsuranceString);
                         }}
                         id={`inline-${type}-2`}
                       />
@@ -313,12 +295,11 @@ const Index = () => {
                         inline
                         label="Both"
                         name="group1"
-                        checked={quotationData.insuranceType == 'Marine & Storage Insurance' ? 'checked' : ''}
+                        checked={quotationData.insuranceType === bothInsuranceString ? 'checked' : ''}
                         type={type}
                         value="Marine & Storage Insurance"
                         onChange={(e) => {
-                          saveQuotationData('insuranceType', 'Marine & Storage Insurance');
-                          setInsuranceType('Both');
+                          saveQuotationData('insuranceType', bothInsuranceString);
                         }}
                         id={`inline-${type}-2`}
                       />
@@ -342,12 +323,11 @@ const Index = () => {
             </div>
             <div
               id="marineInsurance"
-              // className="collapse"
               aria-labelledby="marineInsurance"
               data-parent="#marineInsurance"
             >
               <div className={` ${styles.cardBody} card-body  border_color`}>
-                {quotationData.insuranceType == 'Marine Insurance' ? (
+                {quotationData.insuranceType === marineInsuranceString ? (
                   <>
                     <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
@@ -362,7 +342,7 @@ const Index = () => {
                               {Number(insuranceData?.order?.quantity)?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
                               })}{' '}
-                              MT
+                              {insuranceData?.order?.unitOfQuantity}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -389,7 +369,7 @@ const Index = () => {
                                 insuranceData,
                                 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
                                 '',
-                              )?.slice(0, 4)}
+                              )?.slice(0, constants.numberFour)}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -400,41 +380,20 @@ const Index = () => {
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
-                            <div className={styles.col_body}>
-                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
-                            </div>
+                            <div className={styles.col_body}>{portOfDischarge + `, India`}</div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 id="FormInsurance"
                                 name="lossPayee"
                                 onChange={(e) => {
                                   saveQuotationData(e.target.name, e.target.value);
                                 }}
-                                value={
-                                  quotationData?.lossPayee
-                                    ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
-                                }
+                                value={quotationData?.lossPayee}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                              >
-                                <option disabled selected>
-                                  Select an option
-                                </option>
-                                <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="NA">NA</option>
-                              </select>
-                              <label className={`${styles.label_heading} label_heading`}>
-                                Loss Payee
-                                {/* <strong className="text-danger">*</strong> */}
-                              </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                              ></input>
+                              <label className={`${styles.label_heading} label_heading`}>Loss Payee</label>
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -512,10 +471,10 @@ const Index = () => {
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
                               onFocus={(e) => {
-                                setIsFieldInFocus(true), (e.target.type = 'number');
+                                setIsFieldInFocus(true)((e.target.type = 'number'));
                               }}
                               onBlur={(e) => {
-                                setIsFieldInFocus(false), (e.target.type = 'text');
+                                setIsFieldInFocus(false)((e.target.type = 'text'));
                               }}
                               id="FormInsurance"
                               className={`${styles.input_field} input form-control`}
@@ -530,7 +489,6 @@ const Index = () => {
                                       maximumFractionDigits: 2,
                                     }) + ` Cr`
                               }
-                              // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
                                 saveQuotationData(e.target.name, e.target.value);
                               }}
@@ -603,7 +561,7 @@ const Index = () => {
                                 insuranceData,
                                 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
                                 '',
-                              )?.slice(0, 4)}
+                              )?.slice(0, constants.numberFour)}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -614,43 +572,21 @@ const Index = () => {
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div className={`${styles.col_header} label_heading`}>Port of Discharge</div>
-                            <div className={styles.col_body}>
-                              {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
-                            </div>
+                            <div className={styles.col_body}>{portOfDischarge + `, India`}</div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <div className="d-flex">
-                              <select
+                              <input
                                 name="lossPayee"
                                 onChange={(e) => {
                                   saveQuotationData(e.target.name, e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                value={
-                                  quotationData?.lossPayee
-                                    ? quotationData?.lossPayee
-                                    : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank
-                                }
-                              >
-                                <option selected disabled>
-                                  Select an option
-                                </option>
-                                {/* <option selected>
-                                  {insuranceData?.quotationRequest?.lossPayee}
-                                </option> */}
-                                <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                                <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
-                                <option value="NA">NA</option>
-                              </select>
+                                value={quotationData?.lossPayee}
+                              ></input>
                               <label className={`${styles.label_heading} label_heading`}>
                                 Loss Payee
-                                {/* <strong className="text-danger">*</strong> */}
                               </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
                             </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
@@ -658,9 +594,6 @@ const Index = () => {
                               <DateCalender
                                 name="laycanFrom"
                                 defaultDate={quotationData.laycanFrom}
-                                // defaultDate={
-                                //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')
-                                // }
                                 reset={reset}
                                 saveDate={saveDate}
                                 labelName="Laycan from"
@@ -677,9 +610,6 @@ const Index = () => {
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={quotationData.laycanTo}
-                                // defaultDate={
-                                //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')
-                                // }
                                 reset={reset}
                                 startFrom={dateStartFrom.laycan}
                                 saveDate={saveDate}
@@ -728,14 +658,17 @@ const Index = () => {
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
                               onFocus={(e) => {
-                                setIsFieldInFocus(true), (e.target.type = 'number');
+                                setIsFieldInFocus(true);
+                                e.target.type = 'number';
                               }}
                               onBlur={(e) => {
-                                setIsFieldInFocus(false), (e.target.type = 'text');
+                                setIsFieldInFocus(false);
+                                e.target.type = 'text';
                               }}
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
+                              onWheel={(event) => event.currentTarget.blur()}
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
@@ -743,7 +676,6 @@ const Index = () => {
                                       maximumFractionDigits: 2,
                                     }) + ` Cr`
                               }
-                              // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                               required
                             />
@@ -761,28 +693,19 @@ const Index = () => {
                         <h5>Storage Details</h5>
                         <Row>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                            <div className="d-flex">
-                              <select
-                                name="storageDetails.placeOfStorage"
-                                onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
-                                value={quotationData.storageDetails.placeOfStorage}
-                                className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              >
-                                <option>Select an option</option>
-
-                                <option value="Visakhapatnam, AP, India">Visakhapatnam, AP, India</option>
-                                <option value="Mumbai, India">Mumbai, India</option>
-                              </select>
-                              <label className={`${styles.label_heading} label_heading`}>
-                                Place of Storage
-                                <strong className="text-danger">*</strong>
-                              </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+                              value={quotationData.storageDetails.placeOfStorage}
+                              name="storageDetails.placeOfStorage"
+                              onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
+                            />
+                            <label className={`${styles.label_heading} label_heading`}>
+                              Place of Storage
+                              <strong className="text-danger">*</strong>
+                            </label>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <input
@@ -796,7 +719,7 @@ const Index = () => {
                               onChange={(e) => saveQuotationData(e.target.name, e.target.value)}
                             />
                             <label className={`${styles.label_heading} label_heading`}>
-                              {quotationData?.insuranceType == 'Marine & Storage Insurance'
+                              {quotationData?.insuranceType === bothInsuranceString
                                 ? 'Period of Storage Insurance'
                                 : 'Period of Insurance (days)'}
                               <strong className="text-danger">*</strong>
@@ -841,7 +764,9 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      <div className={`${styles.req_letter}`}>
+        <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      </div>
     </>
   );
 };

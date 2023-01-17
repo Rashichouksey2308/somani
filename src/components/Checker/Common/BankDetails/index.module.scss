@@ -1,0 +1,79 @@
+@import '../../../styles/Core/config';
+
+.add_btn {
+  padding: 12px 91px;
+  border: none;
+  background: #3687e8 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  font: normal normal bold 20px/25px Helvetica Neue;
+  letter-spacing: 0px;
+}
+.outline_btn {
+  border: 3px solid #3687e8;
+  background-color: white;
+  padding: 12px 77px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #3687e8;
+}
+.action_image {
+  width: 40px;
+  height: 40px;
+  background: #c3c3c31f;
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+}
+
+.main {
+  margin-bottom: 26px;
+  border-radius: 6px !important;
+
+  .head_container {
+    border-bottom: 2px solid #cad6e6;
+    padding: 25px 35px !important;
+    height: 80px;
+    cursor: pointer;
+
+    .heading {
+      color: #3687e8;
+      font-weight: bold;
+      font-size: 22px;
+      text-transform: capitalize;
+      line-height: 27px;
+    }
+
+    .status_heading {
+      letter-spacing: 0.53px;
+      color: #00000080;
+      font-size: 16px;
+      line-height: 17px;
+      font-weight: 500;
+
+      .active {
+        color: #43c34d;
+        font-size: 22px;
+        line-height: 27px;
+        font-weight: bold;
+        margin-left: 12px;
+      }
+    }
+
+    span {
+      font-size: 45px;
+      color: #3687e8;
+      font-weight: normal;
+      line-height: 20px;
+
+      @include respond(lg-desktop) {
+        font-size: 35px;
+      }
+    }
+  }
+}
+.highlighted_field {
+  background-color: yellow;
+  padding: 5px;
+  color: black;
+}

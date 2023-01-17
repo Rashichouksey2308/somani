@@ -4,7 +4,6 @@ import moment from 'moment';
 import _get from 'lodash/get';
 
 function Index({ auditorsDetails, companyData }) {
-
   const latestYearData = auditorsDetails && auditorsDetails[0];
 
   const previousYearData = auditorsDetails && auditorsDetails[1];
@@ -131,14 +130,13 @@ function Index({ auditorsDetails, companyData }) {
                     </td>
 
                     <td
-                      className={`${
-                        previousYearData?.regstrnNum?.trim() === previousYearData?.regstrnNum?.trim()
-                          ? null
-                          : styles.danger
-                      }`}
+                      // className={`${
+                      //   previousYearData?.regstrnNum?.trim() === previousYearData?.regstrnNum?.trim()
+                      //     ? null
+                      //     : styles.danger
+                      // }`}
                     >
-                      {`${
-                        previousYearData?.regstrnNum?.trim() !== previousYearData?.regstrnNum?.trim()
+                      {`${ lastYearData?.financialEndDate
                           ? moment(lastYearData?.financialEndDate).format('YYYY')
                           : ''
                       }`}
