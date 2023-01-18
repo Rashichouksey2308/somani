@@ -178,6 +178,9 @@ export default {
   getMasterGoNoGoQueueRecords: '/gng-master',
   getMasterGoNoGoSingleRecord: '/gng-master',
   createGoNoGoMaster: '/gng-master',
+  editDocumentMaster: '/document-master',
+  editCountryMaster: '/country-master',
+  editCurrencyMaster: '/currency-master',
 
   //Checker
   getUserDetails: '/user-master/user',

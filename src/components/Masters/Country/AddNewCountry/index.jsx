@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import styles from '../../../styles/Custom/form.module.scss';
 import { useDispatch } from 'react-redux';
 import { CreateCountryMaster } from 'redux/masters/action';
+import {editCountryMaster} from 'redux/country/action'
 import { toast } from 'react-toastify';
-function Index() {
+function Index(props) {
     const dispatch = useDispatch();
-    const [countryMasterDetails, setCountryMasterDetails] = useState({
-        Country: '',
-        Status: false,
-    });
+ 
+    const {editCountry, setCountryMasterDetails, countryMasterDetails}=props;
     const handleCountryDetailsChange = (e) => {
         setCountryMasterDetails({
             ...countryMasterDetails,
@@ -19,8 +18,15 @@ function Index() {
         if (!validate()) return;
         let _countryMasterDetails = {...countryMasterDetails};
         _countryMasterDetails?.Status ? _countryMasterDetails.Status = 'Not Approved' : _countryMasterDetails.Status = 'Approved';
-        dispatch(CreateCountryMaster(_countryMasterDetails));
+        if(!editCountry){
+            dispatch(CreateCountryMaster(_countryMasterDetails));
+        } else {
+            dispatch(editCountryMaster(_countryMasterDetails));
+        }
+
+       
     }
+
     const validate = () => {
         let toastMessage = '';
         if (countryMasterDetails.Country == '' ||
