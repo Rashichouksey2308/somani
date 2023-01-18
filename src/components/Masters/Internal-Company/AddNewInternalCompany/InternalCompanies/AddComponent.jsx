@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './index.module.scss'
+import styles from '../index.module.scss'
 import Image from 'next/image'
 
 function AddComponent({companyTypeRadio, keyAddressData, handleCancel, handleChange, handleClick, showEditAddress, editData, index, setShowEditAddress, setShowAddress}) {

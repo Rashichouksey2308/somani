@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './index.module.scss'
+import styles from '../index.module.scss'
 import Image from 'next/image'
 
 function BankComponent({companyTypeRadio, bankData, handleBankCancel, handleBankChange, handleBankClick, index, editBank, setShowEditBank, setShowBank, showEditBank}) {

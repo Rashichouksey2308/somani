@@ -6,6 +6,7 @@ import { setDynamicName, setPageName } from '../../../src/redux/userData/action'
 import Table from '../../../src/components/Table';
 import Image from 'next/image';
 import { GetMasterInternalCompaniesQueueRecords, FilterInternalCompaniesQueue } from '../../../src/redux/masters/action';
+import { GetInternalCompanies } from '../../../src/redux/internalCompanies/action'
 import SearchAndFilter from '../../../src/components/SearchAndFilter';
 import _, { isUndefined } from 'lodash';
 import { MASTERS_INTERNAL_COMPANIES_MASTER_QUEUE } from '../../../src/data/constant';
@@ -207,9 +208,12 @@ function Index() {
     };
     const handleRoute = (InternalCompaniesMasterData) => {
         sessionStorage.setItem('InternalCompaniesMasterId', InternalCompaniesMasterData?._id);
-        sessionStorage.setItem('InternalCompaniesMasterModuleName', InternalCompaniesMasterData?.Module);
-        dispatch(setDynamicName(InternalCompaniesMasterData?.Module));
-        Router.push('/masters/internal-companies/id');
+        // sessionStorage.setItem('InternalCompaniesMasterModuleName', InternalCompaniesMasterData?.Module);
+        // dispatch(setDynamicName(InternalCompaniesMasterData?.Module));
+        // Router.push('/masters/internal-companies/id');
+        // sessionStorage.setItem('internalCompanyId', id);
+        dispatch(GetInternalCompanies(`?internalCompanyId=${InternalCompaniesMasterData?._id}`))
+        Router.push('/masters/internal-companies/add-internal-company');
     };
     return (
         <div className="container-fluid p-0 border-0">
