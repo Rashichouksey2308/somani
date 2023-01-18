@@ -1457,9 +1457,62 @@ body.light-mode .termsheet_main .termsheet_card {
 body.dark-mode .termsheet_main .termsheet_card {
   background: #171e27;
   border-radius: 5px !important;
+  border: 0.1px solid #434e61;
 }
 
 body.dark-mode .sub_header {
   background-color: #232936 !important;
   border-color: #434e61 !important;
+}
+body.dark-mode .lc_main {
+  background: #293141;
+}
+body.light-mode .lc_main .lc_card {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0px 3px 12px #e5e7ed;
+  border: 0.1px solid #d2d7e5 !important;
+}
+
+body.dark-mode .lc_main .lc_card {
+  background: #171e27;
+  border-radius: 5px !important;
+  border: 0.1px solid #434e61;
+}
+
+body.dark-mode .sub_header {
+  background-color: #232936 !important;
+  border-color: #434e61 !important;
+}
+
+body.light-mode .lc_main .lc_card .label {
+  font-size: 20px;
+  border-top: 2px solid lightgray;
+  border-right: 2px solid lightgray;
+  color: #111111;
+}
+
+body.dark-mode .lc_main .lc_card .label {
+  font-size: 20px;
+  border-top: 1px solid #434e61;
+  border-right: 1px solid #434e61;
+}
+
+body.light-mode .lc_main .lc_card .enhanced_label {
+  font-size: 20px;
+  border-right: 2px solid lightgray;
+  color: #111111;
+}
+
+body.dark-mode .lc_main .lc_card .enhanced_label {
+  font-size: 20px;
+  border-right: 1px solid #434e61;
+}
+
+body.light-mode .lc_main .lc_card .label_value {
+  border-top: 2px solid lightgray;
+}
+
+body.dark-mode .lc_main .lc_card .label_value {
+  border-top: 1px solid #434e61;
 }
