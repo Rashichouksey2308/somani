@@ -8,7 +8,9 @@ import Cookies from 'js-cookie'
  */
 export const setAuthenticationCookie = async (data) => {
   const {
-    jwtAccessToken, refreshToken, user: { userId },
+    jwtAccessToken,
+    refreshToken,
+    user: { userId }
   } = data
 
   const encodedString = Buffer.from(`${userId}#${refreshToken}#${jwtAccessToken}`).toString('base64')

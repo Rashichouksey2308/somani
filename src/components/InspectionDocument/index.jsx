@@ -9,6 +9,9 @@ import moment from 'moment';
 import TermsheetPopUp from '../TermsheetPopUp';
 import { ShareDocument } from 'redux/shareDoc/action';
 import { emailValidation } from 'utils/helper';
+import { dropDownOptionHandler, handleErrorToast, objectValidator, returnDocFormat } from '@/utils/helpers/global';
+import { getDocuments } from '../../redux/masters/action';
+import { modulesDropDown } from '@/utils/jsons/dropdownOptions.json';
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc, isOpen, isSupplier }) => {
   const dispatch = useDispatch();
@@ -24,12 +27,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
 
   const { documentsFetched } = useSelector((state) => state.review);
 
- 
-
   const [filteredDoc, setFilteredDoc] = useState([]);
 
-  const [moduleSelected, setModuleSelected] = useState('LeadOnboarding&OrderApproval');
-
+  const [moduleSelected, setModuleSelected] = useState(module);
+ const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const [sharedDoc, setSharedDoc] = useState({
     company: '',
     order: '',
@@ -40,26 +41,48 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       receiver: '',
     },
   });
+ useEffect(() => {
+    
+    dispatch(getDocuments());
+  }, []);
+  const fetchData = async () => {
+    sessionStorage.setItem('DocRefetchId', orderId);
 
-
-  useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => {
-      return doc.module == moduleSelected;
-    });
-    setFilteredDoc(tempArray);
     dispatch(GetDocuments(`?order=${orderId}`));
-  }, [dispatch, orderId, moduleSelected]);
+  };
   useEffect(() => {
-    const tempArray = documentsFetched?.documents
-      ?.slice()
-      .filter((doc) => {
-        return doc.module === moduleSelected;
-      })
-      .map((obj) => ({ ...obj, moving: false }));
+    if (documentsFetched) {
+      if (isSearch) {
+        const tempArray = documentsFetched?.documents?.filter((doc) => {
+          if (doc.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+            return doc;
+          }
+        });
 
-   
-    setFilteredDoc(tempArray);
-  }, [orderId, documentsFetched]);
+        setFilteredDoc(tempArray);
+        return;
+      }
+      const tempArray = JSON.parse(JSON.stringify(documentsFetched?.documents)).filter((doc) => {
+        return doc.module == moduleSelected;
+      });
+      tempArray?.forEach((obj) => (obj.moving = false));
+
+      setFilteredDoc(tempArray);
+    }
+  }, [dispatch, orderId, documentsFetched]);
+  // useEffect(() => {
+  //   const tempArray = documentsFetched?.documents
+  //     ?.slice()
+  //     .filter((doc) => {
+  //       return doc.module === moduleSelected;
+  //     })
+  //     .map((obj) => ({ ...obj, moving: false }));
+
+  //   setFilteredDoc(tempArray);
+  // }, [orderId, documentsFetched]);
+  useEffect(() => {
+    fetchData();
+  }, [orderId, moduleSelected]);
 
   const DocDlt = (index) => {
     let tempArray = filteredDoc;
@@ -83,35 +106,31 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   };
   const [openDropdown, setDropdown] = useState(false);
 
-  const uploadDocumentHandler = (e) => {
+  const uploadDocumentHandler = async (e) => {
     e.preventDefault();
     if (newDoc.document === null) {
-      let toastMessage = 'please select A Document';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please select A Document')
     } else if (newDoc.name === '') {
-      let toastMessage = 'please provide a valid document name';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('please provide a valid document name')
     } else {
       const fd = new FormData();
- 
+
       fd.append('document', newDoc.document);
-      fd.append('module', newDoc.module);
+      fd.append('module', module);
       fd.append('order', orderId);
-      // fd.append('type', newDoc.type))
       fd.append('name', newDoc.name);
 
-      dispatch(AddingDocument(fd));
-
-      setNewDoc({
-        document: null,
-        order: orderId,
-        name: '',
-        module: module ? module : 'Agreements&Insurance&LC&Opening',
-      });
+      let code = await   dispatch(AddingDocument(fd));
+      if(code==200){
+        setNewDoc({
+                document: null,
+                order: orderId,
+                name: '',
+                module: module ? module : 'Agreements&Insurance&LC&Opening',
+              });
+       await  dispatch(GetDocuments(`?order=${orderId}`));
+      }
+      
     }
   };
 
@@ -142,6 +161,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       module: module,
     });
   };
+  const [isSearch, setIsSearch] = useState(false);
+
+  const [searchTerm, setSearchTerms] = useState('');
 
   const filterDocBySearch = (val) => {
     if (!val.length >= 3) return;
@@ -150,6 +172,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
         return doc;
       }
     });
+    setIsSearch(true);
     setFilteredDoc(tempArray);
   };
 
@@ -168,7 +191,6 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       if (data?.code == 200) {
         close();
       }
-  
     } else {
       let toastMessage = 'please provide a valid email';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -223,13 +245,13 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     </td>
 
                     <td>
-                      <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
+                      { lcDoc?.lcDraftDoc?.documentName ? returnDocFormat(lcDoc?.lcDraftDoc?.documentName ) : lcDoc?.lcDraftDoc?.name ? returnDocFormat(lcDoc?.lcDraftDoc?.name ) : null}
                     </td>
                     <td className={styles.doc_row}>
-                      {lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate ? moment(d).format('DD-MM-YYYY,HH:mm A') : ''}
+                      {lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate ? moment(d).format('DD-MM-YYYY,HH:mm A') : lcDoc?.lcDraftDoc?.documentDate ? moment(lcDoc?.lcDraftDoc?.documentDate).format('DD-MM-YYYY,HH:mm A') : ''}
                     </td>
                     <td colSpan={2}>
-                      {lcDoc && lcDoc.lcDraftDoc === null ? (
+                      {lcDoc && lcDoc.lcDraftDoc === null ||lcDoc.lcDraftDoc.name === null ? (
                         <>
                           <div className={styles.uploadBtnWrapper}>
                             <input
@@ -245,7 +267,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         <div
                           className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
                         >
-                          <span>{lcDoc?.lcDraftDoc?.name}</span>
+                          <span>{lcDoc?.lcDraftDoc?.name ?? lcDoc?.lcDraftDoc?.documentName}</span>
                           <img
                             onClick={(e) =>
                               setLcDoc({
@@ -340,172 +362,20 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
-                      {/* {module === 'Loading-Transit-Unloading' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="CertificateOfOrigin">
-                            Certificate of Origin{' '}
-                          </option>
-                          <option value="CertificateOfQuality">
-                            {' '}
-                            Certificate of Quality
-                          </option>
-                          <option value="CertificateOfWeight ">
-                            {' '}
-                            Certificate of Weight
-                          </option>
-                          <option value="PlotInspectionReport">
-                            {' '}
-                            Plot Inspection Report
-                          </option>
-                          <option value="BL "> BL</option>
-                          <option value="ContainerNoList ">
-                            {' '}
-                            Container No. List
-                          </option>
-                          <option value="PackingList "> Packing list</option>
-                          <option value="BLAcknowledgmentCopy">
-                            {' '}
-                            BL Acknowledgment Copy
-                          </option>
-                          <option value="ForwardSalesContract ">
-                            {' '}
-                            Forward Sales Contract
-                          </option>
-                          <option value="CoalImportRegistrationCertificate">
-                            {' '}
-                            Coal Import Registration Certificate
-                          </option>{' '}
-                          <option value="CIMSPaymentReceipt ">
-                            {' '}
-                            CIMS Payment Receipt
-                          </option>{' '}
-                          <option value="IGMCopy "> IGM Copy</option>{' '}
-                        </>
-                      ) : (
-                        <>
-                          <option selected disabled>
-                            Select an option
-                          </option>
-
-                          <option value="LcDraft">LC Draft </option>
-
-                          <option value="lCAmmendmentDraft">
-                            {' '}
-                            LC Ammendment Draft
-                          </option>
-                          <option value="vesselCertificate">
-                            {' '}
-                            Vessel certificate
-                          </option>
-                          <option value="vesselCertificateContainerList">
-                            {' '}
-                            Vessel Certificate, Container List
-                          </option>
-                          <option value="policyDocumentMarine">
-                            {' '}
-                            Policy Document - Marine
-                          </option>
-                          <option value="policyDocumentStorage">
-                            {' '}
-                            Policy Document - Storage
-                          </option>
-                          <option value="policyDocumentMarine">
-                            {' '}
-                            Policy Document - Marine
-                          </option>
-                          <option value="policyDocumentStorage">
-                            {' '}
-                            Policy Document - Storage
-                          </option>
-                        </>
-                      )} */}
-                      {module === 'LeadOnboarding&OrderApproval' ? (
-                        <>
-                          {' '}
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="Certificate of Incorporation">Certificate of Incorporation</option>
-                          <option value="IEC Certificate">IEC Certificate</option>
-                          <option value="Business Registration Certificate">Business Registration Certificate </option>
-                          <option value="PAN Card">PAN Card</option>
-                          <option value="GST Certificate">GST Certificate</option>
-                          <option value="Bank Reference Letter">Bank Reference Letter</option>
-                          <option value="Financial Year">Financial Year </option>
-                        </>
-                      ) : module === 'Loading-Transit-Unloading' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="Certificate Of Origin">Certificate of Origin </option>
-                          <option value="Certificate Of Quality"> Certificate of Quality</option>
-                          <option value="Certificate Of Weight"> Certificate of Weight</option>
-                          <option value="Plot Inspection Report"> Plot Inspection Report</option>
-                          <option value="BL"> BL</option>
-                          <option value="Container No List "> Container No. List</option>
-                          <option value="Packing List "> Packing list</option>
-                          <option value="BL Acknowledgment Copy"> BL Acknowledgment Copy</option>
-                          <option value="Forward Sales Contract "> Forward Sales Contract</option>
-                          <option value="Coal Import Registration Certificate">
-                            {' '}
-                            Coal Import Registration Certificate
-                          </option>{' '}
-                          <option value="CIMS Payment Receipt "> CIMS Payment Receipt</option>{' '}
-                          <option value="IGM Copy "> IGM Copy</option>{' '}
-                        </>
-                      ) : module === 'Agreements&Insurance&LC&Opening' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="Lc Draft">LC Draft</option>
-
-                          <option value="LC Ammendment Draft"> LC Ammendment Draft</option>
-                          <option value="Vessel Certificate"> Vessel certificate</option>
-                          <option value="Vessel Certificate Container List"> Vessel Certificate, Container List</option>
-                          <option value="Policy Document Marine"> Policy Document - Marine</option>
-                          <option value="Policy Document Storage"> Policy Document - Storage</option>
-                        </>
-                      ) : module === 'CustomClearanceAndWarehousing' ? (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="BOE Provisional"> BOE Provisional</option>
-                          <option value="BOE Final - in case of final assessment.">
-                            {' '}
-                            BOE Final - in case of final assessment.
-                          </option>
-                          <option value="Duty Paid Challan "> Duty Paid Challan</option>
-                          <option value="PD Bond"> PD Bond</option>
-                          <option value="BOE Final"> BOE Final</option>
-                          <option value="BOE Provisional "> BOE Provisional</option>
-                          <option value="BOE Final - in case of final assessment. ">
-                            {' '}
-                            BOE Final - in case of final assessment.
-                          </option>
-                          <option value="PD Bond"> PD Bond</option>
-                          <option value="Duty Paid Challan "> Duty Paid Challan</option>
-                          <option value="Statements of Facts"> Statements of Facts</option>
-                          <option value="Discharge Confirmation"> Discharge Confirmation</option>
-                          <option value="BOE Final"> BOE Final</option>
-                        </>
-                      ) : (
-                        <>
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-
-                          <option value="RR"> RR</option>
-                          <option value="eWay Bill"> eWay Bill</option>
-                        </>
-                      )}
+                      {' '}
+                      <option value="" disabled>
+                        Select an option
+                      </option>
+                      {getDocumentsMasterData
+                          ?.filter((val, index) => {
+                          
+                            if (module.includes(val.Sub_Module)) {
+                              return val;
+                            }
+                          })
+                          ?.map((val, index) => {
+                            return <option value={`${val.Document_Name}`}>{val.Document_Name}</option>;
+                          })}
                       <option value="others">Others</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
@@ -516,29 +386,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     />
                   </div>
                 </Form.Group>
-                {/* <Form.Group className={styles.form_group}> */}
-                {/* <input
-                    onChange={(e) =>
-                      setNewDoc({ ...newDoc, name: e.target.value })
-                    }
-                    id="otherDocName"
-                    className={`${styles.value} input form-control`}
-                    type="text"
-                    required
-                    disabled={manualDocModule}
-                  />
-                  <Form.Label className={`${styles.label} label_heading`}>
-                    Please Specify Document Name
-                  </Form.Label>
-                </Form.Group>
-                <div className={styles.uploadBtnWrapper}>
-                  <button
-                    onClick={(e) => uploadDocumentHandler(e)}
-                    className={`${styles.upload_button} btn`}
-                    // disabled={!editInput}
-                  >
-                    Upload
-                  </button> */}
+               
                 <Form.Group className={`${styles.form_group}`}>
                   <input
                     id="otherDocName"
@@ -565,17 +413,20 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
               >
                 <div className="d-flex align-items-center">
                   <select
-                    onChange={(e) => setModuleSelected(e.target.value)}
+                   value={moduleSelected}
+                   onChange={(e) => {
+                    setSearchTerms('');
+                    setIsSearch(false);
+                    setModuleSelected(e.target.value);
+                  }}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
                     <option selected disabled>
                       Select an option
                     </option>
-                    <option value="LeadOnboarding&OrderApproval">Lead Onboarding &amp; Order Approval</option>
-                    <option value="Agreements&Insurance&LC&Opening">Agreements, Insurance &amp; LC Opening</option>
-                    <option value="Loading-Transit-Unloading">Loading-Transit-Unloading</option>
-                    <option value="CustomClearanceAndWarehousing">Custom Clearance And Warehousing</option>
-                    <option value="Others">Others</option>
+                    {modulesDropDown.map((item) => (
+                  <option value={item.value}>{item.name}</option>
+                ))}
                   </select>
                   <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
                 </div>
@@ -584,7 +435,11 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                   <input
                     className={`${styles.searchBar} statusBox border_color input form-control`}
                     placeholder="Search"
-                    onChange={(e) => filterDocBySearch(e.target.value)}
+                    onChange={(e) => {
+                      setSearchTerms(e.target.value);
+                      filterDocBySearch(e.target.value);
+                    }}
+                    value={searchTerm}
                   ></input>
                 </div>
               </div>
@@ -621,17 +476,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           <tr key={index} className="uploadRowTable">
                             <td className={`${styles.doc_name}`}>{document.name}</td>
                             <td>
-                              {document.originalName.toLowerCase().endsWith('.xls') ||
-                              document.originalName.toLowerCase().endsWith('.xlsx') ? (
-                                <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                              ) : document.originalName.toLowerCase().endsWith('.doc') ||
-                                document.originalName.toLowerCase().endsWith('.docx') ? (
-                                <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                              ) : (
-                                <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                              )}
+                             {returnDocFormat(document.originalName)}
                             </td>
-                            <td className={styles.doc_row}>{document.date}</td>
+                            <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm A')}</td>
                             <td className={styles.doc_row}>
                               {document.uploadedBy?.fName} {document.uploadedBy?.lName}
                             </td>
@@ -641,14 +488,15 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                             </td>
                             <td colSpan="2">
                               <img
-                                onClick={(e) => {
+                                onClick={async (e) => {
                                   DocDlt(index);
-                                  dispatch(
+                                 await   dispatch(
                                     DeleteDocument({
                                       orderDocumentId: documentsFetched._id,
                                       name: document.name,
                                     }),
                                   );
+                                await  dispatch(GetDocuments(`?order=${orderId}`));
                                 }}
                                 src="/static/delete.svg"
                                 className={`${styles.delete_image} mr-3`}
@@ -656,7 +504,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                               />
                               <img
                                 src="/static/upload.svg"
-                                className="mr-3"
+                                className={`${styles.upload} mr-3`}
                                 alt="Share"
                                 onClick={() => {
                                   openbar();
@@ -680,14 +528,15 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                                   <div className="d-flex align-items-center">
                                     <select
                                       value={moduleSelected}
-                                      onChange={(e) => {
-                                        dispatch(
+                                      onChange={async (e) => {
+                                       await  dispatch(
                                           changeModuleDocument({
                                             orderDocumentId: documentsFetched._id,
                                             name: document.name,
                                             module: e.target.value,
                                           }),
                                         );
+                                        await fetchData();
                                         DocDlt(index);
                                       }}
                                       className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
@@ -696,39 +545,11 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                                         paddingRight: '30px',
                                       }}
                                     >
-                                      <option
-                                        disabled={moduleSelected === 'LeadOnboarding&OrderApproval'}
-                                        value="LeadOnboarding&OrderApproval"
-                                      >
-                                        Lead Onboarding &amp; Order Approval
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'}
-                                        value="Agreements&Insurance&LC&Opening"
-                                      >
-                                        Agreements, Insurance &amp; LC Opening
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'Loading-Transit-Unloading'}
-                                        value="Loading-Transit-Unloading"
-                                      >
-                                        Loading-Transit-Unloading
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'customClearanceAndWarehousing'}
-                                        value="customClearanceAndWarehousing"
-                                      >
-                                        Custom Clearance And Warehousing
-                                      </option>
-                                      <option
-                                        disabled={moduleSelected === 'PaymentsInvoicing&Delivery'}
-                                        value="PaymentsInvoicing&Delivery"
-                                      >
-                                        Payments Invoicing & Delivery
-                                      </option>
-                                      <option disabled={moduleSelected === 'Others'} value="Others">
-                                        Others
-                                      </option>
+                                     {modulesDropDown.map((item) => (
+                                        <option disabled={moduleSelected === item.value} value={item.value}>
+                                          {item.name}
+                                        </option>
+                                      ))}
                                     </select>
                                     <img
                                       className={`${styles.arrow2} img-fluid`}
@@ -742,105 +563,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           </tr>
                         );
                       }
-                    })}
-                  {/* {documentsFetched &&
-                    documentsFetched?.documents?.map((document, index) => {
-                      if (document.deleted) {
-                        return null
-                      } else if (document.module === documentsDropDownFilter) {
-                        return (
-                          <tr key={index} className="uploadRowTable">
-                            <td className={`${styles.doc_name}`}>
-                              {document.name}
-                            </td>
-                            <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
-                            </td>
-                            <td className={styles.doc_row}>{document.date}</td>
-                            <td className={styles.doc_row}>
-                              {document.uploadedBy?.fName}{' '}
-                              {document.uploadedBy?.lName}
-                            </td>
-                            <td>
-                              <span
-                                className={`${styles.status} ${styles.approved}`}
-                              ></span>
-                              {document?.verification?.status}
-                            </td>
-                            <td colSpan="2">
-                              <img
-                                onClick={() =>
-                                  dispatch(
-                                    DeleteDocument({
-                                      orderDocumentId: documentsFetched._id,
-                                      name: document.name,
-                                    }),
-                                  )
-                                }
-                                src="/static/delete.svg"
-                                className={`${styles.delete_image} img-fluid mr-3`}
-                                alt="Bin"
-                              />
-                              <img
-                                src="/static/upload.svg"
-                                className="img-fluid mr-3"
-                                alt="Share"
-                                onClick={()=>{
-                                  dispatch(ViewDocument({path: document.path,
-                                    orderId: documentsFetched._id}))
-                                }}
-                              />
-                              <img
-                                src="/static/drive_file.svg"
-                                className={`${styles.edit_image} img-fluid mr-3`}
-                                alt="Share"
-                              />
-                            </td>
-                          </tr>
-                        )
-                      } else {
-                        return null
-                      }
-                    })} */}
-                  {/* <tr className="table_row">
-                    <td className={styles.doc_name}>Container No. List</td>
-                    <td>
-                      <img
-                        src="/static/pdf.svg"
-                        className={`${styles.pdfImage} img-fluid`}
-                        alt="Pdf"
-                      />
-                    </td>
-                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                    <td className={styles.doc_row}>Buyer</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Verified
-                    </td>
-                    <td colSpan="2">
-                      <img
-                        src="/static/delete.svg"
-                        className={`${styles.delete_image} img-fluid mr-3`}
-                        alt="Bin"
-                      />
-                      <img
-                        src="/static/upload.svg"
-                        className="img-fluid mr-3"
-                        alt="Share"
-                      />
-                      <img
-                        src="/static/drive_file.svg"
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        alt="Share"
-                      />
-                    </td>
-                  </tr> */}
+                    })}                
                 </tbody>
               </table>
             </div>

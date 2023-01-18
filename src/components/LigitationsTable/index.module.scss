@@ -92,16 +92,26 @@
         .image_arrow {
           opacity: 0.7;
           height: 20px;
-          transform: rotate(-90deg);
+          // transform: rotate(-90deg);
           @include respond(lg-desktop) {
             height: 15px;
           }
         }
+        
+      }
+      &[aria-expanded='true'] {
+        .image_arrow {
+          transform: rotate(90deg);
+        }
+      }
+      &[aria-expanded='false'] {
+        .image_arrow {
+          transform: rotate(-90deg);
+        }
       }
     }
-
     .cardBody_Tribunals {
-      height: 300px;
+      max-height: 300px;
       overflow-y: auto;
       overflow-x: auto;
       padding: 0px;
@@ -114,91 +124,99 @@
       @include respond(phone) {
         width: calc(100vw - 60px);
       }
-
-      table {
-        overflow-y: scroll;
-        padding-right: 15px !important;
-        padding-left: 15px !important;
-        @include respond(md-desktop) {
+      .table_scroll_outer {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        .table_scroll_inner {
+          display: table-cell;
           overflow-x: auto;
-        }
-        @include respond(sm-desktop) {
-          overflow-x: auto;
-        }
-        @include respond(phone) {
-          overflow-x: auto;
-        }
-
-        thead {
-          tr {
-            th {
-              font-weight: bold;
-              font-size: 15px;
-              color: #3687e8;
-              height: 67px;
-              vertical-align: middle;
-              background: #f3f4f7;
-              white-space: nowrap;
-
-              &:first-child {
-                padding-left: 15px;
-              }
-
-              @include respond(lg-desktop) {
-                height: 50px;
-                font-size: 14px;
-                line-height: 1.2;
-              }
-              @include respond(sm-desktop) {
-                font-size: 13px;
-              }
-              @include respond(phone) {
-                font-size: 12px;
-              }
+          table {
+            overflow-y: scroll;
+            padding-right: 15px !important;
+            padding-left: 15px !important;
+            @include respond(md-desktop) {
+              overflow-x: auto;
+            }
+            @include respond(sm-desktop) {
+              overflow-x: auto;
+            }
+            @include respond(phone) {
+              overflow-x: auto;
             }
 
-            td {
-              font-weight: bold;
-              font-size: 15px;
-              color: #3687e8;
-              height: 67px;
-              background: #f3f4f7;
+            thead {
+              tr {
+                th {
+                  font-weight: bold;
+                  font-size: 15px;
+                  color: #3687e8;
+                  height: 67px;
+                  vertical-align: middle;
+                  background: #f3f4f7;
+                  white-space: nowrap;
 
-              &:first-child {
-                padding-left: 15px;
-              }
+                  &:first-child {
+                    padding-left: 15px;
+                  }
 
-              @include respond(lg-desktop) {
-                font-size: 14px;
-                line-height: 15px;
-              }
-              @include respond(sm-desktop) {
-                padding: 15px 10px;
-              }
-              @include respond(phone) {
-                font-size: 12px !important;
-                padding: 10px;
-              }
-            }
+                  @include respond(lg-desktop) {
+                    height: 50px;
+                    font-size: 14px;
+                    line-height: 1.2;
+                  }
+                  @include respond(sm-desktop) {
+                    font-size: 13px;
+                  }
+                  @include respond(phone) {
+                    font-size: 12px;
+                  }
+                }
 
-            td {
-              font-size: 19px;
+                td {
+                  font-weight: bold;
+                  font-size: 15px;
+                  color: #3687e8;
+                  height: 67px;
+                  background: #f3f4f7;
 
-              &:first-child {
-                padding-left: 15px;
-              }
+                  &:first-child {
+                    padding-left: 15px;
+                  }
 
-              @include respond(md-desktop) {
-                font-size: 17px !important;
-                padding: 18px 10px;
-              }
-              @include respond(sm-desktop) {
-                font-size: 15px !important;
-                padding: 15px 10px;
-              }
-              @include respond(phone) {
-                font-size: 12px !important;
-                padding: 10px;
+                  @include respond(lg-desktop) {
+                    font-size: 14px;
+                    line-height: 15px;
+                  }
+                  @include respond(sm-desktop) {
+                    padding: 15px 10px;
+                  }
+                  @include respond(phone) {
+                    font-size: 12px !important;
+                    padding: 10px;
+                  }
+                }
+
+                td {
+                  font-size: 19px;
+
+                  &:first-child {
+                    padding-left: 15px;
+                  }
+
+                  @include respond(md-desktop) {
+                    font-size: 17px !important;
+                    padding: 18px 10px;
+                  }
+                  @include respond(sm-desktop) {
+                    font-size: 15px !important;
+                    padding: 15px 10px;
+                  }
+                  @include respond(phone) {
+                    font-size: 12px !important;
+                    padding: 10px;
+                  }
+                }
               }
             }
           }

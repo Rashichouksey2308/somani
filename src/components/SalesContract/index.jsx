@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import styles from './index.module.scss';
+import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import GrowInput from '../GrowInput';
+import styles from './index.module.scss';
 
 function Index() {
   const [active, setActive] = useState('Seller');
   const changeActiveValue = (val, index) => {
-   
     setActive(val);
- 
+
     let tempArr = sideBar;
     for (let i = 0; i < tempArr.length; i++) {
       if (i == index) {
@@ -17,7 +16,7 @@ function Index() {
         tempArr[i].state = 'default';
       }
     }
-   
+
     setSidebar(tempArr);
   };
 

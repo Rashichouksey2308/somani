@@ -104,7 +104,7 @@ const Index = ({
                           </>
                         ) : (
                           <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                            <span>{vesselCertificate?.originalName ?? vesselCertificate?.name}</span>
+                            <span>{vesselCertificate?.originalName || vesselCertificate?.name}</span>
                             <img
                               className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"
@@ -166,7 +166,7 @@ const Index = ({
                             </>
                           ) : (
                             <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                              <span>{containerList?.originalName ?? containerList?.name}</span>
+                              <span>{containerList?.originalName || containerList?.name}</span>
                               <img
                                 className={`${styles.close_image} image_arrow mr-2`}
                                 src="/static/close.svg"

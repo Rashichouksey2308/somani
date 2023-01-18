@@ -25,6 +25,10 @@
 
     .main {
       border-radius: 6px;
+      margin-bottom: 26px;
+      @include respond(lg-desktop) {
+        margin-bottom: 20px;
+      }
 
       .add_btn {
         color: #3687e8;
@@ -110,7 +114,6 @@
         }
 
         .dropDown {
-          border: 1px solid #0000001f;
           border-radius: 4px;
           font-size: 20px;
           line-height: 25px;
@@ -174,7 +177,6 @@
             font-weight: 500;
 
             span {
-            
               font-size: 20px;
               line-height: 23px;
               font-weight: 500;
@@ -188,7 +190,6 @@
           }
 
           .bill_landing {
-          
             border: 2px solid #cad6e6;
             border-radius: 9px;
 
@@ -331,7 +332,7 @@
 
           .toggle_label {
             letter-spacing: 0.19px;
-          
+
             font-size: 20px;
             line-height: 25px;
 
@@ -397,7 +398,7 @@
             white-space: nowrap;
             letter-spacing: 0.19px;
             padding: 13px 30px 13px 17px;
-           
+
             &:invalid + label {
               transform: translateY(0);
             }
@@ -656,10 +657,7 @@
       .label {
         font-size: 16px;
         letter-spacing: 0.53px;
-        text-transform: capitalize;
         position: absolute;
-        left: 15px;
-        top: -10px;
         line-height: 1;
         left: 30px;
         top: -8px;
@@ -803,7 +801,6 @@
               vertical-align: middle;
               border-bottom: 2px solid #f2f5f9;
               white-space: nowrap;
-              white-space: nowrap;
 
               &:first-child {
                 padding-left: 35px;
@@ -894,7 +891,7 @@
             border-radius: 50%;
             display: inline-block;
             vertical-align: middle;
-            @include respond(sm-desktop) {
+            @include respond(lg-desktop) {
               width: 12px;
               height: 12px;
             }
@@ -917,7 +914,6 @@
   }
 
   .search_container {
-
     height: 62px;
     padding-right: 1.5rem !important;
     background: #f0f0f0;
@@ -1015,7 +1011,6 @@
 
 .customSelect {
   appearance: none;
-
 }
 
 .theme {
@@ -1327,7 +1322,6 @@ input:checked + .slider:before {
   color: #111111;
   border: none;
   padding: 5px 0px 5px 15px;
- 
 }
 
 .uploadBtnWrapper {
@@ -1369,12 +1363,10 @@ input:checked + .slider:before {
 
     @include respond(sm-desktop) {
       font-size: 14px;
-    
     }
 
     @include respond(phone) {
       font-size: 12px;
-    
     }
   }
 }
@@ -1482,7 +1474,6 @@ input:checked + .slider:before {
   line-height: 23px;
   text-transform: capitalize;
   @include respond(lg-desktop) {
-    
     font-size: 15px;
     line-height: 1.3;
     width: 90px;

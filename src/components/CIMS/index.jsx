@@ -9,8 +9,10 @@ import { UpdateTransitDetails } from '../../redux/TransitDetails/action';
 import UploadOther from '../UploadOther';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { returnDocFormat } from '@/utils/helpers/global';
+import { qpaPrint } from '@/templates/agreementTemplate';
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction }) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction,getUnqueBl,fetchInitialData }) {
   let transId = _get(TransitDetails, `data[0]`, '');
   let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk';
   const [editInput, setEditInput] = useState(true);
@@ -22,19 +24,32 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
       circNumber: '',
       circDate: '',
-      cimsCharges: '',
+      cimsCharges: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
       paymentBy: '',
       coalImportRegistrationDoc: null,
       cimsPaymentReceiptDoc: null,
     },
   ]);
+
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
   const [isFieldInFocusCMS, setIsFieldInFocusCMS] = useState(false);
 
   useEffect(() => {
     let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', []);
+    let quan=  _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0);
+    let unit =  _get(TransitDetails, 'data[0].order.unitOfQuantity', '');
+    let perOrderPrice=1
+    if(unit=="KG"){
+       quan = Number(quan)*0.001
+       quan= quan*perOrderPrice
+    }else{
+      quan= Number(quan)*perOrderPrice
+    }
+    if(Number(quan)>100000){
+      quan=100000
+    }
+   
     if (data.length > 0) {
-    
       setCimsDetails(data);
     } else {
       setCimsDetails([
@@ -43,8 +58,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
           circNumber: '',
           circDate: '',
-          cimsCharges: '',
-          paymentBy: _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', ''),
+          cimsCharges:quan,
+          paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
           coalImportRegistrationDoc: null,
           cimsPaymentReceiptDoc: null,
         },
@@ -52,48 +67,113 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     }
   }, [TransitDetails]);
 
-
-
   const dispatch = useDispatch();
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value;
     let filteredVessel = {};
+   
+    // _get(TransitDetails, `data[0].BL.billOfLanding`, [])
+    //   .slice()
+    //   .forEach((bl, index) => {
+    //     if (bl.vesselName === VesselName) {
+    //       filteredVessel = bl;
+    //     }
+    //   });
+    
+  let filteredBL =  _get(TransitDetails, `data[0].BL.billOfLanding`, []).filter((item)=> item.vesselName === VesselName)
 
-
-    _get(TransitDetails, `data[0].BL.billOfLanding`, [])
-      .slice()
-      .forEach((bl, index) => {
-        if (bl.vesselName === VesselName) {
-          filteredVessel = bl;
-        }
-      });
+  let data = filteredBL?.reduce(
+    (previousValue, currentValue) => previousValue + Number(currentValue?.blQuantity),
+    0,
+  );
 
     let newArray = cimsDetails.slice();
-    newArray[index].vesselName = _get(filteredVessel, 'vesselName', '');
-    newArray[index].quantity = _get(filteredVessel, 'blQuantity', '');
-
+    newArray[index].vesselName = _get(filteredBL, '[0].vesselName', '');
+    newArray[index].quantity = filteredBL.length > 1 ?  data : _get(filteredBL, '[0].blQuantity', '')
+    //  let quan=  Number(newArray[index].quantity)
+    //  if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
+    //    quan = Number(quan)*0.001
+    //    quan= quan*1
+    //   }else{
+    //     quan= Number(quan)*1
+    //   }
+    //   if(Number(quan)>100000){
+    //               quan=100000
+    //     }
+    // newArray[index].cimsCharges=quan
     setCimsDetails(newArray.slice());
   };
 
+  // const onChangeCims = (e, index) => {
+  //   const name = e.target.id;
+  //   let value = e.target.value;
+  //   console.log(value,"cimsCharges")
+  //    let quan=  Number(value)
+  //    if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
+  //      quan = Number(quan)*0.001
+  //      quan= quan*1
+  //     }else{
+  //       quan= Number(quan)*1
+  //     }
+  //   if(Number(quan)>100000){
+  //             quan=100000
+  //   }
+
+  //   setCimsDetails((prevState) => {
+  //     const newState = prevState.map((obj, i) => {
+  //       if (i == index) {
+  //         if(name=="quantity"){
+            
+  //      return {
+  //           ...obj,
+  //           [name]: value,
+  //           cimsCharges:quan
+
+  //         };
+  //         }else{
+  //            return {
+  //           ...obj,
+  //           [name]: value,
+  //         };
+  //         }
+         
+  //       }
+  //       return obj;
+  //     });
+  //     return newState;
+  //   });
+  // };
   const onChangeCims = (e, index) => {
     const name = e.target.id;
-    const value = e.target.value;
+    let value = e.target.value;
+   
+     let quan=  Number(value)
+     if(_get(TransitDetails, 'data[0].order.unitOfQuantity', '')=="KG"){
+       quan = Number(quan)*0.001
+       quan= quan*1
+      }else{
+        quan= Number(quan)*1
+      }
+    if(Number(quan)>100000){
+              quan=100000
+    }
+
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return {
+             return {
             ...obj,
             [name]: value,
           };
+          
+         
         }
         return obj;
       });
       return newState;
     });
   };
-
   const saveDate = (startDate, name, index) => {
-
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -124,17 +204,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
         circNumber: '',
         circDate: '',
         cimsCharges: '',
-        paymentBy: _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', ''),
+        paymentBy: _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', ''),
         document1: null,
         document2: null,
       },
     ]);
-  
   };
 
   const handleCloseDoc = (e, index) => {
     let tempArr = [...cimsDetails];
-   
 
     tempArr[index][e] = null;
     setCimsDetails(tempArr);
@@ -145,7 +223,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   const uploadDoc = async (e, index) => {
     let id = e.target.id;
     let doc = await docUploadFunction(e);
- 
 
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -166,7 +243,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     let toastMessage = '';
 
     for (let i = 0; i <= cimsDetails.length - 1; i++) {
-      
       if (cimsDetails[i]?.vesselName == '' || cimsDetails[i]?.vesselName == undefined) {
         toastMessage = `Please select vessel name of CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -184,7 +260,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
         }
       }
       if (cimsDetails[i]?.circNumber == '' || cimsDetails[i]?.circNumber == undefined) {
-        toastMessage = `PLEASE FILL THE CRIC NUMBER CIMS NO   - ${i + 1}  `;
+        toastMessage = `PLEASE FILL THE CIRC NUMBER CIMS NO   - ${i + 1}  `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+
+      if (cimsDetails[i]?.cimsCharges == '' || cimsDetails[i]?.cimsCharges == undefined) {
+        toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -192,8 +277,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
         }
       }
       
-      if (cimsDetails[i]?.cimsCharges == '' || cimsDetails[i]?.cimsCharges == undefined) {
-        toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `;
+      if (Number(cimsDetails[i]?.cimsCharges) > 100000 ) {
+        toastMessage = `CIMS CHARGES CANNOT BE GREATOR THAN 1 LAKH   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -220,8 +305,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     return isOk;
   };
 
-  const handleSubmit = () => {
-   
+  const handleSubmit = async () => {
     if (validation()) {
       const cims = { cimsDetails: cimsDetails };
       let idtrans = transId._id;
@@ -231,14 +315,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       fd.append('transitId', transId._id);
 
       let task = 'submit';
-   
-      dispatch(UpdateTransitDetails({ fd, task, idtrans }));
+
+
+      let responseData = await dispatch(UpdateTransitDetails({ fd, task, idtrans }));
+      if (responseData) {
+        fetchInitialData();
+      }
     }
   };
 
-  const handleSave = () => {
-
-
+  const handleSave = async () => {
     const cims = { cimsDetails: cimsDetails };
 
     let fd = new FormData();
@@ -246,7 +332,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     fd.append('transitId', transId._id);
 
     let task = 'save';
-    dispatch(UpdateTransitDetails({ fd, task }));
+    let responseData = await dispatch(UpdateTransitDetails({ fd, task}));
+      if (responseData) {
+        fetchInitialData();
+      }
   };
 
 
@@ -258,7 +347,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
           {cimsDetails.map((list, index) => (
             <div key={index} className={`${styles.main} mb-4 border_color card `}>
               <div
-                className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+                className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>CIMS Details</h3>
                 <div className="d-flex">
@@ -286,9 +375,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
                           <option selected>Select an option</option>
-                          {_get(TransitDetails, `data[0].BL.billOfLanding`, []).map((bl, index) => (
-                            <option value={bl.vesselName} key={index}>
-                              {bl.vesselName}
+                          {getUnqueBl().map((bl, index) => (
+                            <option value={bl} key={index}>
+                              {bl}
                             </option>
                           ))}
                         </select>
@@ -306,14 +395,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <input
                       id="quantity"
-                     
                       onFocus={(e) => {
                         setIsFieldInFocus(true), (e.target.type = 'number');
                       }}
                       onBlur={(e) => {
                         setIsFieldInFocus(false), (e.target.type = 'text');
                       }}
-                     
+                      onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isFieldInFocus
                           ? list.quantity
@@ -346,10 +434,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                   </div>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <div className="d-flex">
-                      {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
                         value={list?.circDate ? moment(list?.circDate).format('DD-MM-YYYY') : ''}
-                      
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
                         className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -378,6 +464,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         setIsFieldInFocusCMS(false), (e.target.type = 'text');
                       }}
                       onChange={(e) => onChangeCims(e, index)}
+                      onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isFieldInFocusCMS
                           ? list.cimsCharges
@@ -394,20 +481,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <div className="d-flex">
                       <select
-                        value={
-                          list.paymentBy
-                         
-                        }
+                        value={list.paymentBy}
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
-                        <option checked>Select an option</option>
-                        <option value={'Indo German International Private Limited (IGPL)'}>
-                          Indo German International Private Limited (IGPL)
+                        <option value="" disabled defaultChecked>
+                          Select an option
                         </option>
-                        <option value={'Emergent Industrial Solutions Limited (EISL)'}>
-                          Emergent Industrial Solutions Limited (EISL)
+                        <option value={ _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', '')}>
+                          { _get(TransitDetails, 'data[0].order.marginMoney.invoiceDetail.importerName', '')}
                         </option>
 
                         <option value="Buyer">Buyer</option>
@@ -463,25 +546,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                          {cimsDetails[index]?.coalImportRegistrationDoc ? (
-                            cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xls') ||
-                            cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xlsx') ? (
-                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                            ) : cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.doc') ||
-                              cimsDetails[index]?.coalImportRegistrationDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.docx') ? (
-                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                            ) : (
-                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                            )
-                          ) : null}
+                          {cimsDetails[index]?.coalImportRegistrationDoc
+                            ? returnDocFormat(cimsDetails[index]?.coalImportRegistrationDoc?.originalName)
+                            : null}
                         </td>
                         <td className={styles.doc_row}>
                           {cimsDetails[index]?.coalImportRegistrationDoc == null
@@ -506,7 +573,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                               <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>{cimsDetails[index]?.coalImportRegistrationDoc?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image}  image_arrow mr-2`}
+                                  className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('coalImportRegistrationDoc', index)}
                                   alt="Close"
@@ -520,21 +587,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       <tr className="table_row">
                         <td className={styles.doc_name}>CIMS Payment Receipt</td>
                         <td>
-                          {cimsDetails[index]?.cimsPaymentReceiptDoc ? (
-                            cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xls') ||
-                            cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
-                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
-                            ) : cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.doc') ||
-                              cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.docx') ? (
-                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
-                            ) : (
-                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
-                            )
-                          ) : null}
+                          {cimsDetails[index]?.cimsPaymentReceiptDoc
+                            ? returnDocFormat(cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName)
+                            : null}
                         </td>
                         <td className={styles.doc_row}>
                           {' '}
@@ -560,7 +615,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                               <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>{cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image} image_arrow mr-2`}
+                                  className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('cimsPaymentReceiptDoc', index)}
                                   alt="Close"
@@ -577,7 +632,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
             </div>
           ))}
           <div className="mt-4">
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <UploadOther orderid={orderid}  module={['3rd Party Inspection','Plot Inspection',"Bill of Lading","Letter of Indemnity","BL Surrender","Forward Hedging","CIMS","IGM","Intercompany Invoicing"]  } />
           </div>
         </div>
 

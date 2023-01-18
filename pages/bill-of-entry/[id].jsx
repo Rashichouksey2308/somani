@@ -10,85 +10,69 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action';
 import _get from 'lodash/get';
 import API from '../../src/utils/endpoints';
-import { toast } from 'react-toastify';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
+import { handleErrorToast } from '../../src/utils/helpers/global'
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+import constants from '@/utils/constants'
 
-function Index() {
+
+const Index = () => {
   const dispatch = useDispatch();
   const [componentId, setComponentId] = useState(1);
 
-  const [darkMode, setDarkMode] = useState(false);
   const [arrivalDate, setArrivalDate] = useState(null);
 
   useEffect(() => {
-    let id = sessionStorage.getItem('customId');
+    const id = sessionStorage.getItem('customId');
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
   }, [dispatch]);
-  useEffect(() => {
-    dispatch(setPageName('custom'));
-    dispatch(setDynamicName(customData?.company?.companyName));
-  }, [customData]);
+
   const { allCustomClearance } = useSelector((state) => state.Custom);
 
-  let customData = _get(allCustomClearance, 'data[0]', {});
-  let OrderId = _get(customData, 'order._id', {});
-  let CompanyOrderId = _get(customData, 'order', {});
+  const customData = _get(allCustomClearance, 'data[0]', {});
+  const OrderId = _get(customData, 'order._id', {});
+  const CompanyOrderId = _get(customData, 'order', {});
   const uploadDoc = async (e) => {
-    let fd = new FormData();
+    const fd = new FormData();
     fd.append('document', e.target.files[0]);
-    // dispatch(UploadCustomDoc(fd))
-
-    let cookie = Cookies.get('SOMANI');
+    const cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+      const response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
       });
 
-      if (response.data.code === 200) {
-        // dispatch(getCustomClearanceSuccess(response.data.data))
-
+      if (response.data.code === constants.successCodeValue) {
         return response.data.data;
-        // let toastMessage = 'DOCUMENT UPDATED'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       } else {
-        // dispatch(getCustomClearanceFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        return null;
+        handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
+              return null;
       }
     } catch (error) {
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+      handleErrorToast('COULD NOT PROCESS YOUR REQUEST');
       return null;
     }
   };
 
   useEffect(() => {
+    dispatch(setPageName('custom'));
+    dispatch(setDynamicName(customData?.company?.companyName));
     dispatch(
       getBreadcrumbValues({
-        companyName: customData?.company?.companyName,
-        companyId: customData?.order?.orderId,
-        orderTabs: 'Bill of Entry',
+        upperTabs: 'Bill of Entry',
       }),
     );
-  }, [customData]);
+  }, [allCustomClearance]);
 
   return (
     <>
@@ -103,10 +87,7 @@ function Index() {
               style={{ cursor: 'pointer' }}
             />
             <h3 className={`${styles.title} heading`}>
-              <span
-              // className={`${styles.title} heading`}
-              // style={{ textTransform: 'capitalize' }}
-              >
+              <span>
                 {customData?.company?.companyName} -{' '}
                 <span style={{ textTransform: 'capitalize' }}>{CompanyOrderId?.orderId}</span>
               </span>
@@ -116,11 +97,6 @@ function Index() {
             <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
-                // data-toggle="tab"
-                // href="#billEntry"
-                // role="tab"
-                // aria-controls="billEntry"
-                // aria-selected="true"
                 role="button"
                 onClick={() => {
                   setComponentId(1);
@@ -136,15 +112,10 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
+                className={`${styles.navLink} navLink nav-link ${componentId === constants.numberTwo && 'active'} `}
                 role="button"
-                // data-toggle="tab"
-                // id="#dischargeCargo"
-                // role="tab"
-                // aria-controls="dischargeCargo"
-                // aria-selected="false"
                 onClick={() => {
-                  setComponentId(2);
+                  setComponentId(constants.numberTwo);
                   dispatch(
                     getBreadcrumbValues({
                       upperTabs: 'Discharge of Cargo',
@@ -157,15 +128,10 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'}`}
+                className={`${styles.navLink} navLink nav-link ${componentId === constants.numberThree && 'active'}`}
                 role="button"
-                // data-toggle="tab"
-                // href="#warehouse"
-                // role="tab"
-                // aria-controls="warehouse"
-                // aria-selected="false"
                 onClick={() => {
-                  setComponentId(3);
+                  setComponentId(constants.numberThree);
                   dispatch(
                     getBreadcrumbValues({
                       upperTabs: 'Warehouse Details',
@@ -184,7 +150,6 @@ function Index() {
             <div className="row">
               <div className="col-md-12 p-0 accordion_body">
                 <div className={`${styles.tabContent} `}>
-                  {/* <div className="fade" id="billEntry" role="tabpanel"> */}
                   <div className={`${styles.card}  accordion_body`}>
                     {componentId === 1 && (
                       <BillOfEntry
@@ -196,15 +161,8 @@ function Index() {
                       />
                     )}
                   </div>
-                  {/* </div> */}
-
-                  {/* <div
-                    className="tab-pane fade"
-                    id="dischargeCargo"
-                    role="tabpanel"
-                  > */}
                   <div className={`${styles.card}  accordion_body`}>
-                    {componentId === 2 && (
+                    {componentId === constants.numberTwo && (
                       <DischargeCargo
                         setArrivalDate={setArrivalDate}
                         uploadDoc={uploadDoc}
@@ -215,11 +173,8 @@ function Index() {
                       />
                     )}
                   </div>
-                  {/* </div> */}
-
-                  {/* <div className="tab-pane fade" id="warehouse" role="tabpanel"> */}
                   <div className={`${styles.card}  accordion_body`}>
-                    {componentId === 3 && (
+                    {componentId === constants.numberThree && (
                       <Warehouse
                         arrivalDate={arrivalDate}
                         uploadDoc={uploadDoc}
@@ -228,7 +183,6 @@ function Index() {
                       />
                     )}
                   </div>
-                  {/* </div> */}
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './index.module.scss';
+import styles from '../CompanyProfile/index.module.scss';
 import { useSelector } from 'react-redux';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 

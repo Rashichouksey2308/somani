@@ -93,14 +93,14 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(`${API.corebaseUrl}${API.getVessel}${payload || ''}`, {
+    await Axios.get(`${API.corebaseUrl}${API.getVessel}${payload || ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllVesselSuccess(response.data.data));
         dispatch(setNotLoading());
       } else {
-        dispatch(getAllVesselFailed(response.data.data));
+        dispatch(getAllVesselFailed());
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -135,11 +135,10 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     });
     if (response.data.code === 200) {
-     
       dispatch(setNotLoading());
       return response.data.data;
     } else {
-      dispatch(getVesselFailed(response.data.data));
+      dispatch(getVesselFailed());
       const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -179,7 +178,7 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
       dispatch(setNotLoading());
       return response.data.code;
     } else {
-      dispatch(updateVesselFailed(response.data.data));
+      dispatch(updateVesselFailed());
       const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -209,7 +208,7 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.post(`${API.corebaseUrl}${API.getVessel}`, payload, {
+   await Axios.post(`${API.corebaseUrl}${API.getVessel}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
@@ -220,7 +219,7 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
         }
         dispatch(setNotLoading());
       } else {
-        dispatch(uploadDocVesselFailed(response.data.data));
+        dispatch(uploadDocVesselFailed());
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

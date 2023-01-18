@@ -122,13 +122,14 @@ function Index() {
           route: '/masters/users',
         },
         { name: 'User Roles', image: '/static/user-roles.svg', route: '' },
-        { name: 'Vendors', image: '/static/vendors.svg', route: '' },
+        { name: 'Vendors', image: '/static/vendors.svg', route: '/vendors' },
+        { name: 'Internal Companies', image: '/static/vendors.svg', route: '/internal-companies' },
         {
           name: 'Insurance Company',
           image: '/static/insurance-company.svg',
           route: '',
         },
-        { name: 'Commodity', image: '/static/commodity.svg', route: '' },
+        { name: 'Commodity', image: '/static/commodity.svg', route: '/masters/commodity' },
         {
           name: 'Go no go Logic',
           image: '/static/gl.svg',
