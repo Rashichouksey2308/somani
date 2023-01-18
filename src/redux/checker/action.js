@@ -202,17 +202,17 @@ function getUserPickupRecordsFailed(payload = {}) {
 }
 
 function getGoNoGoLogicPickupRecordsSuccess(payload) {
-    return {
-        type: types.GET_GO_NO_GO_LOGIC_PICKUP_RECORDS_SUCCESSFULL,
-        payload,
-    };
+  return {
+    type: types.GET_GO_NO_GO_LOGIC_PICKUP_RECORDS_SUCCESSFULL,
+    payload,
+  };
 }
 
 function getGoNoGoLogicPickupRecordsFailed(payload = {}) {
-    return {
-        type: types.GET_GO_NO_GO_LOGIC_PICKUP_RECORDS_FAILED,
-        payload,
-    };
+  return {
+    type: types.GET_GO_NO_GO_LOGIC_PICKUP_RECORDS_FAILED,
+    payload,
+  };
 }
 
 function getUserMasterDetailsSuccess(payload) {
@@ -351,6 +351,34 @@ function updateTransactionSummaryRemarkSuccess(payload) {
 function updateTransactionSummaryRemarkFailed(payload = {}) {
   return {
     type: types.UPDATE_TRANSACTION_SUMMARY_REMARK_FAILED,
+    payload,
+  };
+}
+
+function getLcModuleDetailsSuccess(payload) {
+  return {
+    type: types.GET_LC_MODULE_DETAILS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getLcModuleDetailsFailed(payload = {}) {
+  return {
+    type: types.GET_LC_MODULE_DETAILS_FAILED,
+    payload,
+  };
+}
+
+function updateLcModuleRemarkSuccess(payload) {
+  return {
+    type: types.UPDATE_LC_MODULE_REMARK_SUCCESSFULL,
+    payload,
+  };
+}
+
+function updateLcModuleRemarkFailed(payload = {}) {
+  return {
+    type: types.UPDATE_LC_MODULE_REMARK_FAILED,
     payload,
   };
 }
@@ -767,7 +795,7 @@ export const GetLetterOfCreditPickupRecords = (payload) => async (dispatch, getS
       if (response.data.code === 200) {
         dispatch(getLetterofCreditPickupRecordsSuccess(response.data.data));
         dispatch(setNotLoading());
-    } else {
+      } else {
         dispatch(getLetterofCreditPickupRecordsFailed(response.data.data));
         const toastMessage = 'Could not fetch Letter of Credit Details';
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -783,37 +811,37 @@ export const GetLetterOfCreditPickupRecords = (payload) => async (dispatch, getS
 };
 
 export const GetGoNoGoLogicPickupRecords = (payload) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
+  dispatch(setIsLoading());
 
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [, , jwtAccessToken] = decodedString.split('#');
-    const headers = {
-        authorization: jwtAccessToken,
-        Cache: 'no-cache',
-        'Access-Control-Allow-Origin': '*',
-    };
-    try {
-        Axios.get(`${API.corebaseUrl}${API.getGoNoGoLogicPickupRecords}${payload}`, {
-            headers: headers,
-        }).then((response) => {
-            if (response.data.code === 200) {
-                dispatch(getGoNoGoLogicPickupRecordsSuccess(response.data.data));
-                dispatch(setNotLoading());
-            } else {
-                dispatch(getGoNoGoLogicPickupRecordsFailed(response.data.data));
-                const toastMessage = 'Could not fetch Go No Go Logic Details';
-                if (!toast.isActive(toastMessage.toUpperCase())) {
-                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-                }
-                dispatch(setNotLoading());
-            }
-        });
-    } catch (error) {
-        dispatch(getGoNoGoLogicPickupRecordsFailed());
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getGoNoGoLogicPickupRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getGoNoGoLogicPickupRecordsSuccess(response.data.data));
         dispatch(setNotLoading());
-    }
+      } else {
+        dispatch(getGoNoGoLogicPickupRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Go No Go Logic Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getGoNoGoLogicPickupRecordsFailed());
+    dispatch(setNotLoading());
+  }
 };
 
 export const GetInternalCompanyPickupRecords = (payload) => async (dispatch, getState, api) => {
@@ -898,7 +926,7 @@ export const GetUserMasterDetails = (payload) => async (dispatch, getState, api)
   try {
     Axios.get(`${API.corebaseUrl}${API.getUserMasterDetails}${payload}`, {
       headers: headers,
-    }, ).then((response) => {
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getUserMasterDetailsSuccess(response?.data?.data?.data));
 
@@ -1182,7 +1210,6 @@ export const GetTransactionSummaryrDetails = (payload) => async (dispatch, getSt
     Axios.get(`${API.corebaseUrl}${API.getTransactionSummaryDetails}${payload}`, {
       headers: headers,
     }).then((response) => {
-
       if (response.data.code === 200) {
         dispatch(getTransactionSummaryDetailsSuccess(response?.data?.data));
         dispatch(setNotLoading());
@@ -1232,6 +1259,74 @@ export const UpdateTransactionSummaryRemark = (payload) => async (dispatch, getS
     }
   } catch (error) {
     dispatch(updateTransactionSummaryRemarkFailed());
+    dispatch(setNotLoading());
+    return 500;
+  }
+};
+
+export const GetLcModuleDetails = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getLcModuleDetails}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getLcModuleDetailsSuccess(response?.data?.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getLcModuleDetailsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Lc Module Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getLcModuleDetailsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateLcModuleRemark = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateLcModuleRemark}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(updateLcModuleRemarkSuccess(response.data));
+      dispatch(setNotLoading());
+      return 200;
+    } else {
+      dispatch(updateLcModuleRemarkFailed(response.data));
+      const toastMessage = 'Cannot add remark, something went wrong';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+      return 500;
+    }
+  } catch (error) {
+    dispatch(updateLcModuleRemarkFailed());
     dispatch(setNotLoading());
     return 500;
   }

@@ -450,7 +450,58 @@ function filterIIAGLedgerQueueFailed() {
     type: types.FILTER_IIAG_LEDGER_QUEUE_FAILED,
   };
 }
+// ******** Master GoNoGo Queue ***********///
+function getMasterGoNoGoQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_GONOGO_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
 
+function getMasterGoNoGoQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_GONOGO_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Master GoNoGo Single Record  ***********/////
+
+function filterGoNoGoQueue() {
+  return {
+    type: types.FILTER_GONOGO_QUEUE,
+  };
+}
+
+function getMasterGoNoGoSingleRecordSuccess(payload) {
+  return {
+    type: types.GET_MASTER_GONOGO_SINGLE_RECORD_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterGoNoGoSingleRecordFailed() {
+  return {
+    type: types.GET_MASTER_GONOGO_SINGLE_RECORD_FAILED,
+  };
+}
+
+// ******** GoNoGo Master Add ******** //
+
+function createGoNoGoMasterSuccess(payload) {
+  return {
+    type: types.CREATE_GONOGO_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createGoNoGoMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_GONOGO_MASTER_FAILED,
+    payload,
+  };
+}
 // ******** IIAGLedger Master Add ******** //
 
 function createIIAGLedgerMasterSuccess(payload) {
@@ -1789,7 +1840,6 @@ export const CreateIIAGLedgerMaster = (payload) => async (dispatch, getState, ap
 
 
 export const editPortMaster = (payload) => async (dispatch, getState, api) => {
-  console.log("🚀 ~ file: action.js:1711 ~ editPortMaster ~ payload", payload)
   try {
     dispatch(setIsLoading());
     let cookie = Cookies.get('SOMANI');
@@ -1801,7 +1851,6 @@ export const editPortMaster = (payload) => async (dispatch, getState, api) => {
     let response = await Axios.post(`${API.corebaseUrl}${API.editPortsMaster}`, payload, {
       headers: headers,
     });
-    console.log("🚀 ~ file: action.js:1722 ~ editPortMaster ~ response", response)
     if (response.data.code === 200) {
       dispatch(editPortMasterSuccess(response.data.data));
       let toastMessage = 'PORT EDITED SUCCESSFULLY';
@@ -1827,3 +1876,114 @@ export const editPortMaster = (payload) => async (dispatch, getState, api) => {
     dispatch(setNotLoading());
   }
 };
+// Handler for IIAGLedger-master End ---->
+
+// Handler for Go-no-go-master Start ---->
+export const GetMasterGoNoGoQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterGoNoGoQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterGoNoGoQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterGoNoGoQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch GoNoGo Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterGoNoGoQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const GetMasterGoNoGoSingleRecord = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterGoNoGoSingleRecord}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterGoNoGoSingleRecordSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterGoNoGoSingleRecordFailed(response.data.data));
+        const toastMessage = 'Could not fetch GoNoGo Record';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterGoNoGoSingleRecordFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateGoNoGoMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createGoNoGoMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createGoNoGoMasterSuccess(response.data.data));
+      let toastMessage = 'GONOGO UPDATED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createGoNoGoMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createGoNoGoMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD UPDATE GONOGO DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for Go-no-go-master End ---->
