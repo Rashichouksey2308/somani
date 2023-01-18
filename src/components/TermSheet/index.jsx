@@ -998,7 +998,6 @@ const Index = () => {
 
   const handleBackButtonFunctionality = () => {
     const comingFromCheckerTermsheet = sessionStorage.getItem('comingFromCheckerTermsheet');
-    console.log('value in termsheet for checkers route: ', comingFromCheckerTermsheet);
     if (comingFromCheckerTermsheet === "1") {
       Router.push('/checker/transaction-summary/id');
     } else {

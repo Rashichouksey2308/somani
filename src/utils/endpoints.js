@@ -137,7 +137,7 @@ export default {
   searchSupplier: '/supplier/search?searchTerm=',
   SupplierUploadDoc: '/supplier/upload-doc',
 
-  //mcaReport
+  // mcaReport
   getMcaReport: '/karza/request-mca-document',
   // preview
   preview: '/document/access/preview',
@@ -219,7 +219,7 @@ export default {
   updateVendorRemark: '/vendor/checker-vendor-status-update',
   getTransactionSummaryDetails: '/termsheet/get-termsheet',
   updateTransactionSummaryRemark: '/termsheet/checker-termsheet-status-update',
-  
+
   //Masters
   getAllCommodity: '/commodity/get-commodities',
   getAllGonogo: '/gng-master',

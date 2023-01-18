@@ -3,19 +3,13 @@ import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountries, CreatePortMaster, getAllStates } from 'redux/masters/action';
+import { getCountries, CreatePortMaster, getAllStates, editPortMaster } from 'redux/masters/action';
 import { toast } from 'react-toastify';
 
-function Index() {
+function Index(props) {
+    const{editPort, portDetails, setPortDetails}=props;
     const dispatch = useDispatch();
-    const [portDetails, setPortDetails] = useState({
-        Country: '',
-        Port_Name: '',
-        State: '',
-        Container_Handling: false,
-        Approved: false,
-        portType: 'domestic'
-    });
+     
 
     const handlePortDetailsChange = (e) => {
         setPortDetails({
@@ -30,8 +24,12 @@ function Index() {
         }
         if (!validate()) return;
         delete portDetails.portType;
-
-        dispatch(CreatePortMaster(portDetails));
+        if(!editPort){
+            dispatch(CreatePortMaster(portDetails));
+        } else {
+            dispatch(editPortMaster(portDetails)); 
+        }
+       // editPortMaster
     }
 
     const validate = () => {
@@ -96,15 +94,16 @@ function Index() {
 
     const { getCountriesMasterData, getStatesMasterData } = useSelector((state) => state.MastersData);
 
-
+    
     return (
         <div className={`${styles.backgroundMain}`}>
             <div className={`${styles.vessel_card} border_color`}>
+               
                 <div className={`${styles.main} mt-4 card border_color`}>
                     <div
                         className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
                     >
-                        <h3 className={`${styles.heading} mb-0`}>Ports</h3>
+                        <h3 className={`${styles.heading} mb-0`}>{ editPort ? 'Edit Ports' :'Ports'} </h3> 
                         <div className='d-flex'>
                             <div className={`${styles.radio_form} mb-4`}>
                                 {['radio'].map((type, index) => (
@@ -145,6 +144,7 @@ function Index() {
                                         <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                                             name="Country"
                                             onChange={handlePortDetailsChange}
+                                            value={portDetails?.Country}
                                         >
                                             <option value="Select">Select</option>
                                             {getCountriesMasterData?.map((val, index) => {
@@ -177,6 +177,7 @@ function Index() {
                                         <div className="d-flex">
                                             <select className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                                                 name="State"
+                                                value={portDetails?.State}
                                                 onChange={handlePortDetailsChange}
                                             >
                                                 <option value="Select">Select</option>
