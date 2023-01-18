@@ -1220,7 +1220,26 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                               <option>Select an option</option>
 
                                               <option value="BCD">BCD</option>
-                                              <option value="IGST">IGST</option>
+                                              <option value="IGST">ACD</option>
+                                              <option value="BCD">SWS</option>
+                                              <option value="IGST">SAD</option>
+                                              <option value="BCD">IGST</option>
+                                              <option value="IGST">G.CESS</option>
+                                              <option value="BCD">ADD</option>
+                                              <option value="IGST">CVD</option>
+                                              <option value="BCD">SG</option>
+                                              <option value="IGST">T.VALUE</option>
+                                              <option value="BCD">SP EXD</option>
+                                              <option value="IGST">CHCESS</option>
+                                              <option value="BCD">TTA</option>
+                                              <option value="IGST">CESS</option>
+                                              <option value="BCD">CAIDC</option>
+                                              <option value="IGST">EAIDC</option>
+                                              <option value="BCD">CUS EDC</option>
+                                              <option value="IGST">CUS HEC</option>
+                                              <option value="BCD">NCD</option>
+                                              <option value="IGST">AGGR</option>
+                                              
                                             </select>
                                           </td>
                                           <td>
