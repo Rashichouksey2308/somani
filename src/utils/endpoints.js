@@ -180,6 +180,7 @@ export default {
   createGoNoGoMaster: '/gng-master',
   editDocumentMaster: '/document-master',
   editCountryMaster: '/country-master',
+  editCurrencyMaster: '/currency-master',
 
   //Checker
   getUserDetails: '/user-master/user',

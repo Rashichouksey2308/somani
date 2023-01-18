@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import * as types from './actionType'
+import  Router  from 'next/router';
 import { setIsLoading, setNotLoading } from '../Loaders/action'
 
 function getPorts () {
@@ -318,6 +319,7 @@ export const editPortMaster = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      Router.reload();
       dispatch(setNotLoading());
     } else {
       dispatch(editPortMasterFailed(response.data.data));

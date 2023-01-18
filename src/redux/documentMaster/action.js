@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import Cookies from 'js-cookie';
 import * as types from './actionType';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
-import { Router } from 'next/router';
+import  Router  from 'next/router';
 import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
 
 function getDocument() {
@@ -245,6 +245,7 @@ export const editDocumentMaster = (payload) => async (dispatch, getState, api) =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      Router.reload();
       dispatch(setNotLoading());
     } else {
       dispatch(editDocumentMasterFailed(response.data.data));

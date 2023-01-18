@@ -3,6 +3,7 @@ import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import * as types from './actionType';
 import { toast } from 'react-toastify'
+import  Router  from 'next/router';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
 
@@ -249,6 +250,7 @@ export const editCountryMaster = (payload) => async (dispatch, getState, api) =>
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      Router.reload();
       dispatch(setNotLoading());
     } else {
       dispatch(editCountryMasterFailed(response.data.data));
