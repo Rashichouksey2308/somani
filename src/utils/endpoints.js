@@ -174,6 +174,7 @@ export default {
   getMasterIIAGLedgerQueueRecords: '/ledger/filterLedger',
   filterIIAGLedgerQueue: '/ledger/search',
   createIIAGLedgerMaster: '/ledger',
+  editPortsMaster:'port',
 
   //Checker
   getUserDetails: '/user-master/user',
