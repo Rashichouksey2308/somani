@@ -61,6 +61,11 @@ const initialState = {
   GoNoGoSingleRecord: [],
   gettingGoNoGoSingleRecord: false,
   creatingGoNoGoMaster: false,
+  InternalCompaniesQueueRecords: [],
+  gettingInternalCompaniesQueueRecords: false,
+  filteringInternalCompaniesQueue: false,
+  filteredInternalCompaniesQueue: [],
+  creatingInternalCompaniesMaster: false,
   zipCode: [],
   editPortTableDataMaster: false,
 };
@@ -723,6 +728,67 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         creatingGoNoGoMaster: false,
+      };
+
+    case types.GET_MASTER_INTERNAL_COMPANIES_QUEUE_RECORDS_SUCCESSFULL:
+      return {
+        ...state,
+        gettingInternalCompaniesQueueRecords: false,
+        InternalCompaniesQueueRecords: action.payload,
+      };
+
+    case types.GET_MASTER_INTERNAL_COMPANIES_QUEUE_RECORDS_FAILED:
+      return {
+        ...state,
+        gettingInternalCompaniesQueueRecords: false,
+        InternalCompaniesQueueRecords: {},
+      };
+
+    case types.FILTER_INTERNAL_COMPANIES_QUEUE:
+      return {
+        ...state,
+        filteringInternalCompaniesQueue: true,
+      };
+
+    case types.FILTER_INTERNAL_COMPANIES_QUEUE_SUCCESSFULL:
+      return {
+        ...state,
+        filteringInternalCompaniesQueue: false,
+        filteredInternalCompaniesQueue: action.payload,
+      };
+
+    case types.FILTER_INTERNAL_COMPANIES_QUEUE_FAILED:
+      return {
+        ...state,
+        filteringInternalCompaniesQueue: false,
+        filteredInternalCompaniesQueue: null,
+      };
+
+    case types.CREATE_INTERNAL_COMPANIES_MASTER_SUCCESS:
+      return {
+        ...state,
+        creatingInternalCompaniesMaster: false,
+      };
+
+    case types.CREATE_INTERNAL_COMPANIES_MASTER_FAILED:
+      return {
+        ...state,
+        creatingInternalCompaniesMaster: false,
+      };
+    case types.GET_ZIPCODES_MASTERS:
+      return {
+        ...state,
+        zipCode: [],
+      };
+    case types.GET_ZIPCODES_MASTERS_SUCCESS:
+      return {
+        ...state,
+        zipCode: action.payload,
+      };
+    case types.GET_ZIPCODES_MASTERS_FAILURE:
+      return {
+        ...state,
+        zipCode: [],
       };
 
     default:

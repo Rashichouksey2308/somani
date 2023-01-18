@@ -123,7 +123,7 @@ function Index() {
         },
         { name: 'User Roles', image: '/static/user-roles.svg', route: '' },
         { name: 'Vendors', image: '/static/vendors.svg', route: '/vendors' },
-        { name: 'Internal Companies', image: '/static/vendors.svg', route: '/internal-companies' },
+        { name: 'Internal Companies', image: '/static/vendors.svg', route: 'masters/internal-companies' },
         {
           name: 'Insurance Company',
           image: '/static/insurance-company.svg',

@@ -518,6 +518,59 @@ function createIIAGLedgerMasterFailed(payload = {}) {
   };
 }
 
+// ******** Master InternalCompanies Queue ***********///
+function getMasterInternalCompaniesQueueRecordsSuccess(payload) {
+  return {
+    type: types.GET_MASTER_INTERNAL_COMPANIES_QUEUE_RECORDS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getMasterInternalCompaniesQueueRecordsFailed(payload = {}) {
+  return {
+    type: types.GET_MASTER_INTERNAL_COMPANIES_QUEUE_RECORDS_FAILED,
+    payload,
+  };
+}
+
+
+// ******** Search & Filter InternalCompanies Queue  ***********/////
+
+function filterInternalCompaniesQueue() {
+  return {
+    type: types.FILTER_INTERNAL_COMPANIES_QUEUE,
+  };
+}
+
+function filterInternalCompaniesQueueSuccess(payload) {
+  return {
+    type: types.FILTER_INTERNAL_COMPANIES_QUEUE_SUCCESSFULL,
+    payload,
+  };
+}
+
+function filterInternalCompaniesQueueFailed() {
+  return {
+    type: types.FILTER_INTERNAL_COMPANIES_QUEUE_FAILED,
+  };
+}
+
+// ******** InternalCompanies Master Add ******** //
+
+function createInternalCompaniesMasterSuccess(payload) {
+  return {
+    type: types.CREATE_INTERNAL_COMPANIES_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createInternalCompaniesMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_INTERNAL_COMPANIES_MASTER_FAILED,
+    payload,
+  };
+}
+
 export const getCountries = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -1987,3 +2040,114 @@ export const CreateGoNoGoMaster = (payload) => async (dispatch, getState, api) =
   }
 };
 // Handler for Go-no-go-master End ---->
+
+// Handler for IIAGLedger-master End ---->
+
+// Handler for InternalCompanies-master Start ---->
+export const GetMasterInternalCompaniesQueueRecords = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getMasterInternalCompaniesQueueRecords}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getMasterInternalCompaniesQueueRecordsSuccess(response?.data?.data));
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getMasterInternalCompaniesQueueRecordsFailed(response.data.data));
+        const toastMessage = 'Could not fetch InternalCompanies Records';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getMasterInternalCompaniesQueueRecordsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const FilterInternalCompaniesQueue = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = { authorization: jwtAccessToken };
+  try {
+    dispatch(filterInternalCompaniesQueue());
+    Axios.get(`${API.corebaseUrl}${API.filterInternalCompaniesQueue}?${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(filterInternalCompaniesQueueSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(filterInternalCompaniesQueueFailed(response.data));
+        const toastMessage = 'Search InternalCompanies Queue request Failed';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(filterInternalCompaniesQueueFailed());
+    const toastMessage = 'Search InternalCompanies request Failed';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const CreateInternalCompaniesMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.createInternalCompaniesMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(createInternalCompaniesMasterSuccess(response.data.data));
+      let toastMessage = 'INTERNAL_COMPANIES ADDED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(createInternalCompaniesMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(createInternalCompaniesMasterFailed());
+
+    let toastMessage = 'COULD NOT ADD INTERNAL_COMPANIES DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for InternalCompanies-master End ---->

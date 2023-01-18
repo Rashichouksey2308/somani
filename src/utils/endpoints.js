@@ -178,6 +178,9 @@ export default {
   getMasterGoNoGoQueueRecords: '/gng-master',
   getMasterGoNoGoSingleRecord: '/gng-master',
   createGoNoGoMaster: '/gng-master',
+  getMasterInternalCompaniesQueueRecords: '/internal-company/filterInternalCompanies',
+  filterInternalCompaniesQueue: '/internal-company/searchInternalCompanies',
+  createInternalCompaniesMaster: '/internal-company',
 
   //Checker
   getUserDetails: '/user-master/user',

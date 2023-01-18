@@ -515,6 +515,21 @@ export default function Index({ isQuery }) {
       }
     }
 
+    if ('master-internal-companies' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Master' + `/Internal-Companies` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
+      } else if (id !== null) {
+        router.route =
+          '/Master' +
+          `/Internal-Companies` +
+          `/${upperTabs}` +
+          `/${id?.toLowerCase()}`
+      } else {
+        router.route = '/Master' + '/Internal-Companies';
+      }
+    }
+
 
     router.route.split('/').map((subRoute, index) => {
 
