@@ -20,6 +20,7 @@ function Index() {
   }, [currentPage, dispatch]);
 
   const handleRoute = (lc) => {
+    sessionStorage.setItem('comingFromCheckerLcModule', 0);
     sessionStorage.setItem('lcCompanyId', lc.company._id);
     dispatch(GetLcModule(`?company=${lc.company._id}`));
     dispatch(setDynamicName(lc?.company?.companyName));

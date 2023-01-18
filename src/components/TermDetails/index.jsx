@@ -173,7 +173,7 @@ const Index = ({
                   <option disabled selected>
                     Select
                   </option>
-                  {currency.map((val, index) => {
+                  {currency?.map((val, index) => {
                     return (
                       <option key={index} value={`${val.Currency}`}>
                         {val.Currency}
@@ -409,7 +409,7 @@ const Index = ({
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
                   <option selected>Select an option</option>
                   {port
-                    .filter((val, index) => {
+                    ?.filter((val, index) => {
                       if (val.Country.toLowerCase() !== 'india') {
                         return val;
                       }
@@ -520,7 +520,7 @@ const Index = ({
                     Select an option
                   </option>
                   {port
-                    .filter((val, index) => {
+                    ?.filter((val, index) => {
                       if (val.Country.toLowerCase() == 'india' && val.Approved == 'YES') {
                         return val;
                       }
@@ -645,7 +645,7 @@ const Index = ({
                 >
                   <option disabled>Select an option</option>
                   {port
-                    .filter((val, index) => {
+                    ?.filter((val, index) => {
                       if (val.Country.toLowerCase() == 'india' && val.Approved == 'YES') {
                         return val;
                       }

@@ -9,10 +9,11 @@
     opacity: 0.7;
 }
 
-.label_value{
-    border-top: 1px solid lightgray;
-}
-
 .inner_label {
     opacity: 0.7;
+}
+.highlighted_field {
+    background-color: yellow;
+    padding: 5px;
+    color: black;
 }

@@ -5,6 +5,11 @@ import LetterOfCreditDetails from '../../../src/components/Checker/LetterOfCredi
 
 function Index() {
     const companyName = sessionStorage.getItem('checkerletterOfCreditCompanyName');
+    
+    const handleRoute = () => {
+        sessionStorage.setItem('comingFromCheckerLcModule', 1);
+        Router.push('/lc-module');
+      };
 
     return (
         <>
@@ -20,6 +25,14 @@ function Index() {
                                 style={{ cursor: 'pointer' }} />
                             <h1 className={`${styles.title} heading`}>{companyName}</h1>
                         </div>
+                        <button
+                            className={styles.editBtn}
+                            onClick={() => {
+                                handleRoute();
+                            }}
+                        >
+                            Edit
+                        </button>
                     </div>
                 </div>
             </div>
