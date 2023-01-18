@@ -14,7 +14,6 @@ function Index() {
                             {' '}
                             <span className={`${styles.mainLabelValue} h5`}>2FCH6589</span>
                         </div>
-
                         <div className='m-2'>
                             <span className='font-weight-bold h5 mr-1'>Buyer:</span>
                             {' '}
