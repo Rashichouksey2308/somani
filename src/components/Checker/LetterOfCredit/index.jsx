@@ -18,7 +18,6 @@ function Index() {
     const lcModuleId = sessionStorage.getItem('checkerletterOfCreditId');
     const { lcModuleDetails } = useSelector((state) => state.checker);
 
-    console.log('lcDetails :: ', lcModuleDetails);
     useEffect(() => {
         if (lcModuleId) {
             fetchInitialData();
@@ -62,7 +61,6 @@ function Index() {
                             {' '}
                             <span className={`${styles.mainLabelValue} h5`}>{lcModuleDetails?.length > 0 && lcModuleDetails[0]?.order?.orderId || '--'}</span>
                         </div>
-
                         <div className='m-2'>
                             <span className='font-weight-bold h5 mr-1'>Buyer:</span>
                             {' '}
