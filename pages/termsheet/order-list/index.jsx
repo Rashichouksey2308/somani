@@ -39,6 +39,7 @@ const fallbackCampanyText ='All Termsheet Order'
   const handleRoute = async (term, index) => {
     await dispatch(GetTermsheet(`?termsheetId=${term._id}`));
     sessionStorage.setItem('termID', term._id);
+    sessionStorage.setItem('comingFromCheckerTermsheet', 0);
 
     sessionStorage.setItem('termOrdID', term?.order._id);
 

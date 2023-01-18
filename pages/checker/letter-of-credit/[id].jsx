@@ -7,6 +7,7 @@ function Index() {
     const companyName = sessionStorage.getItem('checkerletterOfCreditCompanyName');
     
     const handleRoute = () => {
+        sessionStorage.setItem('comingFromCheckerLcModule', 1);
         Router.push('/lc-module');
       };
 

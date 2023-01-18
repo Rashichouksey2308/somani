@@ -92,6 +92,15 @@ function Index() {
     }
   };
 
+  const handleBackButtonFunctionality = () => {
+    const comingFromCheckerLcModule = sessionStorage.getItem('comingFromCheckerLcModule');
+    if (comingFromCheckerLcModule === "1") {
+      Router.push('/checker/letter-of-credit/id');
+    } else {
+      Router.push('/letter-table');
+    }
+  }
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -101,10 +110,10 @@ function Index() {
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
-              onClick={() => Router.push('/letter-table')}
+              onClick={() => handleBackButtonFunctionality()}
               style={{ cursor: 'pointer' }}
             />
-            <h1 className={styles.heading}>Letter of Credit </h1>
+            <h1 className={styles.heading}>Letter of Credit</h1>
           </div>
           <div className={styles.search}>
             <div className="input-group">

@@ -1,12 +1,14 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Router from 'next/router';
+import { toast } from 'react-toastify';
 import styles from './index.module.scss';
 import LcApplication from './LcApplication';
 import DocumentsRequired from './DocumentsRequired';
 import AdditionalConditions from './AdditionalConditions';
 import LcApplication1 from './LcApplication1';
 import Remarks from '../Common/Remarks';
-import { useDispatch, useSelector } from 'react-redux';
 import { GetLcModuleDetails, UpdateLcModuleRemark } from 'redux/checker/action';
-import { useEffect } from 'react';
 import { setDynamicName } from 'redux/userData/action';
 import { GetLcModule } from 'redux/lcModule/action';
 
@@ -16,6 +18,7 @@ function Index() {
     const lcModuleId = sessionStorage.getItem('checkerletterOfCreditId');
     const { lcModuleDetails } = useSelector((state) => state.checker);
 
+    console.log('lcDetails :: ', lcModuleDetails);
     useEffect(() => {
         if (lcModuleId) {
             fetchInitialData();
@@ -27,26 +30,26 @@ function Index() {
     };
 
     useEffect(() => {
-        if(lcModuleDetails){
+        if (lcModuleDetails) {
             sessionStorage.setItem('comingFromChecker', true);
-            sessionStorage.setItem('lcCompanyId', lcModuleDetails[0]?.company);
-            sessionStorage.setItem('lcOrder', lcModuleDetails[0]?.order);
+            sessionStorage.setItem('lcCompanyId', lcModuleDetails[0]?.company?.companyName);
+            sessionStorage.setItem('lcOrder', lcModuleDetails[0]?.order?._id);
             dispatch(GetLcModule(`?lcModuleId=${lcModuleId}`));
-            dispatch(setDynamicName(lcModuleDetails[0]?.company));
+            dispatch(setDynamicName(lcModuleDetails[0]?.company?.companyName));
         }
     }, [lcModuleDetails]);
 
     const handleRemarkSubmit = async (remark, status) => {
-        // const payload = { lcModuleId: lcModuleId, status: status, remarks: remark }
+        const payload = { lcModuleId: lcModuleId, status: status, remarks: remark }
 
-        // let code = await dispatch(UpdateLcModuleRemark(payload))
-        // if (code == 200) {
-        //     let toastMessage = 'LC MODULE UPDATED SUCCESSFULLY';
-        //     if (!toast.isActive(toastMessage.toUpperCase())) {
-        //         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        //     }
-        //     await Router.push('/checker/letter-of-credit');
-        // }
+        let code = await dispatch(UpdateLcModuleRemark(payload))
+        if (code == 200) {
+            let toastMessage = 'LC MODULE UPDATED SUCCESSFULLY';
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+            }
+            await Router.push('/checker/letter-of-credit');
+        }
     }
 
     return (

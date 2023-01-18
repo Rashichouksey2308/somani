@@ -47,6 +47,10 @@ const initialState = {
     vendorDetails: {},
     updatingVendorRemarks: false,
     vendorRemarkDetails: {},
+    gettingTransactionSummaryRemarks: false,
+    transactionSummaryDetails: {},
+    updatingTransactionSummaryRemarks: false,
+    transactionSummaryRemarkDetails: {},
     gettingLcModuleDetails: false,
     lcModuleDetails: {},
     updatingLcModuleRemarks: false,
@@ -379,6 +383,34 @@ function CheckerReducer(state = initialState, action) {
                 vendorRemarkDetails: {},
             }
 
+        case types.GET_TRANSACTION_SUMMARY_DETAILS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingTransactionSummaryRemarks: false,
+                transactionSummaryDetails: action.payload,
+            }
+        
+        case types.GET_TRANSACTION_SUMMARY_DETAILS_FAILED:
+            return {
+                ...state,
+                gettingTransactionSummaryRemarks: false,
+                transactionSummaryDetails: {},
+            }
+
+        case types.UPDATE_TRANSACTION_SUMMARY_REMARK_SUCCESSFULL:
+            return {
+                ...state,
+                updatingTransactionSummaryRemarks: false,
+                transactionSummaryRemarkDetails: action.payload,
+            };
+
+        case types.UPDATE_TRANSACTION_SUMMARY_REMARK_FAILED:
+            return {
+                ...state,
+                updatingTransactionSummaryRemarks: false,
+                transactionSummaryRemarkDetails: {},
+            }
+
         case types.GET_LC_MODULE_DETAILS_SUCCESSFULL:
             return {
                 ...state,
@@ -406,7 +438,7 @@ function CheckerReducer(state = initialState, action) {
                 updatingLcModuleRemarks: false,
                 lcModuleRemarkDetails: {},
             }
-                
+                    
         default:
             return state;
     }

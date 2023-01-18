@@ -121,7 +121,7 @@ function index({ tableColumns, bankDetailsData, tableView, uniqueField }) {
                                                     </>
                                                 ))
                                                 :
-                                                <span className='h5 m-auto'>No records found</span>
+                                                <span className='h5 m-auto'>No Records found</span>
                                             }
                                         </div>
                                     </div>

@@ -199,6 +199,8 @@ export default {
   updateInternalCompanyRemark: 'internal-company/checker-internal-company-status-update',
   getVendorDetails: 'vendor/get-vendor',
   updateVendorRemark: 'vendor/checker-vendor-status-update',
+  getTransactionSummaryDetails: 'termsheet/get-termsheet',
+  updateTransactionSummaryRemark: 'termsheet/checker-termsheet-status-update',
   getLcModuleDetails: 'lc-module/get-lc',
   updateLcModuleRemark: 'lc-module/checker-lc-module-status-update',
   
