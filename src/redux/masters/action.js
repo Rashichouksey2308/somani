@@ -138,6 +138,23 @@ function createPortMasterFailed(payload = {}) {
   };
 }
 
+// ******** Port Master Edit ******** //
+
+function editPortMasterSuccess(payload) {
+  return {
+    type: types.EDIT_PORT_TABLE_DATA_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function editPortMasterFailed(payload = {}) {
+  return {
+    type: types.EDIT_PORT_TABLE_DATA_MASTER_FAILED,
+    payload,
+  };
+}
+
+
 // Document Master Queue
 function getDocumentMasterQueueRecordsSuccess(payload) {
   return {
@@ -433,23 +450,6 @@ function filterIIAGLedgerQueueFailed() {
     type: types.FILTER_IIAG_LEDGER_QUEUE_FAILED,
   };
 }
-
-// ******** IIAGLedger Master Add ******** //
-
-function createIIAGLedgerMasterSuccess(payload) {
-  return {
-    type: types.CREATE_IIAG_LEDGER_MASTER_SUCCESS,
-    payload,
-  };
-}
-
-function createIIAGLedgerMasterFailed(payload = {}) {
-  return {
-    type: types.CREATE_IIAG_LEDGER_MASTER_FAILED,
-    payload,
-  };
-}
-
 // ******** Master GoNoGo Queue ***********///
 function getMasterGoNoGoQueueRecordsSuccess(payload) {
   return {
@@ -499,6 +499,21 @@ function createGoNoGoMasterSuccess(payload) {
 function createGoNoGoMasterFailed(payload = {}) {
   return {
     type: types.CREATE_GONOGO_MASTER_FAILED,
+    payload,
+  };
+}
+// ******** IIAGLedger Master Add ******** //
+
+function createIIAGLedgerMasterSuccess(payload) {
+  return {
+    type: types.CREATE_IIAG_LEDGER_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function createIIAGLedgerMasterFailed(payload = {}) {
+  return {
+    type: types.CREATE_IIAG_LEDGER_MASTER_FAILED,
     payload,
   };
 }
@@ -1815,6 +1830,46 @@ export const CreateIIAGLedgerMaster = (payload) => async (dispatch, getState, ap
     dispatch(createIIAGLedgerMasterFailed());
 
     let toastMessage = 'COULD NOT ADD IIAG_LEDGER DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+// Handler for IIAGLedger-master End ---->
+
+
+export const editPortMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.post(`${API.corebaseUrl}${API.editPortsMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(editPortMasterSuccess(response.data.data));
+      let toastMessage = 'PORT EDITED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(editPortMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(editPortMasterFailed());
+
+    let toastMessage = 'COULD NOT EDIT PORT DETAILS';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
