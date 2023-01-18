@@ -241,6 +241,39 @@ export const bankValidtion = (data, countryName) => {
 }
 };
 
+export const internalCompanybankValidtion = (data, companyType) => {
+
+  if(companyType == 'domestic') {
+  if (data.Bank_Name === null || data.Bank_Name === '' || data.Bank_Name === undefined) {
+    handleErrorToast('Please add bank name');
+    return false;
+  }
+  if (data.IFSC === null || data.IFSC === '' || data.IFSC === undefined) {
+    handleErrorToast('Please add ifsc');
+    return false;
+  }
+  if (data.Account_No === null || data.Account_No === '' || data.Account_No === undefined) {
+    handleErrorToast('Please add account no.');
+    return false;
+  }
+  return true;
+}else {
+  if (data.Bank_Name === null || data.Bank_Name === '' || data.Bank_Name === undefined) {
+    handleErrorToast('Please add bank name');
+    return false;
+  }
+  if (data.Swift_Code === null || data.Swift_Code === '' || data.Swift_Code === undefined) {
+    handleErrorToast('Please add swift code');
+    return false;
+  }
+  if (data.Account_No === null || data.Account_No === '' || data.Account_No === undefined) {
+    handleErrorToast('Please add account no.');
+    return false;
+  }
+  return true;
+}
+};
+
 export const portValidtion = (data) => {
   if (data.Country === null || data.Country === '' || data.Country === undefined) {
     handleErrorToast('Please Select country');

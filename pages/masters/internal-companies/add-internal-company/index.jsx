@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 import { Card } from 'react-bootstrap';
 import Router from 'next/router';
-import AddIIAGLedger from '../../../../src/components/Masters/IIAG-Ledger/AddIIAGLedger';
+import AddNewInternalCompany from '../../../../src/components/Masters/Internal-Company/AddNewInternalCompany';
 
 function Index() {
     return (
@@ -20,7 +20,7 @@ function Index() {
                         <h1 className={styles.heading}>Add Internal Company</h1>
                     </div>
                 </Card.Header>
-                <AddIIAGLedger />
+                <AddNewInternalCompany />
             </div>
         </Card>
     );
