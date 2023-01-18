@@ -13,7 +13,7 @@ import ToggleSwitch from '../../../src/components/ToggleSwitch';
 import SearchAndFilter from '../../../src/components/SearchAndFilter';
 import { CHECKER_USERS_QUEUE } from '../../../src/data/constant';
 
-const Index = () => {
+const index = () => {
   const dispatch = useDispatch();
   const { usersQueueRecords, filteredUsersQueue } = useSelector((state) => state.MastersData);
   const [currentPage, setCurrentPage] = useState(0);
@@ -41,7 +41,7 @@ const Index = () => {
     setSearchTerm(query);
 
     let queryParams = '';
-    if (Object.keys(appliedFilters).length !== 0 && query.length >= 3) {
+    if (Object.keys(appliedFilters).length !== 0 && query.length > 3) {
       Object.keys(appliedFilters).forEach((item) => {
         const isTrue = appliedFilters[item];
         if (isTrue) {
@@ -157,10 +157,6 @@ const Index = () => {
     if (value.toLowerCase() === 'true') return true;
     if (value.toLowerCase() === 'false') return false;
     return value;
-  }
-  const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
   };
 
   const handleFilterChange = (e) => {
@@ -235,7 +231,7 @@ const Index = () => {
 
   const searchView = () => {
     return (
-      filter && openList && searchTerm?.length >= 3 &&
+      filter && openList && searchTerm?.length > 3 &&
       <div className='searchResults'>
         <ul>
           {filteredUsersQueue?.data?.userFilteredData?.length > 0 ? filteredUsersQueue?.data?.userFilteredData?.map((results, index) => (
@@ -272,7 +268,7 @@ const Index = () => {
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
-              onClick={() => Router.push('/add-new-user')}
+              onClick={() => Router.push('/masters/users/add-new-user')}
             >
               Add
             </button>
@@ -293,15 +289,15 @@ const Index = () => {
               handleSort={handleSort}
               sortByState={sortByState}
               serverSortEnabled={true}
-              totalCountEnabled={true}
+              totalCountEnable={true}
             />
           )}
         </div>
       </div>
 
-      <DownloadMasterBar btnName="Download as Excel" isUser={true} />
+      <DownloadMasterBar btnName="Download" />
     </>
   );
 };
 
-export default Index;
+export default index;
