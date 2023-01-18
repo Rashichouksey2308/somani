@@ -15,7 +15,7 @@ export default function index(props) {
   const { SelectOptions, value } = props;
   const [StatusData, setStatusData] = useState();
 
-  const Status = StatusData?.map(({ _id: { status } }) => ({
+  const Status = StatusData?.map((status) => ({
     label: status,
     value: status,
   }));
@@ -47,6 +47,7 @@ export default function index(props) {
       Axios.get(`${API.corebaseUrl}${API.getStatusFilters}`, {
         headers: headers,
       }).then((response) => {
+        console.log(response.data.data?.status, 'response.data.data.status');
         setStatusData(response.data.data.status);
         if (response.data.code === 200) {
         } else {

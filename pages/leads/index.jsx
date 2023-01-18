@@ -13,9 +13,14 @@ import QueueStatusSymbol from '../../src/components/QueueStatusSymbol';
 import Buyername from '../../src/components/VTwo/BuyerName';
 import CommodityDropdown from '../../src/components/VTwo/CommodityDropdown';
 import StatusDropDown from '../../src/components/VTwo/StatusDropDown';
-import styles from './index.module.scss';
+
 import slugify from 'slugify';
 import { LEADS_QUEUE_FILTER_ITEMS } from '../../src/data/constant';
+import Filter from '../../src/components/Filter';
+import Pagination from '../../src/components/Pagination';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import styles from './index.module.scss';
+import constants from '@/utils/constants';
 import Select from 'react-select';
 
 function Index() {
@@ -51,6 +56,7 @@ function Index() {
     dispatch(setPageName('leads'));
     dispatch(setDynamicName(null));
   });
+
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Leads');
@@ -60,7 +66,7 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    dispatch(GetOrderLeads());
+    dispatch(GetAllUpdatedBuyer());
   }, [dispatch, selectOptions]);
 
   useEffect(() => {
@@ -155,12 +161,13 @@ function Index() {
   };
 
   const statLeadsData = {
-    all: getOrderLeads?.totalCount,
-    approved: getOrderLeads?.approved,
-    review: getOrderLeads?.reviewed,
-    rejected: getOrderLeads?.rejected,
-    pending: getOrderLeads?.pending,
+    all: updatedBuyerList?.data?.totalData,
+    approved: updatedBuyerList?.data?.approved,
+    review: updatedBuyerList?.data?.reviewed,
+    rejected: updatedBuyerList?.data?.rejected,
+    pending: updatedBuyerList?.data?.pending,
   };
+  console.log(getOrderLeads, 'GetOrderLeads'), console.log(updatedBuyerList?.data, 'GetAllUpdatedBuyer');
 
   const tableColumns = useMemo(() => [
     {
@@ -205,6 +212,36 @@ function Index() {
       Cell: ({ value }) => <QueueStatusSymbol status={value} />,
     },
   ]);
+
+  const searchView = () => {
+    return (
+      filter &&
+      openList &&
+      searchterm.length > 3 && (
+        <div className={styles.searchResults}>
+          <ul>
+            {filteredLeads?.data?.data?.length > 0 ? (
+              filteredLeads?.data?.data?.map((results, index) => (
+                <li onClick={() => handleListClose(results)} id={results._id} key={index} className="cursor-pointer">
+                  {appliedFilters?.company_name === true && results?.buyerName}
+                  <span>
+                    &nbsp;{' '}
+                    {appliedFilters?.commodity === true && <span className="text-right">{results?.commodity}</span>}
+                    &nbsp; {appliedFilters?.status === true && <span className="text-right">{results?.status}</span>}
+                  </span>
+                </li>
+              ))
+            ) : (
+              <li>
+                <span>No result found</span>
+              </li>
+            )}
+          </ul>
+        </div>
+      )
+    );
+  };
+
   return (
     <>
       {' '}
