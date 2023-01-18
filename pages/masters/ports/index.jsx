@@ -18,7 +18,7 @@ function Index() {
   const [portTableQueueData, setPortTableQueueData] = useState(true);
   const [editPort, setEditPort] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const [portEditData, setPortEditData] = useState();
+ // const [portEditData, setPortEditData] = useState();
 
   const [pageLimit, setPageLimit] = useState(10);
   const [openList, setOpenList] = useState(true);
@@ -270,6 +270,7 @@ function Index() {
   };
 
   const handleEdit = (portData) => {
+    console.log("🚀 ~ file: index.jsx:273 ~ handleEdit ~ portData", portData)
     sessionStorage.setItem('masterPortId', portData?._id);
     sessionStorage.setItem('masterPortName', portData?.Port_Name);
     dispatch(setDynamicName(portData?.Port_Name));
@@ -277,7 +278,7 @@ function Index() {
     // Router.push('/masters/ports/add-new-port')
     setPortTableQueueData(false);
     setEditPort(true);
-    setPortEditData(portData);
+   // setPortEditData(portData);
     setPortDetails({
       portId: portData?._id,
       Country: portData?.Country,
@@ -387,7 +388,7 @@ function Index() {
               editPort={editPort}
               setPortDetails={setPortDetails}
               portDetails={portDetails}
-              data={portEditData}
+             // data={portEditData}
             />
           </div>
         </div>

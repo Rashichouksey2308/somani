@@ -2,6 +2,7 @@ import Axios from 'axios';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import * as types from './actionType';
+import { toast } from 'react-toastify'
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
 
@@ -80,6 +81,24 @@ function createCountryFailed() {
     type: types.CREATE_COUNTRY_FAILED,
   };
 }
+
+// ******** Country Master Edit ******** //
+
+function editCountryMasterSuccess(payload) {
+  return {
+    type: types.EDIT_COUNTRY_TABLE_DATA_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function editCountryMasterFailed(payload = {}) {
+  return {
+    type: types.EDIT_COUNTRY_TABLE_DATA_MASTER_FAILED,
+    payload,
+  };
+}
+
+
 
 export const GetAllCountry = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
@@ -205,6 +224,47 @@ export const UpdateCountry = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(updateCountryFailed());
     handleErrorToast('COULD NOT UPDATE COUNTRY AT THIS TIME');
+    dispatch(setNotLoading());
+  }
+};
+
+
+
+//Country edit
+export const editCountryMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.put(`${API.corebaseUrl}${API.editCountryMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(editCountryMasterSuccess(response.data.data));
+      let toastMessage = 'PORT EDITED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    } else {
+      dispatch(editCountryMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(editCountryMasterFailed());
+
+    let toastMessage = 'COULD NOT EDIT PORT DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
     dispatch(setNotLoading());
   }
 };

@@ -62,7 +62,6 @@ const initialState = {
   gettingGoNoGoSingleRecord: false,
   creatingGoNoGoMaster: false,
   zipCode: [],
-  editPortTableDataMaster: false,
 };
 
 function MastersReducer(state = initialState, action) {
@@ -673,18 +672,7 @@ function MastersReducer(state = initialState, action) {
         ...state,
         zipCode: [],
       }
-    case types.EDIT_PORT_TABLE_DATA_MASTER_SUCCESS:
-      return {
-        ...state,
-        editPortTableDataMaster: false,
-      };
-
-    case types.EDIT_PORT_TABLE_DATA_MASTER_FAILED:
-      return {
-        ...state,
-        editPortTableDataMaster: false,
-      };
-
+ 
     case types.GET_MASTER_GONOGO_QUEUE_RECORDS_SUCCESSFULL:
       return {
         ...state,
