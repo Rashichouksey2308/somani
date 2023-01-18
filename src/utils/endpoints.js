@@ -174,6 +174,9 @@ export default {
   getMasterIIAGLedgerQueueRecords: '/ledger/filterLedger',
   filterIIAGLedgerQueue: '/ledger/search',
   createIIAGLedgerMaster: '/ledger',
+  getMasterGoNoGoQueueRecords: '/gng-master',
+  getMasterGoNoGoSingleRecord: '/gng-master',
+  createGoNoGoMaster: '/gng-master',
 
   //Checker
   getUserDetails: '/user-master/user',
