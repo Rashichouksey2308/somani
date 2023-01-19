@@ -3,14 +3,12 @@ import styles from '../../../styles/Custom/form.module.scss';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { CreateDocumentMaster } from 'redux/masters/action';
+import { editDocumentMaster } from 'redux/documentMaster/action';
 import { toast } from 'react-toastify';
 
-function Index() {
+function Index(props) {
     const dispatch = useDispatch();
-    const [documentMasterDetails, setDocumentMasterDetails] = useState({
-        Document_Name: '',
-        Module: '',
-    });
+    const {editDocument, setDocumentMasterDetails, documentMasterDetails}=props;
 
     const handleDocumentMasterDetailsChange = (e) => {
         setDocumentMasterDetails({
@@ -20,9 +18,12 @@ function Index() {
     }
 
     const handleSubmit = async () => {
-        if (!validate()) return;
-
-        dispatch(CreateDocumentMaster(documentMasterDetails));
+        if (!validate()) return;        
+        if(!editDocument){
+            dispatch(CreateDocumentMaster(documentMasterDetails));
+        } else {
+            dispatch(editDocumentMaster(documentMasterDetails));
+        }
     }
 
     const validate = () => {
