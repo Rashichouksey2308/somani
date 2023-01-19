@@ -1,4 +1,4 @@
-import * as types from './actionType'
+import * as types from './actionType';
 
 const initialState = {
   gettingAllCurrency: false,
@@ -8,91 +8,103 @@ const initialState = {
   updatingCurrency: false,
   updateCurrencyResponse: false,
   creatingCurrency: false,
-  createdCurrency: null
-}
+  createdCurrency: null,
+  editCurrencyTableDataMaster: false,
+};
 
-function CurrencyReducer (state = initialState, action) {
+function CurrencyReducer(state = initialState, action) {
   switch (action.type) {
     case types.GET_ALL_CURRENCY:
       return {
         ...state,
-        gettingAllCurrency: true
-      }
+        gettingAllCurrency: true,
+      };
 
     case types.GET_ALL_CURRENCY_SUCCESS:
       return {
         ...state,
         gettingAllCurrency: false,
-        allCurrency: action.payload
-      }
+        allCurrency: action.payload,
+      };
 
     case types.GET_ALL_CURRENCY_FAILED:
       return {
         ...state,
         gettingAllCurrency: false,
-        allCurrency: null
-      }
+        allCurrency: null,
+      };
 
     case types.GET_CURRENCY:
       return {
         ...state,
-        gettingCurrency: true
-      }
+        gettingCurrency: true,
+      };
 
     case types.GET_CURRENCY_SUCCESS:
       return {
         ...state,
         gettingCurrency: false,
-        currencyResponse: action.payload
-      }
+        currencyResponse: action.payload,
+      };
 
     case types.GET_CURRENCY_FAILED:
       return {
         ...state,
-        gettingCurrency: false
-      }
+        gettingCurrency: false,
+      };
 
     case types.UPDATE_CURRENCY:
       return {
         ...state,
         updatingCurrency: true,
-        updateCurrencyResponse: null
-      }
+        updateCurrencyResponse: null,
+      };
     case types.UPDATE_CURRENCY_SUCCESS:
       return {
         ...state,
         updatingCurrency: false,
-        updateCurrencyResponse: action.payload
-      }
+        updateCurrencyResponse: action.payload,
+      };
     case types.UPDATE_CURRENCY_FAILED:
       return {
         ...state,
         updatingCurrency: false,
-        updateCurrencyResponse: null
-      }
+        updateCurrencyResponse: null,
+      };
 
     case types.CREATE_CURRENCY:
       return {
         ...state,
         creatingCurrency: true,
-        createdCurrency: null
-      }
+        createdCurrency: null,
+      };
     case types.CREATE_CURRENCY_SUCCESS:
       return {
         ...state,
         creatingCurrency: false,
-        createdCurrency: action.payload
-      }
+        createdCurrency: action.payload,
+      };
     case types.CREATE_CURRENCY_FAILED:
       return {
         ...state,
         creatingCurrency: false,
-        createdCurrency: null
-      }
+        createdCurrency: null,
+      };
+    case types.EDIT_CURRENCY_TABLE_DATA_MASTER_SUCCESS:
+      return {
+        ...state,
+        editCurrencyTableDataMaster: false,
+      };
+
+    case types.EDIT_CURRENCY_TABLE_DATA_MASTER_FAILED:
+      return {
+        ...state,
+        editCurrencyTableDataMaster: false,
+      };
 
     default:
-      return state
+      return state;
   }
 }
 
-export default CurrencyReducer
+export default CurrencyReducer;

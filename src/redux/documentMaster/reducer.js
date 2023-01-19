@@ -8,7 +8,8 @@ const initialState = {
   updatingDocument: false,
   updatedDocumentResponse: false,
   creatingDocument: false,
-  createdDocument: null
+  createdDocument: null,
+  editDocumentTableDataMaster: false,
 }
 
 function DocumentReducer (state = initialState, action) {
@@ -89,6 +90,17 @@ function DocumentReducer (state = initialState, action) {
         creatingDocument: false,
         createdDocument: null
       }
+      case types.EDIT_DOCUMENT_TABLE_DATA_MASTER_SUCCESS:
+      return {
+        ...state,
+        editDocumentTableDataMaster: false,
+      };
+
+    case types.EDIT_DOCUMENT_TABLE_DATA_MASTER_FAILED:
+      return {
+        ...state,
+        editDocumentTableDataMaster: false,
+      };
 
     default:
       return state

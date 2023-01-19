@@ -1,4 +1,4 @@
-/* eslint-disable  */
+/* eslint-disable import/no-anonymous-default-export */
 // Dev
 //  export default {
 //    authServerUrl:

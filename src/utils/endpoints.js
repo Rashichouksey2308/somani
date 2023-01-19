@@ -220,7 +220,7 @@ export default {
   getTransactionSummaryDetails: '/termsheet/get-termsheet',
   updateTransactionSummaryRemark: '/termsheet/checker-termsheet-status-update',
 
-  //Masters
+  // Masters
   getAllCommodity: '/commodity/get-commodities',
   getAllGonogo: '/gng-master',
   addNewCommodity: '/commodity',
