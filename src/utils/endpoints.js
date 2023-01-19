@@ -181,6 +181,7 @@ export default {
   getMasterInternalCompaniesQueueRecords: '/internal-company/filterInternalCompanies',
   filterInternalCompaniesQueue: '/internal-company/searchInternalCompanies',
   createInternalCompaniesMaster: '/internal-company',
+  getMastersPincodes: '/country-master/pin',
 
   //Checker
   getUserDetails: '/user-master/user',

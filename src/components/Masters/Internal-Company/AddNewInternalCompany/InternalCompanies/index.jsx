@@ -12,7 +12,8 @@ const Index = ({
     saveCompanyData,
     getCountriesMasterData,
     keyAddData,
-    setKeyAddData
+    setKeyAddData,
+    pincodes
 }) => {
     const [showEditAddress, setShowEditAddress] = useState(false);
     const [showAddress, setShowAddress] = useState(true);
@@ -38,7 +39,6 @@ const Index = ({
         pinCode: '',
     });
 
-    console.log("KEY ADDRS---", keyAddData);
     const handleChange = (name, value) => {
         const newInput = { ...keyAddressData };
         newInput[name] = value;
@@ -277,6 +277,8 @@ const Index = ({
                             handleClick={handleClick}
                             companyTypeRadio={companyTypeRadio}
                             keyAddressData={keyAddressData}
+                            setKeyAddressData={setKeyAddressData}
+                            pincodes={pincodes}
                         />
                     ) : null}
                     {showEditAddress ? (
@@ -291,6 +293,8 @@ const Index = ({
                             handleClick={updateKeyAddDataArr}
                             companyTypeRadio={companyTypeRadio}
                             keyAddressData={editData}
+                            setKeyAddressData={setKeyAddressData}
+                            pincodes={pincodes}
                         />
                     ) : null}
                     {keyAddData &&

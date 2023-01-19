@@ -7,15 +7,14 @@ import BankDetails from './BankDetails';
 import AuthorisedSignatories from './AuthorisedSignatories';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    CreateInternalCompanies,
     GetInternalCompanies,
     UpdateInternalCompanies,
 } from '../../../../../src/redux/internalCompanies/action';
 import _get from 'lodash/get';
-import { getCountries } from 'redux/masters/action';
+import { CreateInternalCompaniesMaster, getCountries } from 'redux/masters/action';
 import { toast } from 'react-toastify';
 
-function Index() {
+function Index({ internalCompaniesMasterId }) {
     const dispatch = useDispatch();
 
     const [companyTypeRadio, setCompanyTypeRadio] = useState('domestic');
@@ -38,7 +37,7 @@ function Index() {
 
     const { internalCompanyResponse } = useSelector((state) => state.internalCompanies);
     const internalCompanyData = _get(internalCompanyResponse, 'data[0]', {});
-    const id = sessionStorage.getItem('InternalCompaniesMasterId');
+    const id = internalCompaniesMasterId;
 
     useEffect(() => {
         if (!id) return;
@@ -232,7 +231,7 @@ function Index() {
         if (id) {
             dispatch(UpdateInternalCompanies(data2));
         } else {
-            dispatch(CreateInternalCompanies(data));
+            dispatch(CreateInternalCompaniesMaster(data));
         }
     };
 
@@ -266,15 +265,6 @@ function Index() {
                         </div>}
                     </div>
                 </div>
-
-                {/* <div className="d-flex justify-content-end mb-5" style={{ marginTop: '35px' }}>
-                        <div className={`${styles.footer_heading} mr-5`}>
-                            Created By <span>Balakrishna SGF001</span>
-                        </div>
-                        <div className={`${styles.footer_heading}`}>
-                            Approved By <span>Ramakrishna SGF001</span>
-                        </div>
-                    </div> */}
             </div>
         </div>
     );

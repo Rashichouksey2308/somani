@@ -6,6 +6,8 @@ const initialState = {
   getGonogoMasterData: [],
   gettingState: false,
   getStateMasterData: [],
+  gettingPincodes: false,
+  getMastersPincodesData: [],
   getPortsMasterData: [],
   getCommoditiesMasterData: [],
   getDocumentsMasterData: [],
@@ -132,6 +134,23 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getStateMasterData: [],
+      };
+
+    case types.GET_MASTERS_PINCODE:
+      return {
+        ...state,
+        gettingPincodes: true,
+        getMastersPincodesData: [],
+      };
+    case types.GET_MASTERS_PINCODE_SUCCESS:
+      return {
+        ...state,
+        getMastersPincodesData: action.payload,
+      };
+    case types.GET_MASTERS_PINCODE_FAILURE:
+      return {
+        ...state,
+        getMastersPincodesData: [],
       };
 
     case types.GET_PORTS_MASTERS:

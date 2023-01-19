@@ -11,9 +11,12 @@ import SearchAndFilter from '../../../src/components/SearchAndFilter';
 import _, { isUndefined } from 'lodash';
 import { MASTERS_INTERNAL_COMPANIES_MASTER_QUEUE } from '../../../src/data/constant';
 import slugify from 'slugify';
+import AddNewInternalCompany from '../../../src/components/Masters/Internal-Company/AddNewInternalCompany';
 function Index() {
     const dispatch = useDispatch();
     const { InternalCompaniesQueueRecords, filteredInternalCompaniesQueue } = useSelector((state) => state.MastersData);
+    const [internalCompaniesQueueData, setInternalCompaniesQueueData] = useState(true);
+    const [editInternalCompany, setInternalCompany] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const [pageLimit, setPageLimit] = useState(10);
     const [openList, setOpenList] = useState(true);
@@ -27,6 +30,7 @@ function Index() {
     const [filterItem, setFilterItem] = useState({ companyName: true });
     const [appliedFilters, setAppliedFilters] = useState({ companyName: true });
     const [showBadges, setShowBadges] = useState([]);
+    const [internalCompaniesMasterId, setInternalCompaniesMasterId] = useState(null);
     const delayedQuery = useCallback(
         _.debounce((q) => dispatch(FilterInternalCompaniesQueue(`${q}`)), 1000),
         [],
@@ -206,68 +210,101 @@ function Index() {
             }
         ])
     };
-    const handleRoute = (InternalCompaniesMasterData) => {
-        sessionStorage.setItem('InternalCompaniesMasterId', InternalCompaniesMasterData?._id);
-        // sessionStorage.setItem('InternalCompaniesMasterModuleName', InternalCompaniesMasterData?.Module);
-        // dispatch(setDynamicName(InternalCompaniesMasterData?.Module));
-        // Router.push('/masters/internal-companies/id');
-        // sessionStorage.setItem('internalCompanyId', id);
-        dispatch(GetInternalCompanies(`?internalCompanyId=${InternalCompaniesMasterData?._id}`))
-        Router.push('/masters/internal-companies/add-internal-company');
+    const handleRoute = async (InternalCompaniesMasterData) => {
+        await dispatch(GetInternalCompanies(`?internalCompanyId=${InternalCompaniesMasterData?._id}`))
+        setInternalCompaniesMasterId(InternalCompaniesMasterData?._id);
+        setInternalCompaniesQueueData(false);
     };
     return (
-        <div className="container-fluid p-0 border-0">
-            <div className={styles.container_inner}>
-                <div className={`${styles.filter} d-flex align-items-center`}>
-                    <div className={`${styles.head_header} align-items-center`}>
-                        <img
-                            className={`${styles.arrow} mr-2 image_arrow img-fluid`}
-                            src="/static/keyboard_arrow_right-3.svg"
-                            alt="ArrowRight"
-                        />
-                        <h1 className={styles.heading}>Internal Companies</h1>
-                    </div>
-                    <div className={`${styles.filter} d-flex align-items-center flex-grow-1`}>
-                        <SearchAndFilter
-                            searchterm={searchTerm}
-                            handleSearch={handleSearch}
-                            filterItem={filterItem}
-                            handleFilterChange={handleFilterChange}
-                            handleApplyFilter={handleApplyFilter}
-                            filterItems={MASTERS_INTERNAL_COMPANIES_MASTER_QUEUE}
-                            showBadges={showBadges}
-                            handleClose={handleClose}
-                            searchView={searchView}
-                        />
-                        <button
-                            type="button"
-                            className={`${styles.createBtn} btn ml-auto btn-primary`}
-                            onClick={() => Router.push('/masters/internal-companies/add-internal-company')}
-                        >
-                            Add
-                        </button>
+        <>
+            {internalCompaniesQueueData === true ? (
+                <div className="container-fluid p-0 border-0">
+                    <div className={styles.container_inner}>
+                        <div className={`${styles.filter} d-flex align-items-center`}>
+                            <div className={`${styles.head_header} align-items-center`}>
+                                <img
+                                    className={`${styles.arrow} mr-2 image_arrow img-fluid`}
+                                    src="/static/keyboard_arrow_right-3.svg"
+                                    alt="ArrowRight"
+                                />
+                                <h1 className={styles.heading}>Internal Companies</h1>
+                            </div>
+                            <div className={`${styles.filter} d-flex align-items-center flex-grow-1`}>
+                                <SearchAndFilter
+                                    searchterm={searchTerm}
+                                    handleSearch={handleSearch}
+                                    filterItem={filterItem}
+                                    handleFilterChange={handleFilterChange}
+                                    handleApplyFilter={handleApplyFilter}
+                                    filterItems={MASTERS_INTERNAL_COMPANIES_MASTER_QUEUE}
+                                    showBadges={showBadges}
+                                    handleClose={handleClose}
+                                    searchView={searchView}
+                                />
+                                <button
+                                    type="button"
+                                    className={`${styles.createBtn} btn ml-auto btn-primary`}
+                                    onClick={() => setInternalCompaniesQueueData(false)}
+                                >
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                        {/* Queue Table */}
+                        {InternalCompaniesQueueRecords?.data && (
+                            <Table
+                                tableHeading="Internal Companies"
+                                currentPage={currentPage}
+                                totalCount={InternalCompaniesQueueRecords?.total}
+                                setCurrentPage={setCurrentPage}
+                                tableHooks={tableHooks}
+                                columns={tableColumns}
+                                data={InternalCompaniesQueueRecords?.data}
+                                pageLimit={pageLimit}
+                                setPageLimit={setPageLimit}
+                                handleSort={handleSort}
+                                sortByState={sortByState}
+                                serverSortEnabled={true}
+                                totalCountEnabled={true}
+                            />
+                        )}
                     </div>
                 </div>
-                {/* Queue Table */}
-                {InternalCompaniesQueueRecords?.data && (
-                    <Table
-                        tableHeading="Internal Companies"
-                        currentPage={currentPage}
-                        totalCount={InternalCompaniesQueueRecords?.total}
-                        setCurrentPage={setCurrentPage}
-                        tableHooks={tableHooks}
-                        columns={tableColumns}
-                        data={InternalCompaniesQueueRecords?.data}
-                        pageLimit={pageLimit}
-                        setPageLimit={setPageLimit}
-                        handleSort={handleSort}
-                        sortByState={sortByState}
-                        serverSortEnabled={true}
-                        totalCountEnabled={true}
-                    />
-                )}
-            </div>
-        </div>
+            ) : (
+                <div className="container-fluid p-0 border-0">
+                    <div className={styles.container_inner}>
+                        <div className={`${styles.filter} align-items-center`}>
+                            <div className={`${styles.head_header} align-items-center justify-content-between`}>
+                                <div className='d-flex'>
+                                    <img
+                                        className={`${styles.arrow} mr-2 image_arrow img-fluid mt-2`}
+                                        src="/static/keyboard_arrow_right-3.svg"
+                                        alt="ArrowRight"
+                                        onClick={() => {
+                                            setInternalCompaniesQueueData(true);
+                                            setInternalCompaniesMasterId(null);
+                                        }}
+                                    />
+                                    <h1 className={styles.heading}>Internal Companies </h1>
+                                </div>
+                                <div className={styles.headingTop}>
+                                    {internalCompaniesMasterId !== null && (
+                                        <div className={styles.last_modified}>
+                                            <strong>Last Modified:</strong>
+                                            <span>Balakrishan</span>SGF001-28 Jan, 11.34am
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <AddNewInternalCompany
+                            internalCompaniesMasterId={internalCompaniesMasterId}
+                        />
+                    </div>
+                </div>
+            )}
+        </>
+
     );
 }
 

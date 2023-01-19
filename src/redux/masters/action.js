@@ -636,6 +636,46 @@ export const getState = (payload) => async (dispatch, getState, api) => {
     handleErrorToast('COULD NOT GET STATE');
   }
 };
+
+export const getMastersPincodes = (payload) => async (dispatch, getState, api) => {
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+
+  dispatch({
+    type: types.GET_MASTERS_PINCODE,
+  });
+  try {
+    await Axios.get(`${API.corebaseUrl}${API.getMastersPincodes}${payload || ''}`, {
+      headers: headers,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch({
+            type: types.GET_MASTERS_PINCODE_SUCCESS,
+            payload: response.data.data,
+          });
+        } else {
+          dispatch({
+            type: types.GET_MASTERS_PINCODE_FAILURE,
+            payload: response.data,
+          });
+        }
+      })
+      .catch((error) => {
+        handleErrorToast('COULD NOT GET A RESPONSE');
+      });
+  } catch (error) {
+    handleErrorToast('COULD NOT GET PINCODES');
+  }
+};
+
 export const GetMastersCommodity = () => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading());
