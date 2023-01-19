@@ -20,7 +20,7 @@ import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/a
 import { returnDocFormat, returnReadableNumber } from '@/utils/helpers/global';
 
 
-export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
+export default function lIndex({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
   const shipmentType= _get(customData, 'order.vessel.vessels[0].shipmentType', '');
 
   const dispatch = useDispatch();
@@ -916,6 +916,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                               saveDate={saveBoeDetaiDate}
                               labelName="Invoice Date"
                               index={index}
+                              startFrom={"noLimit"}
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -1220,7 +1221,26 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                                               <option>Select an option</option>
 
                                               <option value="BCD">BCD</option>
-                                              <option value="IGST">IGST</option>
+                                              <option value="IGST">ACD</option>
+                                              <option value="BCD">SWS</option>
+                                              <option value="IGST">SAD</option>
+                                              <option value="BCD">IGST</option>
+                                              <option value="IGST">G.CESS</option>
+                                              <option value="BCD">ADD</option>
+                                              <option value="IGST">CVD</option>
+                                              <option value="BCD">SG</option>
+                                              <option value="IGST">T.VALUE</option>
+                                              <option value="BCD">SP EXD</option>
+                                              <option value="IGST">CHCESS</option>
+                                              <option value="BCD">TTA</option>
+                                              <option value="IGST">CESS</option>
+                                              <option value="BCD">CAIDC</option>
+                                              <option value="IGST">EAIDC</option>
+                                              <option value="BCD">CUS EDC</option>
+                                              <option value="IGST">CUS HEC</option>
+                                              <option value="BCD">NCD</option>
+                                              <option value="IGST">AGGR</option>
+                                              
                                             </select>
                                           </td>
                                           <td>

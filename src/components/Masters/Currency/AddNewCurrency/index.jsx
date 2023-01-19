@@ -3,15 +3,11 @@ import styles from '../../../styles/Custom/form.module.scss';
 import { useDispatch } from 'react-redux';
 import { CreateCurrencyMaster } from 'redux/masters/action';
 import { toast } from 'react-toastify';
+import {editCurrencyMaster} from 'redux/currency/action';
 
-function Index() {
+function Index(props) {
     const dispatch = useDispatch();
-    const [currencyMasterDetails, setCurrencyMasterDetails] = useState({
-        Currency: '',
-        Currency_Name: '',
-        Symbol: '',
-        Status: false,
-    });
+    const {editCurrency, setCurrencyMasterDetails, currencyMasterDetails}=props;
 
     const handleCurrencyDetailsChange = (e) => {
         setCurrencyMasterDetails({
@@ -24,8 +20,12 @@ function Index() {
         if (!validate()) return;
         let _currencyMasterDetails = { ...currencyMasterDetails };
         _currencyMasterDetails?.Status ? _currencyMasterDetails.Status = 'Inactive' : _currencyMasterDetails.Status = 'Active';
-
-        dispatch(CreateCurrencyMaster(_currencyMasterDetails));
+        if(!editCurrency){
+            dispatch(CreateCurrencyMaster(_currencyMasterDetails));
+        } else {
+            dispatch(editCurrencyMaster(_currencyMasterDetails));
+        }
+        
     }
 
     const validate = () => {

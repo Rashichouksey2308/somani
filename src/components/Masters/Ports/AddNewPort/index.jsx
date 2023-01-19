@@ -3,11 +3,13 @@ import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountries, CreatePortMaster, getAllStates, editPortMaster } from 'redux/masters/action';
+import { getCountries, CreatePortMaster, getAllStates } from 'redux/masters/action';
+import {editPortMaster} from 'redux/ports/action'
 import { toast } from 'react-toastify';
 
 function Index(props) {
     const{editPort, portDetails, setPortDetails}=props;
+    console.log("🚀 ~ file: index.jsx:12 ~ Index ~ portDetails", portDetails)
     const dispatch = useDispatch();
      
 
@@ -29,7 +31,6 @@ function Index(props) {
         } else {
             dispatch(editPortMaster(portDetails)); 
         }
-       // editPortMaster
     }
 
     const validate = () => {

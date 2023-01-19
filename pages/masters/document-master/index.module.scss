@@ -978,3 +978,25 @@
 .toggle_right {
     right: 0;
 }
+
+.last_modified{
+    font-size: 14px;
+    color: #798397;
+    strong{
+        color: #283756;
+        margin-right: 5px;
+    }
+    span{
+        margin-right: 5px;
+        font-weight: 500;
+    }
+}
+.headingTop{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-right: 10px;
+    align-items: baseline;
+}

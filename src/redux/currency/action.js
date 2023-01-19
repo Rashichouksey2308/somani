@@ -2,6 +2,7 @@ import Axios from 'axios';
 import { toast } from 'react-toastify';
 import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
+import  Router  from 'next/router';
 import * as types from './actionType';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
 import { handleErrorToast, handleSuccessToast } from '@/utils/helpers/global';
@@ -79,6 +80,23 @@ function createCurrencySuccess(payload) {
 function createCurrencyFailed() {
   return {
     type: types.CREATE_CURRENCY_FAILED,
+  };
+}
+
+
+// ******** Currency Master Edit ******** //
+
+function editCurrencyMasterSuccess(payload) {
+  return {
+    type: types.EDIT_CURRENCY_TABLE_DATA_MASTER_SUCCESS,
+    payload,
+  };
+}
+
+function editCurrencyMasterFailed(payload = {}) {
+  return {
+    type: types.EDIT_CURRENCY_TABLE_DATA_MASTER_FAILED,
+    payload,
   };
 }
 
@@ -204,6 +222,47 @@ export const UpdateCurrency = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(updateCurrencyFailed());
     handleErrorToast('COULD NOT UPDATE CURRENCY AT THIS TIME');
+    dispatch(setNotLoading());
+  }
+};
+
+
+//Currency edit
+export const editCurrencyMaster = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [, , jwtAccessToken] = decodedString.split('#');
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+
+    let response = await Axios.put(`${API.corebaseUrl}${API.editCurrencyMaster}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(editCurrencyMasterSuccess(response.data.data));
+      let toastMessage = 'PORT EDITED SUCCESSFULLY';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      Router.reload();
+      dispatch(setNotLoading());
+    } else {
+      dispatch(editCurrencyMasterFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
+  } catch (error) {
+    dispatch(editCurrencyMasterFailed());
+
+    let toastMessage = 'COULD NOT EDIT PORT DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
     dispatch(setNotLoading());
   }
 };

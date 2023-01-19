@@ -182,6 +182,9 @@ export default {
   filterInternalCompaniesQueue: '/internal-company/searchInternalCompanies',
   createInternalCompaniesMaster: '/internal-company',
   getMastersPincodes: '/country-master/pin',
+  editDocumentMaster: '/document-master',
+  editCountryMaster: '/country-master',
+  editCurrencyMaster: '/currency-master',
 
   //Checker
   getUserDetails: '/user-master/user',

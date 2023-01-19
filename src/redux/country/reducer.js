@@ -8,7 +8,8 @@ const initialState = {
   updatingCountry: false,
   updateCountryResponse: false,
   creatingCountry: false,
-  createdCountry: null
+  createdCountry: null,
+  editCountryTableDataMaster: false,
 }
 
 function CountryReducer (state = initialState, action) {
@@ -89,6 +90,17 @@ function CountryReducer (state = initialState, action) {
         creatingCountry: false,
         createdCountry: null
       }
+    case types.EDIT_COUNTRY_TABLE_DATA_MASTER_SUCCESS:
+      return {
+        ...state,
+        editCountryTableDataMaster: false,
+      };
+
+    case types.EDIT_COUNTRY_TABLE_DATA_MASTER_FAILED:
+      return {
+        ...state,
+        editCountryTableDataMaster: false,
+      };
 
     default:
       return state
