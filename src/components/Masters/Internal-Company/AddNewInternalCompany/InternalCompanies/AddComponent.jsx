@@ -12,6 +12,9 @@ function AddComponent({ companyTypeRadio, keyAddressData, handleCancel, handleCh
     if (e.target.value.length === 6) {
       dispatch(getMastersPincodes(`?pincode=${e.target.value}`));
     }
+    else {
+      setKeyAddressData({ ...keyAddressData, pinCode: e.target.value, city: '', state: '' })
+    }
   }
 
   const { getMastersPincodesData } = useSelector((state) => state.MastersData);
@@ -19,10 +22,10 @@ function AddComponent({ companyTypeRadio, keyAddressData, handleCancel, handleCh
   useEffect(() => {
     if (getMastersPincodesData) {
       setPincodeData(getMastersPincodesData?.data?.[0]);
+      setKeyAddressData({ ...keyAddressData, city: getMastersPincodesData?.data?.[0]?.city, state: getMastersPincodesData?.data?.[0]?.state })
     }
   }, [getMastersPincodesData]);
 
-  console.log("KEY ADDR", keyAddressData);
 
   return (
     <div className={`${styles.address_card} pb-5 value background1`} style={{ marginTop: '40px' }}>
@@ -77,7 +80,6 @@ function AddComponent({ companyTypeRadio, keyAddressData, handleCancel, handleCh
                   required
                   type="text"
                   value={pincodeData?.state && keyAddressData?.pinCode?.length == 6 ? pincodeData?.state : ''}
-                  onChange={(e) => { e.target.value?.length == 6 ? handleChange(e.target.name, e.target.value) : handleChange(e.target.name, '') }}
                   name="state"
                   disabled
                 />
@@ -91,7 +93,6 @@ function AddComponent({ companyTypeRadio, keyAddressData, handleCancel, handleCh
                   required
                   type="text"
                   value={pincodeData?.city && keyAddressData?.pinCode?.length == 6 ? pincodeData?.city : ''}
-                  onChange={(e) => { e.target.value?.length == 6 ? handleChange(e.target.name, e.target.value) : handleChange(e.target.name, '') }}
                   name="city"
                   disabled
                 />

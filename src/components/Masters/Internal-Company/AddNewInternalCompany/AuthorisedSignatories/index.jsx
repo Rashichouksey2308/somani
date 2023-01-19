@@ -31,6 +31,20 @@ const Index = ({
         setAuthorisedSignatoryDetails([...tempArr]);
     };
 
+    const handleUserChange = (e, index) => {
+        handleSignatoryChange(e.target.name, e.target.value, index);
+        let tempArr = [...authorisedSignatoryDetails];
+        let result = userDetails.filter(obj => {
+            return obj.name === e.target.value;
+        });
+        tempArr.forEach((val, i) => {
+            if (i == index) {
+                val['email'] = result[0].email;
+                val['designation'] = result[0].designation;
+            }
+        });
+    }
+
     const setActions = (index, val) => {
         setAuthorisedSignatoryDetails((prevState) => {
             const newState = prevState.map((obj, i) => {
@@ -50,6 +64,33 @@ const Index = ({
             ...authorisedSignatoryDetails.slice(index + 1),
         ]);
     };
+
+    const userDetails = [
+        {
+            id: 1,
+            name: 'Bhawana Jain',
+            email: 'bhawanajain@somanigroup.com',
+            designation: 'Vice President(Finance & Accounts)'
+        },
+        {
+            id: 2,
+            name: 'Vipin Kumar',
+            email: 'vipinrajput@somanigroup.com',
+            designation: 'Manager Accounts'
+        },
+        {
+            id: 3,
+            name: 'Vikash Rawal',
+            email: 'vikashrawal@somanigroup.com',
+            designation: 'CEO',
+        },
+        {
+            id: 4,
+            name: 'Devesh Jain',
+            email: 'devesh@indointertrade.ch',
+            designation: 'Director',
+        }
+    ];
 
     return (
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
@@ -75,12 +116,11 @@ const Index = ({
                                             value={val.name}
                                             name="name"
                                             disabled={!val.actions}
-                                            onChange={(e) => handleSignatoryChange(e.target.name, e.target.value, index)}
+                                            onChange={(e) => handleUserChange(e, index)}
                                             className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                                         >
                                             <option value='' disabled >Select</option>
-                                            <option value="John Doe">John Doe</option>
-                                            <option value="Ashish Jha">Ashish Jha</option>
+                                            {userDetails.map((item) => (<option value={item.name} key={item.id}>{item.name}</option>))}
                                         </select>
                                         <label className={`${styles.label_heading} label_heading`}>
                                             Name <strong className="text-danger">*</strong>
