@@ -30,7 +30,7 @@ function Index({ shippingLine, shippingLineHistory }) {
           <div className="d-flex justify-space-between">
             <div className="row w-100">
               <div className="col-md-12 mb-5 px-0 mx-0 row">
-                <div className="col-md-8 col-sm-6">
+                <div className="col-md-4 col-sm-6">
                   <div className={`mb-2 font-weight-bold label_heading`}>Name</div>
                   <span className={`font-weight-light h5 ${shippingLineHistory?.name && shippingLineHistory?.name !== shippingLine?.name && styles.highlighted_field}`}>
                     {shippingLine?.name || '--'}
@@ -46,8 +46,6 @@ function Index({ shippingLine, shippingLineHistory }) {
                   {shippingLineHistory?.vesselName && shippingLineHistory?.vesselName !== shippingLine?.vesselName && <Tooltip data={shippingLineHistory?.vesselName || '--'} />}
 
                 </div>
-              </div>
-              <div className="col-md-12 mb-5 px-0 mx-0 row">
                 <div className="col-md-4 col-sm-6">
                   <div className={`mb-2 font-weight-bold label_heading`}>GSTIN</div>
                   <span className={`font-weight-light h5 ${shippingLineHistory?.gstin && shippingLineHistory?.gstin !== shippingLine?.gstin && styles.highlighted_field}`}>
