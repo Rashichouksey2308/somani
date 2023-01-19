@@ -1,9 +1,8 @@
-@import '../../../../styles/Core/config';
+@import '../../../../../styles/Core/config';
 
 .main {
   margin-bottom: 26px;
   border-radius: 6px !important;
-
   .head_container {
     border-bottom: 2px solid #cad6e6;
     padding: 25px 35px !important;
@@ -32,7 +31,6 @@
     border-bottom: 2px solid #cad6e6;
   }
 }
-
 .inner_head_container {
   background: #ffffff 0% 0% no-repeat padding-box;
   padding: 25px 35px !important;
@@ -50,7 +48,6 @@
     margin-bottom: 0 !important;
   }
 }
-
 .inner_head_containt {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #0000001f;
@@ -59,35 +56,6 @@
   padding: 25px;
   border-top: 0;
   padding-top: 0 !important;
-}
-
-.registered_address {
-  background: #ffffff;
-  border: 1px solid #0000001f;
-  border-radius: 9px;
-  padding: 36px 39px;
-
-  .address {
-    h3 {
-      color: #3687e8;
-      font-size: 20px;
-      line-height: 25px;
-      font-weight: bold;
-      display: inline-block;
-      margin-bottom: 0 !important;
-    }
-
-    p {
-      margin-top: 15px;
-      overflow-y: auto;
-      max-height: 80px;
-      font-size: 20px;
-      line-height: 25px;
-      padding: 0px !important;
-      letter-spacing: 0.19px;
-      margin-bottom: 0 !important;
-    }
-  }
 }
 .highlighted_field {
   background-color: yellow;

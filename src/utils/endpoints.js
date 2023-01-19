@@ -210,6 +210,8 @@ export default {
   updateTransactionSummaryRemark: 'termsheet/checker-termsheet-status-update',
   getLcModuleDetails: 'lc-module/get-lc',
   updateLcModuleRemark: 'lc-module/checker-lc-module-status-update',
+  getGenericDetails: 'generic/get-generic',
+  updateGenericRemark: 'generic/checker-generic-status-update',
   
   //Masters
   getAllCommodity: '/commodity/get-commodities',

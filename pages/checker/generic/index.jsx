@@ -104,6 +104,7 @@ function Index() {
 
     const handleRoute = (generic) => {
         sessionStorage.setItem('checkerGenericId', generic?._id);
+        sessionStorage.setItem('checkerGenericCompanyName', generic?.company?.companyName);
         dispatch(setDynamicName(generic?.company?.companyName));
         Router.push('/checker/generic/id');
     };

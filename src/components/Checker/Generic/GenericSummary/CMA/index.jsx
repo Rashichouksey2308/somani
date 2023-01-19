@@ -1,41 +1,74 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
-import Table from '../../../../Table';
 import Toggle from '../../../../Toggle/index';
+import Tooltip from '../../../../Tooltip';
+import KeyAddresses from '../../../Common/KeyAddress';
+import AuthorisedSignatoryDetails from '../../../Common/AuthorisedSignatoriesDetails';
 
-function index() {
-  const tableColumns = useMemo(() => [
-    {
-      Header: 'NAME',
-      accessor: 'name',
-    },
-    {
-      Header: 'DESIGNATION.',
-      accessor: 'designation',
-    },
-    {
-      Header: 'EMAIL',
-      accessor: 'email',
-    },
-    {
-      Header: 'PHONE NO.',
-      accessor: 'phone_no',
-    },
-    {
-      Header: 'ACTION',
-      accessor: 'action',
-    },
-  ]);
-  const dummyData = [
-    {
-      name: 'Abc Bank',
-      designation: '63547853487',
-      email: 'ICIC0000031',
-      phone_no: '63547853487',
-      action: 'action',
-    },
-  ];
-  const onToggle = (state) => {};
+function Index({ tableColumns, CMADetails, CMADetailsHistory }) {
+
+  const [addresses, setAddresses] = useState([]);
+  const [authorisedSignatoryDetailsData, setauthorisedSignatoryDetailsData] = useState([]);
+
+  useEffect(() => {
+    modifyKeyAddressesCurrentData();
+    modifyCurrentAuthorisedSignatoryData();
+  }, [CMADetails, CMADetailsHistory]);
+
+  const modifyCurrentAuthorisedSignatoryData = () => {
+    let finalData = [];
+    let curr;
+    for (let i = 0; i < CMADetails?.authorisedSignatoryDetails?.length; i++) {
+
+      curr = CMADetails?.authorisedSignatoryDetails[i];
+
+      let history;
+
+      history = CMADetailsHistory?.authorisedSignatoryDetails && CMADetailsHistory?.authorisedSignatoryDetails?.find((address) => address?.email === curr?.email);
+
+      if (history) {
+        curr = {
+          ...curr,
+          history
+        }
+      }
+      finalData.push(curr)
+    }
+
+    setauthorisedSignatoryDetailsData(finalData);
+  };
+
+  const modifyKeyAddressesCurrentData = () => {
+    let finalData = [];
+    let curr;
+    for (let i = 0; i < CMADetails?.addresses?.length; i++) {
+
+      curr = CMADetails?.addresses[i];
+
+      let history;
+
+      history = CMADetailsHistory?.addresses && CMADetailsHistory?.addresses?.find((address) => address?.fullAddress === curr?.fullAddress);
+
+      if (history) {
+        curr = {
+          ...curr,
+          history
+        }
+      }
+      finalData.push(curr)
+    }
+
+    const modifiedFinalData = finalData?.map(({
+      address: fullAddress,
+      ...rest
+    }) => ({
+      fullAddress,
+      ...rest
+    }));
+    setAddresses(modifiedFinalData);
+  };
+
+  const onToggle = (state) => { };
 
   return (
     <div className={`${styles.main} vessel_card mt-4 card border_color`}>
@@ -52,73 +85,69 @@ function index() {
               <h3 className={`${styles.heading} mb-0`}>CMA</h3>
               <span>{on ? '+' : '-'}</span>
             </div>
-            <div id="cma" className="collapse" aria-labelledby="cma">
-              <div className={`${styles.dashboard_form} vessel_card card-body m-3`}>
-                <div className="d-flex justify-space-between">
-                  <div className="row w-100">
-                    <div className="col-md-12 mb-5 px-0 mx-0 row">
-                      <div className="col-md-8 col-sm-6">
-                        <div className={`mb-2 font-weight-bold label_heading`}>Name</div>
-                        <div className="font-weight-light h5">Dr. Amin Controllers Private Limited</div>
-                      </div>
-                      <div className="col-md-4 col-sm-6">
-                        <div className={`mb-2 font-weight-bold label_heading`}>Short Name</div>
-                      </div>
-                    </div>
-                    <div className="col-md-12 mb-5 px-0 mx-0 row">
-                      <div className="col-md-4 col-sm-6">
-                        <div className={`mb-2 font-weight-bold label_heading`}>GSTIN.</div>
-                        <div className="font-weight-light h5">29AAACA3912A1ZB</div>
-                      </div>
-                      <div className="col-md-4 col-sm-6">
-                        <div className={`mb-2 font-weight-bold label_heading`}>Designated Storage Area</div>
-                        <div className="font-weight-light h5">Haldia Dock Complex</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="border-bottom"></div>
-              <div>
-                <div className={`${styles.inner_head_container}   bg-transparent`}>
-                  <h3 className={`${styles.heading} mb-0`}>Addresses</h3>
-                </div>
-                <div className={`${styles.inner_head_containt}   bg-transparent`}>
-                  <div className={`${styles.registered_address} col-md-6 col-sm-6 bg-transparent`}>
-                    <div className={`${styles.address}`}>
-                      <h3>Registered Address</h3>
-                      <p>Embassy Chambers, 6th Floor, Plot No 5,Road No 3 Khar (West) 400 052 India</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <Toggle onToggle={onToggle}>
-                {({ on, onToggle }) => (
-                  <div onClick={onToggle} className={`${styles.main} vessel_card mx-4 mt-4 card border_color`}>
-                    <div
-                      className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
-                      data-toggle="collapse"
-                      data-target="#cmaTbl"
-                      aria-expanded="true"
-                      aria-controls="cmaTbl"
-                    >
-                      <h3 className={styles.heading}>Authorised Signatory Details</h3>
-                      <span>{on ? '+' : '-'}</span>
-                    </div>
-                    <div id="cmaTbl" className="collapse" aria-labelledby="cmaTbl">
-                      <div className="generic-table">
-                        <Table columns={tableColumns} data={dummyData} />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </Toggle>
-            </div>
           </div>
         )}
       </Toggle>
+      <div id="cma" className="collapse" aria-labelledby="cma">
+        <div className={`${styles.dashboard_form} vessel_card card-body m-3`}>
+          <div className="d-flex justify-space-between">
+            <div className="row w-100">
+              <div className="col-md-12 mb-5 px-0 mx-0 row">
+                <div className="col-md-4 col-sm-6">
+                  <div className={`mb-2 font-weight-bold label_heading`}>Name</div>
+                  <span className={`font-weight-light h5 ${CMADetailsHistory?.name && CMADetailsHistory?.name !== CMADetails?.name && styles.highlighted_field}`}>
+                    {CMADetails?.name || '--'}
+                  </span>
+                  {CMADetailsHistory?.name && CMADetailsHistory?.name !== CMADetails?.name && <Tooltip data={CMADetailsHistory?.name || '--'} />}
+
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <div className={`mb-2 font-weight-bold label_heading`}>Short Name</div>
+                  <span className={`font-weight-light h5 text-uppercase ${CMADetailsHistory?.shortName && CMADetailsHistory?.shortName !== CMADetails?.shortName && styles.highlighted_field}`}>
+                    {CMADetails?.shortName || '--'}
+                  </span>
+                  {CMADetailsHistory?.shortName && CMADetailsHistory?.shortName !== CMADetails?.shortName && <Tooltip data={CMADetailsHistory?.shortName || '--'} />}
+
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <div className={`mb-2 font-weight-bold label_heading`}>GSTIN.</div>
+                  <span className={`font-weight-light h5 ${CMADetailsHistory?.gstin && CMADetailsHistory?.gstin !== CMADetails?.gstin && styles.highlighted_field}`}>
+                    {CMADetails?.gstin || '--'}
+                  </span>
+                  {CMADetailsHistory?.gstin && CMADetailsHistory?.gstin !== CMADetails?.gstin && <Tooltip data={CMADetailsHistory?.gstin || '--'} />}
+
+                </div>
+              </div>
+              <div className="col-md-12 mb-5 px-0 mx-0 row">
+                <div className="col-md-4 col-sm-6">
+                  <div className={`mb-2 font-weight-bold label_heading`}>Designated Storage Area</div>
+                  <span className={`font-weight-light h5 ${CMADetailsHistory?.designatedStorageArea && CMADetailsHistory?.designatedStorageArea !== CMADetails?.designatedStorageArea && styles.highlighted_field}`}>
+                    {CMADetails?.designatedStorageArea || '--'}
+                  </span>
+                  {CMADetailsHistory?.designatedStorageArea && CMADetailsHistory?.designatedStorageArea !== CMADetails?.designatedStorageArea && <Tooltip data={CMADetailsHistory?.designatedStorageArea || '--'} />}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="border-bottom"></div>
+        <KeyAddresses
+          Header="Addresses"
+          uniqueField="fullAddress"
+          KeyAddresses={addresses || []}
+        />
+        <div className="border-bottom"></div>
+        <div className='m-4'>
+          <AuthorisedSignatoryDetails
+            tableColumns={tableColumns}
+            authorisedSignatoryDetailsData={authorisedSignatoryDetailsData || []}
+            tableView
+          />
+        </div>
+      </div>
     </div>
   );
 }
 
-export default index;
+export default Index;
