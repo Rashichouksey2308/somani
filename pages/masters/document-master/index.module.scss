@@ -1000,3 +1000,14 @@
     padding-right: 10px;
     align-items: baseline;
 }
+.headingBottom{
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-right: 10px;
+    align-items: baseline;
+    gap: 50px;
+    margin: 20px 0;
+}

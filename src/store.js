@@ -39,6 +39,9 @@ import DocumentReducer from '../src/redux/documentMaster/reducer';
 import GoNoGoReducer from 'redux/goNoGo/reducer';
 import VendorReducer from 'redux/vendor/reducer';
 import CurrencyReducer from 'redux/currency/reducer';
+import TdsSectionReducer from 'redux/tdsSectionDetail/reducer';
+import SACReducer from 'redux/sac/reducer'
+import IIAGLLedgerReducer from 'redux/IIAGLLedger/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = [];
@@ -91,6 +94,9 @@ export const createStore = (preloadedState) => {
       Gng: GoNoGoReducer,
       Vendor: VendorReducer,
       Currency: CurrencyReducer,
+      TDSSection:TdsSectionReducer,
+      SAC:SACReducer,
+      IIAGLLedger:IIAGLLedgerReducer
     },
     preloadedState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),

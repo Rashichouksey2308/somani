@@ -11,6 +11,7 @@ import _, { isUndefined } from 'lodash';
 import { MASTERS_PORTS_QUEUE } from '../../../src/data/constant';
 import slugify from 'slugify';
 import AddNewPort from '../../../src/components/Masters/Ports/AddNewPort';
+import moment from 'moment/moment';
 
 function Index() {
   const dispatch = useDispatch();
@@ -18,7 +19,6 @@ function Index() {
   const [portTableQueueData, setPortTableQueueData] = useState(true);
   const [editPort, setEditPort] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
- // const [portEditData, setPortEditData] = useState();
 
   const [pageLimit, setPageLimit] = useState(10);
   const [openList, setOpenList] = useState(true);
@@ -46,6 +46,9 @@ function Index() {
     Container_Handling: false,
     Approved: false,
     portType: 'domestic',
+    createdAt: '',
+    lastUpdatedBy: '',
+    updatedAt: '',
   });
 
   const handleSearch = (e) => {
@@ -270,15 +273,11 @@ function Index() {
   };
 
   const handleEdit = (portData) => {
-    console.log("🚀 ~ file: index.jsx:273 ~ handleEdit ~ portData", portData)
     sessionStorage.setItem('masterPortId', portData?._id);
     sessionStorage.setItem('masterPortName', portData?.Port_Name);
     dispatch(setDynamicName(portData?.Port_Name));
-    //Router.push('/master/ports/id');
-    // Router.push('/masters/ports/add-new-port')
     setPortTableQueueData(false);
     setEditPort(true);
-   // setPortEditData(portData);
     setPortDetails({
       portId: portData?._id,
       Country: portData?.Country,
@@ -287,6 +286,9 @@ function Index() {
       Container_Handling: portData?.Container_Handling,
       Approved: portData?.Approved,
       portType: 'domestic',
+      createdAt: portData.createdAt,
+      lastUpdatedBy: portData.lastUpdatedBy,
+      updatedAt: portData.updatedAt,
     });
   };
 
@@ -299,9 +301,12 @@ function Index() {
       Container_Handling: '',
       Approved: '',
       portType: 'domestic',
+      createdAt: '',
+      lastUpdatedBy: '',
+      updatedAt: '',
     });
   };
-
+  const updatedATDate = moment(portDetails.updatedAt).format('DD-MMM, hh:mm A');
   return (
     <>
       {portTableQueueData === true ? (
@@ -377,10 +382,12 @@ function Index() {
                 />
                 <div className={styles.headingTop}>
                   <h1 className={styles.heading}>Ports </h1>
+                  {editPort && 
                   <div className={styles.last_modified}>
                     <strong>Last Modified:</strong>
-                    <span>Balakrishan</span>SGF001-28 Jan, 11.34am
+                    <span>Balakrishan</span>SGF001 -{updatedATDate}
                   </div>
+                  }
                 </div>
               </div>
             </div>
@@ -388,8 +395,19 @@ function Index() {
               editPort={editPort}
               setPortDetails={setPortDetails}
               portDetails={portDetails}
-             // data={portEditData}
             />
+            {editPort && (
+                <div className={styles.headingBottom}>
+                  <div className={styles.last_modified}>
+                    <strong>Created By:</strong>
+                    <span>Balakrishan</span>SGF001
+                  </div>
+                  <div className={styles.last_modified}>
+                    <strong>Approved by:</strong>
+                    <span>Balakrishan</span>SGF001
+                  </div>
+                </div>
+              )}
           </div>
         </div>
       )}

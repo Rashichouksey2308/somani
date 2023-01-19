@@ -11,6 +11,7 @@ import _, { isUndefined } from 'lodash';
 import { MASTERS_DOCUMENT_MASTER_QUEUE } from '../../../src/data/constant';
 import slugify from 'slugify';
 import AddNewDocument from '../../../src/components/Masters/Document-Master/AddNewDocument';
+import moment from 'moment/moment';
 
 function Index() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function Index() {
   const [sortByState, setSortByState] = useState({
     column: '',
     order: null,
+    createdAt: '',
+    lastUpdatedBy: '',
+    updatedAt: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState(filteredDocumentMasterQueue);
@@ -235,13 +239,15 @@ function Index() {
     sessionStorage.setItem('documentMasterId', documentMasterData?._id);
     sessionStorage.setItem('documentMasterModuleName', documentMasterData?.Module);
     dispatch(setDynamicName(documentMasterData?.Module));
-    //  Router.push('/masters/document-master/add-document', documentMasterData?._id );
     setDocumentTableQueueData(false);
     setEditDocument(true);
     setDocumentMasterDetails({
         documentMasterId:documentMasterData._id,
         Document_Name: documentMasterData.Document_Name,
         Module: documentMasterData.Module,
+        createdAt: documentMasterData.createdAt,
+        lastUpdatedBy: documentMasterData.lastUpdatedBy,
+        updatedAt: documentMasterData.updatedAt,
     });
   };
   const clearState = () => {
@@ -249,8 +255,12 @@ function Index() {
         documentMasterId:'',
         Document_Name: '',
         Module: '',
+        createdAt: '',
+        lastUpdatedBy: '',
+        updatedAt: '',
     });
   };
+  const updatedATDate = moment(documentMasterDetails.updatedAt).format('DD-MMM, hh:mm A');
   return (
     <>
       {documentTableQueueData === true ? (
@@ -280,7 +290,6 @@ function Index() {
                 <button
                   type="button"
                   className={`${styles.createBtn} btn ml-auto btn-primary`}
-                  //onClick={() => Router.push('/masters/document-master/add-document')}
                   onClick={() => {
                     setDocumentTableQueueData(false);
                   }}
@@ -325,13 +334,14 @@ function Index() {
                     clearState();
                   }}
                 />
-                <div className={styles.headingTop}>
-                  
+                <div className={styles.headingTop}>                  
                 <h1 className={styles.heading}>Document Master</h1>
+                {editDocument &&
                   <div className={styles.last_modified}>
                     <strong>Last Modified:</strong>
-                    <span>Balakrishan</span>SGF001-28 Jan, 11.34am
+                    <span>Balakrishan</span>SGF001 -{updatedATDate}
                   </div>
+                }
                 </div>
               </div>
               <AddNewDocument 
@@ -339,6 +349,18 @@ function Index() {
               setDocumentMasterDetails={setDocumentMasterDetails}
               documentMasterDetails={documentMasterDetails}
               />
+              {editDocument && (
+                <div className={styles.headingBottom}>
+                  <div className={styles.last_modified}>
+                    <strong>Created By:</strong>
+                    <span>Balakrishan</span>SGF001
+                  </div>
+                  <div className={styles.last_modified}>
+                    <strong>Approved by:</strong>
+                    <span>Balakrishan</span>SGF001
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

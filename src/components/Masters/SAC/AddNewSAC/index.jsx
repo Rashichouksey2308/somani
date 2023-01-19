@@ -4,16 +4,12 @@ import { useDispatch } from 'react-redux';
 import { CreateSACMaster } from 'redux/masters/action';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
+import {editSACMaster} from 'redux/sac/action'
 
-function Index() {
+function Index(props) {
     const dispatch = useDispatch();
-    const [SACMasterDetails, setSACMasterDetails] = useState({
-        charges: '',
-        group: '',
-        gst_rate: '',
-        inventory: false,
-        sac_code: ''
-    });
+    const {editSac, setSACMasterDetails, SACMasterDetails}=props;
+
 
     const handleSACDetailsChange = (e) => {
         setSACMasterDetails({
@@ -25,9 +21,15 @@ function Index() {
     const handleSubmit = async () => {
         if (!validate()) return;
         let _SACMasterDetails = { ...SACMasterDetails };
-        _SACMasterDetails?.inventory ? _SACMasterDetails.inventory = 'Yes' : _SACMasterDetails.inventory = 'No';
+        _SACMasterDetails?.inventory ? _SACMasterDetails.inventory = true : _SACMasterDetails.inventory = false;
 
-        dispatch(CreateSACMaster(_SACMasterDetails));
+        if(!editSac){
+            dispatch(CreateSACMaster(_SACMasterDetails));
+        } else {
+            dispatch(editSACMaster(_SACMasterDetails));
+        }
+
+        
     }
 
     const validate = () => {

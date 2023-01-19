@@ -11,6 +11,7 @@ import _, { isUndefined } from 'lodash';
 import { MASTERS_COUNTRY_MASTER_QUEUE } from '../../../src/data/constant';
 import slugify from 'slugify';
 import AddNewCountry from '../../../src/components/Masters/Country/AddNewCountry';
+import moment from 'moment/moment';
 
 function Index() {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function Index() {
     countryMasterId:'',
     Country: '',
     Status: false,
+    createdAt: '',
+    lastUpdatedBy: '',
+    updatedAt: '',
 });
 
   const handleSearch = (e) => {
@@ -222,13 +226,15 @@ function Index() {
     sessionStorage.setItem('countryMasterId', countryMasterData?._id);
     sessionStorage.setItem('countryMasterModuleName', countryMasterData?.Module);
     dispatch(setDynamicName(countryMasterData?.Module));
-    //Router.push('/master/country-master/id');
     setCountryTableQueueData(false);
     setEditCountry(true);
     setCountryMasterDetails({
         countryMasterId:countryMasterData._id,
         Country: countryMasterData.Country,
         Status: countryMasterData.Status,
+        createdAt: countryMasterData.createdAt,
+        lastUpdatedBy: countryMasterData.lastUpdatedBy,
+        updatedAt: countryMasterData.updatedAt,
     });
   };
 
@@ -237,9 +243,12 @@ function Index() {
         countryMasterId:'',
         Country: '',
         Status: false,
+        createdAt: '',
+        lastUpdatedBy: '',
+        updatedAt: '',
     });
   };
-
+  const updatedATDate = moment(countryMasterDetails.updatedAt).format('DD-MMM, hh:mm A');
   return (
     <>
       {countryTableQueueData === true ? (
@@ -269,7 +278,6 @@ function Index() {
                 <button
                   type="button"
                   className={`${styles.createBtn} btn ml-auto btn-primary`}
-                 // onClick={() => Router.push('/masters/country/add-new-country')}
                  onClick={() => {
                     setCountryTableQueueData(false);
                   }}
@@ -315,10 +323,12 @@ function Index() {
                 />
                 <div className={styles.headingTop}>
                 <h1 className={styles.heading}>Country</h1>
+                 { editCountry && 
                   <div className={styles.last_modified}>
                     <strong>Last Modified:</strong>
-                    <span>Balakrishan</span>SGF001-28 Jan, 11.34am
+                    <span>Balakrishan</span>SGF001-{updatedATDate}
                   </div>
+                  }
                 </div>
               </div>
               <AddNewCountry
@@ -326,6 +336,18 @@ function Index() {
                 setCountryMasterDetails={setCountryMasterDetails}
                 countryMasterDetails={countryMasterDetails}
               />
+              {editCountry && (
+                <div className={styles.headingBottom}>
+                  <div className={styles.last_modified}>
+                    <strong>Created By:</strong>
+                    <span>Balakrishan</span>SGF001
+                  </div>
+                  <div className={styles.last_modified}>
+                    <strong>Approved by:</strong>
+                    <span>Balakrishan</span>SGF001
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

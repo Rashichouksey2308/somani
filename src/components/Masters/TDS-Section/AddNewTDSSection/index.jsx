@@ -3,15 +3,11 @@ import styles from '../../../styles/Custom/form.module.scss';
 import { useDispatch } from 'react-redux';
 import { CreateTDSSectionMaster } from 'redux/masters/action';
 import { toast } from 'react-toastify';
+import {editTDSSectionMaster} from 'redux/tdsSectionDetail/action'
 
-function Index() {
+function Index(props) {
     const dispatch = useDispatch();
-    const [TDSSectionMasterDetails, setTDSSectionMasterDetails] = useState({
-        TDSSection: '',
-        TDSSection_Name: '',
-        Symbol: '',
-        Status: false,
-    });
+    const {editTdsSection, setTDSSectionMasterDetails, TDSSectionMasterDetails}=props;
 
     const handleTDSSectionDetailsChange = (e) => {
         setTDSSectionMasterDetails({
@@ -23,9 +19,13 @@ function Index() {
     const handleSubmit = async () => {
         if (!validate()) return;
         let _TDSSectionMasterDetails = { ...TDSSectionMasterDetails };
-        _TDSSectionMasterDetails?.Status ? _TDSSectionMasterDetails.Status = 'Active' : _TDSSectionMasterDetails.Status = 'Inactive';
+        _TDSSectionMasterDetails?.Status ? _TDSSectionMasterDetails.Status = 'Active' : _TDSSectionMasterDetails.Status = 'Inactive';       
 
-        dispatch(CreateTDSSectionMaster(_TDSSectionMasterDetails));
+        if(!editTdsSection){
+            dispatch(CreateTDSSectionMaster(_TDSSectionMasterDetails));
+        } else {
+            dispatch(editTDSSectionMaster(_TDSSectionMasterDetails));
+        }
     }
 
     const validate = () => {
