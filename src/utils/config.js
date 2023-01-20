@@ -22,6 +22,7 @@
 // Https
 
 export default {
+  
   baseUrl: 'https://api-dev.simport.global',
   authServerUrl: 'https://api-dev.simport.global/auth',
   userServerUrl: 'https://api-dev.simport.global/user',
