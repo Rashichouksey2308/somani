@@ -383,6 +383,34 @@ function updateLcModuleRemarkFailed(payload = {}) {
   };
 }
 
+function getGenericDetailsSuccess(payload) {
+  return {
+    type: types.GET_GENERIC_DETAILS_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getGenericDetailsFailed(payload = {}) {
+  return {
+    type: types.GET_GENERIC_DETAILS_FAILED,
+    payload,
+  };
+}
+
+function updateGenericRemarkSuccess(payload) {
+  return {
+    type: types.UPDATE_GENERIC_REMARK_SUCCESSFULL,
+    payload,
+  };
+}
+
+function updateGenericRemarkFailed(payload = {}) {
+  return {
+    type: types.UPDATE_GENERIC_REMARK_FAILED,
+    payload,
+  };
+}
+
 export const GetCommodityDetails = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
 
@@ -1327,6 +1355,75 @@ export const UpdateLcModuleRemark = (payload) => async (dispatch, getState, api)
     }
   } catch (error) {
     dispatch(updateLcModuleRemarkFailed());
+    dispatch(setNotLoading());
+    return 500;
+  }
+};
+
+
+export const GetGenericDetails = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getGenericDetails}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getGenericDetailsSuccess(response?.data?.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getGenericDetailsFailed(response.data.data));
+        const toastMessage = 'Could not fetch Generic Details';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(getGenericDetailsFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateGenericRemark = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [, , jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateGenericRemark}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(updateGenericRemarkSuccess(response.data));
+      dispatch(setNotLoading());
+      return 200;
+    } else {
+      dispatch(updateGenericRemarkFailed(response.data));
+      const toastMessage = 'Cannot add remark, something went wrong';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+      return 500;
+    }
+  } catch (error) {
+    dispatch(updateGenericRemarkFailed());
     dispatch(setNotLoading());
     return 500;
   }

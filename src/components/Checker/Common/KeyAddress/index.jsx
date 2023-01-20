@@ -32,7 +32,7 @@ function Index({ Header, KeyAddresses, uniqueField }) {
                                 <>
                                     <>
                                         <div>
-                                            <div className='h5'>{address.addressType || 'Address'}</div>
+                                            <div className={`${styles.heading} h5`}>{address.addressType || 'Address'}</div>
                                             <div></div>
                                         </div>
 

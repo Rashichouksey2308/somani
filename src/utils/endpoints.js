@@ -178,8 +178,22 @@ export default {
   getMasterIIAGLedgerQueueRecords: '/ledger/filterLedger',
   filterIIAGLedgerQueue: '/ledger/search',
   createIIAGLedgerMaster: '/ledger',
+  editPortsMaster:'port',
+  getMasterGoNoGoQueueRecords: '/gng-master',
+  getMasterGoNoGoSingleRecord: '/gng-master',
+  createGoNoGoMaster: '/gng-master',
+  getMasterInternalCompaniesQueueRecords: '/internal-company/filterInternalCompanies',
+  filterInternalCompaniesQueue: '/internal-company/searchInternalCompanies',
+  createInternalCompaniesMaster: '/internal-company',
+  getMastersPincodes: '/country-master/pin',
+  editDocumentMaster: '/document-master',
+  editCountryMaster: '/country-master',
+  editCurrencyMaster: '/currency-master',
+  editTdsSectionMaster:'/tds-section',
+  editSACMaster:'/sac-code',
+  editIAGLLedger:'/ledger',
 
-  // Checker
+  //Checker
   getUserDetails: '/user-master/user',
   getInspectionDetails: '/inspection/inspectionDetails',
   updateInspectionRemark: '/inspection/checker-inspections-status-update',
@@ -213,14 +227,12 @@ export default {
   updateVendorRemark: 'vendor/checker-vendor-status-update',
   getTransactionSummaryDetails: 'termsheet/get-termsheet',
   updateTransactionSummaryRemark: 'termsheet/checker-termsheet-status-update',
-  getInternalCompanyDetails: '/internal-company/get-internal-company',
-  updateInternalCompanyRemark: '/internal-company/checker-internal-company-status-update',
-  getVendorDetails: '/vendor/get-vendor',
-  updateVendorRemark: '/vendor/checker-vendor-status-update',
-  getTransactionSummaryDetails: '/termsheet/get-termsheet',
-  updateTransactionSummaryRemark: '/termsheet/checker-termsheet-status-update',
-
-  // Masters
+  getLcModuleDetails: 'lc-module/get-lc',
+  updateLcModuleRemark: 'lc-module/checker-lc-module-status-update',
+  getGenericDetails: 'generic/get-generic',
+  updateGenericRemark: 'generic/checker-generic-status-update',
+  
+  //Masters
   getAllCommodity: '/commodity/get-commodities',
   getAllGonogo: '/gng-master',
   addNewCommodity: '/commodity',

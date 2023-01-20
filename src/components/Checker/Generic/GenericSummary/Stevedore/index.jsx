@@ -1,41 +1,75 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import Table from '../../../../Table';
 import Toggle from '../../../../Toggle/index';
+import Tooltip from '../../../../Tooltip';
+import KeyAddresses from '../../../Common/KeyAddress';
+import AuthorisedSignatoryDetails from '../../../Common/AuthorisedSignatoriesDetails';
 
-function index() {
-  const tableColumns = useMemo(() => [
-    {
-      Header: 'NAME',
-      accessor: 'name',
-    },
-    {
-      Header: 'DESIGNATION.',
-      accessor: 'designation',
-    },
-    {
-      Header: 'EMAIL',
-      accessor: 'email',
-    },
-    {
-      Header: 'PHONE NO.',
-      accessor: 'phone_no',
-    },
-    {
-      Header: 'ACTION',
-      accessor: 'action',
-    },
-  ]);
-  const dummyData = [
-    {
-      name: 'Abc Bank',
-      designation: '63547853487',
-      email: 'ICIC0000031',
-      phone_no: '63547853487',
-      action: 'action',
-    },
-  ];
-  const onToggle = (state) => {};
+function Index({ tableColumns, stevedoreDetails, stevedoreDetailsHistory }) {
+
+  const [addresses, setAddresses] = useState([]);
+  const [authorisedSignatoryDetailsData, setauthorisedSignatoryDetailsData] = useState([]);
+
+  useEffect(() => {
+    modifyKeyAddressesCurrentData();
+    modifyCurrentAuthorisedSignatoryData();
+  }, [stevedoreDetails, stevedoreDetailsHistory]);
+
+  const modifyCurrentAuthorisedSignatoryData = () => {
+    let finalData = [];
+    let curr;
+    for (let i = 0; i < stevedoreDetails?.authorisedSignatoryDetails?.length; i++) {
+
+      curr = stevedoreDetails?.authorisedSignatoryDetails[i];
+
+      let history;
+
+      history = stevedoreDetailsHistory?.authorisedSignatoryDetails && stevedoreDetailsHistory?.authorisedSignatoryDetails?.find((address) => address?.email === curr?.email);
+
+      if (history) {
+        curr = {
+          ...curr,
+          history
+        }
+      }
+      finalData.push(curr)
+    }
+
+    setauthorisedSignatoryDetailsData(finalData);
+  };
+
+  const modifyKeyAddressesCurrentData = () => {
+    let finalData = [];
+    let curr;
+    for (let i = 0; i < stevedoreDetails?.addresses?.length; i++) {
+
+      curr = stevedoreDetails?.addresses[i];
+
+      let history;
+
+      history = stevedoreDetailsHistory?.addresses && stevedoreDetailsHistory?.addresses?.find((address) => address?.fullAddress === curr?.fullAddress);
+
+      if (history) {
+        curr = {
+          ...curr,
+          history
+        }
+      }
+      finalData.push(curr)
+    }
+
+    const modifiedFinalData = finalData?.map(({
+      address: fullAddress,
+      ...rest
+    }) => ({
+      fullAddress,
+      ...rest
+    }));
+    setAddresses(modifiedFinalData);
+
+  };
+
+  const onToggle = (state) => { };
 
   return (
     <div className={`${styles.main} vessel_card mt-4 card border_color`}>
@@ -51,77 +85,73 @@ function index() {
             >
               <h3 className={`${styles.heading} mb-0`}>Stevedore</h3>
               <div className="d-flex">
-                <p className="mr-4 font-weight-bold label_heading">
-                  Same as CHA
-                  <p className="d-inline-block text-dark ml-3">Yes</p>
+                <p className='mr-3 label_heading font-weight-bold d-flex align-items-baseline'>
+                  Same as CHA:
                 </p>
-                <span>{on ? '+' : '-'}</span>
-              </div>
-            </div>
-            <div id="stevedore" className="collapse" aria-labelledby="stevedore">
-              <div className={`${styles.dashboard_form} vessel_card card-body m-3`}>
-                <div className="d-flex justify-space-between">
-                  <div className="row w-100">
-                    <div className="col-md-12 mb-5 px-0 mx-0 row">
-                      <div className="col-md-4 col-sm-6">
-                        <div className={`mb-2 font-weight-bold label_heading`}>Name</div>
-                        <div className="font-weight-light h5">Integral Trading and Logistics</div>
-                      </div>
-                      <div className="col-md-4 col-sm-6">
-                        <div className={`mb-2 font-weight-bold label_heading`}>Short Name</div>
-                        <div className="font-weight-light h5">ITLS</div>
-                      </div>
-                    </div>
-                    <div className="col-md-12 mb-5 px-0 mx-0 row">
-                      <div className="col-md-4 col-sm-6">
-                        <div className={`mb-2 font-weight-bold label_heading`}>GSTIN.</div>
-                        <div className="font-weight-light h5">37AABFI9574L2ZP</div>
-                      </div>
-                    </div>
-                  </div>
+                <div className='mr-3'>
+                  <span className={`h5 ${stevedoreDetailsHistory?.sameAsCHA !== stevedoreDetails?.sameAsCHA && styles.highlighted_field}`}>
+                    {stevedoreDetails?.sameAsCHA ? 'Yes' : 'No'}
+                  </span>
+                  {stevedoreDetailsHistory?.sameAsCHA !== stevedoreDetails?.sameAsCHA && <Tooltip data={stevedoreDetailsHistory?.sameAsCHA ? 'Yes' : 'No'} />}
                 </div>
+
+                <span className={`${styles.toggle_handler}`}>{on ? '+' : '-'}</span>
               </div>
-              <div className="border-bottom"></div>
-              <div>
-                <div className={`${styles.inner_head_container}   bg-transparent`}>
-                  <h3 className={`${styles.heading} mb-0`}>Addresses</h3>
-                </div>
-                <div className={`${styles.inner_head_containt}   bg-transparent`}>
-                  <div className={`${styles.registered_address} col-md-6 col-sm-6 bg-transparent`}>
-                    <div className={`${styles.address}`}>
-                      <h3>Registered Address</h3>
-                      <p>Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden 530020 India</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <Toggle onToggle={onToggle}>
-                {({ on, onToggle }) => (
-                  <div onClick={onToggle} className={`${styles.main} vessel_card mx-4 mt-4 card border_color`}>
-                    <div
-                      className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
-                      data-toggle="collapse"
-                      data-target="#cmaTbl"
-                      aria-expanded="true"
-                      aria-controls="cmaTbl"
-                    >
-                      <h3 className={styles.heading}>Authorised Signatory Details</h3>
-                      <span>{on ? '+' : '-'}</span>
-                    </div>
-                    <div id="cmaTbl" className="collapse" aria-labelledby="cmaTbl">
-                      <div className="generic-table">
-                        <Table columns={tableColumns} data={dummyData} />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </Toggle>
             </div>
           </div>
         )}
       </Toggle>
+
+      <div id="stevedore" className="collapse" aria-labelledby="stevedore">
+        <div className={`${styles.dashboard_form} vessel_card card-body m-3`}>
+          <div className="d-flex justify-space-between">
+            <div className="row w-100">
+              <div className="col-md-12 mb-5 px-0 mx-0 row">
+                <div className="col-md-4 col-sm-6">
+                  <div className={`mb-2 font-weight-bold label_heading`}>Name</div>
+                  <span className={`font-weight-light h5 ${stevedoreDetailsHistory?.name && stevedoreDetailsHistory?.name !== stevedoreDetails?.name && styles.highlighted_field}`}>
+                    {stevedoreDetails?.name || '--'}
+                  </span>
+                  {stevedoreDetailsHistory?.name && stevedoreDetailsHistory?.name !== stevedoreDetails?.name && <Tooltip data={stevedoreDetailsHistory?.name || '--'} />}
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <div className={`mb-2 font-weight-bold label_heading`}>Short Name</div>
+                  <span className={`font-weight-light h5 text-uppercase ${stevedoreDetailsHistory?.shortName && stevedoreDetailsHistory?.shortName !== stevedoreDetails?.shortName && styles.highlighted_field}`}>
+                    {stevedoreDetails?.shortName || '--'}
+                  </span>
+                  {stevedoreDetailsHistory?.shortName && stevedoreDetailsHistory?.shortName !== stevedoreDetails?.shortName && <Tooltip data={stevedoreDetailsHistory?.shortName || '--'} />}
+
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <div className={`mb-2 font-weight-bold label_heading`}>GSTIN.</div>
+                  <span className={`font-weight-light h5 ${stevedoreDetailsHistory?.gstin && stevedoreDetailsHistory?.gstin !== stevedoreDetails?.gstin && styles.highlighted_field}`}>
+                    {stevedoreDetails?.gstin || '--'}
+                  </span>
+                  {stevedoreDetailsHistory?.gstin && stevedoreDetailsHistory?.gstin !== stevedoreDetails?.gstin && <Tooltip data={stevedoreDetailsHistory?.gstin || '--'} />}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="border-bottom"></div>
+
+        <KeyAddresses
+          Header="Addresses"
+          uniqueField="fullAddress"
+          KeyAddresses={addresses || []}
+        />
+        <div className="border-bottom"></div>
+        <div className='m-4'>
+          <AuthorisedSignatoryDetails
+            tableColumns={tableColumns}
+            authorisedSignatoryDetailsData={authorisedSignatoryDetailsData || []}
+            tableView
+          />
+        </div>
+      </div>
     </div>
   );
 }
 
-export default index;
+export default Index;

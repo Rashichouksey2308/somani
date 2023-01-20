@@ -20,7 +20,7 @@ import { GetAllCustomClearance } from '../../redux/CustomClearance&Warehousing/a
 import { returnDocFormat, returnReadableNumber } from '@/utils/helpers/global';
 
 
-export default function Index({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
+export default function lIndex({ customData, OrderId, uploadDoc, setComponentId, componentId }) {
   const shipmentType= _get(customData, 'order.vessel.vessels[0].shipmentType', '');
 
   const dispatch = useDispatch();
@@ -916,6 +916,7 @@ export default function Index({ customData, OrderId, uploadDoc, setComponentId, 
                               saveDate={saveBoeDetaiDate}
                               labelName="Invoice Date"
                               index={index}
+                              startFrom={"noLimit"}
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}

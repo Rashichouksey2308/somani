@@ -122,3 +122,18 @@ export const MASTERS_IIAG_LEDGER_MASTER_QUEUE = [
         name: 'Group'
     }
 ]
+
+export const MASTERS_INTERNAL_COMPANIES_MASTER_QUEUE = [
+    {
+        id: 'companyName',
+        name: 'Company Name',
+    },
+    {
+        id: 'shortName',
+        name: 'Short Name',
+    },
+    {
+        id: 'country',
+        name: 'Country',
+    }
+]

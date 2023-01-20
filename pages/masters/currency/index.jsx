@@ -11,7 +11,7 @@ import _, { isUndefined } from 'lodash';
 import { MASTERS_CURRENCY_MASTER_QUEUE } from '../../../src/data/constant';
 import slugify from 'slugify';
 import AddNewCurrency from '../../../src/components/Masters/Currency/AddNewCurrency'
-
+import moment from 'moment/moment';
 
 
 function Index() {
@@ -43,6 +43,9 @@ function Index() {
     Currency_Name: '',
     Symbol: '',
     Status: false,
+    createdAt: '',
+    lastUpdatedBy: '',
+    updatedAt: '',
   });
 
   const handleSearch = (e) => {
@@ -232,15 +235,17 @@ function Index() {
     sessionStorage.setItem('currencyMasterId', currencyMasterData?._id);
     sessionStorage.setItem('currencyMasterModuleName', currencyMasterData?.Module);
     dispatch(setDynamicName(currencyMasterData?.Module));
-    //Router.push('/master/currency-master/id');
     setCurrencyTableQueueData(false);
     setEditCurrency(true);
     setCurrencyMasterDetails({
-        currencyMasterId: currencyMasterData._id,
+      currencyMasterId: currencyMasterData._id,
       Currency: currencyMasterData.Currency,
       Currency_Name: currencyMasterData.Currency_Name,
       Symbol: currencyMasterData.Symbol,
       Status: currencyMasterData.Status,
+      createdAt: currencyMasterData.createdAt,
+      lastUpdatedBy: currencyMasterData.lastUpdatedBy,
+      updatedAt: currencyMasterData.updatedAt,
     });
   };
   const clearState = () => {
@@ -250,8 +255,12 @@ function Index() {
       Currency_Name: '',
       Symbol: '',
       Status: false,
+      createdAt: '',
+      lastUpdatedBy: '',
+      updatedAt: '',
     });
   };
+  const updatedATDate = moment(currencyMasterDetails.updatedAt).format('DD-MMM, hh:mm A');
   return (
     <>
       {currencyTableQueueData === true ? (
@@ -281,7 +290,6 @@ function Index() {
                 <button
                   type="button"
                   className={`${styles.createBtn} btn ml-auto btn-primary`}
-                  //onClick={() => Router.push('/masters/currency/add-new-currency')}
                   onClick={() => {
                     setCurrencyTableQueueData(false);
                   }}
@@ -321,16 +329,18 @@ function Index() {
                   alt="ArrowRight"
                   onClick={() => {
                     setCurrencyTableQueueData(true);
-                    setEditDocument(false);
+                    setEditCurrency(false);
                     clearState();
                   }}
                 />
                 <div className={styles.headingTop}>
                 <h1 className={styles.heading}>Currency</h1>
+                {editCurrency &&
                   <div className={styles.last_modified}>
                     <strong>Last Modified:</strong>
-                    <span>Balakrishan</span>SGF001-28 Jan, 11.34am
+                    <span>Balakrishan</span>SGF001 -{updatedATDate}
                   </div>
+                }
                 </div>
               </div>
               <AddNewCurrency
@@ -338,6 +348,18 @@ function Index() {
                 setCurrencyMasterDetails={setCurrencyMasterDetails}
                 currencyMasterDetails={currencyMasterDetails}
               />
+              {editCurrency && (
+                <div className={styles.headingBottom}>
+                  <div className={styles.last_modified}>
+                    <strong>Created By:</strong>
+                    <span>Balakrishan</span>SGF001
+                  </div>
+                  <div className={styles.last_modified}>
+                    <strong>Approved by:</strong>
+                    <span>Balakrishan</span>SGF001
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

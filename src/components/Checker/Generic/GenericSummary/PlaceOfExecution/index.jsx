@@ -1,26 +1,69 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './index.module.scss';
 import Table from '../../../../Table';
 import Toggle from '../../../../Toggle/index';
+import Tooltip from '../../../../Tooltip';
 
-function index() {
+function Index({ placeOfExecution, placeOfExecutionHistory }) {
+
+  const [modifiedplaceOfExecutionData, setModifiedPostChequesData] = useState([]);
+  
+  useEffect(() => {
+    modifyPostDatedChequesData();
+  }, [placeOfExecution, placeOfExecutionHistory]);
+
+  const modifyPostDatedChequesData = () => {
+    let finalData = [];
+    let curr;
+    for (let i = 0; i < placeOfExecution?.length; i++) {
+
+      curr = placeOfExecution[i];
+
+      let history;
+
+      history = placeOfExecutionHistory && placeOfExecutionHistory?.find((cheque) => cheque?._id === curr?._id);
+
+      if (history) {
+        curr = {
+          ...curr,
+          history
+        }
+      }
+      finalData.push(curr)
+    }
+    setModifiedPostChequesData(finalData);
+  };
+
   const tableColumns = useMemo(() => [
     {
       Header: 'Agreement Name',
-      accessor: 'agreement_name',
+      accessor: 'agreementName',
+      Cell: ({ row, value }) => <>
+          <span className={`${row?.original?._id === row?.original?.history?._id && row?.original?.history?.agreementName && row?.original?.history?.agreementName !== value && styles.highlighted_field}`}>
+              {value || '--'}
+          </span>
+          {row?.original?._id === row?.original?.history?._id && row?.original?.history?.agreementName && row?.original?.history?.agreementName !== value && <Tooltip data={row?.original?.history?.agreementName || '--'} />}
+      </>
     },
     {
       Header: 'Place of Execution.',
-      accessor: 'place_of_execution',
+      accessor: 'place',
+      Cell: ({ row, value }) => <>
+          <span className={`${row?.original?._id === row?.original?.history?._id && row?.original?.history?.place && row?.original?.history?.place !== value && styles.highlighted_field}`}>
+              {value || '--'}
+          </span>
+          {row?.original?._id === row?.original?.history?._id && row?.original?.history?.place && row?.original?.history?.place !== value && <Tooltip data={row?.original?.history?.place || '--'} />}
+      </>
     },
     {
       Header: 'Date of Execution',
-      accessor: 'date_of_execution',
-    },
-
-    {
-      Header: 'Actions',
-      accessor: 'action',
+      accessor: 'dateOfExecution',
+      Cell: ({ row, value }) => <>
+          <span className={`${row?.original?._id === row?.original?.history?._id && row?.original?.history?.dateOfExecution && row?.original?.history?.dateOfExecution !== value && styles.highlighted_field}`}>
+              {value?.slice(0,10) || '--'}
+          </span>
+          {row?.original?._id === row?.original?.history?._id && row?.original?.history?.dateOfExecution && row?.original?.history?.dateOfExecution !== value && <Tooltip data={row?.original?.history?.dateOfExecution?.slice(0, 10) || '--'} />}
+      </>
     },
   ]);
   const dummyData = [{}];
@@ -43,7 +86,7 @@ function index() {
             </div>
             <div id="placeOfExecution" className="collapse" aria-labelledby="placeOfExecution">
               <div className="generic-table">
-                <Table columns={tableColumns} data={dummyData} />
+                <Table columns={tableColumns} data={modifiedplaceOfExecutionData} />
               </div>
             </div>
           </div>
@@ -52,4 +95,4 @@ function index() {
     </div>
   );
 }
-export default index;
+export default Index;

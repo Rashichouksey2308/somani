@@ -4,13 +4,11 @@ import { useDispatch } from 'react-redux';
 import { CreateIIAGLedgerMaster } from 'redux/masters/action';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
+import {editIAGLLedgerMaster} from 'redux/IIAGLLedger/action'
 
-function Index() {
+function Index(props) {
     const dispatch = useDispatch();
-    const [IIAGLedgerMasterDetails, setIIAGLedgerMasterDetails] = useState({
-        gl_list: '',
-        group: ''
-    });
+    const {editIIAGLedger, setIIAGLedgerMasterDetails, IIAGLedgerMasterDetails}=props;
 
     const handleIIAGLedgerDetailsChange = (e) => {
         setIIAGLedgerMasterDetails({
@@ -20,9 +18,12 @@ function Index() {
     }
 
     const handleSubmit = async () => {
-        if (!validate()) return;
-
-        dispatch(CreateIIAGLedgerMaster(IIAGLedgerMasterDetails));
+        if (!validate()) return;        
+        if(!editIIAGLedger){
+            dispatch(CreateIIAGLedgerMaster(IIAGLedgerMasterDetails));
+        } else {
+            dispatch(editIAGLLedgerMaster(IIAGLedgerMasterDetails));
+        }
     }
 
     const validate = () => {
