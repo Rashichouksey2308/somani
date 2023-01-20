@@ -181,6 +181,9 @@ export default {
   editDocumentMaster: '/document-master',
   editCountryMaster: '/country-master',
   editCurrencyMaster: '/currency-master',
+  editTdsSectionMaster:'/tds-section',
+  editSACMaster:'/sac-code',
+  editIAGLLedger:'/ledger',
 
   //Checker
   getUserDetails: '/user-master/user',
