@@ -55,6 +55,10 @@ const initialState = {
     lcModuleDetails: {},
     updatingLcModuleRemarks: false,
     lcModuleRemarkDetails: {},
+    gettingGenericDetails: false,
+    genericDetails: {},
+    updatingGenericRemarks: false,
+    genericRemark: {},
 };
 
 function CheckerReducer(state = initialState, action) {
@@ -438,7 +442,35 @@ function CheckerReducer(state = initialState, action) {
                 updatingLcModuleRemarks: false,
                 lcModuleRemarkDetails: {},
             }
-                    
+               
+        case types.GET_GENERIC_DETAILS_SUCCESSFULL:
+            return {
+                ...state,
+                gettingGenericDetails: false,
+                genericDetails: action.payload,
+            };
+
+        case types.GET_GENERIC_DETAILS_FAILED:
+            return {
+                ...state,
+                gettingGenericDetails: false,
+                genericDetails: {},
+            };
+
+        case types.UPDATE_GENERIC_REMARK_SUCCESSFULL:
+            return {
+                ...state,
+                updatingGenericRemarks: false,
+                genericRemark: action.payload,
+            };
+
+        case types.UPDATE_GENERIC_REMARK_FAILED:
+            return {
+                ...state,
+                updatingGenericRemarks: false,
+                genericRemark: {},
+            };
+
         default:
             return state;
     }
